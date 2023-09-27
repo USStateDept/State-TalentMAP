@@ -1,4 +1,5 @@
 import { batch } from 'react-redux';
+import { formatDate } from 'utilities';
 import { CancelToken } from 'axios';
 import {
   ASSIGNMENT_CYCLE_DELETE_ERROR,
@@ -69,6 +70,28 @@ const dummyData = [
   },
 ];
 
+const dummyAssignmentCycleInfo = {
+  assignmentCycle: 'This is a dummy assignment cycle, data can be replaced with backend data',
+  cycleCategory: 'Summer',
+  cycleStatus: 'Winter',
+  cycleBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
+  sixMonthBoundary: [formatDate('1976-11-11T21:12:12.854000Z'), formatDate('2022-31-17T21:12:12.854000Z')],
+  twelveMonthBoundary: [formatDate('2005-10-25T21:12:12.854000Z'), formatDate('2018-31-14T21:12:12.854000Z')],
+  twentyFourMonthBoundary: [formatDate('2003-10-22T21:12:12.854000Z'), formatDate('2014-31-22T21:12:12.854000Z')],
+  bureaPositionReview: new Date('Tue May 25 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bidDueDate: new Date('Tue Aug 07 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bureauPreSeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bureauEarlySeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bureauBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bidAudit: new Date('Tue Sep 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bidBookReview: new Date('Tue Oct 11 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  bidCountReview: new Date('Tue Jan 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  htfReview: new Date('Tue Dec 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  organizationCountReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  mdsReview: new Date('Tue Aug 14 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+  assignedBidder: new Date('Tue Feb 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+};
+
 // eslint-disable-next-line no-loops/no-loops
 for (let index = 2022; index > 1975; index -= 1) {
   const monthInt = Math.floor(Math.random() * 10) + 1;
@@ -96,6 +119,7 @@ const dummyDataToReturn = (query) => new Promise((resolve) => {
     previous: null,
   });
 });
+
 const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
   const { limit } = query;
   resolve({
@@ -122,6 +146,27 @@ export function cycleManagementFetchDataLoading(bool) {
 export function cycleManagementFetchDataSuccess(results) {
   return {
     type: 'CYCLE_MANAGEMENT_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function cycleManagementAssignmentCycleFetchDataErrored(bool) {
+  return {
+    type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function cycleManagementAssignmentCycleFetchDataLoading(bool) {
+  return {
+    type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function cycleManagementAssignmentCycleFetchDataSuccess(results) {
+  return {
+    type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_SUCCESS',
     results,
   };
 }
@@ -156,6 +201,40 @@ export function cycleManagementFetchData(cycleId) {
             dispatch(cycleManagementFetchDataSuccess(dummyDataToReturn));
             dispatch(cycleManagementFetchDataErrored(false));
             dispatch(cycleManagementFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// eslint-disable-next-line no-unused-vars
+export function cycleManagementAssignmentCycleFetchData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(cycleManagementAssignmentCycleFetchDataLoading(true));
+      dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
+    });
+    api().post('/placeholder/endpoint')
+      .then(() => {
+        batch(() => {
+          dispatch(cycleManagementAssignmentCycleFetchDataSuccess(dummyAssignmentCycleInfo));
+          dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
+          dispatch(cycleManagementAssignmentCycleFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(cycleManagementAssignmentCycleFetchDataLoading(true));
+            dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(
+              cycleManagementAssignmentCycleFetchDataSuccess(dummyAssignmentCycleInfo),
+            );
+            dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
+            dispatch(cycleManagementAssignmentCycleFetchDataLoading(false));
           });
         }
       });

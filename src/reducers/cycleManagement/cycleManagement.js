@@ -23,6 +23,31 @@ export function cycleManagement(state = [], action) {
   }
 }
 
+export function cycleManagementAssignmentCycleFetchDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cycleManagementAssignmentCycleFetchDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function cycleManagementAssignmentCycle(state = [], action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
 export function cycleManagementSelections(state = {}, action) {
   switch (action.type) {
     case 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS':

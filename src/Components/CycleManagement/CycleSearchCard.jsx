@@ -32,55 +32,36 @@ const CycleSearchCard = (props) => {
     onEditModeSearch,
   } = props;
 
-  const dummyInfo = {
-    assignmentCycle: 'This is a dummy assignment cycle, data can be replaced with backend data',
-    cycleCategory: 'Summer',
-    cycleStatus: 'Winter',
-    cycleBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
-    sixMonthBoundary: [formatDate('1976-11-11T21:12:12.854000Z'), formatDate('2022-31-17T21:12:12.854000Z')],
-    twelveMonthBoundary: [formatDate('2005-10-25T21:12:12.854000Z'), formatDate('2018-31-14T21:12:12.854000Z')],
-    twentyFourMonthBoundary: [formatDate('2003-10-22T21:12:12.854000Z'), formatDate('2014-31-22T21:12:12.854000Z')],
-    bureaPositionReview: new Date('Tue May 25 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bidDueDate: new Date('Tue Aug 07 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bureauPreSeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bureauEarlySeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bureauBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bidAudit: new Date('Tue Sep 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bidBookReview: new Date('Tue Oct 11 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    bidCountReview: new Date('Tue Jan 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    htfReview: new Date('Tue Dec 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    organizationCountReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    mdsReview: new Date('Tue Aug 14 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-    assignedBidder: new Date('Tue Feb 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  };
-
   const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/cyclepositionsearch/${id}`;
   const userProfile = useSelector(state => state.userProfile);
+  const assignmentCyclesSelections = useSelector(state => state.cycleManagementAssignmentCycle);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
-  const [assignmentCycle, setAssignmentCycle] = useState(dummyInfo.assignmentCycle || 'Select an assignment cycle');
-  const [cycleCategory, setCycleCategory] = useState(dummyInfo.cycleCategory || 'Fall');
-  const [cycleStatus, setCycleStatus] = useState(dummyInfo.cycleStatus || 'Winter');
+  const [assignmentCycle, setAssignmentCycle] = useState(assignmentCyclesSelections?.assignmentCycle || 'Select an assignment cycle');
+  const [cycleCategory, setCycleCategory] = useState(assignmentCyclesSelections?.cycleCategory || 'Fall');
+  const [cycleStatus, setCycleStatus] = useState(assignmentCyclesSelections?.cycleStatus || 'Winter');
   const [exclusivePositions, setExclusivePositions]
-    = useState(dummyInfo?.exclusivePositions);
-  const [postViewable, setPostViewable] = useState(dummyInfo?.postViewable);
-  const [cycleBoundries, setCycleBoundries] = useState(dummyInfo.cycleBoundary || null);
-  const [sixMonthLanguage, setSixMonthLanguage] = useState(dummyInfo.sixMonthBoundary || null);
+    = useState(assignmentCyclesSelections?.exclusivePositions);
+  const [postViewable, setPostViewable] = useState(assignmentCyclesSelections?.postViewable);
+  const [cycleBoundries, setCycleBoundries]
+    = useState(assignmentCyclesSelections?.cycleBoundary || null);
+  const [sixMonthLanguage, setSixMonthLanguage]
+    = useState(assignmentCyclesSelections?.sixMonthBoundary || null);
   const [twelveMonthLanguage, setTwelveMonthLanguage]
-    = useState(dummyInfo.twelveMonthBoundary || null);
+    = useState(assignmentCyclesSelections?.twelveMonthBoundary || null);
   const [twentyFourMonthLanguage, setTwentyFourMonthLanguage]
-    = useState(dummyInfo.twelveMonthBoundary || null);
-  const [bureauPositionReview, setBureauPositionReview] = useState(dummyInfo.bureaPositionReview || 'Select a bureau position review date');
-  const [bidDue, setBidDue] = useState(dummyInfo.bidDueDate || 'Select a bid due date');
-  const [bureauPreSeasonBidReview, setBureauPreSeasonBidReview] = useState(dummyInfo.bureauPreSeasonBidReview || 'Select a bureau pre-season bid review date');
-  const [bureauEarlySeasonBidReview, setBureauEarlySeasonBidReview] = useState(dummyInfo.bureauEarlySeasonBidReview || 'Select a bureau early season bid review date');
-  const [bureauBidReview, setBureauBidReview] = useState(dummyInfo.bureauBidReview || 'Select a bureau bid review date');
-  const [bidAudit, setBidAudit] = useState(dummyInfo.bidAudit || 'Select a bid audit date');
-  const [bidBookReview, setBidBookReview] = useState(dummyInfo.bidBookReview || 'Select a bid book review date');
-  const [bidCountReview, setBidCountReview] = useState(dummyInfo.bidCountReview || 'Select a bid count review date');
-  const [htfReview, setHtfReview] = useState(dummyInfo.htfReview || 'Select a HTF review date');
-  const [organizationCountReview, setOrganizationCountReview] = useState(dummyInfo.organizationCountReview || 'Select a organization count review date');
-  const [mdsReview, setMdsReview] = useState(dummyInfo.mdsReview || 'Select a MDS review date');
-  const [assignedBidder, setAssignedBidder] = useState(dummyInfo.assignedBidder || 'Select a assigned bidder date');
+    = useState(assignmentCyclesSelections?.twelveMonthBoundary || null);
+  const [bureauPositionReview, setBureauPositionReview] = useState(assignmentCyclesSelections?.bureaPositionReview || 'Select a bureau position review date');
+  const [bidDue, setBidDue] = useState(assignmentCyclesSelections?.bidDueDate || 'Select a bid due date');
+  const [bureauPreSeasonBidReview, setBureauPreSeasonBidReview] = useState(assignmentCyclesSelections?.bureauPreSeasonBidReview || 'Select a bureau pre-season bid review date');
+  const [bureauEarlySeasonBidReview, setBureauEarlySeasonBidReview] = useState(assignmentCyclesSelections?.bureauEarlySeasonBidReview || 'Select a bureau early season bid review date');
+  const [bureauBidReview, setBureauBidReview] = useState(assignmentCyclesSelections?.bureauBidReview || 'Select a bureau bid review date');
+  const [bidAudit, setBidAudit] = useState(assignmentCyclesSelections?.bidAudit || 'Select a bid audit date');
+  const [bidBookReview, setBidBookReview] = useState(assignmentCyclesSelections?.bidBookReview || 'Select a bid book review date');
+  const [bidCountReview, setBidCountReview] = useState(assignmentCyclesSelections?.bidCountReview || 'Select a bid count review date');
+  const [htfReview, setHtfReview] = useState(assignmentCyclesSelections?.htfReview || 'Select a HTF review date');
+  const [organizationCountReview, setOrganizationCountReview] = useState(assignmentCyclesSelections?.organizationCountReview || 'Select a organization count review date');
+  const [mdsReview, setMdsReview] = useState(assignmentCyclesSelections?.mdsReview || 'Select a MDS review date');
+  const [assignedBidder, setAssignedBidder] = useState(assignmentCyclesSelections?.assignedBidder || 'Select a assigned bidder date');
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -93,7 +74,6 @@ const CycleSearchCard = (props) => {
     { value: 'Spring', label: 'Spring' },
     { value: 'Summer', label: 'Summer' },
   ];
-
 
   const collapseCard = () => {
     setShowMore(!showMore);

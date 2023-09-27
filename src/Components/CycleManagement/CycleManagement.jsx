@@ -18,6 +18,7 @@ import SelectForm from 'Components/SelectForm';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import {
+  cycleManagementAssignmentCycleFetchData,
   cycleManagementFetchData,
   postAssignmentCyclesSelections,
   saveAssignmentCyclesSelections,
@@ -95,6 +96,7 @@ const CycleManagement = (props) => {
     }
     dispatch(saveCycleManagementSelections(getCurrentInputs()));
     dispatch(cycleManagementFetchData(getQuery()));
+    dispatch(cycleManagementAssignmentCycleFetchData());
   };
 
   // initial render
