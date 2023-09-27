@@ -244,7 +244,7 @@ const CycleSearchCard = (props) => {
                     <FA className="fa-solid fa-pencil" />
                     Edit Cycle Details
                   </div>
-                  : <span>Close</span>
+                  : <div>Close</div>
                 }
               </Link>
             }
