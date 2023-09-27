@@ -320,6 +320,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
             <PositionExpandableContent
               sections={atGradesSections}
               form={atGradesForm}
+              tempHideEdit
             />
           </div>
         ),
