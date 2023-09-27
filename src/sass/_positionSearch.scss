@@ -97,6 +97,7 @@
 // ============= Cycle Management =============
 .cycle-management-page {
   .results-dropdown {
+    display: flex;
     justify-content: flex-end;
     margin-right: 40px;
   }
