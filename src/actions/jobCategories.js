@@ -1,5 +1,12 @@
 import { batch } from 'react-redux';
 import { convertQueryToString } from 'utilities';
+import {
+  JOB_CATEGORIES_SAVE_NEW_ERROR,
+  JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
+  JOB_CATEGORIES_SAVE_NEW_SUCCESS,
+  JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE,
+} from 'Constants/SystemMessages';
+import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
 export function jobCategoriesAdminFetchDataHasErrored(bool) {
@@ -26,7 +33,7 @@ export function jobCategoriesAdminFetchData() {
       dispatch(jobCategoriesAdminFetchDataIsLoading(true));
       dispatch(jobCategoriesAdminFetchDataHasErrored(false));
     });
-    const endpoint = 'fsbid/job_categories/';
+    const endpoint = '/fsbid/job_categories/';
     api().get(endpoint)
       .then((data) => {
         batch(() => {
@@ -76,7 +83,7 @@ export function jobCategoriesFetchSkills(query = {}) {
       dispatch(jobCategoriesFetchSkillsHasErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = `fsbid/job_categories/skills?${q}`;
+    const endpoint = `/fsbid/job_categories/skills?${q}`;
     api().get(endpoint)
       .then((data) => {
         batch(() => {
@@ -95,6 +102,65 @@ export function jobCategoriesFetchSkills(query = {}) {
           batch(() => {
             dispatch(jobCategoriesFetchSkillsHasErrored(true));
             dispatch(jobCategoriesFetchSkillsIsLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function jobCategoriesSaveNewCatHasErrored(bool) {
+  return {
+    type: 'JOB_CATEGORIES_SAVE_NEW_CAT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function jobCategoriesSaveNewCatIsLoading(bool) {
+  return {
+    type: 'JOB_CATEGORIES_SAVE_NEW_CAT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function jobCategoriesSaveNewCatSuccess(data) {
+  return {
+    type: 'JOB_CATEGORIES_SAVE_NEW_CAT_SUCCESS',
+    data,
+  };
+}
+export function jobCategoriesSaveNewCategory(data = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(jobCategoriesSaveNewCatIsLoading(true));
+      dispatch(jobCategoriesSaveNewCatHasErrored(false));
+    });
+    const endpoint = '/fsbid/job_categories/save_new';
+    api().post(endpoint, data)
+      .then(() => {
+        batch(() => {
+          dispatch(jobCategoriesSaveNewCatSuccess());
+          dispatch(
+            toastSuccess(
+              JOB_CATEGORIES_SAVE_NEW_SUCCESS, JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE,
+            ));
+          dispatch(jobCategoriesSaveNewCatHasErrored(false));
+          dispatch(jobCategoriesSaveNewCatIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(jobCategoriesSaveNewCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesSaveNewCatIsLoading(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(jobCategoriesSaveNewCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesSaveNewCatIsLoading(false));
           });
         }
       });
