@@ -30,7 +30,7 @@ const BiddingToolCard = (props) => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const result = useSelector(state => state.biddingTool) || {};
   const resultIsLoading = useSelector(state => state.biddingToolFetchDataLoading);

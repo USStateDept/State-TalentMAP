@@ -24,7 +24,7 @@ const BiddingTool = (props) => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const results = useSelector(state => state.biddingTools) ?? [];
   const resultsIsLoading = useSelector(state => state.biddingToolsFetchDataLoading);
