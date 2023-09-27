@@ -284,7 +284,8 @@ const CycleManagement = (props) => {
                     onClick={addNewCycle}
                     to="#"
                   >
-                    {addNewCycles ?
+                    { isSuperUser &&
+                    addNewCycles ?
                       <span>
                         <FA className="fa-solid fa-close" />
                         {' Close'}
