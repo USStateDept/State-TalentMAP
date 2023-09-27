@@ -287,7 +287,6 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
       value: true,
     }],
   );
-  console.log(formData);
 
   useEffect(() => {
     if (data.position) {
