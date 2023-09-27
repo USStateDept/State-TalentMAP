@@ -184,7 +184,6 @@ const CycleManagement = (props) => {
         />
       ),
     });
-    setAddNewCycles(ac => !ac);
   };
 
   // Overlay for error, info, and loading state
