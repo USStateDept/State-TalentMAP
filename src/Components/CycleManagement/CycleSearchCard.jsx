@@ -230,25 +230,23 @@ const CycleSearchCard = (props) => {
               View Cycle Positions
             </Link>
             {isSuperUser &&
-              <div className="cyc-admin-link">
-                <Link
-                  onClick={(e) => {
-                    e.preventDefault();
-                    collapseCard();
-                    setEditMode(!editMode);
-                  }
-                  }
-                  to="#"
-                >
-                  {!edit ?
-                    <div>
-                      <FA className="fa-solid fa-pencil" />
-                      Edit Cycle Details
-                    </div>
-                    : <span>Close</span>
-                  }
-                </Link>
-              </div>
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  collapseCard();
+                  setEditMode(!editMode);
+                }
+                }
+                to="#"
+              >
+                {!edit ?
+                  <div>
+                    <FA className="fa-solid fa-pencil" />
+                    Edit Cycle Details
+                  </div>
+                  : <span>Close</span>
+                }
+              </Link>
             }
           </span>
         </Column>

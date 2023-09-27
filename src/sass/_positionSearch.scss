@@ -100,6 +100,7 @@
     justify-content: flex-end;
     margin-right: 40px;
   }
+
   .cm-admin-button {
     display: flex;
     justify-content: flex-end;
@@ -109,6 +110,7 @@
     .react-daterange-picker__calendar--open {
       z-index: $daterange-z;
     }
+
     .react-daterange-picker {
       align-items: center;
       background: $color-white;
@@ -116,14 +118,17 @@
       height: 28px;
       width: 240px;
       border: 1px solid $bg-gray-dark-2;
+
       .react-daterange-picker__wrapper {
         border: none;
       }
+
       .react-daterange-picker__inputGroup {
         align-items: center;
         display: flex;
         justify-content: center;
       }
+
       .react-daterange-picker__range-divider,
       .react-daterange-picker__inputGroup__leadingZero,
       .react-date-picker__inputGroup__divider {
@@ -135,9 +140,11 @@
   .cm-lower-section {
     padding: 0 35px 20px;
   }
+
   .cm-results {
     width: 50%;
   }
+
   .cm-results-dropdown {
     align-items: center;
     display: flex;
@@ -172,9 +179,11 @@
       white-space: nowrap;
     }
   }
+
   .cps-lower-section {
     padding: 0 35px 20px 0;
   }
+
   .cps-content {
     margin-left: 35px;
 
@@ -182,16 +191,19 @@
       font-size: 25px;
       margin-top: 25px
     }
+
     .cps-subheader {
       display: flex;
       width: 550px;
       margin-top: 10px;
       justify-content: space-between;
+
       .cycle-dates {
         color: $color-gray;
         font-size: 14px;
       }
     }
+
     .cps-results {
       align-items: baseline;
       display: flex;
@@ -209,15 +221,15 @@
   border: 1px solid $bg-gray-dark-2;
   border-left: 8px solid $blue-primary;
   padding: 1em;
-  .cyc-admin-link {
-    text-align: center;
-  }
+
   .cyc-card--row {
     display: flex;
     align-items: center;
+
     .cyc-card--middle-cols {
       display: flex;
       align-items: center;
+
       >div {
         color: $color-gray;
         display: flex;
@@ -226,9 +238,16 @@
         min-width: max-content;
       }
     }
+
     .cyc-card--link-col {
       display: flex;
       justify-content: flex-end;
+      min-width: 150px;
+
+      .fa {
+        padding-right: 5px;
+      }
+
       >span {
         text-align: right;
       }
@@ -240,13 +259,17 @@
   width: 100%;
   height: 500px;
   overflow-y: scroll;
+
   .bs-validation-container {
-    .exclusivePositions-new, .postViewable-new {
+
+    .exclusivePositions-new,
+    .postViewable-new {
       label::before {
         margin-left: 10px;
       }
     }
   }
+
   input[type="text"]:disabled {
     border: None;
     background: none;
@@ -462,10 +485,6 @@
   border-left: 8px solid $blue-primary;
   padding: 1em;
 
-  .cyc-admin-link {
-    text-align: center;
-  }
-
   .ac-card--row {
     display: flex;
     align-items: center;
@@ -503,6 +522,7 @@
   .asg-title-dash {
     padding-left: 5px;
   }
+
   .create-new-button {
     display: flex;
     justify-content: flex-end;
@@ -529,11 +549,13 @@
       font-size: 22px;
       margin-top: 25px;
       margin-right: 35px;
+
       .fa-lg {
         font-size: 22px;
         padding-right: 5px;
       }
     }
+
     .asg-subheader {
       display: flex;
       justify-content: space-between;
