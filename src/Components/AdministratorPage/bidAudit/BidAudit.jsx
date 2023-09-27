@@ -185,18 +185,18 @@ const BidAudit = () => {
           {/* <div className="thingChild"> */}
           {/* <dt>Panel Cutoff Date</dt> */}
           <div className="label">Panel Cutoff Date:</div>
-          {/* <span className="date-picker-validation-container larger-date-picker"> */}
-          {/* <FA name="fa-regular fa-calendar"
+          <span className="date-picker-validation-container larger-date-picker">
+            {/* <FA name="fa-regular fa-calendar"
             // className="fa fa-calendar" onClick={() => openDatePicker()} /> */}
-          <FA name="times" className={`${postByDate ? '' : 'hide'} close`} onClick={() => setPostByDate(null)} />
-          <DatePicker
-            selected={postByDate}
-            onChange={setPostByDate}
-            dateFormat="MM/dd/yyyy"
-            placeholderText="MM/DD/YYYY"
-            ref={datePickerRef}
-          />
-          {/* </span> */}
+            <FA name="times" className={`${postByDate ? '' : 'hide'} close`} onClick={() => setPostByDate(null)} />
+            <DatePicker
+              selected={postByDate}
+              onChange={setPostByDate}
+              dateFormat="MM/dd/yyyy"
+              placeholderText="MM/DD/YYYY"
+              ref={datePickerRef}
+            />
+          </span>
         </div>
         {/* </div> */}
 
