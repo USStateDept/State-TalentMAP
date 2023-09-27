@@ -8,6 +8,7 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 import BiddingToolCard from './BiddingToolCard/BiddingToolCard';
 import { biddingTools } from '../../../actions/biddingTool';
 import Spinner from '../../Spinner/Spinner';
+import { userHasPermissions } from '../../../utilities';
 
 
 const BiddingTool = (props) => {
@@ -21,6 +22,9 @@ const BiddingTool = (props) => {
   };
 
   const dispatch = useDispatch();
+
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const results = useSelector(state => state.biddingTools) ?? [];
   const resultsIsLoading = useSelector(state => state.biddingToolsFetchDataLoading);
@@ -53,15 +57,20 @@ const BiddingTool = (props) => {
             Search for a Bidding Tool
           </span>
           <span>
-            Search for an existing Bidding Tool or create a new one.
+            {isSuperUser ?
+              'Search for an existing Bidding Tool or create a new one.' :
+              'Search for an existing Bidding Tool.'
+            }
           </span>
         </div>
-        <div className="usa-grid-full controls-container">
-          <Link className="standard-add-button" to={`${appendedLocation()}new`}>
-            <FA className="fa-solid fa-plus" name="new-bidding-tool" />
-            <p>Create New Bidding Tool</p>
-          </Link>
-        </div>
+        {isSuperUser &&
+          <div className="usa-grid-full controls-container">
+            <Link className="standard-add-button" to={`${appendedLocation()}new`}>
+              <FA className="fa-solid fa-plus" name="new-bidding-tool" />
+              <p>Create New Bidding Tool</p>
+            </Link>
+          </div>
+        }
         {results?.map(d => (
           <Row fluid className="cycle-search-card box-shadow-standard">
             <Row fluid className="cyc-card--row">
@@ -74,7 +83,7 @@ const BiddingTool = (props) => {
               <Column columns={3} className="cyc-card--link-col">
                 <span>
                   <Link to={appendedLocation() + d.id}>
-                    View / Edit
+                    {isSuperUser ? 'View / Edit' : 'View'}
                   </Link>
                 </span>
               </Column>
