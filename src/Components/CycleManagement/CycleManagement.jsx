@@ -24,7 +24,7 @@ import {
 } from 'actions/assignmentCycle';
 import { nameSort, renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
-import NewAssignmentCycle from './NewAssignmentCycle';
+import EditAssignmentCycles from './EditAssignmentCycles';
 
 const CycleManagement = (props) => {
   const dispatch = useDispatch();
@@ -301,7 +301,7 @@ const CycleManagement = (props) => {
 
               <div className="cm-lower-section">
                 {addNewCycles ?
-                  <NewAssignmentCycle
+                  <EditAssignmentCycles
                     onPost={onPost}
                     onSave={onSave}
                     onClose={onClose}
