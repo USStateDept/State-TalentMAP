@@ -5,6 +5,9 @@ import {
   jobCategoriesFetchSkills,
   jobCategoriesFetchSkillsHasErrored,
   jobCategoriesFetchSkillsIsLoading,
+  jobCategoriesSaveNewCatHasErrored,
+  jobCategoriesSaveNewCatIsLoading,
+  jobCategoriesSaveNewCatSuccess,
 } from './jobCategories';
 
 export default {
@@ -14,4 +17,7 @@ export default {
   jobCategoriesFetchSkills,
   jobCategoriesFetchSkillsHasErrored,
   jobCategoriesFetchSkillsIsLoading,
+  jobCategoriesSaveNewCatHasErrored,
+  jobCategoriesSaveNewCatIsLoading,
+  jobCategoriesSaveNewCatSuccess,
 };
