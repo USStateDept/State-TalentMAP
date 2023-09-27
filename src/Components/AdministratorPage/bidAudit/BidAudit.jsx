@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { get, includes, sortBy, uniqBy } from 'lodash';
+import { get, includes, sortBy } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader } from 'hooks';
-import { onEditModeSearch, renderSelectionList } from 'utilities';
+import { getGenericFilterOptions, onEditModeSearch, renderSelectionList } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { bidAuditFetchData, saveBidAuditSelections } from 'actions/bidAudit';
 import Alert from 'Components/Alert';
@@ -34,8 +34,8 @@ const BidAudit = () => {
   const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const ac = genericFilters$.find(f => get(f, 'item.description') === 'tp');
-  const assignmentCycleOptions = uniqBy(sortBy(get(ac, 'data'), [(b) => b.short_description]));
+  const assignmentCycleOptions = getGenericFilterOptions(genericFilters$, 'bidCycle', 'name');
+
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const auditDescriptionOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
@@ -80,9 +80,8 @@ const BidAudit = () => {
       assignmentCycles,
       auditNumber,
       auditDescription,
-      postByDate,
     ];
-    if (filters.flat().length === 0) {
+    if (filters.flat().length === 0 && !postByDate) {
       setClearFilters(false);
     } else {
       setClearFilters(true);

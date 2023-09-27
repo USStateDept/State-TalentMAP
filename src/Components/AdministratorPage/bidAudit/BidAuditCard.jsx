@@ -19,7 +19,6 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 import BidAuditSections from './BidAuditSections/BidAuditSections';
 
 const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) => {
-  console.log('result', result);
   const dispatch = useDispatch();
   const pos = get(result, 'position') || result;
   const [description, setDescription] = useState(result.description || '');
