@@ -48,3 +48,28 @@ export function jobCategoriesFetchSkills(state = [], action) {
       return state;
   }
 }
+
+export function jobCategoriesSaveNewCatHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_SAVE_NEW_CAT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function jobCategoriesSaveNewCatIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_SAVE_NEW_CAT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function jobCategoriesSaveNewCatSuccess(state = [], action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_SAVE_NEW_CAT_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
