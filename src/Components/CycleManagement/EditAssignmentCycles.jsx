@@ -104,7 +104,6 @@ const EditAssignmentCycles = (props) => {
 
   return (
     <div>
-      <h2>New Assignment Cycle</h2>
       <form className="assignment-cycle-form">
         <div>
           <label className="label-desc" htmlFor="status">Assignment Cycle</label>

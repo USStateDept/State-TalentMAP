@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import swal from '@sweetalert/with-react';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { isDate, startOfDay } from 'date-fns-v2';
 import Spinner from 'Components/Spinner';
@@ -142,24 +143,22 @@ const CycleManagement = (props) => {
     setClearFilters(false);
   };
 
-  const addNewCycle = (e) => {
-    e.preventDefault();
-    setAddNewCycles(ac => !ac);
-  };
-
   const onSave = (isNew, userData) => {
     dispatch(saveAssignmentCyclesSelections(userData));
     setAddNewCycles(false);
+    swal.close();
     if (!isNew) setCardsInEditMode([]);
   };
 
   const onPost = (isNew, userData) => {
     dispatch(postAssignmentCyclesSelections(userData));
     setAddNewCycles(false);
+    swal.close();
     if (!isNew) setCardsInEditMode([]);
   };
 
   const onClose = (isNew) => {
+    swal.close();
     setAddNewCycles(false);
     if (!isNew) setCardsInEditMode([]);
   };
@@ -170,6 +169,22 @@ const CycleManagement = (props) => {
     } else {
       setCardsInEditMode([...cardsInEditMode, e]);
     }
+  };
+
+  const addNewCycle = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'New Assignment Cycle',
+      button: false,
+      content: (
+        <EditAssignmentCycles
+          onPost={onPost}
+          onSave={onSave}
+          onClose={onClose}
+        />
+      ),
+    });
+    setAddNewCycles(ac => !ac);
   };
 
   // Overlay for error, info, and loading state
@@ -288,11 +303,6 @@ const CycleManagement = (props) => {
                     to="#"
                   >
                     { isSuperUser &&
-                    addNewCycles ?
-                      <span>
-                        <FA className="fa-solid fa-close" />
-                        {' Close'}
-                      </span> :
                       <span>
                         <FA className="fa-solid fa-plus" />
                         {' Add New Assignment Cycle'}
@@ -303,12 +313,6 @@ const CycleManagement = (props) => {
               </div>
 
               <div className="cm-lower-section">
-                {addNewCycles ?
-                  <EditAssignmentCycles
-                    onPost={onPost}
-                    onSave={onSave}
-                    onClose={onClose}
-                  /> : null}
                 {cycleManagementData?.results?.map(data => (
                   <CycleSearchCard
                     {...{ ...data, isAO }}
