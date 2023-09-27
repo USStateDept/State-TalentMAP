@@ -223,7 +223,7 @@ const CycleManagement = (props) => {
                 {clearFilters &&
                   <button className="unstyled-button" onClick={resetFilters}>
                     <FA name="times" />
-                        Clear Filters
+                    Clear Filters
                   </button>
                 }
               </span>
@@ -270,9 +270,7 @@ const CycleManagement = (props) => {
             </div>
 
           </div>
-
-          {
-            getOverlay() ||
+          {getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="cm-results">
@@ -294,14 +292,13 @@ const CycleManagement = (props) => {
                   />
                 </div>
               </div>
-
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="bs-results">
                   <Link
                     onClick={addNewCycle}
                     to="#"
                   >
-                    { isSuperUser &&
+                    {isSuperUser &&
                       <span>
                         <FA className="fa-solid fa-plus" />
                         {' Add New Assignment Cycle'}
@@ -310,7 +307,6 @@ const CycleManagement = (props) => {
                   </Link>
                 </div>
               </div>
-
               <div className="cm-lower-section">
                 {cycleManagementData?.results?.map(data => (
                   <CycleSearchCard
