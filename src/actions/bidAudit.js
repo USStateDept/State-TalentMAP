@@ -78,7 +78,7 @@ const dummyData = [
         bid_audit_date: '2025-03-01T21:12:12.854000Z',
         cycle_excl_position: 'Y',
         cycle_post_view: 'Y',
-        description: 'This is a description for the Fall Cycle 2023',
+        description: 'Test Fall Cycle 2023',
       },
       {
         cycle_name: 'Summer Cycle 2023',
@@ -90,7 +90,7 @@ const dummyData = [
         bid_audit_date: '2025-03-01T21:12:12.854000Z',
         cycle_excl_position: 'Y',
         cycle_post_view: 'Y',
-        description: 'This is a description for the Summer Cycle 2023',
+        description: 'Test Summer Cycle 2023',
       },
       {
         cycle_name: 'Spring Cycle 2023',
@@ -102,7 +102,7 @@ const dummyData = [
         bid_audit_date: '2025-03-01T21:12:12.854000Z',
         cycle_excl_position: 'Y',
         cycle_post_view: 'Y',
-        description: 'This is a description for the Spring Cycle 2023',
+        description: 'Test Spring Cycle 2023',
       },
       {
         cycle_name: 'Winter Cycle 2023',
@@ -113,7 +113,7 @@ const dummyData = [
         bid_audit_date: '2025-03-01T21:12:12.854000Z',
         cycle_excl_position: 'Y',
         cycle_post_view: 'Y',
-        description: 'This is a description for the Winter Cycle 2023',
+        description: 'Test Winter Cycle 2023',
       },
     ],
   },

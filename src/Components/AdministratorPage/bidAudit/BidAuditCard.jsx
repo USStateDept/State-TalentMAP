@@ -19,6 +19,7 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 import BidAuditSections from './BidAuditSections/BidAuditSections';
 
 const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) => {
+  console.log('result', result);
   const dispatch = useDispatch();
   const pos = get(result, 'position') || result;
   const [description, setDescription] = useState(result.description || '');
@@ -68,13 +69,32 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
   };
 
   const gradeOptions = [
-    { code: 1, name: '1' },
-    { code: 2, name: '2' },
-    { code: 3, name: '3' },
-    { code: 4, name: '4' },
-    { code: 5, name: '5' },
-    { code: 6, name: '6' },
+    { code: 1, name: '01' },
+    { code: 2, name: '02' },
+    { code: 3, name: '03' },
+    { code: 4, name: '04' },
+    { code: 5, name: '05' },
+    { code: 6, name: '06' },
   ];
+
+  const skillCode = [
+    { code: 1, name: '2044' },
+    { code: 2, name: '2045' },
+    { code: 3, name: '2046' },
+    { code: 4, name: '2047' },
+    { code: 5, name: '2048' },
+    { code: 6, name: '2049' },
+  ];
+
+  const tenureCode = [
+    { code: 1, name: 'INFORMATION MANAGEMENT' },
+    { code: 2, name: 'SYSTEM MANAGEMENT' },
+    { code: 3, name: 'DATABASE MANAGEMENT' },
+    { code: 4, name: 'PIT' },
+    { code: 5, name: 'INFORMATION ADMIN' },
+    { code: 6, name: 'BUREAU MANAGEMENT' },
+  ];
+
   const onEditChange = () => {
     setEditMode(e => !e);
   };
@@ -156,7 +176,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     subheading: [
       { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
       { 'Audit Number': result.id || NO_BUREAU },
-      { 'Description': result.cycle_status || NO_SKILL },
+      { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
       { '': <Link to="#">Add New At Grade</Link> },
     ],
@@ -183,7 +203,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         <div className="filter-div">
           <div className="label">Position Skill Code - Description:</div>
           <select>
-            {gradeOptions.map(grade => (
+            {skillCode.map(grade => (
               <option value={grade?.name} key={grade?.code}>{grade.name}</option>
             ))}
           </select>
@@ -199,7 +219,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         <div className="filter-div">
           <div className="label">Employee Skill Code - Description:</div>
           <select>
-            {gradeOptions.map(grade => (
+            {skillCode.map(grade => (
               <option value={grade?.name} key={grade?.code}>{grade.name}</option>
             ))}
           </select>
@@ -207,7 +227,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         <div className="filter-div">
           <div className="label">Tenure Code - Description:</div>
           <select>
-            {gradeOptions.map(grade => (
+            {tenureCode.map(grade => (
               <option value={grade?.name} key={grade?.code}>{grade.name}</option>
             ))}
           </select>
@@ -233,7 +253,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     subheading: [
       { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
       { 'Audit Number': result.id || NO_BUREAU },
-      { 'Description': result.cycle_status || NO_SKILL },
+      { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
       { '': <Link to="#">Add New In Category</Link> },
     ],
@@ -251,7 +271,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         <div className="filter-div">
           <div className="label">Position Skill Code - Description:</div>
           <select>
-            {gradeOptions.map(grade => (
+            {tenureCode.map(grade => (
               <option value={grade?.name} key={grade?.code}>{grade.name}</option>
             ))}
           </select>
@@ -259,7 +279,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         <div className="filter-div">
           <div className="label">Employee Skill Code - Description:</div>
           <select>
-            {gradeOptions.map(grade => (
+            {tenureCode.map(grade => (
               <option value={grade.code}>{grade.name}</option>
             ))}
           </select>
