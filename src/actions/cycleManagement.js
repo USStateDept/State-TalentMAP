@@ -1,6 +1,18 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import {
+  ASSIGNMENT_CYCLE_DELETE_ERROR,
+  ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+  ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE,
+  ASSIGNMENT_CYCLE_EDIT_ERROR,
+  ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_EDIT_SUCCESS,
+  ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
+  ASSIGNMENT_CYCLE_POST_ERROR,
+  ASSIGNMENT_CYCLE_POST_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_POST_SUCCESS,
+  ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE,
   EDIT_CYCLE_POSITION_ERROR,
   EDIT_CYCLE_POSITION_ERROR_TITLE,
   EDIT_CYCLE_POSITION_SUCCESS,
@@ -335,4 +347,212 @@ export function cyclePositionEdit(position, incumbent, status) {
         }
       });
   };
+}
+
+export function assignmentCycleFetchDataErrored(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function assignmentCycleFetchDataLoading(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function assignmentCycleFetchDataSuccess(results) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_FETCH_SUCCESS',
+    results,
+  };
+}
+
+
+export function assignmentCyclePostDataErrored(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_POST_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function assignmentCyclePostDataLoading(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_POST_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function assignmentCyclePostDataSuccess(results) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_POST_SUCCESS',
+    results,
+  };
+}
+
+export function assignmentCycleDeleteDataErrored(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function assignmentCycleDeleteDataLoading(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function assignmentCycleDeleteDataSuccess(results) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_SUCCESS',
+    results,
+  };
+}
+
+
+export function assignmentCycleFetchData(query = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(assignmentCycleFetchDataLoading(true));
+      dispatch(assignmentCycleFetchDataErrored(false));
+    });
+    // const q = convertQueryToString(query);
+    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
+    // api().get(endpoint)
+    dispatch(assignmentCycleFetchDataLoading(true));
+    dummyDataToReturn(query)
+      .then((data) => {
+        batch(() => {
+          dispatch(assignmentCycleFetchDataSuccess(data));
+          dispatch(assignmentCycleFetchDataErrored(false));
+          dispatch(assignmentCycleFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCycleFetchDataLoading(true));
+            dispatch(assignmentCycleFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(assignmentCycleFetchDataSuccess(dummyDataToReturn));
+            dispatch(assignmentCycleFetchDataErrored(false));
+            dispatch(assignmentCycleFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function saveAssignmentCyclesSelections(data) {
+  return (dispatch) => {
+    dispatch(assignmentCyclePostDataLoading(true));
+    dispatch(assignmentCyclePostDataErrored(false));
+    api().post('/Placeholder/', data)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(assignmentCyclePostDataErrored(false));
+          dispatch(assignmentCyclePostDataSuccess(res));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_EDIT_SUCCESS,
+            ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE));
+          dispatch(assignmentCyclePostDataLoading(false));
+        });
+      }).catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCyclePostDataLoading(true));
+            dispatch(assignmentCyclePostDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(toastError(ASSIGNMENT_CYCLE_EDIT_ERROR,
+              ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE));
+            dispatch(assignmentCyclePostDataErrored(true));
+            dispatch(assignmentCyclePostDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function deleteAssignmentCyclesSelections(id) {
+  return (dispatch) => {
+    dispatch(assignmentCycleDeleteDataLoading(true));
+    dispatch(assignmentCycleDeleteDataErrored(false));
+    api().delete('/Placeholder/', id)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(assignmentCycleDeleteDataErrored(false));
+          dispatch(assignmentCycleDeleteDataSuccess(res));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
+          dispatch(assignmentCycleDeleteDataLoading(false));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCycleDeleteDataLoading(true));
+            dispatch(assignmentCycleDeleteDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(toastError(ASSIGNMENT_CYCLE_DELETE_ERROR,
+              ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE));
+            dispatch(assignmentCycleDeleteDataErrored(true));
+            dispatch(assignmentCycleDeleteDataLoading(false));
+          });
+        }
+      },
+      );
+  };
+}
+
+export function postAssignmentCyclesSelections(position) {
+  return (dispatch) => {
+    dispatch(assignmentCyclePostDataLoading(true));
+    dispatch(assignmentCyclePostDataErrored(false));
+    api().delete('/Placeholder/', position)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(assignmentCyclePostDataErrored(false));
+          dispatch(assignmentCyclePostDataSuccess(res));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_POST_SUCCESS,
+            ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE));
+          dispatch(assignmentCyclePostDataLoading(false));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCyclePostDataLoading(true));
+            dispatch(assignmentCyclePostDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(toastError(ASSIGNMENT_CYCLE_POST_ERROR,
+              ASSIGNMENT_CYCLE_POST_ERROR_TITLE));
+            dispatch(assignmentCyclePostDataErrored(true));
+            dispatch(assignmentCyclePostDataLoading(false));
+          });
+        }
+      },
+      );
+  };
+}
+
+export function assignmentCycleSelectionsSaveSuccess(result) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveAssignmentCycleSelections(queryObject) {
+  return (dispatch) => dispatch(assignmentCycleSelectionsSaveSuccess(queryObject));
 }

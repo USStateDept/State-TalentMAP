@@ -17,11 +17,12 @@ import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
 import {
+  cycleManagementFetchData,
   postAssignmentCyclesSelections,
   saveAssignmentCyclesSelections,
-} from 'actions/assignmentCycle';
+  saveCycleManagementSelections,
+} from 'actions/cycleManagement';
 import { nameSort, renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 import EditAssignmentCycles from './EditAssignmentCycles';

@@ -13,7 +13,7 @@ import {
   deleteAssignmentCyclesSelections,
   postAssignmentCyclesSelections,
   saveAssignmentCyclesSelections,
-} from 'actions/assignmentCycle';
+} from 'actions/cycleManagement';
 import CheckBox from '../CheckBox';
 
 const CycleSearchCard = (props) => {
