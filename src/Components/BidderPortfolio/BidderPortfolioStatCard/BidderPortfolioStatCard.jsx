@@ -138,14 +138,14 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         </div>
         <div className="stat-card-data-point bidder-compact-card-head">
           <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
-          { showMore && showEdit &&
+          { showMore &&
             <Link to="#" onClick={(e) => editClient(e)}>
               <FA name="pencil" />
                 Edit
             </Link>
           }
         </div>
-        {showToggle && showEdit &&
+        {showToggle &&
           <div className="bidder-portfolio-ribbon-container">
             <div className="ribbon-container-condensed-min">
               {ribbons}
@@ -213,7 +213,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         }
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
-        { showMore && showEdit &&
+        { showMore &&
           <div>
             <dt>Comments:</dt>
             <div className="stat-card-data-point stat-card-comments">
@@ -229,19 +229,17 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
             </div>
           </div>
         }
-        { showSaveAndCancel && showEdit &&
+        { showSaveAndCancel &&
           <div className="stat-card-btn-container">
             <button className="stat-card-cancel-btn" onClick={onCancel}>Cancel</button>
             <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
           </div>
         }
-        { showEdit &&
-            <div className="toggle-more-container">
-              <InteractiveElement className="toggle-more" onClick={collapseCard}>
-                <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-              </InteractiveElement>
-            </div>
-        }
+        <div className="toggle-more-container">
+          <InteractiveElement className="toggle-more" onClick={collapseCard}>
+            <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+          </InteractiveElement>
+        </div>
       </div>
     </BoxShadow>
   );

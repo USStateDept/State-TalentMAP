@@ -11,7 +11,6 @@ const BidderPortfolioCardList = ({ results, classifications, viewType }) => (
             userProfile={result}
             classifications={classifications}
             viewType={viewType}
-            showEdit
           />
         </div>
       ))
