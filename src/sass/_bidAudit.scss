@@ -101,24 +101,15 @@
   }
 }
 
-.swal-modal{
-  width:850px !important;
-  height:850px !important;
-}
-
-.swal-content{
-  width: 100%;
-  height: 500px;
-  display: flex;
-}
-
 .thingA {
   margin-inline: auto;
+  width: 500px;
+  height: 300px;
 }
 
 .thing {
   display: flex;
-  width: 500px;
+  width: 400px;
   justify-content: space-between;
   > .label {
     padding-top: 10px;
@@ -126,13 +117,13 @@
   }
 
   .picky {
-    width: 300px;
+    width: 200px;
   }
 
   .react-datepicker-wrapper {
     margin-left: 20px;
     .react-datepicker__input-container {
-      width: 300px;
+      width: 200px;
     }
   }
   // > .date-picker-validation-container {
