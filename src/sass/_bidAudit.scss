@@ -100,3 +100,26 @@
     }
   }
 }
+
+.swal-modal{
+  width:850px !important;
+  height:850px !important;
+}
+
+.swal-content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.thing {
+  display: flex;
+  width: 500px;
+  > .label {
+    padding-top: 10px;
+    padding-right: 20px;
+  }
+  // > .date-picker-validation-container {
+  //   display: inline-block;
+  // }
+}
