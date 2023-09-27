@@ -110,7 +110,7 @@ const BidAudit = () => {
   };
 
   const newAuditCycle = () => (
-    <div className="pt-20">
+    <div className="pt-20 thingA">
       {/* <div className="filterby-container">
         <div className="filterby-label">Filter by:</div>
         <div className="filterby-clear">
@@ -199,7 +199,10 @@ const BidAudit = () => {
           </span>
         </div>
         {/* </div> */}
-
+        <div className="thingButtons">
+          <button onClick={() => {}} type="submit">Submit</button>
+          <button onClick={() => {}}>Cancel</button>
+        </div>
       </div>
     </div>
   );

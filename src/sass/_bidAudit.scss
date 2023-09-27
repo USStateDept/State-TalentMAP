@@ -108,18 +108,47 @@
 
 .swal-content{
   width: 100%;
-  height: 100%;
+  height: 500px;
   display: flex;
+}
+
+.thingA {
+  margin-inline: auto;
 }
 
 .thing {
   display: flex;
   width: 500px;
+  justify-content: space-between;
   > .label {
     padding-top: 10px;
     padding-right: 20px;
   }
+
+  .picky {
+    width: 300px;
+  }
+
+  .react-datepicker-wrapper {
+    margin-left: 20px;
+    .react-datepicker__input-container {
+      width: 300px;
+    }
+  }
   // > .date-picker-validation-container {
   //   display: inline-block;
   // }
+}
+
+.thing:nth-child(4) {
+  .label {
+    padding-top: 35px;
+  }
+}
+
+.thingButtons {
+  margin-left: 200px;
+  button {
+    width: 150px;
+  }
 }
