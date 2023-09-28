@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
-import { downloadPdfStream } from 'utilities';
+import { downloadPdfStream, isOnProxy } from 'utilities';
 import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
@@ -13,6 +13,8 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
     downloadPdfStream(userProfile.redactedReport.data);
   };
 
+  // not showing on GOBrowser until we fix
+  const displayLinks = !isOnProxy() && showEmployeeProfileLinks;
   const redactedBlob = new Blob([userProfile?.redactedReport?.data], { type: 'application/pdf' });
   const unredactedBlob = new Blob([userProfile?.unredactedReport?.data], { type: 'application/pdf' });
   const bloburl = window.URL.createObjectURL(unredactedBlob);
@@ -33,11 +35,11 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
       content={
         <div>
           {
-            showEmployeeProfileLinks && !unredactedBlob?.size && !redactedBlob?.size &&
+            displayLinks && !unredactedBlob?.size && !redactedBlob?.size &&
             <Alert type="error" title="Error grabbing Profile PDF" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
-            showEmployeeProfileLinks && !!unredactedBlob?.size &&
+            displayLinks && !!unredactedBlob?.size &&
             <InteractiveElement
               onClick={openPdf}
               type="a"
@@ -47,7 +49,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
             </InteractiveElement>
           }
           {
-            showEmployeeProfileLinks && !!redactedBlob.size &&
+            displayLinks && !!redactedBlob.size &&
             <InteractiveElement
               onClick={downloadEmployeeProfile}
               type="a"
