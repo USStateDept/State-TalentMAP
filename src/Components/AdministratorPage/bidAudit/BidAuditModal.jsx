@@ -62,7 +62,7 @@ const BidAuditModal = ({ data }) => {
           />
         </div>
         <div className="bid-audit-modal-input">
-          <div className="label">Panel Cutoff Date:</div>
+          <div className="label">Posted By Date:</div>
           <span className="date-picker-validation-container larger-date-picker">
             <DatePicker
               selected={postByDate}
