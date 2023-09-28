@@ -602,15 +602,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Dashboard"
       />
       <withRouter(NavLink)
-<<<<<<< HEAD
-        hidden={true}
-        iconName="cogs"
-        key="Assignment Cycles"
-        link="/profile/administrator/assignmentcycles/"
-        search=""
-        title="Assignment Cycles"
-      />
-      <withRouter(NavLink)
         hidden={true}
         iconName="users"
         key="Bid Audit"
@@ -619,8 +610,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Bid Audit"
       />
       <withRouter(NavLink)
-=======
->>>>>>> 72f2c06c4a9d07f5be2f532452212938138755de
         hidden={false}
         iconName="hourglass-start"
         key="Bid Cycles"
