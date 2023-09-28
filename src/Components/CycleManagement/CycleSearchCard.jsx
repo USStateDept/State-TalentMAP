@@ -273,24 +273,6 @@ const CycleSearchCard = (props) => {
               </span>
             </div>
             <div className="ac-sections">
-              <label htmlFor="cycleCategory">Cycle Category</label>
-              <span className="bs-validation-container">
-                <select
-                  id="cycleCategory"
-                  defaultValue="None Selected"
-                  onChange={(e) => setCycleCategory(e.target.value)}
-                  value={cycleCategory}
-                >
-                  {cycleCategories.length === 0 ?
-                    <option value="">None Listed</option> : cycleCategories.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                </select>
-              </span>
-            </div>
-            <div className="ac-sections">
               <label htmlFor="exclusoivePositions">Exclusive Positions</label>
               <span className="bs-validation-container">
                 <CheckBox
@@ -310,6 +292,24 @@ const CycleSearchCard = (props) => {
                   checked={postViewable}
                   onChange={() => setPostViewable(e => !e)}
                 />
+              </span>
+            </div>
+            <div className="ac-sections">
+              <label htmlFor="cycleCategory">Cycle Category</label>
+              <span className="bs-validation-container">
+                <select
+                  id="cycleCategory"
+                  defaultValue="None Selected"
+                  onChange={(e) => setCycleCategory(e.target.value)}
+                  value={cycleCategory}
+                >
+                  {cycleCategories.length === 0 ?
+                    <option value="">None Listed</option> : cycleCategories.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                </select>
               </span>
             </div>
             <div className="ac-sections">
