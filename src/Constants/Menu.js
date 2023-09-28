@@ -162,6 +162,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bid_audit') ?
+        {
+          text: 'Bid Audit',
+          route: '/profile/administrator/bidaudit/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.bureau_exception') ?
         {
           text: 'Bureau Exception Access',

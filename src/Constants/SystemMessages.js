@@ -268,6 +268,16 @@ export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been su
 export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
 export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
 
+export const UPDATE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Saved';
+export const UPDATE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully saved.';
+export const UPDATE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
+export const UPDATE_BID_AUDIT_ERROR = 'There was an issue attempting to save this Bid Audit. Please try again.';
+
+export const DELETE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Deleted';
+export const DELETE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully deleted.';
+export const DELETE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
+export const DELETE_BID_AUDIT_ERROR = 'There was an issue attempting to delete this Bid Audit. Please try again.';
+
 export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edit Successfully Saved';
 export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'There was an issue attempting to save your edits to this Job Category. Please try again.';
 export const JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE = 'New Job Category Successfully Saved';

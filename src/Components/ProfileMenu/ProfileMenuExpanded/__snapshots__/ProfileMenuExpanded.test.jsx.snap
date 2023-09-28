@@ -118,6 +118,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="users"
+        key="Bid Audit"
+        link="/profile/administrator/bidaudit/"
+        search=""
+        title="Bid Audit"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="hourglass-start"
         key="Bid Cycles"
         link="/profile/administrator/cycles/"
@@ -592,6 +600,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Bid Audit"
+        link="/profile/administrator/bidaudit/"
+        search=""
+        title="Bid Audit"
       />
       <withRouter(NavLink)
         hidden={false}
