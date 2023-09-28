@@ -175,6 +175,7 @@ const CycleManagement = (props) => {
     e.preventDefault();
     swal({
       title: 'New Assignment Cycle',
+      className: 'modal-700',
       button: false,
       content: (
         <EditAssignmentCycles
