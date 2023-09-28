@@ -35,6 +35,7 @@ const BidAudit = () => {
       title: 'Create New Audit Cycle',
       button: false,
       content: (
+        // passing in a auditNumber prop to the BidAuditModal component until backend is ready
         <BidAuditModal data={genericFilters} auditNumber={88} />
       ),
     });

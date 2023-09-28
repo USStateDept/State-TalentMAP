@@ -36,10 +36,10 @@ const dummyData = [
       },
       {
         header: 'Tenure',
-        subHeader1: 'Grade',
-        subHeader2: 'Skill Code',
+        subHeader1: 'Code',
+        subHeader2: 'Description',
         row1data: '04',
-        row2data: '2333',
+        row2data: 'WW FS CAR-FA',
       },
     ],
   },

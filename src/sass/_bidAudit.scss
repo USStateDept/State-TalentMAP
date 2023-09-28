@@ -18,6 +18,15 @@
       }
     }
   }
+  .bid-audit-form {
+    .bid-audit-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      .filter-div {
+        width: 400px;
+      }
+    }
+  }
 }
 .add-at {
   text-align: right;
@@ -49,8 +58,18 @@
             width: 400px;
             .bid-audit-contents-container {
               width: 60px;
+              @media screen and (max-width: 1350px) {
+                width: 40px;
+              }
               .bid-audit-rows-headers {
                 margin-bottom: 5px;
+                width: 250px;
+              }
+              .bid-audit-rows-details {
+                width: 300px;
+                @media screen and (max-width: 1190px) {
+                  width: 200px;
+                }
               }
             }
           }
@@ -110,6 +129,9 @@
 
 .bid-audit-modal-input {
   text-align: left;
+  textarea {
+    border-color: rgb(185, 185, 185);
+  }
   .label {
     padding: 5px;
   }
@@ -156,6 +178,7 @@
     .react-datepicker__input-container {
       input {
         padding-inline-start: 30px;
+        border-color: rgb(185, 185, 185);
       }
     }
 

@@ -212,7 +212,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     bodyPrimary: [
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_POST },
-      { 'Posted By Date': result.bid_audit_date_posted || NO_ORG },
+      { 'Posted': result.bid_audit_date_posted || NO_ORG },
       { 'Audit Date': result.bid_audit_date || NO_GRADE },
     ],
     /* eslint-enable quote-props */
@@ -277,7 +277,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
-      { 'Posted By Date': result.bid_audit_date || NO_POSITION_TITLE },
+      { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
       { '': <Link to="#" onClick={onNewAtGrades}>Add New At Grade</Link> },
     ],
     bodyPrimary: [
@@ -292,45 +292,47 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     staticBody: [],
     inputBody: (
       <div className="position-form bid-audit-form">
-        <div className="filter-div">
-          <div className="label">Position Grade:</div>
-          <select>
-            {gradeOptions.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade?.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Position Skill Code - Description:</div>
-          <select>
-            {skillCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Employee Grade:</div>
-          <select>
-            {gradeOptions.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Employee Skill Code - Description:</div>
-          <select>
-            {skillCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Tenure Code - Description:</div>
-          <select>
-            {tenureCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
+        <div className="bid-audit-options">
+          <div className="filter-div">
+            <div className="label">Position Grade:</div>
+            <select>
+              {gradeOptions.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade?.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Position Skill Code - Description:</div>
+            <select>
+              {skillCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Employee Grade:</div>
+            <select>
+              {gradeOptions.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Employee Skill Code - Description:</div>
+            <select>
+              {skillCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Tenure Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div>
           <button onClick={onDelete}>Delete</button>
@@ -354,7 +356,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
-      { 'Posted By Date': result.bid_audit_date || NO_POSITION_TITLE },
+      { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
       { '': <Link to="#" onClick={onNewInCateogries}>Add New In Category</Link> },
     ],
     bodyPrimary: [
@@ -368,21 +370,23 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     staticBody: [],
     inputBody: (
       <div className="position-form bid-audit-form">
-        <div className="filter-div">
-          <div className="label">Position Skill Code - Description:</div>
-          <select>
-            {tenureCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Employee Skill Code - Description:</div>
-          <select>
-            {tenureCode.map(grade => (
-              <option value={grade.code}>{grade.name}</option>
-            ))}
-          </select>
+        <div className="bid-audit-options">
+          <div className="filter-div">
+            <div className="label">Position Skill Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Employee Skill Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div>
           <button onClick={onDelete}>Delete</button>
