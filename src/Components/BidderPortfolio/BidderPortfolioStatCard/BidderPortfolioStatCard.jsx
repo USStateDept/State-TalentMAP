@@ -126,7 +126,6 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
         <div className="bidder-compact-card-head">
-          <h3 className="stat-card-client">Client Overview</h3>
           {showToggle &&
             <ToggleButton
               labelTextRight={!included ? 'Excluded' : 'Included'}
