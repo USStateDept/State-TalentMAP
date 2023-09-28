@@ -12,7 +12,7 @@ import { batch } from 'react-redux';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
-// This could be arranged better, but for now, this is the data structure
+// All of these Actions and Reducers will likely change during Integration
 const dummyData = [
   {
     atGrades: [
