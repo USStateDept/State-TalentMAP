@@ -367,12 +367,11 @@
       .react-daterange-picker__wrapper {
         border: none;
         width: 250px;
-      }
-
-      .react-daterange-picker__inputGroup {
-        align-items: center;
-        display: flex;
-        justify-content: center;
+        .react-daterange-picker__inputGroup {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
       }
 
       .react-daterange-picker__range-divider,
@@ -457,6 +456,7 @@
         align-items: center;
         display: flex;
         justify-content: center;
+        margin-left: 10px;
       }
 
       .react-daterange-picker__range-divider,
