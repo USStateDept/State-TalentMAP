@@ -118,14 +118,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cogs"
-        key="Assignment Cycles"
-        link="/profile/administrator/assignmentcycles/"
-        search=""
-        title="Assignment Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="hourglass-start"
         key="Bid Cycles"
         link="/profile/administrator/cycles/"
@@ -600,14 +592,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cogs"
-        key="Assignment Cycles"
-        link="/profile/administrator/assignmentcycles/"
-        search=""
-        title="Assignment Cycles"
       />
       <withRouter(NavLink)
         hidden={false}

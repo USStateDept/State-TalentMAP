@@ -96,6 +96,11 @@
 
 // ============= Cycle Management =============
 .cycle-management-page {
+  .results-dropdown {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+  }
 
   .cm-admin-button {
     display: flex;
@@ -106,6 +111,7 @@
     .react-daterange-picker__calendar--open {
       z-index: $daterange-z;
     }
+
     .react-daterange-picker {
       align-items: center;
       background: $color-white;
@@ -113,14 +119,17 @@
       height: 28px;
       width: 240px;
       border: 1px solid $bg-gray-dark-2;
+
       .react-daterange-picker__wrapper {
         border: none;
       }
+
       .react-daterange-picker__inputGroup {
         align-items: center;
         display: flex;
         justify-content: center;
       }
+
       .react-daterange-picker__range-divider,
       .react-daterange-picker__inputGroup__leadingZero,
       .react-date-picker__inputGroup__divider {
@@ -128,18 +137,20 @@
       }
     }
   }
+
   .cm-lower-section {
     padding: 0 35px 20px;
   }
+
   .cm-results {
     width: 50%;
   }
+
   .cm-results-dropdown {
     align-items: center;
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
-    padding: 0px 35px;
 
     &.padding-top {
       padding-top: 15px;
@@ -169,9 +180,11 @@
       white-space: nowrap;
     }
   }
+
   .cps-lower-section {
     padding: 0 35px 20px 0;
   }
+
   .cps-content {
     margin-left: 35px;
 
@@ -179,16 +192,19 @@
       font-size: 25px;
       margin-top: 25px
     }
+
     .cps-subheader {
       display: flex;
       width: 550px;
       margin-top: 10px;
       justify-content: space-between;
+
       .cycle-dates {
         color: $color-gray;
         font-size: 14px;
       }
     }
+
     .cps-results {
       align-items: baseline;
       display: flex;
@@ -206,15 +222,15 @@
   border: 1px solid $bg-gray-dark-2;
   border-left: 8px solid $blue-primary;
   padding: 1em;
-  .cyc-admin-link {
-    text-align: center;
-  }
+
   .cyc-card--row {
     display: flex;
     align-items: center;
+
     .cyc-card--middle-cols {
       display: flex;
       align-items: center;
+
       >div {
         color: $color-gray;
         display: flex;
@@ -223,9 +239,289 @@
         min-width: max-content;
       }
     }
+
     .cyc-card--link-col {
       display: flex;
       justify-content: flex-end;
+      min-width: 150px;
+
+      .fa {
+        padding-right: 5px;
+      }
+
+      >span {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.assignment-cycle-form {
+  width: 100%;
+  height: 500px;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  row-gap: 10px;
+  padding: 15px;
+  .ac-sections {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    label {
+      font-weight: bold;
+      width: 100%;
+    }
+    .larger-date-picker {
+      width: 300px;
+    }
+  }
+  .bs-validation-container {
+
+    .exclusivePositions-new,
+    .postViewable-new {
+      label::before {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  input[type="text"]:disabled {
+    border: None;
+    background: none;
+  }
+
+  >div {
+    display: flex;
+    align-items: baseline;
+  }
+
+  div:nth-child(14) {
+    justify-content: flex-start;
+  }
+
+  dd {
+    margin-inline-start: 30;
+    text-align: justify;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  label,
+  dt {
+    display: block;
+    margin-top: 3rem;
+    width: 210px;
+    text-align: left;
+  }
+
+  .select-error {
+    border-color: $alert-red;
+    box-shadow: 0px 0px 0px 2px $alert-red;
+  }
+
+  .date-picker-validation-container-new {
+    position: relative;
+    width: 100%;
+
+    .fa-calendar {
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .fa-close {
+      position: absolute;
+      left: 430px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .react-datepicker__input-container {
+      input {
+        padding-inline-start: 30px;
+      }
+    }
+
+    input {
+      font-size: 17px !important;
+      color: #212121 !important;
+    }
+
+    .react-daterange-picker__calendar,
+    .react-datepicker-popper {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 13px;
+      height: 26px;
+      width: 240px;
+      margin: 14px 0;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+        width: 250px;
+        .react-daterange-picker__inputGroup {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
+      }
+
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
+
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
+      }
+
+      .react-daterange-picker__calendar--open {
+        z-index: $daterange-z;
+      }
+
+      .react-calendar__navigation {
+        background-color: $bg-gray-medium-3;
+        margin-bottom: 0;
+      }
+
+      .react-calendar--selectRange .react-calendar__tile--hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
+  .date-picker-validation-container {
+    position: relative;
+    width: 100%;
+
+    .fa-calendar {
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .fa-close {
+      position: absolute;
+      left: 270px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .react-datepicker__input-container {
+      input {
+        padding-inline-start: 30px;
+      }
+    }
+
+    input {
+      font-size: 17px !important;
+      color: #212121 !important;
+    }
+
+    .react-daterange-picker__calendar,
+    .react-datepicker-popper {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 13px;
+      height: 26px;
+      width: 240px;
+      margin: 14px 0;
+
+      .react-daterange-picker__wrapper {
+        border: 1px solid black;
+        width: 300px;
+      }
+
+      .react-daterange-picker__inputGroup {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin-left: 10px;
+      }
+
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
+
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
+      }
+
+      .react-daterange-picker__calendar--open {
+        z-index: $daterange-z;
+      }
+
+      .react-calendar__navigation {
+        background-color: $bg-gray-medium-3;
+        margin-bottom: 0;
+      }
+
+      .react-calendar--selectRange .react-calendar__tile--hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
+  .usa-input-error-message {
+    text-align: left;
+  }
+}
+
+.assignment-cycle-search-card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: $color-white;
+  border: 1px solid $bg-gray-dark-2;
+  border-left: 8px solid $blue-primary;
+  padding: 1em;
+
+  .ac-card--row {
+    display: flex;
+    align-items: center;
+
+    .ac-card--middle-cols {
+      display: flex;
+      align-items: center;
+
+      >div {
+        color: $color-gray;
+        display: flex;
+        justify-content: center;
+        font-size: 14px;
+        min-width: max-content;
+      }
+    }
+
+    .ac-card--link-col {
+      display: flex;
+      justify-content: flex-end;
+
       >span {
         text-align: right;
       }
@@ -242,6 +538,7 @@
   .asg-title-dash {
     padding-left: 5px;
   }
+
   .create-new-button {
     display: flex;
     justify-content: flex-end;
@@ -268,11 +565,13 @@
       font-size: 22px;
       margin-top: 25px;
       margin-right: 35px;
+
       .fa-lg {
         font-size: 22px;
         padding-right: 5px;
       }
     }
+
     .asg-subheader {
       display: flex;
       justify-content: space-between;
