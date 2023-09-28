@@ -103,6 +103,104 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     datePickerRef.current.setOpen(true);
   };
 
+  const onGradeSave = () => {
+    swal.close();
+  };
+
+  const onInCategoriesSave = () => {
+    swal.close();
+  };
+
+  const onNewAtGrades = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'Add New At Grade',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="position-form bid-audit-form-modal">
+          <div className="filter-div-modal">
+            <div className="label">Position Grade:</div>
+            <select>
+              {gradeOptions.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade?.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div-modal">
+            <div className="label">Position Skill Code - Description:</div>
+            <select>
+              {skillCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div-modal">
+            <div className="label">Employee Grade:</div>
+            <select>
+              {gradeOptions.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div-modal">
+            <div className="label">Employee Skill Code - Description:</div>
+            <select>
+              {skillCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div-modal">
+            <div className="label">Tenure Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <button onClick={onGradeSave}>Save</button>
+            <button onClick={() => swal.close()}>Cancel</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const onNewInCateogries = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'Add New In Category',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="position-form bid-audit-form-modal">
+          <div className="filter-div-modal">
+            <div className="label">Position Skill Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div-modal">
+            <div className="label">Employee Skill Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <button onClick={onInCategoriesSave}>Save</button>
+            <button onClick={() => swal.close()}>Cancel</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
   const bidAuditSections = {
     /* eslint-disable no-dupe-keys */
     /* eslint-disable quote-props */
@@ -157,6 +255,9 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
             </div>
           </div>
         </div>
+        <div>
+          <button onClick={onDelete}>Delete</button>
+        </div>
       </div>
     ),
     cancelText: 'Are you sure you want to discard all changes made to this position?',
@@ -177,7 +278,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <Link to="#">Add New At Grade</Link> },
+      { '': <Link to="#" onClick={onNewAtGrades}>Add New At Grade</Link> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={atGrades} onEditChange={onEditChange} /> },
@@ -191,45 +292,47 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     staticBody: [],
     inputBody: (
       <div className="position-form bid-audit-form">
-        <div className="filter-div">
-          <div className="label">Position Grade:</div>
-          <select>
-            {gradeOptions.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade?.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Position Skill Code - Description:</div>
-          <select>
-            {skillCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Employee Grade:</div>
-          <select>
-            {gradeOptions.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Employee Skill Code - Description:</div>
-          <select>
-            {skillCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Tenure Code - Description:</div>
-          <select>
-            {tenureCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
+        <div className="bid-audit-options">
+          <div className="filter-div">
+            <div className="label">Position Grade:</div>
+            <select>
+              {gradeOptions.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade?.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Position Skill Code - Description:</div>
+            <select>
+              {skillCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Employee Grade:</div>
+            <select>
+              {gradeOptions.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Employee Skill Code - Description:</div>
+            <select>
+              {skillCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Tenure Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div>
           <button onClick={onDelete}>Delete</button>
@@ -254,7 +357,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <Link to="#">Add New In Category</Link> },
+      { '': <Link to="#" onClick={onNewInCateogries}>Add New In Category</Link> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={inCategories} onEditChange={onEditChange} /> },
@@ -267,21 +370,23 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     staticBody: [],
     inputBody: (
       <div className="position-form bid-audit-form">
-        <div className="filter-div">
-          <div className="label">Position Skill Code - Description:</div>
-          <select>
-            {tenureCode.map(grade => (
-              <option value={grade?.name} key={grade?.code}>{grade.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-div">
-          <div className="label">Employee Skill Code - Description:</div>
-          <select>
-            {tenureCode.map(grade => (
-              <option value={grade.code}>{grade.name}</option>
-            ))}
-          </select>
+        <div className="bid-audit-options">
+          <div className="filter-div">
+            <div className="label">Position Skill Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade?.name} key={grade?.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="filter-div">
+            <div className="label">Employee Skill Code - Description:</div>
+            <select>
+              {tenureCode.map(grade => (
+                <option value={grade.code}>{grade.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div>
           <button onClick={onDelete}>Delete</button>

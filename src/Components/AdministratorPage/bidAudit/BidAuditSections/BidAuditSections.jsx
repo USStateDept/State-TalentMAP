@@ -20,18 +20,23 @@ const BidAuditSections = ({ onEditChange, rows }) => {
         <div key={row?.header}>
           <h5 className="bid-audit-headers">{row?.header}</h5>
           <div className="bid-audit-card-rows">
+            {row?.row3data &&
             <div className="bid-audit-contents-container">
               <div className="bid-audit-rows-headers">{row?.subHeader1}</div>
-              <div>{row.row1data}</div>
+              <div>{row?.row1data}</div>
             </div>
-            <div className="bid-audit-contents-container">
-              <div className="bid-audit-rows-headers">{row?.subHeader2}</div>
-              <div>{row.row2data}</div>
-            </div>
-            <div className="bid-audit-contents-container">
-              <div className="bid-audit-rows-headers">{row?.subHeader3}</div>
-              <div>{row.row3data}</div>
-            </div>
+            }
+            {row?.row3data ?
+              <div className="bid-audit-contents-container">
+                <div className="bid-audit-rows-headers">{row?.subHeader2} - {row?.subHeader3}</div>
+                <div className="bid-audit-rows-details">{row?.row2data} - {row?.row3data}</div>
+              </div>
+              :
+              <div className="bid-audit-contents-container">
+                <div className="bid-audit-rows-headers">{row?.subHeader1} - {row?.subHeader2}</div>
+                <div className="bid-audit-rows-details">{row?.row1data} - {row?.row2data}</div>
+              </div>
+            }
           </div>
         </div>
       ))}

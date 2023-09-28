@@ -32,10 +32,11 @@ const BidAudit = () => {
   const onAddClick = (e) => {
     e.preventDefault();
     swal({
-      title: 'Create New Bid Audit',
+      title: 'Create New Audit Cycle',
       button: false,
       content: (
-        <BidAuditModal data={genericFilters} />
+        // passing in a auditNumber prop to the BidAuditModal component until backend is ready
+        <BidAuditModal data={genericFilters} auditNumber={88} />
       ),
     });
   };
