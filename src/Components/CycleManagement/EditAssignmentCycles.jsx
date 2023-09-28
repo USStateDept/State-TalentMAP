@@ -401,9 +401,11 @@ const EditAssignmentCycles = (props) => {
             </div>
           </>
         }
-        <button onClick={saveAC}>Save</button>
-        <button onClick={postAC} type="submit">Post Open Positions</button>
-        <button onClick={cancelAC}>Cancel</button>
+        <div>
+          <button onClick={saveAC}>Save</button>
+          <button onClick={postAC} type="submit">Post Open Positions</button>
+          <button onClick={cancelAC}>Cancel</button>
+        </div>
       </form>
     </div>
   );
