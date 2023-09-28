@@ -29,8 +29,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   // This is the new key bidder_types. It returns a string of either 'cusp' or 'eligible'
-  const bidderType = get(userProfile, 'bidder_types') || null;
-  // eslint-disable-next-line no-unused-vars
+  const bidderType = 'eligible';
   const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
   const [currentBidderType, setCurrentBidderType] = useState(bidderType);
@@ -38,7 +37,6 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
   const [comments, setComments] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [altEmail, setAltEmail] = useState('');
   const [verifyComments, setVerifyComments] = useState('');
   const [verifyAltEmail, setVerifyAltEmail] = useState('');
@@ -170,7 +168,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         <div className="stat-card-data-point">
           <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
         </div>
-        {/*
+
         <div className="stat-card-data-point">
           <dt>DOS Email:</dt>
           <dd>
@@ -194,8 +192,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
             />
           }
         </div>
-        */
-        }
+
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
