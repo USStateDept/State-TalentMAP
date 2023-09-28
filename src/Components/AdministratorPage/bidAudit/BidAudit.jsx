@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onEditModeSearch } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import Alert from 'Components/Alert';
+import { bidAuditFetchData } from 'actions/bidAudit';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import swal from '@sweetalert/with-react';
 import BidAuditCard from './BidAuditCard';
@@ -21,7 +22,9 @@ const BidAudit = () => {
   const disableSearch = cardsInEditMode.length > 0;
 
   const genericFilters = useSelector(state => state.filters);
+
   useEffect(() => {
+    dispatch(bidAuditFetchData());
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
