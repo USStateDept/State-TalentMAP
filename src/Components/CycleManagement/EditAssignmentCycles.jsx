@@ -33,11 +33,17 @@ const EditAssignmentCycles = (props) => {
   const [mdsReview, setMdsReview] = useState('');
   const [assignedBidder, setAssignedBidder] = useState('');
 
-  const seasonOptions = [
-    { value: 'Fall', label: 'Fall' },
-    { value: 'Winter', label: 'Winter' },
-    { value: 'Spring', label: 'Spring' },
-    { value: 'Summer', label: 'Summer' },
+  const cycleCategories = [
+    { value: 'A', label: 'A(A100)' },
+    { value: 'O', label: 'O(Other)' },
+    { value: 'J', label: 'J(Untenured Junior Officer' },
+  ];
+
+  const cycleStatuses = [
+    { value: 'A', label: 'A(Active)' },
+    { value: 'C', label: 'C(Closed)' },
+    { value: 'M', label: 'M(Merged)' },
+    { value: 'P', label: 'P(Proposed)' },
   ];
 
   // These functions arent functional for now.
@@ -126,8 +132,8 @@ const EditAssignmentCycles = (props) => {
               onChange={(e) => setCycleCategory(e.target.value)}
               value={cycleCategory}
             >
-              {seasonOptions.length === 0 ?
-                <option value="">None Listed</option> : seasonOptions.map((option) => (
+              {cycleCategories.length === 0 ?
+                <option value="">None Listed</option> : cycleCategories.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -144,8 +150,8 @@ const EditAssignmentCycles = (props) => {
               onChange={(e) => setCycleStatus(e.target.value)}
               value={cycleStatus}
             >
-              {seasonOptions.length === 0 ?
-                <option value="">None Listed</option> : seasonOptions.map((option) => (
+              {cycleStatuses.length === 0 ?
+                <option value="">None Listed</option> : cycleStatuses.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
