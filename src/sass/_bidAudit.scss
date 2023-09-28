@@ -20,7 +20,7 @@
   }
 }
 .add-at {
-    text-align: right;
+  text-align: right;
 }
 .position-content--container {
   .position-content--details {
@@ -87,13 +87,13 @@
           }
           @media screen and (max-width: 1130px) {
             div:not(:first-child) {
-                min-width: 30px;
-              }
-              .bid-audit-card-rows {
-                display: flex;
-                justify-content: flex-start;
-                width: 230px;
-              }
+              min-width: 30px;
+            }
+            .bid-audit-card-rows {
+              display: flex;
+              justify-content: flex-start;
+              width: 230px;
+            }
           }
         }
       }
@@ -105,11 +105,114 @@
   margin-inline: auto;
   width: 100%;
   height: 400px;
+  padding-top: 0px;
 }
 
 .bid-audit-modal-input {
+  text-align: left;
+  .label {
+    padding: 5px;
+  }
   .picky {
     width: 100%;
-    height: 44px;
+    margin: 0px;
+  }
+  #picky__button__button {
+    margin: 0px;
+    width: 460px;
+    height: 50px;
+  }
+}
+
+.bid-audit-form-modal {
+  .filter-div-modal {
+    padding: 10px;
+    .label {
+      text-align: left;
+    }
+  }
+}
+.bid-audit-modal-wrapper {
+  .date-picker-validation-container {
+    position: relative;
+    width: 100%;
+
+    .fa-calendar {
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .fa-close {
+      position: absolute;
+      left: 430px;
+      top: 2px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .react-datepicker__input-container {
+      input {
+        padding-inline-start: 30px;
+      }
+    }
+
+    input {
+      font-size: 17px !important;
+      color: #212121 !important;
+    }
+
+    .react-daterange-picker__calendar,
+    .react-datepicker-popper {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 13px;
+      height: 26px;
+      width: 240px;
+      margin: 14px 0;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+        width: 250px;
+        .react-daterange-picker__inputGroup {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
+      }
+
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
+
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
+      }
+
+      .react-daterange-picker__calendar--open {
+        z-index: $daterange-z;
+      }
+
+      .react-calendar__navigation {
+        background-color: $bg-gray-medium-3;
+        margin-bottom: 0;
+      }
+
+      .react-calendar--selectRange .react-calendar__tile--hover {
+        background-color: #e6e6e6;
+      }
+    }
   }
 }

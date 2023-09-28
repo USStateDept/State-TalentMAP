@@ -32,10 +32,10 @@ const BidAudit = () => {
   const onAddClick = (e) => {
     e.preventDefault();
     swal({
-      title: 'Create New Bid Audit',
+      title: 'Create New Audit Cycle',
       button: false,
       content: (
-        <BidAuditModal data={genericFilters} />
+        <BidAuditModal data={genericFilters} auditNumber={88} />
       ),
     });
   };
