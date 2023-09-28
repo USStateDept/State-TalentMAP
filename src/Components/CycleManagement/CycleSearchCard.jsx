@@ -68,11 +68,17 @@ const CycleSearchCard = (props) => {
 
   const DATE_FORMAT = 'MMMM d, yyyy';
 
-  const seasonOptions = [
-    { value: 'Fall', label: 'Fall' },
-    { value: 'Winter', label: 'Winter' },
-    { value: 'Spring', label: 'Spring' },
-    { value: 'Summer', label: 'Summer' },
+  const cycleCategories = [
+    { value: 'A', label: 'A(A100)' },
+    { value: 'O', label: 'O(Other)' },
+    { value: 'J', label: 'J(Untenured Junior Officer' },
+  ];
+
+  const cycleStatuses = [
+    { value: 'A', label: 'A(Active)' },
+    { value: 'C', label: 'C(Closed)' },
+    { value: 'M', label: 'M(Merged)' },
+    { value: 'P', label: 'P(Proposed)' },
   ];
 
   const collapseCard = () => {
@@ -267,24 +273,6 @@ const CycleSearchCard = (props) => {
               </span>
             </div>
             <div className="ac-sections">
-              <label htmlFor="cycleCategory">Cycle Category</label>
-              <span className="bs-validation-container">
-                <select
-                  id="cycleCategory"
-                  defaultValue="None Selected"
-                  onChange={(e) => setCycleCategory(e.target.value)}
-                  value={cycleCategory}
-                >
-                  {seasonOptions.length === 0 ?
-                    <option value="">None Listed</option> : seasonOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                </select>
-              </span>
-            </div>
-            <div className="ac-sections">
               <label htmlFor="exclusoivePositions">Exclusive Positions</label>
               <span className="bs-validation-container">
                 <CheckBox
@@ -307,6 +295,24 @@ const CycleSearchCard = (props) => {
               </span>
             </div>
             <div className="ac-sections">
+              <label htmlFor="cycleCategory">Cycle Category</label>
+              <span className="bs-validation-container">
+                <select
+                  id="cycleCategory"
+                  defaultValue="None Selected"
+                  onChange={(e) => setCycleCategory(e.target.value)}
+                  value={cycleCategory}
+                >
+                  {cycleCategories.length === 0 ?
+                    <option value="">None Listed</option> : cycleCategories.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                </select>
+              </span>
+            </div>
+            <div className="ac-sections">
               <label htmlFor="cycleStatus">Cycle Status</label>
               <span className="bs-validation-container">
                 <select
@@ -315,8 +321,8 @@ const CycleSearchCard = (props) => {
                   onChange={(e) => setCycleStatus(e.target.value)}
                   value={cycleStatus}
                 >
-                  {seasonOptions.length === 0 ?
-                    <option value="">None Listed</option> : seasonOptions.map((option) => (
+                  {cycleStatuses.length === 0 ?
+                    <option value="">None Listed</option> : cycleStatuses.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
