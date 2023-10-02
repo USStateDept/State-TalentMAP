@@ -73,6 +73,17 @@
       }
     }
   }
+  .toggle-edit-mode-disabled {
+    color: gray;
+    cursor: not-allowed;
+
+    &:hover {
+      div, span {
+        cursor: not-allowed;
+        text-decoration: none;
+      }
+    }
+  }
 
 
   // ========== BODY ==========
@@ -295,9 +306,17 @@
     }
   }
 
+  .position-form--label-input-container-flex {
+    display: flex;
+
+    select, input {
+      width: $select-width;
+    }
+  }
+
   .position-form--label-input-container {
     label {
-      font-weight: bold;
+      font-weight: 500;
       font-size: 15px;
     }
   }

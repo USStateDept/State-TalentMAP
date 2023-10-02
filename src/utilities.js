@@ -330,6 +330,17 @@ export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   return null;
 };
 
+export const formatDateFromStr = (date) => {
+  // date example: 20220615141226
+  if (date) {
+    const dateArr = [date.slice(4, 6)];
+    dateArr.push(date.slice(6, 8));
+    dateArr.push(date.slice(0, 4));
+    return dateArr.join('/');
+  }
+  return null;
+};
+
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
   `${process.env.PUBLIC_URL}${strAssetPath}`.replace('//', '/');

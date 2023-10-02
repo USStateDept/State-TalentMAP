@@ -22,11 +22,11 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
       </div>
       {
         isLoading && !hasErrored &&
-          <Spinner type="homepage-position-results" size="big" />
+        <Spinner type="homepage-position-results" size="big" />
       }
       {
         !isLoading && !results.length &&
-          <div>No notifications</div>
+        <div>No notifications</div>
       }
       {
         !isLoading && !hasErrored && !!results.length &&

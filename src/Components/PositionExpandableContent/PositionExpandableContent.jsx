@@ -9,9 +9,9 @@ import { Row } from 'Components/Layout';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Definition } from '../DefinitionList';
 
-const PositionExpandableContent = ({ sections, form }) => {
+const PositionExpandableContent = ({ sections, form, tempHideEdit }) => {
   const handleEdit = form?.handleEdit ?? {};
-  const { editMode, setEditMode } = handleEdit;
+  const { editMode, setEditMode, disableEdit } = handleEdit;
 
   const [showMore, setShowMore] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -38,7 +38,8 @@ const PositionExpandableContent = ({ sections, form }) => {
 
   const getBody = () => {
     if (!setEditMode) return [];
-    if (editMode && form) return form.staticBody;
+    if (editMode && form && form.staticBody) return form.staticBody;
+    if (editMode && form && !form.staticBody) return [];
     if (showMore && sections.bodySecondary) {
       return [...sections.bodyPrimary, ...sections.bodySecondary];
     }
@@ -90,8 +91,11 @@ const PositionExpandableContent = ({ sections, form }) => {
             })
           }
         </div>
-        {(form && !editMode) &&
-          <button className="toggle-edit-mode" onClick={() => setEditMode(!editMode)}>
+        {(form && !editMode && !tempHideEdit) &&
+          <button
+            className={`toggle-edit-mode ${disableEdit ? 'toggle-edit-mode-disabled' : ''}`}
+            onClick={disableEdit ? () => {} : () => setEditMode(!editMode)}
+          >
             <FA name="pencil" />
             <div>Edit</div>
           </button>
@@ -120,7 +124,7 @@ const PositionExpandableContent = ({ sections, form }) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxlength="2000"
                 name="position-description"
                 placeholder="No Description"
                 defaultValue={sections.textarea}
@@ -131,7 +135,7 @@ const PositionExpandableContent = ({ sections, form }) => {
             </Linkify>
             <div className="word-count">
               {/* eslint-disable-next-line react/prop-types */}
-              {sections.textarea.length} / 4,000
+              {sections.textarea.length} / 2,000
             </div>
           </Row>
         </div>
@@ -186,13 +190,16 @@ PositionExpandableContent.propTypes = {
     handleEdit: PropTypes.shape({
       editMode: PropTypes.bool,
       setEditMode: PropTypes.func,
+      disableEdit: PropTypes.bool,
     }),
   }),
+  tempHideEdit: PropTypes.bool,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
   sections: undefined,
+  tempHideEdit: false,
 };
 
 export default PositionExpandableContent;

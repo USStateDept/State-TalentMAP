@@ -24,28 +24,26 @@ import api from '../../../api';
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
-const CyclePositionSearch = (props) => {
+const CyclePositionSearch = ({ isAO, match }) => {
   const dispatch = useDispatch();
-  const { isAO } = props;
   const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
 
-  // We will use this when calling cycleManagementFetchData later
-  // eslint-disable-next-line no-unused-vars
-  const cycleId = props.match?.params?.id ?? false;
+  const cycleId = match?.params?.id ?? false;
 
   const cycleManagementResults = useSelector(state => state.cycleManagement);
   const loadedCycle = cycleManagementResults?.results?.[0] ?? {};
   const genericFilters = useSelector(state => state.filters);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
+  const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
-  const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const cycleStatus = loadedCycle?.cycle_status || '';
   const cycleStartDate = formatDate(loadedCycle?.cycle_begin_date, 'M/D/YYYY');
   const cycleEndDate = formatDate(loadedCycle?.cycle_end_date, 'M/D/YYYY');
 
+  // TODO: does this falsely assume that orgs are already in redux?
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = orgs?.data?.sort(o => o.name) ?? [];
 
@@ -76,7 +74,7 @@ const CyclePositionSearch = (props) => {
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
   useEffect(() => {
-    dispatch(cycleManagementFetchData()); // TODO: cycleId gets sent here when EP is created
+    dispatch(cycleManagementFetchData(cycleId));
     dispatch(filtersFetchData(genericFilters));
   }, []);
 

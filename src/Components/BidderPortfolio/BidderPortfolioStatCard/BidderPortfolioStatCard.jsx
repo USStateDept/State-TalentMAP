@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, getBidderPortfolioUrl } from 'utilities';
 import TextareaAutosize from 'react-textarea-autosize';
 import { saveBidderPortfolioSelections } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
@@ -19,7 +19,7 @@ import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => {
+const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewType }) => {
   const dispatch = useDispatch();
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
@@ -29,7 +29,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   // This is the new key bidder_types. It returns a string of either 'cusp' or 'eligible'
-  const bidderType = get(userProfile, 'bidder_types') || null;
+  const bidderType = 'eligible';
   const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
   const [currentBidderType, setCurrentBidderType] = useState(bidderType);
@@ -135,7 +135,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
           }
         </div>
         <div className="stat-card-data-point bidder-compact-card-head">
-          <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+          <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
           { showMore &&
             <Link to="#" onClick={(e) => editClient(e)}>
               <FA name="pencil" />
@@ -168,6 +168,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
         <div className="stat-card-data-point">
           <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
         </div>
+
         <div className="stat-card-data-point">
           <dt>DOS Email:</dt>
           <dd>
@@ -191,6 +192,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
             />
           }
         </div>
+
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
@@ -244,11 +246,13 @@ BidderPortfolioStatCard.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioStatCard.defaultProps = {
   showEdit: false,
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioStatCard;

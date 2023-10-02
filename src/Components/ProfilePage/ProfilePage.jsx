@@ -19,6 +19,7 @@ import Notifications from './Notifications';
 import { userHasPermissions } from '../../utilities';
 import ProfileMenu from '../ProfileMenu';
 import Spinner from '../Spinner/Spinner';
+import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const ProfilePage = ({ user, isLoading }) => (
   <div className="profile-page">
@@ -50,6 +51,8 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/cdo" component={Cdo} />
           <Route path="/profile/post" component={Post} />
           <Route path="/profile/bidtracker" component={BidTracker} />
+          <Route path="/profile/biddingtool/:id" render={() => <BiddingTool />} />
+          <Route path="/profile/biddingtool/" render={() => <BiddingTool />} />
         </Switch>
       }
     </div>

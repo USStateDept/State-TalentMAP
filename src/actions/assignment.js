@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import api from '../api';
 
 export function assignmentHasErrored(bool) {
@@ -21,6 +22,10 @@ export function assignmentFetchDataSuccess(assignment) {
 
 export function assignmentFetchData(id) {
   return (dispatch) => {
+    batch(() => {
+      dispatch(assignmentIsLoading(true));
+      dispatch(assignmentHasErrored(false));
+    });
     api()
       .get(`/fsbid/assignment_history/${id ? `${id}/` : ''}`)
       .then(({ data }) => {

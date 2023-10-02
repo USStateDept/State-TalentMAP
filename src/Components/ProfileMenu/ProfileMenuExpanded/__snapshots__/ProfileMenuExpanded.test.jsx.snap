@@ -54,6 +54,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Bid Tracker"
       />
       <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
         hidden={false}
         iconName="star"
         key="Favorites"
@@ -110,6 +118,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="users"
+        key="Bid Audit"
+        link="/profile/administrator/bidaudit/"
+        search=""
+        title="Bid Audit"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="hourglass-start"
         key="Bid Cycles"
         link="/profile/administrator/cycles/"
@@ -126,11 +142,27 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/administrator/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="users"
         key="Bureau Exception Access"
         link="/profile/administrator/bureauexception/"
         search=""
         title="Bureau Exception Access"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cogs"
+        key="Cycle Job Categories"
+        link="/profile/administrator/cyclejobcategories/"
+        search=""
+        title="Cycle Job Categories"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -150,7 +182,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
+        iconName="cogs"
         key="Job Categories"
         link="/profile/administrator/jobcategories/"
         search=""
@@ -229,6 +261,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/ao/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/ao/bidderportfolio"
@@ -259,6 +299,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search=""
         title="Panel Meetings"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-newspaper-o"
+        key="Publishable Positions"
+        link="/profile/ao/publishablepositions"
+        search=""
+        title="Publishable Positions"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -281,6 +329,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/bureau/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/bureau/biddingtool/"
+        search=""
+        title="Bidding Tool"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -355,6 +411,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/cdo/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/cdo/bidderportfolio"
@@ -399,6 +463,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/post/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/post/biddingtool/"
+        search=""
+        title="Bidding Tool"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -467,6 +539,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Bid Tracker"
       />
       <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
         hidden={false}
         iconName="star"
         key="Favorites"
@@ -522,6 +602,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Dashboard"
       />
       <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Bid Audit"
+        link="/profile/administrator/bidaudit/"
+        search=""
+        title="Bid Audit"
+      />
+      <withRouter(NavLink)
         hidden={false}
         iconName="hourglass-start"
         key="Bid Cycles"
@@ -539,11 +627,27 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/administrator/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="users"
         key="Bureau Exception Access"
         link="/profile/administrator/bureauexception/"
         search=""
         title="Bureau Exception Access"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cogs"
+        key="Cycle Job Categories"
+        link="/profile/administrator/cyclejobcategories/"
+        search=""
+        title="Cycle Job Categories"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -563,7 +667,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
+        iconName="cogs"
         key="Job Categories"
         link="/profile/administrator/jobcategories/"
         search=""
@@ -642,6 +746,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/ao/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/ao/bidderportfolio"
@@ -672,6 +784,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         search=""
         title="Panel Meetings"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-newspaper-o"
+        key="Publishable Positions"
+        link="/profile/ao/publishablepositions"
+        search=""
+        title="Publishable Positions"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -694,6 +814,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/bureau/biddingtool/"
+        search=""
+        title="Bidding Tool"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -768,6 +896,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/cdo/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/cdo/bidderportfolio"
@@ -812,6 +948,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/post/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Bidding Tool"
+        link="/profile/post/biddingtool/"
+        search=""
+        title="Bidding Tool"
       />
       <withRouter(NavLink)
         hidden={true}

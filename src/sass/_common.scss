@@ -1,70 +1,37 @@
-.mt-10 {
-  margin-top: 10px;
-}
-.mt-20 {
-  margin-top: 20px;
-}
-.mt-30 {
-  margin-top: 30px;
-}
-.mt-40 {
-  margin-top: 40px;
-}
-.mt-50 {
-  margin-top: 50px;
-}
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+.mt-40 { margin-top: 40px; }
+.mt-50 { margin-top: 50px; }
+.mt-100 { margin-top: 100px; }
 
-.mb-10 {
-  margin-bottom: 10px;
-}
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
 
-.mb-20 {
-  margin-bottom: 20px;
-}
+.ml-10 { margin-left: 10px; }
 
-.ml-10 {
-  margin-left: 10px;
-}
 
-.pt-12 {
-  padding-top: 12px;
-}
+.pt-12 { padding-top: 12px; }
+.pt-20 { padding-top: 20px; }
 
-.pt-20 {
-  padding-top: 20px;
-}
 
-.min-width-155 {
-  min-width: 155px;
-}
+.height-100 { height: 100px; }
 
-.height-100 {
-  height: 100px;
-}
 
-.width-70 {
-  width: 70px;
-}
+.min-width-155 { min-width: 155px; }
 
-.width-200 {
-  width: 200px;
-}
+.width-70 { width: 70px; }
+.width-200 { width: 200px; }
+.width-250 { width: 250px; }
+.width-280 { width: 280px; }
+.width-300 { width: 300px; }
+.width-350 { width: 350px; }
+.width-700 { width: 700px; }
 
-.width-250 {
-  width: 250px;
-}
 
-.width-280 {
-  width: 280px;
-}
+.display-flex { display: flex; }
+.justify-space-between { justify-content: space-between; }
 
-.width-300 {
-  width: 300px;
-}
-
-.width-350 {
-  width: 350px;
-}
 
 .breadcrumb-container {
   margin-top: 40px;
@@ -80,10 +47,11 @@
   }
 }
 
-@each $group, $values in $filters-sizing-config {
+@each $group,
+$values in $filters-sizing-config {
   $label-width: map-get($values, label-width);
   $picky-width: map-get($values, picky-width);
-  $grid-size: map-get($values, grid-size) or $label-width + $picky-width + 20;
+  $grid-size: map-get($values, grid-size) or $label-width +$picky-width +20;
 
   .position-search--filters--#{$group} {
     display: grid;
@@ -107,13 +75,10 @@
   }
 }
 
-.hide {
-  visibility: hidden;
-}
+.hide { visibility: hidden; }
 
-.align-right {
-  text-align: right;
-}
+.align-right { text-align: right; }
+.align-left { text-align: left; }
 
 .box-shadow-standard {
   box-shadow: 0 1px 4px $bg-gray-dark-3;
@@ -124,4 +89,28 @@
 .disabled-bg {
   background: $color-gray-lightest;
   color: $color-gray;
+}
+
+.standard-add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $primary-blue;
+  cursor: pointer;
+  text-decoration: none;
+
+  span {
+    padding-right: 5px;
+  }
+
+  p {
+    margin: 0px;
+    margin-bottom: 2px;
+  }
+
+  &.underlined {
+    p {
+      text-decoration: underline;
+    }
+  }
 }

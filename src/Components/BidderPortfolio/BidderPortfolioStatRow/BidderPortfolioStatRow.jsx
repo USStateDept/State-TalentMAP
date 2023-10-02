@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tippy';
 import { Cusp, Eligible } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, getBidderPortfolioUrl } from 'utilities';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
 import { saveBidderPortfolioSelections } from 'actions/bidderPortfolio';
@@ -19,7 +19,7 @@ import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
+const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewType }) => {
   const dispatch = useDispatch();
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
@@ -29,7 +29,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   // This is the new key bidder_types. It returns a string of either 'cusp' or 'eligible'
-  const bidderType = get(userProfile, 'bidder_types') || null;
+  const bidderType = 'cusp';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
   const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const [currentBidderType, setCurrentBidderType] = useState(bidderType);
@@ -135,7 +135,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         }
       </div>
       <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
-        <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+        <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
         { showMore &&
           <Link to="#" onClick={(e) => editClient(e)}>
             <FA name="pencil" />
@@ -171,6 +171,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             <dt>Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
           </div>
         </div>
+
         <div className="stat-card-data-point">
           <dt>DOS Email:</dt>
           <dd>
@@ -196,6 +197,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             />
           }
         </div>
+
         {
           !showEdit &&
           <div className="bidder-portfolio-stat-row-updates">
@@ -211,7 +213,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           <CheckboxList id={userProfile.id} />
         }
       </div>
-      { showMore &&
+      { showMore && showEdit &&
         <div>
           <dt>Comments:</dt>
           <div className="stat-card-data-point stat-card-comments">
@@ -227,7 +229,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           </div>
         </div>
       }
-      { showSaveAndCancel &&
+      { showSaveAndCancel && showEdit &&
         <div className="stat-card-btn-container">
           <button onClick={onCancel}>Cancel</button>
           <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
@@ -240,11 +242,14 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           <AddToInternalListButton refKey={perdet} />
         </div>
       }
-      <div className="toggle-more-container">
-        <InteractiveElement className="toggle-more" onClick={collapseCard}>
-          <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-        </InteractiveElement>
-      </div>
+      {
+        showEdit &&
+          <div className="toggle-more-container">
+            <InteractiveElement className="toggle-more" onClick={collapseCard}>
+              <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+            </InteractiveElement>
+          </div>
+      }
     </div>
   );
 };
@@ -253,11 +258,13 @@ BidderPortfolioStatRow.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioStatRow.defaultProps = {
   showEdit: false,
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioStatRow;
