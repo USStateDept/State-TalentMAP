@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tippy';
 import { Cusp, Eligible } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, getBidderPortfolioUrl } from 'utilities';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
 import { saveBidderPortfolioSelections } from 'actions/bidderPortfolio';
@@ -19,7 +19,7 @@ import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
+const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewType }) => {
   const dispatch = useDispatch();
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
@@ -29,16 +29,14 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   // This is the new key bidder_types. It returns a string of either 'cusp' or 'eligible'
-  const bidderType = get(userProfile, 'bidder_types') || null;
+  const bidderType = 'cusp';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
-  // eslint-disable-next-line no-unused-vars
   const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const [currentBidderType, setCurrentBidderType] = useState(bidderType);
   const [edit, setEdit] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [included, setIncluded] = useState(bidderType === 'cusp');
   const [comments, setComments] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [altEmail, setAltEmail] = useState('');
   const [verifyComments, setVerifyComments] = useState('');
   const [verifyAltEmail, setVerifyAltEmail] = useState('');
@@ -137,7 +135,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         }
       </div>
       <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
-        <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+        <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
         { showMore &&
           <Link to="#" onClick={(e) => editClient(e)}>
             <FA name="pencil" />
@@ -173,9 +171,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             <dt>Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
           </div>
         </div>
-        {
-          /*
-          <div className="stat-card-data-point">
+
+        <div className="stat-card-data-point">
           <dt>DOS Email:</dt>
           <dd>
             <a href={`mailto:${email}`}>{email}</a>
@@ -200,8 +197,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             />
           }
         </div>
-        */
-        }
+
         {
           !showEdit &&
           <div className="bidder-portfolio-stat-row-updates">
@@ -262,11 +258,13 @@ BidderPortfolioStatRow.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioStatRow.defaultProps = {
   showEdit: false,
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioStatRow;

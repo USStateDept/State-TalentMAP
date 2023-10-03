@@ -26,6 +26,11 @@
 .width-280 { width: 280px; }
 .width-300 { width: 300px; }
 .width-350 { width: 350px; }
+.width-700 { width: 700px; }
+
+
+.display-flex { display: flex; }
+.justify-space-between { justify-content: space-between; }
 
 
 .breadcrumb-container {
@@ -42,10 +47,11 @@
   }
 }
 
-@each $group, $values in $filters-sizing-config {
+@each $group,
+$values in $filters-sizing-config {
   $label-width: map-get($values, label-width);
   $picky-width: map-get($values, picky-width);
-  $grid-size: map-get($values, grid-size) or $label-width + $picky-width + 20;
+  $grid-size: map-get($values, grid-size) or $label-width +$picky-width +20;
 
   .position-search--filters--#{$group} {
     display: grid;
@@ -72,6 +78,7 @@
 .hide { visibility: hidden; }
 
 .align-right { text-align: right; }
+.align-left { text-align: left; }
 
 .box-shadow-standard {
   box-shadow: 0 1px 4px $bg-gray-dark-3;
@@ -82,4 +89,28 @@
 .disabled-bg {
   background: $color-gray-lightest;
   color: $color-gray;
+}
+
+.standard-add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $primary-blue;
+  cursor: pointer;
+  text-decoration: none;
+
+  span {
+    padding-right: 5px;
+  }
+
+  p {
+    margin: 0px;
+    margin-bottom: 2px;
+  }
+
+  &.underlined {
+    p {
+      text-decoration: underline;
+    }
+  }
 }

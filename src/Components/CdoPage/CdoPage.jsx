@@ -6,6 +6,7 @@ import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHis
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
+import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -18,6 +19,8 @@ const CdoPage = () => (
       <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
       <Route path="/profile/cdo/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isCDO />} />
+      <Route path="/profile/cdo/biddingtool/:id" render={() => <BiddingTool />} />
+      <Route path="/profile/cdo/biddingtool/" render={() => <BiddingTool />} />
     </Switch>
   </div>
 );
