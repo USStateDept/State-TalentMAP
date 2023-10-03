@@ -18,6 +18,7 @@ export function managePostEditSuccess(bool) {
 
 export function managePostEdit(accessors) {
   return (dispatch) => {
+    dispatch(managePostEditSuccess(false));
     api()
       .post('fsbid/post_access/permissions/', { data: accessors })
       .then(() => {
