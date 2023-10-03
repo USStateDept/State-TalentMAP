@@ -10,6 +10,7 @@ import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch'
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import Assignments from 'Components/Assignments';
 import BidderPortfolio from 'Containers/BidderPortfolio';
+import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const AoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -26,6 +27,8 @@ const AoPage = () => (
       <Route path="/profile/ao/publishablepositions" render={() => <PublishablePositions viewType="ao" />} />
       <Route path="/profile/ao/:id/assignments" render={(props) => <Assignments {...props} />} />
       <Route path="/profile/ao/bidderportfolio" render={() => <BidderPortfolio viewType="ao" />} />
+      <Route path="/profile/ao/biddingtool/:id" render={() => <BiddingTool />} />
+      <Route path="/profile/ao/biddingtool/" render={() => <BiddingTool />} />
     </Switch>
   </div>
 );

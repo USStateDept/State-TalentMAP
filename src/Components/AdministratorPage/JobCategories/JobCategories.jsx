@@ -1,10 +1,16 @@
 import { withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns-v2';
 import { jobCategoriesAdminFetchData, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
+import CreateJobCategoryModal from './CreateJobCategoryModal';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
+import TabbedCard from '../../TabbedCard/TabbedCard';
+
+const DATE_FORMAT = 'yyyyMMddkkmmss';
 
 const JobCategories = () => {
   const dispatch = useDispatch();
@@ -16,7 +22,9 @@ const JobCategories = () => {
   const jobCategorySkillsResults = jobCategorySkills?.data;
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
-  const [checkedSkillIds, setCheckedSkillIds] = useState([]);
+  const [loadedSkillIds, setLoadedSkillIds] = useState([]);
+  const [selectedSkillIds, setSelectedSkillIds] = useState([]);
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -26,32 +34,84 @@ const JobCategories = () => {
 
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
+    // The EP is not able to return a list of all skills; they can only be loaded
+    // when supplied with a job category ID. Call below is a hack to just load in
+    // all skills
+    dispatch(jobCategoriesFetchSkills({ category_id: '1' }));
   }, []);
 
   useEffect(() => {
-    dispatch(jobCategoriesFetchSkills(getQuery()));
-    setCheckedSkillIds([]);
+    setSelectedSkillIds([]);
+    setLoadedSkillIds([]);
+    setSelectAll(false);
+    if (selectedJobCategory !== '') {
+      dispatch(jobCategoriesFetchSkills(getQuery()));
+    }
+    if (jobCategorySkillsResults) {
+      const returnArray = [];
+      jobCategorySkillsResults.forEach(skill => {
+        if (skill.display_skill === '1') {
+          returnArray.push(skill.code);
+        }
+      });
+      setSelectedSkillIds(returnArray);
+      setLoadedSkillIds(returnArray);
+    }
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setCheckedSkillIds(
+      setSelectedSkillIds(
         jobCategorySkillsResults?.map(skill => skill.code),
       );
     } else {
       setSelectAll(false);
-      setCheckedSkillIds([]);
+      setSelectedSkillIds([]);
     }
   };
 
   const handleSelectSkill = (skill => {
-    if (checkedSkillIds.includes(skill.code)) {
-      const filteredSkills = checkedSkillIds.filter(x => x !== skill.code);
-      setCheckedSkillIds(filteredSkills);
+    if (selectedSkillIds.includes(skill.code)) {
+      const filteredSkills = selectedSkillIds.filter(x => x !== skill.code);
+      setSelectedSkillIds(filteredSkills);
     } else {
-      setCheckedSkillIds([...checkedSkillIds, skill.code]);
+      setSelectedSkillIds([...selectedSkillIds, skill.code]);
     }
+  });
+
+  const clearInputs = (() => {
+    setSelectedSkillIds(loadedSkillIds);
+    setSelectAll(false);
+    setIsEditMode(false);
+  });
+
+  const newJobCategoryModal = () => {
+    setIsEditMode(false);
+    const skillList = [...jobCategorySkillsResults];
+    swal({
+      title: 'Create New Job Category',
+      button: false,
+      className: 'create-jc-modal',
+      content: (
+        <CreateJobCategoryModal refSkills={skillList} dispatch={dispatch} />
+      ),
+    });
+  };
+
+  const submitEdit = (() => {
+    const inclusions = [];
+    loadedSkillIds.forEach(() => inclusions.push('1'));
+    // TODO: finish gathering and sending fields to send in data object
+    // eslint-disable-next-line no-unused-vars
+    const inputs = {
+      inclusion_ind: inclusions,
+      category_id: selectedJobCategory,
+      category_name: jobCategoriesResults.find((cat) => cat.id === '17')?.description,
+      update_date: format(new Date(), DATE_FORMAT),
+      skill_codes: [...selectedSkillIds],
+    };
+    clearInputs();
   });
 
   return (
@@ -59,16 +119,16 @@ const JobCategories = () => {
       <ProfileSectionTitle title="Job Categories" icon="cogs" />
       <div>
         <div className="modal-controls">
-          <button>Create New Job Category</button>
-          {/* <button onClick={setIsEditMode(!isEditMode)}>Toggle Edit Mode</button> */}
+          <button onClick={() => newJobCategoryModal()}>Create New Job Category</button>
         </div>
         <div className="select-container">
           <label htmlFor="categories-select">Select A Job Category</label>
           <select
-            className="select-dropdown"
+            className={`${isEditMode ? 'disabled-bg' : 'select-dropdown'}`}
             onChange={(e) => setSelectedJobCategory(e.target.value)}
+            disabled={isEditMode}
           >
-            <option>--Please Select a Job Category--</option>
+            <option value="">--Please Select a Job Category--</option>
             {
               jobCategoriesResults?.map(category => (
                 <option value={category.id}>
@@ -79,68 +139,82 @@ const JobCategories = () => {
           </select>
         </div>
       </div>
-      <div className="jc-toggle-container">
-        <ToggleButton
-          labelTextRight="Toggle Edit Mode"
-          onChange={() => setIsEditMode(!isEditMode)}
-          checked={isEditMode}
-          onColor="#0071BC"
-        />
-      </div>
-      <div>
-        <table className="custom-table">
-          <thead>
-            <tr className="jc-table-row">
-              <th className="checkbox-pos">
-                <CheckBox
-                  className="tm-checkbox-transparent"
-                  checked={!selectAll}
-                  onCheckBoxClick={handleSelectAll}
+      <TabbedCard
+        tabs={[{
+          text: 'Skill Descriptions',
+          value: 'descriptions',
+          content: (
+            <div>
+              {selectedJobCategory !== '' &&
+                <div className="jc-toggle-container">
+                  <ToggleButton
+                    labelTextRight="Toggle Edit Mode"
+                    onChange={() => setIsEditMode(!isEditMode)}
+                    checked={isEditMode}
+                    onColor="#0071BC"
+                  />
+                </div>
+              }
+              <table className="custom-table">
+                <thead>
+                  <tr className="jc-table-row">
+                    <th className="checkbox-pos">
+                      <CheckBox
+                        className="tm-checkbox-transparent"
+                        value={selectAll}
+                        onCheckBoxClick={handleSelectAll}
+                        disabled={!isEditMode}
+                      />
+                    </th>
+                    <th className="skill-code-column">
+                      Skill Code
+                    </th>
+                    <th className="skill-desc-column">
+                      Skill Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    jobCategorySkillsResults?.map(skill => (
+                      <tr key={skill.code}>
+                        <td className="checkbox-pac checkbox-pos">
+                          <CheckBox
+                            className="tm-checkbox-transparent"
+                            value={
+                              selectedJobCategory !== '' ?
+                                selectedSkillIds.includes(skill.code) : false
+                            }
+                            onCheckBoxClick={() => handleSelectSkill(skill)}
+                            disabled={!isEditMode}
+                          />
+                        </td>
+                        <td>{skill.code}</td>
+                        <td>{skill.description}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+              <div className="modal-controls">
+                <button
+                  onClick={() => submitEdit()}
                   disabled={!isEditMode}
-                />
-              </th>
-              <th className="skill-code-column">
-                Skill Code
-              </th>
-              <th className="skill-desc-column">
-                Skill Description
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              jobCategorySkillsResults?.map(skill => (
-                <tr key={skill.code}>
-                  <td className="checkbox-pac checkbox-pos">
-                    <CheckBox
-                      className="tm-checkbox-transparent"
-                      value={checkedSkillIds.includes(skill.code) || skill.display_skill === '1'}
-                      onCheckBoxClick={() => handleSelectSkill(skill)}
-                      disabled={!isEditMode}
-                    />
-                  </td>
-                  <td>{skill.code}</td>
-                  <td>{skill.description}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-        <div className="modal-controls">
-          <button
-            // onClick={handleSubmit}
-            disabled={!isEditMode}
-          >
-              Submit
-          </button>
-          <button
-            disabled={!isEditMode}
-            className="usa-button-secondary saved-search-form-secondary-button"
-          >
-              Cancel
-          </button>
-        </div>
-      </div>
+                >
+                    Submit
+                </button>
+                <button
+                  onClick={clearInputs}
+                  disabled={!isEditMode}
+                  className="usa-button-secondary saved-search-form-secondary-button"
+                >
+                    Cancel
+                </button>
+              </div>
+            </div>
+          ),
+        }]}
+      />
     </div>
   );
 };

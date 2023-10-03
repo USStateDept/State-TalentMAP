@@ -9,7 +9,7 @@ import { Row } from 'Components/Layout';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Definition } from '../DefinitionList';
 
-const PositionExpandableContent = ({ sections, form }) => {
+const PositionExpandableContent = ({ sections, form, tempHideEdit }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -38,7 +38,8 @@ const PositionExpandableContent = ({ sections, form }) => {
 
   const getBody = () => {
     if (!setEditMode) return [];
-    if (editMode && form) return form.staticBody;
+    if (editMode && form && form.staticBody) return form.staticBody;
+    if (editMode && form && !form.staticBody) return [];
     if (showMore && sections.bodySecondary) {
       return [...sections.bodyPrimary, ...sections.bodySecondary];
     }
@@ -90,7 +91,7 @@ const PositionExpandableContent = ({ sections, form }) => {
             })
           }
         </div>
-        {(form && !editMode) &&
+        {(form && !editMode && !tempHideEdit) &&
           <button
             className={`toggle-edit-mode ${disableEdit ? 'toggle-edit-mode-disabled' : ''}`}
             onClick={disableEdit ? () => {} : () => setEditMode(!editMode)}
@@ -192,11 +193,13 @@ PositionExpandableContent.propTypes = {
       disableEdit: PropTypes.bool,
     }),
   }),
+  tempHideEdit: PropTypes.bool,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
   sections: undefined,
+  tempHideEdit: false,
 };
 
 export default PositionExpandableContent;

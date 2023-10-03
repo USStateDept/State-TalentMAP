@@ -268,6 +268,33 @@ export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been su
 export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
 export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
 
+export const UPDATE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Saved';
+export const UPDATE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully saved.';
+export const UPDATE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
+export const UPDATE_BID_AUDIT_ERROR = 'There was an issue attempting to save this Bid Audit. Please try again.';
+
+export const DELETE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Deleted';
+export const DELETE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully deleted.';
+export const DELETE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
+export const DELETE_BID_AUDIT_ERROR = 'There was an issue attempting to delete this Bid Audit. Please try again.';
+
+export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edit Successfully Saved';
+export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'There was an issue attempting to save your edits to this Job Category. Please try again.';
+export const JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE = 'New Job Category Successfully Saved';
+export const JOB_CATEGORIES_SAVE_NEW_SUCCESS = 'New Job Category has been added';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE = 'New Job Category Error';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR = 'There was an issue attempting to save your new Job Category. Please try again.';
+
+export const EDIT_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Updated';
+export const EDIT_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been updated';
+export const EDIT_BIDDING_TOOL_ERROR_TITLE = 'Edit Bidding Tool Error';
+export const EDIT_BIDDING_TOOL_ERROR = 'There was an issue attempting to update this Bidding Tool. Please try again.';
+
+export const CREATE_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Created';
+export const CREATE_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been created';
+export const CREATE_BIDDING_TOOL_ERROR_TITLE = 'Create Bidding Tool Error';
+export const CREATE_BIDDING_TOOL_ERROR = 'There was an issue attempting to create this Bidding Tool. Please try again.';
+
 export const ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE = 'Assignment Cycle Updated';
 export const ASSIGNMENT_CYCLE_EDIT_SUCCESS = 'The Assignment Cycle has been updated';
 export const ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE = 'Assignment Cycle Edit Error';

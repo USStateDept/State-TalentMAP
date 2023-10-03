@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
-import CheckBox from '../../CheckBox';
-import { checkFlag } from '../../../flags';
+import CheckBox from '../CheckBox';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
-
-const useCycleJobCategories = () => checkFlag('flags.cycle_job_categories');
 
 const EditAssignmentCycles = (props) => {
   const { onClose, onPost, onSave } = props;
@@ -37,11 +33,17 @@ const EditAssignmentCycles = (props) => {
   const [mdsReview, setMdsReview] = useState('');
   const [assignedBidder, setAssignedBidder] = useState('');
 
-  const seasonOptions = [
-    { value: 'Fall', label: 'Fall' },
-    { value: 'Winter', label: 'Winter' },
-    { value: 'Spring', label: 'Spring' },
-    { value: 'Summer', label: 'Summer' },
+  const cycleCategories = [
+    { value: 'A', label: 'A(A100)' },
+    { value: 'O', label: 'O(Other)' },
+    { value: 'J', label: 'J(Untenured Junior Officer' },
+  ];
+
+  const cycleStatuses = [
+    { value: 'A', label: 'A(Active)' },
+    { value: 'C', label: 'C(Closed)' },
+    { value: 'M', label: 'M(Merged)' },
+    { value: 'P', label: 'P(Proposed)' },
   ];
 
   // These functions arent functional for now.
@@ -108,7 +110,6 @@ const EditAssignmentCycles = (props) => {
 
   return (
     <div>
-      <h2>New Assignment Cycle</h2>
       <form className="assignment-cycle-form">
         <div>
           <label className="label-desc" htmlFor="status">Assignment Cycle</label>
@@ -131,16 +132,13 @@ const EditAssignmentCycles = (props) => {
               onChange={(e) => setCycleCategory(e.target.value)}
               value={cycleCategory}
             >
-              {seasonOptions.length === 0 ?
-                <option value="">None Listed</option> : seasonOptions.map((option) => (
+              {cycleCategories.length === 0 ?
+                <option value="">None Listed</option> : cycleCategories.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
                 ))}
             </select>
-            {useCycleJobCategories() &&
-              <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
-            }
           </span>
         </div>
         <div>
@@ -152,8 +150,8 @@ const EditAssignmentCycles = (props) => {
               onChange={(e) => setCycleStatus(e.target.value)}
               value={cycleStatus}
             >
-              {seasonOptions.length === 0 ?
-                <option value="">None Listed</option> : seasonOptions.map((option) => (
+              {cycleStatuses.length === 0 ?
+                <option value="">None Listed</option> : cycleStatuses.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -162,22 +160,24 @@ const EditAssignmentCycles = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="season">Exclusive Positions</label>
+          <label htmlFor="exclusivePositions">Exclusive Positions</label>
           <span className="bs-validation-container">
             <CheckBox
-              id="exclusivePositions"
-              name="exclusivePositions"
+              className="exclusivePositions-new"
+              id="exclusivePositions-new"
+              name="exclusivePositions-new"
               checked={exclusivePositions}
               onChange={() => setExclusivePositions(e => !e)}
             />
           </span>
         </div>
         <div>
-          <label htmlFor="season">Post Viewable</label>
+          <label htmlFor="postViewable">Post Viewable</label>
           <span className="bs-validation-container">
             <CheckBox
-              id="postViewable"
-              name="postViewable"
+              className="postViewable-new"
+              id="postViewable-new"
+              name="postViewable-new"
               checked={postViewable}
               onChange={() => setPostViewable(e => !e)}
             />
@@ -187,7 +187,7 @@ const EditAssignmentCycles = (props) => {
           <>
             <div>
               <dt>Cycle Boundary Dates</dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setCycleBoundries}
@@ -200,7 +200,7 @@ const EditAssignmentCycles = (props) => {
             </div>
             <div>
               <dt>6 Month Language Dates </dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setSixMonthLanguage}
@@ -213,7 +213,7 @@ const EditAssignmentCycles = (props) => {
             </div>
             <div>
               <dt>12 Month Language Dates</dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setTwelveMonthLanguage}
@@ -226,7 +226,7 @@ const EditAssignmentCycles = (props) => {
             </div>
             <div>
               <dt>24 Month Language Dates</dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setTwentyFourMonthLanguage}
@@ -407,9 +407,11 @@ const EditAssignmentCycles = (props) => {
             </div>
           </>
         }
-        <button onClick={saveAC}>Save</button>
-        <button onClick={postAC} type="submit">Post Open Positions</button>
-        <button onClick={cancelAC}>Cancel</button>
+        <div>
+          <button onClick={saveAC}>Save</button>
+          <button onClick={postAC} type="submit">Post Open Positions</button>
+          <button onClick={cancelAC}>Cancel</button>
+        </div>
       </form>
     </div>
   );
