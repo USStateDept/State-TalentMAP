@@ -58,6 +58,8 @@ const ManagePostAccess = () => {
     selectedOrgs,
     selectedPersons,
     selectedRoles,
+    ...personHRO ? ['Y'] : [],
+    ...positionHRO ? ['Y'] : [],
   ];
   const filterCount = filters.flat().length;
 
@@ -82,6 +84,8 @@ const ManagePostAccess = () => {
     selectedPersons,
     selectedRoles,
     managePostEditSuccess,
+    personHRO,
+    positionHRO,
   ]);
 
 
@@ -90,6 +94,8 @@ const ManagePostAccess = () => {
     setSelectedOrgs([]);
     setSelectedPersons([]);
     setSelectedRoles([]);
+    setPositionHRO(false);
+    setPersonHRO(false);
     setClearFilters(false);
   };
 
@@ -110,6 +116,12 @@ const ManagePostAccess = () => {
     renderList: renderSelectionList,
   };
 
+  const displayCount = () => {
+    if (positionSelected) {
+      return (`${selectedPositions.length} ${selectedPositions < 2 ? 'Position' : 'Positions'} Selected`);
+    }
+    return (`${selectedPersons.length} ${selectedPersons < 2 ? 'Person' : 'People'} Selected`);
+  };
 
   return (
     <div className="position-search">
@@ -218,95 +230,92 @@ const ManagePostAccess = () => {
 
 
       {
-        <>
+        <div className="mpa-grant-box-wrapper">
 
-          <div className="mpa-grant-box-wrapper">
-
-            <div className="mpa-grant-box">
-              <div>Organizations:</div>
-              {selectedOrgs?.map(x => (
-                <div className="mpa-grant-box-item">
-                  <div>
-                    <FA
-                      name="times"
-                      onClick={() => setSelectedOrgs(
-                        selectedOrgs.filter(y => y.code !== x.code))}
-                      className="mpa-remove-item"
-                    />
-                    {x.description}
-                  </div>
+          <div className="mpa-grant-box">
+            <div>Organizations:</div>
+            {selectedOrgs?.map(x => (
+              <div className="mpa-grant-box-item">
+                <div className="mpa-remove-item-wrapper">
+                  <FA
+                    name="times"
+                    onClick={() => setSelectedOrgs(
+                      selectedOrgs.filter(y => y.code !== x.code))}
+                    className="mpa-remove-item"
+                  />
+                  {x.description}
                 </div>
-              ))}
-            </div>
-
-            <div className="mpa-grant-box">
-              <div>Positions:</div>
-              {personSelected && (
-                <div className="mpa-grant-box-item">
-                  Grant Access to either Persons or Positions.
-                </div>
-              )}
-              {selectedPositions?.map(x => (
-                <div className="mpa-grant-box-item">
-                  <div>
-                    <FA
-                      name="times"
-                      onClick={() => setSelectedPositions(
-                        selectedPositions.filter(y => y.code !== x.code))}
-                      className="mpa-remove-item"
-                    />
-                    {x.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mpa-grant-box">
-              <div>Persons:</div>
-              {positionSelected && (
-                <div className="mpa-grant-box-item">
-                  Grant Access to either Persons or Positions.
-                </div>
-              )}
-              {selectedPersons?.map(x => (
-                <div className="mpa-grant-box-item">
-                  <div>
-                    <FA
-                      name="times"
-                      onClick={() => setSelectedPersons(
-                        selectedPersons.filter(y => y.code !== x.code))}
-                      className="mpa-remove-item"
-                    />
-                    {x.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mpa-grant-box">
-              <div>Roles:</div>
-              {selectedRoles?.map(x => (
-                <div className="mpa-grant-box-item">
-                  <div>
-                    <FA
-                      name="times"
-                      onClick={() => setSelectedRoles(
-                        selectedRoles.filter(y => y.code !== x.code))}
-                      className="mpa-remove-item"
-                    />
-                    {x.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-
+              </div>
+            ))}
           </div>
 
-        </>
+          <div className="mpa-grant-box">
+            <div>Positions:</div>
+            {personSelected && (
+              <div className="mpa-grant-box-item">
+                  Grant Access to either Persons or Positions.
+              </div>
+            )}
+            {selectedPositions?.map(x => (
+              <div className="mpa-grant-box-item">
+                <div className="mpa-remove-item-wrapper">
+                  <FA
+                    name="times"
+                    onClick={() => setSelectedPositions(
+                      selectedPositions.filter(y => y.code !== x.code))}
+                    className="mpa-remove-item"
+                  />
+                  {x.description}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mpa-grant-box">
+            <div>Persons:</div>
+            {positionSelected && (
+              <div className="mpa-grant-box-item">
+                  Grant Access to either Persons or Positions.
+              </div>
+            )}
+            {selectedPersons?.map(x => (
+              <div className="mpa-grant-box-item">
+                <div className="mpa-remove-item-wrapper">
+                  <FA
+                    name="times"
+                    onClick={() => setSelectedPersons(
+                      selectedPersons.filter(y => y.code !== x.code))}
+                    className="mpa-remove-item"
+                  />
+                  {x.description}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mpa-grant-box">
+            <div>Roles:</div>
+            {selectedRoles?.map(x => (
+              <div className="mpa-grant-box-item">
+                <div className="mpa-remove-item-wrapper">
+                  <FA
+                    name="times"
+                    onClick={() => setSelectedRoles(
+                      selectedRoles.filter(y => y.code !== x.code))}
+                    className="mpa-remove-item"
+                  />
+                  {x.description}
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
       }
 
       { requirementsMet && (
         <div className="proposed-cycle-banner">
+          {displayCount()}
           <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
         </div>
       )}

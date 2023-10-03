@@ -28,12 +28,12 @@ export function managePostEditSuccess(results) {
   };
 }
 
-export function managePostEdit(positions) {
+export function managePostEdit(accessors) {
   return (dispatch) => {
     dispatch(managePostEditLoading(true));
     dispatch(managePostEditErrored(false));
     api()
-      .post('fsbid/post_access/permissions/', { data: positions })
+      .post('fsbid/post_access/permissions/', { data: accessors })
       .then(({ data }) => {
         batch(() => {
           dispatch(managePostEditErrored(false));
