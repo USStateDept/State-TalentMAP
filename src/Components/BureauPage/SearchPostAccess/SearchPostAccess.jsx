@@ -243,7 +243,7 @@ const SearchPostAccess = () => {
                   <div className="label">Organization:</div>
                   <Picky
                     {...pickyProps}
-                    placeholder="Select Org(s)"
+                    placeholder="Select Organization(s)"
                     value={selectedOrgs}
                     options={orgOptions}
                     onChange={setSelectedOrgs}
