@@ -10,14 +10,6 @@ import EditBidSeasons from './EditBidSeasons';
 
 const ManageBidSeasonsCard = (props) => {
   const dispatch = useDispatch();
-  const {
-    id,
-    description,
-    bid_seasons_begin_date,
-    bid_seasons_end_date,
-    bid_seasons_future_vacancy,
-    bid_seasons_panel_cutoff,
-  } = props;
 
   const submit = (data) => {
     dispatch(bidSeasonsEdit(data));
@@ -30,13 +22,8 @@ const ManageBidSeasonsCard = (props) => {
       button: false,
       content: (
         <EditBidSeasons
-          id={id}
-          description={description}
-          bid_seasons_begin_date={bid_seasons_begin_date}
-          bid_seasons_end_date={bid_seasons_end_date}
-          bid_seasons_future_vacancy={bid_seasons_future_vacancy}
-          bid_seasons_panel_cutoff={bid_seasons_panel_cutoff}
           submitAction={submit}
+          {...props}
         />
       ),
     });
@@ -47,20 +34,20 @@ const ManageBidSeasonsCard = (props) => {
       <Row fluid className="bid-seasons-search-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column columns={3}>
-            {description}
+            {props?.description}
           </Column>
           <Column columns={12} className="bs-card--middle-cols">
             <Column>
-              Start Date: {bid_seasons_begin_date ? formatDate(bid_seasons_begin_date) : ''}
+              Start Date: {props?.bid_seasons_begin_date ? formatDate(props?.bid_seasons_begin_date) : ''}
             </Column>
             <Column>
-              End Date: {bid_seasons_end_date ? formatDate(bid_seasons_end_date) : ''}
+              End Date: {props?.bid_seasons_end_date ? formatDate(props?.bid_seasons_end_date) : ''}
             </Column>
             <Column>
-              Panel Cutoff: {bid_seasons_panel_cutoff ? formatDate(bid_seasons_panel_cutoff) : ''}
+              Panel Cutoff: {props?.bid_seasons_panel_cutoff ? formatDate(props?.bid_seasons_panel_cutoff) : ''}
             </Column>
             <Column>
-              Future Vacancy: {bid_seasons_future_vacancy}
+              Future Vacancy: {props?.bid_seasons_future_vacancy}
             </Column>
           </Column>
           <Column columns={3} className="bs-card--link-col">

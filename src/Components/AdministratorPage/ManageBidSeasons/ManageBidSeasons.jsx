@@ -131,6 +131,7 @@ const ManageBidSeasons = () => {
       content: (
         <EditBidSeasons
           submitAction={submit}
+          bid_seasons_snt_seq_num={'1'} // DEV TEST
         />
       ),
     });
