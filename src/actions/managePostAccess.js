@@ -9,68 +9,32 @@ import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
 
-export function managePostEditErrored(bool) {
-  return {
-    type: 'MANAGE_POST_EDIT_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function managePostEditLoading(bool) {
-  return {
-    type: 'MANAGE_POST_EDIT_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function managePostEditSuccess(results) {
+export function managePostEditSuccess(bool) {
   return {
     type: 'MANAGE_POST_EDIT_SUCCESS',
-    results,
+    success: bool,
   };
 }
 
 export function managePostEdit(accessors) {
   return (dispatch) => {
-    dispatch(managePostEditLoading(true));
-    dispatch(managePostEditErrored(false));
     api()
       .post('fsbid/post_access/permissions/', { data: accessors })
-      .then(({ data }) => {
+      .then(() => {
         batch(() => {
-          dispatch(managePostEditErrored(false));
-          dispatch(managePostEditSuccess(data));
+          dispatch(managePostEditSuccess(true));
           dispatch(
             toastSuccess(
               MANAGE_POST_ACCESS_ADD_SUCCESS, MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE,
             ));
-          dispatch(managePostEditLoading(false));
         });
       })
       .catch(() => {
+        dispatch(managePostEditSuccess(false));
         dispatch(toastError(
           MANAGE_POST_ACCESS_ADD_ERROR, MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
         ));
-        dispatch(managePostEditErrored(true));
-        dispatch(managePostEditLoading(false));
       });
-  };
-}
-
-
-export function managePostSelectionsSaveSuccess(result) {
-  return {
-    type: 'MANAGE_POST_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-
-export function saveManagePostSelections(queryObject) {
-  return (dispatch) => dispatch(managePostSelectionsSaveSuccess(queryObject));
-}
-
-export function managePostFiltersFetchDataErrored(bool) {
-  return {
-    type: 'MANAGE_POST_FILTERS_FETCH_ERRORED',
-    hasErrored: bool,
   };
 }
 

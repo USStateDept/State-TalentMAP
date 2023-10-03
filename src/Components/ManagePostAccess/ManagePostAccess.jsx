@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { managePostEdit, managePostFetchFilters, saveManagePostSelections } from 'actions/managePostAccess';
+import { managePostEdit, managePostFetchFilters } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import CheckBox from 'Components/CheckBox';
@@ -12,19 +12,16 @@ const ManagePostAccess = () => {
   const dispatch = useDispatch();
 
   // State
-  const managePostSelections = useSelector(state => state.managePostSelections);
   const managePostFilters = useSelector(state => state.managePostFetchFilterData);
   const managePostEditSuccess = useSelector(state => state.managePostEdit);
   const managePostFiltersIsLoading =
     useSelector(state => state.managePostFetchFiltersLoading);
 
   // Local State & Filters
-  const [selectedPositions, setSelectedPositions] =
-   useState(managePostSelections?.selectedPositions || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(managePostSelections?.selectedOrgs || []);
-  const [selectedRoles, setSelectedRoles] = useState(managePostSelections?.selectedRoles || []);
-  const [selectedPersons, setSelectedPersons] =
-    useState(managePostSelections?.selectedPersons || []);
+  const [selectedPositions, setSelectedPositions] = useState([]);
+  const [selectedOrgs, setSelectedOrgs] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const [selectedPersons, setSelectedPersons] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
   const [personHRO, setPersonHRO] = useState(false);
   const [positionHRO, setPositionHRO] = useState(false);
@@ -46,13 +43,6 @@ const ManagePostAccess = () => {
   const organizationOptions = managePostFilters?.orgFilters || [];
 
 
-  const getCurrentInputs = () => ({
-    selectedPositions,
-    selectedOrgs,
-    selectedPersons,
-    selectedRoles,
-  });
-
   const filters = [
     selectedPositions,
     selectedOrgs,
@@ -63,15 +53,13 @@ const ManagePostAccess = () => {
   ];
   const filterCount = filters.flat().length;
 
+
   const fetchAndSet = () => {
     setClearFilters(!!filterCount);
-    dispatch(saveManagePostSelections(getCurrentInputs()));
   };
-
 
   // Initial Render
   useEffect(() => {
-    dispatch(saveManagePostSelections(getCurrentInputs()));
     dispatch(managePostFetchFilters());
   }, []);
 
@@ -88,7 +76,6 @@ const ManagePostAccess = () => {
     positionHRO,
   ]);
 
-
   const resetFilters = () => {
     setSelectedPositions([]);
     setSelectedOrgs([]);
@@ -98,6 +85,14 @@ const ManagePostAccess = () => {
     setPersonHRO(false);
     setClearFilters(false);
   };
+
+  // clear filters on successful submit
+  useEffect(() => {
+    if (managePostEditSuccess) {
+      resetFilters();
+    }
+  }, [managePostEditSuccess]);
+
 
   const submitGrantAccess = () => {
     dispatch(managePostEdit({
@@ -144,7 +139,7 @@ const ManagePostAccess = () => {
             </div>
           </div>
 
-          <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
+          <div className="usa-width-one-whole position-search--filters--mpa results-dropdown">
 
             { managePostFiltersIsLoading
               ?
