@@ -112,7 +112,7 @@ export function availableBiddersIds() {
           });
         } else {
           batch(() => {
-            dispatch(availableBiddersIdsSuccess({ results: [] }));
+            dispatch(availableBiddersIdsSuccess([]));
             dispatch(availableBiddersIdsErrored(true));
             dispatch(availableBiddersIdsLoading(false));
           });
