@@ -10,8 +10,8 @@ import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
 import PanelAdmin from './PanelAdmin';
 import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
+import BidAudit from './bidAudit/BidAudit';
 import CycleJobCategories from './CycleJobCategories/CycleJobCategories';
-import AssignmentCycles from './AssignmentCycles/AssignmentCycles';
 import ManageEntryLevel from './ManageEntryLevel/ManageEntryLevel';
 import JobCategories from './JobCategories/JobCategories';
 import OrgStats from './OrgStats/OrgStats';
@@ -66,7 +66,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags {...featureFlagsProps} />} />
         <Route path="/profile/administrator/cycles" render={() => <BidCycles />} />
         <Route path="/profile/administrator/managebidseasons" render={() => <ManageBidSeasons />} />
-        <Route path="/profile/administrator/assignmentcycles" render={() => <AssignmentCycles />} />
+        <Route path="/profile/administrator/bidaudit" render={() => <BidAudit />} />
         <Route path="/profile/administrator/panel/:pmSeqNum" render={() => <PanelAdmin />} />
         <Route path="/profile/administrator/panel/" render={() => <PanelAdmin />} />
         <Route path="/profile/administrator/cyclejobcategories/" render={() => <CycleJobCategories />} />

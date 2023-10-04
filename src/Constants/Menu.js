@@ -162,6 +162,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bid_audit') ?
+        {
+          text: 'Bid Audit',
+          route: '/profile/administrator/bidaudit/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.bureau_exception') ?
         {
           text: 'Bureau Exception Access',
@@ -203,15 +212,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Bid Season Management',
           route: '/profile/administrator/managebidseasons/',
           icon: 'calendar',
-          roles: [
-            'superuser',
-          ],
-        } : null,
-      checkFlag('flags.assignment_cycles') ?
-        {
-          text: 'Assignment Cycles',
-          route: '/profile/administrator/assignmentcycles/',
-          icon: 'cogs',
           roles: [
             'superuser',
           ],
