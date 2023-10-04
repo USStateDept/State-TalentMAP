@@ -1,6 +1,14 @@
 import { batch } from 'react-redux';
 import { convertQueryToString } from 'utilities';
 import {
+  JOB_CATEGORIES_DELETE_ERROR,
+  JOB_CATEGORIES_DELETE_ERROR_TITLE,
+  JOB_CATEGORIES_DELETE_SUCCESS,
+  JOB_CATEGORIES_DELETE_SUCCESS_TITLE,
+  JOB_CATEGORIES_EDIT_ERROR,
+  JOB_CATEGORIES_EDIT_ERROR_TITLE,
+  JOB_CATEGORIES_EDIT_SUCCESS,
+  JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
   JOB_CATEGORIES_SAVE_NEW_ERROR,
   JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
   JOB_CATEGORIES_SAVE_NEW_SUCCESS,
@@ -132,7 +140,7 @@ export function jobCategoriesSaveNewCategory(data = {}) {
       dispatch(jobCategoriesSaveNewCatIsLoading(true));
       dispatch(jobCategoriesSaveNewCatHasErrored(false));
     });
-    const endpoint = '/fsbid/job_categories/save_new';
+    const endpoint = '/fsbid/job_categories/create';
     api().post(endpoint, data)
       .then(() => {
         batch(() => {
@@ -161,6 +169,125 @@ export function jobCategoriesSaveNewCategory(data = {}) {
               JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
             ));
             dispatch(jobCategoriesSaveNewCatIsLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function jobCategoriesDeleteCatHasErrored(bool) {
+  return {
+    type: 'JOB_CATEGORIES_DELETE_CAT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function jobCategoriesDeleteCatIsLoading(bool) {
+  return {
+    type: 'JOB_CATEGORIES_DELETE_CAT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function jobCategoriesDeleteCatSuccess(result) {
+  return {
+    type: 'JOB_CATEGORIES_DELETE_CAT_SUCCESS',
+    result,
+  };
+}
+export function jobCategoriesDeleteCategory(data = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(jobCategoriesDeleteCatIsLoading(true));
+      dispatch(jobCategoriesDeleteCatHasErrored(false));
+    });
+    const endpoint = '/fsbid/job_categories/delete';
+    api().post(endpoint, data)
+      .then(() => {
+        batch(() => {
+          dispatch(jobCategoriesDeleteCatSuccess());
+          dispatch(
+            toastSuccess(
+              JOB_CATEGORIES_DELETE_SUCCESS, JOB_CATEGORIES_DELETE_SUCCESS_TITLE,
+            ));
+          dispatch(jobCategoriesDeleteCatHasErrored(false));
+          dispatch(jobCategoriesDeleteCatIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(jobCategoriesDeleteCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_DELETE_ERROR, JOB_CATEGORIES_DELETE_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesDeleteCatIsLoading(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(jobCategoriesDeleteCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_DELETE_ERROR, JOB_CATEGORIES_DELETE_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesDeleteCatIsLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function jobCategoriesEditCatHasErrored(bool) {
+  return {
+    type: 'JOB_CATEGORIES_EDIT_CAT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function jobCategoriesEditCatIsLoading(bool) {
+  return {
+    type: 'JOB_CATEGORIES_EDIT_CAT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function jobCategoriesEditCatSuccess(result) {
+  return {
+    type: 'JOB_CATEGORIES_EDIT_CAT_SUCCESS',
+    result,
+  };
+}
+
+export function jobCategoriesEditCategory(data = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(jobCategoriesEditCatIsLoading(true));
+      dispatch(jobCategoriesEditCatHasErrored(false));
+    });
+    const endpoint = '/fsbid/job_categories/edit';
+    api().post(endpoint, data)
+      .then(() => {
+        batch(() => {
+          dispatch(jobCategoriesEditCatSuccess());
+          dispatch(
+            toastSuccess(
+              JOB_CATEGORIES_EDIT_SUCCESS, JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
+            ));
+          dispatch(jobCategoriesEditCatHasErrored(false));
+          dispatch(jobCategoriesEditCatIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(jobCategoriesEditCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_EDIT_ERROR, JOB_CATEGORIES_EDIT_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesEditCatIsLoading(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(jobCategoriesEditCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_EDIT_ERROR, JOB_CATEGORIES_EDIT_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesEditCatIsLoading(false));
           });
         }
       });

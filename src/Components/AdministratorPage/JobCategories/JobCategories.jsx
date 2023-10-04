@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns-v2';
-import { jobCategoriesAdminFetchData, jobCategoriesFetchSkills } from 'actions/jobCategories';
+import { jobCategoriesAdminFetchData, jobCategoriesDeleteCategory,
+  jobCategoriesEditCategory, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
+import Spinner from '../../Spinner';
 import CreateJobCategoryModal from './CreateJobCategoryModal';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import TabbedCard from '../../TabbedCard/TabbedCard';
@@ -15,11 +17,24 @@ const DATE_FORMAT = 'yyyyMMddkkmmss';
 const JobCategories = () => {
   const dispatch = useDispatch();
 
+  const userProfile = useSelector(state => state.userProfile);
+
   const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
+  const jobCategoriesAdminFetchDataIsLoading = useSelector(
+    state => state.jobCategoriesAdminFetchDataIsLoading);
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
+  const jobCategorySkillsIsLoading = useSelector(state => state.jobCategoriesFetchSkillsIsLoading);
+  const jobCategoriesEditCatSuccess = useSelector(state => state.jobCategoriesEditCatSuccess);
+  const jobCategoriesEditCatHasErrored = useSelector(state => state.jobCategoriesEditCatHasErrored);
+  const jobCategoriesDeleteCatSuccess = useSelector(state => state.jobCategoriesDeleteCatSuccess);
+  const jobCategoriesDeleteCatHasErrored = useSelector(
+    state => state.jobCategoriesDeleteCatHasErrored);
 
   const jobCategoriesResults = jobCategories?.data;
-  const jobCategorySkillsResults = jobCategorySkills?.data;
+  // jobCategorySkills return data has 2 items
+  // [0] is JC metadata like update_date, [1] is list of skills
+  const jobCategorySkillsRef = jobCategorySkills?.data?.[0];
+  const jobCategorySkillsResults = jobCategorySkills?.data?.[1];
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
   const [loadedSkillIds, setLoadedSkillIds] = useState([]);
@@ -31,6 +46,41 @@ const JobCategories = () => {
   const getQuery = () => ({
     category_id: selectedJobCategory,
   });
+
+  const getDeleteQuery = () => ({
+    category_id: selectedJobCategory,
+    status_ind: jobCategorySkillsRef.status_ind,
+    update_date: jobCategorySkillsRef.update_date,
+    update_user_id: jobCategorySkillsRef.update_user_id,
+  });
+
+  const getEditQuery = () => {
+    const inclusions = [];
+    const skillUpdateDates = [];
+    const skillUpdateIds = [];
+
+    selectedSkillIds.forEach((id) => {
+      inclusions.push('1');
+      skillUpdateDates.push(
+        jobCategorySkillsResults.find((skill) => skill.code === id).update_date || '');
+      skillUpdateIds.push(
+        jobCategorySkillsResults.find((skill) => skill.code === id).update_user_id);
+    });
+    const inputs = {
+      inclusion_inds: inclusions,
+      category_id: selectedJobCategory,
+      category_name: jobCategoriesResults.find(
+        (cat) => cat.id === selectedJobCategory)?.description,
+      status_ind: jobCategorySkillsRef.status_ind,
+      update_date: format(new Date(), DATE_FORMAT),
+      update_user_id: userProfile.id,
+      skill_codes: [...selectedSkillIds],
+      skill_update_dates: skillUpdateDates,
+      skill_update_ids: skillUpdateIds,
+    };
+
+    return inputs;
+  };
 
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
@@ -86,6 +136,24 @@ const JobCategories = () => {
     setIsEditMode(false);
   });
 
+  const submitEdit = (() => {
+    dispatch(jobCategoriesEditCategory(getEditQuery()));
+    if (jobCategoriesEditCatSuccess && !jobCategoriesEditCatHasErrored) {
+      clearInputs();
+      dispatch(jobCategoriesFetchSkills({ category_id: selectedJobCategory }));
+    }
+  });
+
+  const submitDelete = () => {
+    dispatch(jobCategoriesDeleteCategory(getDeleteQuery()));
+    swal.close();
+    if (jobCategoriesDeleteCatSuccess && !jobCategoriesDeleteCatHasErrored) {
+      clearInputs();
+      setSelectedJobCategory('');
+      dispatch(jobCategoriesFetchSkills({ category_id: '1' }));
+    }
+  };
+
   const newJobCategoryModal = () => {
     setIsEditMode(false);
     const skillList = [...jobCategorySkillsResults];
@@ -94,39 +162,71 @@ const JobCategories = () => {
       button: false,
       className: 'create-jc-modal',
       content: (
-        <CreateJobCategoryModal refSkills={skillList} dispatch={dispatch} />
+        <CreateJobCategoryModal
+          refSkills={skillList}
+          dispatch={dispatch}
+          setSelectedJobCategory={setSelectedJobCategory}
+        />
       ),
     });
   };
 
-  const submitEdit = (() => {
-    const inclusions = [];
-    loadedSkillIds.forEach(() => inclusions.push('1'));
-    // TODO: finish gathering and sending fields to send in data object
-    // eslint-disable-next-line no-unused-vars
-    const inputs = {
-      inclusion_ind: inclusions,
-      category_id: selectedJobCategory,
-      category_name: jobCategoriesResults.find((cat) => cat.id === '17')?.description,
-      update_date: format(new Date(), DATE_FORMAT),
-      skill_codes: [...selectedSkillIds],
-    };
-    clearInputs();
-  });
+  const deleteJobCategoryModal = () => {
+    const jobCategoryName = jobCategoriesResults.find(
+      (cat) => cat.id === selectedJobCategory)?.description;
+    swal({
+      title: `Deleting ${jobCategoryName}`,
+      button: false,
+      className: 'delete-jc-modal',
+      content: (
+        <div className="delete-jc-modal-content">
+          Are you sure you want to delete the selected Job Category?
+          <div className="delete-jc-modal-description">{jobCategoryName}</div>
+          <div className="delete-modal-button-container">
+            <button
+              onClick={() => submitDelete()}
+              className="jc-delete-button"
+            >
+                Delete Selected Job Category
+            </button>
+            <button
+              onClick={() => swal.close()}
+              className="usa-button-secondary"
+            >
+                Cancel
+            </button>
+          </div>
+        </div>
+      ),
+    });
+  };
 
   return (
     <div className="admin-job-categories-page">
       <ProfileSectionTitle title="Job Categories" icon="cogs" />
       <div>
-        <div className="modal-controls">
+        <div className="jc-post-controls">
           <button onClick={() => newJobCategoryModal()}>Create New Job Category</button>
+          <button
+            onClick={() => deleteJobCategoryModal()}
+            disabled={!selectedJobCategory}
+            className={`${selectedJobCategory === '' ? 'disabled-bg' : 'jc-delete-button'}`}
+          >
+              Delete Selected Job Category
+          </button>
         </div>
         <div className="select-container">
+          {jobCategoriesAdminFetchDataIsLoading &&
+            <div>
+              <Spinner type="job-categories-dropdown" size="small" />
+            </div>
+          }
           <label htmlFor="categories-select">Select A Job Category</label>
           <select
-            className={`${isEditMode ? 'disabled-bg' : 'select-dropdown'}`}
+            className={`${isEditMode || jobCategoriesAdminFetchDataIsLoading ? 'disabled-bg' : 'select-dropdown'}`}
             onChange={(e) => setSelectedJobCategory(e.target.value)}
-            disabled={isEditMode}
+            value={(selectedJobCategory)}
+            disabled={isEditMode || jobCategoriesAdminFetchDataIsLoading}
           >
             <option value="">--Please Select a Job Category--</option>
             {
@@ -175,7 +275,10 @@ const JobCategories = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
+                  {jobCategorySkillsIsLoading ?
+                    <div>
+                      <Spinner type="job-categories-results" size="small" />
+                    </div> :
                     jobCategorySkillsResults?.map(skill => (
                       <tr key={skill.code}>
                         <td className="checkbox-pac checkbox-pos">

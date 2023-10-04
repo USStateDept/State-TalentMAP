@@ -73,3 +73,53 @@ export function jobCategoriesSaveNewCatSuccess(state = [], action) {
       return state;
   }
 }
+
+export function jobCategoriesDeleteCatHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_DELETE_CAT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function jobCategoriesDeleteCatIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_DELETE_CAT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function jobCategoriesDeleteCatSuccess(state = [], action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_DELETE_CAT_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function jobCategoriesEditCatHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_EDIT_CAT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function jobCategoriesEditCatIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_EDIT_CAT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function jobCategoriesEditCatSuccess(state = [], action) {
+  switch (action.type) {
+    case 'JOB_CATEGORIES_EDIT_CAT_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
