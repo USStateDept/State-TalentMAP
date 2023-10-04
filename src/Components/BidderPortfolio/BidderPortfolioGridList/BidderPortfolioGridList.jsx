@@ -88,7 +88,7 @@ class BidderPortfolioGridList extends Component {
   }
 
   render() {
-    const { results, showEdit, showExpand, classifications } = this.props;
+    const { results, showEdit, showExpand, classifications, viewType } = this.props;
     const { expandAll } = this.state;
     let expandText = 'Expand All';
     let expandIcon = 'plus';
@@ -120,6 +120,7 @@ class BidderPortfolioGridList extends Component {
                   userProfile={result}
                   showEdit={showEdit}
                   classifications={classifications}
+                  viewType={viewType}
                 />
               </AccordionItem>
             ))
@@ -135,12 +136,14 @@ BidderPortfolioGridList.propTypes = {
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
   showExpand: PropTypes.bool,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioGridList.defaultProps = {
   showEdit: false,
   classifications: [],
   showExpand: false,
+  viewType: '',
 };
 
 export default BidderPortfolioGridList;

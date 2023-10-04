@@ -49,6 +49,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
         submitForm={submitForm}
         noButton={props.noButton}
         showIcon={props.showIcon}
+        inputDisabled={props.disableSearch}
       />
     </form>
   );
@@ -63,6 +64,7 @@ PositionManagerSearch.propTypes = {
   placeHolder: PropTypes.string,
   noButton: PropTypes.bool,
   showIcon: PropTypes.bool,
+  disableSearch: PropTypes.bool,
 };
 
 PositionManagerSearch.defaultProps = {
@@ -74,6 +76,7 @@ PositionManagerSearch.defaultProps = {
   placeHolder: 'Type keywords here',
   noButton: false,
   showIcon: true,
+  disableSearch: false,
 };
 
 export default PositionManagerSearch;

@@ -208,6 +208,15 @@ export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated'
 export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
 export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';
 
+export const EDIT_ASSIGNMENT_SUCCESS_TITLE = 'Assignment Updated';
+export const EDIT_ASSIGNMENT_SUCCESS = 'The Assignment has been updated';
+export const EDIT_ASSIGNMENT_ERROR_TITLE = 'Edit Assignment Error';
+export const EDIT_ASSIGNMENT_ERROR = 'There was an issue attempting to update this Assignment. Please try again.';
+
+export const CREATE_ASSIGNMENT_SUCCESS_TITLE = 'Assignment Created';
+export const CREATE_ASSIGNMENT_SUCCESS = 'The Assignment has been created';
+export const CREATE_ASSIGNMENT_ERROR_TITLE = 'Create Assignment Error';
+export const CREATE_ASSIGNMENT_ERROR = 'There was an issue attempting to create this Assignment. Please try again.';
 
 export const ADD_BID_SEASON_SUCCESS_TITLE = 'Bid Season Added';
 export const ADD_BID_SEASON_SUCCESS = 'Bid Season has been added.';
@@ -229,3 +238,74 @@ export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) su
 export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
 export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
 
+export const UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS_TITLE = 'Cycle Job Categories Saved';
+export const UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS = 'This Cycle Job Categories has been successfully saved.';
+export const UPDATE_CYCLE_JOB_CATEGORIES_ERROR_TITLE = 'Cycle Job Categories Error';
+export const UPDATE_CYCLE_JOB_CATEGORIES_ERROR = 'There was an issue attempting to save this Cycle Job Categories. Please try again.';
+
+export const BIDDER_PORTFOLIO_ADD_SUCCESS_TITLE = 'Bidder Portfolio Added';
+export const BIDDER_PORTFOLIO_ADD_SUCCESS = 'Bidder Portfolio has been added.';
+export const BIDDER_PORTFOLIO_ADD_ERROR_TITLE = 'Bidder Portfolio Add Error';
+export const BIDDER_PORTFOLIO_ADD_ERROR = 'There was an issue attempting to add this Bidder Portfolio. Please try again.';
+
+export const ADD_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to add this Bureau Exception. Please try again.';
+export const ADD_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Add Error';
+export const ADD_BUREAU_EXCEPTION_SUCCESS = 'Bureau Exception has been added.';
+export const ADD_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Added';
+
+export const EDIT_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to update this Bureau Exception. Please try again.';
+export const EDIT_BUREAU_EXCEPTION_SUCCESS = 'The Bureau Exception has been updated';
+export const EDIT_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Edit Error';
+export const EDIT_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Updated';
+
+export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS_TITLE = 'Bureau Exception Position Updated';
+export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS = 'The Bureau Exception Position has been updated';
+export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE = 'Bureau Exception Position Edit Error';
+export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception Position. Please try again.';
+
+export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
+export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
+export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
+export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
+
+export const UPDATE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Saved';
+export const UPDATE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully saved.';
+export const UPDATE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
+export const UPDATE_BID_AUDIT_ERROR = 'There was an issue attempting to save this Bid Audit. Please try again.';
+
+export const DELETE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Deleted';
+export const DELETE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully deleted.';
+export const DELETE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
+export const DELETE_BID_AUDIT_ERROR = 'There was an issue attempting to delete this Bid Audit. Please try again.';
+
+export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edit Successfully Saved';
+export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'There was an issue attempting to save your edits to this Job Category. Please try again.';
+export const JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE = 'New Job Category Successfully Saved';
+export const JOB_CATEGORIES_SAVE_NEW_SUCCESS = 'New Job Category has been added';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE = 'New Job Category Error';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR = 'There was an issue attempting to save your new Job Category. Please try again.';
+
+export const EDIT_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Updated';
+export const EDIT_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been updated';
+export const EDIT_BIDDING_TOOL_ERROR_TITLE = 'Edit Bidding Tool Error';
+export const EDIT_BIDDING_TOOL_ERROR = 'There was an issue attempting to update this Bidding Tool. Please try again.';
+
+export const CREATE_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Created';
+export const CREATE_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been created';
+export const CREATE_BIDDING_TOOL_ERROR_TITLE = 'Create Bidding Tool Error';
+export const CREATE_BIDDING_TOOL_ERROR = 'There was an issue attempting to create this Bidding Tool. Please try again.';
+
+export const ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE = 'Assignment Cycle Updated';
+export const ASSIGNMENT_CYCLE_EDIT_SUCCESS = 'The Assignment Cycle has been updated';
+export const ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE = 'Assignment Cycle Edit Error';
+export const ASSIGNMENT_CYCLE_EDIT_ERROR = 'There was an issue attempting to update this Assignment Cycle. Please try again.';
+
+export const ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE = 'Assignment Cycle Deleted';
+export const ASSIGNMENT_CYCLE_DELETE_SUCCESS = 'The Assignment Cycle has been deleted';
+export const ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE = 'Assignment Cycle Delete Error';
+export const ASSIGNMENT_CYCLE_DELETE_ERROR = 'There was an issue attempting to delete this Assignment Cycle. Please try again.';
+
+export const ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE = 'Assignment Cycle Created';
+export const ASSIGNMENT_CYCLE_POST_SUCCESS = 'The Assignment Cycle has been created';
+export const ASSIGNMENT_CYCLE_POST_ERROR_TITLE = 'Assignment Cycle Create Error';
+export const ASSIGNMENT_CYCLE_POST_ERROR = 'There was an issue attempting to create this Assignment Cycle. Please try again.';

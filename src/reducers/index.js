@@ -20,6 +20,7 @@ import descriptionEdit from './descriptionEdit';
 import missionAutocomplete from './autocomplete/missionAutocomplete';
 import postAutocomplete from './autocomplete/postAutocomplete';
 import assignment from './assignment';
+import assignmentMaintenance from './assignmentMaintenance';
 import notifications from './notifications';
 import bidderPortfolio from './bidderPortfolio';
 import shouldShowSearchBar from './showSearchBar';
@@ -65,7 +66,7 @@ import panelMeetings from './panelMeetings';
 import agendaItemMaintenancePane from './agendaItemMaintenancePane';
 import panelMeetingAgendas from './panelMeetingAgendas';
 import publishablePositions from './publishablePositions';
-import editRemark from './editRemark';
+import remark from './remark';
 import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
 import cycleManagement from './cycleManagement';
@@ -73,6 +74,13 @@ import bidSeasons from './bidSeasons';
 import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
+import cycleJobCategories from './cycleJobCategories';
+import bureauException from './bureauException';
+import entryLevel from './entryLevel';
+import bidAudit from './bidAudit';
+import jobCategories from './jobCategories';
+import orgStats from './orgStats';
+import biddingTool from './biddingTool';
 
 export default (history) => combineReducers({
   ...results,
@@ -93,6 +101,7 @@ export default (history) => combineReducers({
   ...missionAutocomplete,
   ...postAutocomplete,
   ...assignment,
+  ...assignmentMaintenance,
   ...notifications,
   ...bidderPortfolio,
   ...shouldShowStaticContent,
@@ -135,7 +144,7 @@ export default (history) => combineReducers({
   ...positions,
   ...panelMeetingAgendas,
   ...publishablePositions,
-  ...editRemark,
+  ...remark,
   ...panelMeetingAdmin,
   ...gsaLocations,
   ...projectedVacancy,
@@ -143,6 +152,13 @@ export default (history) => combineReducers({
   ...bidSeasons,
   ...managePostAccess,
   ...searchPostAccess,
+  ...cycleJobCategories,
+  ...bureauException,
+  ...entryLevel,
+  ...bidAudit,
+  ...jobCategories,
+  ...orgStats,
+  ...biddingTool,
   router: connectRouter(history),
   client,
   login,

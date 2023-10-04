@@ -1,0 +1,104 @@
+.notification-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+
+  .notification-card__header {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0px;
+
+    span:first-of-type {
+      font-weight: 600;
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .notification-card__sub-section {
+    .sub-header {
+      font-weight: 500;
+      font-size: 20px;
+      padding-bottom: 8px;
+    }
+  }
+
+  .position-content--textArea {
+    margin-inline: unset;
+  }
+
+
+  .position-content--details {
+    dl {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+  }
+
+
+  .section-title {
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .ordered-assignment {
+    padding: 10px 0px 5px;
+    max-width: 600px;
+
+    span {
+      color: $primary-blue;
+    }
+
+    span:first-of-type {
+      padding-right: 5px;
+      color: black;
+    }
+  }
+
+  .chosen-paragraph {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0px 0px;
+
+    >div:first-of-type {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .fa {
+      color: $primary-blue;
+    }
+  }
+
+  .memo-preview-row {
+    margin-bottom: 15px;
+  }
+
+  .memo-input-container {
+    position: relative;
+    margin-top: -30px;
+    .position-content--description {
+      margin-top: 20px;
+    }
+  }
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-actions {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+
+  div:first-of-type {
+    padding-right: 15px;
+  }
+
+  label {
+    margin: 0px;
+  }
+}
