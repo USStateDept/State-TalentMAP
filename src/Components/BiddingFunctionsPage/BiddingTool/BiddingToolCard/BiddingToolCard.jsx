@@ -30,7 +30,7 @@ const BiddingToolCard = (props) => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const result = useSelector(state => state.biddingTool) || {};
   const resultIsLoading = useSelector(state => state.biddingToolFetchDataLoading);
@@ -96,7 +96,7 @@ const BiddingToolCard = (props) => {
             <span>{getResult(result, 'post')}, {getResult(result, 'post_code')}</span>
           </div>
         </div>
-        {(!isSuperUser && !editMode) &&
+        {(isSuperUser && !editMode) &&
           <button className="toggle-edit-mode" onClick={() => setEditMode(!editMode)}>
             <FA name="pencil" />
             <div>Edit</div>
@@ -647,7 +647,7 @@ const BiddingToolCard = (props) => {
       </div>
       <div className="position-form--actions">
         <button onClick={showCancelModal}>Cancel</button>
-        <button onClick={onSubmit}>{isCreate ? 'Create' : 'Save'}</button>
+        <button onClick={onSubmit}>{isCreate ? 'Create' : 'Save Bidding Tool'}</button>
       </div>
     </div>
   );

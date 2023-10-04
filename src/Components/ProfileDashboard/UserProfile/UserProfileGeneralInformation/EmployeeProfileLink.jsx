@@ -1,42 +1,23 @@
 import swal from '@sweetalert/with-react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import axios from 'axios';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
-import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
-import { toastError, toastInfo, toastSuccess } from 'actions/toast';
+import { downloadPdfStream, isOnProxy } from 'utilities';
 import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
 const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
-  const dispatch = useDispatch();
-  const emp_profile_urls = userProfile?.employee_profile_url;
-  let redactedUrl = emp_profile_urls?.internalRedacted;
-  let unredactedUrl = emp_profile_urls?.internal;
-
-  if (isOnProxy()) {
-    redactedUrl = emp_profile_urls?.externalRedacted;
-    unredactedUrl = emp_profile_urls?.external;
-  }
-
   const downloadEmployeeProfile = () => {
-    dispatch(toastInfo('Please wait while we process your request.', 'Loading...'));
-    axios.get(redactedUrl, {
-      withCredentials: true,
-      headers: { JWTAuthorization: fetchJWT() },
-      responseType: 'arraybuffer' },
-    )
-      .then(response => {
-        downloadPdfStream(response.data);
-        dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
-      })
-      .catch(() => {
-        dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred'));
-      });
+    downloadPdfStream(userProfile.redactedReport.data);
   };
+
+  // not showing on GOBrowser until we fix
+  const displayLinks = !isOnProxy() && showEmployeeProfileLinks;
+  const redactedBlob = new Blob([userProfile?.redactedReport?.data], { type: 'application/pdf' });
+  const unredactedBlob = new Blob([userProfile?.unredactedReport?.data], { type: 'application/pdf' });
+  const bloburl = window.URL.createObjectURL(unredactedBlob);
 
   const openPdf = () => swal({
     title: 'Employee Profile Report:',
@@ -44,7 +25,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
     className: 'modal-1300',
     content: (
       <EmployeeProfileModal
-        url={unredactedUrl}
+        url={bloburl}
       />
     ),
   });
@@ -54,11 +35,11 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
       content={
         <div>
           {
-            showEmployeeProfileLinks && !unredactedUrl && !redactedUrl &&
-            <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
+            displayLinks && !unredactedBlob?.size && !redactedBlob?.size &&
+            <Alert type="error" title="Error grabbing Profile PDF" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
-            showEmployeeProfileLinks && unredactedUrl &&
+            displayLinks && !!unredactedBlob?.size &&
             <InteractiveElement
               onClick={openPdf}
               type="a"
@@ -68,7 +49,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
             </InteractiveElement>
           }
           {
-            showEmployeeProfileLinks && redactedUrl &&
+            displayLinks && !!redactedBlob.size &&
             <InteractiveElement
               onClick={downloadEmployeeProfile}
               type="a"

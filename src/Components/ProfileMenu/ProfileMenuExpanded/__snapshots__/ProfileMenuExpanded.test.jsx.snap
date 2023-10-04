@@ -118,11 +118,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cogs"
-        key="Assignment Cycles"
-        link="/profile/administrator/assignmentcycles/"
+        iconName="users"
+        key="Bid Audit"
+        link="/profile/administrator/bidaudit/"
         search=""
-        title="Assignment Cycles"
+        title="Bid Audit"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -603,11 +603,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cogs"
-        key="Assignment Cycles"
-        link="/profile/administrator/assignmentcycles/"
+        iconName="users"
+        key="Bid Audit"
+        link="/profile/administrator/bidaudit/"
         search=""
-        title="Assignment Cycles"
+        title="Bid Audit"
       />
       <withRouter(NavLink)
         hidden={false}

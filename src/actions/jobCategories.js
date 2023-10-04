@@ -91,7 +91,7 @@ export function jobCategoriesFetchSkills(query = {}) {
       dispatch(jobCategoriesFetchSkillsHasErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = `/fsbid/job_categories/skills?${q}`;
+    const endpoint = `/fsbid/job_categories/skills/?${q}`;
     api().get(endpoint)
       .then((data) => {
         batch(() => {

@@ -381,12 +381,20 @@ $filters-sizing-config: (
     label-width: 100px,
     picky-width: 200px,
   ),
+  mpa: (
+    label-width: 100px,
+    picky-width: 200px,
+  ),
   bs: (
     label-width: 120px,
     picky-width: 200px,
   ),
   spa: (
     label-width: 100px,
+    picky-width: 240px,
+  ),
+  ba: (
+    label-width: 140px,
     picky-width: 240px,
   ),
   ac: (

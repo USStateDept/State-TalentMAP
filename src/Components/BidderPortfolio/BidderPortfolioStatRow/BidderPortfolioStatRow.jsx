@@ -29,16 +29,14 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   // This is the new key bidder_types. It returns a string of either 'cusp' or 'eligible'
-  const bidderType = get(userProfile, 'bidder_types') || null;
+  const bidderType = 'cusp';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
-  // eslint-disable-next-line no-unused-vars
   const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const [currentBidderType, setCurrentBidderType] = useState(bidderType);
   const [edit, setEdit] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [included, setIncluded] = useState(bidderType === 'cusp');
   const [comments, setComments] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [altEmail, setAltEmail] = useState('');
   const [verifyComments, setVerifyComments] = useState('');
   const [verifyAltEmail, setVerifyAltEmail] = useState('');
@@ -126,7 +124,6 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-header">
-        <h3 className="stat-card-client">Client Overview</h3>
         {showToggle &&
           <ToggleButton
             labelTextRight={!included ? 'Excluded' : 'Included'}
@@ -173,9 +170,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
             <dt>Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
           </div>
         </div>
-        {
-          /*
-          <div className="stat-card-data-point">
+
+        <div className="stat-card-data-point">
           <dt>DOS Email:</dt>
           <dd>
             <a href={`mailto:${email}`}>{email}</a>
@@ -200,8 +196,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
             />
           }
         </div>
-        */
-        }
+
         {
           !showEdit &&
           <div className="bidder-portfolio-stat-row-updates">
