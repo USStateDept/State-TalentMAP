@@ -140,6 +140,7 @@ const JobCategories = () => {
     dispatch(jobCategoriesEditCategory(getEditQuery()));
     if (jobCategoriesEditCatSuccess && !jobCategoriesEditCatHasErrored) {
       clearInputs();
+      setIsEditMode(false);
       dispatch(jobCategoriesFetchSkills({ category_id: selectedJobCategory }));
     }
   });
@@ -150,12 +151,12 @@ const JobCategories = () => {
     if (jobCategoriesDeleteCatSuccess && !jobCategoriesDeleteCatHasErrored) {
       clearInputs();
       setSelectedJobCategory('');
+      setIsEditMode(false);
       dispatch(jobCategoriesFetchSkills({ category_id: '1' }));
     }
   };
 
   const newJobCategoryModal = () => {
-    setIsEditMode(false);
     const skillList = [...jobCategorySkillsResults];
     swal({
       title: 'Create New Job Category',
@@ -166,6 +167,7 @@ const JobCategories = () => {
           refSkills={skillList}
           dispatch={dispatch}
           setSelectedJobCategory={setSelectedJobCategory}
+          setIsEditMode={setIsEditMode}
         />
       ),
     });
@@ -216,11 +218,6 @@ const JobCategories = () => {
           </button>
         </div>
         <div className="select-container">
-          {jobCategoriesAdminFetchDataIsLoading &&
-            <div>
-              <Spinner type="job-categories-dropdown" size="small" />
-            </div>
-          }
           <label htmlFor="categories-select">Select A Job Category</label>
           <select
             className={`${isEditMode || jobCategoriesAdminFetchDataIsLoading ? 'disabled-bg' : 'select-dropdown'}`}

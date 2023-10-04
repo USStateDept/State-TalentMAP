@@ -5,7 +5,7 @@ import CheckBox from 'Components/CheckBox';
 import { jobCategoriesAdminFetchData, jobCategoriesSaveNewCategory } from 'actions/jobCategories';
 
 const CreateJobCategoryModal = (props) => {
-  const { dispatch, refSkills, setSelectedJobCategory } = props;
+  const { dispatch, refSkills, setSelectedJobCategory, setIsEditMode } = props;
 
   const [selectedSkillIds, setSelectedSkillIds] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -21,6 +21,7 @@ const CreateJobCategoryModal = (props) => {
     // TODO: add on success check
     dispatch(jobCategoriesAdminFetchData());
     setSelectedJobCategory('');
+    setIsEditMode(false);
     swal.close();
   });
 
