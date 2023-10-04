@@ -69,7 +69,7 @@ const ManageBidSeasonsCard = (props) => {
 };
 
 ManageBidSeasonsCard.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   bid_seasons_begin_date: PropTypes.string.isRequired,
   bid_seasons_end_date: PropTypes.string.isRequired,

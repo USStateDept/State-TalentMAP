@@ -8,7 +8,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bidSeasonsCreate, bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
+import { bidSeasonsCreate, bidSeasonsFetchData } from 'actions/BidSeasons';
 import { renderSelectionList } from 'utilities';
 import swal from '@sweetalert/with-react';
 import ManageBidSeasonCard from './ManageBidSeasonsCard';
@@ -18,7 +18,6 @@ import EditBidSeasons from './EditBidSeasons';
 const ManageBidSeasons = () => {
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.bidSeasonsSelections);
   const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
   const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
   const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
@@ -26,16 +25,10 @@ const ManageBidSeasons = () => {
   const bidSeasonEditSuccess = useSelector(state => state.bidSeasonsEditSuccess);
 
   // Filters
-  const [selectedBidSeasons, setSelectedBidSeasons] =
-    useState(userSelections?.selectedBidSeasons || []);
-  const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
+  const [selectedBidSeasons, setSelectedBidSeasons] = useState([]);
+  const [selectedDates, setSelectedDates] = useState(null);
   const [bidSeasonData$, setBidSeasonData$] = useState(ManageBidSeasonsData);
   const [clearFilters, setClearFilters] = useState(false);
-
-  const getCurrentInputs = () => ({
-    selectedBidSeasons,
-    selectedDates,
-  });
 
   const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDates;
   const bidSeasonOptions = ManageBidSeasonsData || [];
@@ -63,13 +56,14 @@ const ManageBidSeasons = () => {
 
   // initial render
   useEffect(() => {
-    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
     dispatch(bidSeasonsFetchData());
   }, []);
 
   // re-fetch on successful edit or create
   useEffect(() => {
-    dispatch(bidSeasonsFetchData());
+    if (bidSeasonCreateSuccess || bidSeasonEditSuccess) {
+      dispatch(bidSeasonsFetchData());
+    }
   }, [
     bidSeasonCreateSuccess,
     bidSeasonEditSuccess,
@@ -131,7 +125,6 @@ const ManageBidSeasons = () => {
       content: (
         <EditBidSeasons
           submitAction={submit}
-          bid_seasons_snt_seq_num={'1'} // DEV TEST
         />
       ),
     });
@@ -203,7 +196,7 @@ const ManageBidSeasons = () => {
 
             <div className="bs-lower-section">
               {bidSeasonData$?.map(data =>
-                <ManageBidSeasonCard {...data} />)}
+                <ManageBidSeasonCard {...data} key={data.id} />)}
             </div>
           </>
 

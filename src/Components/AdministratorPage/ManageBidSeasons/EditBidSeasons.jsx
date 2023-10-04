@@ -35,6 +35,7 @@ const EditBidSeasons = (props) => {
   const [endDate, setEndDate] = useState(endDateGetDate);
   const [panelCutoffDate, setPanelCutoffDate] = useState(panelCutoffDateGetDate);
   const [futureVacancy, setFutureVacancy] = useState(bid_seasons_future_vacancy);
+  const [season, setSeason] = useState(bid_seasons_snt_seq_num);
 
   const submit = (e) => {
     e.preventDefault();
@@ -50,7 +51,7 @@ const EditBidSeasons = (props) => {
       bid_seasons_create_date,
       bid_seasons_update_id,
       bid_seasons_update_date,
-      bid_seasons_snt_seq_num,
+      season,
     });
   };
 
@@ -73,7 +74,7 @@ const EditBidSeasons = (props) => {
           <TextareaAutosize
             maxRows={4}
             minRows={4}
-            maxlength="255"
+            maxLength="255"
             name="description"
             placeholder="Please provide the name of the bid season."
             defaultValue={name}
@@ -83,6 +84,13 @@ const EditBidSeasons = (props) => {
 
         {
           <>
+            <div>
+              <label htmlFor="status">Season</label>
+              <select defaultValue={season} onChange={(e) => setSeason(e.target.value)}>
+                <option value="1">Summer</option>
+                <option value="2">Winter</option>
+              </select>
+            </div>
             <div>
               <dt>Start Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
@@ -148,17 +156,31 @@ const EditBidSeasons = (props) => {
 
 EditBidSeasons.propTypes = {
   submitAction: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  bid_seasons_begin_date: PropTypes.string.isRequired,
-  bid_seasons_end_date: PropTypes.string.isRequired,
-  bid_seasons_panel_cutoff: PropTypes.string.isRequired,
-  bid_seasons_future_vacancy: PropTypes.string.isRequired,
-  bid_seasons_create_id: PropTypes.string.isRequired,
-  bid_seasons_create_date: PropTypes.string.isRequired,
-  bid_seasons_update_id: PropTypes.string.isRequired,
-  bid_seasons_update_date: PropTypes.string.isRequired,
-  bid_seasons_snt_seq_num: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  description: PropTypes.string,
+  bid_seasons_begin_date: PropTypes.string,
+  bid_seasons_end_date: PropTypes.string,
+  bid_seasons_panel_cutoff: PropTypes.string,
+  bid_seasons_future_vacancy: PropTypes.string,
+  bid_seasons_create_id: PropTypes.number,
+  bid_seasons_create_date: PropTypes.string,
+  bid_seasons_update_id: PropTypes.number,
+  bid_seasons_update_date: PropTypes.string,
+  bid_seasons_snt_seq_num: PropTypes.string,
+};
+
+EditBidSeasons.defaultProps = {
+  id: null,
+  description: null,
+  bid_seasons_begin_date: null,
+  bid_seasons_end_date: null,
+  bid_seasons_panel_cutoff: null,
+  bid_seasons_future_vacancy: 'N',
+  bid_seasons_snt_seq_num: '1',
+  bid_seasons_create_id: '',
+  bid_seasons_create_date: '',
+  bid_seasons_update_id: '',
+  bid_seasons_update_date: '',
 };
 
 export default EditBidSeasons;

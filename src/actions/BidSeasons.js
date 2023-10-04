@@ -1,5 +1,4 @@
 import { batch } from 'react-redux';
-import { CancelToken } from 'axios';
 import {
   ADD_BID_SEASON_ERROR,
   ADD_BID_SEASON_ERROR_TITLE,
@@ -36,12 +35,8 @@ export function bidSeasonsFetchDataSuccess(results) {
 }
 
 
-let cancel;
-
-
 export function bidSeasonsFetchData() {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
     batch(() => {
       dispatch(bidSeasonsFetchDataLoading(true));
       dispatch(bidSeasonsFetchDataErrored(false));
@@ -71,126 +66,83 @@ export function bidSeasonsFetchData() {
   };
 }
 
-export function bidSeasonsSelectionsSaveSuccess(result) {
-  return {
-    type: 'BID_SEASON_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
 
-export function saveBidSeasonsSelections(queryObject) {
-  return (dispatch) => dispatch(bidSeasonsSelectionsSaveSuccess(queryObject));
-}
-
-
-export function bidSeasonsCreateHasErrored(bool) {
+export function bidSeasonsCreateSuccess(bool) {
   return {
-    type: 'BID_SEASON_POSITION_REMOVE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidSeasonsCreateIsLoading(bool) {
-  return {
-    type: 'BID_SEASON_POSITION_REMOVE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidSeasonsCreateSuccess(data) {
-  return {
-    type: 'BID_SEASON_POSITION_REMOVE_SUCCESS',
-    data,
+    type: 'BID_SEASONS_POSITION_REMOVE_SUCCESS',
+    success: bool,
   };
 }
 
 export function bidSeasonsCreate(seasonInfo) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
-    dispatch(bidSeasonsCreateIsLoading(true));
-    dispatch(bidSeasonsCreateHasErrored(false));
+    dispatch(bidSeasonsCreateSuccess(false));
     api()
       .post('fsbid/manage_bid_seasons/', {
         data: seasonInfo,
-      }, {
-        cancelToken: new CancelToken((c) => {
-          cancel = c;
-        }),
       })
       .then(({ data }) => {
-        batch(() => {
-          dispatch(bidSeasonsCreateHasErrored(false));
-          dispatch(bidSeasonsCreateSuccess(data || []));
-          dispatch(
-            toastSuccess(ADD_BID_SEASON_SUCCESS,
-              ADD_BID_SEASON_SUCCESS_TITLE));
-          dispatch(bidSeasonsCreateIsLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          dispatch(bidSeasonsCreateHasErrored(false));
-          dispatch(bidSeasonsCreateIsLoading(false));
+        // Catch unique bid seasons errors here, to render message to user
+        if (data?.PV_RETURN_CODE_O !== 0) {
+          const errorText = data?.PQRY_ERROR_DATA_O[0]?.MSG_TXT;
+          batch(() => {
+            dispatch(bidSeasonsCreateSuccess(false));
+            dispatch(
+              toastError(errorText ?? ADD_BID_SEASON_ERROR, EDIT_BID_SEASON_ERROR_TITLE));
+          });
         } else {
-          dispatch(toastError(ADD_BID_SEASON_ERROR,
-            ADD_BID_SEASON_ERROR_TITLE));
-          dispatch(bidSeasonsCreateHasErrored(true));
-          dispatch(bidSeasonsCreateIsLoading(false));
+          batch(() => {
+            dispatch(bidSeasonsCreateSuccess(true));
+            dispatch(
+              toastSuccess(ADD_BID_SEASON_SUCCESS,
+                ADD_BID_SEASON_SUCCESS_TITLE));
+          });
         }
+      })
+      .catch(() => {
+        dispatch(bidSeasonsCreateSuccess(false));
+        dispatch(toastError(ADD_BID_SEASON_ERROR,
+          ADD_BID_SEASON_ERROR_TITLE));
       });
   };
 }
 
 
-export function bidSeasonsEditHasErrored(bool) {
+export function bidSeasonsEditSuccess(bool) {
   return {
-    type: 'BID_SEASON_POSITION_EDIT_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidSeasonsEditIsLoading(bool) {
-  return {
-    type: 'BID_SEASON_POSITION_EDIT_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidSeasonsEditSuccess(data) {
-  return {
-    type: 'BID_SEASON_POSITION_EDIT_SUCCESS',
-    data,
+    type: 'BID_SEASONS_POSITION_EDIT_SUCCESS',
+    success: bool,
   };
 }
 
 export function bidSeasonsEdit(seasonInfo) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
-    dispatch(bidSeasonsEditIsLoading(true));
-    dispatch(bidSeasonsEditHasErrored(false));
+    dispatch(bidSeasonsEditSuccess(false));
     api()
       .post('fsbid/manage_bid_seasons/', {
         data: seasonInfo,
-      }, {
-        cancelToken: new CancelToken((c) => {
-          cancel = c;
-        }),
       })
       .then(({ data }) => {
-        batch(() => {
-          dispatch(bidSeasonsEditHasErrored(false));
-          dispatch(bidSeasonsEditSuccess(data || []));
-          dispatch(
-            toastSuccess(EDIT_BID_SEASON_SUCCESS, EDIT_BID_SEASON_SUCCESS_TITLE));
-          dispatch(bidSeasonsEditIsLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          dispatch(bidSeasonsEditHasErrored(false));
-          dispatch(bidSeasonsEditIsLoading(false));
+        // Catch unique bid seasons errors here, to render message to user
+        if (data?.PV_RETURN_CODE_O !== 0) {
+          const errorText = data?.PQRY_ERROR_DATA_O[0]?.MSG_TXT;
+          batch(() => {
+            dispatch(bidSeasonsEditSuccess(false));
+            dispatch(
+              toastError(errorText ?? EDIT_BID_SEASON_ERROR, EDIT_BID_SEASON_ERROR_TITLE));
+          });
         } else {
-          dispatch(toastError(EDIT_BID_SEASON_ERROR,
-            EDIT_BID_SEASON_ERROR_TITLE));
-          dispatch(bidSeasonsEditHasErrored(true));
-          dispatch(bidSeasonsEditIsLoading(false));
+          batch(() => {
+            dispatch(bidSeasonsEditSuccess(true));
+            dispatch(
+              toastSuccess(EDIT_BID_SEASON_SUCCESS, EDIT_BID_SEASON_SUCCESS_TITLE));
+          });
         }
+      })
+      .catch(() => {
+        dispatch(bidSeasonsEditSuccess(false));
+        dispatch(toastError(EDIT_BID_SEASON_ERROR,
+          EDIT_BID_SEASON_ERROR_TITLE));
       });
   };
 }
