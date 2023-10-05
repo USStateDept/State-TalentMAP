@@ -21,8 +21,6 @@ const ManageBidSeasons = () => {
   const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
   const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
   const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
-  const bidSeasonCreateSuccess = useSelector(state => state.bidSeasonsCreateSuccess);
-  const bidSeasonEditSuccess = useSelector(state => state.bidSeasonsEditSuccess);
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] = useState([]);
@@ -41,7 +39,8 @@ const ManageBidSeasons = () => {
     const filteredSeasons = seasons.filter(season => {
       const startDate = new Date(season.bid_seasons_begin_date).getTime();
       const endDate = new Date(season.bid_seasons_end_date).getTime();
-      return startDate >= startDateRange && endDate <= endDateRange;
+      return ((startDate >= startDateRange) && (startDate <= endDateRange))
+        || ((endDate >= startDateRange) && (endDate <= endDateRange));
     });
 
     return filteredSeasons;
@@ -58,16 +57,6 @@ const ManageBidSeasons = () => {
   useEffect(() => {
     dispatch(bidSeasonsFetchData());
   }, []);
-
-  // re-fetch on successful edit or create
-  useEffect(() => {
-    if (bidSeasonCreateSuccess || bidSeasonEditSuccess) {
-      dispatch(bidSeasonsFetchData());
-    }
-  }, [
-    bidSeasonCreateSuccess,
-    bidSeasonEditSuccess,
-  ]);
 
   useEffect(() => {
     setBidSeasonData$(bidSeasonDataFiltered);
@@ -94,7 +83,7 @@ const ManageBidSeasons = () => {
   const getOverlay = () => {
     let overlay;
     if (ManageBidSeasonsDataLoading) {
-      overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
     } else if (ManageBidSeasonsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -131,53 +120,49 @@ const ManageBidSeasons = () => {
   };
 
   return (
-    ManageBidSeasonsDataLoading
-      ?
-      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" />
-      :
-      <div className="bid-seasons-page position-search">
-        <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
-          <div className="filterby-container" >
-            <div className="filterby-label">Filter by:</div>
-            <span className="filterby-clear">
-              {clearFilters &&
+    <div className="bid-seasons-page position-search">
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
+        <div className="filterby-container" >
+          <div className="filterby-label">Filter by:</div>
+          <span className="filterby-clear">
+            {clearFilters &&
                 <button className="unstyled-button" onClick={resetFilters}>
                   <FA name="times" />
                   Clear Filters
                 </button>
-              }
-            </span>
+            }
+          </span>
+        </div>
+        <div className="usa-width-one-whole position-search--filters--bs">
+          <div className="filter-div">
+            <div className="label">Season:</div>
+            <Picky
+              {...pickyProps}
+              placeholder="Type to filter seasons"
+              options={bidSeasonOptions}
+              valueKey="id"
+              labelKey="description"
+              onChange={setSelectedBidSeasons}
+              value={selectedBidSeasons}
+            />
           </div>
-          <div className="usa-width-one-whole position-search--filters--bs">
-            <div className="filter-div">
-              <div className="label">Season:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Type to filter seasons"
-                options={bidSeasonOptions}
-                valueKey="id"
-                labelKey="description"
-                onChange={setSelectedBidSeasons}
-                value={selectedBidSeasons}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Season Date:</div>
-              <DateRangePicker
-                onChange={setSelectedDates}
-                value={selectedDates}
-                maxDetail="month"
-                calendarIcon={null}
-                showLeadingZeros
-              />
-            </div>
+          <div className="filter-div">
+            <div className="label">Season Date:</div>
+            <DateRangePicker
+              onChange={setSelectedDates}
+              value={selectedDates}
+              maxDetail="month"
+              calendarIcon={null}
+              showLeadingZeros
+            />
           </div>
-
         </div>
 
-        {
-          getOverlay() ||
+      </div>
+
+      {
+        getOverlay() ||
           <>
             <div className="usa-grid-full results-dropdown controls-container">
               <div className="bs-results">
@@ -200,8 +185,8 @@ const ManageBidSeasons = () => {
             </div>
           </>
 
-        }
-      </div>
+      }
+    </div>
   );
 };
 

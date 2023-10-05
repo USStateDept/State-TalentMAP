@@ -27,7 +27,7 @@ export function bidSeasons(state = [], action) {
 
 export function bidSeasonsCreateSuccess(state = false, action) {
   switch (action.type) {
-    case 'BID_SEASONS_POSITION_REMOVE_SUCCESS':
+    case 'BID_SEASONS_POSITION_CREATE_SUCCESS':
       return action.success;
     default:
       return state;

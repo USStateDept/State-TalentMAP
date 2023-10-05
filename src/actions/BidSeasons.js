@@ -69,7 +69,7 @@ export function bidSeasonsFetchData() {
 
 export function bidSeasonsCreateSuccess(bool) {
   return {
-    type: 'BID_SEASONS_POSITION_REMOVE_SUCCESS',
+    type: 'BID_SEASONS_POSITION_CREATE_SUCCESS',
     success: bool,
   };
 }
@@ -81,27 +81,16 @@ export function bidSeasonsCreate(seasonInfo) {
       .post('fsbid/manage_bid_seasons/', {
         data: seasonInfo,
       })
-      .then(({ data }) => {
-        // Catch unique bid seasons errors here, to render message to user
-        if (data?.PV_RETURN_CODE_O !== 0) {
-          const errorText = data?.PQRY_ERROR_DATA_O[0]?.MSG_TXT;
-          batch(() => {
-            dispatch(bidSeasonsCreateSuccess(false));
-            dispatch(
-              toastError(errorText ?? ADD_BID_SEASON_ERROR, EDIT_BID_SEASON_ERROR_TITLE));
-          });
-        } else {
-          batch(() => {
-            dispatch(bidSeasonsCreateSuccess(true));
-            dispatch(
-              toastSuccess(ADD_BID_SEASON_SUCCESS,
-                ADD_BID_SEASON_SUCCESS_TITLE));
-          });
-        }
+      .then(() => {
+        batch(() => {
+          dispatch(bidSeasonsCreateSuccess(true));
+          dispatch(toastSuccess(ADD_BID_SEASON_SUCCESS, ADD_BID_SEASON_SUCCESS_TITLE));
+          dispatch(bidSeasonsFetchData());
+        });
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch(bidSeasonsCreateSuccess(false));
-        dispatch(toastError(ADD_BID_SEASON_ERROR,
+        dispatch(toastError(err?.response?.data ?? ADD_BID_SEASON_ERROR,
           ADD_BID_SEASON_ERROR_TITLE));
       });
   };
@@ -122,26 +111,16 @@ export function bidSeasonsEdit(seasonInfo) {
       .post('fsbid/manage_bid_seasons/', {
         data: seasonInfo,
       })
-      .then(({ data }) => {
-        // Catch unique bid seasons errors here, to render message to user
-        if (data?.PV_RETURN_CODE_O !== 0) {
-          const errorText = data?.PQRY_ERROR_DATA_O[0]?.MSG_TXT;
-          batch(() => {
-            dispatch(bidSeasonsEditSuccess(false));
-            dispatch(
-              toastError(errorText ?? EDIT_BID_SEASON_ERROR, EDIT_BID_SEASON_ERROR_TITLE));
-          });
-        } else {
-          batch(() => {
-            dispatch(bidSeasonsEditSuccess(true));
-            dispatch(
-              toastSuccess(EDIT_BID_SEASON_SUCCESS, EDIT_BID_SEASON_SUCCESS_TITLE));
-          });
-        }
+      .then(() => {
+        batch(() => {
+          dispatch(bidSeasonsEditSuccess(true));
+          dispatch(toastSuccess(EDIT_BID_SEASON_SUCCESS, EDIT_BID_SEASON_SUCCESS_TITLE));
+          dispatch(bidSeasonsFetchData());
+        });
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch(bidSeasonsEditSuccess(false));
-        dispatch(toastError(EDIT_BID_SEASON_ERROR,
+        dispatch(toastError(err?.response?.data ?? EDIT_BID_SEASON_ERROR,
           EDIT_BID_SEASON_ERROR_TITLE));
       });
   };
