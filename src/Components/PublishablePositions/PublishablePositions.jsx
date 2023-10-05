@@ -19,7 +19,7 @@ import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 import { checkFlag } from '../../flags';
 
-const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
+const PP_FLAG = checkFlag('flags.publishable_positions');
 
 // may need to be used for permissioning
 // eslint-disable-next-line no-unused-vars
@@ -239,7 +239,7 @@ const PublishablePositions = ({ viewType }) => {
                 disabled={editMode}
               />
             </div>
-            { PP_INTEGRATION_FLAG ?
+            { PP_FLAG ?
               <div className="filter-div">
                 <div className="label">Bid Cycle:</div>
                 <Picky

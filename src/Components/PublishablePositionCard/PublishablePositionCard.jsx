@@ -13,7 +13,7 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 import { checkFlag } from '../../flags';
 
 
-const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
+const PP_FLAG = checkFlag('flags.publishable_positions');
 
 const hardcodedFilters = {
   statusFilters: [{ code: 1, description: '' }, { code: 2, description: 'Publishable' }, { code: 3, description: 'Vet' }],
@@ -41,7 +41,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
     ],
-    bodySecondary: PP_INTEGRATION_FLAG ?
+    bodySecondary: PP_FLAG ?
       [
         { 'Bid Cycle': data?.status || DEFAULT_TEXT },
         { 'TED': data?.status || DEFAULT_TEXT },
@@ -115,7 +115,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
     ],
     inputBody: (
       <div className="position-form">
-        { PP_INTEGRATION_FLAG &&
+        { PP_FLAG &&
           <div className="spaced-row">
             <div className="dropdown-container">
               <div className="position-form--input">
@@ -175,7 +175,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
             </div>
           </Row>
         </div>
-        { PP_INTEGRATION_FLAG &&
+        { PP_FLAG &&
           <>
             <div className="content-divider" />
             <div className="position-form--heading">
@@ -356,7 +356,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
           sections={sections}
           form={form}
         />,
-      }, PP_INTEGRATION_FLAG ?
+      }, PP_FLAG ?
         { text: 'Position Classification',
           value: 'CLASSIFICATION',
           content: classificationTable(),
