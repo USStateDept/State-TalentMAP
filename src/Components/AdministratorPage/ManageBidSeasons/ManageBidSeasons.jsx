@@ -137,7 +137,7 @@ const ManageBidSeasons = () => {
       :
       <div className="bid-seasons-page position-search">
         <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
+          <ProfileSectionTitle title="Bid Season Management" icon="calendar" className="xl-icon" />
           <div className="filterby-container" >
             <div className="filterby-label">Filter by:</div>
             <span className="filterby-clear">
