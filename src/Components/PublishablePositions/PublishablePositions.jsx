@@ -29,6 +29,8 @@ const PublishablePositions = ({ viewType }) => {
 
   const dataHasErrored = useSelector(state => state.publishablePositionsHasErrored);
   const dataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
+  const additionalDataIsLoading = false;
+  // const additionalDataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
   const data = useSelector(state => state.publishablePositions);
   const userSelections = useSelector(state => state.publishablePositionsSelections);
   const filtersHasErrored = useSelector(state => state.publishablePositionsFiltersHasErrored);
@@ -142,6 +144,16 @@ const PublishablePositions = ({ viewType }) => {
     setSelectedBidCycles([]);
     setClearFilters(false);
     dispatch(savePublishablePositionsSelections({}));
+  };
+
+  const callAdditionalData = (e) => {
+    // if e is true and we havent called the additional data before
+    /* eslint-disable no-console */
+    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+    console.log('👾 current: in callAdditionalData:', e);
+    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+    // call additional data and either add to existing state data
+    // or return individually TBD
   };
 
   const getOverlay = () => {
@@ -336,11 +348,13 @@ const PublishablePositions = ({ viewType }) => {
                 data.map(pubPos => (
                   <PublishablePositionCard
                     data={pubPos}
+                    additionalCallsLoading={additionalDataIsLoading}
                     onEditModeSearch={editState =>
                       setEditMode(editState)}
                     disableEdit={editMode || (viewType === 'ao')}
                     onSubmit={editData => submitEdit(editData)}
                     filters={filters}
+                    onShowMorePP={callAdditionalData}
                   />
                 ))
               }

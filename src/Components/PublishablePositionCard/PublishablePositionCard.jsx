@@ -23,7 +23,9 @@ const hardcodedFilters = {
 };
 
 
-const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit }) => {
+const PublishablePositionCard = ({
+  data, onEditModeSearch, onSubmit, disableEdit,
+  additionalCallsLoading, onShowMorePP }) => {
   // =============== Overview: View Mode ===============
 
   const sections = {
@@ -355,6 +357,9 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
         content: <PositionExpandableContent
           sections={sections}
           form={form}
+          appendAdditionalFieldsToBodyPrimary={false}
+          showLoadingSpinner={additionalCallsLoading}
+          onShowMore={(e) => onShowMorePP(e)}
         />,
       }, PP_FLAG ?
         { text: 'Position Classification',
@@ -373,15 +378,19 @@ PublishablePositionCard.propTypes = {
   onEditModeSearch: PropTypes.func,
   onSubmit: PropTypes.func,
   disableEdit: PropTypes.bool,
+  additionalCallsLoading: PropTypes.bool,
   filters: PropTypes.shape({
     filters: {},
   }).isRequired,
+  onShowMorePP: PropTypes.func,
 };
 
 PublishablePositionCard.defaultProps = {
   onEditModeSearch: EMPTY_FUNCTION,
   onSubmit: EMPTY_FUNCTION,
   disableEdit: false,
+  additionalCallsLoading: false,
+  onShowMorePP: EMPTY_FUNCTION,
 };
 
 export default PublishablePositionCard;
