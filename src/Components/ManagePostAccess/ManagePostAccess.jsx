@@ -106,9 +106,9 @@ const ManagePostAccess = () => {
 
   const displayCount = () => {
     if (positionSelected) {
-      return (`${selectedPositions.length} ${selectedPositions < 2 ? 'Position' : 'Positions'} Selected`);
+      return (`${selectedPositions.length} ${selectedPositions.length < 2 ? 'Position' : 'Positions'} Selected`);
     }
-    return (`${selectedPersons.length} ${selectedPersons < 2 ? 'Person' : 'People'} Selected`);
+    return (`${selectedPersons.length} ${selectedPersons.length < 2 ? 'Person' : 'People'} Selected`);
   };
 
   return (
