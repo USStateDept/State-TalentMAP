@@ -42,9 +42,6 @@ const ManagePostAccess = () => {
   const roleOptions = managePostFilters?.roleFilters || [];
   const organizationOptions = managePostFilters?.orgFilters || [];
 
-  console.log(positionOptions);
-  console.log(peopleOptions);
-  console.log(organizationOptions);
 
   const filters = [
     selectedPositions,
@@ -98,8 +95,6 @@ const ManagePostAccess = () => {
       roles: [...selectedRoles],
     }));
   };
-
-  console.log(selectedOrgs);
 
   const pickyProps = {
     numberDisplayed: 2,
