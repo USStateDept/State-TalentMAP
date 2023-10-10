@@ -29,7 +29,6 @@ const ManageBidSeasons = () => {
   const [clearFilters, setClearFilters] = useState(false);
 
   const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDates;
-  const bidSeasonOptions = ManageBidSeasonsData || [];
 
 
   const filterSeasonsByDateRange = (seasons, dateRange) => {
@@ -140,7 +139,7 @@ const ManageBidSeasons = () => {
             <Picky
               {...pickyProps}
               placeholder="Type to filter seasons"
-              options={bidSeasonOptions}
+              options={ManageBidSeasonsData}
               valueKey="id"
               labelKey="description"
               onChange={setSelectedBidSeasons}
