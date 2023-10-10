@@ -104,12 +104,12 @@ export function bidSeasonsEditSuccess(bool) {
   };
 }
 
-export function bidSeasonsEdit(seasonInfo) {
+export function bidSeasonsEdit(data) {
   return (dispatch) => {
     dispatch(bidSeasonsEditSuccess(false));
     api()
       .post('fsbid/manage_bid_seasons/', {
-        data: seasonInfo,
+        data,
       })
       .then(() => {
         batch(() => {

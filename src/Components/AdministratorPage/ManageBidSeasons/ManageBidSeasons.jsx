@@ -68,7 +68,7 @@ const ManageBidSeasons = () => {
   }, [
     selectedBidSeasons,
     selectedDates,
-    ManageBidSeasonsDataLoading,
+    ManageBidSeasonsData,
   ]);
 
   const resetFilters = () => {
