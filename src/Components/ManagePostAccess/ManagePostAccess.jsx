@@ -42,6 +42,9 @@ const ManagePostAccess = () => {
   const roleOptions = managePostFilters?.roleFilters || [];
   const organizationOptions = managePostFilters?.orgFilters || [];
 
+  console.log(positionOptions);
+  console.log(peopleOptions);
+  console.log(organizationOptions);
 
   const filters = [
     selectedPositions,
@@ -95,6 +98,8 @@ const ManagePostAccess = () => {
       roles: [...selectedRoles],
     }));
   };
+
+  console.log(selectedOrgs);
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -227,7 +232,7 @@ const ManagePostAccess = () => {
                     selectedOrgs.filter(y => y.code !== x.code))}
                   className="mpa-remove-item"
                 />
-                {x.description}
+                {`${x.description} (${x.code})`}
               </div>
             </div>
           ))}
