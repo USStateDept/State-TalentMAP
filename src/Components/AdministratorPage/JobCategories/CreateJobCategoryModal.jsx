@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import swal from '@sweetalert/with-react';
 import CheckBox from 'Components/CheckBox';
-import { jobCategoriesAdminFetchData, jobCategoriesSaveNewCategory } from 'actions/jobCategories';
+import { jobCategoriesAdminFetchData, jobCategoriesSaveNewCatIsLoading,
+  jobCategoriesSaveNewCatSuccess, jobCategoriesSaveNewCategory } from 'actions/jobCategories';
 
 const CreateJobCategoryModal = (props) => {
   const { dispatch, refSkills, setSelectedJobCategory, setIsEditMode } = props;
@@ -18,11 +19,12 @@ const CreateJobCategoryModal = (props) => {
 
   const submitNewCategory = (() => {
     dispatch(jobCategoriesSaveNewCategory(getSaveNewCatQuery()));
-    // TODO: add on success check
-    dispatch(jobCategoriesAdminFetchData());
-    setSelectedJobCategory('');
-    setIsEditMode(false);
-    swal.close();
+    if (jobCategoriesSaveNewCatSuccess && !jobCategoriesSaveNewCatIsLoading) {
+      dispatch(jobCategoriesAdminFetchData());
+      setSelectedJobCategory('');
+      setIsEditMode(false);
+      swal.close();
+    }
   });
 
   const handleSelectAll = () => {
@@ -122,6 +124,7 @@ CreateJobCategoryModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   refSkills: PropTypes.arrayOf(PropTypes.string),
   setSelectedJobCategory: PropTypes.func.isRequired,
+  setIsEditMode: PropTypes.func.isRequired,
 };
 
 CreateJobCategoryModal.defaultProps = {

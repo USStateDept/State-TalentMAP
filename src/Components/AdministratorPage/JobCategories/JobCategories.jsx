@@ -4,7 +4,8 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns-v2';
 import { jobCategoriesAdminFetchData, jobCategoriesDeleteCategory,
-  jobCategoriesEditCategory, jobCategoriesFetchSkills } from 'actions/jobCategories';
+  jobCategoriesEditCatIsLoading, jobCategoriesEditCategory,
+  jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
 import Spinner from '../../Spinner';
@@ -272,7 +273,7 @@ const JobCategories = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobCategorySkillsIsLoading ?
+                  {jobCategorySkillsIsLoading && jobCategoriesEditCatIsLoading ?
                     <div>
                       <Spinner type="job-categories-results" size="small" />
                     </div> :

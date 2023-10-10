@@ -1,4 +1,5 @@
 
+// Not in use currently
 export function jobCategoriesAdminFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_ADMIN_HAS_ERRORED':
@@ -23,7 +24,7 @@ export function jobCategoriesAdminFetchData(state = [], action) {
       return state;
   }
 }
-
+// Not in use currently
 export function jobCategoriesFetchSkillsHasErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SKILLS_HAS_ERRORED':
@@ -32,6 +33,7 @@ export function jobCategoriesFetchSkillsHasErrored(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesFetchSkillsIsLoading(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SKILLS_IS_LOADING':
@@ -48,7 +50,7 @@ export function jobCategoriesFetchSkills(state = [], action) {
       return state;
   }
 }
-
+// Not in use currently
 export function jobCategoriesSaveNewCatHasErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SAVE_NEW_CAT_HAS_ERRORED':
@@ -82,6 +84,7 @@ export function jobCategoriesDeleteCatHasErrored(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesDeleteCatIsLoading(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_DELETE_CAT_IS_LOADING':
