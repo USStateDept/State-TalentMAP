@@ -32,10 +32,10 @@ const ManagePostAccess = () => {
     (personSelected || positionSelected) && selectedOrgs.length > 0 && selectedRoles.length > 0;
 
   // Filter Options
-  const personSeqNums = new Set(managePostFilters?.personFilters?.map(x => x.code) || [])
+  const personSeqNums = new Set(managePostFilters?.personFilters?.map(x => x.code) || []);
   const uniquePersons = personSeqNums.length
     ? personSeqNums.map(ids => managePostFilters?.personFilters?.find(y => y.code === ids))
-    : []
+    : [];
   const peopleOptionsHRO = uniquePersons?.filter(
     person => person.skillCode === '2010' || person.skillCode === '2201') || [];
   const positionOptionsHRO = managePostFilters?.positionFilters?.filter(
@@ -231,7 +231,7 @@ const ManagePostAccess = () => {
                     selectedOrgs.filter(y => y.code !== x.code))}
                   className="mpa-remove-item"
                 />
-                {`${x.description} (${x.code})`}
+                {x.description} ({x.code})
               </div>
             </div>
           ))}
