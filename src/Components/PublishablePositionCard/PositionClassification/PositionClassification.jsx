@@ -22,8 +22,6 @@ const PositionClassification = (props) => {
   const [classifications, setClassifications] = useState([]);
   const [selections, setSelections] = useState([]);
 
-  console.log(selections);
-
   useEffect(() => {
     setClassifications(pc);
     setSelections(cs);
