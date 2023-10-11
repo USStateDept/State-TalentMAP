@@ -227,7 +227,7 @@ const ManagePostAccess = () => {
                     selectedOrgs.filter(y => y.code !== x.code))}
                   className="mpa-remove-item"
                 />
-                {x.description}
+                {`${x.description} (${x.code})`}
               </div>
             </div>
           ))}
