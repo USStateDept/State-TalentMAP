@@ -207,7 +207,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      checkFlag('flags.bid_seasons') ?
+      checkFlag('flags.bid_season_management') ?
         {
           text: 'Bid Season Management',
           route: '/profile/administrator/managebidseasons/',

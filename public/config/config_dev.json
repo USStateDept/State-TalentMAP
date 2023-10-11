@@ -12,7 +12,7 @@
     "assignment_memo": true,
     "assignment_notification": true,
     "bid_audit": true,
-    "bid_seasons": true,
+    "bid_season_management": true,
     "bidding_tool": true,
     "breadcrumbs": true,
     "bureau_exception": true,
