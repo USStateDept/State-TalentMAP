@@ -13,29 +13,29 @@ const EditBidSeasons = (props) => {
   const {
     id,
     description,
-    bid_seasons_begin_date,
-    bid_seasons_end_date,
-    bid_seasons_panel_cutoff,
-    bid_seasons_future_vacancy,
-    bid_seasons_create_id,
-    bid_seasons_create_date,
-    bid_seasons_update_id,
-    bid_seasons_update_date,
-    bid_seasons_snt_seq_num,
+    bidSeasonsBeginDate,
+    bidSeasonsEndDate,
+    bidSeasonsPanelCutoff,
+    bidSeasonsFutureVacancy,
+    bidSeasonsCreateId,
+    bidSeasonsCreateDate,
+    bidSeasonsUpdateId,
+    bidSeasonsUpdateDate,
+    bidSeasonsSntSeqNum,
     submitAction,
   } = props;
 
-  const startDateGetDate = bid_seasons_begin_date ? new Date(bid_seasons_begin_date) : null;
-  const endDateGetDate = bid_seasons_end_date ? new Date(bid_seasons_end_date) : null;
-  const panelCutoffDateGetDate = bid_seasons_panel_cutoff
-    ? new Date(bid_seasons_panel_cutoff) : null;
+  const startDateGetDate = bidSeasonsBeginDate ? new Date(bidSeasonsBeginDate) : null;
+  const endDateGetDate = bidSeasonsEndDate ? new Date(bidSeasonsEndDate) : null;
+  const panelCutoffDateGetDate = bidSeasonsPanelCutoff
+    ? new Date(bidSeasonsPanelCutoff) : null;
 
   const [name, setName] = useState(description);
   const [startDate, setStartDate] = useState(startDateGetDate);
   const [endDate, setEndDate] = useState(endDateGetDate);
   const [panelCutoffDate, setPanelCutoffDate] = useState(panelCutoffDateGetDate);
-  const [futureVacancy, setFutureVacancy] = useState(bid_seasons_future_vacancy);
-  const [season, setSeason] = useState(bid_seasons_snt_seq_num);
+  const [futureVacancy, setFutureVacancy] = useState(bidSeasonsFutureVacancy);
+  const [season, setSeason] = useState(bidSeasonsSntSeqNum);
 
   const submit = (e) => {
     e.preventDefault();
@@ -47,10 +47,10 @@ const EditBidSeasons = (props) => {
       endDate,
       panelCutoffDate,
       futureVacancy,
-      bid_seasons_create_id,
-      bid_seasons_create_date,
-      bid_seasons_update_id,
-      bid_seasons_update_date,
+      bidSeasonsCreateId,
+      bidSeasonsCreateDate,
+      bidSeasonsUpdateId,
+      bidSeasonsUpdateDate,
       season,
     });
   };
@@ -158,29 +158,29 @@ EditBidSeasons.propTypes = {
   submitAction: PropTypes.func.isRequired,
   id: PropTypes.number,
   description: PropTypes.string,
-  bid_seasons_begin_date: PropTypes.string,
-  bid_seasons_end_date: PropTypes.string,
-  bid_seasons_panel_cutoff: PropTypes.string,
-  bid_seasons_future_vacancy: PropTypes.string,
-  bid_seasons_create_id: PropTypes.number,
-  bid_seasons_create_date: PropTypes.string,
-  bid_seasons_update_id: PropTypes.number,
-  bid_seasons_update_date: PropTypes.string,
-  bid_seasons_snt_seq_num: PropTypes.string,
+  bidSeasonsBeginDate: PropTypes.string,
+  bidSeasonsEndDate: PropTypes.string,
+  bidSeasonsPanelCutoff: PropTypes.string,
+  bidSeasonsFutureVacancy: PropTypes.string,
+  bidSeasonsCreateId: PropTypes.number,
+  bidSeasonsCreateDate: PropTypes.string,
+  bidSeasonsUpdateId: PropTypes.number,
+  bidSeasonsUpdateDate: PropTypes.string,
+  bidSeasonsSntSeqNum: PropTypes.string,
 };
 
 EditBidSeasons.defaultProps = {
   id: null,
   description: null,
-  bid_seasons_begin_date: null,
-  bid_seasons_end_date: null,
-  bid_seasons_panel_cutoff: null,
-  bid_seasons_future_vacancy: 'N',
-  bid_seasons_snt_seq_num: '1',
-  bid_seasons_create_id: '',
-  bid_seasons_create_date: '',
-  bid_seasons_update_id: '',
-  bid_seasons_update_date: '',
+  bidSeasonsBeginDate: null,
+  bidSeasonsEndDate: null,
+  bidSeasonsPanelCutoff: null,
+  bidSeasonsFutureVacancy: 'N',
+  bidSeasonsSntSeqNum: '1',
+  bidSeasonsCreateId: '',
+  bidSeasonsCreateDate: '',
+  bidSeasonsUpdateId: '',
+  bidSeasonsUpdateDate: '',
 };
 
 export default EditBidSeasons;

@@ -36,8 +36,8 @@ const ManageBidSeasons = () => {
     const endDateRange = dateRange[1].getTime();
 
     const filteredSeasons = seasons.filter(season => {
-      const startDate = new Date(season.bid_seasons_begin_date).getTime();
-      const endDate = new Date(season.bid_seasons_end_date).getTime();
+      const startDate = new Date(season.bidSeasonsBeginDate).getTime();
+      const endDate = new Date(season.bidSeasonsEndDate).getTime();
       return ((startDate >= startDateRange) && (startDate <= endDateRange))
         || ((endDate >= startDateRange) && (endDate <= endDateRange));
     });

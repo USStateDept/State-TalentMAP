@@ -38,16 +38,16 @@ const ManageBidSeasonsCard = (props) => {
           </Column>
           <Column columns={12} className="bs-card--middle-cols">
             <Column>
-              Start Date: {props?.bid_seasons_begin_date ? formatDate(props?.bid_seasons_begin_date) : ''}
+              Start Date: {props?.bidSeasonsBeginDate ? formatDate(props?.bidSeasonsBeginDate) : ''}
             </Column>
             <Column>
-              End Date: {props?.bid_seasons_end_date ? formatDate(props?.bid_seasons_end_date) : ''}
+              End Date: {props?.bidSeasonsEndDate ? formatDate(props?.bidSeasonsEndDate) : ''}
             </Column>
             <Column>
-              Panel Cutoff: {props?.bid_seasons_panel_cutoff ? formatDate(props?.bid_seasons_panel_cutoff) : ''}
+              Panel Cutoff: {props?.bidSeasonsPanelCutoff ? formatDate(props?.bidSeasonsPanelCutoff) : ''}
             </Column>
             <Column>
-              Future Vacancy: {props?.bid_seasons_future_vacancy}
+              Future Vacancy: {props?.bidSeasonsFutureVacancy}
             </Column>
           </Column>
           <Column columns={3} className="bs-card--link-col">
@@ -71,10 +71,10 @@ const ManageBidSeasonsCard = (props) => {
 ManageBidSeasonsCard.propTypes = {
   id: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
-  bid_seasons_begin_date: PropTypes.string.isRequired,
-  bid_seasons_end_date: PropTypes.string.isRequired,
-  bid_seasons_panel_cutoff: PropTypes.string.isRequired,
-  bid_seasons_future_vacancy: PropTypes.string.isRequired,
+  bidSeasonsBeginDate: PropTypes.string.isRequired,
+  bidSeasonsEndDate: PropTypes.string.isRequired,
+  bidSeasonsPanelCutoff: PropTypes.string.isRequired,
+  bidSeasonsFutureVacancy: PropTypes.string.isRequired,
 };
 
 export default ManageBidSeasonsCard;
