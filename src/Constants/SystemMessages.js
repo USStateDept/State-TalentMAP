@@ -278,12 +278,18 @@ export const DELETE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully de
 export const DELETE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
 export const DELETE_BID_AUDIT_ERROR = 'There was an issue attempting to delete this Bid Audit. Please try again.';
 
-export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edit Successfully Saved';
-export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'There was an issue attempting to save your edits to this Job Category. Please try again.';
+export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edits Successfully Saved';
+export const JOB_CATEGORIES_EDIT_SUCCESS = 'Your edits to the selected Job Category have been saved';
+export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'Job Category Edit Error';
+export const JOB_CATEGORIES_EDIT_ERROR = 'There was an issue attempting to save your edits to this Job Category. Please try again.';
 export const JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE = 'New Job Category Successfully Saved';
 export const JOB_CATEGORIES_SAVE_NEW_SUCCESS = 'New Job Category has been added';
-export const JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE = 'New Job Category Error';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE = 'Create New Job Category Error';
 export const JOB_CATEGORIES_SAVE_NEW_ERROR = 'There was an issue attempting to save your new Job Category. Please try again.';
+export const JOB_CATEGORIES_DELETE_SUCCESS_TITLE = 'Delete Job Category Success';
+export const JOB_CATEGORIES_DELETE_SUCCESS = 'The Job Category has been deleted';
+export const JOB_CATEGORIES_DELETE_ERROR_TITLE = 'Delete Job Category Error';
+export const JOB_CATEGORIES_DELETE_ERROR = 'There was an issue attempting to delete the selected Job Category. Please try again.';
 
 export const EDIT_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Updated';
 export const EDIT_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been updated';
