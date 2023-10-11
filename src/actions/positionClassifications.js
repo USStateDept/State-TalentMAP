@@ -78,15 +78,14 @@ export function positionClassificationsEdit(data) {
       dispatch(positionClassificationsEditErrored(false));
     });
 
-    api().post('/fsbid/position_classifications/edit/', data)
+    api().put('/fsbid/position_classifications/edit/', data)
       .then(() => {
         const toastTitle = UPDATE_POSITION_CLASSIFICATION_SUCCESS_TITLE;
         const toastMessage = UPDATE_POSITION_CLASSIFICATION_SUCCESS;
         batch(() => {
           dispatch(positionClassificationsEditErrored(false));
-          dispatch(positionClassificationsEditSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(positionClassificationsEditSuccess());
+          dispatch(positionClassificationsEditSuccess(true));
           dispatch(positionClassificationsEditLoading(false));
         });
       })
