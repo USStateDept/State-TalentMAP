@@ -273,7 +273,7 @@ const JobCategories = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobCategorySkillsIsLoading && jobCategoriesEditCatIsLoading ?
+                  {jobCategorySkillsIsLoading || jobCategoriesEditCatIsLoading ?
                     <div>
                       <Spinner type="job-categories-results" size="small" />
                     </div> :
