@@ -23,7 +23,7 @@ describe('reducers', () => {
     expect(
       reducers.positionClassifications(
         { id: 2 },
-        { type: 'POSITION_CLASSIFICATIONS_FETCH_DATA_SUCCESS', classifications: { id: 1 } }
+        { type: 'POSITION_CLASSIFICATIONS_FETCH_DATA_SUCCESS', results: { id: 1 } }
       ).id
     ).toBe(1);
   });
