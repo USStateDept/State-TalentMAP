@@ -146,14 +146,10 @@ const PublishablePositions = ({ viewType }) => {
     dispatch(savePublishablePositionsSelections({}));
   };
 
+  // eslint-disable-next-line no-unused-vars
   const callAdditionalData = (e) => {
-    // if e is true and we havent called the additional data before
-    /* eslint-disable no-console */
-    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-    console.log('👾 current: in callAdditionalData:', e);
-    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-    // call additional data and either add to existing state data
-    // or return individually TBD
+    // if e is true, check for cached ref data,
+    // and make additional data calls
   };
 
   const getOverlay = () => {
