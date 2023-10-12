@@ -12,7 +12,7 @@ import { Definition } from '../DefinitionList';
 
 const PositionExpandableContent = ({
   sections, form, appendAdditionalFieldsToBodyPrimary, tempHideEdit,
-  showLoadingSpinner, onShowMore }) => {
+  showLoadingAnimation, onShowMore }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -86,7 +86,7 @@ const PositionExpandableContent = ({
   return (
     <div className="position-content">
       {
-        showLoadingSpinner ?
+        showLoadingAnimation ?
           <div className="loading-animation--10">
             <div className="loading-message pbl-20">
             Pulling additional card data
@@ -212,7 +212,7 @@ PositionExpandableContent.propTypes = {
     }),
   }),
   appendAdditionalFieldsToBodyPrimary: PropTypes.bool,
-  showLoadingSpinner: PropTypes.bool,
+  showLoadingAnimation: PropTypes.bool,
   tempHideEdit: PropTypes.bool,
   onShowMore: PropTypes.func,
 };
@@ -221,7 +221,7 @@ PositionExpandableContent.defaultProps = {
   form: undefined,
   sections: undefined,
   appendAdditionalFieldsToBodyPrimary: true,
-  showLoadingSpinner: false,
+  showLoadingAnimation: false,
   tempHideEdit: false,
   onShowMore: EMPTY_FUNCTION,
 };

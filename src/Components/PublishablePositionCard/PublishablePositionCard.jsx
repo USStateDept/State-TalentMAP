@@ -358,7 +358,7 @@ const PublishablePositionCard = ({
           sections={sections}
           form={form}
           appendAdditionalFieldsToBodyPrimary={false}
-          showLoadingSpinner={additionalCallsLoading}
+          showLoadingAnimation={additionalCallsLoading}
           onShowMore={(e) => onShowMorePP(e)}
         />,
       }, PP_FLAG ?
