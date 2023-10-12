@@ -4,8 +4,7 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns-v2';
 import { jobCategoriesAdminFetchData, jobCategoriesDeleteCategory,
-  jobCategoriesEditCatIsLoading, jobCategoriesEditCategory,
-  jobCategoriesFetchSkills } from 'actions/jobCategories';
+  jobCategoriesEditCategory, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
 import Spinner from '../../Spinner';
@@ -97,16 +96,16 @@ const JobCategories = () => {
     setSelectAll(false);
     if (selectedJobCategory !== '') {
       dispatch(jobCategoriesFetchSkills(getQuery()));
-    }
-    if (jobCategorySkillsResults) {
-      const returnArray = [];
-      jobCategorySkillsResults.forEach(skill => {
-        if (skill.display_skill === '1') {
-          returnArray.push(skill.code);
-        }
-      });
-      setSelectedSkillIds(returnArray);
-      setLoadedSkillIds(returnArray);
+      if (jobCategorySkillsResults) {
+        const returnArray = [];
+        jobCategorySkillsResults.forEach(skill => {
+          if (skill.display_skill === '1') {
+            returnArray.push(skill.code);
+          }
+        });
+        setSelectedSkillIds(returnArray);
+        setLoadedSkillIds(returnArray);
+      }
     }
   }, [selectedJobCategory]);
 
@@ -273,7 +272,7 @@ const JobCategories = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobCategorySkillsIsLoading || jobCategoriesEditCatIsLoading ?
+                  {jobCategorySkillsIsLoading ?
                     <div>
                       <Spinner type="job-categories-results" size="small" />
                     </div> :

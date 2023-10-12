@@ -110,6 +110,7 @@ export function jobCategoriesEditCatHasErrored(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesEditCatIsLoading(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_EDIT_CAT_IS_LOADING':
