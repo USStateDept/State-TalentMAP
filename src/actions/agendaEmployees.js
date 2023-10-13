@@ -4,7 +4,7 @@ import { CancelToken } from 'axios';
 import { convertQueryToString, downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
 import Q from 'q';
 import shortid from 'shortid';
-import { toastInfo, toastSuccess } from './toast';
+import { toastError, toastInfo, toastSuccess } from './toast';
 import api from '../api';
 import { store } from '../store';
 
@@ -65,6 +65,9 @@ export function employeeAgendaSearchExport(query = {}) {
     .then((response) => {
       downloadFromResponse(response, `agenda_employees_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
       store.dispatch(toastSuccess('Employee Agenda Search Exported', 'Success', id, true));
+    }).catch(() => {
+      const text = 'Sorry, an error has occurred while processing your Employee Agenda Search export. Please try again.';
+      store.dispatch(toastError(text, 'Employee Agenda Search Exported Error', id, true));
     });
 }
 

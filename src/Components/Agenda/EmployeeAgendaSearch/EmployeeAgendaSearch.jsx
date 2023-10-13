@@ -494,6 +494,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 </div>
                 <div className="export-button-container">
                   <ExportButton
+                    text="Export - max 500"
                     onClick={exportAgendaEmployees}
                     isLoading={exportIsLoading}
                     disabled={exportDisabled}
