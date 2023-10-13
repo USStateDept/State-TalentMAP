@@ -63,13 +63,42 @@
           height: 28px;
           max-width: none;
           width: 240px;
+          padding: 0 35px 0 10px;
         }
         .searchbar {
           .text-input-wrapper {
-            > span {
+            // option 1
+/*            span {
+              background-color: $primary-blue;
+              color: $color-white;
               font-size: 15px;
-              left: 210px;
-              top: 5px;
+              left: 204px;
+              top: 1px;
+              padding: 5px 0 0 10px;
+              height: 25px;
+              width: 35px;
+            }
+            span:hover {
+              color: $primary-blue;
+              background-color: $color-white;
+              border: 3px solid $primary-blue;
+              padding: 3px 0 0 8px;
+            }*/
+            // option 2
+            span {
+              background-color: $color-white;
+              border: 3px solid $primary-blue;
+              color: $primary-blue;
+              font-size: 15px;
+              left: 204px;
+              top: 1px;
+              padding: 3px 0 0 8px;
+              height: 25px;
+              width: 35px;
+            }
+            span:hover {
+              color: $color-white;
+              background-color: $primary-blue;
             }
           }
         }
