@@ -67,7 +67,7 @@ export function employeeAgendaSearchExport(query = {}) {
       store.dispatch(toastSuccess('Employee Agenda Search Exported', 'Success', id, true));
     }).catch(() => {
       const text = 'Sorry, an error has occurred while processing your Employee Agenda Search export. Please try again.';
-      store.dispatch(toastError(text, 'Employee Agenda Search Exported Error', id, true));
+      store.dispatch(toastError(text, 'Employee Agenda Search Export Error', id, true));
     });
 }
 
