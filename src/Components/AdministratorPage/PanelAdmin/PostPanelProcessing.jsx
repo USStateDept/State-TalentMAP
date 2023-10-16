@@ -153,7 +153,7 @@ const PostPanelProcessing = (props) => {
     (!beforeAgendaCompletedTime);
 
   const disableRunPostPanel =
-    (!postPanelRunTime$ || !beforeAgendaCompletedTime);
+    (postPanelRunTime$ || !beforeAgendaCompletedTime);
 
   const disableAgendaCompletedTime = !isSuperUser &&
     (!postPanelRunTime$ || !beforeAgendaCompletedTime);
