@@ -24,7 +24,6 @@ const JobCategories = () => {
     state => state.jobCategoriesAdminFetchDataIsLoading);
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   const jobCategorySkillsIsLoading = useSelector(state => state.jobCategoriesFetchSkillsIsLoading);
-  const jobCategoriesSaveNewCatSuccess = useSelector(state => state.jobCategoriesSaveNewCatSuccess);
   // const jobCategoriesEditCatSuccess = useSelector(state => state.jobCategoriesEditCatSuccess);
   // eslint-disable-next-line max-len
   // const jobCategoriesEditCatHasErrored = useSelector(state => state.jobCategoriesEditCatHasErrored);
@@ -139,7 +138,7 @@ const JobCategories = () => {
     clearSkillArrays();
     setSelectedJobCategory('');
     setIsEditMode(false);
-    if (jobCategoriesSaveNewCatSuccess) {
+    if (swal.getState().isOpen) {
       swal.close();
     }
     console.log('===jobCategories useEffect===');

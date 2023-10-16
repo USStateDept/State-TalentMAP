@@ -145,7 +145,6 @@ export function jobCategoriesSaveNewCategory(data = {}) {
     api().post(endpoint, data)
       .then(() => {
         batch(() => {
-          dispatch(jobCategoriesSaveNewCatSuccess());
           dispatch(
             toastSuccess(
               JOB_CATEGORIES_SAVE_NEW_SUCCESS, JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE,
@@ -154,6 +153,8 @@ export function jobCategoriesSaveNewCategory(data = {}) {
         });
       })
       .catch((err) => {
+        console.log('===ERROR===');
+        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
             dispatch(toastError(
@@ -199,7 +200,6 @@ export function jobCategoriesDeleteCategory(data = {}) {
     api().post(endpoint, data)
       .then(() => {
         batch(() => {
-          dispatch(jobCategoriesDeleteCatSuccess());
           dispatch(
             toastSuccess(
               JOB_CATEGORIES_DELETE_SUCCESS, JOB_CATEGORIES_DELETE_SUCCESS_TITLE,
