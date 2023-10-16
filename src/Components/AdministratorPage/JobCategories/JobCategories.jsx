@@ -24,11 +24,13 @@ const JobCategories = () => {
     state => state.jobCategoriesAdminFetchDataIsLoading);
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   const jobCategorySkillsIsLoading = useSelector(state => state.jobCategoriesFetchSkillsIsLoading);
-  const jobCategoriesEditCatSuccess = useSelector(state => state.jobCategoriesEditCatSuccess);
-  const jobCategoriesEditCatHasErrored = useSelector(state => state.jobCategoriesEditCatHasErrored);
-  const jobCategoriesDeleteCatSuccess = useSelector(state => state.jobCategoriesDeleteCatSuccess);
-  const jobCategoriesDeleteCatHasErrored = useSelector(
-    state => state.jobCategoriesDeleteCatHasErrored);
+  // const jobCategoriesEditCatSuccess = useSelector(state => state.jobCategoriesEditCatSuccess);
+  // eslint-disable-next-line max-len
+  // const jobCategoriesEditCatHasErrored = useSelector(state => state.jobCategoriesEditCatHasErrored);
+  // eslint-disable-next-line max-len
+  // const jobCategoriesDeleteCatSuccess = useSelector(state => state.jobCategoriesDeleteCatSuccess);
+  // const jobCategoriesDeleteCatHasErrored = useSelector(
+  // state => state.jobCategoriesDeleteCatHasErrored);
 
   const jobCategoriesResults = jobCategories?.data;
   // jobCategorySkills return data has 2 items
@@ -82,6 +84,31 @@ const JobCategories = () => {
     return inputs;
   };
 
+  const loadSkills = (() => {
+    if (jobCategorySkillsResults) {
+      const returnArray = [];
+      jobCategorySkillsResults.forEach(skill => {
+        if (skill.display_skill === '1') {
+          returnArray.push(skill.code);
+        }
+      });
+      setSelectedSkillIds([...returnArray]);
+      setLoadedSkillIds([...returnArray]);
+    }
+  });
+
+  const clearSkillArrays = (() => {
+    setSelectedSkillIds([]);
+    setLoadedSkillIds([]);
+    setSelectAll(false);
+  });
+
+  const clearInputs = (() => {
+    setSelectedSkillIds([...loadedSkillIds]);
+    setSelectAll(false);
+    setIsEditMode(false);
+  });
+
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
     // The EP is not able to return a list of all skills; they can only be loaded
@@ -91,23 +118,31 @@ const JobCategories = () => {
   }, []);
 
   useEffect(() => {
-    setSelectedSkillIds([]);
-    setLoadedSkillIds([]);
-    setSelectAll(false);
     if (selectedJobCategory !== '') {
       dispatch(jobCategoriesFetchSkills(getQuery()));
-      if (jobCategorySkillsResults) {
-        const returnArray = [];
-        jobCategorySkillsResults.forEach(skill => {
-          if (skill.display_skill === '1') {
-            returnArray.push(skill.code);
-          }
-        });
-        setSelectedSkillIds([...returnArray]);
-        setLoadedSkillIds([...returnArray]);
-      }
+    } else {
+      clearSkillArrays();
     }
   }, [selectedJobCategory]);
+
+  useEffect(() => {
+    clearSkillArrays();
+    loadSkills();
+    console.log('===jobCategorySkills useEffect===');
+    console.log('selectedSkillIds: ', selectedSkillIds);
+    console.log('loadedSkillIds: ', loadedSkillIds);
+    console.log('jobCategorySkills: ', jobCategorySkills);
+  }, [jobCategorySkills]);
+
+  useEffect(() => {
+    clearSkillArrays();
+    setSelectedJobCategory('');
+    setIsEditMode(false);
+    console.log('===jobCategories useEffect===');
+    console.log('selectedSkillIds: ', selectedSkillIds);
+    console.log('loadedSkillIds: ', loadedSkillIds);
+    console.log('jobCategories: ', jobCategories);
+  }, [jobCategories]);
 
   const handleSelectAll = () => {
     if (!selectAll) {
@@ -130,30 +165,18 @@ const JobCategories = () => {
     }
   });
 
-  const clearInputs = (() => {
-    setSelectedSkillIds([...loadedSkillIds]);
-    setSelectAll(false);
-    setIsEditMode(false);
-  });
-
   const submitEdit = (() => {
     dispatch(jobCategoriesEditCategory(getEditQuery()));
-    if (jobCategoriesEditCatSuccess && !jobCategoriesEditCatHasErrored) {
-      clearInputs();
-      setIsEditMode(false);
-      dispatch(jobCategoriesFetchSkills({ category_id: selectedJobCategory }));
-    }
+    // if (jobCategoriesEditCatSuccess && !jobCategoriesEditCatHasErrored) {
+    clearInputs();
+    setIsEditMode(false);
+    // dispatch(jobCategoriesFetchSkills({ category_id: selectedJobCategory }));
+    // }
   });
 
   const submitDelete = () => {
     dispatch(jobCategoriesDeleteCategory(getDeleteQuery()));
     swal.close();
-    if (jobCategoriesDeleteCatSuccess && !jobCategoriesDeleteCatHasErrored) {
-      clearInputs();
-      setSelectedJobCategory('');
-      setIsEditMode(false);
-      dispatch(jobCategoriesFetchSkills({ category_id: '1' }));
-    }
   };
 
   const newJobCategoryModal = () => {

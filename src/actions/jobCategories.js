@@ -108,6 +108,7 @@ export function jobCategoriesFetchSkills(query = {}) {
           });
         } else {
           batch(() => {
+            dispatch(jobCategoriesFetchSkillsSuccess([]));
             dispatch(jobCategoriesFetchSkillsHasErrored(true));
             dispatch(jobCategoriesFetchSkillsIsLoading(false));
           });
@@ -149,26 +150,21 @@ export function jobCategoriesSaveNewCategory(data = {}) {
             toastSuccess(
               JOB_CATEGORIES_SAVE_NEW_SUCCESS, JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE,
             ));
-          dispatch(jobCategoriesSaveNewCatHasErrored(false));
-          dispatch(jobCategoriesSaveNewCatIsLoading(false));
+          dispatch(jobCategoriesAdminFetchData());
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(jobCategoriesSaveNewCatHasErrored(true));
             dispatch(toastError(
               JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
             ));
-            dispatch(jobCategoriesSaveNewCatIsLoading(false));
           });
         } else {
           batch(() => {
-            dispatch(jobCategoriesSaveNewCatHasErrored(true));
             dispatch(toastError(
               JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
             ));
-            dispatch(jobCategoriesSaveNewCatIsLoading(false));
           });
         }
       });
@@ -208,8 +204,7 @@ export function jobCategoriesDeleteCategory(data = {}) {
             toastSuccess(
               JOB_CATEGORIES_DELETE_SUCCESS, JOB_CATEGORIES_DELETE_SUCCESS_TITLE,
             ));
-          dispatch(jobCategoriesDeleteCatHasErrored(false));
-          dispatch(jobCategoriesDeleteCatIsLoading(false));
+          dispatch(jobCategoriesAdminFetchData());
         });
       })
       .catch((err) => {
@@ -268,6 +263,7 @@ export function jobCategoriesEditCategory(data = {}) {
             toastSuccess(
               JOB_CATEGORIES_EDIT_SUCCESS, JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
             ));
+          dispatch(jobCategoriesFetchSkills({ category_id: data.category_id }));
           dispatch(jobCategoriesEditCatHasErrored(false));
           dispatch(jobCategoriesEditCatIsLoading(false));
         });
