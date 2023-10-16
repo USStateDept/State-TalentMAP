@@ -138,6 +138,7 @@ const JobCategories = () => {
     clearSkillArrays();
     setSelectedJobCategory('');
     setIsEditMode(false);
+    swal.close();
     console.log('===jobCategories useEffect===');
     console.log('selectedSkillIds: ', selectedSkillIds);
     console.log('loadedSkillIds: ', loadedSkillIds);
@@ -168,8 +169,8 @@ const JobCategories = () => {
   const submitEdit = (() => {
     dispatch(jobCategoriesEditCategory(getEditQuery()));
     // if (jobCategoriesEditCatSuccess && !jobCategoriesEditCatHasErrored) {
-    clearInputs();
-    setIsEditMode(false);
+    // clearInputs();
+    // setIsEditMode(false);
     // dispatch(jobCategoriesFetchSkills({ category_id: selectedJobCategory }));
     // }
   });
@@ -189,8 +190,6 @@ const JobCategories = () => {
         <CreateJobCategoryModal
           refSkills={skillList}
           dispatch={dispatch}
-          setSelectedJobCategory={setSelectedJobCategory}
-          setIsEditMode={setIsEditMode}
         />
       ),
     });
