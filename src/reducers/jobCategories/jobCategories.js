@@ -33,7 +33,6 @@ export function jobCategoriesFetchSkillsHasErrored(state = false, action) {
       return state;
   }
 }
-// Not in use currently
 export function jobCategoriesFetchSkillsIsLoading(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SKILLS_IS_LOADING':

@@ -103,8 +103,8 @@ const JobCategories = () => {
             returnArray.push(skill.code);
           }
         });
-        setSelectedSkillIds(returnArray);
-        setLoadedSkillIds(returnArray);
+        setSelectedSkillIds([...returnArray]);
+        setLoadedSkillIds([...returnArray]);
       }
     }
   }, [selectedJobCategory]);
@@ -124,14 +124,14 @@ const JobCategories = () => {
   const handleSelectSkill = (skill => {
     if (selectedSkillIds.includes(skill.code)) {
       const filteredSkills = selectedSkillIds.filter(x => x !== skill.code);
-      setSelectedSkillIds(filteredSkills);
+      setSelectedSkillIds([...filteredSkills]);
     } else {
       setSelectedSkillIds([...selectedSkillIds, skill.code]);
     }
   });
 
   const clearInputs = (() => {
-    setSelectedSkillIds(loadedSkillIds);
+    setSelectedSkillIds([...loadedSkillIds]);
     setSelectAll(false);
     setIsEditMode(false);
   });
