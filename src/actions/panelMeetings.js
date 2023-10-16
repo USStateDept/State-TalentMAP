@@ -7,6 +7,8 @@ import api from '../api';
 
 let cancelPanelMeetings;
 
+// ======================== Panel Meeting List ========================
+
 export function panelMeetingsFetchDataErrored(bool) {
   return {
     type: 'PANEL_MEETINGS_FETCH_HAS_ERRORED',
@@ -67,6 +69,8 @@ export function panelMeetingsFetchData(query = {}) {
 }
 
 
+// ======================== Panel Meeting Filters ========================
+
 export function panelMeetingsFiltersFetchDataErrored(bool) {
   return {
     type: 'PANEL_MEETINGS_FILTERS_FETCH_HAS_ERRORED',
@@ -110,7 +114,8 @@ export function panelMeetingsFiltersFetchData() {
         const refFilters = { /* panelCategories: [],
           panelDates: [], */
           panelStatuses: [],
-          panelTypes: [] };
+          panelTypes: [],
+        };
 
         let errCount = 0;
 
@@ -149,6 +154,8 @@ export function panelMeetingsFiltersFetchData() {
 }
 
 
+// ======================== Panel Meeting Export ========================
+
 export function panelMeetingsExport(query = {}) {
   const q = convertQueryToString(query);
   const endpoint = '/fsbid/panel/meetings/export/';
@@ -160,6 +167,8 @@ export function panelMeetingsExport(query = {}) {
     });
 }
 
+// ======================== Panel Meeting Selections ========================
+
 export function panelMeetingsSelectionsSaveSuccess(result) {
   return {
     type: 'PANEL_MEETINGS_SELECTIONS_SAVE_SUCCESS',
@@ -169,4 +178,136 @@ export function panelMeetingsSelectionsSaveSuccess(result) {
 
 export function savePanelMeetingsSelections(queryObject) {
   return (dispatch) => dispatch(panelMeetingsSelectionsSaveSuccess(queryObject));
+}
+
+// ======================== Panel Meeting ========================
+
+export function panelMeetingFetchDataErrored(bool) {
+  return {
+    type: 'PANEL_MEETING_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function panelMeetingFetchDataLoading(bool) {
+  return {
+    type: 'PANEL_MEETING_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function panelMeetingFetchDataSuccess(results) {
+  return {
+    type: 'PANEL_MEETING_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function panelMeetingFetchData(id) {
+  return (dispatch) => {
+    if (cancelPanelMeetings) { cancelPanelMeetings('cancel'); }
+    batch(() => {
+      dispatch(panelMeetingsFetchDataLoading(true));
+      dispatch(panelMeetingsFetchDataErrored(false));
+    });
+    const ep = `/fsbid/admin/panel/${id}/`;
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => {
+        cancelPanelMeetings = c;
+      }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(panelMeetingsFetchDataSuccess(data));
+          dispatch(panelMeetingsFetchDataErrored(false));
+          dispatch(panelMeetingsFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(panelMeetingsFetchDataErrored(false));
+            dispatch(panelMeetingsFetchDataLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(panelMeetingsFetchDataErrored(true));
+            dispatch(panelMeetingsFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// ======================== Panel Meeting Actions ========================
+
+export function runOfficialPreliminarySuccess(result) {
+  return {
+    type: 'RUN_OFFICIAL_PRELIMINARY_SUCCESS',
+    result,
+  };
+}
+
+export function runOfficialPreliminaryErrored(result) {
+  return {
+    type: 'RUN_OFFICIAL_PRELIMINARY_ERRORED',
+    result,
+  };
+}
+
+export function runOfficialAddendumSuccess(result) {
+  return {
+    type: 'RUN_OFFICIAL_ADDENDUM_SUCCESS',
+    result,
+  };
+}
+
+export function runOfficialAddendumErrored(result) {
+  return {
+    type: 'RUN_OFFICIAL_ADDENDUM_ERRORED',
+    result,
+  };
+}
+
+export function runPostPanelProcessingSuccess(result) {
+  return {
+    type: 'RUN_POST_PANEL_PROCESSING_SUCCESS',
+    result,
+  };
+}
+
+export function runPostPanelProcessingErrored(result) {
+  return {
+    type: 'RUN_POST_PANEL_PROCESSING_ERRORED',
+    result,
+  };
+}
+
+export function runPanelMeeting(id, type) {
+  let success = runPostPanelProcessingSuccess;
+  let errored = runPostPanelProcessingErrored;
+  if (type === 'preliminary') {
+    success = runOfficialPreliminarySuccess;
+    errored = runOfficialPreliminaryErrored;
+  }
+  if (type === 'addendum') {
+    success = runPostPanelProcessingSuccess;
+    errored = runPostPanelProcessingErrored;
+  }
+  return (dispatch) => {
+    batch(() => {
+      dispatch(errored(false));
+    });
+    const ep = `/fsbid/admin/panel/run/${type}/${id}/`;
+    api().get(ep)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(success(data));
+          dispatch(errored(false));
+        });
+      })
+      .catch(() => {
+        dispatch(errored(true));
+      });
+  };
 }
