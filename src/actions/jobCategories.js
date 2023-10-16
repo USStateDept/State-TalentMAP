@@ -208,12 +208,11 @@ export function jobCategoriesDeleteCategory(data = {}) {
         });
       })
       .catch((err) => {
+        console.log('===ERROR===');
+        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
             dispatch(jobCategoriesDeleteCatHasErrored(true));
-            dispatch(toastError(
-              JOB_CATEGORIES_DELETE_ERROR, JOB_CATEGORIES_DELETE_ERROR_TITLE,
-            ));
             dispatch(jobCategoriesDeleteCatIsLoading(false));
           });
         } else {
