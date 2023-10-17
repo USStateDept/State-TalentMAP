@@ -58,7 +58,7 @@ const PanelMeetingAdmin = (props) => {
     setPanelMeetingStatus(pms_desc_text);
 
     setPrelimCutoff(new Date(prelimCutoff$.pmd_dttm));
-    setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
+    setAddendumCutoff(new Date(addendumCutoff$.pmd_dttm));
 
     if (prelimRunTime$) {
       setPrelimRuntime(new Date(prelimRunTime$.pmd_dttm));
@@ -155,23 +155,32 @@ const PanelMeetingAdmin = (props) => {
   // Super Admins can manually edit any field, otherwise, certain fields
   // are restricted by preconditions determined by prior steps
 
-  const disableMeetingType = !isSuperUser && (!isCreate && !beforeAddendumCutoff);
+  const disableMeetingType = !isSuperUser &&
+    (!isCreate && !beforeAddendumCutoff);
 
-  const disableStatus = !isSuperUser && (isCreate || !beforeAddendumCutoff);
+  const disableStatus = !isSuperUser &&
+    (isCreate || !beforeAddendumCutoff);
 
-  const disablePanelMeetingDate = !isSuperUser && (!isCreate && !beforePanelMeetingDate);
+  const disablePanelMeetingDate = !isSuperUser &&
+    (!isCreate && !beforePanelMeetingDate);
 
-  const disablePrelimCutoff = !isSuperUser && (!isCreate && !beforePrelimCutoff);
+  const disablePrelimCutoff = !isSuperUser &&
+    (!isCreate && !beforePrelimCutoff);
 
-  const disableAddendumCutoff = !isSuperUser && (!isCreate && !beforeAddendumCutoff);
+  const disableAddendumCutoff = !isSuperUser &&
+    (!isCreate && !beforeAddendumCutoff);
 
-  const disableRunPrelim = (isCreate || !beforePrelimCutoff);
+  const disableRunPrelim = !isSuperUser &&
+    (isCreate || beforePrelimCutoff);
 
-  const disableRunAddendum = (isCreate || !beforeAddendumCutoff);
+  const disableRunAddendum = !isSuperUser &&
+    (isCreate || beforeAddendumCutoff);
 
-  const disableClear = !isSuperUser && (!isCreate && !beforeAddendumCutoff);
+  const disableClear = !isSuperUser &&
+    (!isCreate && !beforeAddendumCutoff);
 
-  const disableSave = !isSuperUser && (!isCreate && !beforeAddendumCutoff);
+  const disableSave = !isSuperUser &&
+    (!isCreate && !beforeAddendumCutoff);
 
   return (
     (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
