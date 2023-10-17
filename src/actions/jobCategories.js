@@ -153,8 +153,6 @@ export function jobCategoriesSaveNewCategory(data = {}) {
         });
       })
       .catch((err) => {
-        console.log('===ERROR===');
-        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
             dispatch(toastError(
@@ -208,8 +206,6 @@ export function jobCategoriesDeleteCategory(data = {}) {
         });
       })
       .catch((err) => {
-        console.log('===ERROR===');
-        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
             dispatch(jobCategoriesDeleteCatHasErrored(true));
@@ -268,6 +264,8 @@ export function jobCategoriesEditCategory(data = {}) {
         });
       })
       .catch((err) => {
+        console.log('===ERROR===');
+        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
             dispatch(jobCategoriesEditCatHasErrored(true));
