@@ -2,7 +2,6 @@ import { withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { format } from 'date-fns-v2';
 import { jobCategoriesAdminFetchData, jobCategoriesDeleteCategory,
   jobCategoriesEditCategory, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
@@ -12,12 +11,8 @@ import CreateJobCategoryModal from './CreateJobCategoryModal';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import TabbedCard from '../../TabbedCard/TabbedCard';
 
-const DATE_FORMAT = 'yyyyMMddkkmmss';
-
 const JobCategories = () => {
   const dispatch = useDispatch();
-
-  const userProfile = useSelector(state => state.userProfile);
 
   const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
   const jobCategoriesAdminFetchDataIsLoading = useSelector(
@@ -74,8 +69,8 @@ const JobCategories = () => {
       category_name: jobCategoriesResults.find(
         (cat) => cat.id === selectedJobCategory)?.description,
       status_ind: jobCategorySkillsRef.status_ind,
-      update_date: format(new Date(), DATE_FORMAT),
-      update_user_id: userProfile.id,
+      update_date: jobCategorySkillsRef.update_date,
+      update_user_id: jobCategorySkillsRef.update_user_id,
       skill_codes: [...selectedSkillIds],
       skill_update_dates: skillUpdateDates,
       skill_update_ids: skillUpdateIds,
