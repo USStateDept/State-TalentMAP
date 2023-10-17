@@ -5,8 +5,8 @@ import {
   JOB_CATEGORIES_DELETE_ERROR_TITLE,
   JOB_CATEGORIES_DELETE_SUCCESS,
   JOB_CATEGORIES_DELETE_SUCCESS_TITLE,
-  JOB_CATEGORIES_EDIT_ERROR,
-  JOB_CATEGORIES_EDIT_ERROR_TITLE,
+  // JOB_CATEGORIES_EDIT_ERROR,
+  // JOB_CATEGORIES_EDIT_ERROR_TITLE,
   JOB_CATEGORIES_EDIT_SUCCESS,
   JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
   JOB_CATEGORIES_SAVE_NEW_ERROR,
@@ -269,16 +269,13 @@ export function jobCategoriesEditCategory(data = {}) {
         if (err?.message === 'cancel') {
           batch(() => {
             dispatch(jobCategoriesEditCatHasErrored(true));
-            dispatch(toastError(
-              JOB_CATEGORIES_EDIT_ERROR, JOB_CATEGORIES_EDIT_ERROR_TITLE,
-            ));
             dispatch(jobCategoriesEditCatIsLoading(false));
           });
         } else {
           batch(() => {
             dispatch(jobCategoriesEditCatHasErrored(true));
             dispatch(toastError(
-              JOB_CATEGORIES_EDIT_ERROR, JOB_CATEGORIES_EDIT_ERROR_TITLE,
+              err?.message,
             ));
             dispatch(jobCategoriesEditCatIsLoading(false));
           });
