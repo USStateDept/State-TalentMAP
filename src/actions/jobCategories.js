@@ -5,8 +5,8 @@ import {
   JOB_CATEGORIES_DELETE_ERROR_TITLE,
   JOB_CATEGORIES_DELETE_SUCCESS,
   JOB_CATEGORIES_DELETE_SUCCESS_TITLE,
-  // JOB_CATEGORIES_EDIT_ERROR,
-  // JOB_CATEGORIES_EDIT_ERROR_TITLE,
+  JOB_CATEGORIES_EDIT_ERROR,
+  JOB_CATEGORIES_EDIT_ERROR_TITLE,
   JOB_CATEGORIES_EDIT_SUCCESS,
   JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
   JOB_CATEGORIES_SAVE_NEW_ERROR,
@@ -245,39 +245,25 @@ export function jobCategoriesEditCatSuccess(result) {
 
 export function jobCategoriesEditCategory(data = {}) {
   return (dispatch) => {
-    batch(() => {
-      dispatch(jobCategoriesEditCatIsLoading(true));
-      dispatch(jobCategoriesEditCatHasErrored(false));
-    });
     const endpoint = '/fsbid/job_categories/edit';
     api().post(endpoint, data)
       .then(() => {
         batch(() => {
-          dispatch(jobCategoriesEditCatSuccess());
           dispatch(
             toastSuccess(
               JOB_CATEGORIES_EDIT_SUCCESS, JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
             ));
           dispatch(jobCategoriesFetchSkills({ category_id: data.category_id }));
-          dispatch(jobCategoriesEditCatHasErrored(false));
-          dispatch(jobCategoriesEditCatIsLoading(false));
         });
       })
       .catch((err) => {
         console.log('===ERROR===');
         console.log(err);
-        if (err?.message === 'cancel') {
+        if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(jobCategoriesEditCatHasErrored(true));
-            dispatch(jobCategoriesEditCatIsLoading(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(jobCategoriesEditCatHasErrored(true));
             dispatch(toastError(
-              err?.message,
+              JOB_CATEGORIES_EDIT_ERROR, JOB_CATEGORIES_EDIT_ERROR_TITLE,
             ));
-            dispatch(jobCategoriesEditCatIsLoading(false));
           });
         }
       });
