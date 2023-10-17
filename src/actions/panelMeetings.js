@@ -299,7 +299,7 @@ export function runPanelMeeting(id, type) {
       dispatch(errored(false));
     });
     const ep = `/fsbid/admin/panel/run/${type}/${id}/`;
-    api().get(ep)
+    api().put(ep)
       .then(({ data }) => {
         batch(() => {
           dispatch(success(data));
