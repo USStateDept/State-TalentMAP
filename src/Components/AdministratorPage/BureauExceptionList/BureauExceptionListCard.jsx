@@ -1,22 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { saveBureauExceptionSelections } from 'actions/bureauException';
+import { addBureauExceptionSelections, bureauExceptionBureauDataFetchData, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
 import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
 
 const BureauExceptionListCard = (props) => {
   const {
-    id,
-    Name,
     BureauExceptionOptionsData,
-    BureauNames,
+    userData,
   } = props;
 
+  const {
+    bureaus,
+    id,
+    name,
+    pv_id,
+    seqNum,
+  } = userData;
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -24,7 +29,16 @@ const BureauExceptionListCard = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [checkedBureauIds, setCheckedBureauIds] = useState([]);
   const [bureau, setBureau] = useState('');
-  const [bureauCode, setBureauCode] = useState([]);
+  const [bureauList, setBureauList] = useState([]);
+  const [bureauCodes, setBureauCodes] = useState([]);
+
+  const fetchAndSet = () => {
+    dispatch(bureauExceptionBureauDataFetchData());
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, []);
 
   const collapseCard = () => {
     setShowMore(!showMore);
@@ -36,15 +50,41 @@ const BureauExceptionListCard = (props) => {
     setEdit(false);
     setCheckedBureauIds([]);
     setBureau('');
-    setBureauCode([]);
+    setBureauCodes([]);
   };
 
-  const submit = (e) => {
+  const addBureaus = (e) => {
     e.preventDefault();
     const currentUser = {
+      bureauCode: bureauCodes,
+      name,
       id,
-      Name,
-      bureauCode,
+    };
+    dispatch(addBureauExceptionSelections(currentUser));
+  };
+
+  const deleteBureaus = (e) => {
+    e.preventDefault();
+    const currentUser = {
+      bureauCode: bureauCodes,
+      bureaus,
+      id,
+      name,
+      pv_id,
+      seqNum,
+    };
+    dispatch(deleteBureauExceptionList(currentUser));
+  };
+
+  const modify = (e) => {
+    e.preventDefault();
+    const currentUser = {
+      bureauCode: bureauCodes.join(),
+      bureaus: bureauList.join(),
+      id,
+      name,
+      pv_id,
+      seqNum,
     };
     dispatch(saveBureauExceptionSelections(currentUser));
   };
@@ -75,21 +115,23 @@ const BureauExceptionListCard = (props) => {
       setCheckedBureauIds(
         data.map(bu => bu.id),
       );
-      setBureauCode(data.map(bu => bu.bureaus[0]));
+      setBureauCodes(data.map(bu => bu.bureaus[0]));
     } else {
       setSelectAll(false);
       setCheckedBureauIds([]);
     }
   };
 
-  const handleSelectBureau = (bu => {
-    if (checkedBureauIds.includes(bu.id)) {
-      const filteredBureau = checkedBureauIds.filter(x => x !== bu.id);
+  const handleSelectBureau = (selectedBureau => {
+    if (checkedBureauIds.includes(selectedBureau?.code)) {
+      const filteredBureau = checkedBureauIds.filter(x => x !== selectedBureau?.code);
       setCheckedBureauIds(filteredBureau);
-      setBureauCode(bureauCode.filter(x => x !== bu.bureaus[0]));
+      setBureauCodes(bureauCodes.filter(x => x !== selectedBureau?.code));
+      setBureauList(bureauList.filter(x => x !== selectedBureau?.description));
     } else {
-      setCheckedBureauIds([...checkedBureauIds, bu.id]);
-      setBureauCode([...bureauCode, bu.bureaus[0]]);
+      setCheckedBureauIds([...checkedBureauIds, selectedBureau?.code]);
+      setBureauCodes([...bureauCodes, selectedBureau?.code]);
+      setBureauList([...bureauList, selectedBureau?.description]);
     }
   });
 
@@ -98,10 +140,10 @@ const BureauExceptionListCard = (props) => {
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column>
-            Person: {Name}
+            Person: {name || 'N/A'}
           </Column>
           <Column>
-            Bureau Access: {BureauNames.toString().split(',').join(', ')}
+            Bureau Access: {bureaus || 'No Access'}
           </Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
@@ -132,7 +174,7 @@ const BureauExceptionListCard = (props) => {
                     <div className="bureau-exception-text-input">
                       <TextInput
                         changeText={(e) => setBureau(e)}
-                        label={`F/S Employee Name: ${Name}`}
+                        label={`F/S Employee Name: ${name}`}
                         placeholder="Filter by Bureau"
                         value={bureau}
                         id="bureau"
@@ -158,15 +200,15 @@ const BureauExceptionListCard = (props) => {
                   <div className="bureau-exception-text-table">
                     {
                       data?.length &&
-                        data.filter(item => item.bureaus.some(x =>
-                          x.toLowerCase().includes(bureau.toLowerCase()))).map(post => (
-                          <tr key={post.id}>
+                        data.filter(x => x.description.toLowerCase()
+                          .includes(bureau.toLowerCase())).map(post => (
+                          <tr key={post.bureauCode}>
                             <td className="checkbox-pac checkbox-pos">
                               <CheckBox
-                                label={post.bureaus}
-                                value={checkedBureauIds.includes(post.id)}
+                                label={post.description}
+                                value={checkedBureauIds.includes(post.bureauCode)}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
-                                id={`${post.id}`}
+                                id={`${post.bureauCode}`}
                               />
                             </td>
                           </tr>
@@ -175,7 +217,9 @@ const BureauExceptionListCard = (props) => {
                   </div>
                 </tbody>
               </table>
-              <button onClick={submit}>Add Bureau(s)</button>
+              <button onClick={addBureaus}>Add Bureau(s)</button>
+              <button onClick={deleteBureaus}>Delete Bureau(s)</button>
+              <button onClick={modify}>Modify Bureau(s)</button>
               <button onClick={cancel}>Cancel</button>
             </form>
           </div>
@@ -186,20 +230,23 @@ const BureauExceptionListCard = (props) => {
 };
 
 BureauExceptionListCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  Name: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    bureauCode: PropTypes.string,
+    bureaus: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    pv_id: PropTypes.number,
+    seqNum: PropTypes.number,
+  }),
   BureauExceptionOptionsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     Name: PropTypes.string,
   })),
-  BureauNames: PropTypes.arrayOf(PropTypes.string),
 };
 
 BureauExceptionListCard.defaultProps = {
-  id: 0,
-  Name: '',
+  userData: {},
   BureauExceptionOptionsData: [],
-  BureauNames: [],
 };
 
 export default BureauExceptionListCard;

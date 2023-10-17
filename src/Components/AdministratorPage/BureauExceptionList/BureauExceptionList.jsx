@@ -25,7 +25,7 @@ const BureauExceptionList = () => {
   }, []);
 
   // Overlay for error, info, and loading state
-  const noResults = BureauExceptionData?.results?.length === 0;
+  const noResults = BureauExceptionData?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (BureauExceptionDataLoading) {
@@ -49,13 +49,11 @@ const BureauExceptionList = () => {
         getOverlay() ||
         <>
           <div className="bs-lower-section">
-            {BureauExceptionData?.results?.map(data => (
+            {BureauExceptionData?.map(data => (
               <BureauExceptionListCard
                 key={data?.id}
-                id={data?.id}
-                Name={data?.Name}
-                BureauNames={data?.BureauNames}
-                BureauExceptionOptionsData={BureauExceptionOptionsData?.results}
+                userData={data}
+                BureauExceptionOptionsData={BureauExceptionOptionsData?.data}
               />),
             )
             }

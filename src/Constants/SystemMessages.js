@@ -263,6 +263,11 @@ export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS = 'The Bureau Exception Posi
 export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE = 'Bureau Exception Position Edit Error';
 export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception Position. Please try again.';
 
+export const DELETE_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Deleted';
+export const DELETE_BUREAU_EXCEPTION_SUCCESS = 'The Bureau Exception has been deleted';
+export const DELETE_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Delete Error';
+export const DELETE_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to delete the selected Bureau Exception. Please try again.';
+
 export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
 export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
 export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
