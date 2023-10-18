@@ -10,7 +10,7 @@ import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { panelMeetingsFiltersFetchData, runPanelMeeting } from 'actions/panelMeetings';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
-import { panelMeetingFetchData } from '../../../actions/panelMeetings';
+import { panelMeetingsFetchData } from '../../../actions/panelMeetings';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
@@ -126,7 +126,7 @@ const PanelMeetingAdmin = (props) => {
       dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
     }
     if (runPreliminarySuccess || runAddendumSuccess) {
-      dispatch(panelMeetingFetchData({ id: pmSeqNum }));
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     }
   };
 

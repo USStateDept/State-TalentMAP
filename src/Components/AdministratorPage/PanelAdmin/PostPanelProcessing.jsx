@@ -8,7 +8,7 @@ import Spinner from 'Components/Spinner';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
-import { panelMeetingFetchData, runPanelMeeting } from '../../../actions/panelMeetings';
+import { panelMeetingsFetchData, runPanelMeeting } from '../../../actions/panelMeetings';
 
 
 const PostPanelProcessing = (props) => {
@@ -98,7 +98,7 @@ const PostPanelProcessing = (props) => {
     setPostPanelRuntime(currTimestamp);
     dispatch(runPanelMeeting(pmSeqNum, 'post_panel'));
     if (runPostPanelSuccess) {
-      dispatch(panelMeetingFetchData({ id: pmSeqNum }));
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
       dispatch(postPanelProcessingFetchData(pmSeqNum));
     }
   };
