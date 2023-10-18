@@ -1,5 +1,7 @@
 import {
   bureauExceptions,
+  bureauExceptionsBureauDataFetchDataErrored,
+  bureauExceptionsBureauDataFetchDataLoading,
   bureauExceptionsFetchDataErrored,
   bureauExceptionsFetchDataLoading,
   bureauExceptionsOptions,
@@ -7,6 +9,8 @@ import {
 
 export default {
   bureauExceptions,
+  bureauExceptionsBureauDataFetchDataErrored,
+  bureauExceptionsBureauDataFetchDataLoading,
   bureauExceptionsFetchDataErrored,
   bureauExceptionsFetchDataLoading,
   bureauExceptionsOptions,

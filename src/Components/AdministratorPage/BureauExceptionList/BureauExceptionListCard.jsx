@@ -22,6 +22,7 @@ const BureauExceptionListCard = (props) => {
     pv_id,
     seqNum,
   } = userData;
+
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -41,6 +42,7 @@ const BureauExceptionListCard = (props) => {
   }, []);
 
   const collapseCard = () => {
+    dispatch(bureauExceptionBureauDataFetchData());
     setShowMore(!showMore);
     setEdit(e => !e);
   };
@@ -135,37 +137,35 @@ const BureauExceptionListCard = (props) => {
     }
   });
 
+  const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
+
   return (
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
-          <Column>
-            Person: {name || 'N/A'}
-          </Column>
-          <Column>
-            Bureau Access: {bureaus || 'No Access'}
-          </Column>
+          <Column>Person: {name || 'N/A'}{pv_id}</Column>
+          <Column>Bureau Access: {bureaus || 'No Access'}</Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
               onClick={(e) => {
                 e.preventDefault();
                 // editBureau({ id, Name, BureauNames });
                 collapseCard();
-              }
-              }
+              }}
               to="#"
             >
-              {!edit ?
+              {!edit ? (
                 <div>
                   <FA className="fa-solid fa-pencil" />
                   Edit
                 </div>
-                : <span>Close</span>
-              }
+              ) : (
+                <span>Close</span>
+              )}
             </Link>
           </Column>
         </Row>
-        {edit &&
+        {edit && (
           <div>
             <form>
               <table className="bureau-exception-table">
@@ -198,32 +198,46 @@ const BureauExceptionListCard = (props) => {
                 </thead>
                 <tbody>
                   <div className="bureau-exception-text-table">
-                    {
-                      data?.length &&
-                        data.filter(x => x.description.toLowerCase()
-                          .includes(bureau.toLowerCase())).map(post => (
+                    {data?.length &&
+                      data
+                        .filter((x) =>
+                          x.description
+                            .toLowerCase()
+                            .includes(bureau.toLowerCase()),
+                        )
+                        .map((post) => (
                           <tr key={post.bureauCode}>
                             <td className="checkbox-pac checkbox-pos">
                               <CheckBox
                                 label={post.description}
-                                value={checkedBureauIds.includes(post.bureauCode)}
+                                value={checkedBureauIds.includes(
+                                  post.bureauCode,
+                                )}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
                                 id={`${post.bureauCode}`}
                               />
                             </td>
                           </tr>
-                        ))
-                    }
+                        ))}
                   </div>
                 </tbody>
               </table>
-              <button onClick={addBureaus}>Add Bureau(s)</button>
-              <button onClick={deleteBureaus}>Delete Bureau(s)</button>
-              <button onClick={modify}>Modify Bureau(s)</button>
+              <button
+                onClick={addBureaus}
+                disabled={!isAdd}
+              >
+                Add Bureau(s)
+              </button>
+              <button onClick={deleteBureaus} disabled={pv_id < 0}>
+                Delete Bureau(s)
+              </button>
+              <button onClick={modify} disabled={pv_id < 0}>
+                Modify Bureau(s)
+              </button>
               <button onClick={cancel}>Cancel</button>
             </form>
           </div>
-        }
+        )}
       </Row>
     </div>
   );

@@ -26,7 +26,21 @@ export function bureauExceptionFetchDataErrored(bool) {
 
 export function bureauExceptionFetchDataLoading(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_FETCH_IS_LOADING',
+    type: 'BUREAU_EXCEPTIONS_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function bureauExceptionBureauDataFetchDataErrored(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_BUREAU_DATA_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function bureauExceptionBureauDataFetchDataLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_BUREAU_DATA_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
@@ -79,27 +93,27 @@ export function bureauExceptionFetchData() {
 export function bureauExceptionBureauDataFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(bureauExceptionFetchDataLoading(true));
-      dispatch(bureauExceptionFetchDataErrored(false));
+      dispatch(bureauExceptionBureauDataFetchDataLoading(true));
+      dispatch(bureauExceptionBureauDataFetchDataErrored(false));
     });
     api().get('/fsbid/bureau_exceptions/bureaus/')
       .then((data) => {
         batch(() => {
           dispatch(bureauExceptionOptionsFetchDataSuccess(data));
-          dispatch(bureauExceptionFetchDataErrored(false));
-          dispatch(bureauExceptionFetchDataLoading(false));
+          dispatch(bureauExceptionBureauDataFetchDataErrored(false));
+          dispatch(bureauExceptionBureauDataFetchDataLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(bureauExceptionFetchDataLoading(true));
-            dispatch(bureauExceptionFetchDataErrored(false));
+            dispatch(bureauExceptionBureauDataFetchDataLoading(true));
+            dispatch(bureauExceptionBureauDataFetchDataErrored(false));
           });
         } else {
           batch(() => {
-            dispatch(bureauExceptionFetchDataErrored(false));
-            dispatch(bureauExceptionFetchDataLoading(false));
+            dispatch(bureauExceptionBureauDataFetchDataErrored(false));
+            dispatch(bureauExceptionBureauDataFetchDataLoading(false));
           });
         }
       });
