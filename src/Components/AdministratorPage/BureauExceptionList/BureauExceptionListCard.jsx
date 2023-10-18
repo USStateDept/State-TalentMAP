@@ -20,7 +20,6 @@ const BureauExceptionListCard = (props) => {
     id,
     name,
     pv_id,
-    seqNum,
   } = userData;
 
   const dispatch = useDispatch();
@@ -59,7 +58,6 @@ const BureauExceptionListCard = (props) => {
     e.preventDefault();
     const currentUser = {
       bureauCode: bureauCodes.join(),
-      name,
       id,
     };
     dispatch(addBureauExceptionSelections(currentUser));
@@ -68,12 +66,8 @@ const BureauExceptionListCard = (props) => {
   const deleteBureaus = (e) => {
     e.preventDefault();
     const currentUser = {
-      bureauCode: bureauCodes.join(),
-      bureaus: bureauList.join(),
       id,
-      name,
       pv_id,
-      seqNum,
     };
     dispatch(deleteBureauExceptionList(currentUser));
   };
@@ -82,11 +76,8 @@ const BureauExceptionListCard = (props) => {
     e.preventDefault();
     const currentUser = {
       bureauCode: bureauCodes.join(),
-      bureaus: bureauList.join(),
       id,
-      name,
       pv_id,
-      seqNum,
     };
     dispatch(saveBureauExceptionSelections(currentUser));
   };
@@ -115,36 +106,38 @@ const BureauExceptionListCard = (props) => {
     if (!selectAll) {
       setSelectAll(true);
       setCheckedBureauIds(
-        data.map(bu => bu.id),
+        data.map(bu => bu.bureauCode),
       );
-      setBureauCodes(data.map(bu => bu.bureaus[0]));
+      setBureauCodes(data.map(bu => bu.bureauCode));
     } else {
       setSelectAll(false);
       setCheckedBureauIds([]);
+      setBureauCodes([]);
     }
   };
 
   const handleSelectBureau = (selectedBureau => {
-    if (checkedBureauIds.includes(selectedBureau?.code)) {
-      const filteredBureau = checkedBureauIds.filter(x => x !== selectedBureau?.code);
+    if (checkedBureauIds.includes(selectedBureau?.bureauCode)) {
+      const filteredBureau = checkedBureauIds.filter(x => x !== selectedBureau?.bureauCode);
       setCheckedBureauIds(filteredBureau);
-      setBureauCodes(bureauCodes.filter(x => x !== selectedBureau?.code));
+      setBureauCodes(bureauCodes.filter(x => x !== selectedBureau?.bureauCode));
       setBureauList(bureauList.filter(x => x !== selectedBureau?.description));
     } else {
-      setCheckedBureauIds([...checkedBureauIds, selectedBureau?.code]);
-      setBureauCodes([...bureauCodes, selectedBureau?.code]);
+      setCheckedBureauIds([...checkedBureauIds, selectedBureau?.bureauCode]);
+      setBureauCodes([...bureauCodes, selectedBureau?.bureauCode]);
       setBureauList([...bureauList, selectedBureau?.description]);
     }
   });
 
   const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
+  const isBureauAccess = bureaus !== null && bureaus !== undefined && bureaus !== ' ';
 
   return (
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column>Person: {name || 'N/A'}</Column>
-          <Column>Bureau Access: {bureaus || 'No Access'}</Column>
+          <Column>Bureau Access: {isBureauAccess ? bureaus : 'No Access'}</Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
               onClick={(e) => {
