@@ -8,7 +8,7 @@ import Spinner from 'Components/Spinner';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
-import { runPanelMeeting } from '../../../actions/panelMeetings';
+import { panelMeetingFetchData, runPanelMeeting } from '../../../actions/panelMeetings';
 
 
 const PostPanelProcessing = (props) => {
@@ -30,6 +30,8 @@ const PostPanelProcessing = (props) => {
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
   const statuses = postPanelResults?.statuses ?? [];
   const values = postPanelResults?.values ?? [];
+
+  const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
   useEffect(() => {
     dispatch(postPanelProcessingFetchData(pmSeqNum));
@@ -95,6 +97,10 @@ const PostPanelProcessing = (props) => {
     const currTimestamp = new Date();
     setPostPanelRuntime(currTimestamp);
     dispatch(runPanelMeeting(pmSeqNum, 'post_panel'));
+    if (runPostPanelSuccess) {
+      dispatch(panelMeetingFetchData({ id: pmSeqNum }));
+      dispatch(postPanelProcessingFetchData(pmSeqNum));
+    }
   };
 
   const submit = () => {

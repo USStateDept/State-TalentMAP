@@ -10,6 +10,7 @@ import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { panelMeetingsFiltersFetchData, runPanelMeeting } from 'actions/panelMeetings';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
+import { panelMeetingFetchData } from '../../../actions/panelMeetings';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
@@ -32,6 +33,9 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
+
+  const runPreliminarySuccess = useSelector(state => state.runOfficialPreliminarySuccess);
+  const runAddendumSuccess = useSelector(state => state.runOfficialAddendumSuccess);
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
@@ -120,6 +124,9 @@ const PanelMeetingAdmin = (props) => {
     if (field === 'addendumRuntime') {
       setAddendumRuntime(currTimestamp);
       dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
+    }
+    if (runPreliminarySuccess || runAddendumSuccess) {
+      dispatch(panelMeetingFetchData({ id: pmSeqNum }));
     }
   };
 
