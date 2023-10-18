@@ -6,6 +6,7 @@ import Q from 'q';
 import api from '../api';
 
 let cancelPanelMeetings;
+let cancelRunPanel;
 
 // ======================== Panel Meeting List ========================
 
@@ -205,16 +206,17 @@ export function panelMeetingFetchDataSuccess(results) {
 
 export function panelMeetingFetchData(id) {
   return (dispatch) => {
-    if (cancelPanelMeetings) { cancelPanelMeetings('cancel'); }
+    if (cancelPanelMeetings) {
+      cancelPanelMeetings('cancel');
+      dispatch(panelMeetingsFetchDataLoading(true));
+    }
     batch(() => {
       dispatch(panelMeetingsFetchDataLoading(true));
       dispatch(panelMeetingsFetchDataErrored(false));
     });
     const ep = `/fsbid/admin/panel/${id}/`;
     api().get(ep, {
-      cancelToken: new CancelToken((c) => {
-        cancelPanelMeetings = c;
-      }),
+      cancelToken: new CancelToken((c) => { cancelPanelMeetings = c; }),
     })
       .then(({ data }) => {
         batch(() => {
@@ -223,18 +225,11 @@ export function panelMeetingFetchData(id) {
           dispatch(panelMeetingsFetchDataLoading(false));
         });
       })
-      .catch((err) => {
-        if (get(err, 'message') === 'cancel') {
-          batch(() => {
-            dispatch(panelMeetingsFetchDataErrored(false));
-            dispatch(panelMeetingsFetchDataLoading(true));
-          });
-        } else {
-          batch(() => {
-            dispatch(panelMeetingsFetchDataErrored(true));
-            dispatch(panelMeetingsFetchDataLoading(false));
-          });
-        }
+      .catch(() => {
+        batch(() => {
+          dispatch(panelMeetingsFetchDataErrored(true));
+          dispatch(panelMeetingsFetchDataLoading(false));
+        });
       });
   };
 }
@@ -248,10 +243,10 @@ export function runOfficialPreliminarySuccess(result) {
   };
 }
 
-export function runOfficialPreliminaryErrored(result) {
+export function runOfficialPreliminaryErrored(bool) {
   return {
     type: 'RUN_OFFICIAL_PRELIMINARY_ERRORED',
-    result,
+    hasErrored: bool,
   };
 }
 
@@ -262,10 +257,10 @@ export function runOfficialAddendumSuccess(result) {
   };
 }
 
-export function runOfficialAddendumErrored(result) {
+export function runOfficialAddendumErrored(bool) {
   return {
     type: 'RUN_OFFICIAL_ADDENDUM_ERRORED',
-    result,
+    hasErrored: bool,
   };
 }
 
@@ -276,10 +271,10 @@ export function runPostPanelProcessingSuccess(result) {
   };
 }
 
-export function runPostPanelProcessingErrored(result) {
+export function runPostPanelProcessingErrored(bool) {
   return {
     type: 'RUN_POST_PANEL_PROCESSING_ERRORED',
-    result,
+    hasErrored: bool,
   };
 }
 
@@ -295,11 +290,16 @@ export function runPanelMeeting(id, type) {
     errored = runPostPanelProcessingErrored;
   }
   return (dispatch) => {
+    if (cancelRunPanel) {
+      cancelRunPanel('cancel');
+    }
     batch(() => {
       dispatch(errored(false));
     });
     const ep = `/fsbid/admin/panel/run/${type}/${id}/`;
-    api().put(ep)
+    api().put(ep, {
+      cancelToken: new CancelToken((c) => { cancelRunPanel = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(success(data));

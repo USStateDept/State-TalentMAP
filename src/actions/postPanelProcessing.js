@@ -1,5 +1,4 @@
 import { batch } from 'react-redux';
-import { get } from 'lodash';
 import { CancelToken } from 'axios';
 import api from '../api';
 import {
@@ -10,6 +9,7 @@ import { toastError, toastSuccess } from './toast';
 
 
 let cancelPostPanel;
+let cancelEditPostPanel;
 
 // =============== FETCH DATA ===============
 
@@ -36,16 +36,17 @@ export function postPanelProcessingFetchDataSuccess(results) {
 
 export function postPanelProcessingFetchData(id) {
   return (dispatch) => {
-    if (cancelPostPanel) { cancelPostPanel('cancel'); }
+    if (cancelPostPanel) {
+      cancelPostPanel('cancel');
+      dispatch(postPanelProcessingFetchDataLoading(true));
+    }
     batch(() => {
       dispatch(postPanelProcessingFetchDataLoading(true));
       dispatch(postPanelProcessingFetchDataErrored(false));
     });
     const ep = `/fsbid/admin/panel/post_panel/${id}/`;
     api().get(ep, {
-      cancelToken: new CancelToken((c) => {
-        cancelPostPanel = c;
-      }),
+      cancelToken: new CancelToken((c) => { cancelPostPanel = c; }),
     })
       .then(({ data }) => {
         batch(() => {
@@ -54,18 +55,11 @@ export function postPanelProcessingFetchData(id) {
           dispatch(postPanelProcessingFetchDataLoading(false));
         });
       })
-      .catch((err) => {
-        if (get(err, 'message') === 'cancel') {
-          batch(() => {
-            dispatch(postPanelProcessingFetchDataErrored(false));
-            dispatch(postPanelProcessingFetchDataLoading(true));
-          });
-        } else {
-          batch(() => {
-            dispatch(postPanelProcessingFetchDataErrored(true));
-            dispatch(postPanelProcessingFetchDataLoading(false));
-          });
-        }
+      .catch(() => {
+        batch(() => {
+          dispatch(postPanelProcessingFetchDataErrored(true));
+          dispatch(postPanelProcessingFetchDataLoading(false));
+        });
       });
   };
 }
@@ -94,11 +88,19 @@ export function editPostPanelProcessingSuccess(data) {
 // eslint-disable-next-line no-unused-vars
 export function editPostPanelProcessing(props) {
   return (dispatch) => {
-    dispatch(editPostPanelProcessingSuccess([]));
-    dispatch(editPostPanelProcessingIsLoading(true));
-    dispatch(editPostPanelProcessingHasErrored(false));
+    if (cancelEditPostPanel) {
+      cancelEditPostPanel('cancel');
+      dispatch(editPostPanelProcessingIsLoading(true));
+    }
+    batch(() => {
+      dispatch(editPostPanelProcessingSuccess([]));
+      dispatch(editPostPanelProcessingIsLoading(true));
+      dispatch(editPostPanelProcessingHasErrored(false));
+    });
     const ep = '/fsbid/admin/panel/post_panel/edit/';
-    api().post(ep, props)
+    api().post(ep, props, {
+      cancelToken: new CancelToken((c) => { cancelEditPostPanel = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(editPostPanelProcessingHasErrored(false));
