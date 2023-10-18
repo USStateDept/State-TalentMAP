@@ -178,16 +178,16 @@ const PanelMeetingAdmin = (props) => {
     (!isCreate && !beforeAddendumCutoff);
 
   const disableRunPrelim = !isSuperUser &&
-    (isCreate || beforePrelimCutoff);
+    (isCreate || beforePrelimCutoff || !beforePanelMeetingDate);
 
   const disableRunAddendum = !isSuperUser &&
-    (isCreate || beforeAddendumCutoff);
+    (isCreate || beforeAddendumCutoff || !beforePanelMeetingDate);
 
   const disableClear = !isSuperUser &&
-    (!isCreate && !beforeAddendumCutoff);
+    (!isCreate && !beforePanelMeetingDate);
 
   const disableSave = !isSuperUser &&
-    (!isCreate && !beforeAddendumCutoff);
+    (!isCreate && !beforePanelMeetingDate);
 
   return (
     (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
