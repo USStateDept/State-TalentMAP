@@ -58,7 +58,7 @@ const BureauExceptionListCard = (props) => {
   const addBureaus = (e) => {
     e.preventDefault();
     const currentUser = {
-      bureauCode: bureauCodes,
+      bureauCode: bureauCodes.join(),
       name,
       id,
     };
@@ -68,8 +68,8 @@ const BureauExceptionListCard = (props) => {
   const deleteBureaus = (e) => {
     e.preventDefault();
     const currentUser = {
-      bureauCode: bureauCodes,
-      bureaus,
+      bureauCode: bureauCodes.join(),
+      bureaus: bureauList.join(),
       id,
       name,
       pv_id,
@@ -143,7 +143,7 @@ const BureauExceptionListCard = (props) => {
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
-          <Column>Person: {name || 'N/A'}{pv_id}</Column>
+          <Column>Person: {name || 'N/A'}</Column>
           <Column>Bureau Access: {bureaus || 'No Access'}</Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
