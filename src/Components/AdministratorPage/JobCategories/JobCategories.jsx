@@ -52,19 +52,31 @@ const JobCategories = () => {
   });
 
   const getEditQuery = () => {
-    const inclusions = [];
+    const inclusionsInds = [];
     const skillUpdateDates = [];
     const skillUpdateIds = [];
 
     selectedSkillIds.forEach((id) => {
-      inclusions.push('1');
+      inclusionsInds.push('1');
       skillUpdateDates.push(
         jobCategorySkillsResults.find((skill) => skill.code === id).update_date || '');
       skillUpdateIds.push(
         jobCategorySkillsResults.find((skill) => skill.code === id).update_user_id);
     });
+
+    loadedSkillIds.forEach((id) => {
+      if (!selectedSkillIds.includes(id)) {
+        inclusionsInds.push('0');
+        skillUpdateDates.push(
+          jobCategorySkillsResults.find((skill) => skill.code === id).update_date || '');
+        skillUpdateIds.push(
+          jobCategorySkillsResults.find((skill) => skill.code === id).update_user_id);
+        selectedSkillIds.push(id);
+      }
+    });
+
     const inputs = {
-      inclusion_inds: inclusions,
+      inclusion_inds: inclusionsInds,
       category_id: selectedJobCategory,
       category_name: jobCategoriesResults.find(
         (cat) => cat.id === selectedJobCategory)?.description,
@@ -96,6 +108,7 @@ const JobCategories = () => {
     setSelectedSkillIds([]);
     setLoadedSkillIds([]);
     setSelectAll(false);
+    setIsEditMode(false);
   });
 
   const clearInputs = (() => {
@@ -132,7 +145,6 @@ const JobCategories = () => {
   useEffect(() => {
     clearSkillArrays();
     setSelectedJobCategory('');
-    setIsEditMode(false);
     if (swal.getState().isOpen) {
       swal.close();
     }
