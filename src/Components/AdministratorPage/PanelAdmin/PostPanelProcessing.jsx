@@ -51,7 +51,7 @@ const PostPanelProcessing = (props) => {
   const [formData, setFormData] = useState(values);
 
   useEffect(() => {
-    if (!!Object.keys(values).length && !panelMeetingsIsLoading) {
+    if (!postPanelIsLoading && !panelMeetingsIsLoading) {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
@@ -223,25 +223,25 @@ const PostPanelProcessing = (props) => {
             <tbody>
               {formData.map(d => (
                 <tr key={d.label}>
-                  <td>
+                  <td key={`${d.label}-valid`}>
                     {d.valid === 'Y' ?
                       <FA name="check" /> :
                       '---'
                     }
                   </td>
-                  <td>
+                  <td key={`${d.label}-item`}>
                     <span className="item-link">
                       {d.item}
                     </span>
                   </td>
-                  <td>{d.label}</td>
-                  <td>{d.employee}</td>
+                  <td key={`${d.label}-label`}>{d.label}</td>
+                  <td key={`${d.label}-employee`}>{d.employee}</td>
                   {statuses.map((o) => (
-                    <td key={o.label}>
+                    <td key={`${d.label}-${o.code}`}>
                       <input
-                        id={`${d.employee}-status-${o.code}`}
+                        id={`${d.label}-status-${o.code}`}
                         type="radio"
-                        name={`${d.employee}-status-${o.description}`}
+                        name={`${d.label}-status-${o.description}`}
                         checked={d.status === o.description}
                         onChange={() => handleStatusSelection(d.label, o.description)}
                         disabled={disableTable}
