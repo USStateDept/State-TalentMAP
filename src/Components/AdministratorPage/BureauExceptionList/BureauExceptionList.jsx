@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionFetchData } from 'actions/bureauException';
+import { bureauExceptionBureauDataFetchData, bureauExceptionFetchData } from 'actions/bureauException';
 import BureauExceptionListCard from './BureauExceptionListCard';
 
 
@@ -17,6 +17,7 @@ const BureauExceptionList = () => {
   const BureauExceptionError = useSelector(state => state.bureauExceptionsFetchDataErrored);
   const fetchAndSet = () => {
     dispatch(bureauExceptionFetchData());
+    dispatch(bureauExceptionBureauDataFetchData());
   };
 
   useEffect(() => {

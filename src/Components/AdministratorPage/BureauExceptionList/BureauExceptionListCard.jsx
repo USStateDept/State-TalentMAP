@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addBureauExceptionSelections, bureauExceptionBureauDataFetchData, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
+import { addBureauExceptionSelections, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
 import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
@@ -31,14 +31,6 @@ const BureauExceptionListCard = (props) => {
   const [bureau, setBureau] = useState('');
   const [bureauList, setBureauList] = useState([]);
   const [bureauCodes, setBureauCodes] = useState([]);
-
-  const fetchAndSet = () => {
-    dispatch(bureauExceptionBureauDataFetchData());
-  };
-
-  useEffect(() => {
-    fetchAndSet();
-  }, [edit]);
 
   const collapseCard = () => {
     setShowMore(!showMore);
@@ -86,8 +78,7 @@ const BureauExceptionListCard = (props) => {
       id,
       pv_id,
     };
-
-    dispatch(bureauExceptionBureauDataFetchData(currentUser));
+    console.log(currentUser);
   };
 
   const cancel = (e) => {
