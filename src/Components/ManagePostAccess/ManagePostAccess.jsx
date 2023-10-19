@@ -32,15 +32,11 @@ const ManagePostAccess = () => {
     (personSelected || positionSelected) && selectedOrgs.length > 0 && selectedRoles.length > 0;
 
   // Filter Options
-  const personSeqNums = new Set(managePostFilters?.personFilters?.map(x => x.code) || []);
-  const uniquePersons = personSeqNums.length
-    ? personSeqNums.map(ids => managePostFilters?.personFilters?.find(y => y.code === ids))
-    : [];
-  const peopleOptionsHRO = uniquePersons?.filter(
+  const peopleOptionsHRO = managePostFilters?.personFilters?.filter(
     person => person.skillCode === '2010' || person.skillCode === '2201') || [];
   const positionOptionsHRO = managePostFilters?.positionFilters?.filter(
     position => position.skillCode === '2201' || position.skillCode === '2010') || [];
-  const peopleOptions = personHRO ? peopleOptionsHRO : uniquePersons || [];
+  const peopleOptions = personHRO ? peopleOptionsHRO : managePostFilters?.personFilters || [];
   const positionOptions = positionHRO
     ? positionOptionsHRO : managePostFilters?.positionFilters || [];
   const roleOptions = managePostFilters?.roleFilters || [];
