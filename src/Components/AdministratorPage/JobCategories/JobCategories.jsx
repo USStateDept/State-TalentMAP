@@ -19,13 +19,6 @@ const JobCategories = () => {
     state => state.jobCategoriesAdminFetchDataIsLoading);
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   const jobCategorySkillsIsLoading = useSelector(state => state.jobCategoriesFetchSkillsIsLoading);
-  // const jobCategoriesEditCatSuccess = useSelector(state => state.jobCategoriesEditCatSuccess);
-  // eslint-disable-next-line max-len
-  // const jobCategoriesEditCatHasErrored = useSelector(state => state.jobCategoriesEditCatHasErrored);
-  // eslint-disable-next-line max-len
-  // const jobCategoriesDeleteCatSuccess = useSelector(state => state.jobCategoriesDeleteCatSuccess);
-  // const jobCategoriesDeleteCatHasErrored = useSelector(
-  // state => state.jobCategoriesDeleteCatHasErrored);
 
   const jobCategoriesResults = jobCategories?.data;
   // jobCategorySkills return data has 2 items
@@ -136,10 +129,6 @@ const JobCategories = () => {
   useEffect(() => {
     clearSkillArrays();
     loadSkills();
-    console.log('===jobCategorySkills useEffect===');
-    console.log('selectedSkillIds: ', selectedSkillIds);
-    console.log('loadedSkillIds: ', loadedSkillIds);
-    console.log('jobCategorySkills: ', jobCategorySkills);
   }, [jobCategorySkills]);
 
   useEffect(() => {
@@ -148,10 +137,6 @@ const JobCategories = () => {
     if (swal.getState().isOpen) {
       swal.close();
     }
-    console.log('===jobCategories useEffect===');
-    console.log('selectedSkillIds: ', selectedSkillIds);
-    console.log('loadedSkillIds: ', loadedSkillIds);
-    console.log('jobCategories: ', jobCategories);
   }, [jobCategories]);
 
   const handleSelectAll = () => {
@@ -177,11 +162,6 @@ const JobCategories = () => {
 
   const submitEdit = (() => {
     dispatch(jobCategoriesEditCategory(getEditQuery()));
-    // if (jobCategoriesEditCatSuccess && !jobCategoriesEditCatHasErrored) {
-    // clearInputs();
-    // setIsEditMode(false);
-    // dispatch(jobCategoriesFetchSkills({ category_id: selectedJobCategory }));
-    // }
   });
 
   const submitDelete = () => {

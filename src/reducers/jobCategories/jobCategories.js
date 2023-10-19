@@ -58,6 +58,7 @@ export function jobCategoriesSaveNewCatHasErrored(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesSaveNewCatIsLoading(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SAVE_NEW_CAT_IS_LOADING':
@@ -66,6 +67,7 @@ export function jobCategoriesSaveNewCatIsLoading(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesSaveNewCatSuccess(state = [], action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SAVE_NEW_CAT_SUCCESS':
@@ -74,7 +76,7 @@ export function jobCategoriesSaveNewCatSuccess(state = [], action) {
       return state;
   }
 }
-
+// Not in use currently
 export function jobCategoriesDeleteCatHasErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_DELETE_CAT_HAS_ERRORED':
@@ -92,6 +94,7 @@ export function jobCategoriesDeleteCatIsLoading(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesDeleteCatSuccess(state = [], action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_DELETE_CAT_SUCCESS':
@@ -100,7 +103,7 @@ export function jobCategoriesDeleteCatSuccess(state = [], action) {
       return state;
   }
 }
-
+// Not in use currently
 export function jobCategoriesEditCatHasErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_EDIT_CAT_HAS_ERRORED':
@@ -118,6 +121,7 @@ export function jobCategoriesEditCatIsLoading(state = false, action) {
       return state;
   }
 }
+// Not in use currently
 export function jobCategoriesEditCatSuccess(state = [], action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_EDIT_CAT_SUCCESS':

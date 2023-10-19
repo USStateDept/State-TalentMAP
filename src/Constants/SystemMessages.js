@@ -278,6 +278,10 @@ export const DELETE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully de
 export const DELETE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
 export const DELETE_BID_AUDIT_ERROR = 'There was an issue attempting to delete this Bid Audit. Please try again.';
 
+export const JOB_CATEGORIES_FETCH_CATS_ERROR_TITLE = 'Job Categories Data Load Error';
+export const JOB_CATEGORIES_FETCH_CATS_ERROR = 'There was an issue attempting to load the list of Job Categories.';
+export const JOB_CATEGORIES_FETCH_SKILLS_ERROR_TITLE = 'Job Categories Skills Data Load Error';
+export const JOB_CATEGORIES_FETCH_SKILLS_ERROR = 'There was an issue attempting to load the list of Job Category Skills.';
 export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edits Successfully Saved';
 export const JOB_CATEGORIES_EDIT_SUCCESS = 'Your edits to the selected Job Category have been saved';
 export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'Job Category Edit Error';
