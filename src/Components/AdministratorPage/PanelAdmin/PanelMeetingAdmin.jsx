@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { panelMeetingsFiltersFetchData, runPanelMeeting } from 'actions/panelMeetings';
+import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
-import { panelMeetingsFetchData } from '../../../actions/panelMeetings';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
