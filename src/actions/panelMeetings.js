@@ -6,7 +6,6 @@ import Q from 'q';
 import api from '../api';
 
 let cancelPanelMeetings;
-let cancelRunPanel;
 
 // ======================== Panel Meeting List ========================
 
@@ -230,84 +229,6 @@ export function panelMeetingFetchData(id) {
           dispatch(panelMeetingsFetchDataErrored(true));
           dispatch(panelMeetingsFetchDataLoading(false));
         });
-      });
-  };
-}
-
-// ======================== Panel Meeting Actions ========================
-
-export function runOfficialPreliminarySuccess(result) {
-  return {
-    type: 'RUN_OFFICIAL_PRELIMINARY_SUCCESS',
-    result,
-  };
-}
-
-export function runOfficialPreliminaryErrored(bool) {
-  return {
-    type: 'RUN_OFFICIAL_PRELIMINARY_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function runOfficialAddendumSuccess(result) {
-  return {
-    type: 'RUN_OFFICIAL_ADDENDUM_SUCCESS',
-    result,
-  };
-}
-
-export function runOfficialAddendumErrored(bool) {
-  return {
-    type: 'RUN_OFFICIAL_ADDENDUM_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function runPostPanelProcessingSuccess(result) {
-  return {
-    type: 'RUN_POST_PANEL_PROCESSING_SUCCESS',
-    result,
-  };
-}
-
-export function runPostPanelProcessingErrored(bool) {
-  return {
-    type: 'RUN_POST_PANEL_PROCESSING_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function runPanelMeeting(id, type) {
-  let success = runPostPanelProcessingSuccess;
-  let errored = runPostPanelProcessingErrored;
-  if (type === 'preliminary') {
-    success = runOfficialPreliminarySuccess;
-    errored = runOfficialPreliminaryErrored;
-  }
-  if (type === 'addendum') {
-    success = runPostPanelProcessingSuccess;
-    errored = runPostPanelProcessingErrored;
-  }
-  return (dispatch) => {
-    if (cancelRunPanel) {
-      cancelRunPanel('cancel');
-    }
-    batch(() => {
-      dispatch(errored(false));
-    });
-    const ep = `/fsbid/admin/panel/run/${type}/${id}/`;
-    api().put(ep, {
-      cancelToken: new CancelToken((c) => { cancelRunPanel = c; }),
-    })
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(success(data));
-          dispatch(errored(false));
-        });
-      })
-      .catch(() => {
-        dispatch(errored(true));
       });
   };
 }
