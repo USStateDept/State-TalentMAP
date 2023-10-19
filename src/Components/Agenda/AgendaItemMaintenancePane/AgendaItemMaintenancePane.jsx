@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -5,6 +6,8 @@ import { filter, find, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
+import TodModal from 'Components/Agenda/AgendaLeg/TodModal';
+import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
@@ -48,6 +51,7 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/fsbid/panel/reference/dates/');
+  const { data: todData, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/toursofduty/');
   const { asgSepBidResults$, asgSepBidError, asgSepBidLoading } = asgSepBidData;
   const asgSepBids = asgSepBidResults$ || [];
 
@@ -59,6 +63,13 @@ const AgendaItemMaintenancePane = (props) => {
 
   const statuses = get(statusData, 'data.results') || [];
   statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
+
+  const TODs = todData?.data;
+  const [combinedTod, setCombinedTod] = useState(agendaItem?.aiCombinedTodCode);
+  const [combinedTodMonthsNum, setCombinedTodMonthsNum] =
+    useState(agendaItem?.aiCombinedTodMonthsNum);
+  const [combinedTodOtherText, setCombinedTodOtherText] =
+    useState(agendaItem?.aiCombinedTodOtherText);
 
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
@@ -131,12 +142,22 @@ const AgendaItemMaintenancePane = (props) => {
       remarks: userRemarks || [],
       agendaStatusCode: selectedStatus || '',
       panelMeetingCategory: selectedPanelCat || '',
+      combinedTod,
+      combinedTodMonthsNum,
+      combinedTodOtherText,
     });
+    console.log(combinedTod);
+    console.log(combinedTodMonthsNum);
+    console.log(combinedTodOtherText);
   }, [selectedPanelMLDate,
     selectedPanelIDDate,
     userRemarks,
     selectedStatus,
-    selectedPanelCat]);
+    selectedPanelCat,
+    combinedTod,
+    combinedTodMonthsNum,
+    combinedTodOtherText,
+  ]);
 
   useEffect(() => {
     const aiV = AIvalidation?.allValid;
@@ -212,6 +233,80 @@ const AgendaItemMaintenancePane = (props) => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(FrequentPositionsTabID);
   };
+
+  const submitCustomTod = (todArray, customTodMonths) => {
+    const otherTodDisplaytext = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
+    setCombinedTod('X');
+    setCombinedTodMonthsNum(customTodMonths);
+    setCombinedTodOtherText(otherTodDisplaytext);
+    swal.close();
+  };
+
+  const handleTodSelection = (value) => {
+    if (value === 'X') {
+      const cancel = (e) => {
+        e.preventDefault();
+        swal.close();
+      };
+
+      swal({
+        title: 'Tour of Duty',
+        closeOnEsc: true,
+        button: false,
+        className: 'swal-aim-custom-tod',
+        content: (
+          <TodModal
+            cancel={cancel}
+            submitCustomTod={submitCustomTod}
+          />
+        ),
+      });
+    } else {
+      setCombinedTod(value);
+      setCombinedTodMonthsNum('');
+      setCombinedTodOtherText('');
+    }
+  };
+
+  const clearOtherTod = () => {
+    setCombinedTod('');
+    setCombinedTodMonthsNum('');
+    setCombinedTodOtherText('');
+  };
+
+  const combinedTodDropdown = () => (
+    <>
+      <div>
+        <label className="select-label" htmlFor="ai-maintenance-combinedTOD">Combined TOD:</label>
+        <select
+          value={combinedTod}
+          disabled={readMode}
+          className="aim-select aim-combined-tod"
+          onChange={(e) => handleTodSelection(e.target.value)}
+        >
+          <option value={''}>Combined TOD</option>
+          {
+            TODs.map(({ code, long_description }) => (
+              <option value={code} >
+                {long_description}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+
+      {combinedTod === 'X' && (
+        <>
+          <div />
+          <div className="aim-combined-tod-other-text">
+            {!readMode && <FA name="times" className="other-tod-icon" onClick={clearOtherTod} />}
+            {combinedTodOtherText}
+          </div>
+        </>
+      )}
+
+    </>
+  );
 
   return (
     <div className="ai-maintenance-header">
@@ -344,6 +439,9 @@ const AgendaItemMaintenancePane = (props) => {
                   </div>
                 </div>
             }
+
+            { !TODLoading && combinedTodDropdown() }
+
           </div>
           <div className="remarks">
             <label htmlFor="remarks">Remarks:</label>
