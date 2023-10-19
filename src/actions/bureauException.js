@@ -90,7 +90,8 @@ export function bureauExceptionFetchData() {
   };
 }
 
-export function bureauExceptionBureauDataFetchData() {
+export function bureauExceptionBureauDataFetchData(currentUser) {
+  console.log('currentUser', currentUser);
   return (dispatch) => {
     batch(() => {
       dispatch(bureauExceptionBureauDataFetchDataLoading(true));

@@ -38,10 +38,9 @@ const BureauExceptionListCard = (props) => {
 
   useEffect(() => {
     fetchAndSet();
-  }, []);
+  }, [edit]);
 
   const collapseCard = () => {
-    dispatch(bureauExceptionBureauDataFetchData());
     setShowMore(!showMore);
     setEdit(e => !e);
   };
@@ -80,6 +79,15 @@ const BureauExceptionListCard = (props) => {
       pv_id,
     };
     dispatch(saveBureauExceptionSelections(currentUser));
+  };
+
+  const editBureau = () => {
+    const currentUser = {
+      id,
+      pv_id,
+    };
+
+    dispatch(bureauExceptionBureauDataFetchData(currentUser));
   };
 
   const cancel = (e) => {
@@ -142,7 +150,7 @@ const BureauExceptionListCard = (props) => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                // editBureau({ id, Name, BureauNames });
+                editBureau();
                 collapseCard();
               }}
               to="#"
@@ -203,9 +211,7 @@ const BureauExceptionListCard = (props) => {
                             <td className="checkbox-pac checkbox-pos">
                               <CheckBox
                                 label={post.description}
-                                value={checkedBureauIds.includes(
-                                  post.bureauCode,
-                                )}
+                                value={bureaus.split(', ').includes(post.description)}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
                                 id={`${post.bureauCode}`}
                               />
