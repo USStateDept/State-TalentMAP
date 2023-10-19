@@ -1,12 +1,12 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
+// import Q from 'q';
 import api from '../api';
 import {
   UPDATE_POST_PANEL_PROCESSING_ERROR, UPDATE_POST_PANEL_PROCESSING_ERROR_TITLE,
   UPDATE_POST_PANEL_PROCESSING_SUCCESS, UPDATE_POST_PANEL_PROCESSING_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { toastError, toastSuccess } from './toast';
-
 
 let cancelPostPanel;
 let cancelEditPostPanel;
@@ -98,7 +98,7 @@ export function editPostPanelProcessing(props) {
       dispatch(editPostPanelProcessingHasErrored(false));
     });
     const ep = '/fsbid/admin/panel/post_panel/edit/';
-    api().post(ep, props, {
+    api().put(ep, props, {
       cancelToken: new CancelToken((c) => { cancelEditPostPanel = c; }),
     })
       .then(({ data }) => {
@@ -111,9 +111,9 @@ export function editPostPanelProcessing(props) {
           ));
           dispatch(editPostPanelProcessingIsLoading(false));
         });
-      }).catch(() => {
+      }).catch((err) => {
         dispatch(toastError(
-          UPDATE_POST_PANEL_PROCESSING_ERROR,
+          `${UPDATE_POST_PANEL_PROCESSING_ERROR} ${err?.error_message ?? ''}`,
           UPDATE_POST_PANEL_PROCESSING_ERROR_TITLE,
         ));
         dispatch(editPostPanelProcessingHasErrored(true));
