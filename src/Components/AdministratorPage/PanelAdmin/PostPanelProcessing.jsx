@@ -6,9 +6,10 @@ import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import Spinner from 'Components/Spinner';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
+import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
-import { panelMeetingsFetchData, runPanelMeeting } from '../../../actions/panelMeetings';
 
 
 const PostPanelProcessing = (props) => {
