@@ -73,14 +73,6 @@ const BureauExceptionListCard = (props) => {
     dispatch(saveBureauExceptionSelections(currentUser));
   };
 
-  const editBureau = () => {
-    const currentUser = {
-      id,
-      pv_id,
-    };
-    console.log(currentUser);
-  };
-
   const cancel = (e) => {
     e.preventDefault();
     swal({
@@ -141,7 +133,6 @@ const BureauExceptionListCard = (props) => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                editBureau();
                 collapseCard();
               }}
               to="#"
