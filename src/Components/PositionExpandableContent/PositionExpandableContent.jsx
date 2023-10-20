@@ -87,9 +87,9 @@ const PositionExpandableContent = ({
     <div className="position-content">
       {
         showLoadingAnimation ?
-          <div className="loading-animation--10">
+          <div className="loading-animation--5">
             <div className="loading-message pbl-20">
-            Pulling additional card data
+              Loading additional data
             </div>
           </div>
           :

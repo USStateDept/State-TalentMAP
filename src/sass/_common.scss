@@ -124,7 +124,7 @@ $values in $filters-sizing-config {
 @each $time in $animation-times-config {
   .loading-animation--#{$time} {
     background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 70%, white 70% 100%) right;
-    background-size: 400%;
+    background-size: 350%;
     animation: loadingAnimation #{$time}s infinite linear;
   }
 }
