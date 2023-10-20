@@ -128,13 +128,7 @@ const PostPanelProcessing = (props) => {
         }
       }
     });
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
-      {
-        postPanelStarted,
-        postPanelRuntime,
-        agendaCompletedTime,
-      },
-    ));
+    // TODO: Save Post Panel Started and Agenda Completed Time
   };
 
 
