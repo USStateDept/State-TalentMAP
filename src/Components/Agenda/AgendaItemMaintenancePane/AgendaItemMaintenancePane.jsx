@@ -146,9 +146,6 @@ const AgendaItemMaintenancePane = (props) => {
       combinedTodMonthsNum,
       combinedTodOtherText,
     });
-    console.log(combinedTod);
-    console.log(combinedTodMonthsNum);
-    console.log(combinedTodOtherText);
   }, [selectedPanelMLDate,
     selectedPanelIDDate,
     userRemarks,
