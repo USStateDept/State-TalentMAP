@@ -105,25 +105,27 @@ const PostPanelProcessing = (props) => {
   };
 
   const submit = () => {
-    formData.forEach(o => {
-      if (o.status === 'H') {
-        dispatch(editPostPanelProcessing({
-          status: o.status,
-          sequence_number: o.sequence_number,
-          update_id: o.update_id,
-          update_date: o.update_date,
-          aht_code: o.aht_code,
-          aih_hold_number: o.aih_hold_number,
-          aih_hold_comment: o.aih_hold_comment,
-          aih_sequence_number: o.aih_sequence_number,
-        }));
-      } else {
-        dispatch(editPostPanelProcessing({
-          status: o.status,
-          sequence_number: o.sequence_number,
-          update_id: o.update_id,
-          update_date: o.update_date,
-        }));
+    formData.forEach((o, i) => {
+      if (values[i].status !== o.status) {
+        if (o.status === 'H') {
+          dispatch(editPostPanelProcessing({
+            status: o.status,
+            sequence_number: o.sequence_number,
+            update_id: o.update_id,
+            update_date: o.update_date,
+            aht_code: o.aht_code,
+            aih_hold_number: o.aih_hold_number,
+            aih_hold_comment: o.aih_hold_comment,
+            aih_sequence_number: o.aih_sequence_number,
+          }));
+        } else {
+          dispatch(editPostPanelProcessing({
+            status: o.status,
+            sequence_number: o.sequence_number,
+            update_id: o.update_id,
+            update_date: o.update_date,
+          }));
+        }
       }
     });
     dispatch(submitPanelMeeting(panelMeetingsResults$,
