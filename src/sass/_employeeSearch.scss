@@ -67,38 +67,18 @@
         }
         .searchbar {
           .text-input-wrapper {
-            // option 1
-/*            span {
+            span {
               background-color: $primary-blue;
               color: $color-white;
               font-size: 15px;
               left: 204px;
               top: 1px;
               padding: 5px 0 0 10px;
-              height: 25px;
+              height: 26px;
               width: 35px;
             }
             span:hover {
-              color: $primary-blue;
-              background-color: $color-white;
-              border: 3px solid $primary-blue;
-              padding: 3px 0 0 8px;
-            }*/
-            // option 2
-            span {
-              background-color: $color-white;
-              border: 3px solid $primary-blue;
-              color: $primary-blue;
-              font-size: 15px;
-              left: 204px;
-              top: 1px;
-              padding: 3px 0 0 8px;
-              height: 25px;
-              width: 35px;
-            }
-            span:hover {
-              color: $color-white;
-              background-color: $primary-blue;
+              background-color: $primary-blue-darker;
             }
           }
         }
