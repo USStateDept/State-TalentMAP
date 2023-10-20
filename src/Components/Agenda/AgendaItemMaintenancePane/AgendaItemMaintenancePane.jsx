@@ -245,7 +245,6 @@ const AgendaItemMaintenancePane = (props) => {
         e.preventDefault();
         swal.close();
       };
-
       swal({
         title: 'Tour of Duty',
         closeOnEsc: true,
