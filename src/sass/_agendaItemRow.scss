@@ -137,6 +137,12 @@
     align-items: flex-end;
     justify-content: space-between;
   }
+
+  .agenda-item-combined-tod {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
 }
 
 .agenda-item-row-container {
