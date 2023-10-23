@@ -60,8 +60,7 @@ const PositionClassification = (props) => {
         editValues = editValues.concat(separator, s.value);
         editUpdatedDates = editUpdatedDates.concat(separator, s.date);
         editUpdaterIds = editUpdaterIds.concat(separator, s.user_id);
-      }
-      if (s.value) {
+      } else if (s.value) {
         const separator = newPosition === "" ? "" : ",";
         newPosition = newPosition.concat(separator, positionNumber);
         newCodes = newCodes.concat(separator, s.code);
