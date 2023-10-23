@@ -191,7 +191,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
                   'None Listed'
                 }
               </dd>
-              {edit &&
+              {
+                edit &&
                 <input
                   type="text"
                   defaultValue=""
