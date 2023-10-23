@@ -127,7 +127,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-header">
-        {showToggle && showCDOD30 &&
+        {
+          showToggle && showCDOD30 &&
           <ToggleButton
             labelTextRight={!included ? 'Excluded' : 'Included'}
             checked={included}
@@ -138,14 +139,16 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
       </div>
       <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
         <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
-        { showMore && showCDOD30 &&
+        {
+          showMore && showCDOD30 &&
           <Link to="#" onClick={(e) => editClient(e)}>
             <FA name="pencil" />
             Edit
           </Link>
         }
       </div>
-      {showToggle && showCDOD30 &&
+      {
+        showToggle && showCDOD30 &&
         <div className="bidder-portfolio-ribbon-container">
           <div className="ribbon-container-condensed">
             {ribbons}
@@ -184,14 +187,16 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
             </div>
             <div className={!edit && 'stat-card-data-point'}>
               <dt>Alt Email:</dt>
-              {altEmail ?
-                <dd>
-                  <a href={`mailto:${altEmail}`}>{altEmail}</a>
-                </dd> :
-                <dd>
+              {
+                altEmail ?
+                  <dd>
+                    <a href={`mailto:${altEmail}`}>{altEmail}</a>
+                  </dd> :
+                  <dd>
                   None Listed
-                </dd>}
-              {edit &&
+                  </dd>}
+              {
+                edit &&
                 <input
                   type="text"
                   defaultValue=""
@@ -219,7 +224,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
           <CheckboxList id={userProfile.id} />
         }
       </div>
-      { showMore && showEdit && showCDOD30 &&
+      {
+        showMore && showEdit && showCDOD30 &&
         <div>
           <dt>Comments:</dt>
           <div className="stat-card-data-point stat-card-comments">
@@ -235,7 +241,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
           </div>
         </div>
       }
-      { showSaveAndCancel && showEdit && showCDOD30 &&
+      {
+        showSaveAndCancel && showEdit && showCDOD30 &&
         <div className="stat-card-btn-container">
           <button onClick={onCancel}>Cancel</button>
           <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>

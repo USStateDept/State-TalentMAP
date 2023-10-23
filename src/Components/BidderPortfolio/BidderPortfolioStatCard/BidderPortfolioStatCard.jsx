@@ -128,7 +128,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
         <div className="bidder-compact-card-head">
-          {showToggle && showCDOD30 &&
+          {
+            showToggle && showCDOD30 &&
             <ToggleButton
               labelTextRight={!included ? 'Excluded' : 'Included'}
               checked={included}
@@ -139,14 +140,16 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         </div>
         <div className="stat-card-data-point bidder-compact-card-head">
           <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
-          { showMore && showCDOD30 &&
+          {
+            showMore && showCDOD30 &&
             <Link to="#" onClick={(e) => editClient(e)}>
               <FA name="pencil" />
                 Edit
             </Link>
           }
         </div>
-        {showToggle && showCDOD30 &&
+        {
+          showToggle && showCDOD30 &&
           <div className="bidder-portfolio-ribbon-container">
             <div className="ribbon-container-condensed-min">
               {ribbons}
@@ -171,8 +174,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         <div className="stat-card-data-point">
           <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
         </div>
-
-        { showCDOD30 &&
+        {
+          showCDOD30 &&
           <>
             <div className="stat-card-data-point">
               <dt>DOS Email:</dt>
@@ -199,8 +202,6 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
             </div>
           </>
         }
-
-
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
@@ -210,7 +211,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
             classifications={classifications}
           />
         </div>
-        { showSearch &&
+        {
+          showSearch &&
           <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <SearchAsClientButton user={userProfile} />
             <AddToInternalListButton refKey={perdet} />
@@ -218,7 +220,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         }
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
-        { showMore && showCDOD30 &&
+        {
+          showMore && showCDOD30 &&
           <div>
             <dt>Comments:</dt>
             <div className="stat-card-data-point stat-card-comments">
@@ -234,13 +237,15 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
             </div>
           </div>
         }
-        { showSaveAndCancel && showCDOD30 &&
+        {
+          showSaveAndCancel && showCDOD30 &&
           <div className="stat-card-btn-container">
             <button className="stat-card-cancel-btn" onClick={onCancel}>Cancel</button>
             <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
           </div>
         }
-        { showCDOD30 &&
+        {
+          showCDOD30 &&
           <div className="toggle-more-container">
             <InteractiveElement className="toggle-more" onClick={collapseCard}>
               <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
