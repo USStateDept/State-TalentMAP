@@ -303,16 +303,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
-      checkFlag('flags.publishable_positions') ?
-        {
-          text: 'Publishable Positions',
-          route: '/profile/bureau/publishablepositions',
-          icon: ' fa-newspaper-o',
-          roles: [
-            'superuser',
-            'bureau_user',
-          ],
-        } : null,
+      {
+        text: 'Publishable Positions',
+        route: '/profile/bureau/publishablepositions',
+        icon: ' fa-newspaper-o',
+        roles: [
+          'superuser',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.search_post_access') ?
         {
           text: 'Search Post Access',
