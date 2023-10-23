@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tippy';
+import { checkFlag } from 'flags';
 import { Cusp, Eligible } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate, getBidderPortfolioUrl } from 'utilities';
@@ -21,6 +22,8 @@ import AddToInternalListButton from '../AddToInternalListButton';
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewType }) => {
   const dispatch = useDispatch();
+  const showCDOD30 = checkFlag('flags.CDOD30');
+
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
@@ -171,31 +174,35 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
           </div>
         </div>
 
-        <div className="stat-card-data-point">
-          <dt>DOS Email:</dt>
-          <dd>
-            <a href={`mailto:${email}`}>{email}</a>
-          </dd>
-        </div>
-        <div className={!edit && 'stat-card-data-point'} >
-          <dt>Alt Email:</dt>
-          {altEmail ?
-            <dd>
-              <a href={`mailto:${altEmail}`}>{altEmail}</a>
-            </dd> :
-            <dd>
-              None Listed
-            </dd>
-          }
-          {edit &&
-            <input
-              type="text"
-              defaultValue=""
-              placeholder="example@gmail.com"
-              onChange={(e) => setVerifyAltEmail(e.target.value)}
-            />
-          }
-        </div>
+        { showCDOD30 &&
+          <>
+            <div className="stat-card-data-point">
+              <dt>DOS Email:</dt>
+              <dd>
+                <a href={`mailto:${email}`}>{email}</a>
+              </dd>
+            </div>
+            <div className={!edit && 'stat-card-data-point'}>
+              <dt>Alt Email:</dt>
+              {altEmail ?
+                <dd>
+                  <a href={`mailto:${altEmail}`}>{altEmail}</a>
+                </dd> :
+                <dd>
+                  None Listed
+                </dd>}
+              {edit &&
+                <input
+                  type="text"
+                  defaultValue=""
+                  placeholder="example@gmail.com"
+                  onChange={(e) => setVerifyAltEmail(e.target.value)}
+                />
+              }
+            </div>
+          </>
+        }
+
 
         {
           !showEdit &&
@@ -228,7 +235,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
           </div>
         </div>
       }
-      { showSaveAndCancel && showEdit &&
+      { showSaveAndCancel && showEdit && showCDOD30 &&
         <div className="stat-card-btn-container">
           <button onClick={onCancel}>Cancel</button>
           <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
@@ -242,7 +249,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
         </div>
       }
       {
-        showEdit &&
+        showEdit && showCDOD30 &&
           <div className="toggle-more-container">
             <InteractiveElement className="toggle-more" onClick={collapseCard}>
               <FA name={`chevron-${showMore ? 'up' : 'down'}`} />

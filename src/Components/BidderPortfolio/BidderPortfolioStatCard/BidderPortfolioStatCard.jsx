@@ -6,6 +6,7 @@ import { Cusp, Eligible } from 'Components/Ribbon';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { checkFlag } from 'flags';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate, getBidderPortfolioUrl } from 'utilities';
@@ -13,6 +14,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { saveBidderPortfolioSelections } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
 import InteractiveElement from 'Components/InteractiveElement';
+
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
@@ -21,6 +23,8 @@ import AddToInternalListButton from '../AddToInternalListButton';
 
 const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewType }) => {
   const dispatch = useDispatch();
+  const showCDOD30 = checkFlag('flags.CDOD30');
+
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
@@ -124,7 +128,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
         <div className="bidder-compact-card-head">
-          {showToggle &&
+          {showToggle && showCDOD30 &&
             <ToggleButton
               labelTextRight={!included ? 'Excluded' : 'Included'}
               checked={included}
@@ -135,14 +139,14 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         </div>
         <div className="stat-card-data-point bidder-compact-card-head">
           <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
-          { showMore &&
+          { showMore && showCDOD30 &&
             <Link to="#" onClick={(e) => editClient(e)}>
               <FA name="pencil" />
                 Edit
             </Link>
           }
         </div>
-        {showToggle &&
+        {showToggle && showCDOD30 &&
           <div className="bidder-portfolio-ribbon-container">
             <div className="ribbon-container-condensed-min">
               {ribbons}
@@ -168,29 +172,34 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
           <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
         </div>
 
-        <div className="stat-card-data-point">
-          <dt>DOS Email:</dt>
-          <dd>
-            <a href={`mailto: ${email}`}>{email}</a>
-          </dd>
-        </div>
-        <div className={!edit && 'stat-card-data-point'} >
-          <dt>Alt Email:</dt>
-          <dd>
-            {altEmail ?
-              <a href={`mailto:${altEmail}`}>{altEmail}</a> :
-              'None Listed'
-            }
-          </dd>
-          {edit &&
-            <input
-              type="text"
-              defaultValue=""
-              placeholder="example@gmail.com"
-              onChange={(e) => setVerifyAltEmail(e.target.value)}
-            />
-          }
-        </div>
+        { showCDOD30 &&
+          <>
+            <div className="stat-card-data-point">
+              <dt>DOS Email:</dt>
+              <dd>
+                <a href={`mailto: ${email}`}>{email}</a>
+              </dd>
+            </div>
+            <div className={!edit && 'stat-card-data-point'} >
+              <dt>Alt Email:</dt>
+              <dd>
+                {altEmail ?
+                  <a href={`mailto:${altEmail}`}>{altEmail}</a> :
+                  'None Listed'
+                }
+              </dd>
+              {edit &&
+                <input
+                  type="text"
+                  defaultValue=""
+                  placeholder="example@gmail.com"
+                  onChange={(e) => setVerifyAltEmail(e.target.value)}
+                />
+              }
+            </div>
+          </>
+        }
+
 
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
@@ -209,7 +218,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
         }
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
-        { showMore &&
+        { showMore && showCDOD30 &&
           <div>
             <dt>Comments:</dt>
             <div className="stat-card-data-point stat-card-comments">
@@ -225,17 +234,19 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
             </div>
           </div>
         }
-        { showSaveAndCancel &&
+        { showSaveAndCancel && showCDOD30 &&
           <div className="stat-card-btn-container">
             <button className="stat-card-cancel-btn" onClick={onCancel}>Cancel</button>
             <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
           </div>
         }
-        <div className="toggle-more-container">
-          <InteractiveElement className="toggle-more" onClick={collapseCard}>
-            <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-          </InteractiveElement>
-        </div>
+        { showCDOD30 &&
+          <div className="toggle-more-container">
+            <InteractiveElement className="toggle-more" onClick={collapseCard}>
+              <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+            </InteractiveElement>
+          </div>
+        }
       </div>
     </BoxShadow>
   );
