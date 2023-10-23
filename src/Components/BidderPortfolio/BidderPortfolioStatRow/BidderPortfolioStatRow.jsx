@@ -145,7 +145,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
           </Link>
         }
       </div>
-      {showToggle &&
+      {showToggle && showCDOD30 &&
         <div className="bidder-portfolio-ribbon-container">
           <div className="ribbon-container-condensed">
             {ribbons}
