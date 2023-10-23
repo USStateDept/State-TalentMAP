@@ -127,7 +127,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-header">
-        {showToggle &&
+        {showToggle && showCDOD30 &&
           <ToggleButton
             labelTextRight={!included ? 'Excluded' : 'Included'}
             checked={included}
