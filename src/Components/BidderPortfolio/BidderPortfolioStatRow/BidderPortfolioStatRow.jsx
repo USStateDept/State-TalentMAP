@@ -138,7 +138,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
       </div>
       <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
         <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
-        { showMore &&
+        { showMore && showCDOD30 &&
           <Link to="#" onClick={(e) => editClient(e)}>
             <FA name="pencil" />
             Edit
@@ -219,7 +219,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewTy
           <CheckboxList id={userProfile.id} />
         }
       </div>
-      { showMore && showEdit &&
+      { showMore && showEdit && showCDOD30 &&
         <div>
           <dt>Comments:</dt>
           <div className="stat-card-data-point stat-card-comments">
