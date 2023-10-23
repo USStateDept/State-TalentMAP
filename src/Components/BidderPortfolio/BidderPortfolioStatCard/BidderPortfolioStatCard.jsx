@@ -188,8 +188,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
               <dd>
                 {
                   altEmail ?
-                  <a href={`mailto:${altEmail}`}>{altEmail}</a> :
-                  'None Listed'
+                    <a href={`mailto:${altEmail}`}>{altEmail}</a> :
+                    'None Listed'
                 }
               </dd>
               {
