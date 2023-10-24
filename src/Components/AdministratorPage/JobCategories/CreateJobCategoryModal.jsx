@@ -2,29 +2,20 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import swal from '@sweetalert/with-react';
 import CheckBox from 'Components/CheckBox';
-import { jobCategoriesAdminFetchData, jobCategoriesSaveNewCatIsLoading,
-  jobCategoriesSaveNewCatSuccess, jobCategoriesSaveNewCategory } from 'actions/jobCategories';
+import { jobCategoriesSaveNewCategory } from 'actions/jobCategories';
 
 const CreateJobCategoryModal = (props) => {
-  const { dispatch, refSkills, setSelectedJobCategory, setIsEditMode } = props;
+  const { dispatch, refSkills } = props;
 
   const [selectedSkillIds, setSelectedSkillIds] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [selectAll, setSelectAll] = useState(false);
 
-  const getSaveNewCatQuery = () => ({
-    category_name: newCategoryName,
-    skill_codes: [...selectedSkillIds],
-  });
-
   const submitNewCategory = (() => {
-    dispatch(jobCategoriesSaveNewCategory(getSaveNewCatQuery()));
-    if (jobCategoriesSaveNewCatSuccess && !jobCategoriesSaveNewCatIsLoading) {
-      dispatch(jobCategoriesAdminFetchData());
-      setSelectedJobCategory('');
-      setIsEditMode(false);
-      swal.close();
-    }
+    dispatch(jobCategoriesSaveNewCategory({
+      category_name: newCategoryName,
+      skill_codes: [...selectedSkillIds],
+    }));
   });
 
   const handleSelectAll = () => {
@@ -69,7 +60,7 @@ const CreateJobCategoryModal = (props) => {
               <th className="checkbox-pos">
                 <CheckBox
                   className="tm-checkbox-transparent"
-                  checked={!selectAll}
+                  value={selectAll}
                   onCheckBoxClick={handleSelectAll}
                 />
               </th>
@@ -123,8 +114,6 @@ const CreateJobCategoryModal = (props) => {
 CreateJobCategoryModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   refSkills: PropTypes.arrayOf(PropTypes.string),
-  setSelectedJobCategory: PropTypes.func.isRequired,
-  setIsEditMode: PropTypes.func.isRequired,
 };
 
 CreateJobCategoryModal.defaultProps = {
