@@ -18,7 +18,11 @@ import {
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
-let cancelJobCategories;
+let cancelJobCategoriesFetch;
+let cancelJobCategoriesFetchSkills;
+let cancelJobCategoriesCreate;
+let cancelJobCategoriesEdit;
+let cancelJobCategoriesDelete;
 
 export function jobCategoriesAdminFetchDataErrored(bool) {
   return {
@@ -40,8 +44,8 @@ export function jobCategoriesAdminFetchDataSuccess(data) {
 }
 export function jobCategoriesAdminFetchData() {
   return (dispatch) => {
-    if (cancelJobCategories) {
-      cancelJobCategories('cancel');
+    if (cancelJobCategoriesFetch) {
+      cancelJobCategoriesFetch('cancel');
       dispatch(jobCategoriesAdminFetchDataIsLoading(true));
     }
     batch(() => {
@@ -50,7 +54,7 @@ export function jobCategoriesAdminFetchData() {
     });
     const endpoint = '/fsbid/job_categories/';
     api().get(endpoint, {
-      cancelToken: new CancelToken((c) => { cancelJobCategories = c; }),
+      cancelToken: new CancelToken((c) => { cancelJobCategoriesFetch = c; }),
     })
       .then((data) => {
         batch(() => {
@@ -88,8 +92,8 @@ export function jobCategoriesFetchSkillsSuccess(data) {
 }
 export function jobCategoriesFetchSkills(query = {}) {
   return (dispatch) => {
-    if (cancelJobCategories) {
-      cancelJobCategories('cancel');
+    if (cancelJobCategoriesFetchSkills) {
+      cancelJobCategoriesFetchSkills('cancel');
       dispatch(jobCategoriesFetchSkillsIsLoading(true));
     }
     batch(() => {
@@ -99,7 +103,7 @@ export function jobCategoriesFetchSkills(query = {}) {
     const q = convertQueryToString(query);
     const endpoint = `/fsbid/job_categories/skills/?${q}`;
     api().get(endpoint, {
-      cancelToken: new CancelToken((c) => { cancelJobCategories = c; }),
+      cancelToken: new CancelToken((c) => { cancelJobCategoriesFetchSkills = c; }),
     })
       .then((data) => {
         batch(() => {
@@ -119,12 +123,12 @@ export function jobCategoriesFetchSkills(query = {}) {
 
 export function jobCategoriesSaveNewCategory(data = {}) {
   return (dispatch) => {
-    if (cancelJobCategories) {
-      cancelJobCategories('cancel');
+    if (cancelJobCategoriesCreate) {
+      cancelJobCategoriesCreate('cancel');
     }
     const endpoint = '/fsbid/job_categories/create';
     api().post(endpoint, data, {
-      cancelToken: new CancelToken((c) => { cancelJobCategories = c; }),
+      cancelToken: new CancelToken((c) => { cancelJobCategoriesCreate = c; }),
     })
       .then(() => {
         batch(() => {
@@ -147,12 +151,12 @@ export function jobCategoriesSaveNewCategory(data = {}) {
 
 export function jobCategoriesDeleteCategory(data = {}) {
   return (dispatch) => {
-    if (cancelJobCategories) {
-      cancelJobCategories('cancel');
+    if (cancelJobCategoriesDelete) {
+      cancelJobCategoriesDelete('cancel');
     }
     const endpoint = '/fsbid/job_categories/delete';
     api().post(endpoint, data, {
-      cancelToken: new CancelToken((c) => { cancelJobCategories = c; }),
+      cancelToken: new CancelToken((c) => { cancelJobCategoriesDelete = c; }),
     })
       .then(() => {
         batch(() => {
@@ -173,12 +177,12 @@ export function jobCategoriesDeleteCategory(data = {}) {
 
 export function jobCategoriesEditCategory(data = {}) {
   return (dispatch) => {
-    if (cancelJobCategories) {
-      cancelJobCategories('cancel');
+    if (cancelJobCategoriesEdit) {
+      cancelJobCategoriesEdit('cancel');
     }
     const endpoint = '/fsbid/job_categories/edit';
     api().post(endpoint, data, {
-      cancelToken: new CancelToken((c) => { cancelJobCategories = c; }),
+      cancelToken: new CancelToken((c) => { cancelJobCategoriesEdit = c; }),
     })
       .then(() => {
         batch(() => {
