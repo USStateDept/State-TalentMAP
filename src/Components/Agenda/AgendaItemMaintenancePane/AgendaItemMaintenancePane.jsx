@@ -275,14 +275,14 @@ const AgendaItemMaintenancePane = (props) => {
       <div>
         <label className="select-label" htmlFor="ai-maintenance-combinedTOD">Combined TOD:</label>
         <select
-          value={combinedTod}
+          value={combinedTod || ''}
           disabled={readMode}
           className="aim-select aim-combined-tod"
           onChange={(e) => handleTodSelection(e.target.value)}
         >
           <option value={''}>Combined TOD</option>
           {
-            TODs.map(({ code, long_description }) => (
+            TODs?.map(({ code, long_description }) => (
               <option value={code} >
                 {long_description}
               </option>
