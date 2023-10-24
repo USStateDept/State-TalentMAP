@@ -115,6 +115,16 @@ const AgendaItemRow = props => {
             </div>
           }
           <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
+
+          { agenda.aiCombinedTodDescText &&
+            <div className="agenda-item-combined-tod">
+              <span>
+                <span className="agenda-item-combined-tod-text">{'Combined TOD: '}</span>
+                {agenda.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText}
+              </span>
+            </div>
+          }
+
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
@@ -151,6 +161,9 @@ AgendaItemRow.propTypes = {
     id: PropTypes.number,
     creator_date: PropTypes.string,
     modifier_date: PropTypes.string,
+    aiCombinedTodCode: PropTypes.string,
+    aiCombinedTodDescText: PropTypes.string,
+    aiCombinedTodOtherText: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
