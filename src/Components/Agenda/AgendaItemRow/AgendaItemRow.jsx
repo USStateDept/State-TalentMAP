@@ -118,7 +118,12 @@ const AgendaItemRow = props => {
 
           <div className="agenda-item-combined-tod">
             { agenda.aiCombinedTodDescText &&
-              (`Combined TOD: ${agenda.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText}`)
+              (
+                <span>
+                  <span className="agenda-item-combined-tod-text">{'Combined TOD: '}</span>
+                  {agenda.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText}
+                </span>
+              )
             }
           </div>
 
