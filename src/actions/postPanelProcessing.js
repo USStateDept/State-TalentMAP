@@ -1,6 +1,5 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
-// import Q from 'q';
 import api from '../api';
 import {
   UPDATE_POST_PANEL_PROCESSING_ERROR, UPDATE_POST_PANEL_PROCESSING_ERROR_TITLE,
