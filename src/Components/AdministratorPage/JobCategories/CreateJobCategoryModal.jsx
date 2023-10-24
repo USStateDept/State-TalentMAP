@@ -11,13 +11,11 @@ const CreateJobCategoryModal = (props) => {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [selectAll, setSelectAll] = useState(false);
 
-  const getSaveNewCatQuery = () => ({
-    category_name: newCategoryName,
-    skill_codes: [...selectedSkillIds],
-  });
-
   const submitNewCategory = (() => {
-    dispatch(jobCategoriesSaveNewCategory(getSaveNewCatQuery()));
+    dispatch(jobCategoriesSaveNewCategory({
+      category_name: newCategoryName,
+      skill_codes: [...selectedSkillIds],
+    }));
   });
 
   const handleSelectAll = () => {
@@ -62,7 +60,7 @@ const CreateJobCategoryModal = (props) => {
               <th className="checkbox-pos">
                 <CheckBox
                   className="tm-checkbox-transparent"
-                  checked={!selectAll}
+                  value={selectAll}
                   onCheckBoxClick={handleSelectAll}
                 />
               </th>

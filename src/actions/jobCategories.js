@@ -9,10 +9,6 @@ import {
   JOB_CATEGORIES_EDIT_ERROR_TITLE,
   JOB_CATEGORIES_EDIT_SUCCESS,
   JOB_CATEGORIES_EDIT_SUCCESS_TITLE,
-  JOB_CATEGORIES_FETCH_CATS_ERROR,
-  JOB_CATEGORIES_FETCH_CATS_ERROR_TITLE,
-  JOB_CATEGORIES_FETCH_SKILLS_ERROR,
-  JOB_CATEGORIES_FETCH_SKILLS_ERROR_TITLE,
   JOB_CATEGORIES_SAVE_NEW_ERROR,
   JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
   JOB_CATEGORIES_SAVE_NEW_SUCCESS,
@@ -43,21 +39,22 @@ export function jobCategoriesAdminFetchData() {
   return (dispatch) => {
     batch(() => {
       dispatch(jobCategoriesAdminFetchDataIsLoading(true));
+      dispatch(jobCategoriesAdminFetchDataHasErrored(false));
     });
     const endpoint = '/fsbid/job_categories/';
     api().get(endpoint)
       .then((data) => {
         batch(() => {
           dispatch(jobCategoriesAdminFetchDataSuccess(data));
+          dispatch(jobCategoriesAdminFetchDataHasErrored(false));
           dispatch(jobCategoriesAdminFetchDataIsLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(toastError(
-              JOB_CATEGORIES_FETCH_CATS_ERROR, JOB_CATEGORIES_FETCH_CATS_ERROR_TITLE,
-            ));
+            dispatch(jobCategoriesAdminFetchDataHasErrored(true));
+            dispatch(jobCategoriesAdminFetchDataIsLoading(false));
           });
         }
       });
@@ -86,6 +83,7 @@ export function jobCategoriesFetchSkills(query = {}) {
   return (dispatch) => {
     batch(() => {
       dispatch(jobCategoriesFetchSkillsIsLoading(true));
+      dispatch(jobCategoriesFetchSkillsHasErrored(false));
     });
     const q = convertQueryToString(query);
     const endpoint = `/fsbid/job_categories/skills/?${q}`;
@@ -93,15 +91,15 @@ export function jobCategoriesFetchSkills(query = {}) {
       .then((data) => {
         batch(() => {
           dispatch(jobCategoriesFetchSkillsSuccess(data));
+          dispatch(jobCategoriesFetchSkillsHasErrored(false));
           dispatch(jobCategoriesFetchSkillsIsLoading(false));
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
+        if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(toastError(
-              JOB_CATEGORIES_FETCH_SKILLS_ERROR, JOB_CATEGORIES_FETCH_SKILLS_ERROR_TITLE,
-            ));
+            dispatch(jobCategoriesFetchSkillsHasErrored(true));
+            dispatch(jobCategoriesFetchSkillsIsLoading(false));
           });
         }
       });
@@ -140,13 +138,7 @@ export function jobCategoriesSaveNewCategory(data = {}) {
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(toastError(
-              JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
-            ));
-          });
-        } else {
+        if (err?.message !== 'cancel') {
           batch(() => {
             dispatch(toastError(
               JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,

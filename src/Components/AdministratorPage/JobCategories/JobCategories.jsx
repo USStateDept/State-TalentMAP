@@ -6,6 +6,7 @@ import { jobCategoriesAdminFetchData, jobCategoriesDeleteCategory,
   jobCategoriesEditCategory, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
+import Alert from '../../Alert';
 import Spinner from '../../Spinner';
 import CreateJobCategoryModal from './CreateJobCategoryModal';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
@@ -17,8 +18,12 @@ const JobCategories = () => {
   const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
   const jobCategoriesAdminFetchDataIsLoading = useSelector(
     state => state.jobCategoriesAdminFetchDataIsLoading);
+  const jobCategoriesAdminFetchDataErrored = useSelector(
+    state => state.jobCategoriesAdminFetchDataErrored);
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   const jobCategorySkillsIsLoading = useSelector(state => state.jobCategoriesFetchSkillsIsLoading);
+  const jobCategoriesFetchSkillsHasErrored = useSelector(
+    state => state.jobCategoriesFetchSkillsHasErrored);
 
   const jobCategoriesResults = jobCategories?.data;
   // jobCategorySkills return data has 2 items
@@ -46,20 +51,25 @@ const JobCategories = () => {
 
   const getEditQuery = () => {
     const inclusionsInds = [];
+    const skillUpdateCodes = [];
     const skillUpdateDates = [];
     const skillUpdateIds = [];
 
     selectedSkillIds.forEach((id) => {
-      inclusionsInds.push('1');
-      skillUpdateDates.push(
-        jobCategorySkillsResults.find((skill) => skill.code === id).update_date || '');
-      skillUpdateIds.push(
-        jobCategorySkillsResults.find((skill) => skill.code === id).update_user_id);
+      if (!loadedSkillIds.includes(id)) {
+        inclusionsInds.push('1');
+        skillUpdateCodes.push(id);
+        skillUpdateDates.push(
+          jobCategorySkillsResults.find((skill) => skill.code === id).update_date || '');
+        skillUpdateIds.push(
+          jobCategorySkillsResults.find((skill) => skill.code === id).update_user_id);
+      }
     });
 
     loadedSkillIds.forEach((id) => {
       if (!selectedSkillIds.includes(id)) {
         inclusionsInds.push('0');
+        skillUpdateCodes.push(id);
         skillUpdateDates.push(
           jobCategorySkillsResults.find((skill) => skill.code === id).update_date || '');
         skillUpdateIds.push(
@@ -76,7 +86,7 @@ const JobCategories = () => {
       status_ind: jobCategorySkillsRef.status_ind,
       update_date: jobCategorySkillsRef.update_date,
       update_user_id: jobCategorySkillsRef.update_user_id,
-      skill_codes: [...selectedSkillIds],
+      skill_codes: skillUpdateCodes,
       skill_update_dates: skillUpdateDates,
       skill_update_ids: skillUpdateIds,
     };
@@ -217,115 +227,121 @@ const JobCategories = () => {
   return (
     <div className="admin-job-categories-page">
       <ProfileSectionTitle title="Job Categories" icon="cogs" />
-      <div>
-        <div className="jc-post-controls">
-          <button onClick={() => newJobCategoryModal()}>Create New Job Category</button>
-          <button
-            onClick={() => deleteJobCategoryModal()}
-            disabled={!selectedJobCategory}
-            className={`${selectedJobCategory === '' ? 'disabled-bg' : 'jc-delete-button'}`}
-          >
-              Delete Selected Job Category
-          </button>
-        </div>
-        <div className="select-container">
-          <label htmlFor="categories-select">Select A Job Category</label>
-          <select
-            className={`${isEditMode || jobCategoriesAdminFetchDataIsLoading ? 'disabled-bg' : 'select-dropdown'}`}
-            onChange={(e) => setSelectedJobCategory(e.target.value)}
-            value={(selectedJobCategory)}
-            disabled={isEditMode || jobCategoriesAdminFetchDataIsLoading}
-          >
-            <option value="">--Please Select a Job Category--</option>
-            {
-              jobCategoriesResults?.map(category => (
-                <option value={category.id}>
-                  {category.description}
-                </option>
-              ))
-            }
-          </select>
-        </div>
-      </div>
-      <TabbedCard
-        tabs={[{
-          text: 'Skill Descriptions',
-          value: 'descriptions',
-          content: (
-            <div>
-              {selectedJobCategory !== '' &&
-                <div className="jc-toggle-container">
-                  <ToggleButton
-                    labelTextRight="Toggle Edit Mode"
-                    onChange={() => setIsEditMode(!isEditMode)}
-                    checked={isEditMode}
-                    onColor="#0071BC"
-                  />
-                </div>
-              }
-              <table className="custom-table">
-                <thead>
-                  <tr className="jc-table-row">
-                    <th className="checkbox-pos">
-                      <CheckBox
-                        className="tm-checkbox-transparent"
-                        value={selectAll}
-                        onCheckBoxClick={handleSelectAll}
-                        disabled={!isEditMode}
+      {jobCategoriesAdminFetchDataErrored || jobCategoriesFetchSkillsHasErrored ?
+        <Alert type="error" title="Error loading Job Categories page" messages={[{ body: 'Please try again.' }]} />
+        :
+        <div>
+          <div>
+            <div className="jc-post-controls">
+              <button onClick={() => newJobCategoryModal()}>Create New Job Category</button>
+              <button
+                onClick={() => deleteJobCategoryModal()}
+                disabled={!selectedJobCategory}
+                className={`${selectedJobCategory === '' ? 'disabled-bg' : 'jc-delete-button'}`}
+              >
+                  Delete Selected Job Category
+              </button>
+            </div>
+            <div className="select-container">
+              <label htmlFor="categories-select">Select A Job Category</label>
+              <select
+                className={`${isEditMode || jobCategoriesAdminFetchDataIsLoading ? 'disabled-bg' : 'select-dropdown'}`}
+                onChange={(e) => setSelectedJobCategory(e.target.value)}
+                value={(selectedJobCategory)}
+                disabled={isEditMode || jobCategoriesAdminFetchDataIsLoading}
+              >
+                <option value="">--Please Select a Job Category--</option>
+                {
+                  jobCategoriesResults?.map(category => (
+                    <option value={category.id}>
+                      {category.description}
+                    </option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+          <TabbedCard
+            tabs={[{
+              text: 'Skill Descriptions',
+              value: 'descriptions',
+              content: (
+                <div>
+                  {selectedJobCategory !== '' &&
+                    <div className="jc-toggle-container">
+                      <ToggleButton
+                        labelTextRight="Toggle Edit Mode"
+                        onChange={() => setIsEditMode(!isEditMode)}
+                        checked={isEditMode}
+                        onColor="#0071BC"
                       />
-                    </th>
-                    <th className="skill-code-column">
-                      Skill Code
-                    </th>
-                    <th className="skill-desc-column">
-                      Skill Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {jobCategorySkillsIsLoading ?
-                    <div>
-                      <Spinner type="job-categories-results" size="small" />
-                    </div> :
-                    jobCategorySkillsResults?.map(skill => (
-                      <tr key={skill.code}>
-                        <td className="checkbox-pac checkbox-pos">
+                    </div>
+                  }
+                  <table className="custom-table">
+                    <thead>
+                      <tr className="jc-table-row">
+                        <th className="checkbox-pos">
                           <CheckBox
                             className="tm-checkbox-transparent"
-                            value={
-                              selectedJobCategory !== '' ?
-                                selectedSkillIds.includes(skill.code) : false
-                            }
-                            onCheckBoxClick={() => handleSelectSkill(skill)}
+                            value={selectAll}
+                            onCheckBoxClick={handleSelectAll}
                             disabled={!isEditMode}
                           />
-                        </td>
-                        <td>{skill.code}</td>
-                        <td>{skill.description}</td>
+                        </th>
+                        <th className="skill-code-column">
+                          Skill Code
+                        </th>
+                        <th className="skill-desc-column">
+                          Skill Description
+                        </th>
                       </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-              <div className="modal-controls">
-                <button
-                  onClick={() => submitEdit()}
-                  disabled={!isEditMode}
-                >
-                    Submit
-                </button>
-                <button
-                  onClick={clearInputs}
-                  disabled={!isEditMode}
-                  className="usa-button-secondary saved-search-form-secondary-button"
-                >
-                    Cancel
-                </button>
-              </div>
-            </div>
-          ),
-        }]}
-      />
+                    </thead>
+                    <tbody>
+                      {jobCategorySkillsIsLoading ?
+                        <div>
+                          <Spinner type="job-categories-results" size="small" />
+                        </div> :
+                        jobCategorySkillsResults?.map(skill => (
+                          <tr key={skill.code}>
+                            <td className="checkbox-pac checkbox-pos">
+                              <CheckBox
+                                className="tm-checkbox-transparent"
+                                value={
+                                  selectedJobCategory !== '' ?
+                                    selectedSkillIds.includes(skill.code) : false
+                                }
+                                onCheckBoxClick={() => handleSelectSkill(skill)}
+                                disabled={!isEditMode}
+                              />
+                            </td>
+                            <td>{skill.code}</td>
+                            <td>{skill.description}</td>
+                          </tr>
+                        ))
+                      }
+                    </tbody>
+                  </table>
+                  <div className="modal-controls">
+                    <button
+                      onClick={() => submitEdit()}
+                      disabled={!isEditMode}
+                    >
+                        Submit
+                    </button>
+                    <button
+                      onClick={clearInputs}
+                      disabled={!isEditMode}
+                      className="usa-button-secondary saved-search-form-secondary-button"
+                    >
+                        Cancel
+                    </button>
+                  </div>
+                </div>
+              ),
+            }]}
+          />
+        </div>
+      }
     </div>
   );
 };
