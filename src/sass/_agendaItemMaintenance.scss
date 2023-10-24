@@ -159,23 +159,6 @@
         100% {background-color: $primary-alt-lightest;}
       }
 
-      .loading-animation {
-        //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
-        background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 70%, white 70% 100%) right;
-        //background: linear-gradient(135deg, white 0%, $primary-alt-light 50%, white 100%) right;
-        background-size: 400%;
-        animation: loadingAnimation 3s infinite linear;
-      }
-
-      @keyframes loadingAnimation {
-        0% {
-          background-position: right;
-        }
-        100% {
-          background-position: left;
-        }
-      }
-
       .position-number-container {
         display: flex;
         align-items: baseline;

@@ -7,9 +7,12 @@ import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import InteractiveElement from 'Components/InteractiveElement';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Definition } from '../DefinitionList';
 
-const PositionExpandableContent = ({ sections, form, tempHideEdit }) => {
+const PositionExpandableContent = ({
+  sections, form, appendAdditionalFieldsToBodyPrimary, tempHideEdit,
+  showLoadingAnimation, onShowMore }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -45,7 +48,8 @@ const PositionExpandableContent = ({ sections, form, tempHideEdit }) => {
     }
     const minScreenWidth = 1650;
     // Append additional fields to collapsed view to fill blank space on wider screens
-    if (minScreenWidth < windowWidth && sections.bodySecondary) {
+    if (appendAdditionalFieldsToBodyPrimary
+      && (minScreenWidth < windowWidth) && sections.bodySecondary) {
       const appendSecondary = [];
       const numFields = Math.floor((windowWidth - minScreenWidth) / 190);
       sections.bodySecondary.slice(0, numFields).forEach(o => {
@@ -75,100 +79,114 @@ const PositionExpandableContent = ({ sections, form, tempHideEdit }) => {
     });
   };
 
+  useEffect(() => {
+    onShowMore(showMore);
+  }, [showMore]);
+
   return (
     <div className="position-content">
-      <Row fluid className="position-content--section position-content--subheader">
-        <div className="line-separated-fields">
-          {sections?.subheading &&
-            sections.subheading.map(item => {
-              const key = Object.keys(item)[0];
-              return (
-                <div key={`subheading-${key}`}>
-                  <span>{key}:</span>
-                  <span>{item[key]}</span>
-                </div>
-              );
-            })
-          }
-        </div>
-        {(form && !editMode && !tempHideEdit) &&
-          <button
-            className={`toggle-edit-mode ${disableEdit ? 'toggle-edit-mode-disabled' : ''}`}
-            onClick={disableEdit ? () => {} : () => setEditMode(!editMode)}
-          >
-            <FA name="pencil" />
-            <div>Edit</div>
-          </button>
-        }
-      </Row>
-      <Row fluid className="position-content--section position-content--details">
-        <dl className="definitions">
-          {getBody().map(item => {
-            const key = Object.keys(item)[0];
-            return (
-              <Definition
-                key={shortid.generate()}
-                term={key}
-                definition={item[key]}
-                excludeColon
-              />
-            );
-          })}
-        </dl>
-      </Row>
-      {(showMore && !editMode && sections?.textarea) &&
-        <div>
-          <Row fluid className="position-content--description">
-            <span className="definition-title">Position Details</span>
-            <Linkify properties={{ target: '_blank' }}>
-              <TextareaAutosize
-                maxRows={6}
-                minRows={6}
-                maxlength="2000"
-                name="position-description"
-                placeholder="No Description"
-                defaultValue={sections.textarea}
-                disabled={!editMode}
-                className={!editMode ? 'disabled-input' : 'enabled-input'}
-                draggable={false}
-              />
-            </Linkify>
-            <div className="word-count">
-              {/* eslint-disable-next-line react/prop-types */}
-              {sections.textarea.length} / 2,000
+      {
+        showLoadingAnimation ?
+          <div className="loading-animation--5">
+            <div className="loading-message pbl-20">
+              Loading additional data
             </div>
-          </Row>
-        </div>
-      }
-      {(showMore && editMode) &&
-        <div>
-          {setEditMode && <div className="content-divider" />}
-          {form.inputBody}
-          <div className="position-form--actions">
-            <button onClick={showCancelModal}>Cancel</button>
-            <button onClick={form.handleSubmit}>Save Position</button>
           </div>
-        </div>
-      }
-      {!editMode &&
-        <Row fluid className="position-content--section position-content--footer">
-          <div className="position-content--metadata">
-            {sections.metadata && sections.metadata.map(item => {
-              const key = Object.keys(item)[0];
-              return (
-                <span key={`metadata-${key}`}>{`${key}: ${item[key]}`}</span>
-              );
-            })}
-          </div>
-        </Row>
-      }
-      {sections.bodySecondary &&
-        <div className="usa-grid-full toggle-more-container">
-          <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
-            <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-          </InteractiveElement>
-        </div>
-      }
+          :
+          <>
+            <Row fluid className="position-content--section position-content--subheader">
+              <div className="line-separated-fields">
+                {sections?.subheading &&
+                  sections.subheading.map(item => {
+                    const key = Object.keys(item)[0];
+                    return (
+                      <div key={`subheading-${key}`}>
+                        <span>{key}:</span>
+                        <span>{item[key]}</span>
+                      </div>
+                    );
+                  })
+                }
+              </div>
+              {(form && !editMode && !tempHideEdit) &&
+              <button
+                className={`toggle-edit-mode ${disableEdit ? 'toggle-edit-mode-disabled' : ''}`}
+                onClick={disableEdit ? () => {} : () => setEditMode(!editMode)}
+              >
+                <FA name="pencil" />
+                <div>Edit</div>
+              </button>
+              }
+            </Row>
+            <Row fluid className="position-content--section position-content--details">
+              <dl className="definitions">
+                {getBody().map(item => {
+                  const key = Object.keys(item)[0];
+                  return (
+                    <Definition
+                      key={shortid.generate()}
+                      term={key}
+                      definition={item[key]}
+                      excludeColon
+                    />
+                  );
+                })}
+              </dl>
+            </Row>
+            {(showMore && !editMode && sections?.textarea) &&
+            <div>
+              <Row fluid className="position-content--description">
+                <span className="definition-title">Position Details</span>
+                <Linkify properties={{ target: '_blank' }}>
+                  <TextareaAutosize
+                    maxRows={6}
+                    minRows={6}
+                    maxlength="2000"
+                    name="position-description"
+                    placeholder="No Description"
+                    defaultValue={sections.textarea}
+                    disabled={!editMode}
+                    className={!editMode ? 'disabled-input' : 'enabled-input'}
+                    draggable={false}
+                  />
+                </Linkify>
+                <div className="word-count">
+                  {/* eslint-disable-next-line react/prop-types */}
+                  {sections.textarea.length} / 2,000
+                </div>
+              </Row>
+            </div>
+            }
+            {(showMore && editMode) &&
+            <div>
+              {setEditMode && <div className="content-divider" />}
+              {form.inputBody}
+              <div className="position-form--actions">
+                <button onClick={showCancelModal}>Cancel</button>
+                <button onClick={form.handleSubmit}>Save Position</button>
+              </div>
+            </div>
+            }
+            {!editMode &&
+            <Row fluid className="position-content--section position-content--footer">
+              <div className="position-content--metadata">
+                {sections.metadata && sections.metadata.map(item => {
+                  const key = Object.keys(item)[0];
+                  return (
+                    <span key={`metadata-${key}`}>{`${key}: ${item[key]}`}</span>
+                  );
+                })}
+              </div>
+            </Row>
+            }
+            {sections.bodySecondary &&
+            <div className="usa-grid-full toggle-more-container">
+              <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+                <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+              </InteractiveElement>
+            </div>
+            }
+          </>}
     </div>
   );
 };
@@ -193,13 +211,19 @@ PositionExpandableContent.propTypes = {
       disableEdit: PropTypes.bool,
     }),
   }),
+  appendAdditionalFieldsToBodyPrimary: PropTypes.bool,
+  showLoadingAnimation: PropTypes.bool,
   tempHideEdit: PropTypes.bool,
+  onShowMore: PropTypes.func,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
   sections: undefined,
+  appendAdditionalFieldsToBodyPrimary: true,
+  showLoadingAnimation: false,
   tempHideEdit: false,
+  onShowMore: EMPTY_FUNCTION,
 };
 
 export default PositionExpandableContent;

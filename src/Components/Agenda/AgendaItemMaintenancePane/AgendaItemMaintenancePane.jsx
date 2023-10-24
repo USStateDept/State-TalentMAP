@@ -127,7 +127,7 @@ const AgendaItemMaintenancePane = (props) => {
     if (legLimit) {
       setInputClass('input-disabled');
     } else if (pos_results_loading) {
-      setInputClass('loading-animation');
+      setInputClass('loading-animation--3');
     } else if (posNumError) {
       setInputClass('input-error');
     } else {
