@@ -57,6 +57,7 @@
       min-height: 300px;
       overflow-x: auto;
       padding-top: 20px;
+      margin-bottom: 20px;
       @each $res, $vw in $ai-legs-width-config {
         @media screen and (min-width: $res) {
           max-width: $vw;
@@ -64,8 +65,7 @@
       }
 
       table {
-        margin-top: 0;
-        margin-bottom: 30px;
+        margin: 0;
 
         td {
           border: none;
