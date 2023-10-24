@@ -20,7 +20,7 @@ import api from '../api';
 
 let cancelJobCategories;
 
-export function jobCategoriesAdminFetchDataHasErrored(bool) {
+export function jobCategoriesAdminFetchDataErrored(bool) {
   return {
     type: 'JOB_CATEGORIES_ADMIN_HAS_ERRORED',
     hasErrored: bool,
@@ -46,7 +46,7 @@ export function jobCategoriesAdminFetchData() {
     }
     batch(() => {
       dispatch(jobCategoriesAdminFetchDataIsLoading(true));
-      dispatch(jobCategoriesAdminFetchDataHasErrored(false));
+      dispatch(jobCategoriesAdminFetchDataErrored(false));
     });
     const endpoint = '/fsbid/job_categories/';
     api().get(endpoint, {
@@ -55,13 +55,13 @@ export function jobCategoriesAdminFetchData() {
       .then((data) => {
         batch(() => {
           dispatch(jobCategoriesAdminFetchDataSuccess(data));
-          dispatch(jobCategoriesAdminFetchDataHasErrored(false));
+          dispatch(jobCategoriesAdminFetchDataErrored(false));
           dispatch(jobCategoriesAdminFetchDataIsLoading(false));
         });
       })
       .catch(() => {
         batch(() => {
-          dispatch(jobCategoriesAdminFetchDataHasErrored(true));
+          dispatch(jobCategoriesAdminFetchDataErrored(true));
           dispatch(jobCategoriesAdminFetchDataIsLoading(false));
         });
       });
