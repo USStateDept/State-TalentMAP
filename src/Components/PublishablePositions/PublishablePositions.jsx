@@ -19,7 +19,7 @@ import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 import { checkFlag } from '../../flags';
 
-const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
+const PP_FLAG = checkFlag('flags.publishable_positions');
 
 // may need to be used for permissioning
 // eslint-disable-next-line no-unused-vars
@@ -29,6 +29,8 @@ const PublishablePositions = ({ viewType }) => {
 
   const dataHasErrored = useSelector(state => state.publishablePositionsHasErrored);
   const dataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
+  const additionalDataIsLoading = false;
+  // const additionalDataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
   const data = useSelector(state => state.publishablePositions);
   const userSelections = useSelector(state => state.publishablePositionsSelections);
   const filtersHasErrored = useSelector(state => state.publishablePositionsFiltersHasErrored);
@@ -144,6 +146,12 @@ const PublishablePositions = ({ viewType }) => {
     dispatch(savePublishablePositionsSelections({}));
   };
 
+  // eslint-disable-next-line no-unused-vars
+  const callAdditionalData = (e) => {
+    // if e is true, check for cached ref data,
+    // and make additional data calls
+  };
+
   const getOverlay = () => {
     let overlay;
     if (dataIsLoading || filtersIsLoading) {
@@ -239,7 +247,7 @@ const PublishablePositions = ({ viewType }) => {
                 disabled={editMode}
               />
             </div>
-            { PP_INTEGRATION_FLAG ?
+            { PP_FLAG ?
               <div className="filter-div">
                 <div className="label">Bid Cycle:</div>
                 <Picky
@@ -336,11 +344,13 @@ const PublishablePositions = ({ viewType }) => {
                 data.map(pubPos => (
                   <PublishablePositionCard
                     data={pubPos}
+                    additionalCallsLoading={additionalDataIsLoading}
                     onEditModeSearch={editState =>
                       setEditMode(editState)}
                     disableEdit={editMode || (viewType === 'ao')}
                     onSubmit={editData => submitEdit(editData)}
                     filters={filters}
+                    onShowMorePP={callAdditionalData}
                   />
                 ))
               }

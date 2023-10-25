@@ -1,10 +1,12 @@
-
 import { batch } from 'react-redux';
 import { get, keys, orderBy } from 'lodash';
 import { CancelToken } from 'axios';
 import { convertQueryToString, downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
 import Q from 'q';
+import shortid from 'shortid';
+import { toastError, toastInfo, toastSuccess } from './toast';
 import api from '../api';
+import { store } from '../store';
 
 let cancelAgendaEmployees;
 
@@ -50,14 +52,22 @@ export function agendaEmployeesFiltersFetchDataSuccess(results) {
   };
 }
 
-export function agendaItemHistoryExport(query = {}) {
+export function employeeAgendaSearchExport(query = {}) {
   const q = convertQueryToString(query);
   const endpoint = '/fsbid/agenda_employees/export/';
   const ep = `${endpoint}?${q}`;
+  // generate a unique ID to isUpdate the Toast with
+  const id = shortid.generate();
+  store.dispatch(toastInfo('Employee Agenda Search export may take a while, please wait while we process. ' +
+    'Export is capped at first 500 results.', 'Loading...', id));
   return api()
     .get(ep)
     .then((response) => {
-      downloadFromResponse(response, `Agenda_Item_Employees_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+      downloadFromResponse(response, `agenda_employees_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+      store.dispatch(toastSuccess('Employee Agenda Search Exported', 'Success', id, true));
+    }).catch(() => {
+      const text = 'Sorry, an error has occurred while processing your Employee Agenda Search export. Please try again.';
+      store.dispatch(toastError(text, 'Employee Agenda Search Export Error', id, true));
     });
 }
 
