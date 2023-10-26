@@ -1,17 +1,17 @@
 import {
-  bureauExceptions,
-  bureauExceptionsBureauDataFetchDataErrored,
-  bureauExceptionsBureauDataFetchDataLoading,
-  bureauExceptionsFetchDataErrored,
-  bureauExceptionsFetchDataLoading,
-  bureauExceptionsOptions,
+  bureauException,
+  bureauExceptionBureauDataFetchDataErrored,
+  bureauExceptionBureauDataFetchDataLoading,
+  bureauExceptionFetchDataErrored,
+  bureauExceptionFetchDataLoading,
+  bureauExceptionOptions,
 } from './bureauException';
 
 export default {
-  bureauExceptions,
-  bureauExceptionsBureauDataFetchDataErrored,
-  bureauExceptionsBureauDataFetchDataLoading,
-  bureauExceptionsFetchDataErrored,
-  bureauExceptionsFetchDataLoading,
-  bureauExceptionsOptions,
+  bureauException,
+  bureauExceptionBureauDataFetchDataErrored,
+  bureauExceptionBureauDataFetchDataLoading,
+  bureauExceptionFetchDataErrored,
+  bureauExceptionFetchDataLoading,
+  bureauExceptionOptions,
 };

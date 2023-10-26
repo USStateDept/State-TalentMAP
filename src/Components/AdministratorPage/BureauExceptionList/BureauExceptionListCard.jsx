@@ -193,7 +193,7 @@ const BureauExceptionListCard = (props) => {
                             <td className="checkbox-pac checkbox-pos">
                               <CheckBox
                                 label={post.description}
-                                value={bureaus.split(', ').includes(post.description)}
+                                value={bureaus ? bureaus.split(', ').includes(post.description) : null}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
                                 id={`${post.bureauCode}`}
                               />
@@ -205,14 +205,20 @@ const BureauExceptionListCard = (props) => {
               </table>
               <button
                 onClick={addBureaus}
-                disabled={!isAdd}
+                style={{ display: !isAdd ? 'none' : '' }}
               >
                 Add Bureau(s)
               </button>
-              <button onClick={deleteBureaus} disabled={pv_id < 0}>
+              <button
+                onClick={deleteBureaus}
+                style={{ display: pv_id < 0 ? 'none' : '' }}
+              >
                 Delete Bureau(s)
               </button>
-              <button onClick={modify} disabled={pv_id < 0}>
+              <button
+                onClick={modify}
+                style={{ display: pv_id < 0 ? 'none' : '' }}
+              >
                 Modify Bureau(s)
               </button>
               <button onClick={cancel}>Cancel</button>

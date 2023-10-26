@@ -11,10 +11,10 @@ import BureauExceptionListCard from './BureauExceptionListCard';
 const BureauExceptionList = () => {
   const dispatch = useDispatch();
 
-  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionsFetchDataLoading);
-  const BureauExceptionData = useSelector(state => state.bureauExceptions);
-  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionsOptions);
-  const BureauExceptionError = useSelector(state => state.bureauExceptionsFetchDataErrored);
+  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionFetchDataLoading);
+  const BureauExceptionData = useSelector(state => state.bureauException);
+  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionOptions);
+  const BureauExceptionError = useSelector(state => state.bureauExceptionFetchDataErrored);
   const fetchAndSet = () => {
     dispatch(bureauExceptionFetchData());
     dispatch(bureauExceptionBureauDataFetchData());
@@ -43,7 +43,7 @@ const BureauExceptionList = () => {
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Bureau Exception List" icon="calendar" className="xl-icon" />
+        <ProfileSectionTitle title="Bureau Exception Access" icon="calendar" className="xl-icon" />
       </div>
       {
         getOverlay() ||
