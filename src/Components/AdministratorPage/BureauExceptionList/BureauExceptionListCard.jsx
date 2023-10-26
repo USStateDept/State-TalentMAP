@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
@@ -21,7 +21,6 @@ const BureauExceptionListCard = (props) => {
     name,
     pv_id,
   } = userData;
-
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -29,6 +28,26 @@ const BureauExceptionListCard = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [bureau, setBureau] = useState('');
   const [bureauCodes, setBureauCodes] = useState([]);
+
+  const gatherBureauCodes = () => {
+    if (bureaus !== null && bureaus !== undefined && bureaus !== ' ') {
+      const newBureauCodes = bureaus.split(', ').map(bu => data.find(x => x.description === bu)?.bureauCode);
+      setBureauCodes(newBureauCodes);
+    }
+  };
+
+  useEffect(() => {
+    // for initial list check
+    gatherBureauCodes();
+  }, []);
+
+  useEffect(() => {
+    if (data.length === bureauCodes.length) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [bureauCodes.length]);
 
   const collapseCard = () => {
     setShowMore(!showMore);
@@ -41,6 +60,7 @@ const BureauExceptionListCard = (props) => {
     setBureau('');
     setBureauCodes([]);
     setSelectAll(false);
+    gatherBureauCodes();
   };
 
   const addBureaus = (e) => {
@@ -164,7 +184,7 @@ const BureauExceptionListCard = (props) => {
                       <CheckBox
                         label="Bureau"
                         onCheckBoxClick={handleSelectAll}
-                        value={data.length === bureauCodes.length}
+                        value={selectAll}
                         id="selectAll"
                       />
                     </th>
@@ -184,7 +204,7 @@ const BureauExceptionListCard = (props) => {
                             <td className="checkbox-pac checkbox-pos">
                               <CheckBox
                                 label={post.description}
-                                value={bureaus.split(', ').includes(post.description) || bureauCodes.includes(post.bureauCode)}
+                                value={bureauCodes.includes(post.bureauCode)}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
                                 id={`${post.bureauCode}`}
                               />
