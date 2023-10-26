@@ -17,6 +17,7 @@ const BureauExceptionListCard = (props) => {
 
   const {
     bureaus,
+    bureauCodeList,
     id,
     name,
     pv_id,
@@ -30,8 +31,8 @@ const BureauExceptionListCard = (props) => {
   const [bureauCodes, setBureauCodes] = useState([]);
 
   const gatherBureauCodes = () => {
-    if (bureaus !== null && bureaus !== undefined && bureaus !== ' ') {
-      const newBureauCodes = bureaus.split(', ').map(bu => data.find(x => x.description === bu)?.bureauCode);
+    if (bureauCodeList !== null && bureauCodeList !== undefined && bureauCodeList !== ' ') {
+      const newBureauCodes = bureauCodeList.map(bu => bu);
       setBureauCodes(newBureauCodes);
     }
   };
@@ -243,7 +244,7 @@ const BureauExceptionListCard = (props) => {
 
 BureauExceptionListCard.propTypes = {
   userData: PropTypes.shape({
-    bureauCode: PropTypes.string,
+    bureauCodeList: PropTypes.string,
     bureaus: PropTypes.string,
     id: PropTypes.number,
     name: PropTypes.string,
