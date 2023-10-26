@@ -44,9 +44,8 @@
 .bureau-exception-text-input {
     padding: 20px 0px;
 }
-.bs-lower-section {
-  min-height: 100vh;
-  overflow-y: scroll;
+.bel-lower-section {
+  overflow-y: clip;
 }
 .bureau-card {
     margin-top: 15px;
