@@ -134,14 +134,13 @@ const BureauExceptionListCard = (props) => {
   });
 
   const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
-  const isBureauAccess = bureaus !== null && bureaus !== undefined && bureaus !== ' ';
-
+  const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
   return (
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column>Person: {name || 'N/A'}</Column>
-          <Column>Bureau Access: {isBureauAccess ? bureaus : 'No Access'}</Column>
+          <Column>Bureau Access: {isBureauAccess ? bureaus.join(', ') : 'No Access'}</Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
               onClick={(e) => {
