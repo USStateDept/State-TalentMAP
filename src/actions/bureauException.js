@@ -17,148 +17,186 @@ import {
 } from '../Constants/SystemMessages';
 // import { convertQueryToString } from 'utilities';
 
-export function bureauExceptionFetchDataErrored(bool) {
+export function bureauExceptionErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_FETCH_HAS_ERRORED',
+    type: 'BUREAU_EXCEPTION_IS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function bureauExceptionFetchDataLoading(bool) {
+export function bureauExceptionLoading(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_FETCH_IS_LOADING',
+    type: 'BUREAU_EXCEPTION_IS_LOADING',
     isLoading: bool,
   };
 }
 
-export function bureauExceptionBureauDataFetchDataErrored(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_BUREAU_DATA_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function bureauExceptionBureauDataFetchDataLoading(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_BUREAU_DATA_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function bureauExceptionFetchDataSuccess(results) {
+export function bureauExceptionSuccess(results) {
   return {
     type: 'BUREAU_EXCEPTION_FETCH_SUCCESS',
     results,
   };
 }
 
-export function bureauExceptionOptionsFetchDataSuccess(results) {
+export function bureauExceptionListErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_OPTIONS_FETCH_SUCCESS',
+    type: 'BUREAU_EXCEPTION_LIST_IS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function bureauExceptionListLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_LIST_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function bureauExceptionListSuccess(results) {
+  return {
+    type: 'BUREAU_EXCEPTION_LIST_SUCCESS',
     results,
+  };
+}
+
+export function bureauExceptionEditHasErrored(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_EDIT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bureauExceptionEditIsLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_EDIT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bureauExceptionEditSuccess(data) {
+  return {
+    type: 'BUREAU_EXCEPTION_EDIT_SUCCESS',
+    data,
+  };
+}
+
+export function bureauExceptionAddIsErrored(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_ADD_IS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bureauExceptionAddIsLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_ADD_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bureauExceptionAddSuccess(data) {
+  return {
+    type: 'BUREAU_EXCEPTION_ADD_SUCCESS',
+    data,
+  };
+}
+
+
+export function bureauExceptionDeleteIsErrored(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_DELETE_IS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bureauExceptionDeleteIsLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTION_DELETE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bureauExceptionDeleteSuccess(data) {
+  return {
+    type: 'BUREAU_EXCEPTION_DELETE_SUCCESS',
+    data,
   };
 }
 
 export function bureauExceptionFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(bureauExceptionFetchDataLoading(true));
-      dispatch(bureauExceptionFetchDataErrored(false));
+      dispatch(bureauExceptionLoading(true));
+      dispatch(bureauExceptionErrored(false));
     });
-    dispatch(bureauExceptionFetchDataLoading(true));
+    dispatch(bureauExceptionLoading(true));
     api().get('/fsbid/bureau_exceptions/')
       .then((data) => {
         batch(() => {
-          dispatch(bureauExceptionFetchDataSuccess(data?.data));
-          dispatch(bureauExceptionFetchDataErrored(false));
-          dispatch(bureauExceptionFetchDataLoading(false));
+          dispatch(bureauExceptionSuccess(data?.data));
+          dispatch(bureauExceptionErrored(false));
+          dispatch(bureauExceptionLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(bureauExceptionFetchDataLoading(true));
-            dispatch(bureauExceptionFetchDataErrored(false));
+            dispatch(bureauExceptionLoading(true));
+            dispatch(bureauExceptionErrored(false));
           });
         } else {
           batch(() => {
-            dispatch(bureauExceptionFetchDataErrored(false));
-            dispatch(bureauExceptionFetchDataLoading(false));
+            dispatch(bureauExceptionErrored(false));
+            dispatch(bureauExceptionLoading(false));
           });
         }
       });
   };
 }
 
-export function bureauExceptionBureauDataFetchData() {
+export function bureauExceptionListFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(bureauExceptionBureauDataFetchDataLoading(true));
-      dispatch(bureauExceptionBureauDataFetchDataErrored(false));
+      dispatch(bureauExceptionListLoading(true));
+      dispatch(bureauExceptionListErrored(false));
     });
     api().get('/fsbid/bureau_exceptions/bureaus/')
       .then((data) => {
         batch(() => {
-          dispatch(bureauExceptionOptionsFetchDataSuccess(data));
-          dispatch(bureauExceptionBureauDataFetchDataErrored(false));
-          dispatch(bureauExceptionBureauDataFetchDataLoading(false));
+          dispatch(bureauExceptionListSuccess(data));
+          dispatch(bureauExceptionListErrored(false));
+          dispatch(bureauExceptionListLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(bureauExceptionBureauDataFetchDataLoading(true));
-            dispatch(bureauExceptionBureauDataFetchDataErrored(false));
+            dispatch(bureauExceptionListLoading(true));
+            dispatch(bureauExceptionListErrored(false));
           });
         } else {
           batch(() => {
-            dispatch(bureauExceptionBureauDataFetchDataErrored(false));
-            dispatch(bureauExceptionBureauDataFetchDataLoading(false));
+            dispatch(bureauExceptionListErrored(false));
+            dispatch(bureauExceptionListLoading(false));
           });
         }
       });
-  };
-}
-
-
-export function bureauExceptionPositionEditHasErrored(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_EDIT_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bureauExceptionPositionEditIsLoading(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_EDIT_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bureauExceptionPositionEditSuccess(data) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS',
-    data,
   };
 }
 
 export function addBureauExceptionSelections(data) {
   return (dispatch) => {
-    dispatch(bureauExceptionPositionEditIsLoading(true));
-    dispatch(bureauExceptionPositionEditHasErrored(false));
+    dispatch(bureauExceptionAddIsLoading(true));
+    dispatch(bureauExceptionAddIsErrored(false));
     api().post('/fsbid/bureau_exceptions/add/', data)
       .then(({ res }) => {
         batch(() => {
-          dispatch(bureauExceptionPositionEditHasErrored(false));
-          dispatch(bureauExceptionPositionEditSuccess(res));
+          dispatch(bureauExceptionAddIsErrored(false));
+          dispatch(bureauExceptionAddSuccess(res));
           dispatch(toastSuccess(BUREAU_EXCEPTION_ADD_SUCCESS,
             BUREAU_EXCEPTION_ADD_SUCCESS_TITLE));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
+          dispatch(bureauExceptionAddIsLoading(false));
         });
       }).catch(() => {
         batch(() => {
           dispatch(toastError(BUREAU_EXCEPTION_ADD_ERROR,
             BUREAU_EXCEPTION_ADD_ERROR_TITLE));
-          dispatch(bureauExceptionPositionEditHasErrored(true));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
+          dispatch(bureauExceptionAddIsErrored(true));
+          dispatch(bureauExceptionAddIsLoading(false));
         });
       });
   };
@@ -166,23 +204,23 @@ export function addBureauExceptionSelections(data) {
 
 export function saveBureauExceptionSelections(data) {
   return (dispatch) => {
-    dispatch(bureauExceptionPositionEditIsLoading(true));
-    dispatch(bureauExceptionPositionEditHasErrored(false));
+    dispatch(bureauExceptionEditIsLoading(true));
+    dispatch(bureauExceptionEditHasErrored(false));
     api().post(`/fsbid/bureau_exceptions/update/${data.id}/`, data)
       .then(({ res }) => {
         batch(() => {
-          dispatch(bureauExceptionPositionEditHasErrored(false));
-          dispatch(bureauExceptionPositionEditSuccess(res));
+          dispatch(bureauExceptionEditHasErrored(false));
+          dispatch(bureauExceptionEditSuccess(res));
           dispatch(toastSuccess(BUREAU_EXCEPTION_EDIT_SUCCESS,
             BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
+          dispatch(bureauExceptionEditIsLoading(false));
         });
       }).catch(() => {
         batch(() => {
           dispatch(toastError(BUREAU_EXCEPTION_EDIT_ERROR,
             BUREAU_EXCEPTION_EDIT_ERROR_TITLE));
-          dispatch(bureauExceptionPositionEditHasErrored(true));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
+          dispatch(bureauExceptionEditHasErrored(true));
+          dispatch(bureauExceptionEditIsLoading(false));
         });
       });
   };
@@ -190,23 +228,23 @@ export function saveBureauExceptionSelections(data) {
 
 export function deleteBureauExceptionList(data) {
   return (dispatch) => {
-    dispatch(bureauExceptionPositionEditIsLoading(true));
-    dispatch(bureauExceptionPositionEditHasErrored(false));
+    dispatch(bureauExceptionDeleteIsLoading(true));
+    dispatch(bureauExceptionDeleteIsErrored(false));
     api().post(`/fsbid/bureau_exceptions/delete/${data.id}/`, data)
       .then(({ res }) => {
         batch(() => {
-          dispatch(bureauExceptionPositionEditHasErrored(false));
-          dispatch(bureauExceptionPositionEditSuccess(res));
+          dispatch(bureauExceptionDeleteIsErrored(false));
+          dispatch(bureauExceptionDeleteSuccess(res));
           dispatch(toastSuccess(BUREAU_EXCEPTION_DELETE_SUCCESS,
             BUREAU_EXCEPTION_DELETE_SUCCESS_TITLE));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
+          dispatch(bureauExceptionDeleteIsLoading(false));
         });
       }).catch(() => {
         batch(() => {
           dispatch(toastError(BUREAU_EXCEPTION_DELETE_ERROR,
             BUREAU_EXCEPTION_DELETE_ERROR_TITLE));
-          dispatch(bureauExceptionPositionEditHasErrored(true));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
+          dispatch(bureauExceptionDeleteIsErrored(true));
+          dispatch(bureauExceptionDeleteIsLoading(false));
         });
       });
   };

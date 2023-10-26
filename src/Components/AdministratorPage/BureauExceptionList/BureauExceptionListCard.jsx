@@ -21,15 +21,13 @@ const BureauExceptionListCard = (props) => {
     name,
     pv_id,
   } = userData;
-
+  console.log('userda', BureauExceptionOptionsData);
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
   const data = BureauExceptionOptionsData;
   const [selectAll, setSelectAll] = useState(false);
-  const [checkedBureauIds, setCheckedBureauIds] = useState([]);
   const [bureau, setBureau] = useState('');
-  const [bureauList, setBureauList] = useState([]);
   const [bureauCodes, setBureauCodes] = useState([]);
 
   const collapseCard = () => {
@@ -40,9 +38,9 @@ const BureauExceptionListCard = (props) => {
   const onCancelRequest = () => {
     swal.close();
     setEdit(false);
-    setCheckedBureauIds([]);
     setBureau('');
     setBureauCodes([]);
+    setSelectAll(false);
   };
 
   const addBureaus = (e) => {
@@ -96,27 +94,21 @@ const BureauExceptionListCard = (props) => {
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setCheckedBureauIds(
-        data.map(bu => bu.bureauCode),
-      );
       setBureauCodes(data.map(bu => bu.bureauCode));
     } else {
       setSelectAll(false);
-      setCheckedBureauIds([]);
       setBureauCodes([]);
     }
   };
 
   const handleSelectBureau = (selectedBureau => {
-    if (checkedBureauIds.includes(selectedBureau?.bureauCode)) {
-      const filteredBureau = checkedBureauIds.filter(x => x !== selectedBureau?.bureauCode);
-      setCheckedBureauIds(filteredBureau);
-      setBureauCodes(bureauCodes.filter(x => x !== selectedBureau?.bureauCode));
-      setBureauList(bureauList.filter(x => x !== selectedBureau?.description));
+    if (bureauCodes.includes(selectedBureau?.bureauCode)) {
+      const filteredBureauCodes = bureauCodes.filter(x => x !== selectedBureau?.bureauCode);
+      setBureauCodes(filteredBureauCodes);
+      setSelectAll(false);
     } else {
-      setCheckedBureauIds([...checkedBureauIds, selectedBureau?.bureauCode]);
       setBureauCodes([...bureauCodes, selectedBureau?.bureauCode]);
-      setBureauList([...bureauList, selectedBureau?.description]);
+      setSelectAll(data.length === bureauCodes.length);
     }
   });
 
@@ -171,9 +163,8 @@ const BureauExceptionListCard = (props) => {
                     <th className="checkbox-pac checkbox-pos">
                       <CheckBox
                         label="Bureau"
-                        checked={!selectAll}
                         onCheckBoxClick={handleSelectAll}
-                        value={selectAll}
+                        value={data.length === bureauCodes.length}
                         id="selectAll"
                       />
                     </th>
@@ -193,7 +184,7 @@ const BureauExceptionListCard = (props) => {
                             <td className="checkbox-pac checkbox-pos">
                               <CheckBox
                                 label={post.description}
-                                value={bureaus ? bureaus.split(', ').includes(post.description) : null}
+                                value={bureaus.split(', ').includes(post.description) || bureauCodes.includes(post.bureauCode)}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
                                 id={`${post.bureauCode}`}
                               />

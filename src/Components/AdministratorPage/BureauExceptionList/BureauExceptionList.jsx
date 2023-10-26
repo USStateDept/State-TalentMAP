@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionBureauDataFetchData, bureauExceptionFetchData } from 'actions/bureauException';
+import { bureauExceptionFetchData, bureauExceptionListFetchData } from 'actions/bureauException';
 import BureauExceptionListCard from './BureauExceptionListCard';
 
 
 const BureauExceptionList = () => {
   const dispatch = useDispatch();
 
-  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionFetchDataLoading);
-  const BureauExceptionData = useSelector(state => state.bureauException);
-  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionOptions);
-  const BureauExceptionError = useSelector(state => state.bureauExceptionFetchDataErrored);
+  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionLoading);
+  const BureauExceptionData = useSelector(state => state.bureauExceptionSuccess);
+  console.log('adw', BureauExceptionData);
+  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
+  const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
   const fetchAndSet = () => {
     dispatch(bureauExceptionFetchData());
-    dispatch(bureauExceptionBureauDataFetchData());
+    dispatch(bureauExceptionListFetchData());
   };
 
   useEffect(() => {

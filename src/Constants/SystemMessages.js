@@ -253,10 +253,10 @@ export const BUREAU_EXCEPTION_ADD_ERROR_TITLE = 'Bureau Exception Add Error';
 export const BUREAU_EXCEPTION_ADD_SUCCESS = 'Bureau Exception has been added.';
 export const BUREAU_EXCEPTION_ADD_SUCCESS_TITLE = 'Bureau Exception Added';
 
-export const BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE = 'Bureau Exception Position Updated';
-export const BUREAU_EXCEPTION_EDIT_SUCCESS = 'The Bureau Exception Position has been updated';
-export const BUREAU_EXCEPTION_EDIT_ERROR_TITLE = 'Bureau Exception Position Edit Error';
-export const BUREAU_EXCEPTION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception Position. Please try again.';
+export const BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE = 'Bureau Exception Updated';
+export const BUREAU_EXCEPTION_EDIT_SUCCESS = 'The Bureau Exception has been updated';
+export const BUREAU_EXCEPTION_EDIT_ERROR_TITLE = 'Bureau Exception Edit Error';
+export const BUREAU_EXCEPTION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception. Please try again.';
 
 export const BUREAU_EXCEPTION_DELETE_SUCCESS_TITLE = 'Bureau Exception Deleted';
 export const BUREAU_EXCEPTION_DELETE_SUCCESS = 'The Bureau Exception has been deleted';
