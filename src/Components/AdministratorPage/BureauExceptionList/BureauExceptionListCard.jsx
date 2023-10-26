@@ -21,7 +21,7 @@ const BureauExceptionListCard = (props) => {
     name,
     pv_id,
   } = userData;
-  console.log('userda', BureauExceptionOptionsData);
+
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
