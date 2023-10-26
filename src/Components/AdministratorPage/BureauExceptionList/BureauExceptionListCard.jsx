@@ -67,7 +67,7 @@ const BureauExceptionListCard = (props) => {
   const addBureaus = (e) => {
     e.preventDefault();
     const currentUser = {
-      bureauCode: bureauCodes.join(),
+      bureauCode: bureauCodes,
       id,
     };
     dispatch(addBureauExceptionSelections(currentUser));
@@ -85,7 +85,7 @@ const BureauExceptionListCard = (props) => {
   const modify = (e) => {
     e.preventDefault();
     const currentUser = {
-      bureauCode: bureauCodes.join(),
+      bureauCode: bureauCodes,
       id,
       pv_id,
     };
