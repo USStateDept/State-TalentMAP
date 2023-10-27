@@ -59,7 +59,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
 
       openPdf(bloburl);
     }).catch(() => {
-      dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred', id, true));
+      dispatch(toastError('We were unable to process your Employee Profile request. Please try again later.', 'An error has occurred', id, true));
     });
   };
 
