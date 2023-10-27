@@ -64,8 +64,7 @@ const BureauExceptionListCard = (props) => {
     gatherBureauCodes();
   };
 
-  const addBureaus = (e) => {
-    e.preventDefault();
+  const addBureaus = () => {
     const currentUser = {
       bureauCode: bureauCodes,
       id,
@@ -82,8 +81,7 @@ const BureauExceptionListCard = (props) => {
     dispatch(deleteBureauExceptionList(currentUser));
   };
 
-  const modify = (e) => {
-    e.preventDefault();
+  const modify = () => {
     const currentUser = {
       bureauCode: bureauCodes,
       id,
@@ -133,8 +131,18 @@ const BureauExceptionListCard = (props) => {
     }
   });
 
-  const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
   const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
+  const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
+
+  const saveBureaus = (e) => {
+    e.preventDefault();
+    if (isAdd) {
+      addBureaus();
+    } else {
+      modify();
+    }
+  };
+
   return (
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
@@ -215,24 +223,17 @@ const BureauExceptionListCard = (props) => {
                 </tbody>
               </table>
               <button
-                onClick={addBureaus}
-                style={{ display: !isAdd ? 'none' : '' }}
+                onClick={saveBureaus}
               >
-                Add Bureau(s)
+                Save
               </button>
+              <button onClick={cancel}>Cancel</button>
               <button
                 onClick={deleteBureaus}
                 style={{ display: pv_id < 0 ? 'none' : '' }}
               >
                 Delete Bureau(s)
               </button>
-              <button
-                onClick={modify}
-                style={{ display: pv_id < 0 ? 'none' : '' }}
-              >
-                Modify Bureau(s)
-              </button>
-              <button onClick={cancel}>Cancel</button>
             </form>
           </div>
         )}
@@ -243,8 +244,8 @@ const BureauExceptionListCard = (props) => {
 
 BureauExceptionListCard.propTypes = {
   userData: PropTypes.shape({
-    bureauCodeList: PropTypes.string,
-    bureaus: PropTypes.string,
+    bureauCodeList: PropTypes.arrayOf(PropTypes.string),
+    bureaus: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.number,
     name: PropTypes.string,
     pv_id: PropTypes.number,
