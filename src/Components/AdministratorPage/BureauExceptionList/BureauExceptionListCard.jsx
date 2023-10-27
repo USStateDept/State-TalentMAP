@@ -72,8 +72,7 @@ const BureauExceptionListCard = (props) => {
     dispatch(addBureauExceptionSelections(currentUser));
   };
 
-  const deleteBureaus = (e) => {
-    e.preventDefault();
+  const deleteBureaus = () => {
     const currentUser = {
       id,
       pv_id,
@@ -138,6 +137,8 @@ const BureauExceptionListCard = (props) => {
     e.preventDefault();
     if (isAdd) {
       addBureaus();
+    } else if (bureauCodes.length === 0) {
+      deleteBureaus();
     } else {
       modify();
     }
