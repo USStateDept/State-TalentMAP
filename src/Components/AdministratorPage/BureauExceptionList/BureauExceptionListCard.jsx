@@ -229,12 +229,6 @@ const BureauExceptionListCard = (props) => {
                 Save
               </button>
               <button onClick={cancel}>Cancel</button>
-              <button
-                onClick={deleteBureaus}
-                style={{ display: pv_id < 0 ? 'none' : '' }}
-              >
-                Delete Bureau(s)
-              </button>
             </form>
           </div>
         )}
