@@ -1,4 +1,7 @@
 import {
+  panelMeeting,
+  panelMeetingFetchDataErrored,
+  panelMeetingFetchDataLoading,
   panelMeetings,
   panelMeetingsFetchDataErrored,
   panelMeetingsFetchDataLoading,
@@ -9,6 +12,9 @@ import {
 } from './panelMeetings';
 
 export default {
+  panelMeeting,
+  panelMeetingFetchDataErrored,
+  panelMeetingFetchDataLoading,
   panelMeetings,
   panelMeetingsFetchDataErrored,
   panelMeetingsFetchDataLoading,

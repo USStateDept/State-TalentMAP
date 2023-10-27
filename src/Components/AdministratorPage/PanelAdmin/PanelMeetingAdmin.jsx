@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
 
@@ -23,6 +24,7 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
   const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults$;
 
+  const panelMeetingDate$ = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
   const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
   const prelimRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFF');
   const addendumCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'ADD');
@@ -31,6 +33,9 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
+
+  const runPreliminarySuccess = useSelector(state => state.runOfficialPreliminarySuccess);
+  const runAddendumSuccess = useSelector(state => state.runOfficialAddendumSuccess);
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
@@ -53,11 +58,11 @@ const PanelMeetingAdmin = (props) => {
 
   const setInitialInputResults = () => {
     setPanelMeetingType(pmt_code);
-    setPanelMeetingDate(new Date(panelMeetingDates?.find(x => x.mdt_code === 'MEET').pmd_dttm));
+    setPanelMeetingDate(new Date(panelMeetingDate$.pmd_dttm));
     setPanelMeetingStatus(pms_desc_text);
 
     setPrelimCutoff(new Date(prelimCutoff$.pmd_dttm));
-    setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
+    setAddendumCutoff(new Date(addendumCutoff$.pmd_dttm));
 
     if (prelimRunTime$) {
       setPrelimRuntime(new Date(prelimRunTime$.pmd_dttm));
@@ -114,15 +119,14 @@ const PanelMeetingAdmin = (props) => {
     const currTimestamp = new Date();
     if (field === 'prelimRuntime') {
       setPrelimRuntime(currTimestamp);
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { prelimRuntime: currTimestamp },
-      ));
+      dispatch(runPanelMeeting(pmSeqNum, 'preliminary'));
     }
     if (field === 'addendumRuntime') {
       setAddendumRuntime(currTimestamp);
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { addendumRuntime: currTimestamp },
-      ));
+      dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
+    }
+    if (runPreliminarySuccess || runAddendumSuccess) {
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     }
   };
 
@@ -145,6 +149,9 @@ const PanelMeetingAdmin = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
+  const beforePanelMeetingDate = (
+    panelMeetingDate$ ? (new Date(panelMeetingDate$.pmd_dttm) - new Date() > 0) : true
+  );
   const beforePrelimCutoff = (
     prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true
   );
@@ -156,37 +163,31 @@ const PanelMeetingAdmin = (props) => {
   // are restricted by preconditions determined by prior steps
 
   const disableMeetingType = !isSuperUser &&
-    (!beforePrelimCutoff);
+    (!isCreate && !beforeAddendumCutoff);
 
   const disableStatus = !isSuperUser &&
-    (isCreate || !beforePrelimCutoff);
-
-  const disablePanelMeetingDate = !isSuperUser &&
-    (!beforePrelimCutoff);
-
-  const disablePrelimCutoff = !isSuperUser &&
-    (!beforePrelimCutoff);
-
-  const disableAddendumCutoff = !isSuperUser &&
-    (!beforePrelimCutoff);
-
-  const disablePrelimRunTime = !isSuperUser &&
-    (isCreate || !beforePrelimCutoff || prelimRunTime$);
-
-  const disableRunPrelim =
-    (isCreate || !beforePrelimCutoff);
-
-  const disableAddendumRunTime = !isSuperUser &&
-    (isCreate || !beforeAddendumCutoff || addendumRunTime$);
-
-  const disableRunAddendum =
     (isCreate || !beforeAddendumCutoff);
 
+  const disablePanelMeetingDate = !isSuperUser &&
+    (!isCreate && !beforePanelMeetingDate);
+
+  const disablePrelimCutoff = !isSuperUser &&
+    (!isCreate && !beforePrelimCutoff);
+
+  const disableAddendumCutoff = !isSuperUser &&
+    (!isCreate && !beforeAddendumCutoff);
+
+  const disableRunPrelim = !isSuperUser &&
+    (isCreate || beforePrelimCutoff || !beforePanelMeetingDate);
+
+  const disableRunAddendum = !isSuperUser &&
+    (isCreate || beforeAddendumCutoff || !beforePanelMeetingDate);
+
   const disableClear = !isSuperUser &&
-    (!beforeAddendumCutoff);
+    (!isCreate && !beforePanelMeetingDate);
 
   const disableSave = !isSuperUser &&
-    (!beforeAddendumCutoff);
+    (!isCreate && !beforePanelMeetingDate);
 
   return (
     (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
@@ -281,7 +282,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={disablePrelimRunTime}
+                  disabled
                   selected={prelimRuntime}
                   onChange={(date) => setPrelimRuntime(date)}
                   showTimeSelect
@@ -305,7 +306,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={disableAddendumRunTime}
+                  disabled
                   selected={addendumRuntime}
                   onChange={(date) => setAddendumRuntime(date)}
                   showTimeSelect
@@ -328,7 +329,7 @@ const PanelMeetingAdmin = (props) => {
         </div>
         <div className="position-form--actions">
           <button onClick={clear} disabled={disableClear}>Clear</button>
-          <button onClick={submit} disabled={disableSave}>Save</button>
+          <button onClick={submit} disabled={disableSave}>{isCreate ? 'Create' : 'Save'}</button>
         </div>
       </div>
   );
