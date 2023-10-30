@@ -144,18 +144,11 @@ export function bureauExceptionFetchData() {
           dispatch(bureauExceptionLoading(false));
         });
       })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(bureauExceptionLoading(true));
-            dispatch(bureauExceptionErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(bureauExceptionErrored(false));
-            dispatch(bureauExceptionLoading(false));
-          });
-        }
+      .catch(() => {
+        batch(() => {
+          dispatch(bureauExceptionErrored(false));
+          dispatch(bureauExceptionLoading(false));
+        });
       });
   };
 }
@@ -179,18 +172,11 @@ export function bureauExceptionListFetchData() {
           dispatch(bureauExceptionListLoading(false));
         });
       })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(bureauExceptionListLoading(true));
-            dispatch(bureauExceptionListErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(bureauExceptionListErrored(false));
-            dispatch(bureauExceptionListLoading(false));
-          });
-        }
+      .catch(() => {
+        batch(() => {
+          dispatch(bureauExceptionListErrored(true));
+          dispatch(bureauExceptionListLoading(false));
+        });
       });
   };
 }
