@@ -50,13 +50,11 @@ const BureauExceptionList = () => {
         <>
           <div className="bel-lower-section">
             {BureauExceptionData?.map(data => (
-              <div key={data?.id}>
-                <BureauExceptionListCard
-                  key={data?.id}
-                  userData={data}
-                  BureauExceptionOptionsData={BureauExceptionOptionsData?.data}
-                />
-              </div>
+              <BureauExceptionListCard
+                key={data?.id}
+                userData={data}
+                BureauExceptionOptionsData={BureauExceptionOptionsData?.data}
+              />
             ),
             )
             }

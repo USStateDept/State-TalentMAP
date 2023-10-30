@@ -21,6 +21,8 @@ const BureauExceptionListCard = (props) => {
     id,
     name,
     pv_id,
+    lastUpdatedUserID,
+    lastUpdated,
   } = userData;
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
@@ -74,6 +76,8 @@ const BureauExceptionListCard = (props) => {
     const currentUser = {
       id,
       pv_id,
+      lastUpdatedUserID,
+      lastUpdated,
     };
     dispatch(deleteBureauExceptionList(currentUser));
   };
@@ -83,6 +87,8 @@ const BureauExceptionListCard = (props) => {
       bureauCode: bureauCodes,
       id,
       pv_id,
+      lastUpdatedUserID,
+      lastUpdated,
     };
     dispatch(saveBureauExceptionSelections(currentUser));
   };
@@ -243,6 +249,8 @@ BureauExceptionListCard.propTypes = {
     name: PropTypes.string,
     pv_id: PropTypes.number,
     seqNum: PropTypes.number,
+    lastUpdatedUserID: PropTypes.string,
+    lastUpdated: PropTypes.string,
   }),
   BureauExceptionOptionsData: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
