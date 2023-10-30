@@ -248,7 +248,7 @@ export const BIDDER_PORTFOLIO_ADD_SUCCESS = 'Bidder Portfolio has been added.';
 export const BIDDER_PORTFOLIO_ADD_ERROR_TITLE = 'Bidder Portfolio Add Error';
 export const BIDDER_PORTFOLIO_ADD_ERROR = 'There was an issue attempting to add this Bidder Portfolio. Please try again.';
 
-export const BUREAU_EXCEPTION_ADD_ERROR = 'There was an issue attempting to add this Bureau Exception. Please try again.';
+export const BUREAU_EXCEPTION_ADD_ERROR = 'There was an issue attempting to add Bureau Exception. Please try again.';
 export const BUREAU_EXCEPTION_ADD_ERROR_TITLE = 'Bureau Exception Add Error';
 export const BUREAU_EXCEPTION_ADD_SUCCESS = 'Bureau Exception has been added.';
 export const BUREAU_EXCEPTION_ADD_SUCCESS_TITLE = 'Bureau Exception Added';
@@ -256,7 +256,7 @@ export const BUREAU_EXCEPTION_ADD_SUCCESS_TITLE = 'Bureau Exception Added';
 export const BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE = 'Bureau Exception Updated';
 export const BUREAU_EXCEPTION_EDIT_SUCCESS = 'The Bureau Exception has been updated';
 export const BUREAU_EXCEPTION_EDIT_ERROR_TITLE = 'Bureau Exception Edit Error';
-export const BUREAU_EXCEPTION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception. Please try again.';
+export const BUREAU_EXCEPTION_EDIT_ERROR = 'There was an issue attempting to update Bureau Exception. Please try again.';
 
 export const BUREAU_EXCEPTION_DELETE_SUCCESS_TITLE = 'Bureau Exception Deleted';
 export const BUREAU_EXCEPTION_DELETE_SUCCESS = 'The Bureau Exception has been deleted';

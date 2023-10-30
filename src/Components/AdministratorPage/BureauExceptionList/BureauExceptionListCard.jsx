@@ -25,12 +25,10 @@ const BureauExceptionListCard = (props) => {
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
-  const data = BureauExceptionOptionsData;
   const [selectAll, setSelectAll] = useState(false);
   const [bureau, setBureau] = useState('');
   const [bureauCodes, setBureauCodes] = useState([]);
-
-  const gatherBureauCodes = () => {
+  const gatherInitialBureauCodes = () => {
     if (bureauCodeList !== null && bureauCodeList !== undefined && bureauCodeList !== ' ') {
       const newBureauCodes = bureauCodeList.map(bu => bu);
       setBureauCodes(newBureauCodes);
@@ -39,11 +37,11 @@ const BureauExceptionListCard = (props) => {
 
   useEffect(() => {
     // for initial list check
-    gatherBureauCodes();
+    gatherInitialBureauCodes();
   }, []);
 
   useEffect(() => {
-    if (data.length === bureauCodes.length) {
+    if (BureauExceptionOptionsData.length === bureauCodes.length) {
       setSelectAll(true);
     } else {
       setSelectAll(false);
@@ -61,7 +59,7 @@ const BureauExceptionListCard = (props) => {
     setBureau('');
     setBureauCodes([]);
     setSelectAll(false);
-    gatherBureauCodes();
+    gatherInitialBureauCodes();
   };
 
   const addBureaus = () => {
@@ -112,7 +110,7 @@ const BureauExceptionListCard = (props) => {
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setBureauCodes(data.map(bu => bu.bureauCode));
+      setBureauCodes(BureauExceptionOptionsData.map(bu => bu.bureauCode));
     } else {
       setSelectAll(false);
       setBureauCodes([]);
@@ -126,7 +124,7 @@ const BureauExceptionListCard = (props) => {
       setSelectAll(false);
     } else {
       setBureauCodes([...bureauCodes, selectedBureau?.bureauCode]);
-      setSelectAll(data.length === bureauCodes.length);
+      setSelectAll(BureauExceptionOptionsData.length === bureauCodes.length);
     }
   });
 
@@ -194,15 +192,15 @@ const BureauExceptionListCard = (props) => {
                         label="Bureau"
                         onCheckBoxClick={handleSelectAll}
                         value={selectAll}
-                        id="selectAll"
+                        id={`${name} - ${id}`}
                       />
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <div className="bureau-exception-text-table">
-                    {data?.length &&
-                      data
+                    {BureauExceptionOptionsData?.length &&
+                      BureauExceptionOptionsData
                         .filter((x) =>
                           x.description
                             .toLowerCase()
@@ -215,7 +213,7 @@ const BureauExceptionListCard = (props) => {
                                 label={post.description}
                                 value={bureauCodes.includes(post.bureauCode)}
                                 onCheckBoxClick={() => handleSelectBureau(post)}
-                                id={`${post.bureauCode}`}
+                                id={`${name} - ${post.bureauCode}`}
                               />
                             </td>
                           </tr>

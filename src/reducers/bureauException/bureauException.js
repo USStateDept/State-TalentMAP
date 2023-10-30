@@ -1,6 +1,6 @@
 export function bureauExceptionErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_IS_ERRORED':
+    case 'BUREAU_EXCEPTION_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
@@ -26,7 +26,7 @@ export function bureauExceptionSuccess(state = [], action) {
 
 export function bureauExceptionListErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_LIST_IS_ERRORED':
+    case 'BUREAU_EXCEPTION_LIST_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;

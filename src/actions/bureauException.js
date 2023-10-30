@@ -26,7 +26,7 @@ let cancelDeleteBureauException;
 
 export function bureauExceptionErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_IS_ERRORED',
+    type: 'BUREAU_EXCEPTION_HAS_ERRORED',
     hasErrored: bool,
   };
 }
@@ -47,7 +47,7 @@ export function bureauExceptionSuccess(results) {
 
 export function bureauExceptionListErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_LIST_IS_ERRORED',
+    type: 'BUREAU_EXCEPTION_LIST_HAS_ERRORED',
     hasErrored: bool,
   };
 }
@@ -66,7 +66,7 @@ export function bureauExceptionListSuccess(results) {
   };
 }
 
-export function bureauExceptionFetchData() {
+export function bureauExceptionUsersListFetchData() {
   return (dispatch) => {
     if (cancelbureauException) { cancelbureauException('cancel'); }
     batch(() => {
@@ -95,7 +95,7 @@ export function bureauExceptionFetchData() {
   };
 }
 
-export function bureauExceptionListFetchData() {
+export function bureauExceptionUserBureausFetchData() {
   return (dispatch) => {
     if (cancelbureauExceptionList) { cancelbureauExceptionList('cancel'); }
     batch(() => {
@@ -136,7 +136,7 @@ export function addBureauExceptionSelections(data) {
         batch(() => {
           dispatch(toastSuccess(BUREAU_EXCEPTION_ADD_SUCCESS,
             BUREAU_EXCEPTION_ADD_SUCCESS_TITLE));
-          dispatch(bureauExceptionFetchData());
+          dispatch(bureauExceptionUsersListFetchData());
         });
       }).catch(() => {
         batch(() => {
@@ -159,7 +159,7 @@ export function saveBureauExceptionSelections(data) {
         batch(() => {
           dispatch(toastSuccess(BUREAU_EXCEPTION_EDIT_SUCCESS,
             BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE));
-          dispatch(bureauExceptionFetchData());
+          dispatch(bureauExceptionUsersListFetchData());
         });
       }).catch(() => {
         batch(() => {
@@ -182,7 +182,7 @@ export function deleteBureauExceptionList(data) {
         batch(() => {
           dispatch(toastSuccess(BUREAU_EXCEPTION_DELETE_SUCCESS,
             BUREAU_EXCEPTION_DELETE_SUCCESS_TITLE));
-          dispatch(bureauExceptionFetchData());
+          dispatch(bureauExceptionUsersListFetchData());
         });
       }).catch(() => {
         batch(() => {

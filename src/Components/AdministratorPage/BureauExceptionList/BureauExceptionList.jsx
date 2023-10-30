@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionFetchData, bureauExceptionListFetchData } from 'actions/bureauException';
+import { bureauExceptionUserBureausFetchData, bureauExceptionUsersListFetchData } from 'actions/bureauException';
 import BureauExceptionListCard from './BureauExceptionListCard';
 
 
@@ -16,8 +16,8 @@ const BureauExceptionList = () => {
   const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
   const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
   const fetchAndSet = () => {
-    dispatch(bureauExceptionFetchData());
-    dispatch(bureauExceptionListFetchData());
+    dispatch(bureauExceptionUsersListFetchData());
+    dispatch(bureauExceptionUserBureausFetchData());
   };
 
   useEffect(() => {
@@ -50,11 +50,14 @@ const BureauExceptionList = () => {
         <>
           <div className="bel-lower-section">
             {BureauExceptionData?.map(data => (
-              <BureauExceptionListCard
-                key={data?.id}
-                userData={data}
-                BureauExceptionOptionsData={BureauExceptionOptionsData?.data}
-              />),
+              <div key={data?.id}>
+                <BureauExceptionListCard
+                  key={data?.id}
+                  userData={data}
+                  BureauExceptionOptionsData={BureauExceptionOptionsData?.data}
+                />
+              </div>
+            ),
             )
             }
           </div>
