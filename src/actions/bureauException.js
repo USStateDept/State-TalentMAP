@@ -1,4 +1,5 @@
 import { batch } from 'react-redux';
+import { CancelToken } from 'axios';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 import {
@@ -16,6 +17,12 @@ import {
   BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 // import { convertQueryToString } from 'utilities';
+
+let cancelbureauException;
+let cancelbureauExceptionList;
+let cancelAddBureauException;
+let cancelSaveBureauException;
+let cancelDeleteBureauException;
 
 export function bureauExceptionErrored(bool) {
   return {
@@ -119,12 +126,17 @@ export function bureauExceptionDeleteSuccess(data) {
 
 export function bureauExceptionFetchData() {
   return (dispatch) => {
+    if (cancelbureauException) { cancelbureauException('cancel'); }
     batch(() => {
       dispatch(bureauExceptionLoading(true));
       dispatch(bureauExceptionErrored(false));
     });
     dispatch(bureauExceptionLoading(true));
-    api().get('/fsbid/bureau_exceptions/')
+    api().get('/fsbid/bureau_exceptions/', {
+      cancelToken: new CancelToken((c) => {
+        cancelbureauException = c;
+      }),
+    })
       .then((data) => {
         batch(() => {
           dispatch(bureauExceptionSuccess(data?.data));
@@ -150,11 +162,16 @@ export function bureauExceptionFetchData() {
 
 export function bureauExceptionListFetchData() {
   return (dispatch) => {
+    if (cancelbureauExceptionList) { cancelbureauExceptionList('cancel'); }
     batch(() => {
       dispatch(bureauExceptionListLoading(true));
       dispatch(bureauExceptionListErrored(false));
     });
-    api().get('/fsbid/bureau_exceptions/bureaus/')
+    api().get('/fsbid/bureau_exceptions/bureaus/', {
+      cancelToken: new CancelToken((c) => {
+        cancelbureauExceptionList = c;
+      }),
+    })
       .then((data) => {
         batch(() => {
           dispatch(bureauExceptionListSuccess(data));
@@ -180,9 +197,14 @@ export function bureauExceptionListFetchData() {
 
 export function addBureauExceptionSelections(data) {
   return (dispatch) => {
+    if (cancelAddBureauException) { cancelAddBureauException('cancel'); }
     dispatch(bureauExceptionAddIsLoading(true));
     dispatch(bureauExceptionAddIsErrored(false));
-    api().post('/fsbid/bureau_exceptions/add/', data)
+    api().post('/fsbid/bureau_exceptions/add/', data, {
+      cancelToken: new CancelToken((c) => {
+        cancelAddBureauException = c;
+      }),
+    })
       .then(({ res }) => {
         batch(() => {
           dispatch(bureauExceptionAddIsErrored(false));
@@ -204,9 +226,14 @@ export function addBureauExceptionSelections(data) {
 
 export function saveBureauExceptionSelections(data) {
   return (dispatch) => {
+    if (cancelSaveBureauException) { cancelSaveBureauException('cancel'); }
     dispatch(bureauExceptionEditIsLoading(true));
     dispatch(bureauExceptionEditHasErrored(false));
-    api().post(`/fsbid/bureau_exceptions/update/${data.id}/`, data)
+    api().post(`/fsbid/bureau_exceptions/update/${data.id}/`, data, {
+      cancelToken: new CancelToken((c) => {
+        cancelSaveBureauException = c;
+      }),
+    })
       .then(({ res }) => {
         batch(() => {
           dispatch(bureauExceptionEditHasErrored(false));
@@ -228,9 +255,14 @@ export function saveBureauExceptionSelections(data) {
 
 export function deleteBureauExceptionList(data) {
   return (dispatch) => {
+    if (cancelDeleteBureauException) { cancelDeleteBureauException('cancel'); }
     dispatch(bureauExceptionDeleteIsLoading(true));
     dispatch(bureauExceptionDeleteIsErrored(false));
-    api().post(`/fsbid/bureau_exceptions/delete/${data.id}/`, data)
+    api().post(`/fsbid/bureau_exceptions/delete/${data.id}/`, data, {
+      cancelToken: new CancelToken((c) => {
+        cancelDeleteBureauException = c;
+      }),
+    })
       .then(({ res }) => {
         batch(() => {
           dispatch(bureauExceptionDeleteIsErrored(false));
