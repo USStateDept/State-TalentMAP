@@ -43,7 +43,7 @@ const BureauExceptionList = () => {
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Bureau Exception Access" icon="calendar" className="xl-icon" />
+        <ProfileSectionTitle title="Bureau Exception Access" icon="users" className="xl-icon" />
       </div>
       {
         getOverlay() ||
