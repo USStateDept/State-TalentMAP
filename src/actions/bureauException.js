@@ -150,7 +150,7 @@ export function addBureauExceptionSelections(data) {
 export function saveBureauExceptionSelections(data) {
   return (dispatch) => {
     if (cancelSaveBureauException) { cancelSaveBureauException('cancel'); }
-    api().post(`/fsbid/bureau_exceptions/update/${data.id}/`, data, {
+    api().post('/fsbid/bureau_exceptions/update/', data, {
       cancelToken: new CancelToken((c) => {
         cancelSaveBureauException = c;
       }),
@@ -173,7 +173,7 @@ export function saveBureauExceptionSelections(data) {
 export function deleteBureauExceptionList(data) {
   return (dispatch) => {
     if (cancelDeleteBureauException) { cancelDeleteBureauException('cancel'); }
-    api().post(`/fsbid/bureau_exceptions/delete/${data.id}/`, data, {
+    api().post('/fsbid/bureau_exceptions/delete/', data, {
       cancelToken: new CancelToken((c) => {
         cancelDeleteBureauException = c;
       }),
