@@ -30,10 +30,15 @@ const BureauExceptionListCard = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [bureau, setBureau] = useState('');
   const [bureauCodes, setBureauCodes] = useState([]);
+  const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
+  const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
+
   const gatherInitialBureauCodes = () => {
-    if (bureauCodeList !== null && bureauCodeList !== undefined && bureauCodeList !== ' ') {
+    if (isBureauAccess) {
       const newBureauCodes = bureauCodeList.map(bu => bu);
       setBureauCodes(newBureauCodes);
+    } else {
+      setBureauCodes([]);
     }
   };
 
@@ -134,8 +139,6 @@ const BureauExceptionListCard = (props) => {
     }
   });
 
-  const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
-  const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
 
   const saveBureaus = (e) => {
     e.preventDefault();
