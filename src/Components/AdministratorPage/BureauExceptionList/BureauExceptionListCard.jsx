@@ -73,6 +73,7 @@ const BureauExceptionListCard = (props) => {
     const currentUser = {
       bureauCodeList: bureauCodes.join(', '),
       id,
+      pv_id,
       lastUpdatedUserID: currentUserInfo?.lastUpdateID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
