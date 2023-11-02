@@ -166,7 +166,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         type="div"
       >
         <div>
-          None listed
+          None Listed
         </div>
       </InteractiveElement>
       <InteractiveElement
