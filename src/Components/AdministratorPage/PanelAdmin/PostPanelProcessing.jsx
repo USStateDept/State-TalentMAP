@@ -29,8 +29,8 @@ const PostPanelProcessing = (props) => {
 
   const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
-  const statuses = postPanelResults?.statuses ?? [];
-  const values = postPanelResults?.values ?? [];
+  const statuses = postPanelResults?.statuses?.filter(o => o.code !== 'N') ?? [];
+  const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
 
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
@@ -105,32 +105,47 @@ const PostPanelProcessing = (props) => {
   };
 
   const submit = () => {
-    formData.forEach((o, i) => {
-      if (values[i].status !== o.status) {
-        if (o.status === 'H') {
-          dispatch(editPostPanelProcessing({
-            status: o.status,
-            sequence_number: o.sequence_number,
-            update_id: o.update_id,
-            update_date: o.update_date,
-            aht_code: o.aht_code,
-            aih_hold_number: o.aih_hold_number,
-            aih_hold_comment: o.aih_hold_comment,
-            aih_sequence_number: o.aih_sequence_number,
-          }));
-        } else {
-          dispatch(editPostPanelProcessing({
-            status: o.status,
-            sequence_number: o.sequence_number,
-            update_id: o.update_id,
-            update_date: o.update_date,
-          }));
-        }
-      }
+    let status = '';
+    let sequenceNumber = '';
+    let updateId = '';
+    let updateDate = '';
+    let ahtCode = '';
+    let aihHoldNumber = '';
+    let aihHoldComment = '';
+    let aihSequenceNumber = '';
+    let aihUpdateId = '';
+    let aihUpdateDate = '';
+
+    formData.forEach(s => {
+      const separator = status === '' ? '' : ',';
+      status = status.concat(separator, s.status);
+      sequenceNumber = sequenceNumber.concat(separator, s.sequenceNumber);
+      updateId = updateId.concat(separator, s.updateId);
+      updateDate = updateDate.concat(separator, s.updateDate);
+      ahtCode = ahtCode.concat(separator, s.ahtCode);
+      aihHoldNumber = aihHoldNumber.concat(separator, s.aihHoldNumber);
+      aihHoldComment = aihHoldComment.concat(separator, s.aihHoldComment);
+      aihSequenceNumber = aihSequenceNumber.concat(separator, s.aihSequenceNumber);
+      aihUpdateId = aihUpdateId.concat(separator, s.aihUpdateId);
+      aihUpdateDate = aihUpdateDate.concat(separator, s.aihUpdateDate);
     });
+
+    if (status !== '') {
+      dispatch(editPostPanelProcessing({
+        status,
+        sequence_number: sequenceNumber,
+        update_id: updateId,
+        update_date: updateDate,
+        aht_code: ahtCode,
+        aih_hold_number: aihHoldNumber,
+        aih_hold_comment: aihHoldComment,
+        aih_sequence_number: aihSequenceNumber,
+        aih_update_id: aihUpdateId,
+        aih_update_date: aihUpdateDate,
+      }));
+    }
     // TODO: Save Post Panel Started and Agenda Completed Time
   };
-
 
   // ============= Form Conditions =============
 
@@ -139,27 +154,19 @@ const PostPanelProcessing = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
-  const beforePostPanelStarted = (
-    postPanelStarted$ ? (new Date(postPanelStarted$.pmd_dttm) - new Date() > 0) : true
-  );
   const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
 
-  // Super Admins can manually edit any field, otherwise, certain fields
-  // are restricted by preconditions determined by prior steps
-
-  const disablePostPanelStarted = !isSuperUser &&
-    (postPanelRunTime$ && !beforePostPanelStarted);
+  // Only admins can access editable fields and run buttons
+  // Additional business rules must be followed depending on the stage of the panel meeting
+  // Post Panel Started and Agenda Completed Time are disabled until further notice
 
   const disableTable = !isSuperUser &&
     (!beforeAgendaCompletedTime);
 
   const disableRunPostPanel =
     (postPanelRunTime$ || !beforeAgendaCompletedTime);
-
-  const disableAgendaCompletedTime = !isSuperUser &&
-    (!postPanelRunTime$ || !beforeAgendaCompletedTime);
 
   const disableSave = !isSuperUser &&
     (!beforeAgendaCompletedTime);
@@ -174,7 +181,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={disablePostPanelStarted}
+                disabled
                 selected={postPanelStarted}
                 onChange={(date) => setPostPanelStarted(date)}
                 showTimeSelect
@@ -242,6 +249,7 @@ const PostPanelProcessing = (props) => {
                         checked={d.status === o.description}
                         onChange={() => handleStatusSelection(d.label, o.description)}
                         disabled={disableTable}
+                        className="interactive-element"
                       />
                     </td>
                   ))}
@@ -263,7 +271,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={disableAgendaCompletedTime}
+                disabled
                 selected={agendaCompletedTime}
                 onChange={(date) => setAgendaCompletedTime(date)}
                 showTimeSelect
