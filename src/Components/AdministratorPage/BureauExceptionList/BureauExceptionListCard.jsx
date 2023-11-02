@@ -95,6 +95,8 @@ const BureauExceptionListCard = (props) => {
       bureauCodeList: bureauCodes.join(', '),
       id,
       pv_id,
+      lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
+      lastUpdated: currentUserInfo?.lastUpdated,
     };
     dispatch(saveBureauExceptionSelections(currentUser));
   };
