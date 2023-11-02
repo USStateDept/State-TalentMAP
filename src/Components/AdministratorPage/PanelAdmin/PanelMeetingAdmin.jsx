@@ -10,8 +10,10 @@ import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
-import { userHasPermissions } from '../../../utilities';
+import { convertQueryToString, userHasPermissions } from '../../../utilities';
 import { panelMeetingAgendasFetchData } from '../../../actions/panelMeetingAgendas';
+import { useDataLoader } from '../../../hooks';
+import api from '../../../api';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
@@ -41,29 +43,9 @@ const PanelMeetingAdmin = (props) => {
   const agendas = useSelector(state => state.panelMeetingAgendas);
   const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
 
-  const subsequentPanels = useSelector(state => state.panelMeetings);
-  const subsequentPanelsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
-  const subsequentPanel = subsequentPanels[0];
-
-  console.log(subsequentPanel);
-
-  const isLoading =
-    panelMeetingsIsLoading ||
-    panelMeetingsFiltersIsLoading ||
-    agendasIsLoading ||
-    subsequentPanelsIsLoading;
-
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
-    // dispatch(panelMeetingsFetchData({
-    //   limit: undefined,
-    //   page: undefined,
-    //   type: pmt_code,
-    //   status: undefined,
-    //   'panel-date-start': panelMeetingDate$,
-    //   'panel-date-end': undefined,
-    // }));
   }, []);
 
   // ============= Input Management =============
@@ -171,6 +153,30 @@ const PanelMeetingAdmin = (props) => {
 
   // ============= Form Conditions =============
 
+  // Logic to determine if there is a subsequent panel with same meeting type
+  // in initiated status for agenda itmes in NR status to roll over to
+
+  const panelDateStart = new Date(panelMeetingDate$?.pmd_dttm);
+  const panelDateEnd = new Date(panelMeetingDate$?.pmd_dttm);
+  panelDateEnd.setFullYear(panelDateStart.getFullYear() + 10);
+  const {
+    data: subsequentPanels,
+    loading: subsequentPanelsIsLoading,
+  } = useDataLoader(api().get,
+    `/fsbid/panel/meetings/?${convertQueryToString({
+      limit: 1,
+      page: 1,
+      ordering: '-panel_date',
+      type: pmt_code,
+      status: 'I',
+      'panel-date-start': panelDateStart.toJSON(),
+      'panel-date-end': panelDateEnd.toJSON(),
+    })}`,
+  );
+  const subsequentPanel = subsequentPanels ? subsequentPanels[0] : undefined;
+
+  // Helpers for input disabling conditions
+
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
@@ -219,8 +225,12 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    return !isSuperUser &&
-      (isCreate || beforePrelimCutoff || !beforePanelMeetingDate || !preconditioned);
+    return !isSuperUser && (isCreate ||
+      beforePrelimCutoff ||
+      !beforePanelMeetingDate ||
+      !preconditioned ||
+      !subsequentPanel
+    );
   };
 
   const disableRunAddendum = () => {
@@ -231,8 +241,12 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    return !isSuperUser &&
-      (isCreate || beforeAddendumCutoff || !beforePanelMeetingDate || !preconditioned);
+    return !isSuperUser && (isCreate ||
+      beforeAddendumCutoff ||
+      !beforePanelMeetingDate ||
+      !preconditioned ||
+      !subsequentPanel
+    );
   };
 
   const disableClear = !isSuperUser &&
@@ -240,6 +254,12 @@ const PanelMeetingAdmin = (props) => {
 
   const disableSave = !isSuperUser &&
     (!isCreate && !beforePanelMeetingDate);
+
+  const isLoading =
+    panelMeetingsIsLoading ||
+    panelMeetingsFiltersIsLoading ||
+    agendasIsLoading ||
+    subsequentPanelsIsLoading;
 
   return (
     (isLoading) ?
