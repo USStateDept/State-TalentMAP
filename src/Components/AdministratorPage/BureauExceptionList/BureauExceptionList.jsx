@@ -13,7 +13,6 @@ const BureauExceptionList = () => {
 
   const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionLoading);
   const BureauExceptionData = useSelector(state => state.bureauExceptionSuccess);
-  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
   const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
   const fetchAndSet = () => {
     dispatch(bureauExceptionUsersListFetchData());
@@ -53,7 +52,6 @@ const BureauExceptionList = () => {
               <BureauExceptionListCard
                 key={data?.id}
                 userData={data}
-                BureauExceptionOptionsData={BureauExceptionOptionsData?.data}
               />
             ),
             )

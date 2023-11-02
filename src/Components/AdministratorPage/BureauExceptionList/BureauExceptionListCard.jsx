@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { addBureauExceptionSelections, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
@@ -11,7 +11,6 @@ import TextInput from '../../TextInput/TextInput';
 
 const BureauExceptionListCard = (props) => {
   const {
-    BureauExceptionOptionsData,
     userData,
   } = props;
 
@@ -21,8 +20,6 @@ const BureauExceptionListCard = (props) => {
     id,
     name,
     pv_id,
-    lastUpdatedUserID,
-    lastUpdated,
   } = userData;
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
@@ -32,6 +29,9 @@ const BureauExceptionListCard = (props) => {
   const [bureauCodes, setBureauCodes] = useState([]);
   const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
   const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
+  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
+  const currentUserInfo = BureauExceptionOptionsData?.data?.[0];
+  const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.[1];
 
   const gatherInitialBureauCodes = () => {
     if (isBureauAccess) {
@@ -48,7 +48,7 @@ const BureauExceptionListCard = (props) => {
   }, []);
 
   useEffect(() => {
-    if (BureauExceptionOptionsData.length === bureauCodes.length) {
+    if (currentUserBureauCodeList.length === bureauCodes.length) {
       setSelectAll(true);
     } else {
       setSelectAll(false);
@@ -73,6 +73,8 @@ const BureauExceptionListCard = (props) => {
     const currentUser = {
       bureauCodeList: bureauCodes.join(', '),
       id,
+      lastUpdatedUserID: currentUserInfo?.lastUpdateID,
+      lastUpdated: currentUserInfo?.lastUpdated,
     };
     dispatch(addBureauExceptionSelections(currentUser));
   };
@@ -81,8 +83,8 @@ const BureauExceptionListCard = (props) => {
     const currentUser = {
       id,
       pv_id,
-      lastUpdatedUserID,
-      lastUpdated,
+      lastUpdatedUserID: currentUserInfo?.lastUpdateID,
+      lastUpdated: currentUserInfo?.lastUpdated,
     };
     dispatch(deleteBureauExceptionList(currentUser));
   };
@@ -92,8 +94,6 @@ const BureauExceptionListCard = (props) => {
       bureauCodeList: bureauCodes.join(', '),
       id,
       pv_id,
-      lastUpdatedUserID,
-      lastUpdated,
     };
     dispatch(saveBureauExceptionSelections(currentUser));
   };
@@ -121,7 +121,7 @@ const BureauExceptionListCard = (props) => {
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setBureauCodes(BureauExceptionOptionsData.map(bu => bu.bureauCode));
+      setBureauCodes(currentUserBureauCodeList.map(bu => bu.bureauCode));
     } else {
       setSelectAll(false);
       setBureauCodes([]);
@@ -135,7 +135,7 @@ const BureauExceptionListCard = (props) => {
       setSelectAll(false);
     } else {
       setBureauCodes([...bureauCodes, selectedBureau?.bureauCode]);
-      setSelectAll(BureauExceptionOptionsData.length === bureauCodes.length);
+      setSelectAll(currentUserBureauCodeList.length === bureauCodes.length);
     }
   });
 
@@ -208,8 +208,8 @@ const BureauExceptionListCard = (props) => {
                 </thead>
                 <tbody>
                   <div className="bureau-exception-text-table">
-                    {BureauExceptionOptionsData?.length &&
-                      BureauExceptionOptionsData
+                    {currentUserBureauCodeList?.length &&
+                      currentUserBureauCodeList
                         .filter((x) =>
                           x.description
                             .toLowerCase()
@@ -252,18 +252,11 @@ BureauExceptionListCard.propTypes = {
     name: PropTypes.string,
     pv_id: PropTypes.number,
     seqNum: PropTypes.number,
-    lastUpdatedUserID: PropTypes.string,
-    lastUpdated: PropTypes.string,
   }),
-  BureauExceptionOptionsData: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    Name: PropTypes.string,
-  })),
 };
 
 BureauExceptionListCard.defaultProps = {
   userData: {},
-  BureauExceptionOptionsData: [],
 };
 
 export default BureauExceptionListCard;
