@@ -39,11 +39,31 @@ const PanelMeetingAdmin = (props) => {
   const runAddendumSuccess = useSelector(state => state.runOfficialAddendumSuccess);
 
   const agendas = useSelector(state => state.panelMeetingAgendas);
-  const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+  const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+
+  const subsequentPanels = useSelector(state => state.panelMeetings);
+  const subsequentPanelsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  const subsequentPanel = subsequentPanels[0];
+
+  console.log(subsequentPanel);
+
+  const isLoading =
+    panelMeetingsIsLoading ||
+    panelMeetingsFiltersIsLoading ||
+    agendasIsLoading ||
+    subsequentPanelsIsLoading;
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
+    // dispatch(panelMeetingsFetchData({
+    //   limit: undefined,
+    //   page: undefined,
+    //   type: pmt_code,
+    //   status: undefined,
+    //   'panel-date-start': panelMeetingDate$,
+    //   'panel-date-end': undefined,
+    // }));
   }, []);
 
   // ============= Input Management =============
@@ -222,7 +242,7 @@ const PanelMeetingAdmin = (props) => {
     (!isCreate && !beforePanelMeetingDate);
 
   return (
-    (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading || isAgendaLoading) ?
+    (isLoading) ?
       <Spinner type="panel-admin-remarks" size="small" /> :
       <div className="admin-panel-meeting">
         <div>
