@@ -6,6 +6,7 @@ import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
+import { Tooltip } from 'react-tippy';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { runPanelMeeting } from 'actions/panelMeetingAdmin';
@@ -83,7 +84,7 @@ const PostPanelProcessing = (props) => {
 
   const handleHold = (label) => {
     const ref = formData.find(o => o.label === label);
-    let option = ref?.aih_hold_number || ref?.aih_hold_number || '';
+    let option = ref?.aih_hold_number || ref?.max_aih_hold_number || holdOptions[0].code;
     let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
 
     swal({
@@ -291,7 +292,9 @@ const PostPanelProcessing = (props) => {
                 <th>Label</th>
                 <th>Name</th>
                 {statuses.map((o) => (
-                  <th key={o.code}>{o.description}</th>
+                  <th key={o.code}>
+                    {o.description}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -311,8 +314,8 @@ const PostPanelProcessing = (props) => {
                   </td>
                   <td key={`${d.label}-label`}>{d.label}</td>
                   <td key={`${d.label}-employee`}>{d.employee}</td>
-                  {statuses.map((o) => (
-                    <td key={`${d.label}-${o.code}`}>
+                  {statuses.map((o) => {
+                    const radio = (
                       <input
                         id={`${d.label}-status-${o.code}`}
                         type="radio"
@@ -322,8 +325,38 @@ const PostPanelProcessing = (props) => {
                         disabled={disableTable}
                         className="interactive-element"
                       />
-                    </td>
-                  ))}
+                    );
+                    return (
+                      <td key={`${d.label}-${o.code}`}>
+                        {(o.code === 'H' && d.status === o.description) ?
+                          <Tooltip
+                            html={
+                              <div className="tooltip-text">
+                                <div>
+                                  <span className="title">
+                                    {holdOptions
+                                      .find(h => h.code === d.aih_hold_number)?.description}
+                                  </span>
+                                </div>
+                                <div>
+                                  <span className="text">
+                                    {d.aih_hold_comment}
+                                  </span>
+                                </div>
+                              </div>
+                            }
+                            theme="oc-status"
+                            arrow
+                            interactive
+                            useContext
+                          >
+                            {radio}
+                          </Tooltip> :
+                          radio
+                        }
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
