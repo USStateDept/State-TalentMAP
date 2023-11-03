@@ -48,7 +48,7 @@ const BureauExceptionListCard = (props) => {
   }, []);
 
   useEffect(() => {
-    if (currentUserBureauCodeList.length === bureauCodes.length) {
+    if (currentUserBureauCodeList?.length === bureauCodes.length) {
       setSelectAll(true);
     } else {
       setSelectAll(false);
@@ -124,7 +124,7 @@ const BureauExceptionListCard = (props) => {
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setBureauCodes(currentUserBureauCodeList.map(bu => bu.bureauCode));
+      setBureauCodes(currentUserBureauCodeList?.map(bu => bu.bureauCode));
     } else {
       setSelectAll(false);
       setBureauCodes([]);
@@ -138,7 +138,7 @@ const BureauExceptionListCard = (props) => {
       setSelectAll(false);
     } else {
       setBureauCodes([...bureauCodes, selectedBureau?.bureauCode]);
-      setSelectAll(currentUserBureauCodeList.length === bureauCodes.length);
+      setSelectAll(currentUserBureauCodeList?.length === bureauCodes.length);
     }
   });
 
