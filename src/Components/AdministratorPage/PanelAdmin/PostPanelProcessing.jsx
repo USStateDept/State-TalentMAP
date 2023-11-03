@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
+import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
@@ -31,6 +32,7 @@ const PostPanelProcessing = (props) => {
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
   const statuses = postPanelResults?.statuses?.filter(o => o.code !== 'N') ?? [];
   const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
+  const holdOptions = postPanelResults?.hold_options ?? [];
 
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
@@ -79,17 +81,86 @@ const PostPanelProcessing = (props) => {
     setFormData(values);
   }, [postPanelResults]);
 
-  const handleStatusSelection = (objLabel, newStatus) => {
-    const newFormData = formData.map(o => {
-      if (o.label === objLabel) {
-        return {
-          ...o,
-          status: newStatus,
-        };
-      }
-      return o;
+  const handleHold = (label) => {
+    const ref = formData.find(o => o.label === label);
+    let option = ref?.aih_hold_number || ref?.aih_hold_number || '';
+    let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
+
+    swal({
+      title: 'Hold Options',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="simple-action-modal">
+          <div className="help-text">
+            <div className="position-form--label-input-container">
+              <label htmlFor="status">Hold Option</label>
+              <select
+                id="hold-option"
+                defaultValue={option}
+                onChange={(e) => { option = e.target.value; }}
+              >
+                {holdOptions.map(b => (
+                  <option key={b.code} value={b.code}>{b.description}</option>
+                ))}
+              </select>
+            </div>
+            <div className="position-form--label-input-container">
+              <label htmlFor="drafting-office">Description</label>
+              <textarea
+                id="hold-description"
+                defaultValue={description}
+                onChange={(e) => { description = e.target.value; }}
+              />
+            </div>
+          </div>
+          <div className="modal-controls">
+            <button
+              onClick={() => {
+                const newFormData = formData.map(o => {
+                  if (o.label === label) {
+                    return {
+                      ...o,
+                      status: 'HLD',
+                      aih_hold_number: option,
+                      aih_hold_comment: description,
+                    };
+                  }
+                  return o;
+                });
+                setFormData(newFormData);
+                swal.close();
+              }}
+            >
+              Save
+            </button>
+            <button
+              className="usa-button-secondary"
+              onClick={() => swal.close()}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
     });
-    setFormData(newFormData);
+  };
+
+  const handleStatusSelection = (objLabel, newStatus) => {
+    if (newStatus === 'HLD') {
+      handleHold(objLabel);
+    } else {
+      const newFormData = formData.map(o => {
+        if (o.label === objLabel) {
+          return {
+            ...o,
+            status: newStatus,
+          };
+        }
+        return o;
+      });
+      setFormData(newFormData);
+    }
   };
 
   // ============= Submission Management =============
@@ -247,7 +318,7 @@ const PostPanelProcessing = (props) => {
                         type="radio"
                         name={`${d.label}-status-${o.description}`}
                         checked={d.status === o.description}
-                        onChange={() => handleStatusSelection(d.label, o.description)}
+                        onClick={() => handleStatusSelection(d.label, o.description)}
                         disabled={disableTable}
                         className="interactive-element"
                       />
