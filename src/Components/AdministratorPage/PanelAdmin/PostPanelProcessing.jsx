@@ -84,7 +84,7 @@ const PostPanelProcessing = (props) => {
 
   const handleHold = (label) => {
     const ref = formData.find(o => o.label === label);
-    let option = ref?.aih_hold_number || ref?.max_aih_hold_number || holdOptions[0].code;
+    let option = ref?.aht_code || ref?.max_aht_code || holdOptions[0].code;
     let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
 
     swal({
@@ -123,7 +123,7 @@ const PostPanelProcessing = (props) => {
                     return {
                       ...o,
                       status: 'HLD',
-                      aih_hold_number: option,
+                      aht_code: option,
                       aih_hold_comment: description,
                     };
                   }
@@ -156,6 +156,8 @@ const PostPanelProcessing = (props) => {
           return {
             ...o,
             status: newStatus,
+            aht_code: '',
+            aih_hold_comment: '',
           };
         }
         return o;
@@ -335,7 +337,7 @@ const PostPanelProcessing = (props) => {
                                 <div>
                                   <span className="title">
                                     {holdOptions
-                                      .find(h => h.code === d.aih_hold_number)?.description}
+                                      .find(h => h.code === d.aht_code)?.description}
                                   </span>
                                 </div>
                                 <div>
