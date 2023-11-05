@@ -60,12 +60,7 @@ const BureauExceptionListCard = (props) => {
   const collapseCard = () => {
     setShowMore(!showMore);
     setEdit(e => !e);
-    const currentUser = {
-      id,
-      pv_id,
-    };
-
-    dispatch(bureauExceptionUserBureausFetchData(currentUser));
+    dispatch(bureauExceptionUserBureausFetchData());
   };
 
   const onCancelRequest = () => {
