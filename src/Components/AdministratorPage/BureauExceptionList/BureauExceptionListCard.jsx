@@ -80,8 +80,7 @@ const BureauExceptionListCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    const data = JSON.stringify(currentUser);
-    dispatch(addBureauExceptionSelections(data));
+    dispatch(addBureauExceptionSelections(currentUser));
   };
 
   const deleteBureaus = () => {
@@ -91,8 +90,7 @@ const BureauExceptionListCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    const data = JSON.stringify(currentUser);
-    dispatch(deleteBureauExceptionList(data));
+    dispatch(deleteBureauExceptionList(currentUser));
   };
 
   const modify = () => {
@@ -103,8 +101,7 @@ const BureauExceptionListCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    const data = JSON.stringify(currentUser);
-    dispatch(saveBureauExceptionSelections(data));
+    dispatch(saveBureauExceptionSelections(currentUser));
   };
 
   const cancel = (e) => {
