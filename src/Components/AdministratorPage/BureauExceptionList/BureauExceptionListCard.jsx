@@ -185,40 +185,41 @@ const BureauExceptionListCard = (props) => {
         {edit && (
           <div>
             <form>
-              {!currentUserInfo ?
-                <div className="bureau-card-loading" id={id}>
-                  <Spinner type="standard-center" class={`${id}-spinner`} size="small" />
-                </div>
-                :
-                <table className="bureau-exception-table">
-                  <thead>
-                    <tr>
-                      <div className="bureau-exception-text-input">
-                        <TextInput
-                          changeText={(e) => setBureau(e)}
-                          placeholder="Filter by Bureau"
-                          value={bureau}
-                          id="bureau"
-                          inputProps={{
-                            autoComplete: 'off',
-                          }}
-                        />
-                      </div>
-                    </tr>
-                    <tr>
-                      <th className="checkbox-pac checkbox-pos">
-                        <CheckBox
-                          label="Bureau"
-                          onCheckBoxClick={handleSelectAll}
-                          value={selectAll}
-                          id={`${name} - ${id}`}
-                        />
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <div className="bureau-exception-text-table">
-                      {currentUserBureauCodeList?.length &&
+              <table className="bureau-exception-table">
+                {!currentUserInfo ?
+                  <div className="bureau-card-loading" id={id}>
+                    <Spinner type="standard-center" class={`${id}-spinner`} size="small" />
+                  </div>
+                  :
+                  <div>
+                    <thead>
+                      <tr>
+                        <div className="bureau-exception-text-input">
+                          <TextInput
+                            changeText={(e) => setBureau(e)}
+                            placeholder="Filter by Bureau"
+                            value={bureau}
+                            id="bureau"
+                            inputProps={{
+                              autoComplete: 'off',
+                            }}
+                          />
+                        </div>
+                      </tr>
+                      <tr>
+                        <th className="checkbox-pac checkbox-pos">
+                          <CheckBox
+                            label="Bureau"
+                            onCheckBoxClick={handleSelectAll}
+                            value={selectAll}
+                            id={`${name} - ${id}`}
+                          />
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div className="bureau-exception-text-table">
+                        {currentUserBureauCodeList?.length &&
                         currentUserBureauCodeList
                           .filter((x) =>
                             x.description
@@ -237,10 +238,11 @@ const BureauExceptionListCard = (props) => {
                               </td>
                             </tr>
                           ))}
-                    </div>
-                  </tbody>
-                </table>
-              }
+                      </div>
+                    </tbody>
+                  </div>
+                }
+              </table>
               <div style={{ visibility: !currentUserInfo && 'hidden' }}>
                 <button
                   onClick={saveBureaus}
