@@ -95,14 +95,14 @@ export function bureauExceptionUsersListFetchData() {
   };
 }
 
-export function bureauExceptionUserBureausFetchData() {
+export function bureauExceptionUserBureausFetchData(userData) {
   return (dispatch) => {
     if (cancelbureauExceptionList) { cancelbureauExceptionList('cancel'); }
     batch(() => {
       dispatch(bureauExceptionListLoading(true));
       dispatch(bureauExceptionListErrored(false));
     });
-    api().get('/fsbid/bureau_exceptions/bureaus/', {
+    api().get('/fsbid/bureau_exceptions/bureaus/', userData, {
       cancelToken: new CancelToken((c) => {
         cancelbureauExceptionList = c;
       }),

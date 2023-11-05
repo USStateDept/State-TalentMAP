@@ -60,7 +60,12 @@ const BureauExceptionListCard = (props) => {
   const collapseCard = () => {
     setShowMore(!showMore);
     setEdit(e => !e);
-    dispatch(bureauExceptionUserBureausFetchData());
+    const currentUser = {
+      id,
+      pv_id,
+    };
+
+    dispatch(bureauExceptionUserBureausFetchData(currentUser));
   };
 
   const onCancelRequest = () => {
@@ -80,7 +85,8 @@ const BureauExceptionListCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    dispatch(addBureauExceptionSelections(currentUser));
+    const data = JSON.stringify(currentUser);
+    dispatch(addBureauExceptionSelections(data));
   };
 
   const deleteBureaus = () => {
@@ -90,7 +96,8 @@ const BureauExceptionListCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    dispatch(deleteBureauExceptionList(currentUser));
+    const data = JSON.stringify(currentUser);
+    dispatch(deleteBureauExceptionList(data));
   };
 
   const modify = () => {
@@ -101,7 +108,8 @@ const BureauExceptionListCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    dispatch(saveBureauExceptionSelections(currentUser));
+    const data = JSON.stringify(currentUser);
+    dispatch(saveBureauExceptionSelections(data));
   };
 
   const cancel = (e) => {
