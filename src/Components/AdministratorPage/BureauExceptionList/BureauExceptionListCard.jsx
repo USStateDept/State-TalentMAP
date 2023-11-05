@@ -4,7 +4,8 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addBureauExceptionSelections, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
+import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
+import Spinner from 'Components/Spinner';
 import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
@@ -30,6 +31,7 @@ const BureauExceptionListCard = (props) => {
   const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
   const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
   const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
+  // const BureauCardLoading = useSelector(state => state.bureauExceptionListLoading);
   const currentUserInfo = BureauExceptionOptionsData?.data?.[0];
   const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.[1];
 
@@ -58,6 +60,7 @@ const BureauExceptionListCard = (props) => {
   const collapseCard = () => {
     setShowMore(!showMore);
     setEdit(e => !e);
+    dispatch(bureauExceptionUserBureausFetchData());
   };
 
   const onCancelRequest = () => {
@@ -182,63 +185,70 @@ const BureauExceptionListCard = (props) => {
         {edit && (
           <div>
             <form>
-              <table className="bureau-exception-table">
-                <thead>
-                  <tr>
-                    <div className="bureau-exception-text-input">
-                      <TextInput
-                        changeText={(e) => setBureau(e)}
-                        label={`F/S Employee Name: ${name}`}
-                        placeholder="Filter by Bureau"
-                        value={bureau}
-                        id="bureau"
-                        inputProps={{
-                          autoComplete: 'off',
-                        }}
-                      />
+              {!currentUserInfo ?
+                <div className="bureau-card-loading" id={id}>
+                  <Spinner type="standard-center" class={`${id}-spinner`} size="small" />
+                </div>
+                :
+                <table className="bureau-exception-table">
+                  <thead>
+                    <tr>
+                      <div className="bureau-exception-text-input">
+                        <TextInput
+                          changeText={(e) => setBureau(e)}
+                          placeholder="Filter by Bureau"
+                          value={bureau}
+                          id="bureau"
+                          inputProps={{
+                            autoComplete: 'off',
+                          }}
+                        />
+                      </div>
+                    </tr>
+                    <tr>
+                      <th className="checkbox-pac checkbox-pos">
+                        <CheckBox
+                          label="Bureau"
+                          onCheckBoxClick={handleSelectAll}
+                          value={selectAll}
+                          id={`${name} - ${id}`}
+                        />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <div className="bureau-exception-text-table">
+                      {currentUserBureauCodeList?.length &&
+                        currentUserBureauCodeList
+                          .filter((x) =>
+                            x.description
+                              .toLowerCase()
+                              .includes(bureau.toLowerCase()),
+                          )
+                          .map((post) => (
+                            <tr key={post.bureauCode}>
+                              <td className="checkbox-pac checkbox-pos">
+                                <CheckBox
+                                  label={post.description}
+                                  value={bureauCodes.includes(post.bureauCode)}
+                                  onCheckBoxClick={() => handleSelectBureau(post)}
+                                  id={`${name} - ${post.bureauCode}`}
+                                />
+                              </td>
+                            </tr>
+                          ))}
                     </div>
-                  </tr>
-                  <tr>
-                    <th className="checkbox-pac checkbox-pos">
-                      <CheckBox
-                        label="Bureau"
-                        onCheckBoxClick={handleSelectAll}
-                        value={selectAll}
-                        id={`${name} - ${id}`}
-                      />
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <div className="bureau-exception-text-table">
-                    {currentUserBureauCodeList?.length &&
-                      currentUserBureauCodeList
-                        .filter((x) =>
-                          x.description
-                            .toLowerCase()
-                            .includes(bureau.toLowerCase()),
-                        )
-                        .map((post) => (
-                          <tr key={post.bureauCode}>
-                            <td className="checkbox-pac checkbox-pos">
-                              <CheckBox
-                                label={post.description}
-                                value={bureauCodes.includes(post.bureauCode)}
-                                onCheckBoxClick={() => handleSelectBureau(post)}
-                                id={`${name} - ${post.bureauCode}`}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                  </div>
-                </tbody>
-              </table>
-              <button
-                onClick={saveBureaus}
-              >
-                Save
-              </button>
-              <button onClick={cancel}>Cancel</button>
+                  </tbody>
+                </table>
+              }
+              <div style={{ visibility: !currentUserInfo && 'hidden' }}>
+                <button
+                  onClick={saveBureaus}
+                >
+                  Save
+                </button>
+                <button onClick={cancel}>Cancel</button>
+              </div>
             </form>
           </div>
         )}
@@ -254,7 +264,6 @@ BureauExceptionListCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     pv_id: PropTypes.number,
-    seqNum: PropTypes.number,
   }),
 };
 

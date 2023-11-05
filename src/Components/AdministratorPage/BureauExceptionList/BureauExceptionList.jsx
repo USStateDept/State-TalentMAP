@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionUserBureausFetchData, bureauExceptionUsersListFetchData } from 'actions/bureauException';
+import { bureauExceptionUsersListFetchData } from 'actions/bureauException';
 import BureauExceptionListCard from './BureauExceptionListCard';
 
 
@@ -16,7 +16,6 @@ const BureauExceptionList = () => {
   const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
   const fetchAndSet = () => {
     dispatch(bureauExceptionUsersListFetchData());
-    dispatch(bureauExceptionUserBureausFetchData());
   };
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const BureauExceptionList = () => {
   const getOverlay = () => {
     let overlay;
     if (BureauExceptionDataLoading) {
-      overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="medium" />;
     } else if (BureauExceptionError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
