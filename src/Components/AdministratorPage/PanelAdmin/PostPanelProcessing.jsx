@@ -245,6 +245,13 @@ const PostPanelProcessing = (props) => {
   const disableSave = !isSuperUser &&
     (!beforeAgendaCompletedTime);
 
+  const disableHold = (agenda, status) => {
+    const isHold = status.code === 'H';
+    const isChairHold = agenda.aht_code === 'C';
+    const reachedMax = agenda.max_aih_hold_number > 2;
+    return isHold && !isChairHold && reachedMax;
+  }
+
   return (
     (isLoading) ?
       <Spinner type="panel-admin-remarks" size="small" /> :
@@ -324,7 +331,7 @@ const PostPanelProcessing = (props) => {
                         name={`${d.label}-status-${o.description}`}
                         checked={d.status === o.description}
                         onClick={() => handleStatusSelection(d.label, o.description)}
-                        disabled={disableTable}
+                        disabled={disableTable || disableHold(d, o)}
                         className="interactive-element"
                       />
                     );
