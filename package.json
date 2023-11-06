@@ -106,6 +106,9 @@
     "use-query-params": "^1.2.3",
     "uswds": "~1.6.12"
   },
+    "resolutions": {
+      "**/**/type-fest": "0.21.3"
+  },
   "@comment devDependencies": [
     "dart-sass 1.33.0 introduces a breaking change to division. This causes uswds compilation to fail. https://github.com/sass/dart-sass/releases/tag/1.33.0",
     "react-styleguidist 11.1.7 requires node 14"
