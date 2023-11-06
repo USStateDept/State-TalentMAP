@@ -135,7 +135,6 @@ const BureauExceptionListCard = (props) => {
   };
 
   const handleSelectBureau = (selectedBureau => {
-    console.log('selectedBureau', selectedBureau);
     if (bureauCodes.includes(selectedBureau?.bureauCode)) {
       const filteredBureauCodes = bureauCodes.filter(x => x !== selectedBureau?.bureauCode);
       setBureauCodes(filteredBureauCodes);
