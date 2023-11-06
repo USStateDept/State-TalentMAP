@@ -60,12 +60,8 @@ export const formatPanelMeetingTrackerData = (meetingDates = []) => {
  */
 export const submitPanelMeeting = (originalFields, newFields) => {
   const {
-    // pmt_code,
-    // pms_desc_text,
     panelMeetingDates,
   } = originalFields;
-  console.log('newFields', newFields);
-  console.log('originalFields', originalFields);
 
   // eslint-disable-next-line no-unused-vars
   const panelMeetingDate = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
@@ -102,7 +98,6 @@ export const submitPanelMeeting = (originalFields, newFields) => {
     // agendaCompletedTime: newFields?.agendaCompletedTime ??
     //  (agendaCompletedTime ? new Date(agendaCompletedTime.pmd_dttm) : undefined),
   };
-  console.log('request data', data);
 
   return createPanelMeeting(data);
 };

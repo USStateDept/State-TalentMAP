@@ -22,8 +22,6 @@ const PanelMeetingAdmin = (props) => {
   // ============= Retrieve Data =============
 
   const { pmt_code, pms_code, panelMeetingDates } = panelMeetingsResults;
-  console.log('panelMeetingResults', panelMeetingsResults);
-  console.log('dates', panelMeetingDates);
 
   const panelMeetingDate$ = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
   const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
