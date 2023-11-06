@@ -250,7 +250,7 @@ const PostPanelProcessing = (props) => {
     const isChairHold = agenda.aht_code === 'C';
     const reachedMax = agenda.max_aih_hold_number > 2;
     return isHold && !isChairHold && reachedMax;
-  }
+  };
 
   return (
     (isLoading) ?
