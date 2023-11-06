@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
 import Spinner from 'Components/Spinner';
+import Alert from 'Components/Alert';
 import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
@@ -31,7 +32,7 @@ const BureauExceptionListCard = (props) => {
   const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
   const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
   const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
-  // const BureauCardLoading = useSelector(state => state.bureauExceptionListLoading);
+  const BureauCardError = useSelector(state => state.bureauExceptionListErrored);
   const currentUserInfo = BureauExceptionOptionsData?.data?.[0];
   const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.[1];
 
@@ -157,6 +158,18 @@ const BureauExceptionListCard = (props) => {
     }
   };
 
+  const getOverlay = () => {
+    let overlay;
+    if (!currentUserInfo) {
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="small" />;
+    } else if (BureauCardError) {
+      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
+  };
+
   return (
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
@@ -186,11 +199,9 @@ const BureauExceptionListCard = (props) => {
           <div>
             <form>
               <table className="bureau-exception-table">
-                {!currentUserInfo ?
-                  <div className="bureau-card-loading" id={id}>
-                    <Spinner type="standard-center" class={`${id}-spinner`} size="small" />
-                  </div>
-                  :
+                {
+                  getOverlay()
+                  ||
                   <div>
                     <thead>
                       <tr>
