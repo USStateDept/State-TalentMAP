@@ -21,7 +21,7 @@ const PanelMeetingAdmin = (props) => {
 
   // ============= Retrieve Data =============
 
-  const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults;
+  const { pmt_code, pms_code, panelMeetingDates } = panelMeetingsResults;
   console.log('panelMeetingResults', panelMeetingsResults);
   console.log('dates', panelMeetingDates);
 
@@ -60,7 +60,7 @@ const PanelMeetingAdmin = (props) => {
   const setInitialInputResults = () => {
     setPanelMeetingType(pmt_code);
     setPanelMeetingDate(new Date(panelMeetingDate$.pmd_dttm));
-    setPanelMeetingStatus(pms_desc_text);
+    setPanelMeetingStatus(pms_code);
 
     setPrelimCutoff(new Date(prelimCutoff$.pmd_dttm));
     setAddendumCutoff(new Date(addendumCutoff$.pmd_dttm));
@@ -98,7 +98,7 @@ const PanelMeetingAdmin = (props) => {
       setAddendumCutoff('');
       setPrelimRuntime('');
       setAddendumRuntime('');
-      setPanelMeetingStatus('Initiated');
+      setPanelMeetingStatus('I');
     }
   };
 
