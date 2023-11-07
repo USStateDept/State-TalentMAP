@@ -28,66 +28,66 @@ const PositionClassification = (props) => {
   }, [results]);
 
   const handleSelection = (code, event) => {
-    let newSelections = selections.map(s => {
+    const newSelections = selections.map(s => {
       if (s.code === code) {
         return {
           ...s,
-          value: event.target.checked ? "1" : "0",
-        }
+          value: event.target.checked ? '1' : '0',
+        };
       }
       return s;
-    })
+    });
     setSelections(newSelections);
   };
 
   const handleSubmit = () => {
-    let editPosition = "";
-    let editCodes = "";
-    let editValues = "";
-    let editUpdatedDates = "";
-    let editUpdaterIds = "";
+    let editPosition = '';
+    let editCodes = '';
+    let editValues = '';
+    let editUpdatedDates = '';
+    let editUpdaterIds = '';
 
-    let newPosition = "";
-    let newCodes = "";
-    let newValues = "";
-    let newUpdated = "";
+    let newPosition = '';
+    let newCodes = '';
+    let newValues = '';
+    let newUpdated = '';
 
     selections.forEach(s => {
       if (s.date) {
-        const separator = editPosition === "" ? "" : ",";
+        const separator = editPosition === '' ? '' : ',';
         editPosition = editPosition.concat(separator, positionNumber);
         editCodes = editCodes.concat(separator, s.code);
         editValues = editValues.concat(separator, s.value);
         editUpdatedDates = editUpdatedDates.concat(separator, s.date);
         editUpdaterIds = editUpdaterIds.concat(separator, s.user_id);
       } else if (s.value) {
-        const separator = newPosition === "" ? "" : ",";
+        const separator = newPosition === '' ? '' : ',';
         newPosition = newPosition.concat(separator, positionNumber);
         newCodes = newCodes.concat(separator, s.code);
         newValues = newValues.concat(separator, s.value);
         newUpdated = newUpdated.concat(separator);
       }
-    })
+    });
 
-    if (editPosition !== "") {
+    if (editPosition !== '') {
       dispatch(positionClassificationsEdit({
-        "id": editPosition,
-        "values": editValues,
-        "codes": editCodes,
-        "updater_ids": editUpdaterIds,
-        "updated_dates": editUpdatedDates,
+        id: editPosition,
+        values: editValues,
+        codes: editCodes,
+        updater_ids: editUpdaterIds,
+        updated_dates: editUpdatedDates,
       }));
     }
-    if (newPosition !== "") {
+    if (newPosition !== '') {
       dispatch(positionClassificationsEdit({
-        "id": newPosition,
-        "values": newValues,
-        "codes": newCodes,
-        "updater_ids": newUpdated,
-        "updated_dates": newUpdated,
+        id: newPosition,
+        values: newValues,
+        codes: newCodes,
+        updater_ids: newUpdated,
+        updated_dates: newUpdated,
       }));
     }
-  }
+  };
 
   return (isLoading ?
     <div className="loading-animation--5">
@@ -117,7 +117,7 @@ const PositionClassification = (props) => {
                 <td key={o.code}>
                   <input
                     type="checkbox"
-                    name={`${o.code}`}
+                    name={o.code}
                     checked={selections.find(s => o.code === s.code && s.value === '1') ?? false}
                     onChange={(event) => handleSelection(o.code, event)}
                   />
