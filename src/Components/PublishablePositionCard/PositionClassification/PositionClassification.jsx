@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { positionClassifications, positionClassificationsEdit } from '../../../actions/positionClassifications';
 
 const PositionClassification = (props) => {
-  const { positionNumber, bureau } = props;
+  const { positionNumber, bureau, posSeqNum } = props;
 
   const dispatch = useDispatch();
 
