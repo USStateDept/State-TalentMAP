@@ -193,15 +193,15 @@ const PostPanelProcessing = (props) => {
     formData.forEach(s => {
       const separator = status === '' ? '' : ',';
       status = status.concat(separator, s.status);
-      sequenceNumber = sequenceNumber.concat(separator, s.sequenceNumber);
-      updateId = updateId.concat(separator, s.updateId);
-      updateDate = updateDate.concat(separator, s.updateDate);
-      ahtCode = ahtCode.concat(separator, s.ahtCode);
-      aihHoldNumber = aihHoldNumber.concat(separator, s.aihHoldNumber);
-      aihHoldComment = aihHoldComment.concat(separator, s.aihHoldComment);
-      aihSequenceNumber = aihSequenceNumber.concat(separator, s.aihSequenceNumber);
-      aihUpdateId = aihUpdateId.concat(separator, s.aihUpdateId);
-      aihUpdateDate = aihUpdateDate.concat(separator, s.aihUpdateDate);
+      sequenceNumber = sequenceNumber.concat(separator, s.sequence_number);
+      updateId = updateId.concat(separator, s.update_id);
+      updateDate = updateDate.concat(separator, s.update_date);
+      ahtCode = ahtCode.concat(separator, s.aht_code);
+      aihHoldNumber = aihHoldNumber.concat(separator, s.aih_hold_number);
+      aihHoldComment = aihHoldComment.concat(separator, s.aih_hold_comment);
+      aihSequenceNumber = aihSequenceNumber.concat(separator, s.aih_sequence_number);
+      aihUpdateId = aihUpdateId.concat(separator, s.aih_update_id);
+      aihUpdateDate = aihUpdateDate.concat(separator, s.aih_update_date);
     });
 
     if (status !== '') {
