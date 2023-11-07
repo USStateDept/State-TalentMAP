@@ -12,7 +12,6 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 const EditBidSeasons = ({
   id,
-  bidSeasonDisableDates,
   description,
   bidSeasonsBeginDate,
   bidSeasonsEndDate,
