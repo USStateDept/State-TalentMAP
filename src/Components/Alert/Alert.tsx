@@ -61,7 +61,7 @@ class Alert extends Component<Props> {
     );
 
     return (
-      <div className={`usa-alert ${tinyAlert ? 'tiny-alert-error' : `usa-alert-${type}`} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
+      <div className={`usa-alert ${tinyAlert ? `tiny-alert-${type}` : `usa-alert-${type}`} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
