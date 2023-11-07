@@ -33,6 +33,7 @@ const BureauExceptionListCard = (props) => {
   const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
   const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
   const BureauCardError = useSelector(state => state.bureauExceptionListErrored);
+  const BureauExceptionListLoading = useSelector(state => state.bureauExceptionListLoading);
   const currentUserInfo = BureauExceptionOptionsData?.data?.[0];
   const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.[1];
 
@@ -160,7 +161,7 @@ const BureauExceptionListCard = (props) => {
 
   const getOverlay = () => {
     let overlay;
-    if (!currentUserInfo) {
+    if (BureauExceptionListLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="small" />;
     } else if (BureauCardError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
@@ -254,7 +255,7 @@ const BureauExceptionListCard = (props) => {
                   </div>
                 }
               </table>
-              <div style={{ visibility: !currentUserInfo && 'hidden' }}>
+              <div style={{ visibility: BureauExceptionListLoading && 'hidden' }}>
                 <button
                   onClick={saveBureaus}
                 >
