@@ -90,7 +90,11 @@ const PositionClassification = (props) => {
   }
 
   return (isLoading ?
-    <Spinner type="position-classifications" size="small" /> :
+    <div className="loading-animation--5">
+      <div className="loading-message pbl-20">
+        Loading additional data
+      </div>
+    </div> :
     <div className="position-classifications">
       <div className="line-separated-fields">
         <div>
