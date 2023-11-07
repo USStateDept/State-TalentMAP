@@ -14,7 +14,7 @@ import { checkFlag } from '../../flags';
 import PositionClassification from './PositionClassification/PositionClassification';
 
 
-const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
+const PP_FLAG = checkFlag('flags.publishable_positions');
 
 const hardcodedFilters = {
   statusFilters: [{ code: 1, description: '' }, { code: 2, description: 'Publishable' }, { code: 3, description: 'Vet' }],
@@ -24,7 +24,9 @@ const hardcodedFilters = {
 };
 
 
-const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit }) => {
+const PublishablePositionCard = ({
+  data, onEditModeSearch, onSubmit, disableEdit,
+  additionalCallsLoading, onShowMorePP }) => {
   // =============== Overview: View Mode ===============
 
   const sections = {
@@ -42,7 +44,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
     ],
-    bodySecondary: PP_INTEGRATION_FLAG ?
+    bodySecondary: PP_FLAG ?
       [
         { 'Bid Cycle': data?.status || DEFAULT_TEXT },
         { 'TED': data?.status || DEFAULT_TEXT },
@@ -116,7 +118,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
     ],
     inputBody: (
       <div className="position-form">
-        {PP_INTEGRATION_FLAG &&
+        {PP_FLAG &&
           <div className="spaced-row">
             <div className="dropdown-container">
               <div className="position-form--input">
@@ -176,7 +178,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
             </div>
           </Row>
         </div>
-        {PP_INTEGRATION_FLAG &&
+        {PP_FLAG &&
           <>
             <div className="content-divider" />
             <div className="position-form--heading">
@@ -219,7 +221,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
             </div>
           </>
         }
-      </div>
+      </div >
     ),
     handleSubmit: onSubmitForm,
     handleCancel: onCancelForm,
@@ -233,25 +235,26 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
 
   return (
     <TabbedCard
-      tabs={[
+      tabs={[{
+        text: 'Position Overview',
+        value: 'OVERVIEW',
+        content: <PositionExpandableContent
+          sections={sections}
+          form={form}
+          appendAdditionalFieldsToBodyPrimary={false}
+          showLoadingAnimation={additionalCallsLoading}
+          onShowMore={(e) => onShowMorePP(e)}
+        />,
+      }, PP_FLAG ?
         {
-          text: 'Position Overview',
-          value: 'OVERVIEW',
-          content: <PositionExpandableContent
-            sections={sections}
-            form={form}
+          text: 'Position Classification',
+          value: 'CLASSIFICATION',
+          content: <PositionClassification
+            positionNumber={data?.positionNumber}
+            bureau={data?.bureau || DEFAULT_TEXT}
           />,
-        },
-        PP_INTEGRATION_FLAG ?
-          {
-            text: 'Position Classification',
-            value: 'CLASSIFICATION',
-            content: <PositionClassification
-              positionNumber={data?.positionNumber}
-              bureau={data?.bureau || DEFAULT_TEXT}
-            />,
-            disabled: editMode,
-          } : {},
+          disabled: editMode,
+        } : {},
       ]}
     />
   );
@@ -263,15 +266,19 @@ PublishablePositionCard.propTypes = {
   onEditModeSearch: PropTypes.func,
   onSubmit: PropTypes.func,
   disableEdit: PropTypes.bool,
+  additionalCallsLoading: PropTypes.bool,
   filters: PropTypes.shape({
     filters: {},
   }).isRequired,
+  onShowMorePP: PropTypes.func,
 };
 
 PublishablePositionCard.defaultProps = {
   onEditModeSearch: EMPTY_FUNCTION,
   onSubmit: EMPTY_FUNCTION,
   disableEdit: false,
+  additionalCallsLoading: false,
+  onShowMorePP: EMPTY_FUNCTION,
 };
 
 export default PublishablePositionCard;

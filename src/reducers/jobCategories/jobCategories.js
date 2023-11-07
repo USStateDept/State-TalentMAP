@@ -1,5 +1,4 @@
 
-// Not in use currently
 export function jobCategoriesAdminFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_ADMIN_HAS_ERRORED':
@@ -24,7 +23,6 @@ export function jobCategoriesAdminFetchData(state = [], action) {
       return state;
   }
 }
-// Not in use currently
 export function jobCategoriesFetchSkillsHasErrored(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SKILLS_HAS_ERRORED':
@@ -33,7 +31,6 @@ export function jobCategoriesFetchSkillsHasErrored(state = false, action) {
       return state;
   }
 }
-// Not in use currently
 export function jobCategoriesFetchSkillsIsLoading(state = false, action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SKILLS_IS_LOADING':
@@ -45,82 +42,6 @@ export function jobCategoriesFetchSkillsIsLoading(state = false, action) {
 export function jobCategoriesFetchSkills(state = [], action) {
   switch (action.type) {
     case 'JOB_CATEGORIES_SKILLS_SUCCESS':
-      return action.data;
-    default:
-      return state;
-  }
-}
-// Not in use currently
-export function jobCategoriesSaveNewCatHasErrored(state = false, action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_SAVE_NEW_CAT_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function jobCategoriesSaveNewCatIsLoading(state = false, action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_SAVE_NEW_CAT_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function jobCategoriesSaveNewCatSuccess(state = [], action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_SAVE_NEW_CAT_SUCCESS':
-      return action.data;
-    default:
-      return state;
-  }
-}
-
-export function jobCategoriesDeleteCatHasErrored(state = false, action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_DELETE_CAT_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-// Not in use currently
-export function jobCategoriesDeleteCatIsLoading(state = false, action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_DELETE_CAT_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function jobCategoriesDeleteCatSuccess(state = [], action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_DELETE_CAT_SUCCESS':
-      return action.data;
-    default:
-      return state;
-  }
-}
-
-export function jobCategoriesEditCatHasErrored(state = false, action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_EDIT_CAT_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function jobCategoriesEditCatIsLoading(state = false, action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_EDIT_CAT_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function jobCategoriesEditCatSuccess(state = [], action) {
-  switch (action.type) {
-    case 'JOB_CATEGORIES_EDIT_CAT_SUCCESS':
       return action.data;
     default:
       return state;

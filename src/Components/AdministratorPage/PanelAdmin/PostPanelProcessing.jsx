@@ -5,8 +5,9 @@ import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import Spinner from 'Components/Spinner';
-import { postPanelProcessingFetchData, postPanelStatusesFetchData } from 'actions/postPanelProcessing';
-import { createPostPanelProcessing } from '../../../actions/postPanelProcessing';
+import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
+import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
 
@@ -28,13 +29,13 @@ const PostPanelProcessing = (props) => {
 
   const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
-  const postPanelStatusesResults =
-    useSelector(state => state.postPanelStatusesFetchDataSuccess);
-  const postPanelStatusesIsLoading = useSelector(state => state.postPanelStatusesFetchDataLoading);
+  const statuses = postPanelResults?.statuses ?? [];
+  const values = postPanelResults?.values ?? [];
+
+  const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
   useEffect(() => {
-    dispatch(postPanelProcessingFetchData({ id: pmSeqNum }));
-    dispatch(postPanelStatusesFetchData());
+    dispatch(postPanelProcessingFetchData(pmSeqNum));
   }, []);
 
 
@@ -48,10 +49,10 @@ const PostPanelProcessing = (props) => {
   const [postPanelStarted, setPostPanelStarted] = useState();
   const [postPanelRuntime, setPostPanelRuntime] = useState();
   const [agendaCompletedTime, setAgendaCompletedTime] = useState();
-  const [formData, setFormData] = useState(postPanelResults);
+  const [formData, setFormData] = useState(values);
 
   useEffect(() => {
-    if (!!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
+    if (!postPanelIsLoading && !panelMeetingsIsLoading) {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
@@ -75,7 +76,7 @@ const PostPanelProcessing = (props) => {
         { postPanelStarted: new Date() },
       ));
     }
-    setFormData(postPanelResults);
+    setFormData(values);
   }, [postPanelResults]);
 
   const handleStatusSelection = (objLabel, newStatus) => {
@@ -91,55 +92,56 @@ const PostPanelProcessing = (props) => {
     setFormData(newFormData);
   };
 
-
   // ============= Submission Management =============
 
   const runPostPanelProcessing = () => {
     const currTimestamp = new Date();
     setPostPanelRuntime(currTimestamp);
-    dispatch(createPostPanelProcessing(formData));
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
-      { postPanelRuntime: currTimestamp },
-    ));
-  };
-
-  const cancel = () => {
-    // Depending on how the API works, this will need to handle removing these fields
-    // instead of setting them to undefined
-    if (!postPanelRunTime$ && !agendaCompletedTime$) {
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        {
-          postPanelStarted: undefined,
-          postPanelRuntime: undefined,
-          agendaCompletedTime: undefined,
-        },
-      ));
+    dispatch(runPanelMeeting(pmSeqNum, 'post_panel'));
+    if (runPostPanelSuccess) {
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+      dispatch(postPanelProcessingFetchData(pmSeqNum));
     }
   };
 
   const submit = () => {
-    dispatch(createPostPanelProcessing(formData));
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
-      {
-        postPanelStarted,
-        postPanelRuntime,
-        agendaCompletedTime,
-      },
-    ));
+    formData.forEach((o, i) => {
+      if (values[i].status !== o.status) {
+        if (o.status === 'H') {
+          dispatch(editPostPanelProcessing({
+            status: o.status,
+            sequence_number: o.sequence_number,
+            update_id: o.update_id,
+            update_date: o.update_date,
+            aht_code: o.aht_code,
+            aih_hold_number: o.aih_hold_number,
+            aih_hold_comment: o.aih_hold_comment,
+            aih_sequence_number: o.aih_sequence_number,
+          }));
+        } else {
+          dispatch(editPostPanelProcessing({
+            status: o.status,
+            sequence_number: o.sequence_number,
+            update_id: o.update_id,
+            update_date: o.update_date,
+          }));
+        }
+      }
+    });
+    // TODO: Save Post Panel Started and Agenda Completed Time
   };
 
 
   // ============= Form Conditions =============
 
-  // Remove second half of this when loading states are implemented with the api call in actions
-  const isLoading = (postPanelIsLoading || postPanelStatusesIsLoading) || (
-    (postPanelStatusesResults && !postPanelStatusesResults.length) ||
-    (formData && !formData.length)
-  );
+  const isLoading = postPanelIsLoading || panelMeetingsIsLoading;
 
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
+  const beforePostPanelStarted = (
+    postPanelStarted$ ? (new Date(postPanelStarted$.pmd_dttm) - new Date() > 0) : true
+  );
   const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
@@ -148,10 +150,7 @@ const PostPanelProcessing = (props) => {
   // are restricted by preconditions determined by prior steps
 
   const disablePostPanelStarted = !isSuperUser &&
-    (postPanelRunTime$ && !beforeAgendaCompletedTime);
-
-  const disablePostPanelRunTime = !isSuperUser &&
-    (postPanelRunTime$ && !beforeAgendaCompletedTime);
+    (postPanelRunTime$ && !beforePostPanelStarted);
 
   const disableTable = !isSuperUser &&
     (!beforeAgendaCompletedTime);
@@ -160,10 +159,7 @@ const PostPanelProcessing = (props) => {
     (postPanelRunTime$ || !beforeAgendaCompletedTime);
 
   const disableAgendaCompletedTime = !isSuperUser &&
-    (!postPanelRunTime$ && !beforeAgendaCompletedTime);
-
-  const disableCancel = !isSuperUser &&
-    (postPanelRunTime$ || agendaCompletedTime$);
+    (!postPanelRunTime$ || !beforeAgendaCompletedTime);
 
   const disableSave = !isSuperUser &&
     (!beforeAgendaCompletedTime);
@@ -195,7 +191,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={disablePostPanelRunTime}
+                disabled
                 selected={postPanelRuntime}
                 onChange={(date) => setPostPanelRuntime(date)}
                 showTimeSelect
@@ -216,34 +212,35 @@ const PostPanelProcessing = (props) => {
                 <th>Item</th>
                 <th>Label</th>
                 <th>Name</th>
-                {postPanelStatusesResults.map((o) => (
-                  <th key={o.label}>{o.label}</th>
+                {statuses.map((o) => (
+                  <th key={o.code}>{o.description}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {formData.map(d => (
                 <tr key={d.label}>
-                  <td>
-                    {d.value ?
+                  <td key={`${d.label}-valid`}>
+                    {d.valid === 'Y' ?
                       <FA name="check" /> :
                       '---'
                     }
                   </td>
-                  <td>
+                  <td key={`${d.label}-item`}>
                     <span className="item-link">
                       {d.item}
                     </span>
                   </td>
-                  <td>{d.label}</td>
-                  <td>{d.name}</td>
-                  {postPanelStatusesResults.map((o) => (
-                    <td key={o.label}>
+                  <td key={`${d.label}-label`}>{d.label}</td>
+                  <td key={`${d.label}-employee`}>{d.employee}</td>
+                  {statuses.map((o) => (
+                    <td key={`${d.label}-${o.code}`}>
                       <input
+                        id={`${d.label}-status-${o.code}`}
                         type="radio"
-                        name={`${o.label} ${d.label}`}
-                        checked={d.status === o.value}
-                        onChange={() => handleStatusSelection(d.label, o.value)}
+                        name={`${d.label}-status-${o.description}`}
+                        checked={d.status === o.description}
+                        onChange={() => handleStatusSelection(d.label, o.description)}
                         disabled={disableTable}
                       />
                     </td>
@@ -280,7 +277,6 @@ const PostPanelProcessing = (props) => {
           </div>
         </div>
         <div className="position-form--actions">
-          <button onClick={cancel} disabled={disableCancel}>Cancel</button>
           <button onClick={submit} disabled={disableSave}>Save</button>
         </div>
       </div>
