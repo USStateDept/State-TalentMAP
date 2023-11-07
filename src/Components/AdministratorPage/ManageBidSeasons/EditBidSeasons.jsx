@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import Alert from 'Components/Alert';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
@@ -9,22 +10,21 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
 
-const EditBidSeasons = (props) => {
-  const {
-    id,
-    description,
-    bidSeasonsBeginDate,
-    bidSeasonsEndDate,
-    bidSeasonsPanelCutoff,
-    bidSeasonsFutureVacancy,
-    bidSeasonsCreateId,
-    bidSeasonsCreateDate,
-    bidSeasonsUpdateId,
-    bidSeasonsUpdateDate,
-    bidSeasonsSntSeqNum,
-    submitAction,
-  } = props;
-
+const EditBidSeasons = ({
+  id,
+  bidSeasonDisableDates,
+  description,
+  bidSeasonsBeginDate,
+  bidSeasonsEndDate,
+  bidSeasonsPanelCutoff,
+  bidSeasonsFutureVacancy,
+  bidSeasonsCreateId,
+  bidSeasonsCreateDate,
+  bidSeasonsUpdateId,
+  bidSeasonsUpdateDate,
+  bidSeasonsSntSeqNum,
+  submitAction,
+}) => {
   const startDateGetDate = bidSeasonsBeginDate ? new Date(bidSeasonsBeginDate) : null;
   const endDateGetDate = bidSeasonsEndDate ? new Date(bidSeasonsEndDate) : null;
   const panelCutoffDateGetDate = bidSeasonsPanelCutoff
@@ -91,6 +91,7 @@ const EditBidSeasons = (props) => {
                 <option value="2">Winter</option>
               </select>
             </div>
+            <Alert type="info" title="Bid season dates cannot overlap an existing bid season." tinyAlert />
             <div>
               <dt>Start Date</dt>
               <span className="date-picker-validation-container larger-date-picker">

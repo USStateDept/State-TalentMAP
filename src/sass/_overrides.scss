@@ -186,18 +186,30 @@ button,
   }
 }
 
-.tiny-alert-error {
-  background-color: $secondary-lightest;
+.tiny-alert-error, .tiny-alert-info {
   margin-top: 0;
   padding: 5px 15px;
 
   ::before {
-    background-color: $secondary-dark;
     content: '';
     height: 100%;
     left: 0;
     position: absolute;
     top: 0;
     width: 1rem;
+  }
+}
+.tiny-alert-error {
+  background-color: $secondary-lightest;
+
+  ::before {
+    background-color: $secondary-dark;
+  }
+}
+.tiny-alert-info {
+  background-color: $primary-alt-lightest;
+
+  ::before {
+    background-color: $primary-alt-dark;
   }
 }
