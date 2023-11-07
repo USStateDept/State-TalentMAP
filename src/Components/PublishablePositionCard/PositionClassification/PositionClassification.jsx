@@ -55,14 +55,14 @@ const PositionClassification = (props) => {
     selections.forEach(s => {
       if (s.date) {
         const separator = editPosition === '' ? '' : ',';
-        editPosition = editPosition.concat(separator, positionNumber);
+        editPosition = editPosition.concat(separator, posSeqNum);
         editCodes = editCodes.concat(separator, s.code);
         editValues = editValues.concat(separator, s.value);
         editUpdatedDates = editUpdatedDates.concat(separator, s.date);
         editUpdaterIds = editUpdaterIds.concat(separator, s.user_id);
       } else if (s.value) {
         const separator = newPosition === '' ? '' : ',';
-        newPosition = newPosition.concat(separator, positionNumber);
+        newPosition = newPosition.concat(separator, posSeqNum);
         newCodes = newCodes.concat(separator, s.code);
         newValues = newValues.concat(separator, s.value);
         newUpdated = newUpdated.concat(separator);
