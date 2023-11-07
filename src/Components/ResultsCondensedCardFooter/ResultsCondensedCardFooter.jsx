@@ -13,7 +13,7 @@ const ResultsCondensedCardFooter = ({ position, isProjectedVacancy, isTandem }) 
       <div className={`condensed-card-footer ${isTandem ? 'condensed-card-footer-tandem' : ''}`}>
         <div className="usa-grid-full condensed-card-footer-container">
           <div className="condensed-card-footer-left">
-            <strong>Position number: </strong>
+            <strong>Position Number: </strong>
             {pos.position_number}
           </div>
           {!isProjectedVacancy &&
