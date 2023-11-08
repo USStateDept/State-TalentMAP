@@ -1,32 +1,59 @@
-export function bureauExceptionsFetchDataErrored(state = false, action) {
+export function bureauExceptionErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_FETCH_HAS_ERRORED':
+    case 'BUREAU_EXCEPTION_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function bureauExceptionsFetchDataLoading(state = false, action) {
+export function bureauExceptionLoading(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_FETCH_IS_LOADING':
+    case 'BUREAU_EXCEPTION_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
-export function bureauExceptions(state = [], action) {
+
+export function bureauExceptionSuccess(state = [], action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_FETCH_SUCCESS':
+    case 'BUREAU_EXCEPTION_FETCH_SUCCESS':
       return action.results;
     default:
       return state;
   }
 }
 
-export function bureauExceptionsOptions(state = [], action) {
+export function bureauExceptionListErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_OPTIONS_FETCH_SUCCESS':
+    case 'BUREAU_EXCEPTION_LIST_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bureauExceptionListLoading(state = false, action) {
+  switch (action.type) {
+    case 'BUREAU_EXCEPTION_LIST_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function bureauExceptionListSuccess(state = [], action) {
+  switch (action.type) {
+    case 'BUREAU_EXCEPTION_LIST_SUCCESS':
       return action.results;
+    default:
+      return state;
+  }
+}
+
+export function closeAllCards(state = '', action) {
+  switch (action.type) {
+    case 'CLOSE_ALL_CARDS':
+      return action.id;
     default:
       return state;
   }

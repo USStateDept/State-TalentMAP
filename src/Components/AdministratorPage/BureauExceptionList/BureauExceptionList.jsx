@@ -4,36 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionBureauDataFetchData, bureauExceptionFetchData } from 'actions/bureauException';
+import { bureauExceptionUsersListFetchData } from 'actions/bureauException';
 import BureauExceptionListCard from './BureauExceptionListCard';
 
 
 const BureauExceptionList = () => {
   const dispatch = useDispatch();
 
-  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionsFetchDataLoading);
-  const BureauExceptionData = useSelector(state => state.bureauExceptions);
-  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionsOptions);
-  const BureauExceptionError = useSelector(state => state.bureauExceptionsFetchDataErrored);
-  const fetchAndSet = () => {
-    dispatch(bureauExceptionFetchData());
-    dispatch(bureauExceptionBureauDataFetchData());
-  };
-
+  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionLoading);
+  const BureauExceptionData = useSelector(state => state.bureauExceptionSuccess);
+  const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
   useEffect(() => {
-    fetchAndSet();
+    dispatch(bureauExceptionUsersListFetchData());
   }, []);
 
   // Overlay for error, info, and loading state
-  const noResults = BureauExceptionData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (BureauExceptionDataLoading) {
-      overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="medium" />;
     } else if (BureauExceptionError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-    } else if (noResults) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
     } else {
       return false;
     }
@@ -43,24 +34,20 @@ const BureauExceptionList = () => {
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Bureau Exception List" icon="calendar" className="xl-icon" />
+        <ProfileSectionTitle title="Bureau Exception Access" icon="users" className="xl-icon" />
       </div>
       {
         getOverlay() ||
-        <>
-          <div className="bs-lower-section">
-            {BureauExceptionData?.results?.map(data => (
+          <div className="bel-lower-section">
+            {BureauExceptionData?.filter((x => x.id != null)).map(data => (
               <BureauExceptionListCard
                 key={data?.id}
-                id={data?.id}
-                Name={data?.Name}
-                BureauNames={data?.BureauNames}
-                BureauExceptionOptionsData={BureauExceptionOptionsData?.results}
-              />),
+                userData={data}
+              />
+            ),
             )
             }
           </div>
-        </>
       }
     </div>
   );
