@@ -77,7 +77,7 @@ class ResultsCard extends Component {
 
     const innerId = this.getInnerId();
 
-    const bidTypeTitle = isProjectedVacancy ? 'Bid season' : 'Bid cycle';
+    const bidTypeTitle = isProjectedVacancy ? 'Bid Season' : 'Bid Cycle';
 
     const isTandem1 = result.tandem_nbr === 1;
     const isTandem2 = result.tandem_nbr === 2;
@@ -96,14 +96,14 @@ class ResultsCard extends Component {
         'Bureau': getResult(pos, 'bureau', NO_BUREAU),
       },
       {
-        'Tour of duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
+        'Tour of Duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
         'Language': language,
-        'Post differential | Danger Pay': getDifferentials(pos),
+        'Post Differential | Danger Pay': getDifferentials(pos),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
       },
       {
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
-        'Position number': position,
+        'Position Number': position,
       },
       /* eslint-enable quote-props */
     ];

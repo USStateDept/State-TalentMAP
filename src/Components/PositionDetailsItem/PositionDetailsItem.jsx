@@ -138,9 +138,9 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Skill" content={<PositionSkillCodeList primarySkill={get(position, 'skill')} secondarySkill={get(position, 'skill_secondary')} />} />
             <CondensedCardDataPoint title="Grade" content={get(position, 'grade', NO_GRADE)} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
-            <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
+            <CondensedCardDataPoint title="Tour of Duty" content={formattedTOD} />
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={get(position, 'languages')} propToUse="representation" />} />
-            <CondensedCardDataPoint title="Post differential | Danger Pay" content={differentials} />
+            <CondensedCardDataPoint title="Post Differential | Danger Pay" content={differentials} />
             <CondensedCardDataPoint title={isProjectedVacancy ? 'Bid Season' : 'Bid Cycle'} content={cycle} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
