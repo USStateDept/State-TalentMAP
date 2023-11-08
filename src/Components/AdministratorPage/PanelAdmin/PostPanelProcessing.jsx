@@ -279,6 +279,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
+                // Disabled until FSBID utilizes this field
                 disabled
                 selected={postPanelRuntime}
                 onChange={(date) => setPostPanelRuntime(date)}
@@ -384,6 +385,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
+                // Disabled until FSBID utilizes this field
                 disabled
                 selected={agendaCompletedTime}
                 onChange={(date) => setAgendaCompletedTime(date)}
