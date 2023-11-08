@@ -82,75 +82,75 @@ const PostPanelProcessing = (props) => {
     setFormData(values);
   }, [postPanelResults]);
 
-  const handleHold = (label) => {
-    const ref = formData.find(o => o.label === label);
-    let option = ref?.aht_code || ref?.max_aht_code || holdOptions[0].code;
-    let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
+  const handleHold = (objLabel, newStatus) => {
+    if (newStatus === 'HLD') {
+      const ref = formData.find(o => o.label === objLabel);
+      let option = ref?.aht_code || ref?.max_aht_code || holdOptions[0].code;
+      let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
 
-    swal({
-      title: 'Hold Options',
-      button: false,
-      closeOnEsc: true,
-      content: (
-        <div className="simple-action-modal">
-          <div className="help-text">
-            <div className="position-form--label-input-container">
-              <label htmlFor="status">Hold Option</label>
-              <select
-                id="hold-option"
-                defaultValue={option}
-                onChange={(e) => { option = e.target.value; }}
+      swal({
+        title: 'Hold Options',
+        button: false,
+        closeOnEsc: true,
+        content: (
+          <div className="simple-action-modal">
+            <div className="help-text">
+              <div className="position-form--label-input-container">
+                <label htmlFor="status">Hold Option</label>
+                <select
+                  id="hold-option"
+                  defaultValue={option}
+                  onChange={(e) => { option = e.target.value; }}
+                >
+                  {holdOptions.map(b => (
+                    <option key={b.code} value={b.code}>{b.description}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="position-form--label-input-container">
+                <label htmlFor="drafting-office">Description</label>
+                <textarea
+                  id="hold-description"
+                  defaultValue={description}
+                  onChange={(e) => { description = e.target.value; }}
+                />
+              </div>
+            </div>
+            <div className="modal-controls">
+              <button
+                onClick={() => {
+                  const newFormData = formData.map(o => {
+                    if (o.label === objLabel) {
+                      return {
+                        ...o,
+                        status: 'HLD',
+                        aht_code: option,
+                        aih_hold_comment: description,
+                      };
+                    }
+                    return o;
+                  });
+                  setFormData(newFormData);
+                  swal.close();
+                }}
               >
-                {holdOptions.map(b => (
-                  <option key={b.code} value={b.code}>{b.description}</option>
-                ))}
-              </select>
-            </div>
-            <div className="position-form--label-input-container">
-              <label htmlFor="drafting-office">Description</label>
-              <textarea
-                id="hold-description"
-                defaultValue={description}
-                onChange={(e) => { description = e.target.value; }}
-              />
+                Save
+              </button>
+              <button
+                className="usa-button-secondary"
+                onClick={() => swal.close()}
+              >
+                Cancel
+              </button>
             </div>
           </div>
-          <div className="modal-controls">
-            <button
-              onClick={() => {
-                const newFormData = formData.map(o => {
-                  if (o.label === label) {
-                    return {
-                      ...o,
-                      status: 'HLD',
-                      aht_code: option,
-                      aih_hold_comment: description,
-                    };
-                  }
-                  return o;
-                });
-                setFormData(newFormData);
-                swal.close();
-              }}
-            >
-              Save
-            </button>
-            <button
-              className="usa-button-secondary"
-              onClick={() => swal.close()}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ),
-    });
+        ),
+      });
+    }
   };
 
   const handleStatusSelection = (objLabel, newStatus) => {
-    if (newStatus === 'HLD') {
-      handleHold(objLabel);
-    } else {
+    if (newStatus !== 'HLD') {
       const newFormData = formData.map(o => {
         if (o.label === objLabel) {
           return {
@@ -331,7 +331,8 @@ const PostPanelProcessing = (props) => {
                         type="radio"
                         name={`${d.label}-status-${o.description}`}
                         checked={d.status === o.description}
-                        onClick={() => handleStatusSelection(d.label, o.description)}
+                        onChange={() => handleStatusSelection(d.label, o.description)}
+                        onClick={() => handleHold(d.label, o.description)}
                         disabled={disableTable || disableHold(d, o)}
                         className="interactive-element"
                       />
