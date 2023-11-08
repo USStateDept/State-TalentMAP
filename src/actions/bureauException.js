@@ -66,6 +66,13 @@ export function bureauExceptionListSuccess(results) {
   };
 }
 
+export function closeAllCards(id) {
+  return {
+    type: 'CLOSE_ALL_CARDS',
+    id,
+  };
+}
+
 export function bureauExceptionUsersListFetchData() {
   return (dispatch) => {
     if (cancelbureauException) { cancelbureauException('cancel'); }

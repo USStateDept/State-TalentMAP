@@ -4,7 +4,7 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
+import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, closeAllCards, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { Column, Row } from 'Components/Layout';
@@ -21,25 +21,26 @@ const BureauExceptionListCard = (props) => {
     bureauCodeList,
     id,
     name,
-    pv_id,
+    pvId,
   } = userData;
   const dispatch = useDispatch();
-  const [showMore, setShowMore] = useState(false);
-  const [edit, setEdit] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [bureau, setBureau] = useState('');
   const [bureauCodes, setBureauCodes] = useState([]);
-  const isBureauAccess = bureaus !== null && bureaus !== undefined && !bureaus.includes(' ') && bureaus.length !== 0;
-  const isAdd = pv_id === -1 || pv_id === null || pv_id === '-';
+  const isBureauAccess = bureaus !== null && bureaus !== undefined && bureaus !== ' ' && bureaus !== '' && bureaus.length !== 0;
+  const isAdd = pvId === -1 || pvId === null || pvId === '-';
   const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
   const BureauCardError = useSelector(state => state.bureauExceptionListErrored);
   const BureauExceptionListLoading = useSelector(state => state.bureauExceptionListLoading);
-  const currentUserInfo = BureauExceptionOptionsData?.data?.[0];
-  const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.[1];
+  const CloseCards = useSelector(state => state.closeAllCards);
+  const [isEditable, setIsEditable] = useState(CloseCards === id);
+  const currentUserInfo = BureauExceptionOptionsData?.data;
+  const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.bureauRefList;
+  const showBtn = BureauCardError || BureauExceptionListLoading;
 
   const gatherInitialBureauCodes = () => {
     if (isBureauAccess) {
-      const newBureauCodes = bureauCodeList.map(bu => bu);
+      const newBureauCodes = bureauCodeList && bureauCodeList.split(',').map(bu => bu);
       setBureauCodes(newBureauCodes);
     } else {
       setBureauCodes([]);
@@ -48,8 +49,9 @@ const BureauExceptionListCard = (props) => {
 
   useEffect(() => {
     // for initial list check
+    setIsEditable(CloseCards === id);
     gatherInitialBureauCodes();
-  }, []);
+  }, [CloseCards]);
 
   useEffect(() => {
     if (currentUserBureauCodeList?.length === bureauCodes.length) {
@@ -60,15 +62,15 @@ const BureauExceptionListCard = (props) => {
   }, [bureauCodes.length]);
 
   const collapseCard = () => {
-    setShowMore(!showMore);
-    setEdit(e => !e);
+    setIsEditable(!isEditable);
+    dispatch(closeAllCards(id));
     dispatch(bureauExceptionUserBureausFetchData());
   };
 
   const onCancelRequest = () => {
     swal.close();
-    setEdit(false);
     setBureau('');
+    setIsEditable(false);
     setBureauCodes([]);
     setSelectAll(false);
     gatherInitialBureauCodes();
@@ -78,7 +80,7 @@ const BureauExceptionListCard = (props) => {
     const currentUser = {
       bureauCodeList: bureauCodes.join(', '),
       id,
-      pv_id,
+      pvId,
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
@@ -88,7 +90,7 @@ const BureauExceptionListCard = (props) => {
   const deleteBureaus = () => {
     const currentUser = {
       id,
-      pv_id,
+      pvId,
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
@@ -99,7 +101,7 @@ const BureauExceptionListCard = (props) => {
     const currentUser = {
       bureauCodeList: bureauCodes.join(', '),
       id,
-      pv_id,
+      pvId,
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
@@ -176,7 +178,7 @@ const BureauExceptionListCard = (props) => {
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column>Person: {name || 'N/A'}</Column>
-          <Column>Bureau Access: {isBureauAccess ? bureaus.join(', ') : 'No Access'}</Column>
+          <Column>Bureau Access: {isBureauAccess ? bureaus : 'No Access'}</Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
               onClick={(e) => {
@@ -185,7 +187,7 @@ const BureauExceptionListCard = (props) => {
               }}
               to="#"
             >
-              {!edit ? (
+              {!isEditable ? (
                 <div>
                   <FA className="fa-solid fa-pencil" />
                   Edit
@@ -196,7 +198,7 @@ const BureauExceptionListCard = (props) => {
             </Link>
           </Column>
         </Row>
-        {edit && (
+        {isEditable && (
           <div>
             <form>
               <table className="bureau-exception-table">
@@ -255,7 +257,7 @@ const BureauExceptionListCard = (props) => {
                   </div>
                 }
               </table>
-              <div style={{ visibility: BureauExceptionListLoading && 'hidden' }}>
+              <div style={{ visibility: showBtn && 'hidden' }}>
                 <button
                   onClick={saveBureaus}
                 >
@@ -277,7 +279,7 @@ BureauExceptionListCard.propTypes = {
     bureaus: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.number,
     name: PropTypes.string,
-    pv_id: PropTypes.number,
+    pvId: PropTypes.number,
   }),
 };
 

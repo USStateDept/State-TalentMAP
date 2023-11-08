@@ -5,6 +5,7 @@ import {
   bureauExceptionListSuccess,
   bureauExceptionLoading,
   bureauExceptionSuccess,
+  closeAllCards,
 } from './bureauException';
 
 export default {
@@ -14,4 +15,5 @@ export default {
   bureauExceptionListSuccess,
   bureauExceptionLoading,
   bureauExceptionSuccess,
+  closeAllCards,
 };
