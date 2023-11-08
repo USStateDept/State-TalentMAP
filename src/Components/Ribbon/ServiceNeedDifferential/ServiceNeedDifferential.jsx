@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Ribbon from '../Ribbon';
 
 const ServiceNeedDifferential = ({ shortName, ...props }) => {
-  const text = shortName ? 'SND' : 'Service need differential';
+  const text = shortName ? 'SND' : 'Service Need Differential';
   return (
     <Ribbon icon="line-chart" text={text} type="snd" {...props} />
   );

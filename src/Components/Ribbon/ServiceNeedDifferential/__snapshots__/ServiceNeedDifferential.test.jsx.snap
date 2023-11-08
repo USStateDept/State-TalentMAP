@@ -9,7 +9,7 @@ exports[`ServiceNeedDifferentialComponent matches snapshot 1`] = `
   isWide={false}
   isWideResults={false}
   showText={true}
-  text="Service need differential"
+  text="Service Need Differential"
   type="snd"
 />
 `;
