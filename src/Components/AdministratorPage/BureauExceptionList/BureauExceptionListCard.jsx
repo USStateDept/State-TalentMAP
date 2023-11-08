@@ -64,6 +64,7 @@ const BureauExceptionListCard = (props) => {
   const collapseCard = () => {
     setIsEditable(!isEditable);
     dispatch(closeAllCards(id));
+    gatherInitialBureauCodes();
     dispatch(bureauExceptionUserBureausFetchData());
   };
 
