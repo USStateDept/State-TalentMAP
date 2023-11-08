@@ -30,12 +30,18 @@ const PanelAdmin = (props) => {
 
   const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
   const panelMeetingsResults = useSelector(state => state.panelMeetings);
-  const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
+  let panelMeetingsResults$ = {};
+  // Ensures we don't use previous state on create vs edit
+  if (pmSeqNum) {
+    panelMeetingsResults$ = panelMeetingsResults?.results?.[0] || {};
+  }
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const enablePostPanelProcessing = pmSeqNum && panelMeetingsResults$.panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
 
   useEffect(() => {
-    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+    if (pmSeqNum) {
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+    }
     dispatch(fetchRemarks());
     dispatch(fetchRemarkCategories());
   }, []);
@@ -158,7 +164,7 @@ const PanelAdmin = (props) => {
         return (
           <PanelMeetingAdmin
             pmSeqNum={pmSeqNum}
-            panelMeetingsResults={panelMeetingsResults}
+            panelMeetingsResults={panelMeetingsResults$}
             panelMeetingsIsLoading={panelMeetingsIsLoading}
           />
         );
