@@ -10,7 +10,10 @@ import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
-import { userHasPermissions } from '../../../utilities';
+import { convertQueryToString, userHasPermissions } from '../../../utilities';
+import { panelMeetingAgendasFetchData } from '../../../actions/panelMeetingAgendas';
+import { useDataLoader } from '../../../hooks';
+import api from '../../../api';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
@@ -36,8 +39,12 @@ const PanelMeetingAdmin = (props) => {
   const runPreliminarySuccess = useSelector(state => state.runOfficialPreliminarySuccess);
   const runAddendumSuccess = useSelector(state => state.runOfficialAddendumSuccess);
 
+  const agendas = useSelector(state => state.panelMeetingAgendas);
+  const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
+    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
   }, []);
 
   // ============= Input Management =============
@@ -145,6 +152,30 @@ const PanelMeetingAdmin = (props) => {
 
   // ============= Form Conditions =============
 
+  // Logic to determine if there is a subsequent panel with same meeting type
+  // in initiated status for agenda itmes in NR status to roll over to
+
+  const panelDateStart = new Date(panelMeetingDate$?.pmd_dttm);
+  const panelDateEnd = new Date(panelMeetingDate$?.pmd_dttm);
+  panelDateEnd.setFullYear(panelDateStart.getFullYear() + 10);
+  const {
+    data: subsequentPanels,
+    loading: subsequentPanelsIsLoading,
+  } = useDataLoader(api().get,
+    `/fsbid/panel/meetings/?${convertQueryToString({
+      limit: 1,
+      page: 1,
+      ordering: '-panel_date',
+      type: pmt_code,
+      status: 'I',
+      'panel-date-start': panelDateStart.toJSON(),
+      'panel-date-end': panelDateEnd.toJSON(),
+    })}`,
+  );
+  const subsequentPanel = subsequentPanels ? subsequentPanels[0] : undefined;
+
+  // Helpers for input disabling conditions
+
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
@@ -158,8 +189,8 @@ const PanelMeetingAdmin = (props) => {
     addendumCutoff$ ? (new Date(addendumCutoff$.pmd_dttm) - new Date() > 0) : true
   );
 
-  // Super Admins can manually edit any field, otherwise, certain fields
-  // are restricted by preconditions determined by prior steps
+  // Only admins can access editable fields and run buttons
+  // Additional business rules must be followed depending on the stage of the panel meeting
 
   const disableMeetingType = !isSuperUser &&
     (!isCreate && !beforeAddendumCutoff);
@@ -176,11 +207,46 @@ const PanelMeetingAdmin = (props) => {
   const disableAddendumCutoff = !isSuperUser &&
     (!isCreate && !beforeAddendumCutoff);
 
-  const disableRunPrelim = !isSuperUser &&
-    (isCreate || beforePrelimCutoff || !beforePanelMeetingDate);
+  const disableRunPrelim = () => {
+    let preconditioned = true;
+    agendas.forEach(a => {
+      // Approved Agenda Items must be in Off-Panel Meeting Category
+      if (a.status_short === 'APR' && a.meeting_category !== 'O') {
+        preconditioned = false;
+      }
+      // Agenda Items must be Approved, Ready, Not Ready, or Deferred
+      if (
+        a.status_short !== 'APR' &&
+        a.status_short !== 'RDY' &&
+        a.status_short !== 'NR' &&
+        a.status_short !== 'DEF'
+      ) {
+        preconditioned = false;
+      }
+    });
+    return !isSuperUser && (isCreate ||
+      beforePrelimCutoff ||
+      !beforePanelMeetingDate ||
+      !preconditioned ||
+      !subsequentPanel
+    );
+  };
 
-  const disableRunAddendum = !isSuperUser &&
-    (isCreate || beforeAddendumCutoff || !beforePanelMeetingDate);
+  const disableRunAddendum = () => {
+    let preconditioned = true;
+    agendas.forEach(a => {
+      // Agenda Items must not be Disapproved or Not Ready
+      if (a.status_short === 'DIS' || a.status_short === 'NR') {
+        preconditioned = false;
+      }
+    });
+    return !isSuperUser && (isCreate ||
+      beforeAddendumCutoff ||
+      !beforePanelMeetingDate ||
+      !preconditioned ||
+      !subsequentPanel
+    );
+  };
 
   const disableClear = !isSuperUser &&
     (!isCreate && !beforePanelMeetingDate);
@@ -188,8 +254,14 @@ const PanelMeetingAdmin = (props) => {
   const disableSave = !isSuperUser &&
     (!isCreate && !beforePanelMeetingDate);
 
+  const isLoading =
+    panelMeetingsIsLoading ||
+    panelMeetingsFiltersIsLoading ||
+    agendasIsLoading ||
+    subsequentPanelsIsLoading;
+
   return (
-    (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
+    (isLoading) ?
       <Spinner type="panel-admin-remarks" size="small" /> :
       <div className="admin-panel-meeting">
         <div>
@@ -296,7 +368,7 @@ const PanelMeetingAdmin = (props) => {
                 />
               </div>
               <button
-                disabled={disableRunPrelim}
+                disabled={disableRunPrelim()}
                 className="text-button"
                 onClick={() => { handleRun('prelimRuntime'); }}
               >
@@ -320,7 +392,7 @@ const PanelMeetingAdmin = (props) => {
                 />
               </div>
               <button
-                disabled={disableRunAddendum}
+                disabled={disableRunAddendum()}
                 className="text-button"
                 onClick={() => { handleRun('addendumRuntime'); }}
               >
