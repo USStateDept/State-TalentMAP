@@ -3,7 +3,6 @@ import {
   positionClassificationsEdit,
   positionClassificationsEditHasErrored,
   positionClassificationsEditIsLoading,
-  positionClassificationsHasErrored,
   positionClassificationsIsLoading,
 } from './positionClassifications';
 
@@ -12,6 +11,5 @@ export default {
   positionClassificationsEdit,
   positionClassificationsEditHasErrored,
   positionClassificationsEditIsLoading,
-  positionClassificationsHasErrored,
   positionClassificationsIsLoading,
 };

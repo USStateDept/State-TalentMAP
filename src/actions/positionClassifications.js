@@ -8,13 +8,6 @@ import {
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
-export function positionClassificationsHasErrored(bool) {
-  return {
-    type: 'POSITION_CLASSIFICATIONS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
 export function positionClassificationsIsLoading(bool) {
   return {
     type: 'POSITION_CLASSIFICATIONS_IS_LOADING',
