@@ -19,15 +19,12 @@ const BureauExceptionList = () => {
   }, []);
 
   // Overlay for error, info, and loading state
-  const noResults = BureauExceptionData?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (BureauExceptionDataLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="medium" />;
     } else if (BureauExceptionError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-    } else if (noResults) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
     } else {
       return false;
     }
