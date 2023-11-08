@@ -252,6 +252,7 @@ const PublishablePositionCard = ({
           content: <PositionClassification
             positionNumber={data?.positionNumber}
             bureau={data?.bureau || DEFAULT_TEXT}
+            posSeqNum={data?.posSeqNum}
           />,
           disabled: editMode,
         } : {},
