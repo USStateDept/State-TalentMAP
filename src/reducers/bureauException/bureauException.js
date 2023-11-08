@@ -51,7 +51,6 @@ export function bureauExceptionListSuccess(state = [], action) {
 }
 
 export function closeAllCards(state = '', action) {
-  console.log('closeAllCards', action.id);
   switch (action.type) {
     case 'CLOSE_ALL_CARDS':
       return action.id;
