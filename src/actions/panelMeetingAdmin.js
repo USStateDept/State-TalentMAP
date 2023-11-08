@@ -33,14 +33,14 @@ export function createPanelMeetingSuccess(data) {
 }
 
 // eslint-disable-next-line no-unused-vars
-export function createPanelMeeting(props) {
+export function createPanelMeeting(request) {
   return (dispatch) => {
     dispatch(createPanelMeetingSuccess([]));
     dispatch(createPanelMeetingIsLoading(true));
     dispatch(createPanelMeetingHasErrored(false));
-    api().post('/panelmeetingadminendpoint', {
-      props,
-    }).then(({ data }) => {
+    api().post('/fsbid/admin/panel/edit/',
+      request,
+    ).then(({ data }) => {
       batch(() => {
         dispatch(createPanelMeetingHasErrored(false));
         dispatch(createPanelMeetingSuccess(data || []));
