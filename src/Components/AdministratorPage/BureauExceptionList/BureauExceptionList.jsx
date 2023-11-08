@@ -14,7 +14,6 @@ const BureauExceptionList = () => {
   const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionLoading);
   const BureauExceptionData = useSelector(state => state.bureauExceptionSuccess);
   const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
-
   useEffect(() => {
     dispatch(bureauExceptionUsersListFetchData());
   }, []);
@@ -43,7 +42,7 @@ const BureauExceptionList = () => {
       {
         getOverlay() ||
           <div className="bel-lower-section">
-            {BureauExceptionData?.map(data => (
+            {BureauExceptionData?.filter((x => x.id != null)).map(data => (
               <BureauExceptionListCard
                 key={data?.id}
                 userData={data}
