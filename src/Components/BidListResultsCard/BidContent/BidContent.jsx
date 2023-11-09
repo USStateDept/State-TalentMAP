@@ -11,7 +11,7 @@ const BidContent = ({ id, status, positionNumber, postName, positionTitle, bidSt
       <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" />
     </span>
     <div>
-      <span className="bid-list-card-title-position">Position number </span>
+      <span className="bid-list-card-title-position">Position Number </span>
       <Link to={`/details/${id}`}>
         {positionNumber}
       </Link>

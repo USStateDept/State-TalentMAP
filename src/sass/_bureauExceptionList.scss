@@ -27,6 +27,7 @@
   .checkbox-pac {
       width: 1600px;
       text-align: left;
+      position: relative;
     }
     .checkbox-pos {
       > div{
@@ -44,11 +45,28 @@
 .bureau-exception-text-input {
     padding: 20px 0px;
 }
-.bs-lower-section {
-  min-height: 100vh;
-  overflow-y: scroll;
+.bel-lower-section {
+  overflow-y: clip;
+  padding: 0 35px 20px;
+  min-width: 1000px;
+  .bureau-exception-table {
+    .tm-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  @media screen and (max-width: 1237px) {
+    .position-form {
+      width: 85%;
+    }
+    
+  }
 }
+
 .bureau-card {
+    position: relative;
     margin-top: 15px;
     margin-bottom: 15px;
     background-color: $color-white;
