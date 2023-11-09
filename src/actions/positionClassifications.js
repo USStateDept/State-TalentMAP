@@ -26,20 +26,17 @@ export function positionClassifications(id) {
   return (dispatch) => {
     batch(() => {
       dispatch(positionClassificationsIsLoading(true));
-      dispatch(positionClassificationsHasErrored(false));
     });
 
     api().get(`/fsbid/position_classifications/${id}/`)
       .then(({ data }) => {
         batch(() => {
-          dispatch(positionClassificationsHasErrored(false));
           dispatch(positionClassificationsIsLoading(false));
           dispatch(positionClassificationsFetchDataSuccess(data));
         });
       })
       .catch(() => {
         batch(() => {
-          dispatch(positionClassificationsHasErrored(true));
           dispatch(positionClassificationsIsLoading(false));
         });
       });
