@@ -11,6 +11,7 @@ import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import { checkFlag } from '../../flags';
+import PositionClassification from './PositionClassification/PositionClassification';
 
 
 const PP_FLAG = checkFlag('flags.publishable_positions');
@@ -117,7 +118,7 @@ const PublishablePositionCard = ({
     ],
     inputBody: (
       <div className="position-form">
-        { PP_FLAG &&
+        {PP_FLAG &&
           <div className="spaced-row">
             <div className="dropdown-container">
               <div className="position-form--input">
@@ -177,7 +178,7 @@ const PublishablePositionCard = ({
             </div>
           </Row>
         </div>
-        { PP_FLAG &&
+        {PP_FLAG &&
           <>
             <div className="content-divider" />
             <div className="position-form--heading">
@@ -220,7 +221,7 @@ const PublishablePositionCard = ({
             </div>
           </>
         }
-      </div>
+      </div >
     ),
     handleSubmit: onSubmitForm,
     handleCancel: onCancelForm,
@@ -231,123 +232,6 @@ const PublishablePositionCard = ({
     },
     /* eslint-enable quote-props */
   };
-
-  // =============== Classification ===============
-
-  const [formData, setFormData] = useState(
-    [{
-      id: '1',
-      label: '15-20%',
-      value: true,
-    }, {
-      id: '2',
-      label: 'CN',
-      value: true,
-    }, {
-      id: '3',
-      label: 'DCM',
-      value: true,
-    }, {
-      id: '4',
-      label: 'FICA',
-      value: true,
-    }, {
-      id: '5',
-      label: 'HDS Pos',
-      value: true,
-    }, {
-      id: '6',
-      label: 'Iraqtax',
-      value: true,
-    }, {
-      id: '7',
-      label: 'KEY',
-      value: true,
-    }, {
-      id: '8',
-      label: 'ML-C',
-      value: true,
-    }, {
-      id: '9',
-      label: 'PrgDir',
-      value: true,
-    }, {
-      id: '10',
-      label: 'SL-C',
-      value: true,
-    }, {
-      id: '11',
-      label: 'SND pos',
-      value: true,
-    }, {
-      id: '12',
-      label: 'x S/O',
-      value: true,
-    }, {
-      id: '13',
-      label: 'x-Recap',
-      value: true,
-    }],
-  );
-
-  useEffect(() => {
-    if (data.position) {
-      setFormData(data.position?.classifications);
-    }
-  }, [data]);
-
-  const handleSelection = (id) => {
-    const newFormData = formData.map(o => {
-      if (o.id === id) {
-        return {
-          ...o,
-          value: !o.value,
-        };
-      }
-      return o;
-    });
-    setFormData(newFormData);
-  };
-
-  const classificationTable = () => (
-    <div className="position-classifications">
-      <div className="line-separated-fields">
-        <div>
-          <span>Position:</span>
-          {/* <span>{bureau} {positionNumber}</span> */}
-          <span>{'AF'} {'12345'}</span>
-        </div>
-      </div>
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              {formData.map((o) => (
-                <th key={o.id}>{o.label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {formData.map((o) => (
-                <td key={o.label}>
-                  <input
-                    type="checkbox"
-                    name={`${o.id}`}
-                    checked={o.value}
-                    onChange={() => handleSelection(o.id)}
-                  />
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="position-classifications--actions">
-        <button onClick={form.handleSubmit}>Save</button>
-      </div>
-    </div>
-  );
 
   return (
     <TabbedCard
@@ -362,9 +246,14 @@ const PublishablePositionCard = ({
           onShowMore={(e) => onShowMorePP(e)}
         />,
       }, PP_FLAG ?
-        { text: 'Position Classification',
+        {
+          text: 'Position Classification',
           value: 'CLASSIFICATION',
-          content: classificationTable(),
+          content: <PositionClassification
+            positionNumber={data?.positionNumber}
+            bureau={data?.bureau || DEFAULT_TEXT}
+            posSeqNum={data?.posSeqNum}
+          />,
           disabled: editMode,
         } : {},
       ]}
