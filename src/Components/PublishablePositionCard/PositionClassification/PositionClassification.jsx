@@ -41,50 +41,28 @@ const PositionClassification = (props) => {
   };
 
   const handleSubmit = () => {
-    let editPosition = '';
-    let editCodes = '';
-    let editValues = '';
-    let editUpdatedDates = '';
-    let editUpdaterIds = '';
-
-    let newPosition = '';
-    let newCodes = '';
-    let newValues = '';
-    let newUpdated = '';
+    let position = '';
+    let codes = '';
+    let values = '';
+    let updatedDates = '';
+    let updaterIds = '';
 
     selections.forEach(s => {
-      if (s.date) {
-        const separator = editPosition === '' ? '' : ',';
-        editPosition = editPosition.concat(separator, posSeqNum);
-        editCodes = editCodes.concat(separator, s.code);
-        editValues = editValues.concat(separator, s.value);
-        editUpdatedDates = editUpdatedDates.concat(separator, s.date);
-        editUpdaterIds = editUpdaterIds.concat(separator, s.user_id);
-      } else if (s.value) {
-        const separator = newPosition === '' ? '' : ',';
-        newPosition = newPosition.concat(separator, posSeqNum);
-        newCodes = newCodes.concat(separator, s.code);
-        newValues = newValues.concat(separator, s.value);
-        newUpdated = newUpdated.concat(separator);
-      }
+      const separator = position === '' ? '' : ',';
+      position = position.concat(separator, posSeqNum);
+      codes = codes.concat(separator, s.code);
+      values = values.concat(separator, s.value);
+      updatedDates = updatedDates.concat(separator, s.date ?? '');
+      updaterIds = updaterIds.concat(separator, s.user_id !== 0 ? s.user_id : '');
     });
 
-    if (editPosition !== '') {
+    if (position !== '') {
       dispatch(positionClassificationsEdit({
-        id: editPosition,
-        values: editValues,
-        codes: editCodes,
-        updater_ids: editUpdaterIds,
-        updated_dates: editUpdatedDates,
-      }));
-    }
-    if (newPosition !== '') {
-      dispatch(positionClassificationsEdit({
-        id: newPosition,
-        values: newValues,
-        codes: newCodes,
-        updater_ids: newUpdated,
-        updated_dates: newUpdated,
+        id: position,
+        values,
+        codes,
+        updater_ids: updaterIds,
+        updated_dates: updatedDates,
       }));
     }
   };
