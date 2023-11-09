@@ -137,11 +137,13 @@ const PositionClassification = (props) => {
 PositionClassification.propTypes = {
   positionNumber: PropTypes.string.isRequired,
   bureau: PropTypes.string.isRequired,
+  posSeqNum: PropTypes.string.isRequired,
 };
 
 PositionClassification.defaultProps = {
   positionNumber: undefined,
   bureau: undefined,
+  posSeqNum: undefined,
 };
 
 export default PositionClassification;
