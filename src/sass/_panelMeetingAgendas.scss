@@ -86,6 +86,7 @@
 
       .panel-meeting-person-data {
         display: flex;
+        justify-content: space-evenly;
         margin: 10px 0px;
         gap: 10px;
         align-items: baseline;
@@ -199,6 +200,15 @@
       .label {
         font-weight: bold;
       }
+    }
+  }
+  .maintenance-link-container {
+    width: 200px;
+    .ml {
+      position: absolute;
+      top: 50px;
+      right: 14px;
+      font-size: 13px;
     }
   }
 

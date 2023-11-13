@@ -6,18 +6,7 @@
     margin: 20px 15px;
     padding: 15px;
     position: relative;
-    .maintenance-link-container {
-      width: 165px;
-      .ml {
-        position: absolute;
-        top: 40px;
-        right: 14px;
-        font-size: 13px;
-        .fa-cog {
-          padding: 0 3px;
-        }
-      }
-    }
+
     .ai-history-status {
       position: absolute;
       top: 0;
@@ -28,6 +17,7 @@
       .pmi-official-item-number {
         font-size: 20px;
         padding: 5px 20px;
+
         .ai-id-link {
           color: white;
           text-decoration: none;
