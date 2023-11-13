@@ -10,9 +10,12 @@
       width: 165px;
       .ml {
         position: absolute;
-        top: 50px;
+        top: 40px;
         right: 14px;
         font-size: 13px;
+        .fa-cog {
+          padding: 0 3px;
+        }
       }
     }
     .ai-history-status {
