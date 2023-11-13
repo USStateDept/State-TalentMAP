@@ -4,14 +4,14 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, closeAllCards, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauException';
+import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, closeAllCards, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
 
-const BureauExceptionListCard = (props) => {
+const BureauExceptionsCard = (props) => {
   const {
     userData,
   } = props;
@@ -274,7 +274,7 @@ const BureauExceptionListCard = (props) => {
   );
 };
 
-BureauExceptionListCard.propTypes = {
+BureauExceptionsCard.propTypes = {
   userData: PropTypes.shape({
     bureauCodeList: PropTypes.arrayOf(PropTypes.string),
     bureaus: PropTypes.arrayOf(PropTypes.string),
@@ -284,8 +284,8 @@ BureauExceptionListCard.propTypes = {
   }),
 };
 
-BureauExceptionListCard.defaultProps = {
+BureauExceptionsCard.defaultProps = {
   userData: {},
 };
 
-export default BureauExceptionListCard;
+export default BureauExceptionsCard;

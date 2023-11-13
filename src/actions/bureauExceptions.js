@@ -3,20 +3,19 @@ import { CancelToken } from 'axios';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 import {
-  BUREAU_EXCEPTION_ADD_ERROR,
-  BUREAU_EXCEPTION_ADD_ERROR_TITLE,
-  BUREAU_EXCEPTION_ADD_SUCCESS,
-  BUREAU_EXCEPTION_ADD_SUCCESS_TITLE,
-  BUREAU_EXCEPTION_DELETE_ERROR,
-  BUREAU_EXCEPTION_DELETE_ERROR_TITLE,
-  BUREAU_EXCEPTION_DELETE_SUCCESS,
-  BUREAU_EXCEPTION_DELETE_SUCCESS_TITLE,
-  BUREAU_EXCEPTION_EDIT_ERROR,
-  BUREAU_EXCEPTION_EDIT_ERROR_TITLE,
-  BUREAU_EXCEPTION_EDIT_SUCCESS,
-  BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE,
+  BUREAU_EXCEPTIONS_ADD_ERROR,
+  BUREAU_EXCEPTIONS_ADD_ERROR_TITLE,
+  BUREAU_EXCEPTIONS_ADD_SUCCESS,
+  BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE,
+  BUREAU_EXCEPTIONS_DELETE_ERROR,
+  BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE,
+  BUREAU_EXCEPTIONS_DELETE_SUCCESS,
+  BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE,
+  BUREAU_EXCEPTIONS_EDIT_ERROR,
+  BUREAU_EXCEPTIONS_EDIT_ERROR_TITLE,
+  BUREAU_EXCEPTIONS_EDIT_SUCCESS,
+  BUREAU_EXCEPTIONS_EDIT_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
-// import { convertQueryToString } from 'utilities';
 
 let cancelbureauException;
 let cancelbureauExceptionList;
@@ -26,42 +25,42 @@ let cancelDeleteBureauException;
 
 export function bureauExceptionErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_HAS_ERRORED',
+    type: 'BUREAU_EXCEPTIONS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
 export function bureauExceptionLoading(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_IS_LOADING',
+    type: 'BUREAU_EXCEPTIONS_IS_LOADING',
     isLoading: bool,
   };
 }
 
 export function bureauExceptionSuccess(results) {
   return {
-    type: 'BUREAU_EXCEPTION_FETCH_SUCCESS',
+    type: 'BUREAU_EXCEPTIONS_FETCH_SUCCESS',
     results,
   };
 }
 
 export function bureauExceptionListErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_LIST_HAS_ERRORED',
+    type: 'BUREAU_EXCEPTIONS_LIST_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
 export function bureauExceptionListLoading(bool) {
   return {
-    type: 'BUREAU_EXCEPTION_LIST_IS_LOADING',
+    type: 'BUREAU_EXCEPTIONS_LIST_IS_LOADING',
     isLoading: bool,
   };
 }
 
 export function bureauExceptionListSuccess(results) {
   return {
-    type: 'BUREAU_EXCEPTION_LIST_SUCCESS',
+    type: 'BUREAU_EXCEPTIONS_LIST_SUCCESS',
     results,
   };
 }
@@ -141,14 +140,14 @@ export function addBureauExceptionSelections(data) {
     })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(BUREAU_EXCEPTION_ADD_SUCCESS,
-            BUREAU_EXCEPTION_ADD_SUCCESS_TITLE));
+          dispatch(toastSuccess(BUREAU_EXCEPTIONS_ADD_SUCCESS,
+            BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE));
           dispatch(bureauExceptionUsersListFetchData());
         });
       }).catch(() => {
         batch(() => {
-          dispatch(toastError(BUREAU_EXCEPTION_ADD_ERROR,
-            BUREAU_EXCEPTION_ADD_ERROR_TITLE));
+          dispatch(toastError(BUREAU_EXCEPTIONS_ADD_ERROR,
+            BUREAU_EXCEPTIONS_ADD_ERROR_TITLE));
         });
       });
   };
@@ -164,14 +163,14 @@ export function saveBureauExceptionSelections(data) {
     })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(BUREAU_EXCEPTION_EDIT_SUCCESS,
-            BUREAU_EXCEPTION_EDIT_SUCCESS_TITLE));
+          dispatch(toastSuccess(BUREAU_EXCEPTIONS_EDIT_SUCCESS,
+            BUREAU_EXCEPTIONS_EDIT_SUCCESS_TITLE));
           dispatch(bureauExceptionUsersListFetchData());
         });
       }).catch(() => {
         batch(() => {
-          dispatch(toastError(BUREAU_EXCEPTION_EDIT_ERROR,
-            BUREAU_EXCEPTION_EDIT_ERROR_TITLE));
+          dispatch(toastError(BUREAU_EXCEPTIONS_EDIT_ERROR,
+            BUREAU_EXCEPTIONS_EDIT_ERROR_TITLE));
         });
       });
   };
@@ -187,14 +186,14 @@ export function deleteBureauExceptionList(data) {
     })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(BUREAU_EXCEPTION_DELETE_SUCCESS,
-            BUREAU_EXCEPTION_DELETE_SUCCESS_TITLE));
+          dispatch(toastSuccess(BUREAU_EXCEPTIONS_DELETE_SUCCESS,
+            BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE));
           dispatch(bureauExceptionUsersListFetchData());
         });
       }).catch(() => {
         batch(() => {
-          dispatch(toastError(BUREAU_EXCEPTION_DELETE_ERROR,
-            BUREAU_EXCEPTION_DELETE_ERROR_TITLE));
+          dispatch(toastError(BUREAU_EXCEPTIONS_DELETE_ERROR,
+            BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE));
         });
       });
   };

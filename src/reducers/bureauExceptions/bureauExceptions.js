@@ -1,49 +1,49 @@
-export function bureauExceptionErrored(state = false, action) {
+export function bureauExceptionsErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_HAS_ERRORED':
+    case 'BUREAU_EXCEPTIONS_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function bureauExceptionLoading(state = false, action) {
+export function bureauExceptionsLoading(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_IS_LOADING':
+    case 'BUREAU_EXCEPTIONS_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
 
-export function bureauExceptionSuccess(state = [], action) {
+export function bureauExceptionsSuccess(state = [], action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_FETCH_SUCCESS':
+    case 'BUREAU_EXCEPTIONS_FETCH_SUCCESS':
       return action.results;
     default:
       return state;
   }
 }
 
-export function bureauExceptionListErrored(state = false, action) {
+export function bureauExceptionsListErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_LIST_HAS_ERRORED':
+    case 'BUREAU_EXCEPTIONS_LIST_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function bureauExceptionListLoading(state = false, action) {
+export function bureauExceptionsListLoading(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_LIST_IS_LOADING':
+    case 'BUREAU_EXCEPTIONS_LIST_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
 
-export function bureauExceptionListSuccess(state = [], action) {
+export function bureauExceptionsListSuccess(state = [], action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTION_LIST_SUCCESS':
+    case 'BUREAU_EXCEPTIONS_LIST_SUCCESS':
       return action.results;
     default:
       return state;
