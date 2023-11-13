@@ -116,7 +116,7 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
 
-          { agenda.aiCombinedTodDescText &&
+          {agenda.aiCombinedTodDescText &&
             <div className="agenda-item-combined-tod">
               <span>
                 <span className="agenda-item-combined-tod-text">{'Combined TOD: '}</span>
@@ -133,6 +133,8 @@ const AgendaItemRow = props => {
                   <RemarksPill key={remark.text} remark={remark} />
                 ))
               }
+              <RemarksPill key="hold-1" remark={{ text: `Hold #1: ${'Example'}` }} />
+              <RemarksPill key="hold-1" remark={{ text: `Hold #1: ${'Example'}` }} />
             </div>
             <div className="ai-updater-creator">
               <div className="wrapper">
