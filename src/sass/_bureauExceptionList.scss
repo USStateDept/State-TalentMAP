@@ -49,6 +49,22 @@
   overflow-y: clip;
   padding: 0 35px 20px;
   min-width: 1000px;
+  .bel-table-head {
+    margin-bottom: 0;
+    width: 100%;
+    tr {
+      th {
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        margin-bottom: 1em;
+        margin-top: 1em;
+        padding: 1em;
+      }
+    }
+  }
+  .first-header {
+    width: 45%;
+  }
   .bureau-exception-table {
     .tm-spinner {
       position: absolute;
@@ -61,7 +77,14 @@
     .position-form {
       width: 85%;
     }
-    
+    .bel-table-head {
+      width: 85%;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .first-header {
+      width: 41%;
+    }
   }
 }
 

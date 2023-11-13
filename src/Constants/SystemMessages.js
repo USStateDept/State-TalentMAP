@@ -315,3 +315,13 @@ export const ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE = 'Assignment Cycle Created';
 export const ASSIGNMENT_CYCLE_POST_SUCCESS = 'The Assignment Cycle has been created';
 export const ASSIGNMENT_CYCLE_POST_ERROR_TITLE = 'Assignment Cycle Create Error';
 export const ASSIGNMENT_CYCLE_POST_ERROR = 'There was an issue attempting to create this Assignment Cycle. Please try again.';
+
+export const UPDATE_POSITION_CLASSIFICATION_SUCCESS_TITLE = 'Position Clasifications Saved';
+export const UPDATE_POSITION_CLASSIFICATION_SUCCESS = 'This Position Clasifications has been successfully saved.';
+export const UPDATE_POSITION_CLASSIFICATION_ERROR_TITLE = 'Position Clasifications Error';
+export const UPDATE_POSITION_CLASSIFICATION_ERROR = 'There was an issue attempting to save this Position Clasifications. Please try again.';
+
+export const CREATE_POSITION_CLASSIFICATION_SUCCESS_TITLE = 'Position Clasifications Created';
+export const CREATE_POSITION_CLASSIFICATION_SUCCESS = 'This Position Clasifications has been successfully created.';
+export const CREATE_POSITION_CLASSIFICATION_ERROR_TITLE = 'Position Clasifications Error';
+export const CREATE_POSITION_CLASSIFICATION_ERROR = 'There was an issue attempting to create this Position Clasifications. Please try again.';
