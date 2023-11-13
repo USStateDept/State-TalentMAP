@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import { toastError, toastSuccess } from './toast';
@@ -17,32 +18,14 @@ import {
   BUREAU_EXCEPTIONS_EDIT_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 
-let cancelbureauException;
-let cancelbureauExceptionList;
-let cancelAddBureauException;
-let cancelSaveBureauException;
-let cancelDeleteBureauException;
+let cancelBureauExceptions;
+let cancelBureauExceptionsList;
+let cancelAddBureauExceptions;
+let cancelSaveBureauExceptions;
+let cancelDeleteBureauExceptions;
 
-export function bureauExceptionErrored(bool) {
-  return {
-    type: 'BUREAU_EXCEPTIONS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
 
-export function bureauExceptionLoading(bool) {
-  return {
-    type: 'BUREAU_EXCEPTIONS_IS_LOADING',
-    isLoading: bool,
-  };
-}
 
-export function bureauExceptionSuccess(results) {
-  return {
-    type: 'BUREAU_EXCEPTIONS_FETCH_SUCCESS',
-    results,
-  };
-}
 
 export function bureauExceptionListErrored(bool) {
   return {
@@ -72,34 +55,6 @@ export function closeAllCards(id) {
   };
 }
 
-export function bureauExceptionUsersListFetchData() {
-  return (dispatch) => {
-    if (cancelbureauException) { cancelbureauException('cancel'); }
-    batch(() => {
-      dispatch(bureauExceptionLoading(true));
-      dispatch(bureauExceptionErrored(false));
-    });
-    dispatch(bureauExceptionLoading(true));
-    api().get('/fsbid/bureau_exceptions/', {
-      cancelToken: new CancelToken((c) => {
-        cancelbureauException = c;
-      }),
-    })
-      .then((data) => {
-        batch(() => {
-          dispatch(bureauExceptionSuccess(data?.data));
-          dispatch(bureauExceptionErrored(false));
-          dispatch(bureauExceptionLoading(false));
-        });
-      })
-      .catch(() => {
-        batch(() => {
-          dispatch(bureauExceptionErrored(false));
-          dispatch(bureauExceptionLoading(false));
-        });
-      });
-  };
-}
 
 export function bureauExceptionUserBureausFetchData(userData) {
   return (dispatch) => {
@@ -195,6 +150,68 @@ export function deleteBureauExceptionList(data) {
           dispatch(toastError(BUREAU_EXCEPTIONS_DELETE_ERROR,
             BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE));
         });
+      });
+  };
+}
+
+
+
+
+
+
+export function bureauExceptionsErrored(bool) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bureauExceptionsLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bureauExceptionsSuccess(results) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_SUCCESS',
+    results,
+  };
+}
+export function bureauExceptionsFetchData() {
+  return (dispatch) => {
+    if (cancelBureauExceptions) { cancelBureauExceptions('cancel'); dispatch(bureauExceptionsLoading(true)); }
+    batch(() => {
+      dispatch(bureauExceptionsLoading(true));
+      dispatch(bureauExceptionsErrored(false));
+    });
+    api().get('/fsbid/bureau_exceptions/', {
+      cancelToken: new CancelToken((c) => {
+        cancelBureauExceptions = c;
+      }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bureauExceptionsSuccess(data));
+          dispatch(bureauExceptionsErrored(false));
+          dispatch(bureauExceptionsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(bureauExceptionsLoading(true));
+            dispatch(bureauExceptionsErrored(false));
+          });
+        } else {
+          batch(() => {
+            /* eslint-disable no-console */
+            console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 reminder: verify the structure is []');
+            console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 redux says so, so update there too if not');
+            dispatch(bureauExceptionsSuccess([]));
+            dispatch(bureauExceptionsErrored(false));
+            dispatch(bureauExceptionsLoading(false));
+          });
+        }
       });
   };
 }

@@ -1,19 +1,19 @@
 import {
-  bureauExceptionsErrored,
+  bureauExceptions,
+  bureauExceptionsHasErrored,
+  bureauExceptionsIsLoading,
   bureauExceptionsListErrored,
   bureauExceptionsListLoading,
   bureauExceptionsListSuccess,
-  bureauExceptionsLoading,
-  bureauExceptionsSuccess,
   closeAllCards,
 } from './bureauExceptions';
 
 export default {
-  bureauExceptionsErrored,
+  bureauExceptionsHasErrored,
   bureauExceptionsListErrored,
   bureauExceptionsListLoading,
   bureauExceptionsListSuccess,
-  bureauExceptionsLoading,
-  bureauExceptionsSuccess,
+  bureauExceptionsIsLoading,
+  bureauExceptions,
   closeAllCards,
 };

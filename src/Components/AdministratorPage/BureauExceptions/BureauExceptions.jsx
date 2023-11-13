@@ -4,26 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionUsersListFetchData } from 'actions/bureauExceptions';
+import { bureauExceptionsFetchData } from 'actions/bureauExceptions';
 import BureauExceptionsCard from './BureauExceptionsCard';
 
 
 const BureauExceptions = () => {
   const dispatch = useDispatch();
 
-  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionsLoading);
-  const BureauExceptionData = useSelector(state => state.bureauExceptionsSuccess);
-  const BureauExceptionError = useSelector(state => state.bureauExceptionsErrored);
+  const bureauExceptionsHasErrored = useSelector(state => state.bureauExceptionsHasErrored);
+  const bureauExceptionsIsLoading = useSelector(state => state.bureauExceptionsIsLoading);
+  const bureauExceptions = useSelector(state => state.bureauExceptions);
+
   useEffect(() => {
-    dispatch(bureauExceptionUsersListFetchData());
+    dispatch(bureauExceptionsFetchData());
   }, []);
 
   // Overlay for error, info, and loading state
   const getOverlay = () => {
     let overlay;
-    if (BureauExceptionDataLoading) {
+    if (bureauExceptionsIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="medium" />;
-    } else if (BureauExceptionError) {
+    } else if (bureauExceptionsHasErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else {
       return false;
@@ -47,7 +48,7 @@ const BureauExceptions = () => {
                 </tr>
               </thead>
             </table>
-            {BureauExceptionData?.filter((x => x.id != null)).map(data => (
+            {bureauExceptions?.filter((x => x.id != null)).map(data => (
               <BureauExceptionsCard
                 key={data?.id}
                 userData={data}
