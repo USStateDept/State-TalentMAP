@@ -86,7 +86,7 @@
 
       .panel-meeting-person-data {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         margin: 10px 0px;
         gap: 10px;
         align-items: baseline;
@@ -203,12 +203,10 @@
     }
   }
   .maintenance-link-container {
-    width: 200px;
+    width: 190px;
     .ml {
-      position: absolute;
-      top: 50px;
-      right: 14px;
       font-size: 13px;
+      float: right;
       .fa-cog {
         padding: 0 3px;
       }
