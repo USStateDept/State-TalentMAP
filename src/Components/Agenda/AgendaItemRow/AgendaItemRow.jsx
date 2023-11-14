@@ -115,7 +115,7 @@ const AgendaItemRow = props => {
                   <Link
                     to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
                   >
-                  Agenda Item Maintenance
+                  Edit Agenda Item
                   </Link>
                 </div>
                 }
