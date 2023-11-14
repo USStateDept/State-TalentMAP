@@ -48,14 +48,12 @@ const BureauExceptions = () => {
                 </tr>
               </thead>
             </table>
-            {bureauExceptions?.filter((x => x.id != null)).map(data => (
+            {bureauExceptions?.map(data => (
               <BureauExceptionsCard
                 key={data?.id}
                 userData={data}
-              />
-            ),
-            )
-            }
+              />),
+            )}
           </div>
       }
     </div>
