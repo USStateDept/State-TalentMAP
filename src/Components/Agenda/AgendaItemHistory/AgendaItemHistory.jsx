@@ -14,6 +14,7 @@ import Alert from 'Components/Alert';
 import { checkFlag } from 'flags';
 import FontAwesome from 'react-fontawesome';
 import AgendaItemCard from '../AgendaItemCard';
+import AgendaItemRow from '../AgendaItemRow';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
@@ -190,7 +191,7 @@ const AgendaItemHistory = (props) => {
                 <div className="agenda-item-row-container">
                   {
                     showAgendaItemMaintenance && showAgendaItemMaintenanceCreate &&
-                      <AgendaItemCard
+                      <AgendaItemRow
                         isCreate
                         isCDO={isCDO}
                         perdet={perdet}
@@ -198,7 +199,7 @@ const AgendaItemHistory = (props) => {
                   }
                   {
                     aih.map(result => (
-                      <AgendaItemCard
+                      <AgendaItemRow
                         agenda={result}
                         key={result.id}
                         isCDO={isCDO}
