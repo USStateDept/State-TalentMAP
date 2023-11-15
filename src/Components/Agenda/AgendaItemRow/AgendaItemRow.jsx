@@ -108,7 +108,6 @@ const AgendaItemRow = props => {
               <div className="maintenance-link-container">
                 {showAgendaItemMaintenance &&
                 <div className="ml">
-                  <FA name="cog" />
                   <Link
                     to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
                   >
