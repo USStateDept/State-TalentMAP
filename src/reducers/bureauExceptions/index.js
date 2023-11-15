@@ -2,18 +2,16 @@ import {
   bureauExceptions,
   bureauExceptionsHasErrored,
   bureauExceptionsIsLoading,
-  bureauExceptionsListErrored,
-  bureauExceptionsListLoading,
-  bureauExceptionsListSuccess,
-  closeAllCards,
+  userBureauExceptionsAndMetaData,
+  userBureauExceptionsAndMetaDataErrored,
+  userBureauExceptionsAndMetaDataLoading,
 } from './bureauExceptions';
 
 export default {
   bureauExceptionsHasErrored,
-  bureauExceptionsListErrored,
-  bureauExceptionsListLoading,
-  bureauExceptionsListSuccess,
+  userBureauExceptionsAndMetaDataErrored,
+  userBureauExceptionsAndMetaDataLoading,
+  userBureauExceptionsAndMetaData,
   bureauExceptionsIsLoading,
   bureauExceptions,
-  closeAllCards,
 };

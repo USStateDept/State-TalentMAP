@@ -4,7 +4,7 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addBureauExceptionSelections, bureauExceptionUserBureausFetchData, closeAllCards, deleteBureauExceptionList, saveBureauExceptionSelections } from 'actions/bureauExceptions';
+import { addBureauExceptionSelections, deleteBureauExceptionList, saveBureauExceptionSelections, userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { Column, Row } from 'Components/Layout';
@@ -63,9 +63,8 @@ const BureauExceptionsCard = (props) => {
 
   const collapseCard = () => {
     setIsEditable(!isEditable);
-    dispatch(closeAllCards(id));
     gatherInitialBureauCodes();
-    dispatch(bureauExceptionUserBureausFetchData());
+    dispatch(userBureauExceptionsAndMetaDataFetch());
   };
 
   const onCancelRequest = () => {

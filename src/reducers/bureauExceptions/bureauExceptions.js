@@ -1,43 +1,27 @@
-/* eslint-disable no-multiple-empty-lines */
-
-export function bureauExceptionsListErrored(state = false, action) {
+export function userBureauExceptionsAndMetaDataErrored(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_LIST_HAS_ERRORED':
+    case 'USER_BUREAU_EXCEPTIONS_AND_METADATA_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function bureauExceptionsListLoading(state = false, action) {
+export function userBureauExceptionsAndMetaDataLoading(state = false, action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_LIST_IS_LOADING':
+    case 'USER_BUREAU_EXCEPTIONS_AND_METADATA_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
-export function bureauExceptionsListSuccess(state = [], action) {
+export function userBureauExceptionsAndMetaData(state = [], action) {
   switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_LIST_SUCCESS':
+    case 'USER_BUREAU_EXCEPTIONS_AND_METADATA_SUCCESS':
       return action.results;
     default:
       return state;
   }
 }
-
-export function closeAllCards(state = '', action) {
-  switch (action.type) {
-    case 'CLOSE_ALL_CARDS':
-      return action.id;
-    default:
-      return state;
-  }
-}
-
-
-
-
-
 
 
 export function bureauExceptionsHasErrored(state = false, action) {

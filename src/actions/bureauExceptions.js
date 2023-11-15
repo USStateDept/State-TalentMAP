@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
+import { convertQueryToString } from 'utilities';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 import {
@@ -19,18 +20,13 @@ import {
 } from '../Constants/SystemMessages';
 
 let cancelBureauExceptions;
-let cancelBureauExceptionsList;
+let cancelUserBureauExceptionsAndMetaData;
+
 let cancelAddBureauExceptions;
 let cancelSaveBureauExceptions;
 let cancelDeleteBureauExceptions;
 
 
-export function closeAllCards(id) {
-  return {
-    type: 'CLOSE_ALL_CARDS',
-    id,
-  };
-}
 export function addBureauExceptionSelections(data) {
   return (dispatch) => {
     if (cancelAddBureauException) { cancelAddBureauException('cancel'); }
@@ -106,54 +102,67 @@ export function deleteBureauExceptionList(data) {
 
 
 
-export function bureauExceptionListErrored(bool) {
+
+
+// below are done
+
+
+
+export function userBureauExceptionsAndMetaDataErrored(bool) {
   return {
-    type: 'BUREAU_EXCEPTIONS_LIST_HAS_ERRORED',
+    type: 'USER_BUREAU_EXCEPTIONS_AND_METADATA_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-export function bureauExceptionListLoading(bool) {
+export function userBureauExceptionsAndMetaDataLoading(bool) {
   return {
-    type: 'BUREAU_EXCEPTIONS_LIST_IS_LOADING',
+    type: 'USER_BUREAU_EXCEPTIONS_AND_METADATA_IS_LOADING',
     isLoading: bool,
   };
 }
-export function bureauExceptionListSuccess(results) {
+export function userBureauExceptionsAndMetaDataSuccess(results) {
   return {
-    type: 'BUREAU_EXCEPTIONS_LIST_SUCCESS',
+    type: 'USER_BUREAU_EXCEPTIONS_AND_METADATA_SUCCESS',
     results,
   };
 }
-export function bureauExceptionUserBureausFetchData(userData) {
+export function userBureauExceptionsAndMetaDataFetch(query = {}) {
   return (dispatch) => {
-    if (cancelbureauExceptionList) { cancelbureauExceptionList('cancel'); }
+    if (cancelUserBureauExceptionsAndMetaData) { cancelUserBureauExceptionsAndMetaData('cancel'); dispatch(userBureauExceptionsAndMetaDataLoading(true)); }
     batch(() => {
-      dispatch(bureauExceptionListLoading(true));
-      dispatch(bureauExceptionListErrored(false));
+      dispatch(userBureauExceptionsAndMetaDataLoading(true));
+      dispatch(userBureauExceptionsAndMetaDataErrored(false));
     });
-    api().get('/fsbid/bureau_exceptions/metadata/', userData, {
-      cancelToken: new CancelToken((c) => {
-        cancelbureauExceptionList = c;
-      }),
+    const q = convertQueryToString(query);
+    api().get(`/fsbid/bureau_exceptions/metadata/?${q}`, {
+      cancelToken: new CancelToken((c) => { cancelUserBureauExceptionsAndMetaData = c; }),
     })
-      .then((data) => {
+      .then(({ data }) => {
         batch(() => {
-          dispatch(bureauExceptionListSuccess(data));
-          dispatch(bureauExceptionListErrored(false));
-          dispatch(bureauExceptionListLoading(false));
+          dispatch(userBureauExceptionsAndMetaDataSuccess(data));
+          dispatch(userBureauExceptionsAndMetaDataErrored(false));
+          dispatch(userBureauExceptionsAndMetaDataLoading(false));
         });
       })
-      .catch(() => {
-        batch(() => {
-          dispatch(bureauExceptionListErrored(true));
-          dispatch(bureauExceptionListLoading(false));
-        });
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(userBureauExceptionsAndMetaDataLoading(true));
+            dispatch(userBureauExceptionsAndMetaDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            // 📝📝 reminder dbl check expected data structure
+            dispatch(userBureauExceptionsAndMetaDataSuccess([]));
+            dispatch(userBureauExceptionsAndMetaDataErrored(true));
+            dispatch(userBureauExceptionsAndMetaDataLoading(false));
+          });
+        }
       });
   };
 }
 
 
-// below are done
 
 export function bureauExceptionsErrored(bool) {
   return {
@@ -204,7 +213,7 @@ export function bureauExceptionsFetchData() {
             console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 reminder: verify the structure is []');
             console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 redux says so, so update there too if not');
             dispatch(bureauExceptionsSuccess([]));
-            dispatch(bureauExceptionsErrored(false));
+            dispatch(bureauExceptionsErrored(true));
             dispatch(bureauExceptionsLoading(false));
           });
         }
