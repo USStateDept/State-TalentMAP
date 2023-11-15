@@ -5,13 +5,10 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
-import { checkFlag } from 'flags';
 import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
-
-const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemRow = props => {
   const {
@@ -22,7 +19,6 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const showAgendaItemMaintenance = useAgendaItemMaintenance();
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -102,7 +98,6 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
               <div className="maintenance-link-container">
-                {showAgendaItemMaintenance &&
                 <div className="ml">
                   <Link
                     to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
@@ -110,7 +105,6 @@ const AgendaItemRow = props => {
                   Edit Agenda Item
                   </Link>
                 </div>
-                }
               </div>
             </div>
           }
