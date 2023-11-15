@@ -70,7 +70,7 @@ const AgendaItemRow = props => {
           <div className="ai-history-status">
             <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
               <div
-                className={showAgendaItemMaintenance && 'ai-id-link'}
+                className="ai-id-link"
               >
                 {pmi}
               </div>
