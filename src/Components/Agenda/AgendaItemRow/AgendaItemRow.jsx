@@ -133,8 +133,18 @@ const AgendaItemRow = props => {
                   <RemarksPill key={remark.text} remark={remark} />
                 ))
               }
-              <RemarksPill key="hold-1" remark={{ text: `Hold #1: ${'Example'}` }} />
-              <RemarksPill key="hold-1" remark={{ text: `Hold #1: ${'Example'}` }} />
+              {agenda?.ahtCode &&
+                <RemarksPill
+                  key="hold"
+                  remark={{
+                    text: `
+                    ${agenda?.ahtDescText} 
+                    #${agenda?.aihHoldNum}
+                    ${agenda?.aihHoldComment ? ` ${agenda?.aihHoldComment}` : ''}
+                    `,
+                  }}
+                />
+              }
             </div>
             <div className="ai-updater-creator">
               <div className="wrapper">
