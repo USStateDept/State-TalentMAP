@@ -253,10 +253,10 @@ export const BUREAU_EXCEPTIONS_ADD_SUCCESS = 'Bureau Exceptions have been added.
 export const BUREAU_EXCEPTIONS_ADD_ERROR_TITLE = 'Adding Bureau Exceptions Error';
 export const BUREAU_EXCEPTIONS_ADD_ERROR = 'There was an issue attempting to add Bureau Exceptions. Please try again.';
 
-export const BUREAU_EXCEPTIONS_EDIT_SUCCESS_TITLE = 'Bureau Exceptions Updated';
-export const BUREAU_EXCEPTIONS_EDIT_SUCCESS = 'Bureau Exceptions have been updated.';
-export const BUREAU_EXCEPTIONS_EDIT_ERROR_TITLE = 'Updating Bureau Exceptions Error';
-export const BUREAU_EXCEPTIONS_EDIT_ERROR = 'There was an issue attempting to update Bureau Exceptions. Please try again.';
+export const BUREAU_EXCEPTIONS_UPDATE_SUCCESS_TITLE = 'Bureau Exceptions Updated';
+export const BUREAU_EXCEPTIONS_UPDATE_SUCCESS = 'Bureau Exceptions have been updated.';
+export const BUREAU_EXCEPTIONS_UPDATE_ERROR_TITLE = 'Updating Bureau Exceptions Error';
+export const BUREAU_EXCEPTIONS_UPDATE_ERROR = 'There was an issue attempting to update Bureau Exceptions. Please try again.';
 
 export const BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE = 'Bureau Exceptions Deleted';
 export const BUREAU_EXCEPTIONS_DELETE_SUCCESS = 'Bureau Exceptions have been deleted.';

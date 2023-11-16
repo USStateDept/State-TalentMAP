@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import { convertQueryToString } from 'utilities';
@@ -13,100 +12,17 @@ import {
   BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE,
   BUREAU_EXCEPTIONS_DELETE_SUCCESS,
   BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE,
-  BUREAU_EXCEPTIONS_EDIT_ERROR,
-  BUREAU_EXCEPTIONS_EDIT_ERROR_TITLE,
-  BUREAU_EXCEPTIONS_EDIT_SUCCESS,
-  BUREAU_EXCEPTIONS_EDIT_SUCCESS_TITLE,
+  BUREAU_EXCEPTIONS_UPDATE_ERROR,
+  BUREAU_EXCEPTIONS_UPDATE_ERROR_TITLE,
+  BUREAU_EXCEPTIONS_UPDATE_SUCCESS,
+  BUREAU_EXCEPTIONS_UPDATE_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 
 let cancelBureauExceptions;
 let cancelUserBureauExceptionsAndMetaData;
-
-let cancelAddBureauExceptions;
-let cancelSaveBureauExceptions;
-let cancelDeleteBureauExceptions;
-
-
-export function addBureauExceptionSelections(data) {
-  return (dispatch) => {
-    if (cancelAddBureauException) { cancelAddBureauException('cancel'); }
-
-    api().post('/fsbid/bureau_exceptions/add/', data, {
-      cancelToken: new CancelToken((c) => {
-        cancelAddBureauException = c;
-      }),
-    })
-      .then(() => {
-        batch(() => {
-          dispatch(toastSuccess(BUREAU_EXCEPTIONS_ADD_SUCCESS,
-            BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE));
-          dispatch(bureauExceptionUsersListFetchData());
-        });
-      }).catch(() => {
-      batch(() => {
-        dispatch(toastError(BUREAU_EXCEPTIONS_ADD_ERROR,
-          BUREAU_EXCEPTIONS_ADD_ERROR_TITLE));
-      });
-    });
-  };
-}
-
-export function saveBureauExceptionSelections(data) {
-  return (dispatch) => {
-    if (cancelSaveBureauException) { cancelSaveBureauException('cancel'); }
-    api().post('/fsbid/bureau_exceptions/update/', data, {
-      cancelToken: new CancelToken((c) => {
-        cancelSaveBureauException = c;
-      }),
-    })
-      .then(() => {
-        batch(() => {
-          dispatch(toastSuccess(BUREAU_EXCEPTIONS_EDIT_SUCCESS,
-            BUREAU_EXCEPTIONS_EDIT_SUCCESS_TITLE));
-          dispatch(bureauExceptionUsersListFetchData());
-        });
-      }).catch(() => {
-      batch(() => {
-        dispatch(toastError(BUREAU_EXCEPTIONS_EDIT_ERROR,
-          BUREAU_EXCEPTIONS_EDIT_ERROR_TITLE));
-      });
-    });
-  };
-}
-
-export function deleteBureauExceptionList(data) {
-  return (dispatch) => {
-    if (cancelDeleteBureauException) { cancelDeleteBureauException('cancel'); }
-    api().post('/fsbid/bureau_exceptions/delete/', data, {
-      cancelToken: new CancelToken((c) => {
-        cancelDeleteBureauException = c;
-      }),
-    })
-      .then(() => {
-        batch(() => {
-          dispatch(toastSuccess(BUREAU_EXCEPTIONS_DELETE_SUCCESS,
-            BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE));
-          dispatch(bureauExceptionUsersListFetchData());
-        });
-      }).catch(() => {
-      batch(() => {
-        dispatch(toastError(BUREAU_EXCEPTIONS_DELETE_ERROR,
-          BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE));
-      });
-    });
-  };
-}
-
-
-
-
-
-
-
-
-// below are done
-
-
+let cancelAddUserBureauExceptions;
+let cancelUpdateUserBureauExceptions;
+let cancelDeleteUserBureauExceptions;
 
 export function userBureauExceptionsAndMetaDataErrored(bool) {
   return {
@@ -163,7 +79,6 @@ export function userBureauExceptionsAndMetaDataFetch(query = {}) {
 }
 
 
-
 export function bureauExceptionsErrored(bool) {
   return {
     type: 'BUREAU_EXCEPTIONS_HAS_ERRORED',
@@ -216,6 +131,78 @@ export function bureauExceptionsFetchData() {
             dispatch(bureauExceptionsErrored(true));
             dispatch(bureauExceptionsLoading(false));
           });
+        }
+      });
+  };
+}
+
+
+export function addUserBureauExceptions(data) {
+  return (dispatch) => {
+    if (cancelAddUserBureauExceptions) { cancelAddUserBureauExceptions('cancel'); }
+
+    api().post('/fsbid/bureau_exceptions/add/', data, {
+      cancelToken: new CancelToken((c) => {
+        cancelAddUserBureauExceptions = c;
+      }),
+    })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(BUREAU_EXCEPTIONS_ADD_SUCCESS,
+            BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE));
+          dispatch(bureauExceptionsFetchData());
+        });
+      }).catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(BUREAU_EXCEPTIONS_ADD_ERROR,
+            BUREAU_EXCEPTIONS_ADD_ERROR_TITLE));
+        }
+      });
+  };
+}
+
+export function updateUserBureauExceptions(data) {
+  return (dispatch) => {
+    if (cancelUpdateUserBureauExceptions) { cancelUpdateUserBureauExceptions('cancel'); }
+    api().post('/fsbid/bureau_exceptions/update/', data, {
+      cancelToken: new CancelToken((c) => {
+        cancelUpdateUserBureauExceptions = c;
+      }),
+    })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(BUREAU_EXCEPTIONS_UPDATE_SUCCESS,
+            BUREAU_EXCEPTIONS_UPDATE_SUCCESS_TITLE));
+          dispatch(bureauExceptionsFetchData());
+        });
+      }).catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(BUREAU_EXCEPTIONS_UPDATE_ERROR,
+            BUREAU_EXCEPTIONS_UPDATE_ERROR_TITLE));
+        }
+      });
+  };
+}
+
+export function deleteUserBureauExceptions(data) {
+  return (dispatch) => {
+    if (cancelDeleteUserBureauExceptions) { cancelDeleteUserBureauExceptions('cancel'); }
+    api().post('/fsbid/bureau_exceptions/delete/', data, {
+      cancelToken: new CancelToken((c) => {
+        cancelDeleteUserBureauExceptions = c;
+      }),
+    })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(BUREAU_EXCEPTIONS_DELETE_SUCCESS,
+            BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE));
+          dispatch(bureauExceptionsFetchData());
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(BUREAU_EXCEPTIONS_DELETE_ERROR,
+            BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE));
         }
       });
   };

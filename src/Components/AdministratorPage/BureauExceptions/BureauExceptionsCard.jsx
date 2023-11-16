@@ -4,7 +4,7 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addBureauExceptionSelections, deleteBureauExceptionList, saveBureauExceptionSelections, userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
+import { addUserBureauExceptions, deleteUserBureauExceptions, updateUserBureauExceptions, userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { Column, Row } from 'Components/Layout';
@@ -84,7 +84,7 @@ const BureauExceptionsCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    dispatch(addBureauExceptionSelections(currentUser));
+    dispatch(addUserBureauExceptions(currentUser));
   };
 
   const deleteBureaus = () => {
@@ -94,7 +94,7 @@ const BureauExceptionsCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    dispatch(deleteBureauExceptionList(currentUser));
+    dispatch(deleteUserBureauExceptions(currentUser));
   };
 
   const modify = () => {
@@ -105,7 +105,7 @@ const BureauExceptionsCard = (props) => {
       lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
       lastUpdated: currentUserInfo?.lastUpdated,
     };
-    dispatch(saveBureauExceptionSelections(currentUser));
+    dispatch(updateUserBureauExceptions(currentUser));
   };
 
   const cancel = (e) => {
