@@ -39,6 +39,14 @@ const BureauExceptionList = () => {
       {
         getOverlay() ||
           <div className="bel-lower-section">
+            <table className="bel-table-head">
+              <thead>
+                <tr>
+                  <th className="first-header">Name</th>
+                  <th>Bureau Access</th>
+                </tr>
+              </thead>
+            </table>
             {BureauExceptionData?.filter((x => x.id != null)).map(data => (
               <BureauExceptionListCard
                 key={data?.id}

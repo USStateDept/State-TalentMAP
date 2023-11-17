@@ -178,8 +178,8 @@ const BureauExceptionListCard = (props) => {
     <div className="position-form">
       <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
-          <Column>Person: {name || 'N/A'}</Column>
-          <Column>Bureau Access: {isBureauAccess ? bureaus : 'No Access'}</Column>
+          <Column>{name || 'N/A'}</Column>
+          <Column>{isBureauAccess ? bureaus : 'No Access'}</Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
               onClick={(e) => {
