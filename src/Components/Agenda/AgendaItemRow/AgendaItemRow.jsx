@@ -30,7 +30,7 @@ const AgendaItemRow = props => {
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
-
+  console.log('userLanguage', userLanguage);
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
 
@@ -92,7 +92,7 @@ const AgendaItemRow = props => {
                 <div className="item">
                   <span className="label">Languages: </span>
                   {userLanguage.map((l, i) => (
-                    ` ${l.custom_description}${i + 1 === userLanguage.length ? '' : ','}`
+                    ` ${l.code} ${l.speaking_score}/${l.reading_score} (${formatDate(l.test_date, 'MM/YYYY')})${i + 1 === userLanguage.length ? '' : ','}`
                   ))}
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
