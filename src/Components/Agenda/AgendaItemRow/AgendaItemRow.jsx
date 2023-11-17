@@ -107,7 +107,7 @@ const AgendaItemRow = props => {
                 <div className="item">
                   <span className="label">Languages: </span>
                   {userLanguage.map((l, i) => (
-                    ` ${l.custom_description}${i + 1 === userLanguage.length ? '' : ','}`
+                    ` ${l.code} ${l.reading_score}/${l.speaking_score} (${formatDate(l.test_date, 'MM/YYYY')})${i + 1 === userLanguage.length ? '' : ','}`
                   ))}
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
