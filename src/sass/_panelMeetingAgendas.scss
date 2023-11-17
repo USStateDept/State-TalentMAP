@@ -190,7 +190,7 @@
     flex-wrap: wrap;
     padding-bottom: 5px;
 
-    @media screen and (min-width: 1600px) {
+    @media screen and (min-width: 1680px) {
       flex-direction: row;
     }
 
@@ -203,7 +203,7 @@
     }
   }
   .maintenance-link-container {
-    width: 190px;
+    width: 140px;
     .ml {
       font-size: 13px;
       float: right;
