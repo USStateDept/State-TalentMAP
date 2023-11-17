@@ -7,31 +7,36 @@ import { Link } from 'react-router-dom';
 import { addUserBureauExceptions, deleteUserBureauExceptions, updateUserBureauExceptions, userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
-import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
 
-const BureauExceptionsCard = (props) => {
-  const {
-    userData,
-  } = props;
+const BureauExceptionsCard = ({ userData, bureaus, bureausHasErrored, bureausIsLoading }) => {
 
   const {
-    bureaus,
-    bureauCodeList,
-    id,
+    userBureauCodeList,
+    // eslint-disable-next-line no-unused-vars
+    hruId,
     name,
-    pvId,
   } = userData;
+
   const dispatch = useDispatch();
+
+  // eslint-disable-next-line no-unused-vars
+  const userBureauExceptionsAndMetaDataHasErrored =
+    useSelector(state => state.userBureauExceptionsAndMetaDataHasErrored);
+  const userBureauExceptionsAndMetaDataIsLoading =
+    useSelector(state => state.userBureauExceptionsAndMetaDataIsLoading);
+  const userBureauExceptionsAndMetaData =
+    useSelector(state => state.userBureauExceptionsAndMetaData);
+
   const [selectAll, setSelectAll] = useState(false);
-  const [bureau, setBureau] = useState('');
+
+
+  const [bureauFilterText, setBureauFilterText] = useState('');
   const [bureauCodes, setBureauCodes] = useState([]);
-  const isBureauAccess = bureaus !== null && bureaus !== undefined && bureaus !== ' ' && bureaus !== '' && bureaus.length !== 0;
-  const isAdd = pvId === -1 || pvId === null || pvId === '-';
-  const BureauExceptionOptionsData = useSelector(state => state.bureauExceptionListSuccess);
-  const BureauCardError = useSelector(state => state.bureauExceptionListErrored);
-  const BureauExceptionListLoading = useSelector(state => state.bureauExceptionListLoading);
+  const isBureauAccess = userBureauCodeList !== null && userBureauCodeList !== undefined && userBureauCodeList !== ' ' && userBureauCodeList !== '' && userBureauCodeList.length !== 0;
+  const isAdd = userBureauExceptionsAndMetaData?.pvId === -1 || userBureauExceptionsAndMetaData?.pvId === null || userBureauExceptionsAndMetaData?.pvId === '-';
+
   const CloseCards = useSelector(state => state.closeAllCards);
   const [isEditable, setIsEditable] = useState(CloseCards === id);
   const currentUserInfo = BureauExceptionOptionsData?.data;
@@ -69,7 +74,7 @@ const BureauExceptionsCard = (props) => {
 
   const onCancelRequest = () => {
     swal.close();
-    setBureau('');
+    setBureauFilterText('');
     setIsEditable(false);
     setBureauCodes([]);
     setSelectAll(false);
@@ -163,9 +168,9 @@ const BureauExceptionsCard = (props) => {
 
   const getOverlay = () => {
     let overlay;
-    if (BureauExceptionListLoading) {
+    if (userBureauExceptionsAndMetaDataIsLoading || bureausIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="small" />;
-    } else if (BureauCardError) {
+    } else if (BureauCardError || bureausHasErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else {
       return false;
@@ -174,45 +179,41 @@ const BureauExceptionsCard = (props) => {
   };
 
   return (
-    <div className="position-form">
-      <Row fluid className="bureau-card box-shadow-standard">
-        <Row fluid className="bs-card--row">
-          <Column>{name || 'N/A'}</Column>
-          <Column>{isBureauAccess ? bureaus : 'No Access'}</Column>
-          <Column columns={3} className="bs-card--link-col">
-            <Link
-              onClick={(e) => {
-                e.preventDefault();
-                collapseCard();
-              }}
-              to="#"
-            >
-              {!isEditable ? (
-                <div>
-                  <FA className="fa-solid fa-pencil" />
-                  Edit
-                </div>
-              ) : (
-                <span>Close</span>
-              )}
-            </Link>
-          </Column>
-        </Row>
-        {isEditable && (
-          <div>
-            <form>
-              <table className="bureau-exception-table">
-                {
-                  getOverlay()
+    <div className="bureau-card box-shadow-standard standard-blue-border-left">
+      <div>{name || 'N/A'}</div>
+      <div>{isBureauAccess ? bureaus : 'No Access'}</div>
+      <div>
+        <Link
+          onClick={(e) => {
+            e.preventDefault();
+            collapseCard();
+          }}
+          to="#"
+        >
+          {!isEditable ? (
+            <div>
+              <FA className="fa-solid fa-pencil" />
+              Edit
+            </div>
+          ) : (
+            <span>Close</span>
+          )}
+        </Link></div>
+      {isEditable && (
+        <div>
+          <form>
+            <table className="bureau-exception-table">
+              {
+                getOverlay()
                   ||
                   <div>
                     <thead>
                       <tr>
                         <div className="bureau-exception-text-input">
                           <TextInput
-                            changeText={(e) => setBureau(e)}
+                            changeText={(e) => setBureauFilterText(e)}
                             placeholder="Filter by Bureau"
-                            value={bureau}
+                            value={bureauFilterText}
                             id="bureau"
                             inputProps={{
                               autoComplete: 'off',
@@ -238,7 +239,7 @@ const BureauExceptionsCard = (props) => {
                           .filter((x) =>
                             x.description
                               .toLowerCase()
-                              .includes(bureau.toLowerCase()),
+                              .includes(bureauFilterText.toLowerCase()),
                           )
                           .map((post) => (
                             <tr key={post.bureauCode}>
@@ -255,32 +256,32 @@ const BureauExceptionsCard = (props) => {
                       </div>
                     </tbody>
                   </div>
-                }
-              </table>
-              <div style={{ visibility: showBtn && 'hidden' }}>
-                <button
-                  onClick={saveBureaus}
-                >
+              }
+            </table>
+            <div style={{ visibility: showBtn && 'hidden' }}>
+              <button
+                onClick={saveBureaus}
+              >
                   Save
-                </button>
-                <button onClick={cancel}>Cancel</button>
-              </div>
-            </form>
-          </div>
-        )}
-      </Row>
+              </button>
+              <button onClick={cancel}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
 
 BureauExceptionsCard.propTypes = {
   userData: PropTypes.shape({
-    bureauCodeList: PropTypes.arrayOf(PropTypes.string),
-    bureaus: PropTypes.arrayOf(PropTypes.string),
-    id: PropTypes.number,
+    userBureauCodeList: PropTypes.arrayOf(PropTypes.string),
+    hruId: PropTypes.number,
     name: PropTypes.string,
-    pvId: PropTypes.number,
   }),
+  bureaus: PropTypes.arrayOf(PropTypes.string),
+  bureausHasErrored: PropTypes.bool,
+  bureausIsLoading: PropTypes.bool,
 };
 
 BureauExceptionsCard.defaultProps = {

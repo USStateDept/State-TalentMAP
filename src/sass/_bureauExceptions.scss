@@ -1,3 +1,14 @@
+.bureau-card {
+  display: grid;
+  grid-template-columns: 30% 60% 10%;
+  margin-block: 15px;
+  background-color: $color-white;
+  border: 1px solid $bg-gray-dark-2;
+  padding: 16px;
+}
+
+
+
 .bureau-exception-table {
   position: relative;
   width: 100%;
@@ -50,6 +61,11 @@
   .bel-table-head {
     margin-bottom: 0;
     width: 100%;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+    border: 1px solid #AEB0B5;
     tr {
       th {
         background-color: $color-white;
@@ -57,6 +73,7 @@
         margin-bottom: 1em;
         margin-top: 1em;
         padding: 1em;
+
       }
     }
   }
@@ -72,9 +89,6 @@
     }
   }
   @media screen and (max-width: 1237px) {
-    .position-form {
-      width: 85%;
-    }
     .bel-table-head {
       width: 85%;
     }
@@ -85,35 +99,3 @@
     }
   }
 }
-
-.bureau-card {
-    position: relative;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: $color-white;
-    border: 1px solid $bg-gray-dark-2;
-    border-left: 8px solid $blue-primary;
-    padding: 1em;
-    .bs-card--row {
-      display: flex;
-      align-items: center;
-      .bs-card--middle-cols {
-        display: flex;
-        align-items: center;
-        >div {
-          color: $color-gray;
-          display: flex;
-          justify-content: center;
-          font-size: 14px;
-          min-width: max-content;
-        }
-      }
-      .bs-card--link-col {
-        display: flex;
-        justify-content: flex-end;
-        >span {
-          text-align: right;
-        }
-      }
-    }
-  }
