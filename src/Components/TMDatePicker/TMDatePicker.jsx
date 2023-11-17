@@ -1,54 +1,73 @@
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 
-const TMDateRangePicker = ({
-  value,
+const TMDatePicker = ({
+  selected,
   onChange,
-  wrapperClassName,
-  datePickerClassName,
+  value,
+  selectsRange,
+  showTimeSelect,
   showMonthDropdown,
   showYearDropdown,
   placeholderText,
-}) => {
-  const [startDate, endDate] = value;
-
-  return (
+  showIcon,
+  icon,
+  wrapperClassName,
+  datePickerClassName,
+  isClearable,
+}) =>
+  (
     <>
       <div className={`tm-daterange-wrapper-${wrapperClassName}`}>
+        {showIcon && icon}
         <DatePicker
-          isClearable
-          selectsRange
+          selected={selected}
+          onChange={onChange}
+          selectsRange={selectsRange}
+          showTimeSelect={showTimeSelect}
           showMonthDropdown={showMonthDropdown}
           showYearDropdown={showYearDropdown}
+          startDate={selectsRange ? value[0] : null}
+          endDate={selectsRange ? value[1] : null}
+          isClearable={isClearable}
           dropdownMode="select"
-          startDate={startDate}
-          endDate={endDate}
-          onChange={onChange}
           className={`tm-daterange-${datePickerClassName}`}
           placeholderText={placeholderText}
         />
       </div>
     </>
-  );
-};
+  )
+;
 
-export default TMDateRangePicker;
+export default TMDatePicker;
 
-TMDateRangePicker.propTypes = {
+TMDatePicker.propTypes = {
   value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   onChange: PropTypes.func.isRequired,
+  selected: PropTypes.instanceOf(Date),
   wrapperClassName: PropTypes.string,
   datePickerClassName: PropTypes.string,
   showMonthDropdown: PropTypes.bool,
   showYearDropdown: PropTypes.bool,
   placeholderText: PropTypes.string,
+  selectsRange: PropTypes.bool,
+  showIcon: PropTypes.bool,
+  icon: PropTypes.element,
+  isClearable: PropTypes.bool,
+  showTimeSelect: PropTypes.bool,
 };
 
-TMDateRangePicker.defaultProps = {
+TMDatePicker.defaultProps = {
   value: [null, null],
+  selected: null,
   wrapperClassName: '',
   datePickerClassName: '',
   showMonthDropdown: false,
   showYearDropdown: false,
-  placeholderText: 'Select Date Range',
+  placeholderText: 'Select Date',
+  selectsRange: false,
+  showIcon: false,
+  icon: <></>,
+  isClearable: false,
+  showTimeSelect: false,
 };

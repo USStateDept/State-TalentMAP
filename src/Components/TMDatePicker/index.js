@@ -1,1 +1,1 @@
-export { default } from './TMDateRangePicker';
+export { default } from './TMDatePicker';

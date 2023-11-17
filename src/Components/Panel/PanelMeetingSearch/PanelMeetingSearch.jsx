@@ -19,7 +19,7 @@ import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelM
 import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
-import TMDateRangePicker from 'Components/TMDatePicker';
+import TMDatePicker from 'Components/TMDatePicker';
 import ScrollUpButton from '../../ScrollUpButton';
 import { userHasPermissions } from '../../../utilities';
 
@@ -238,13 +238,15 @@ const PanelMeetingSearch = ({ isCDO }) => {
             </div>
             <div className="filter-div">
               <div className="label">Panel Date:</div>
-              <TMDateRangePicker
+              <TMDatePicker
                 value={selectedPanelMeetDate}
                 onChange={setSelectedPanelMeetDate}
                 datePickerClassName="panel-meeting"
                 wrapperClassName="panel-meeting larger-date-picker"
                 showMonthDropdown
                 showYearDropdown
+                selectsRange
+                isClearable
               />
             </div>
           </div>
