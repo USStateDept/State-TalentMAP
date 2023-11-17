@@ -15,6 +15,7 @@ const TMDatePicker = ({
   wrapperClassName,
   datePickerClassName,
   isClearable,
+  excludeDates,
 }) =>
   (
     <>
@@ -33,6 +34,7 @@ const TMDatePicker = ({
           dropdownMode="select"
           className={`tm-daterange-${datePickerClassName}`}
           placeholderText={placeholderText}
+          excludeDates={excludeDates}
         />
       </div>
     </>
@@ -55,6 +57,7 @@ TMDatePicker.propTypes = {
   icon: PropTypes.element,
   isClearable: PropTypes.bool,
   showTimeSelect: PropTypes.bool,
+  excludeDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 };
 
 TMDatePicker.defaultProps = {
@@ -70,4 +73,5 @@ TMDatePicker.defaultProps = {
   icon: <></>,
   isClearable: false,
   showTimeSelect: false,
+  excludeDates: [],
 };
