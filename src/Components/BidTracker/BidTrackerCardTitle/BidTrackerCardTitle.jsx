@@ -5,6 +5,7 @@ import { getBidCycleName, getPostName } from 'utilities';
 import { getStatusProperty } from 'Constants/BidStatuses';
 import { APPROVED_PROP } from 'Constants/BidData';
 import BidCount from '../../BidCount';
+import { NO_POST } from '../../../Constants/SystemMessages';
 
 const BidTrackerCardTitle = ({
   title,
@@ -12,6 +13,7 @@ const BidTrackerCardTitle = ({
   id,
   bidStatistics,
   post,
+  organization,
   showBidCount,
   status,
   bidCycle,
@@ -44,7 +46,7 @@ const BidTrackerCardTitle = ({
       </div>
       <div className="usa-grid-full bid-tracker-bottom-link-container">
         <div className={`bid-tracker-card-title-bottom ${!condensedView ? 'bid-tracker-card-title-bottom--full-width' : ''}`}>
-          <strong>Location:</strong> {getPostName(post)}
+          <strong>Location (Org):</strong> {getPostName(post, NO_POST)}: {organization || 'None'}
         </div>
         {
           !condensedView &&
@@ -70,6 +72,7 @@ BidTrackerCardTitle.propTypes = {
   id: PropTypes.number.isRequired,
   bidStatistics: BID_STATISTICS_OBJECT.isRequired,
   post: POST_DETAILS.isRequired,
+  organization: PropTypes.string.isRequired,
   showBidCount: PropTypes.bool,
   status: PropTypes.string.isRequired,
   bidCycle: BID_CYCLE_NAME_TYPE,
