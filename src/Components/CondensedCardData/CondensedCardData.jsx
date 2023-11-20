@@ -32,7 +32,7 @@ const CondensedCardData = ({ position }) => {
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
-        title="Location"
+        title="Location (Org)"
         content={`${getPostName(position?.position?.post, NO_POST)}: ${position?.position?.organization || 'None'}`}
         hasFixedTitleWidth
       />
