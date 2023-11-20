@@ -1,16 +1,11 @@
-/* eslint-disable */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import { Column, Row } from 'Components/Layout';
 import Alert from 'Components/Alert';
 import { bureauExceptionsFetchData, bureauExceptionsRefDataBureausFetchData } from 'actions/bureauExceptions';
 import BureauExceptionsCard from './BureauExceptionsCard';
-import {Link} from "react-router-dom";
-import FA from "react-fontawesome";
-
 
 const BureauExceptions = () => {
   const dispatch = useDispatch();
@@ -18,9 +13,13 @@ const BureauExceptions = () => {
   const bureauExceptionsHasErrored = useSelector(state => state.bureauExceptionsHasErrored);
   const bureauExceptionsIsLoading = useSelector(state => state.bureauExceptionsIsLoading);
   const bureauExceptions = useSelector(state => state.bureauExceptions);
-  const bureauExceptionsRefDataBureausHasErrored = useSelector(state => state.bureauExceptionsRefDataBureausHasErrored);
-  const bureauExceptionsRefDataBureausIsLoading = useSelector(state => state.bureauExceptionsRefDataBureausIsLoading);
+  const bureauExceptionsRefDataBureausHasErrored =
+    useSelector(state => state.bureauExceptionsRefDataBureausHasErrored);
+  const bureauExceptionsRefDataBureausIsLoading =
+    useSelector(state => state.bureauExceptionsRefDataBureausIsLoading);
   const bureauExceptionsRefDataBureaus = useSelector(state => state.bureauExceptionsRefDataBureaus);
+
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     dispatch(bureauExceptionsFetchData());
@@ -47,7 +46,18 @@ const BureauExceptions = () => {
       {
         getOverlay() ||
           <div className="bel-lower-section">
-            <div className="bureau-card box-shadow-standard">
+            {
+              editMode &&
+              <Alert
+                type="warning"
+                title={'Edit Mode'}
+                messages={[{
+                  body: 'Save or discard your edits to enable editing on another card.',
+                },
+                ]}
+              />
+            }
+            <div className={`bureau-card box-shadow-standard ${editMode ? '' : 'sticky'}`}>
               <div className="pl-10">Name</div>
               <div>Access</div>
             </div>
@@ -56,9 +66,12 @@ const BureauExceptions = () => {
               <BureauExceptionsCard
                 key={data?.hruId}
                 userData={data}
-                bureaus={bureauExceptionsRefDataBureaus}
-                bureausHasErrored={bureauExceptionsRefDataBureausHasErrored}
-                bureausIsLoading={bureauExceptionsRefDataBureausIsLoading}
+                onEditModeSearch={editState =>
+                  setEditMode(editState)}
+                disableEdit={editMode}
+                refBureaus={bureauExceptionsRefDataBureaus}
+                refBureausHasErrored={bureauExceptionsRefDataBureausHasErrored}
+                refBureausIsLoading={bureauExceptionsRefDataBureausIsLoading}
               />),
             )}
           </div>

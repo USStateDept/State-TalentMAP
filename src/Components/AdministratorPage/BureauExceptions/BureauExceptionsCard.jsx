@@ -3,25 +3,26 @@ import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { isEqual } from 'lodash';
 import { addUserBureauExceptions, deleteUserBureauExceptions, updateUserBureauExceptions, userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
+import InteractiveElement from 'Components/InteractiveElement';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
 
-const BureauExceptionsCard = ({ userData, bureaus, bureausHasErrored, bureausIsLoading }) => {
-
+const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
+  refBureaus, refBureausHasErrored, refBureausIsLoading }) => {
   const {
     userBureauCodeList,
-    // eslint-disable-next-line no-unused-vars
+    pvId,
     hruId,
     name,
   } = userData;
 
   const dispatch = useDispatch();
-
-  // eslint-disable-next-line no-unused-vars
+  const refBureausLookUp = Object.groupBy(refBureaus, ({ code }) => code);
   const userBureauExceptionsAndMetaDataHasErrored =
     useSelector(state => state.userBureauExceptionsAndMetaDataHasErrored);
   const userBureauExceptionsAndMetaDataIsLoading =
@@ -30,147 +31,117 @@ const BureauExceptionsCard = ({ userData, bureaus, bureausHasErrored, bureausIsL
     useSelector(state => state.userBureauExceptionsAndMetaData);
 
   const [selectAll, setSelectAll] = useState(false);
-
-
   const [bureauFilterText, setBureauFilterText] = useState('');
-  const [bureauCodes, setBureauCodes] = useState([]);
-  const isBureauAccess = userBureauCodeList !== null && userBureauCodeList !== undefined && userBureauCodeList !== ' ' && userBureauCodeList !== '' && userBureauCodeList.length !== 0;
-  const isAdd = userBureauExceptionsAndMetaData?.pvId === -1 || userBureauExceptionsAndMetaData?.pvId === null || userBureauExceptionsAndMetaData?.pvId === '-';
+  const [filteredBureaus, setFilteredBureaus] = useState([]);
+  const [userSelectedBureauCodes, setUserSelectedBureauCodes] = useState(userBureauCodeList);
 
-  const CloseCards = useSelector(state => state.closeAllCards);
-  const [isEditable, setIsEditable] = useState(CloseCards === id);
-  const currentUserInfo = BureauExceptionOptionsData?.data;
-  const currentUserBureauCodeList = BureauExceptionOptionsData?.data?.bureauRefList;
-  const showBtn = BureauCardError || BureauExceptionListLoading;
-
-  const gatherInitialBureauCodes = () => {
-    if (isBureauAccess) {
-      const newBureauCodes = bureauCodeList && bureauCodeList.split(',').map(bu => bu);
-      setBureauCodes(newBureauCodes);
-    } else {
-      setBureauCodes([]);
-    }
-  };
+  const [expandCard, setExpandCard] = useState(false);
 
   useEffect(() => {
-    // for initial list check
-    setIsEditable(CloseCards === id);
-    gatherInitialBureauCodes();
-  }, [CloseCards]);
-
-  useEffect(() => {
-    if (currentUserBureauCodeList?.length === bureauCodes.length) {
-      setSelectAll(true);
-    } else {
-      setSelectAll(false);
-    }
-  }, [bureauCodes.length]);
-
-  const collapseCard = () => {
-    setIsEditable(!isEditable);
-    gatherInitialBureauCodes();
     dispatch(userBureauExceptionsAndMetaDataFetch());
+  }, []);
+
+  useEffect(() => {
+    onEditModeSearch(expandCard);
+  }, [expandCard]);
+
+  useEffect(() => {
+    setFilteredBureaus(refBureaus.filter((x) =>
+      x.long_description
+        .toLowerCase()
+        .includes(bureauFilterText.toLowerCase()),
+    ));
+  }, [bureauFilterText]);
+
+  const onCancelRequest = (reset) => {
+    setExpandCard(false);
+    if (reset) {
+      setUserSelectedBureauCodes([...userBureauCodeList]);
+    }
   };
 
-  const onCancelRequest = () => {
-    swal.close();
-    setBureauFilterText('');
-    setIsEditable(false);
-    setBureauCodes([]);
-    setSelectAll(false);
-    gatherInitialBureauCodes();
+  const saveBureaus = () => {
+    if ([-1, null].includes(pvId)) {
+      // add if pvId does not exist
+      dispatch(addUserBureauExceptions({
+        hruId,
+        bureauCodeList: userSelectedBureauCodes,
+      }));
+    } else if (userSelectedBureauCodes.length === 0) {
+      // delete if pvId exists and no bureaus in current selection
+      dispatch(deleteUserBureauExceptions({
+        pvId,
+        hruId,
+        lastUpdatedUserId: userBureauExceptionsAndMetaData?.lastUpdatedUserId,
+        lastUpdatedDate: userBureauExceptionsAndMetaData?.lastUpdatedDate,
+      }));
+    } else {
+      // update if pvId exists and some bureaus exist in current selection
+      dispatch(updateUserBureauExceptions({
+        pvId,
+        hruId,
+        bureauCodeList: userSelectedBureauCodes,
+        lastUpdatedUserId: userBureauExceptionsAndMetaData?.lastUpdatedUserId,
+        lastUpdatedDate: userBureauExceptionsAndMetaData?.lastUpdatedDate,
+      }));
+    }
   };
 
-  const addBureaus = () => {
-    const currentUser = {
-      bureauCodeList: bureauCodes.join(', '),
-      id,
-      pvId,
-      lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
-      lastUpdated: currentUserInfo?.lastUpdated,
-    };
-    dispatch(addUserBureauExceptions(currentUser));
-  };
-
-  const deleteBureaus = () => {
-    const currentUser = {
-      id,
-      pvId,
-      lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
-      lastUpdated: currentUserInfo?.lastUpdated,
-    };
-    dispatch(deleteUserBureauExceptions(currentUser));
-  };
-
-  const modify = () => {
-    const currentUser = {
-      bureauCodeList: bureauCodes.join(', '),
-      id,
-      pvId,
-      lastUpdatedUserID: currentUserInfo?.lastUpdatedUserID,
-      lastUpdated: currentUserInfo?.lastUpdated,
-    };
-    dispatch(updateUserBureauExceptions(currentUser));
-  };
 
   const cancel = (e) => {
-    e.preventDefault();
-    swal({
-      title: 'Confirm Discard Changes',
-      button: false,
-      closeOnEsc: true,
-      content: (
-        <div className="simple-action-modal">
-          <div className="help-text">
-            <span>{'Are you sure you want to discard all changes made to this list?'}</span>
+    if (isEqual(userSelectedBureauCodes, userBureauCodeList)) {
+      onCancelRequest(false);
+    } else {
+      e.preventDefault();
+
+      swal({
+        title: 'Confirm Discard Changes',
+        button: false,
+        closeOnEsc: true,
+        content: (
+          <div className="simple-action-modal">
+            <div className="help-text">
+              <span>{'Are you sure you want to discard all changes made to this list?'}</span>
+            </div>
+            <div className="modal-controls">
+              <button onClick={onCancelRequest(true)}>Yes</button>
+              <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
+            </div>
           </div>
-          <div className="modal-controls">
-            <button onClick={onCancelRequest}>Yes</button>
-            <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
-          </div>
-        </div>
-      ),
-    });
+        ),
+      });
+    }
+  };
+
+  const formatBureauDisplay = (bureauCode) => {
+    const burObj = refBureausLookUp[bureauCode][0];
+    return `${burObj?.long_description} (${burObj?.short_description})`;
   };
 
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setBureauCodes(currentUserBureauCodeList?.map(bu => bu.bureauCode));
+      setUserSelectedBureauCodes(refBureaus?.map(({ code }) => code));
     } else {
       setSelectAll(false);
-      setBureauCodes([]);
+      setUserSelectedBureauCodes([]);
     }
   };
 
-  const handleSelectBureau = (selectedBureau => {
-    if (bureauCodes.includes(selectedBureau?.bureauCode)) {
-      const filteredBureauCodes = bureauCodes.filter(x => x !== selectedBureau?.bureauCode);
-      setBureauCodes(filteredBureauCodes);
-      setSelectAll(false);
+  const handleSelectBureau = (selectedBureau) => {
+    if (userSelectedBureauCodes.includes(selectedBureau)) {
+      const newSelectedBureauCodes = userSelectedBureauCodes.filter(x => x !== selectedBureau);
+      setUserSelectedBureauCodes(newSelectedBureauCodes);
     } else {
-      setBureauCodes([...bureauCodes, selectedBureau?.bureauCode]);
-      setSelectAll(currentUserBureauCodeList?.length === bureauCodes.length);
-    }
-  });
-
-
-  const saveBureaus = (e) => {
-    e.preventDefault();
-    if (isAdd) {
-      addBureaus();
-    } else if (bureauCodes.length === 0) {
-      deleteBureaus();
-    } else {
-      modify();
+      setUserSelectedBureauCodes([...userSelectedBureauCodes, selectedBureau]);
     }
   };
 
   const getOverlay = () => {
     let overlay;
-    if (userBureauExceptionsAndMetaDataIsLoading || bureausIsLoading) {
+    if (userBureauExceptionsAndMetaDataIsLoading || refBureausIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="small" />;
-    } else if (BureauCardError || bureausHasErrored) {
+    } else if (userBureauExceptionsAndMetaDataHasErrored || refBureausHasErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else {
       return false;
@@ -181,94 +152,67 @@ const BureauExceptionsCard = ({ userData, bureaus, bureausHasErrored, bureausIsL
   return (
     <div className="bureau-card box-shadow-standard standard-blue-border-left">
       <div>{name || 'N/A'}</div>
-      <div>{isBureauAccess ? bureaus : 'No Access'}</div>
-      <div>
-        <Link
-          onClick={(e) => {
-            e.preventDefault();
-            collapseCard();
-          }}
-          to="#"
-        >
-          {!isEditable ? (
-            <div>
-              <FA className="fa-solid fa-pencil" />
-              Edit
-            </div>
-          ) : (
-            <span>Close</span>
-          )}
-        </Link></div>
-      {isEditable && (
-        <div>
+      <div>{userBureauCodeList.length ? userBureauCodeList.map(a => formatBureauDisplay(a)).join(', ') : 'No Access'}</div>
+      <InteractiveElement className={`bureau-exception-edit ${expandCard ? 'hide' : ''}`} onClick={disableEdit ? () => {} : () => setExpandCard(true)}>
+        <div className={`${disableEdit ? 'disabled-action' : ''}`}> <FA name="pencil" /> Edit </div>
+      </InteractiveElement>
+      {
+        expandCard && (
           <form>
-            <table className="bureau-exception-table">
+            <div className="bureau-exception-select-bureaus ml-50 mt-50">
               {
                 getOverlay()
                   ||
-                  <div>
-                    <thead>
-                      <tr>
-                        <div className="bureau-exception-text-input">
-                          <TextInput
-                            changeText={(e) => setBureauFilterText(e)}
-                            placeholder="Filter by Bureau"
-                            value={bureauFilterText}
-                            id="bureau"
-                            inputProps={{
-                              autoComplete: 'off',
-                            }}
-                          />
-                        </div>
-                      </tr>
-                      <tr>
-                        <th className="checkbox-pac checkbox-pos">
-                          <CheckBox
-                            label="Bureau"
-                            onCheckBoxClick={handleSelectAll}
-                            value={selectAll}
-                            id={`${name} - ${id}`}
-                          />
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <div className="bureau-exception-text-table">
-                        {currentUserBureauCodeList?.length &&
-                        currentUserBureauCodeList
-                          .filter((x) =>
-                            x.description
-                              .toLowerCase()
-                              .includes(bureauFilterText.toLowerCase()),
-                          )
-                          .map((post) => (
-                            <tr key={post.bureauCode}>
-                              <td className="checkbox-pac checkbox-pos">
-                                <CheckBox
-                                  label={post.description}
-                                  value={bureauCodes.includes(post.bureauCode)}
-                                  onCheckBoxClick={() => handleSelectBureau(post)}
-                                  id={`${name} - ${post.bureauCode}`}
-                                />
-                              </td>
-                            </tr>
-                          ))}
-                      </div>
-                    </tbody>
-                  </div>
+                  <>
+                    <div className="bureau-exception-text-input mb-20">
+                      <TextInput
+                        changeText={(e) => setBureauFilterText(e)}
+                        placeholder="Filter by Bureau"
+                        value={bureauFilterText}
+                        id="bureau"
+                        inputProps={{
+                          autoComplete: 'off',
+                        }}
+                      />
+                    </div>
+                    <div className={`bureau-exception-select-bureaus-header
+                     bureau-exception-select-bureaus-checkboxes pl-20 ${bureauFilterText ? 'remove' : ''}`}
+                    >
+                      <CheckBox
+                        onCheckBoxClick={handleSelectAll}
+                        value={userSelectedBureauCodes.length === refBureaus.length}
+                        id={`${name} - ${hruId}`}
+                        disabled={!!bureauFilterText}
+                      />
+                      <div>Select All Bureaus</div>
+                    </div>
+                    {
+                      filteredBureaus.length === 0 ?
+                        <Alert type="info" title="No bureau descriptions match filter text." tinyAlert />
+                        :
+                        filteredBureaus.map((bur) => (
+                          <div className="bureau-exception-select-bureaus-checkboxes pl-20" key={bur.code}>
+                            <CheckBox
+                              value={userSelectedBureauCodes.includes(bur.code)}
+                              onCheckBoxClick={() => handleSelectBureau(bur.code)}
+                              id={`${name} - ${bur.code}`}
+                            />
+                            <div>{formatBureauDisplay(bur.code)}</div>
+                          </div>
+                        ))}
+                  </>
               }
-            </table>
-            <div style={{ visibility: showBtn && 'hidden' }}>
+            </div>
+            <div>
               <button
-                onClick={saveBureaus}
-              >
-                  Save
-              </button>
+                className={`${isEqual(userSelectedBureauCodes, userBureauCodeList) ? 'disabled-bg' : ''}`}
+                onClick={
+                  isEqual(userSelectedBureauCodes, userBureauCodeList) ? () => {} : saveBureaus}
+              >Save</button>
               <button onClick={cancel}>Cancel</button>
             </div>
           </form>
-        </div>
-      )}
+        )}
     </div>
   );
 };
@@ -276,16 +220,24 @@ const BureauExceptionsCard = ({ userData, bureaus, bureausHasErrored, bureausIsL
 BureauExceptionsCard.propTypes = {
   userData: PropTypes.shape({
     userBureauCodeList: PropTypes.arrayOf(PropTypes.string),
+    pvId: PropTypes.number,
     hruId: PropTypes.number,
     name: PropTypes.string,
   }),
-  bureaus: PropTypes.arrayOf(PropTypes.string),
-  bureausHasErrored: PropTypes.bool,
-  bureausIsLoading: PropTypes.bool,
+  onEditModeSearch: PropTypes.func,
+  disableEdit: PropTypes.bool,
+  refBureaus: PropTypes.arrayOf(PropTypes.string),
+  refBureausHasErrored: PropTypes.bool,
+  refBureausIsLoading: PropTypes.bool,
 };
 
 BureauExceptionsCard.defaultProps = {
   userData: {},
+  onEditModeSearch: EMPTY_FUNCTION,
+  disableEdit: false,
+  refBureaus: [],
+  refBureausHasErrored: false,
+  refBureausIsLoading: false,
 };
 
 export default BureauExceptionsCard;
