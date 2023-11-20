@@ -134,7 +134,9 @@ const AgendaItemRow = props => {
                           );
                         }
                         return (
-                          <span style={{ display: !show && 'none' }}>{`${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)}) `}</span>
+                          <span style={{ display: !show && 'none' }}>
+                            {`${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${formatDate(l.test_date) !== null ? formatDate(l.test_date, 'MM/YYYY') : 'Date N/A'}) `}
+                          </span>
                         );
                       },
                       )}
