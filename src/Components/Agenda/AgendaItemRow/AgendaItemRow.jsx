@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
@@ -34,7 +35,6 @@ const AgendaItemRow = props => {
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
-
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
 
@@ -42,6 +42,20 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
+  const [show, setShow] = useState(false);
+  const isValidScore = (score) => {
+    if (score === null || score === undefined || score === '--' || score === 'None') {
+      return '-';
+    }
+    return score;
+  };
+
+  const isValidDate = (currentDate) => {
+    if (formatDate(currentDate) !== null) {
+      return formatDate(currentDate, 'MM/YYYY');
+    }
+    return 'Date N/A';
+  };
 
   const pmi = (<>
     {
@@ -50,6 +64,10 @@ const AgendaItemRow = props => {
     }
     <FA name="sticky-note" />
   </>);
+  const showLanguages = (e) => {
+    e.preventDefault();
+    setShow(!show);
+  };
 
   return (
     <>
@@ -105,10 +123,27 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
                 <div className="item">
-                  <span className="label">Languages: </span>
-                  {userLanguage.map((l, i) => (
-                    ` ${l.code} ${l.reading_score}/${l.speaking_score} (${formatDate(l.test_date, 'MM/YYYY')})${i + 1 === userLanguage.length ? '' : ','}`
-                  ))}
+                  <span className="label">Languages:</span>
+                  <span>
+                    {
+                      // eslint-disable-next-line arrow-body-style
+                      userLanguage.map((l, index) => {
+                        if (index < 2) {
+                          return (
+                            `${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)}) `
+                          );
+                        }
+                        return (
+                          <span style={{ display: !show && 'none' }}>{`${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)}) `}</span>
+                        );
+                      },
+                      )}
+                    {userLanguage.length > 2 &&
+                      <Link to="#" className="extra-data" onClick={showLanguages}>
+                        {show ? '...Show Less' : '...Show More'}
+                      </Link>
+                    }
+                  </span>
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
