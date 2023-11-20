@@ -1,10 +1,10 @@
 import { get } from 'lodash';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-import { NO_DATE, NO_GRADE } from '../../Constants/SystemMessages';
+import { NO_DATE, NO_GRADE, NO_POST } from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList';
 import CondensedCardDataPoint from './CondensedCardDataPoint';
-import { formatDate, propOrDefault } from '../../utilities';
+import { formatDate, getPostName, propOrDefault } from '../../utilities';
 
 const CondensedCardData = ({ position }) => {
   const estimatedEndDate = propOrDefault(position, 'ted') ?
@@ -29,6 +29,11 @@ const CondensedCardData = ({ position }) => {
       <CondensedCardDataPoint
         title="Language"
         content={<LanguageList languages={get(position, 'position.languages')} propToUse="representation" />}
+        hasFixedTitleWidth
+      />
+      <CondensedCardDataPoint
+        title="Location"
+        content={`${getPostName(position?.position?.post, NO_POST)}: ${position?.organization || 'None'}`}
         hasFixedTitleWidth
       />
     </div>
