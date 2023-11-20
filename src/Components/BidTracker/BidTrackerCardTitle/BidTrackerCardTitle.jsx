@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { BID_CYCLE_NAME_TYPE, BID_STATISTICS_OBJECT, POST_DETAILS } from 'Constants/PropTypes';
-import { getBidCycleName, getPostName } from 'utilities';
+import { getBidCycleName, getLocationOrg } from 'utilities';
 import { getStatusProperty } from 'Constants/BidStatuses';
 import { APPROVED_PROP } from 'Constants/BidData';
 import BidCount from '../../BidCount';
-import { NO_POST } from '../../../Constants/SystemMessages';
 
 const BidTrackerCardTitle = ({
   title,
@@ -17,8 +16,7 @@ const BidTrackerCardTitle = ({
   showBidCount,
   status,
   bidCycle,
-},
-{ condensedView, priorityExists, isPriority }) => {
+}, { condensedView, priorityExists, isPriority }) => {
   const viewPosition = (
     <div className="bid-tracker-card-title-link">
       {
@@ -46,7 +44,7 @@ const BidTrackerCardTitle = ({
       </div>
       <div className="usa-grid-full bid-tracker-bottom-link-container">
         <div className={`bid-tracker-card-title-bottom ${!condensedView ? 'bid-tracker-card-title-bottom--full-width' : ''}`}>
-          <strong>Location (Org):</strong> {getPostName(post, NO_POST)}: {organization || 'None'}
+          <strong>Location (Org):</strong> {getLocationOrg({ post, organization })}
         </div>
         {
           !condensedView &&
@@ -57,9 +55,9 @@ const BidTrackerCardTitle = ({
         {condensedView && viewPosition}
         {
           showBidCount && !condensedView &&
-            <span className="bid-stats">
-              <BidCount bidStatistics={bidStatistics} altStyle />
-            </span>
+          <span className="bid-stats">
+            <BidCount bidStatistics={bidStatistics} altStyle />
+          </span>
         }
       </div>
     </div>
