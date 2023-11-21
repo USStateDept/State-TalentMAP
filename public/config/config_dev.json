@@ -16,6 +16,7 @@
     "bidding_tool": true,
     "breadcrumbs": true,
     "bureau_exceptions": true,
+    "CDOD30": true,
     "cycle_job_categories": true,
     "cycle_management": true,
     "deto": false,

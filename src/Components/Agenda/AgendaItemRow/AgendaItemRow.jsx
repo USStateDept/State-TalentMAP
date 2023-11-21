@@ -131,7 +131,7 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
 
-          { agenda.aiCombinedTodDescText &&
+          {agenda.aiCombinedTodDescText &&
             <div className="agenda-item-combined-tod">
               <span>
                 <span className="agenda-item-combined-tod-text">{'Combined TOD: '}</span>
@@ -147,6 +147,18 @@ const AgendaItemRow = props => {
                 remarks.map(remark => (
                   <RemarksPill key={remark.text} remark={remark} />
                 ))
+              }
+              {agenda?.ahtCode &&
+                <RemarksPill
+                  key="hold-remark"
+                  remark={{
+                    text: `
+                    ${agenda?.ahtDescText} 
+                    #${agenda?.aihHoldNum}
+                    ${agenda?.aihHoldComment ? ` ${agenda?.aihHoldComment}` : ''}
+                    `,
+                  }}
+                />
               }
             </div>
             <div className="ai-updater-creator">
@@ -179,6 +191,10 @@ AgendaItemRow.propTypes = {
     aiCombinedTodCode: PropTypes.string,
     aiCombinedTodDescText: PropTypes.string,
     aiCombinedTodOtherText: PropTypes.string,
+    ahtCode: PropTypes.string,
+    ahtDescText: PropTypes.string,
+    aihHoldNum: PropTypes.number,
+    aihHoldComment: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
