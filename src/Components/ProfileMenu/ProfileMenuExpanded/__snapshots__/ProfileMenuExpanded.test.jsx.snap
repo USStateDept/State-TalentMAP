@@ -150,14 +150,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Bureau Exception Access"
-        link="/profile/administrator/bureauexception/"
-        search=""
-        title="Bureau Exception Access"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="cogs"
         key="Cycle Job Categories"
         link="/profile/administrator/cyclejobcategories/"
@@ -632,14 +624,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/biddingtool/"
         search=""
         title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Bureau Exception Access"
-        link="/profile/administrator/bureauexception/"
-        search=""
-        title="Bureau Exception Access"
       />
       <withRouter(NavLink)
         hidden={true}
