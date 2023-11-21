@@ -20,11 +20,10 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
       </div>
     </div>
     <Link
-      className="ai-id-link"
       replace={false}
       to="/profile/ao/createagendaitem/undefined/undefined"
     >
-      Agenda Item Maintenance
+      Edit Agenda Item
     </Link>
     <h3
       className="ai-history-card-title"
