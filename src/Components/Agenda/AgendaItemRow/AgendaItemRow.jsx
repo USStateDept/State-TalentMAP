@@ -135,7 +135,7 @@ const AgendaItemRow = props => {
               }
               {agenda?.ahtCode &&
                 <RemarksPill
-                  key="hold"
+                  key="hold-remark"
                   remark={{
                     text: `
                     ${agenda?.ahtDescText} 
