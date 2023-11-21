@@ -66,14 +66,14 @@ class BureauResultsCard extends Component {
     const sections = [
       /* eslint-disable quote-props */
       {
-        'Position number': position,
+        'Position Number': position,
         'Skill': getResult(pos, 'skill_code') || NO_SKILL,
         'Grade': getResult(pos, 'grade') || NO_GRADE,
         'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-        'Tour of duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
+        'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
         'Language': language,
-        'Post differential | Danger Pay': getDifferentials(pos),
-        'Bid cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
+        'Post Differential | Danger Pay': getDifferentials(pos),
+        'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
         'TED': getResult(result, 'ted') || NO_DATE,
         'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
         'Posted': getResult(result, COMMON_PROPERTIES.posted) || NO_UPDATE_DATE,

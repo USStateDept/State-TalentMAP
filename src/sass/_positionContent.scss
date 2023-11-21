@@ -73,12 +73,15 @@
       }
     }
   }
+
   .toggle-edit-mode-disabled {
     color: gray;
     cursor: not-allowed;
 
     &:hover {
-      div, span {
+
+      div,
+      span {
         cursor: not-allowed;
         text-decoration: none;
       }
@@ -208,14 +211,21 @@
 
   button {
     font-size: 16px;
-  }
-
-  button:first-of-type {
     background-color: transparent;
     color: $primary-blue;
 
     &:disabled {
       color: $bg-gray-dark-2 !important;
+    }
+  }
+
+  button:last-of-type {
+    background-color: $primary-blue;
+    color: white;
+
+    &:disabled {
+      background-color: $bg-gray-dark-2;
+      color: white !important;
     }
   }
 }
@@ -230,6 +240,14 @@
 
   .modal-controls {
     padding-top: 28px;
+  }
+
+  .position-form--label-input-container {
+    label {
+      margin-top: 0px;
+    }
+
+    padding: 10px 0px;
   }
 }
 
@@ -300,7 +318,8 @@
     .position-form--label-input-container {
       align-self: end;
 
-      select, input {
+      select,
+      input {
         width: $select-width;
       }
     }
@@ -309,7 +328,8 @@
   .position-form--label-input-container-flex {
     display: flex;
 
-    select, input {
+    select,
+    input {
       width: $select-width;
     }
   }

@@ -248,20 +248,20 @@ export const BIDDER_PORTFOLIO_ADD_SUCCESS = 'Bidder Portfolio has been added.';
 export const BIDDER_PORTFOLIO_ADD_ERROR_TITLE = 'Bidder Portfolio Add Error';
 export const BIDDER_PORTFOLIO_ADD_ERROR = 'There was an issue attempting to add this Bidder Portfolio. Please try again.';
 
-export const ADD_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to add this Bureau Exception. Please try again.';
-export const ADD_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Add Error';
-export const ADD_BUREAU_EXCEPTION_SUCCESS = 'Bureau Exception has been added.';
-export const ADD_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Added';
+export const BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE = 'Bureau Exceptions Added';
+export const BUREAU_EXCEPTIONS_ADD_SUCCESS = 'Bureau Exceptions have been added.';
+export const BUREAU_EXCEPTIONS_ADD_ERROR_TITLE = 'Adding Bureau Exceptions Error';
+export const BUREAU_EXCEPTIONS_ADD_ERROR = 'There was an issue attempting to add Bureau Exceptions. Please try again.';
 
-export const EDIT_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to update this Bureau Exception. Please try again.';
-export const EDIT_BUREAU_EXCEPTION_SUCCESS = 'The Bureau Exception has been updated';
-export const EDIT_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Edit Error';
-export const EDIT_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Updated';
+export const BUREAU_EXCEPTIONS_UPDATE_SUCCESS_TITLE = 'Bureau Exceptions Updated';
+export const BUREAU_EXCEPTIONS_UPDATE_SUCCESS = 'Bureau Exceptions have been updated.';
+export const BUREAU_EXCEPTIONS_UPDATE_ERROR_TITLE = 'Updating Bureau Exceptions Error';
+export const BUREAU_EXCEPTIONS_UPDATE_ERROR = 'There was an issue attempting to update Bureau Exceptions. Please try again.';
 
-export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS_TITLE = 'Bureau Exception Position Updated';
-export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS = 'The Bureau Exception Position has been updated';
-export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE = 'Bureau Exception Position Edit Error';
-export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception Position. Please try again.';
+export const BUREAU_EXCEPTIONS_DELETE_SUCCESS_TITLE = 'Bureau Exceptions Deleted';
+export const BUREAU_EXCEPTIONS_DELETE_SUCCESS = 'Bureau Exceptions have been deleted.';
+export const BUREAU_EXCEPTIONS_DELETE_ERROR_TITLE = 'Deleting Bureau Exceptions Error';
+export const BUREAU_EXCEPTIONS_DELETE_ERROR = 'There was an issue attempting to delete Bureau Exceptions. Please try again.';
 
 export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
 export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
@@ -315,3 +315,13 @@ export const ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE = 'Assignment Cycle Created';
 export const ASSIGNMENT_CYCLE_POST_SUCCESS = 'The Assignment Cycle has been created';
 export const ASSIGNMENT_CYCLE_POST_ERROR_TITLE = 'Assignment Cycle Create Error';
 export const ASSIGNMENT_CYCLE_POST_ERROR = 'There was an issue attempting to create this Assignment Cycle. Please try again.';
+
+export const UPDATE_POSITION_CLASSIFICATION_SUCCESS_TITLE = 'Position Clasifications Saved';
+export const UPDATE_POSITION_CLASSIFICATION_SUCCESS = 'This Position Clasifications has been successfully saved.';
+export const UPDATE_POSITION_CLASSIFICATION_ERROR_TITLE = 'Position Clasifications Error';
+export const UPDATE_POSITION_CLASSIFICATION_ERROR = 'There was an issue attempting to save this Position Clasifications. Please try again.';
+
+export const CREATE_POSITION_CLASSIFICATION_SUCCESS_TITLE = 'Position Clasifications Created';
+export const CREATE_POSITION_CLASSIFICATION_SUCCESS = 'This Position Clasifications has been successfully created.';
+export const CREATE_POSITION_CLASSIFICATION_ERROR_TITLE = 'Position Clasifications Error';
+export const CREATE_POSITION_CLASSIFICATION_ERROR = 'There was an issue attempting to create this Position Clasifications. Please try again.';

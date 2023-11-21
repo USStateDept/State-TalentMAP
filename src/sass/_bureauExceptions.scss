@@ -1,6 +1,3 @@
-.swal-modal {
-    width: 500px;
-}
 .bureau-exception-table {
   position: relative;
   width: 100%;
@@ -27,6 +24,7 @@
   .checkbox-pac {
       width: 1600px;
       text-align: left;
+      position: relative;
     }
     .checkbox-pos {
       > div{
@@ -42,13 +40,54 @@
     }
 }
 .bureau-exception-text-input {
+    color: red!important;
     padding: 20px 0px;
 }
-.bs-lower-section {
-  min-height: 100vh;
-  overflow-y: scroll;
+.bel-lower-section {
+  overflow-y: clip;
+  padding: 0 35px 20px;
+  min-width: 1000px;
+  .bel-table-head {
+    margin-bottom: 0;
+    width: 100%;
+    tr {
+      th {
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        margin-bottom: 1em;
+        margin-top: 1em;
+        padding: 1em;
+      }
+    }
+  }
+  .first-header {
+    width: 45%;
+  }
+  .bureau-exception-table {
+    .tm-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  @media screen and (max-width: 1237px) {
+    .position-form {
+      width: 85%;
+    }
+    .bel-table-head {
+      width: 85%;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .first-header {
+      width: 41%;
+    }
+  }
 }
+
 .bureau-card {
+    position: relative;
     margin-top: 15px;
     margin-bottom: 15px;
     background-color: $color-white;

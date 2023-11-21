@@ -58,36 +58,46 @@ export const formatPanelMeetingTrackerData = (meetingDates = []) => {
  * Utility for creating/editing a panel meeting with only the new fields specified
  * and retaining all of the other original fields.
  */
-export const submitPanelMeeting = (panelMeetingsResults, newFields) => {
-  const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults;
+export const submitPanelMeeting = (originalFields, newFields) => {
+  const {
+    panelMeetingDates,
+  } = originalFields;
 
+  // eslint-disable-next-line no-unused-vars
   const panelMeetingDate = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
+  // eslint-disable-next-line no-unused-vars
   const prelimCutoff = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
+  // eslint-disable-next-line no-unused-vars
   const addendumCutoff = panelMeetingDates?.find(x => x.mdt_code === 'ADD');
+  // eslint-disable-next-line no-unused-vars
   const prelimRuntime = panelMeetingDates?.find(x => x.mdt_code === 'OFF');
+  // eslint-disable-next-line no-unused-vars
   const addendumRuntime = panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
+  // eslint-disable-next-line no-unused-vars
   const postPanelStarted = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
+  // eslint-disable-next-line no-unused-vars
   const postPanelRuntime = panelMeetingDates?.find(x => x.mdt_code === 'POST');
+  // eslint-disable-next-line no-unused-vars
   const agendaCompletedTime = panelMeetingDates?.find(x => x.mdt_code === 'COMP');
 
-  createPanelMeeting({
-    panelMeetingType: newFields.panelMeetingType ?? pmt_code,
-    panelMeetingDate: newFields.panelMeetingDate ??
-      (panelMeetingDate ? new Date(panelMeetingDate.pmd_dttm) : undefined),
-    prelimCutoff: newFields.prelimCutoff ??
-      (prelimCutoff ? new Date(prelimCutoff.pmd_dttm) : undefined),
-    addendumCutoff: newFields.addendumCutoff ??
-      (addendumCutoff ? new Date(addendumCutoff.pmd_dttm) : undefined),
-    prelimRuntime: newFields.prelimRuntime ??
-      (prelimRuntime ? new Date(prelimRuntime.pmd_dttm) : undefined),
-    addendumRuntime: newFields.addendumRuntime ??
-      (addendumRuntime ? new Date(addendumRuntime.pmd_dttm) : undefined),
-    panelMeetingStatus: newFields.panelMeetingStatus ?? pms_desc_text,
-    postPanelStarted: newFields.postPanelStarted ??
-      (postPanelStarted ? new Date(postPanelStarted.pmd_dttm) : undefined),
-    postPanelRuntime: newFields.postPanelRuntime ??
-      (postPanelRuntime ? new Date(postPanelRuntime.pmd_dttm) : undefined),
-    agendaCompletedTime: newFields.agendaCompletedTime ??
-      (agendaCompletedTime ? new Date(agendaCompletedTime.pmd_dttm) : undefined),
-  });
+  const data = {
+    originalReference: originalFields,
+    panelMeetingStatus: newFields?.panelMeetingStatus,
+    panelMeetingType: newFields?.panelMeetingType,
+    panelMeetingDate: newFields?.panelMeetingDate,
+    prelimCutoff: newFields?.prelimCutoff,
+    addendumCutoff: newFields?.addendumCutoff,
+    // prelimRuntime: newFields?.prelimRuntime ??
+    //  (prelimRuntime ? new Date(prelimRuntime.pmd_dttm) : undefined),
+    // addendumRuntime: newFields?.addendumRuntime ??
+    //  (addendumRuntime ? new Date(addendumRuntime.pmd_dttm) : undefined),
+    // postPanelStarted: newFields?.postPanelStarted ??
+    //  (postPanelStarted ? new Date(postPanelStarted.pmd_dttm) : undefined),
+    // postPanelRuntime: newFields?.postPanelRuntime ??
+    //  (postPanelRuntime ? new Date(postPanelRuntime.pmd_dttm) : undefined),
+    // agendaCompletedTime: newFields?.agendaCompletedTime ??
+    //  (agendaCompletedTime ? new Date(agendaCompletedTime.pmd_dttm) : undefined),
+  };
+
+  return createPanelMeeting(data);
 };

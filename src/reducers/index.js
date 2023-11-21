@@ -75,12 +75,13 @@ import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
 import cycleJobCategories from './cycleJobCategories';
-import bureauException from './bureauException';
+import bureauExceptions from './bureauExceptions';
 import entryLevel from './entryLevel';
 import bidAudit from './bidAudit';
 import jobCategories from './jobCategories';
 import orgStats from './orgStats';
 import biddingTool from './biddingTool';
+import positionClassifications from './positionClassifications';
 
 export default (history) => combineReducers({
   ...results,
@@ -153,12 +154,13 @@ export default (history) => combineReducers({
   ...managePostAccess,
   ...searchPostAccess,
   ...cycleJobCategories,
-  ...bureauException,
+  ...bureauExceptions,
   ...entryLevel,
   ...bidAudit,
   ...jobCategories,
   ...orgStats,
   ...biddingTool,
+  ...positionClassifications,
   router: connectRouter(history),
   client,
   login,

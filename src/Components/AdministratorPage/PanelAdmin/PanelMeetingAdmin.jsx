@@ -7,9 +7,13 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
-import { userHasPermissions } from '../../../utilities';
+import { convertQueryToString, userHasPermissions } from '../../../utilities';
+import { panelMeetingAgendasFetchData } from '../../../actions/panelMeetingAgendas';
+import { useDataLoader } from '../../../hooks';
+import api from '../../../api';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
@@ -20,9 +24,9 @@ const PanelMeetingAdmin = (props) => {
 
   // ============= Retrieve Data =============
 
-  const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
-  const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults$;
+  const { pmt_code, pms_code, panelMeetingDates } = panelMeetingsResults;
 
+  const panelMeetingDate$ = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
   const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
   const prelimRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFF');
   const addendumCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'ADD');
@@ -32,8 +36,15 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
 
+  const runPreliminarySuccess = useSelector(state => state.runOfficialPreliminarySuccess);
+  const runAddendumSuccess = useSelector(state => state.runOfficialAddendumSuccess);
+
+  const agendas = useSelector(state => state.panelMeetingAgendas);
+  const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
+    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
   }, []);
 
   // ============= Input Management =============
@@ -43,9 +54,9 @@ const PanelMeetingAdmin = (props) => {
     datePickerRef.current.setOpen(true);
   };
 
-  const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
+  const [panelMeetingType, setPanelMeetingType] = useState('ID');
   const [panelMeetingDate, setPanelMeetingDate] = useState();
-  const [panelMeetingStatus, setPanelMeetingStatus] = useState('Initiated');
+  const [panelMeetingStatus, setPanelMeetingStatus] = useState('I');
   const [prelimCutoff, setPrelimCutoff] = useState();
   const [addendumCutoff, setAddendumCutoff] = useState();
   const [prelimRuntime, setPrelimRuntime] = useState();
@@ -53,11 +64,11 @@ const PanelMeetingAdmin = (props) => {
 
   const setInitialInputResults = () => {
     setPanelMeetingType(pmt_code);
-    setPanelMeetingDate(new Date(panelMeetingDates?.find(x => x.mdt_code === 'MEET').pmd_dttm));
-    setPanelMeetingStatus(pms_desc_text);
+    setPanelMeetingDate(new Date(panelMeetingDate$.pmd_dttm));
+    setPanelMeetingStatus(pms_code);
 
     setPrelimCutoff(new Date(prelimCutoff$.pmd_dttm));
-    setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
+    setAddendumCutoff(new Date(addendumCutoff$.pmd_dttm));
 
     if (prelimRunTime$) {
       setPrelimRuntime(new Date(prelimRunTime$.pmd_dttm));
@@ -92,7 +103,7 @@ const PanelMeetingAdmin = (props) => {
       setAddendumCutoff('');
       setPrelimRuntime('');
       setAddendumRuntime('');
-      setPanelMeetingStatus('Initiated');
+      setPanelMeetingStatus('I');
     }
   };
 
@@ -114,20 +125,19 @@ const PanelMeetingAdmin = (props) => {
     const currTimestamp = new Date();
     if (field === 'prelimRuntime') {
       setPrelimRuntime(currTimestamp);
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { prelimRuntime: currTimestamp },
-      ));
+      dispatch(runPanelMeeting(pmSeqNum, 'preliminary'));
     }
     if (field === 'addendumRuntime') {
       setAddendumRuntime(currTimestamp);
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { addendumRuntime: currTimestamp },
-      ));
+      dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
+    }
+    if (runPreliminarySuccess || runAddendumSuccess) {
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     }
   };
 
   const submit = () => {
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
+    dispatch(submitPanelMeeting(panelMeetingsResults,
       {
         panelMeetingType,
         panelMeetingDate,
@@ -142,9 +152,36 @@ const PanelMeetingAdmin = (props) => {
 
   // ============= Form Conditions =============
 
+  // Logic to determine if there is a subsequent panel with same meeting type
+  // in initiated status for agenda itmes in NR status to roll over to
+
+  const panelDateStart = new Date(panelMeetingDate$?.pmd_dttm);
+  const panelDateEnd = new Date(panelMeetingDate$?.pmd_dttm);
+  panelDateEnd.setFullYear(panelDateStart.getFullYear() + 10);
+  const {
+    data: subsequentPanels,
+    loading: subsequentPanelsIsLoading,
+  } = useDataLoader(api().get,
+    `/fsbid/panel/meetings/?${convertQueryToString({
+      limit: 1,
+      page: 1,
+      ordering: '-panel_date',
+      type: pmt_code,
+      status: 'I',
+      'panel-date-start': panelDateStart.toJSON(),
+      'panel-date-end': panelDateEnd.toJSON(),
+    })}`,
+  );
+  const subsequentPanel = subsequentPanels ? subsequentPanels[0] : undefined;
+
+  // Helpers for input disabling conditions
+
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
+  const beforePanelMeetingDate = (
+    panelMeetingDate$ ? (new Date(panelMeetingDate$.pmd_dttm) - new Date() > 0) : true
+  );
   const beforePrelimCutoff = (
     prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true
   );
@@ -152,44 +189,79 @@ const PanelMeetingAdmin = (props) => {
     addendumCutoff$ ? (new Date(addendumCutoff$.pmd_dttm) - new Date() > 0) : true
   );
 
-  // Super Admins can manually edit any field, otherwise, certain fields
-  // are restricted by preconditions determined by prior steps
+  // Only admins can access editable fields and run buttons
+  // Additional business rules must be followed depending on the stage of the panel meeting
 
   const disableMeetingType = !isSuperUser &&
-    (!beforePrelimCutoff);
+    (!isCreate && !beforeAddendumCutoff);
 
   const disableStatus = !isSuperUser &&
-    (isCreate || !beforePrelimCutoff);
-
-  const disablePanelMeetingDate = !isSuperUser &&
-    (!beforePrelimCutoff);
-
-  const disablePrelimCutoff = !isSuperUser &&
-    (!beforePrelimCutoff);
-
-  const disableAddendumCutoff = !isSuperUser &&
-    (!beforePrelimCutoff);
-
-  const disablePrelimRunTime = !isSuperUser &&
-    (isCreate || !beforePrelimCutoff || prelimRunTime$);
-
-  const disableRunPrelim =
-    (isCreate || !beforePrelimCutoff);
-
-  const disableAddendumRunTime = !isSuperUser &&
-    (isCreate || !beforeAddendumCutoff || addendumRunTime$);
-
-  const disableRunAddendum =
     (isCreate || !beforeAddendumCutoff);
 
+  const disablePanelMeetingDate = !isSuperUser &&
+    (!isCreate && !beforePanelMeetingDate);
+
+  const disablePrelimCutoff = !isSuperUser &&
+    (!isCreate && !beforePrelimCutoff);
+
+  const disableAddendumCutoff = !isSuperUser &&
+    (!isCreate && !beforeAddendumCutoff);
+
+  const disableRunPrelim = () => {
+    let preconditioned = true;
+    agendas.forEach(a => {
+      // Approved Agenda Items must be in Off-Panel Meeting Category
+      if (a.status_short === 'APR' && a.meeting_category !== 'O') {
+        preconditioned = false;
+      }
+      // Agenda Items must be Approved, Ready, Not Ready, or Deferred
+      if (
+        a.status_short !== 'APR' &&
+        a.status_short !== 'RDY' &&
+        a.status_short !== 'NR' &&
+        a.status_short !== 'DEF'
+      ) {
+        preconditioned = false;
+      }
+    });
+    return !isSuperUser && (isCreate ||
+      beforePrelimCutoff ||
+      !beforePanelMeetingDate ||
+      !preconditioned ||
+      !subsequentPanel
+    );
+  };
+
+  const disableRunAddendum = () => {
+    let preconditioned = true;
+    agendas.forEach(a => {
+      // Agenda Items must not be Disapproved or Not Ready
+      if (a.status_short === 'DIS' || a.status_short === 'NR') {
+        preconditioned = false;
+      }
+    });
+    return !isSuperUser && (isCreate ||
+      beforeAddendumCutoff ||
+      !beforePanelMeetingDate ||
+      !preconditioned ||
+      !subsequentPanel
+    );
+  };
+
   const disableClear = !isSuperUser &&
-    (!beforeAddendumCutoff);
+    (!isCreate && !beforePanelMeetingDate);
 
   const disableSave = !isSuperUser &&
-    (!beforeAddendumCutoff);
+    (!isCreate && !beforePanelMeetingDate);
+
+  const isLoading =
+    panelMeetingsIsLoading ||
+    panelMeetingsFiltersIsLoading ||
+    agendasIsLoading ||
+    subsequentPanelsIsLoading;
 
   return (
-    (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
+    (isLoading) ?
       <Spinner type="panel-admin-remarks" size="small" /> :
       <div className="admin-panel-meeting">
         <div>
@@ -202,8 +274,11 @@ const PanelMeetingAdmin = (props) => {
                 value={panelMeetingType}
                 onChange={(e) => setPanelMeetingType(e.target.value)}
               >
-                <option value={'interdivisional'}>Interdivisional</option>
-                <option value={'midlevel'}>Mid-Level</option>
+                {
+                  panelMeetingsFilters?.panelTypes?.map(a => (
+                    <option value={a.code} key={a.text}>{a.text}</option>
+                  ))
+                }
               </select>
             </div>
             <div className="panel-meeting-field">
@@ -216,7 +291,7 @@ const PanelMeetingAdmin = (props) => {
               >
                 {
                   panelMeetingsFilters?.panelStatuses?.map(a => (
-                    <option value={a.text} key={a.text}>{a.text}</option>
+                    <option value={a.code} key={a.text}>{a.text}</option>
                   ))
                 }
               </select>
@@ -281,7 +356,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={disablePrelimRunTime}
+                  disabled
                   selected={prelimRuntime}
                   onChange={(date) => setPrelimRuntime(date)}
                   showTimeSelect
@@ -293,7 +368,7 @@ const PanelMeetingAdmin = (props) => {
                 />
               </div>
               <button
-                disabled={disableRunPrelim}
+                disabled={disableRunPrelim()}
                 className="text-button"
                 onClick={() => { handleRun('prelimRuntime'); }}
               >
@@ -305,7 +380,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={disableAddendumRunTime}
+                  disabled
                   selected={addendumRuntime}
                   onChange={(date) => setAddendumRuntime(date)}
                   showTimeSelect
@@ -317,7 +392,7 @@ const PanelMeetingAdmin = (props) => {
                 />
               </div>
               <button
-                disabled={disableRunAddendum}
+                disabled={disableRunAddendum()}
                 className="text-button"
                 onClick={() => { handleRun('addendumRuntime'); }}
               >
@@ -328,7 +403,7 @@ const PanelMeetingAdmin = (props) => {
         </div>
         <div className="position-form--actions">
           <button onClick={clear} disabled={disableClear}>Clear</button>
-          <button onClick={submit} disabled={disableSave}>Save</button>
+          <button onClick={submit} disabled={disableSave}>{isCreate ? 'Create' : 'Save'}</button>
         </div>
       </div>
   );

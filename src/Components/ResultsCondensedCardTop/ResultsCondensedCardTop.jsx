@@ -65,7 +65,7 @@ const ResultsCondensedCardTop = ({
         {
           isServiceNeedDifferential &&
           <Tooltip
-            title="Service need differential"
+            title="Service Need Differential"
             arrow
             offset={-100}
           >

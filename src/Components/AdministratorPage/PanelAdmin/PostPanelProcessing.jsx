@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
+import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
-import { postPanelProcessingFetchData, postPanelStatusesFetchData } from 'actions/postPanelProcessing';
-import { createPostPanelProcessing } from '../../../actions/postPanelProcessing';
+import { Tooltip } from 'react-tippy';
+import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
+import { runPanelMeeting } from 'actions/panelMeetingAdmin';
 import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
 
@@ -28,13 +31,14 @@ const PostPanelProcessing = (props) => {
 
   const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
-  const postPanelStatusesResults =
-    useSelector(state => state.postPanelStatusesFetchDataSuccess);
-  const postPanelStatusesIsLoading = useSelector(state => state.postPanelStatusesFetchDataLoading);
+  const statuses = postPanelResults?.statuses?.filter(o => o.code !== 'N') ?? [];
+  const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
+  const holdOptions = postPanelResults?.hold_options ?? [];
+
+  const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
   useEffect(() => {
-    dispatch(postPanelProcessingFetchData({ id: pmSeqNum }));
-    dispatch(postPanelStatusesFetchData());
+    dispatch(postPanelProcessingFetchData(pmSeqNum));
   }, []);
 
 
@@ -48,10 +52,10 @@ const PostPanelProcessing = (props) => {
   const [postPanelStarted, setPostPanelStarted] = useState();
   const [postPanelRuntime, setPostPanelRuntime] = useState();
   const [agendaCompletedTime, setAgendaCompletedTime] = useState();
-  const [formData, setFormData] = useState(postPanelResults);
+  const [formData, setFormData] = useState(values);
 
   useEffect(() => {
-    if (!!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
+    if (!postPanelIsLoading && !panelMeetingsIsLoading) {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
@@ -75,67 +79,151 @@ const PostPanelProcessing = (props) => {
         { postPanelStarted: new Date() },
       ));
     }
-    setFormData(postPanelResults);
+    setFormData(values);
   }, [postPanelResults]);
 
-  const handleStatusSelection = (objLabel, newStatus) => {
-    const newFormData = formData.map(o => {
-      if (o.label === objLabel) {
-        return {
-          ...o,
-          status: newStatus,
-        };
-      }
-      return o;
-    });
-    setFormData(newFormData);
+  const handleHold = (objLabel, newStatus) => {
+    if (newStatus === 'HLD') {
+      const ref = formData.find(o => o.label === objLabel);
+      let option = ref?.aht_code || ref?.max_aht_code || holdOptions[0].code;
+      let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
+
+      swal({
+        title: 'Hold Options',
+        button: false,
+        closeOnEsc: true,
+        content: (
+          <div className="simple-action-modal">
+            <div className="help-text">
+              <div className="position-form--label-input-container">
+                <label htmlFor="status">Hold Option</label>
+                <select
+                  id="hold-option"
+                  defaultValue={option}
+                  onChange={(e) => { option = e.target.value; }}
+                >
+                  {holdOptions.map(b => (
+                    <option key={b.code} value={b.code}>{b.description}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="position-form--label-input-container">
+                <label htmlFor="drafting-office">Description</label>
+                <textarea
+                  id="hold-description"
+                  defaultValue={description}
+                  onChange={(e) => { description = e.target.value; }}
+                />
+              </div>
+            </div>
+            <div className="modal-controls">
+              <button
+                onClick={() => {
+                  const newFormData = formData.map(o => {
+                    if (o.label === objLabel) {
+                      return {
+                        ...o,
+                        status: 'HLD',
+                        aht_code: option,
+                        aih_hold_comment: description,
+                      };
+                    }
+                    return o;
+                  });
+                  setFormData(newFormData);
+                  swal.close();
+                }}
+              >
+                Save
+              </button>
+              <button
+                className="usa-button-secondary"
+                onClick={() => swal.close()}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ),
+      });
+    }
   };
 
+  const handleStatusSelection = (objLabel, newStatus) => {
+    if (newStatus !== 'HLD') {
+      const newFormData = formData.map(o => {
+        if (o.label === objLabel) {
+          return {
+            ...o,
+            status: newStatus,
+            aht_code: '',
+            aih_hold_comment: '',
+          };
+        }
+        return o;
+      });
+      setFormData(newFormData);
+    }
+  };
 
   // ============= Submission Management =============
 
   const runPostPanelProcessing = () => {
     const currTimestamp = new Date();
     setPostPanelRuntime(currTimestamp);
-    dispatch(createPostPanelProcessing(formData));
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
-      { postPanelRuntime: currTimestamp },
-    ));
-  };
-
-  const cancel = () => {
-    // Depending on how the API works, this will need to handle removing these fields
-    // instead of setting them to undefined
-    if (!postPanelRunTime$ && !agendaCompletedTime$) {
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        {
-          postPanelStarted: undefined,
-          postPanelRuntime: undefined,
-          agendaCompletedTime: undefined,
-        },
-      ));
+    dispatch(runPanelMeeting(pmSeqNum, 'post_panel'));
+    if (runPostPanelSuccess) {
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+      dispatch(postPanelProcessingFetchData(pmSeqNum));
     }
   };
 
   const submit = () => {
-    dispatch(createPostPanelProcessing(formData));
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
-      {
-        postPanelStarted,
-        postPanelRuntime,
-        agendaCompletedTime,
-      },
-    ));
-  };
+    let status = '';
+    let sequenceNumber = '';
+    let updateId = '';
+    let updateDate = '';
+    let ahtCode = '';
+    let aihHoldNumber = '';
+    let aihHoldComment = '';
+    let aihSequenceNumber = '';
+    let aihUpdateId = '';
+    let aihUpdateDate = '';
 
+    formData.forEach(s => {
+      const separator = status === '' ? '' : ',';
+      status = status.concat(separator, s.status);
+      sequenceNumber = sequenceNumber.concat(separator, s.sequence_number);
+      updateId = updateId.concat(separator, s.update_id);
+      updateDate = updateDate.concat(separator, s.update_date);
+      ahtCode = ahtCode.concat(separator, s.aht_code);
+      aihHoldNumber = aihHoldNumber.concat(separator, s.aih_hold_number);
+      aihHoldComment = aihHoldComment.concat(separator, s.aih_hold_comment);
+      aihSequenceNumber = aihSequenceNumber.concat(separator, s.aih_sequence_number);
+      aihUpdateId = aihUpdateId.concat(separator, s.aih_update_id);
+      aihUpdateDate = aihUpdateDate.concat(separator, s.aih_update_date);
+    });
+
+    if (status !== '') {
+      dispatch(editPostPanelProcessing({
+        status,
+        sequence_number: sequenceNumber,
+        update_id: updateId,
+        update_date: updateDate,
+        aht_code: ahtCode,
+        aih_hold_number: aihHoldNumber,
+        aih_hold_comment: aihHoldComment,
+        aih_sequence_number: aihSequenceNumber,
+        aih_update_id: aihUpdateId,
+        aih_update_date: aihUpdateDate,
+      }));
+    }
+    // TODO: Save Post Panel Started and Agenda Completed Time
+  };
 
   // ============= Form Conditions =============
 
-  // Remove second half of this when loading states are implemented with the api call in actions
-  const isLoading = (postPanelIsLoading || postPanelStatusesIsLoading) || (
-    (postPanelStatusesResults && !postPanelStatusesResults.length) ||
-    (formData && !formData.length)
-  );
+  const isLoading = postPanelIsLoading || panelMeetingsIsLoading;
 
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
@@ -144,14 +232,9 @@ const PostPanelProcessing = (props) => {
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
 
-  // Super Admins can manually edit any field, otherwise, certain fields
-  // are restricted by preconditions determined by prior steps
-
-  const disablePostPanelStarted = !isSuperUser &&
-    (postPanelRunTime$ && !beforeAgendaCompletedTime);
-
-  const disablePostPanelRunTime = !isSuperUser &&
-    (postPanelRunTime$ && !beforeAgendaCompletedTime);
+  // Only admins can access editable fields and run buttons
+  // Additional business rules must be followed depending on the stage of the panel meeting
+  // Post Panel Started and Agenda Completed Time are disabled until further notice
 
   const disableTable = !isSuperUser &&
     (!beforeAgendaCompletedTime);
@@ -159,14 +242,15 @@ const PostPanelProcessing = (props) => {
   const disableRunPostPanel =
     (postPanelRunTime$ || !beforeAgendaCompletedTime);
 
-  const disableAgendaCompletedTime = !isSuperUser &&
-    (!postPanelRunTime$ && !beforeAgendaCompletedTime);
-
-  const disableCancel = !isSuperUser &&
-    (postPanelRunTime$ || agendaCompletedTime$);
-
   const disableSave = !isSuperUser &&
     (!beforeAgendaCompletedTime);
+
+  const disableHold = (agenda, status) => {
+    const isHold = status.code === 'H';
+    const isChairHold = agenda.aht_code === 'C';
+    const reachedMax = agenda.max_aih_hold_number > 2;
+    return isHold && !isChairHold && reachedMax;
+  };
 
   return (
     (isLoading) ?
@@ -178,7 +262,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={disablePostPanelStarted}
+                disabled
                 selected={postPanelStarted}
                 onChange={(date) => setPostPanelStarted(date)}
                 showTimeSelect
@@ -195,7 +279,8 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={disablePostPanelRunTime}
+                // Disabled until FSBID utilizes this field
+                disabled
                 selected={postPanelRuntime}
                 onChange={(date) => setPostPanelRuntime(date)}
                 showTimeSelect
@@ -216,38 +301,73 @@ const PostPanelProcessing = (props) => {
                 <th>Item</th>
                 <th>Label</th>
                 <th>Name</th>
-                {postPanelStatusesResults.map((o) => (
-                  <th key={o.label}>{o.label}</th>
+                {statuses.map((o) => (
+                  <th key={o.code}>
+                    {o.description}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {formData.map(d => (
                 <tr key={d.label}>
-                  <td>
-                    {d.value ?
+                  <td key={`${d.label}-valid`}>
+                    {d.valid === 'Y' ?
                       <FA name="check" /> :
                       '---'
                     }
                   </td>
-                  <td>
+                  <td key={`${d.label}-item`}>
                     <span className="item-link">
                       {d.item}
                     </span>
                   </td>
-                  <td>{d.label}</td>
-                  <td>{d.name}</td>
-                  {postPanelStatusesResults.map((o) => (
-                    <td key={o.label}>
+                  <td key={`${d.label}-label`}>{d.label}</td>
+                  <td key={`${d.label}-employee`}>{d.employee}</td>
+                  {statuses.map((o) => {
+                    const radio = (
                       <input
+                        id={`${d.label}-status-${o.code}`}
                         type="radio"
-                        name={`${o.label} ${d.label}`}
-                        checked={d.status === o.value}
-                        onChange={() => handleStatusSelection(d.label, o.value)}
-                        disabled={disableTable}
+                        name={`${d.label}-status-${o.description}`}
+                        checked={d.status === o.description}
+                        onChange={() => handleStatusSelection(d.label, o.description)}
+                        onClick={() => handleHold(d.label, o.description)}
+                        disabled={disableTable || disableHold(d, o)}
+                        className="interactive-element"
                       />
-                    </td>
-                  ))}
+                    );
+                    return (
+                      <td key={`${d.label}-${o.code}`}>
+                        {(o.code === 'H' && d.status === o.description) ?
+                          <Tooltip
+                            html={
+                              <div className="tooltip-text">
+                                <div>
+                                  <span className="title">
+                                    {holdOptions
+                                      .find(h => h.code === d.aht_code)?.description}
+                                  </span>
+                                </div>
+                                <div>
+                                  <span className="text">
+                                    {d.aih_hold_comment}
+                                  </span>
+                                </div>
+                              </div>
+                            }
+                            theme="oc-status"
+                            arrow
+                            interactive
+                            useContext
+                          >
+                            {radio}
+                          </Tooltip> :
+                          radio
+                        }
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
@@ -266,7 +386,8 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={disableAgendaCompletedTime}
+                // Disabled until FSBID utilizes this field
+                disabled
                 selected={agendaCompletedTime}
                 onChange={(date) => setAgendaCompletedTime(date)}
                 showTimeSelect
@@ -280,7 +401,6 @@ const PostPanelProcessing = (props) => {
           </div>
         </div>
         <div className="position-form--actions">
-          <button onClick={cancel} disabled={disableCancel}>Cancel</button>
           <button onClick={submit} disabled={disableSave}>Save</button>
         </div>
       </div>
