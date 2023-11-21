@@ -4,26 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bureauExceptionUsersListFetchData } from 'actions/bureauException';
-import BureauExceptionListCard from './BureauExceptionListCard';
+import { bureauExceptionsFetchData } from 'actions/bureauExceptions';
+import BureauExceptionsCard from './BureauExceptionsCard';
 
 
-const BureauExceptionList = () => {
+const BureauExceptions = () => {
   const dispatch = useDispatch();
 
-  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionLoading);
-  const BureauExceptionData = useSelector(state => state.bureauExceptionSuccess);
-  const BureauExceptionError = useSelector(state => state.bureauExceptionErrored);
+  const bureauExceptionsHasErrored = useSelector(state => state.bureauExceptionsHasErrored);
+  const bureauExceptionsIsLoading = useSelector(state => state.bureauExceptionsIsLoading);
+  const bureauExceptions = useSelector(state => state.bureauExceptions);
+
   useEffect(() => {
-    dispatch(bureauExceptionUsersListFetchData());
+    dispatch(bureauExceptionsFetchData());
   }, []);
 
   // Overlay for error, info, and loading state
   const getOverlay = () => {
     let overlay;
-    if (BureauExceptionDataLoading) {
+    if (bureauExceptionsIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="medium" />;
-    } else if (BureauExceptionError) {
+    } else if (bureauExceptionsHasErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else {
       return false;
@@ -34,7 +35,7 @@ const BureauExceptionList = () => {
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Bureau Exception Access" icon="users" className="xl-icon" />
+        <ProfileSectionTitle title="Bureau Exceptions" icon="users" className="xl-icon" />
       </div>
       {
         getOverlay() ||
@@ -47,18 +48,16 @@ const BureauExceptionList = () => {
                 </tr>
               </thead>
             </table>
-            {BureauExceptionData?.filter((x => x.id != null)).map(data => (
-              <BureauExceptionListCard
+            {bureauExceptions?.map(data => (
+              <BureauExceptionsCard
                 key={data?.id}
                 userData={data}
-              />
-            ),
-            )
-            }
+              />),
+            )}
           </div>
       }
     </div>
   );
 };
 
-export default withRouter(BureauExceptionList);
+export default withRouter(BureauExceptions);
