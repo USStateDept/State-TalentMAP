@@ -328,7 +328,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="last-name-search" className="label">
                     Last Name:
                     </label>
-                    <div className="emp-search-div">
+                    <div className="filter-search-bar fsb-240">
                       <PositionManagerSearch
                         id="last-name-search"
                         submitSearch={submitSearch}
@@ -345,7 +345,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="first-name-search" className="label">
                     First Name:
                     </label>
-                    <div className="emp-search-div">
+                    <div className="filter-search-bar fsb-240">
                       <PositionManagerSearch
                         id="first-name-search"
                         submitSearch={submitSearch}
@@ -362,7 +362,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="emp-id-search" className="label">
                     Employee ID:
                     </label>
-                    <div className="emp-search-div">
+                    <div className="filter-search-bar fsb-240">
                       <PositionManagerSearch
                         id="emp-id-search"
                         submitSearch={submitSearch}
