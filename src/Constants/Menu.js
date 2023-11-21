@@ -171,10 +171,10 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      checkFlag('flags.bureau_exception') ?
+      checkFlag('flags.bureau_exceptions') ?
         {
-          text: 'Bureau Exception Access',
-          route: '/profile/administrator/bureauexception/',
+          text: 'Bureau Exceptions',
+          route: '/profile/administrator/bureauexceptions/',
           icon: 'users',
           roles: [
             'superuser',
@@ -269,7 +269,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         route: '/profile/bureau/availablebidders',
         icon: 'users',
         roles: [
-          'super_user',
+          'superuser',
           'bureau_user',
         ],
       },
@@ -279,7 +279,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/bureau/projectedvacancy',
           icon: ' fa-keyboard-o',
           roles: [
-            'super_user',
+            'superuser',
             'bureau_user',
           ],
         } : null,
@@ -289,7 +289,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/bureau/managepostaccess',
           icon: 'building',
           roles: [
-            'super_user',
+            'superuser',
             'bureau_user',
           ],
         } : null,
@@ -299,7 +299,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/bureau/cyclemanagement',
           icon: 'cogs',
           roles: [
-            'super_user',
+            'superuser',
             'bureau_user',
           ],
         } : null,
@@ -432,7 +432,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           icon: 'cogs',
           roles: [
             'ao_user',
-            'super_user',
+            'superuser',
           ],
         } : null,
       checkFlag('flags.bidding_tool') ?
@@ -445,16 +445,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'ao_user',
           ],
         } : null,
-      checkFlag('flags.publishable_positions') ?
-        {
-          text: 'Publishable Positions',
-          route: '/profile/ao/publishablepositions',
-          icon: ' fa-newspaper-o',
-          roles: [
-            'superuser',
-            'ao_user',
-          ],
-        } : null,
+      {
+        text: 'Publishable Positions',
+        route: '/profile/ao/publishablepositions',
+        icon: ' fa-newspaper-o',
+        roles: [
+          'superuser',
+          'ao_user',
+        ],
+      },
     ],
   },
   {
