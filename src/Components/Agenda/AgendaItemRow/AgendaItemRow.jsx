@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
@@ -25,7 +24,6 @@ const AgendaItemRow = props => {
 
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
   const clientData = get(agenda, 'user');
-
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
@@ -42,7 +40,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-  const [show, setShow] = useState(false);
   const isValidScore = (score) => {
     if (score === null || score === undefined || score === '--' || score === 'None' || score === '') {
       return '-';
@@ -64,10 +61,6 @@ const AgendaItemRow = props => {
     }
     <FA name="sticky-note" />
   </>);
-  const showLanguages = (e) => {
-    e.preventDefault();
-    setShow(!show);
-  };
 
   return (
     <>
@@ -126,24 +119,10 @@ const AgendaItemRow = props => {
                   <span className="label">Languages:</span>
                   <span>
                     {
-                      // eslint-disable-next-line arrow-body-style
-                      userLanguage.map((l, index) => {
-                        if (index < 4) {
-                          return (
-                            `${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''} `
-                          );
-                        }
-                        return (
-                          <span style={{ display: !show && 'none' }}>
-                            {`${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''}  `}
-                          </span>
-                        );
-                      },
-                      )}
-                    {userLanguage.length > 4 &&
-                      <Link to="#" className="extra-data" onClick={showLanguages}>
-                        {show ? '...Show Less' : '...Show More'}
-                      </Link>
+                      userLanguage.map((l, index) => (
+                        `${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''} `
+                      ),
+                      )
                     }
                   </span>
                 </div>
