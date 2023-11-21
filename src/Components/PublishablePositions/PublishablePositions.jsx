@@ -219,7 +219,7 @@ const PublishablePositions = ({ viewType }) => {
 
             <div className="filter-div">
               <div className="label">Position Number:</div>
-              <div className="filter-search-bar">
+              <div className="filter-search-bar fsb-220">
                 <PositionManagerSearch
                   id="emp-id-search"
                   submitSearch={(e) => setSearchPosNum(e)}

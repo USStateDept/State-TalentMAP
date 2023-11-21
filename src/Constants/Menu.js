@@ -445,16 +445,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'ao_user',
           ],
         } : null,
-      checkFlag('flags.publishable_positions') ?
-        {
-          text: 'Publishable Positions',
-          route: '/profile/ao/publishablepositions',
-          icon: ' fa-newspaper-o',
-          roles: [
-            'superuser',
-            'ao_user',
-          ],
-        } : null,
+      {
+        text: 'Publishable Positions',
+        route: '/profile/ao/publishablepositions',
+        icon: ' fa-newspaper-o',
+        roles: [
+          'superuser',
+          'ao_user',
+        ],
+      },
     ],
   },
   {
