@@ -69,13 +69,21 @@ export function userBureauExceptionsAndMetaDataFetch(query = {}) {
           });
         } else {
           batch(() => {
-            // 📝📝 reminder dbl check expected data structure
-            dispatch(userBureauExceptionsAndMetaDataSuccess([]));
+            dispatch(userBureauExceptionsAndMetaDataSuccess({}));
             dispatch(userBureauExceptionsAndMetaDataErrored(true));
             dispatch(userBureauExceptionsAndMetaDataLoading(false));
           });
         }
       });
+  };
+}
+export function resetUserBureauExceptionsAndMetaDataRedux() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(userBureauExceptionsAndMetaDataSuccess({}));
+      dispatch(userBureauExceptionsAndMetaDataErrored(false));
+      dispatch(userBureauExceptionsAndMetaDataLoading(false));
+    });
   };
 }
 
@@ -180,9 +188,6 @@ export function bureauExceptionsFetchData() {
           });
         } else {
           batch(() => {
-            /* eslint-disable no-console */
-            console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 reminder: verify the structure is []');
-            console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 redux says so, so update there too if not');
             dispatch(bureauExceptionsSuccess([]));
             dispatch(bureauExceptionsErrored(true));
             dispatch(bureauExceptionsLoading(false));

@@ -14,7 +14,7 @@ export function userBureauExceptionsAndMetaDataIsLoading(state = false, action) 
       return state;
   }
 }
-export function userBureauExceptionsAndMetaData(state = [], action) {
+export function userBureauExceptionsAndMetaData(state = {}, action) {
   switch (action.type) {
     case 'USER_BUREAU_EXCEPTIONS_AND_METADATA_SUCCESS':
       return action.results;

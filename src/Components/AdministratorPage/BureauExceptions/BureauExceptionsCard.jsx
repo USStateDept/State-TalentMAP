@@ -4,7 +4,9 @@ import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
-import { addUserBureauExceptions, deleteUserBureauExceptions, updateUserBureauExceptions, userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
+import { addUserBureauExceptions, deleteUserBureauExceptions,
+  resetUserBureauExceptionsAndMetaDataRedux, updateUserBureauExceptions,
+  userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -22,7 +24,9 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   } = userData;
 
   const dispatch = useDispatch();
+
   const refBureausLookUp = Object.groupBy(refBureaus, ({ code }) => code);
+
   const userBureauExceptionsAndMetaDataHasErrored =
     useSelector(state => state.userBureauExceptionsAndMetaDataHasErrored);
   const userBureauExceptionsAndMetaDataIsLoading =
@@ -34,15 +38,20 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   const [bureauFilterText, setBureauFilterText] = useState('');
   const [filteredBureaus, setFilteredBureaus] = useState([]);
   const [userSelectedBureauCodes, setUserSelectedBureauCodes] = useState(userBureauCodeList);
-
   const [expandCard, setExpandCard] = useState(false);
 
   useEffect(() => {
-    dispatch(userBureauExceptionsAndMetaDataFetch());
-  }, []);
+    /* eslint-disable no-console */
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
+    console.log('👻 current: :');
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
 
-  useEffect(() => {
     onEditModeSearch(expandCard);
+    if (expandCard) {
+      dispatch(userBureauExceptionsAndMetaDataFetch());
+    } else {
+      dispatch(resetUserBureauExceptionsAndMetaDataRedux());
+    }
   }, [expandCard]);
 
   useEffect(() => {
@@ -60,7 +69,8 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
     }
   };
 
-  const saveBureaus = () => {
+  const saveBureaus = (e) => {
+    e.preventDefault();
     if ([-1, null].includes(pvId)) {
       // add if pvId does not exist
       dispatch(addUserBureauExceptions({
@@ -89,11 +99,11 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
 
 
   const cancel = (e) => {
+    e.preventDefault();
+
     if (isEqual(userSelectedBureauCodes, userBureauCodeList)) {
       onCancelRequest(false);
     } else {
-      e.preventDefault();
-
       swal({
         title: 'Confirm Discard Changes',
         button: false,
@@ -114,7 +124,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   };
 
   const formatBureauDisplay = (bureauCode) => {
-    const burObj = refBureausLookUp[bureauCode][0];
+    const burObj = refBureausLookUp[bureauCode]?.[0];
     return `${burObj?.long_description} (${burObj?.short_description})`;
   };
 
@@ -206,8 +216,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
             <div>
               <button
                 className={`${isEqual(userSelectedBureauCodes, userBureauCodeList) ? 'disabled-bg' : ''}`}
-                onClick={
-                  isEqual(userSelectedBureauCodes, userBureauCodeList) ? () => {} : saveBureaus}
+                onClick={saveBureaus}
               >Save</button>
               <button onClick={cancel}>Cancel</button>
             </div>
