@@ -76,10 +76,9 @@ const AgendaItemCard = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <Link
-            className="ai-id-link"
             to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
           >
-            Agenda Item Maintenance
+            Edit Agenda Item
           </Link>
           <h3 className="ai-history-card-title">
             { titles[0] }

@@ -30,7 +30,7 @@ const AgendaItemRow = props => {
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
-  console.log('userLanguage', userLanguage);
+
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
 
@@ -38,13 +38,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-
-  const pmi = (<>
-    {
-      agenda?.pmi_official_item_num && isPanelMeetingView &&
-      <>{agenda?.pmi_official_item_num}</>
-    }
-  </>);
 
   return (
     <>
@@ -65,7 +58,7 @@ const AgendaItemRow = props => {
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
             <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
-              {pmi}
+              {agenda?.pmi_official_item_num}
             </div>
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
@@ -97,14 +90,12 @@ const AgendaItemRow = props => {
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
-              <div className="maintenance-link-container">
-                <div className="ml">
-                  <Link
-                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
-                  >
+              <div className="panel-meeting-maintenance-link-container">
+                <Link
+                  to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                >
                   Edit Agenda Item
-                  </Link>
-                </div>
+                </Link>
               </div>
             </div>
           }
