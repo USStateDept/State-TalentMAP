@@ -68,7 +68,7 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             {
               !isPanelMeetingView ?
-                <div className="ai-history-non-panel-view">
+                <div className="ai-history-non-panel-meeting-view">
                   <Link
                     to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
                   >
