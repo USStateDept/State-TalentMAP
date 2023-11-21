@@ -176,6 +176,10 @@ AgendaItemRow.propTypes = {
     aiCombinedTodCode: PropTypes.string,
     aiCombinedTodDescText: PropTypes.string,
     aiCombinedTodOtherText: PropTypes.string,
+    ahtCode: PropTypes.string,
+    ahtDescText: PropTypes.string,
+    aihHoldNum: PropTypes.number,
+    aihHoldComment: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
