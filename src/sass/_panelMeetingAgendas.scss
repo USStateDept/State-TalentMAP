@@ -82,6 +82,11 @@
         justify-content: flex-end;
         font-size: 16px;
         height: 19px;
+        .ai-history-non-panel-view {
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+        }
       }
 
       .panel-meeting-person-data {

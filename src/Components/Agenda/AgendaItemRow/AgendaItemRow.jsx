@@ -68,7 +68,14 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             {
               !isPanelMeetingView ?
-                `Panel Date: ${agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}`
+                <div className="ai-history-non-panel-view">
+                  <Link
+                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  >
+                    Edit Agenda Item
+                  </Link>
+                  Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+                </div>
                 : ''
             }
           </div>
