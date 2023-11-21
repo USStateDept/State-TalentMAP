@@ -128,19 +128,19 @@ const AgendaItemRow = props => {
                     {
                       // eslint-disable-next-line arrow-body-style
                       userLanguage.map((l, index) => {
-                        if (index < 2) {
+                        if (index < 4) {
                           return (
-                            `${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)}) `
+                            `${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''} `
                           );
                         }
                         return (
                           <span style={{ display: !show && 'none' }}>
-                            {`${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)}) `}
+                            {`${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''}  `}
                           </span>
                         );
                       },
                       )}
-                    {userLanguage.length > 2 &&
+                    {userLanguage.length > 4 &&
                       <Link to="#" className="extra-data" onClick={showLanguages}>
                         {show ? '...Show Less' : '...Show More'}
                       </Link>
