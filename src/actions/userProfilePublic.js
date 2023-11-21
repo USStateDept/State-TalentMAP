@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from 'axios';
 import { get, isArray } from 'lodash';
 import { clientBidListFetchDataSuccess } from './bidList';
@@ -48,21 +49,13 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
     // bids
     const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/?ordering=${bidSort}`);
 
-    // profile reports
-    const getEmployeeProfileReportRedacted = () => api().get(`/fsbid/employee/${id}/employee_profile_report/?redacted_report=true`,
-      { responseType: 'arraybuffer' });
-    const getEmployeeProfileReportUnredacted = () => api().get(`/fsbid/employee/${id}/employee_profile_report/`,
-      { responseType: 'arraybuffer' });
-
-    const proms = [getUserAccount(),
-      getEmployeeProfileReportRedacted(),
-      getEmployeeProfileReportUnredacted()];
+    const proms = [getUserAccount()];
     if (includeBids) proms.push(getUserBids());
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
     axios.all(proms)
-      .then(axios.spread((acct, redactedReport, unredactedReport, bids) => {
+      .then(axios.spread((acct, bids) => {
         // form the userProfile object
         const acct$ = get(acct, 'data', {});
 
@@ -83,8 +76,6 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
               grade: acct$.grade,
             },
             bidList: mapBidData(get(bids, 'data.results') || []),
-            redactedReport,
-            unredactedReport,
             // any other profile info we want to add in the future
           };
 
