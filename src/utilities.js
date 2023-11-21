@@ -326,6 +326,8 @@ export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
     // before passing to format for correct FE rendering
     const date$ = new Date(date);
     const timezoneAdjustedDate = new Date(
+      // date$.valueOf() is in milliseconds while getTimezoneOffset() is in minutes
+      // Have to convert (multiply by 60,000) to milliseconds
       date$.valueOf() + (date$.getTimezoneOffset() * 60 * 1000));
     // then format the date with dateFormat
     const formattedDate = format(timezoneAdjustedDate, dateFormat);
