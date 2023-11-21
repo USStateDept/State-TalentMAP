@@ -58,6 +58,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   }, [bureauFilterText]);
 
   const onCancelRequest = () => {
+    swal.close();
     setExpandCard(false);
     setUserSelectedBureauCodes([...userBureauCodeList]);
   };
