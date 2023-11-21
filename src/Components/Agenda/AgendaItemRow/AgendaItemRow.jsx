@@ -24,6 +24,7 @@ const AgendaItemRow = props => {
 
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
   const clientData = get(agenda, 'user');
+
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
@@ -33,6 +34,7 @@ const AgendaItemRow = props => {
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
+
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
 
