@@ -42,18 +42,15 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-  const isValidScore = (score) => {
-    if (score === null || score === undefined || score === '--' || score === 'None' || score === '') {
-      return '-';
-    }
+
+  const formatScore = (score) => {
+    if (score === null || score === undefined || score === '--' || score === 'None' || score === '') return '-';
     return score;
   };
 
-  const isValidDate = (currentDate) => {
-    if (formatDate(currentDate) !== null) {
-      return formatDate(currentDate, 'MM/YYYY');
-    }
-    return 'Date N/A';
+  const formatDates = (currentDate) => {
+    if (formatDate(currentDate) !== null) return formatDate(currentDate, 'MM/YYYY');
+    return null;
   };
 
   const pmi = (<>
@@ -122,7 +119,7 @@ const AgendaItemRow = props => {
                   <span>
                     {
                       userLanguage.map((l, index) => (
-                        `${l.code} ${isValidScore(l.reading_score)}/${isValidScore(l.speaking_score)} (${isValidDate(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''} `
+                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} (${formatDates(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''} `
                       ),
                       )
                     }
