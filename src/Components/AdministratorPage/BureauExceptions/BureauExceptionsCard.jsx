@@ -41,11 +41,6 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   const [expandCard, setExpandCard] = useState(false);
 
   useEffect(() => {
-    /* eslint-disable no-console */
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
-    console.log('👻 current: :');
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
-
     onEditModeSearch(expandCard);
     if (expandCard) {
       dispatch(userBureauExceptionsAndMetaDataFetch());
@@ -62,11 +57,9 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
     ));
   }, [bureauFilterText]);
 
-  const onCancelRequest = (reset) => {
+  const onCancelRequest = () => {
     setExpandCard(false);
-    if (reset) {
-      setUserSelectedBureauCodes([...userBureauCodeList]);
-    }
+    setUserSelectedBureauCodes([...userBureauCodeList]);
   };
 
   const saveBureaus = (e) => {
@@ -102,7 +95,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
     e.preventDefault();
 
     if (isEqual(userSelectedBureauCodes, userBureauCodeList)) {
-      onCancelRequest(false);
+      setExpandCard(false);
     } else {
       swal({
         title: 'Confirm Discard Changes',
@@ -114,7 +107,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
               <span>{'Are you sure you want to discard all changes made to this list?'}</span>
             </div>
             <div className="modal-controls">
-              <button onClick={onCancelRequest(true)}>Yes</button>
+              <button onClick={onCancelRequest}>Yes</button>
               <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
             </div>
           </div>

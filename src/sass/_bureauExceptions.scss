@@ -30,7 +30,10 @@
     height: 500px;
     overflow-y: scroll;
 
-    .bureau-exception-select-bureaus-text-input {
+    .tm-spinner {
+      position: relative;
+      top: 38%;
+      left: 10%;
     }
 
     .bureau-exception-select-bureaus-header {
@@ -46,6 +49,9 @@
       padding-block: 20px;
       label {
         margin: 0;
+      }
+      [type=checkbox] {
+        position: fixed;
       }
     }
     .bureau-exception-select-bureaus-checkboxes:hover {
