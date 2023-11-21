@@ -57,33 +57,6 @@
         text-align: end;
       }
 
-      .emp-search-div {
-        input {
-          border-radius: 0px;
-          height: 28px;
-          max-width: none;
-          width: 240px;
-          padding: 0 35px 0 10px;
-        }
-        .searchbar {
-          .text-input-wrapper {
-            span {
-              background-color: $primary-blue;
-              color: $color-white;
-              font-size: 15px;
-              left: 204px;
-              top: 1px;
-              padding: 5px 0 0 10px;
-              height: 26px;
-              width: 35px;
-            }
-            span:hover {
-              background-color: $primary-blue-darker;
-            }
-          }
-        }
-      }
-
       .picky {
         color: $color-black;
         width: 240px;
