@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
+import FA from 'react-fontawesome';
 
 const TMDatePicker = ({
   selected,
@@ -19,7 +20,7 @@ const TMDatePicker = ({
 }) =>
   (
     <>
-      <div className={`tm-daterange-wrapper-${wrapperClassName}`}>
+      <div className={`tm-datepicker-wrapper ${wrapperClassName}`}>
         {showIcon && icon}
         <DatePicker
           selected={selected}
@@ -32,7 +33,7 @@ const TMDatePicker = ({
           endDate={selectsRange ? value[1] : null}
           isClearable={isClearable}
           dropdownMode="select"
-          className={`tm-daterange-${datePickerClassName}`}
+          className={`tm-datepicker ${datePickerClassName}`}
           placeholderText={placeholderText}
           excludeDates={excludeDates}
         />
@@ -70,7 +71,7 @@ TMDatePicker.defaultProps = {
   placeholderText: 'Select Date',
   selectsRange: false,
   showIcon: false,
-  icon: <></>,
+  icon: <FA name="fa fa-calendar" />,
   isClearable: false,
   showTimeSelect: false,
   excludeDates: [],
