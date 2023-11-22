@@ -322,8 +322,15 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // format provided with the dateFormat param.
 export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
+    // date-fns assumes incoming date is UTC, must adjust for timezones
+    // before passing to format for correct FE rendering
+    const date$ = new Date(date);
+    const timezoneAdjustedDate = new Date(
+      // date$.valueOf() is in milliseconds while getTimezoneOffset() is in minutes
+      // Have to convert (multiply by 60,000) to milliseconds
+      date$.valueOf() + (date$.getTimezoneOffset() * 60 * 1000));
     // then format the date with dateFormat
-    const formattedDate = format(date, dateFormat);
+    const formattedDate = format(timezoneAdjustedDate, dateFormat);
     // and finally return the formatted date
     return formattedDate;
   }
