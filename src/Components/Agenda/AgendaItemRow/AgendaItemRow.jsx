@@ -42,7 +42,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-  console.log('userLanguage', userLanguage);
   const formatScore = (score) => {
     if (score === '--') return '-';
     return score;
