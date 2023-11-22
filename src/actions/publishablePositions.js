@@ -1,4 +1,5 @@
 import { batch } from 'react-redux';
+import { CancelToken } from 'axios';
 import {
   UPDATE_PUBLISHABLE_POSITION_ERROR,
   UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE,
@@ -8,6 +9,10 @@ import {
 import { convertQueryToString } from 'utilities';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
+
+let cancelPPData;
+let cancelPPedit;
+let cancelPPfiltersData;
 
 export function publishablePositionsErrored(bool) {
   return {
@@ -29,12 +34,15 @@ export function publishablePositionsSuccess(results) {
 }
 export function publishablePositionsFetchData(query = {}) {
   return (dispatch) => {
+    if (cancelPPData) { cancelPPData('cancel'); dispatch(publishablePositionsLoading(true)); }
     batch(() => {
       dispatch(publishablePositionsLoading(true));
       dispatch(publishablePositionsErrored(false));
     });
     const q = convertQueryToString(query);
-    api().get(`/fsbid/publishable_positions/?${q}`)
+    api().get(`/fsbid/publishable_positions/?${q}`, {
+      cancelToken: new CancelToken((c) => { cancelPPData = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(publishablePositionsSuccess(data));
@@ -62,11 +70,12 @@ export function publishablePositionsFetchData(query = {}) {
 
 export function publishablePositionsEdit(query, data) {
   return (dispatch) => {
-    batch(() => {
-      dispatch(publishablePositionsErrored(false));
-    });
-
-    api().post('/fsbid/publishable_positions/edit/', data)
+    if (cancelPPedit) {
+      cancelPPedit('cancel');
+    }
+    api().post('/fsbid/publishable_positions/edit/', data, {
+      cancelToken: new CancelToken((c) => { cancelPPedit = c; }),
+    })
       .then(() => {
         const toastTitle = UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE;
         const toastMessage = UPDATE_PUBLISHABLE_POSITION_SUCCESS;
@@ -76,12 +85,7 @@ export function publishablePositionsEdit(query, data) {
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(publishablePositionsLoading(true));
-            dispatch(publishablePositionsErrored(false));
-          });
-        } else {
+        if (err?.message !== 'cancel') {
           const toastTitle = UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE;
           const toastMessage = UPDATE_PUBLISHABLE_POSITION_ERROR;
           dispatch(toastError(toastMessage, toastTitle));
@@ -122,11 +126,14 @@ export function publishablePositionsFiltersSuccess(results) {
 }
 export function publishablePositionsFiltersFetchData() {
   return (dispatch) => {
+    if (cancelPPfiltersData) { cancelPPfiltersData('cancel'); dispatch(publishablePositionsFiltersLoading(true)); }
     batch(() => {
       dispatch(publishablePositionsFiltersLoading(true));
       dispatch(publishablePositionsFiltersErrored(false));
     });
-    api().get('/fsbid/publishable_positions/filters/')
+    api().get('/fsbid/publishable_positions/filters/', {
+      cancelToken: new CancelToken((c) => { cancelPPfiltersData = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(publishablePositionsErrored(false));
