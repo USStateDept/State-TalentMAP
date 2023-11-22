@@ -47,7 +47,7 @@ const AgendaItemRow = props => {
     return score;
   };
 
-  const formatDates = (currentDate) => {
+  const formatCurrentDate = (currentDate) => {
     if (formatDate(currentDate) !== null) return `(${formatDate(currentDate, 'MM/YYYY')})`;
     return '';
   };
@@ -118,7 +118,7 @@ const AgendaItemRow = props => {
                   <span>
                     {
                       userLanguage.map((l) => (
-                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} ${formatDates(l.test_date)} `
+                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} ${formatCurrentDate(l.test_date)} `
                       ),
                       ).join(', ')
                     }
