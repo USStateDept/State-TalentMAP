@@ -58,7 +58,7 @@ const AgendaItemRow = props => {
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
             <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
-              {agenda?.pmi_official_item_num}
+              {isPanelMeetingView && agenda?.pmi_official_item_num}
             </div>
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
