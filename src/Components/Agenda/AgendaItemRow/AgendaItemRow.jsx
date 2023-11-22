@@ -42,7 +42,7 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-
+  console.log('userLanguage', userLanguage);
   const formatScore = (score) => {
     if (score === '--') return '-';
     return score;
@@ -118,10 +118,10 @@ const AgendaItemRow = props => {
                   <span className="label">Languages:</span>
                   <span>
                     {
-                      userLanguage.map((l, index) => (
-                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} (${formatDates(l.test_date)})${userLanguage.length - 1 !== index ? ',' : ''} `
+                      userLanguage.map((l) => (
+                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} (${formatDates(l.test_date)}) `
                       ),
-                      )
+                      ).join(', ')
                     }
                   </span>
                 </div>
