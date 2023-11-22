@@ -32,9 +32,6 @@ exports[`PanelMeetingTracker matches snapshot 1`] = `
           Object {
             "label": "Post-Panel",
           },
-          Object {
-            "label": "Complete",
-          },
         ]
       }
     />
