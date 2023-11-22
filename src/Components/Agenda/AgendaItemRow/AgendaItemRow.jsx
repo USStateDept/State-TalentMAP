@@ -44,7 +44,7 @@ const AgendaItemRow = props => {
   const updateDate = dateTernary(agenda?.modifier_date);
 
   const formatScore = (score) => {
-    if (score === null || score === undefined || score === '--' || score === 'None') return '-';
+    if (score === '--') return '-';
     return score;
   };
 
