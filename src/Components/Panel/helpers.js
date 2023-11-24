@@ -8,7 +8,6 @@ export const formatPanelMeetingTrackerData = (meetingDates = []) => {
   const add = { label: 'Addendum' };
   const panel = { label: 'Panel' };
   const post = { label: 'Post-Panel' };
-  const complete = { label: 'Complete' };
 
   meetingDates.forEach(pmd => {
     const meetingDate = formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || '';
@@ -43,12 +42,8 @@ export const formatPanelMeetingTrackerData = (meetingDates = []) => {
       post.description ??= meetingDate;
       post.isActive ??= isPast$;
     }
-    if (code === 'COMP') {
-      complete.description = meetingDate;
-      complete.isActive = isPast$;
-    }
   });
-  const trackerData = [pre, add, panel, post, complete];
+  const trackerData = [pre, add, panel, post];
   const idx = findLastIndex(trackerData, (d) => !!d.isActive);
   if (idx >= 0) { trackerData[idx].isCurrent = true; }
   return trackerData;
@@ -77,8 +72,6 @@ export const submitPanelMeeting = (originalFields, newFields) => {
   const postPanelStarted = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
   // eslint-disable-next-line no-unused-vars
   const postPanelRuntime = panelMeetingDates?.find(x => x.mdt_code === 'POST');
-  // eslint-disable-next-line no-unused-vars
-  const agendaCompletedTime = panelMeetingDates?.find(x => x.mdt_code === 'COMP');
 
   const data = {
     originalReference: originalFields,
