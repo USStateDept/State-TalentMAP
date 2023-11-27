@@ -70,7 +70,7 @@ BidTrackerCardTitle.propTypes = {
   id: PropTypes.number.isRequired,
   bidStatistics: BID_STATISTICS_OBJECT.isRequired,
   post: POST_DETAILS.isRequired,
-  organization: PropTypes.string.isRequired,
+  organization: PropTypes.string,
   showBidCount: PropTypes.bool,
   status: PropTypes.string.isRequired,
   bidCycle: BID_CYCLE_NAME_TYPE,
@@ -78,6 +78,7 @@ BidTrackerCardTitle.propTypes = {
 
 BidTrackerCardTitle.defaultProps = {
   positionNumber: '',
+  organization: null,
   showBidCount: true,
   bidCycle: '',
 };
