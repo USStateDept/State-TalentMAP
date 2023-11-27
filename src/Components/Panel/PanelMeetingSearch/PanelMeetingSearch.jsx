@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import { isDate, startOfDay } from 'date-fns-v2';
 import { usePrevious } from 'hooks';
@@ -20,6 +19,7 @@ import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelM
 import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
+import TMDatePicker from 'Components/TMDatePicker';
 import ScrollUpButton from '../../ScrollUpButton';
 import { userHasPermissions } from '../../../utilities';
 
@@ -54,7 +54,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
-  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || null);
+  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || [null, null]);
 
   const meetingStatusFilterErrored = get(panelMeetingsFilters, 'panelStatuses') ? get(panelMeetingsFilters, 'panelStatuses').length === 0 : true;
   const meetingTypeFilterErrored = get(panelMeetingsFilters, 'panelTypes') ? get(panelMeetingsFilters, 'panelTypes').length === 0 : true;
@@ -169,7 +169,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const resetFilters = () => {
     setSelectedMeetingType([]);
     setSelectedMeetingStatus([]);
-    setSelectedPanelMeetDate(null);
+    setSelectedPanelMeetDate([null, null]);
     setClearFilters(false);
   };
 
@@ -238,12 +238,15 @@ const PanelMeetingSearch = ({ isCDO }) => {
             </div>
             <div className="filter-div">
               <div className="label">Panel Date:</div>
-              <DateRangePicker
-                onChange={setSelectedPanelMeetDate}
+              <TMDatePicker
                 value={selectedPanelMeetDate}
-                maxDetail="month"
-                calendarIcon={null}
-                showLeadingZeros
+                onChange={setSelectedPanelMeetDate}
+                datePickerClassName="panel-meeting-date-range"
+                wrapperClassName="larger-date-picker"
+                showMonthDropdown
+                showYearDropdown
+                selectsRange
+                isClearable
               />
             </div>
           </div>
