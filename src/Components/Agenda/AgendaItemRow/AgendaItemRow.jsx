@@ -43,7 +43,10 @@ const AgendaItemRow = props => {
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
 
-  const formatCurrentDate = (currentDate) => `(${formatDate(currentDate, 'MM/YYYY')})` || '';
+  const formatCurrentDate = (currentDate) => {
+    if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
+    return '';
+  };
 
   const pmi = (<>
     {
