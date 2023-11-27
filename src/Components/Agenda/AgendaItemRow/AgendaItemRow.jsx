@@ -42,13 +42,9 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-  const formatScore = (score) => {
-    if (score === '--') return '-';
-    return score;
-  };
 
   const formatCurrentDate = (currentDate) => {
-    if (formatDate(currentDate) !== null) return `(${formatDate(currentDate, 'MM/YYYY')})`;
+    if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
     return '';
   };
 
@@ -118,7 +114,7 @@ const AgendaItemRow = props => {
                   <span>
                     {
                       userLanguage.map((l) => (
-                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} ${formatCurrentDate(l.test_date)} `
+                        `${l.custom_description} ${formatCurrentDate(l.test_date)} `
                       ),
                       ).join(', ')
                     }
