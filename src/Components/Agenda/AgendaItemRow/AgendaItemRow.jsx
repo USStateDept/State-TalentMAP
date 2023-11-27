@@ -92,6 +92,7 @@ const AgendaItemRow = props => {
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {cdo}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages:</span>
                   <span>
@@ -103,7 +104,6 @@ const AgendaItemRow = props => {
                     }
                   </span>
                 </div>
-                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
               <div className="panel-meeting-maintenance-link-container">
                 <Link
