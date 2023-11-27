@@ -20,7 +20,6 @@ const AgendaItemRow = props => {
   } = props;
 
   const clientData = get(agenda, 'user');
-
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
@@ -91,7 +90,7 @@ const AgendaItemRow = props => {
               </div>
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                <div className="item"><span className="label">PP/Grade: </span> {userGrade}</div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages:</span>
