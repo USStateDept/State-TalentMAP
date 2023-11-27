@@ -17,14 +17,8 @@
       .pmi-official-item-number {
         font-size: 20px;
         padding: 5px 20px;
-        .fa-sticky-note {
-          color: white;
-          padding: 0 15px;
-        }
-        .ai-id-link {
-          color: white;
-          text-decoration: none;
-        }
+        color: white;
+        text-decoration: none;
       }
       .status-tag {
         color: $color-white;
@@ -153,6 +147,11 @@
     .status-tag {
       padding: 5px 20px;
     }
+  }
+  .ai-history-non-panel-meeting-view {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
   }
 }
 

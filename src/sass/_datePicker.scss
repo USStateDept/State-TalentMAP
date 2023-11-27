@@ -130,3 +130,31 @@ $date-picker-width: 300px;
     z-index: 2;
   }
 }
+
+.tm-datepicker-wrapper {
+  .tm-datepicker::placeholder {
+    color: $bg-gray-dark-2;
+  }
+  .panel-meeting-date-range {
+    font-size: 13px;
+    height: 28px;
+    width: 200px;
+    border: 1px solid $bg-gray-dark-2;
+  }
+  .react-datepicker-popper {
+    z-index: 2;
+  }
+  .react-datepicker__close-icon {
+    padding: 0px;
+    margin: 0px 5px 0px 0px;
+    &::after {
+      font-size: 20px;
+      color: $alert-red;
+      line-height: unset;
+      background-color: transparent;
+    }
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

@@ -5,13 +5,10 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
-import { checkFlag } from 'flags';
 import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
-
-const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemRow = props => {
   const {
@@ -22,7 +19,6 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const showAgendaItemMaintenance = useAgendaItemMaintenance();
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -43,13 +39,10 @@ const AgendaItemRow = props => {
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
 
-  const pmi = (<>
-    {
-      agenda?.pmi_official_item_num && isPanelMeetingView &&
-      <>{agenda?.pmi_official_item_num}</>
-    }
-    <FA name="sticky-note" />
-  </>);
+  const formatCurrentDate = (currentDate) => {
+    if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
+    return '';
+  };
 
   return (
     <>
@@ -70,17 +63,7 @@ const AgendaItemRow = props => {
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
             <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
-              {
-                showAgendaItemMaintenance ?
-                  <Link
-                    className="ai-id-link"
-                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
-                  >
-                    {pmi}
-                  </Link>
-                  :
-                  pmi
-              }
+              {isPanelMeetingView && agenda?.pmi_official_item_num}
             </div>
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
@@ -90,7 +73,14 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             {
               !isPanelMeetingView ?
-                `Panel Date: ${agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}`
+                <div className="ai-history-non-panel-meeting-view">
+                  <Link
+                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  >
+                    Edit Agenda Item
+                  </Link>
+                  Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+                </div>
                 : ''
             }
           </div>
@@ -105,12 +95,24 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
                 <div className="item">
-                  <span className="label">Languages: </span>
-                  {userLanguage.map((l, i) => (
-                    ` ${l.custom_description}${i + 1 === userLanguage.length ? '' : ','}`
-                  ))}
+                  <span className="label">Languages:</span>
+                  <span>
+                    {
+                      userLanguage.map((l) => (
+                        `${l.custom_description} ${formatCurrentDate(l.test_date)} `
+                      ),
+                      ).join(', ')
+                    }
+                  </span>
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+              </div>
+              <div className="panel-meeting-maintenance-link-container">
+                <Link
+                  to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                >
+                  Edit Agenda Item
+                </Link>
               </div>
             </div>
           }

@@ -86,6 +86,7 @@
 
       .panel-meeting-person-data {
         display: flex;
+        justify-content: space-between;
         margin: 10px 0px;
         gap: 10px;
         align-items: baseline;
@@ -189,7 +190,7 @@
     flex-wrap: wrap;
     padding-bottom: 5px;
 
-    @media screen and (min-width: 1600px) {
+    @media screen and (min-width: 1680px) {
       flex-direction: row;
     }
 
@@ -200,6 +201,10 @@
         font-weight: bold;
       }
     }
+  }
+  .panel-meeting-maintenance-link-container {
+    width: 110px;
+    font-size: 13px;
   }
 
   .panel-meeting-agendas-profile-link {
