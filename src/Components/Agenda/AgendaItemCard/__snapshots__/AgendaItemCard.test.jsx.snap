@@ -9,19 +9,6 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
       className="ai-history-status"
     >
       <div
-        className="agenda-tag--Default pmi-official-item-number"
-      >
-        <Link
-          className="ai-id-link"
-          replace={false}
-          to="/profile/ao/createagendaitem/undefined/undefined"
-        >
-          <FontAwesome
-            name="sticky-note"
-          />
-        </Link>
-      </div>
-      <div
         className="status-tag agenda-tag--Default"
       >
         Default
@@ -32,6 +19,12 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
         _
       </div>
     </div>
+    <Link
+      replace={false}
+      to="/profile/ao/createagendaitem/undefined/undefined"
+    >
+      Edit Agenda Item
+    </Link>
     <h3
       className="ai-history-card-title"
     >
