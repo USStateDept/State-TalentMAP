@@ -21,6 +21,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
         }
       }
       id={11}
+      organization={null}
       positionNumber="10035561"
       post={
         Object {

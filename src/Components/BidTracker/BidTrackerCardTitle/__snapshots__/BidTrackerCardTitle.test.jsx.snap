@@ -33,7 +33,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
         Location (Org):
       </strong>
        
-      Maseru, Lesotho: None
+      Maseru, Lesotho
     </div>
     <div
       className="bid-tracker-card-title-bottom"
@@ -110,7 +110,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
         Location (Org):
       </strong>
        
-      Maseru, Lesotho: None
+      Maseru, Lesotho
     </div>
     <div
       className="bid-tracker-card-title-bottom"
@@ -187,7 +187,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
         Location (Org):
       </strong>
        
-      Maseru, Lesotho: None
+      Maseru, Lesotho
     </div>
     <div
       className="bid-tracker-card-title-bottom"
@@ -264,7 +264,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
         Location (Org):
       </strong>
        
-      Maseru, Lesotho: None
+      Maseru, Lesotho
     </div>
     <div
       className="bid-tracker-card-title-bottom"
@@ -341,7 +341,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
         Location (Org):
       </strong>
        
-      Maseru, Lesotho: None
+      Maseru, Lesotho
     </div>
     <div
       className="bid-tracker-card-title-bottom"
