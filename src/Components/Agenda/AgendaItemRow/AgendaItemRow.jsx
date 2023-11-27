@@ -42,6 +42,15 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
+  const formatScore = (score) => {
+    if (score === '--') return '-';
+    return score;
+  };
+
+  const formatCurrentDate = (currentDate) => {
+    if (formatDate(currentDate) !== null) return `(${formatDate(currentDate, 'MM/YYYY')})`;
+    return '';
+  };
 
   const pmi = (<>
     {
@@ -105,10 +114,15 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
                 <div className="item">
-                  <span className="label">Languages: </span>
-                  {userLanguage.map((l, i) => (
-                    ` ${l.custom_description}${i + 1 === userLanguage.length ? '' : ','}`
-                  ))}
+                  <span className="label">Languages:</span>
+                  <span>
+                    {
+                      userLanguage.map((l) => (
+                        `${l.code} ${formatScore(l.reading_score)}/${formatScore(l.speaking_score)} ${formatCurrentDate(l.test_date)} `
+                      ),
+                      ).join(', ')
+                    }
+                  </span>
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
