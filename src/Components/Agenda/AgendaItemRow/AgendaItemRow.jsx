@@ -27,7 +27,6 @@ const AgendaItemRow = props => {
 
   const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
-  const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
 
@@ -92,7 +91,6 @@ const AgendaItemRow = props => {
               </div>
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
                 <div className="item">
                   <span className="label">Languages:</span>

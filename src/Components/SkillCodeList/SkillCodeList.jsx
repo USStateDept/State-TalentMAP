@@ -6,7 +6,7 @@ const SkillCodeList = ({ skillCodes }) => {
   let skillCodeList = [];
   skillCodes.forEach((skill) => {
     if (isNil(skill.description)) skillCodeList.push(skill.code);
-    else skillCodeList.push(`${skill.description} (${skill.code})`);
+    else skillCodeList.push(`(${skill.code}) ${skill.description}`);
   });
   skillCodeList = skillCodeList.join(', ') || NO_USER_SKILL_CODE;
   return (
