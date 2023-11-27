@@ -571,13 +571,6 @@ export const getPostName = (post, defaultValue = null) => {
   return valueToReturn;
 };
 
-export const getLocationOrg = (position) => {
-  const location = getPostName(position?.post, NO_POST);
-  const organization = position?.organization || 'None';
-
-  return `${location}: ${organization}`;
-};
-
 // returns the base application path,
 // ie, https://hostname:8080/PUBLIC_URL/
 export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;

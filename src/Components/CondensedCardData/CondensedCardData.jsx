@@ -4,7 +4,7 @@ import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_DATE, NO_GRADE } from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList';
 import CondensedCardDataPoint from './CondensedCardDataPoint';
-import { formatDate, getLocationOrg, propOrDefault } from '../../utilities';
+import { formatDate, getPostNameText, propOrDefault } from '../../utilities';
 
 const CondensedCardData = ({ position }) => {
   const estimatedEndDate = propOrDefault(position, 'ted') ?
@@ -33,7 +33,7 @@ const CondensedCardData = ({ position }) => {
       />
       <CondensedCardDataPoint
         title="Location (Org)"
-        content={getLocationOrg(position?.position)}
+        content={getPostNameText(position?.position)}
         hasFixedTitleWidth
       />
     </div>

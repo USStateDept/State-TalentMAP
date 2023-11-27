@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { BID_CYCLE_NAME_TYPE, BID_STATISTICS_OBJECT, POST_DETAILS } from 'Constants/PropTypes';
-import { getBidCycleName, getLocationOrg } from 'utilities';
+import { getBidCycleName, getPostNameText } from 'utilities';
 import { getStatusProperty } from 'Constants/BidStatuses';
 import { APPROVED_PROP } from 'Constants/BidData';
 import BidCount from '../../BidCount';
@@ -44,7 +44,7 @@ const BidTrackerCardTitle = ({
       </div>
       <div className="usa-grid-full bid-tracker-bottom-link-container">
         <div className={`bid-tracker-card-title-bottom ${!condensedView ? 'bid-tracker-card-title-bottom--full-width' : ''}`}>
-          <strong>Location (Org):</strong> {getLocationOrg({ post, organization })}
+          <strong>Location (Org):</strong> {getPostNameText({ post, organization })}
         </div>
         {
           !condensedView &&
