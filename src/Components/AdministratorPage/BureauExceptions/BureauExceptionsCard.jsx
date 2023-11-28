@@ -17,7 +17,7 @@ import TextInput from '../../TextInput/TextInput';
 const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   refBureaus, refBureausHasErrored, refBureausIsLoading }) => {
   const {
-    userBureauCodeList,
+    userBureauCodes,
     pvId,
     hruId,
     name,
@@ -37,7 +37,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   const [selectAll, setSelectAll] = useState(false);
   const [bureauFilterText, setBureauFilterText] = useState('');
   const [filteredBureaus, setFilteredBureaus] = useState([]);
-  const [userSelectedBureauCodes, setUserSelectedBureauCodes] = useState(userBureauCodeList);
+  const [userSelectedBureauCodes, setUserSelectedBureauCodes] = useState(userBureauCodes);
   const [expandCard, setExpandCard] = useState(false);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   const onCancelRequest = () => {
     swal.close();
     setExpandCard(false);
-    setUserSelectedBureauCodes([...userBureauCodeList]);
+    setUserSelectedBureauCodes([...userBureauCodes]);
   };
 
   const saveBureaus = (e) => {
@@ -95,7 +95,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   const cancel = (e) => {
     e.preventDefault();
 
-    if (isEqual(userSelectedBureauCodes, userBureauCodeList)) {
+    if (isEqual(userSelectedBureauCodes, userBureauCodes)) {
       setExpandCard(false);
     } else {
       swal({
@@ -156,7 +156,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   return (
     <div className="bureau-card box-shadow-standard standard-blue-border-left">
       <div>{name || 'N/A'}</div>
-      <div>{userBureauCodeList.length ? userBureauCodeList.map(a => formatBureauDisplay(a)).join(', ') : 'No Access'}</div>
+      <div>{userBureauCodes.length ? userBureauCodes.map(a => formatBureauDisplay(a)).join(', ') : 'No Access'}</div>
       <InteractiveElement className={`bureau-exception-edit ${expandCard ? 'hide' : ''}`} onClick={disableEdit ? () => {} : () => setExpandCard(true)}>
         <div className={`${disableEdit ? 'disabled-action' : ''}`}> <FA name="pencil" /> Edit </div>
       </InteractiveElement>
@@ -209,7 +209,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
             </div>
             <div>
               <button
-                className={`${isEqual(userSelectedBureauCodes, userBureauCodeList) ? 'disabled-bg' : ''}`}
+                className={`${isEqual(userSelectedBureauCodes, userBureauCodes) ? 'disabled-bg' : ''}`}
                 onClick={saveBureaus}
               >Save</button>
               <button onClick={cancel}>Cancel</button>
@@ -222,7 +222,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
 
 BureauExceptionsCard.propTypes = {
   userData: PropTypes.shape({
-    userBureauCodeList: PropTypes.arrayOf(PropTypes.string),
+    userBureauCodes: PropTypes.arrayOf(PropTypes.string),
     pvId: PropTypes.number,
     hruId: PropTypes.number,
     name: PropTypes.string,
