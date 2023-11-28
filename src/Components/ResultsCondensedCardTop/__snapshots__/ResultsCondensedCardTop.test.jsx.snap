@@ -29,27 +29,6 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
           </h3>
         </div>
       </div>
-      <div
-        className="usa-grid-full post-ribbon-container"
-      >
-        <div
-          className="post-container"
-        >
-          <span>
-            <span
-              className="title"
-            >
-              Location:
-            </span>
-             
-            <span
-              className="data"
-            >
-              Freetown, Sierra Leone
-            </span>
-          </span>
-        </div>
-      </div>
     </div>
   </Link>
 </div>
@@ -82,27 +61,6 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
           <h3>
             OMS (DCM)
           </h3>
-        </div>
-      </div>
-      <div
-        className="usa-grid-full post-ribbon-container"
-      >
-        <div
-          className="post-container"
-        >
-          <span>
-            <span
-              className="title"
-            >
-              Location:
-            </span>
-             
-            <span
-              className="data"
-            >
-              Freetown, Sierra Leone
-            </span>
-          </span>
         </div>
       </div>
     </div>

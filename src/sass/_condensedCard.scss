@@ -105,18 +105,6 @@ $condensed-card-data-padding: 15px 27px 9px 20px;
     div:nth-of-type(1) { flex: 3; }
     div:nth-of-type(2) { flex: 2; }
 
-    // set max-width to fit the ribbon
-    .post-container {
-      max-width: 70%;
-    }
-
-    // if .post-container is the only child, increase the max-width
-    div:last-child {
-      &.post-container {
-        max-width: 100%;
-      }
-    }
-
     .ribbon-container-condensed {
       position: absolute;
       right: -2px;
