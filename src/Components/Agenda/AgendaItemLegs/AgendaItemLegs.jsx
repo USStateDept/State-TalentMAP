@@ -11,7 +11,6 @@ const AgendaItemLegs = props => {
     isCard,
     isPanelMeetingView,
   } = props;
-
   let legs$ = legs;
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
@@ -115,6 +114,11 @@ const AgendaItemLegs = props => {
     {
       title: 'Pay Plan',
       content: (getData('pay_plan')),
+      cardView: false,
+    },
+    {
+      title: 'Skill',
+      content: getData('skill'),
       cardView: false,
     },
   ];

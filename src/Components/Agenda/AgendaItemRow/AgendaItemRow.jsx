@@ -23,10 +23,10 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
-
   const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
   const userGrade = get(clientData, 'grade') || 'None Listed';
+  const payPlan = get(clientData, 'pay_plan') || 'None Listed';
   const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
@@ -36,7 +36,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-
   const formatCurrentDate = (currentDate) => {
     if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
     return '';
@@ -90,7 +89,7 @@ const AgendaItemRow = props => {
               </div>
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                <div className="item"><span className="label">PP/Grade: </span> {userGrade}</div>
+                <div className="item"><span className="label">PP/Grade: </span> {payPlan}/{userGrade}</div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages:</span>
