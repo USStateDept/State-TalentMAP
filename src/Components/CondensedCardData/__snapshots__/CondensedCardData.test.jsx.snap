@@ -34,6 +34,11 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
     hasFixedTitleWidth={true}
     title="Language"
   />
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone: (MONROVIA) MONROVIA LIBERIA"
+    hasFixedTitleWidth={true}
+    title="Location (Org)"
+  />
 </div>
 `;
 
@@ -71,6 +76,11 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
     hasFixedTitleWidth={true}
     title="Language"
   />
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone: (MONROVIA) MONROVIA LIBERIA"
+    hasFixedTitleWidth={true}
+    title="Location (Org)"
+  />
 </div>
 `;
 
@@ -107,6 +117,11 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
     }
     hasFixedTitleWidth={true}
     title="Language"
+  />
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone: (MONROVIA) MONROVIA LIBERIA"
+    hasFixedTitleWidth={true}
+    title="Location (Org)"
   />
 </div>
 `;
