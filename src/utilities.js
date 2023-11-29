@@ -1071,4 +1071,10 @@ export const getGenericFilterOptions = (genericFilters, description, sortBy) => 
     ? nameSort([...new Set(category.data)], sortBy) : [];
 };
 
+export const filterArrayofObjectsOnString =
+  (arrayToFilter, objValueToFilterOn, stringtoFilterOn) => (
+    arrayToFilter.filter((x) =>
+      x[objValueToFilterOn].toLowerCase().includes(stringtoFilterOn.toLowerCase()))
+  );
+
 // Search Tags: common.js, helper file, helper functions, common helper file, common file

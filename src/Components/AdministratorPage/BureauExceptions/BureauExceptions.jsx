@@ -52,7 +52,7 @@ const BureauExceptions = () => {
                 type="warning"
                 title={'Edit Mode'}
                 messages={[{
-                  body: 'Save or discard your edits to enable editing on another card.',
+                  body: 'Save or discard your edits to enable editing on another user\'s Bureau Exceptions.',
                 },
                 ]}
               />

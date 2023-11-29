@@ -9,6 +9,7 @@ import { addUserBureauExceptions, deleteUserBureauExceptions,
   userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
+import { filterArrayofObjectsOnString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from '../../CheckBox/CheckBox';
@@ -50,11 +51,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   }, [expandCard]);
 
   useEffect(() => {
-    setFilteredBureaus(refBureaus.filter((x) =>
-      x.long_description
-        .toLowerCase()
-        .includes(bureauFilterText.toLowerCase()),
-    ));
+    setFilteredBureaus(filterArrayofObjectsOnString(refBureaus, 'long_description', bureauFilterText));
   }, [bureauFilterText]);
 
   const onCancelRequest = () => {
@@ -212,7 +209,10 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
                 className={`${isEqual(userSelectedBureauCodes, userBureauCodes) ? 'disabled-bg' : ''}`}
                 onClick={saveBureaus}
               >Save</button>
-              <button onClick={cancel}>Cancel</button>
+              <button
+                className="usa-button-secondary"
+                onClick={cancel}
+              >Cancel</button>
             </div>
           </form>
         )}

@@ -2,6 +2,11 @@
   margin: 0 35px 20px;
   min-width: 750px;
 
+  // this card is used as a header for the other cards
+  .bureau-card:first-of-type {
+    background-color: $tm-white-smoke-light;
+  }
+
   .bureau-card {
     display: grid;
     grid-template-columns: 30% 60% 10%;
