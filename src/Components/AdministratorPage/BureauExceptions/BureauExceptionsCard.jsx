@@ -207,7 +207,9 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
             <div>
               <button
                 className={`${isEqual(userSelectedBureauCodes, userBureauCodes) ? 'disabled-bg' : ''}`}
-                onClick={saveBureaus}
+                onClick={isEqual(userSelectedBureauCodes, userBureauCodes)
+                  ? (e) => { e.preventDefault(); }
+                  : (e) => saveBureaus(e)}
               >Save</button>
               <button
                 className="usa-button-secondary"
