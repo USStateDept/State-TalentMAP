@@ -1073,7 +1073,7 @@ export const getGenericFilterOptions = (genericFilters, description, sortBy) => 
 
 export const filterObjectArrayByString = (array, property, matchString) => (
   array.filter(x =>
-    x[property].toLowerCase().includes(matchString.toLowerCase())
+    x[property].toLowerCase().includes(matchString.toLowerCase()),
   )
 );
 
