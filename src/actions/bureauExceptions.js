@@ -18,8 +18,9 @@ import {
   BUREAU_EXCEPTIONS_UPDATE_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 
-let cancelBureauExceptions;
 let cancelUserBureauExceptionsAndMetaData;
+let cancelBureauExceptionsRefDataBureaus;
+let cancelBureauExceptions;
 let cancelAddUserBureauExceptions;
 let cancelUpdateUserBureauExceptions;
 let cancelDeleteUserBureauExceptions;
@@ -68,10 +69,73 @@ export function userBureauExceptionsAndMetaDataFetch(query = {}) {
           });
         } else {
           batch(() => {
-            // 📝📝 reminder dbl check expected data structure
-            dispatch(userBureauExceptionsAndMetaDataSuccess([]));
+            dispatch(userBureauExceptionsAndMetaDataSuccess({}));
             dispatch(userBureauExceptionsAndMetaDataErrored(true));
             dispatch(userBureauExceptionsAndMetaDataLoading(false));
+          });
+        }
+      });
+  };
+}
+export function resetUserBureauExceptionsAndMetaDataRedux() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(userBureauExceptionsAndMetaDataSuccess({}));
+      dispatch(userBureauExceptionsAndMetaDataErrored(false));
+      dispatch(userBureauExceptionsAndMetaDataLoading(false));
+    });
+  };
+}
+
+
+export function bureauExceptionsRefDataBureausErrored(bool) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_REF_DATA_BUREAUS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bureauExceptionsRefDataBureausLoading(bool) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_REF_DATA_BUREAUS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bureauExceptionsRefDataBureausSuccess(results) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_REF_DATA_BUREAUS_SUCCESS',
+    results,
+  };
+}
+export function bureauExceptionsRefDataBureausFetchData() {
+  return (dispatch) => {
+    if (cancelBureauExceptionsRefDataBureaus) { cancelBureauExceptionsRefDataBureaus('cancel'); dispatch(bureauExceptionsRefDataBureausLoading(true)); }
+    batch(() => {
+      dispatch(bureauExceptionsRefDataBureausLoading(true));
+      dispatch(bureauExceptionsRefDataBureausErrored(false));
+    });
+    api().get('/fsbid/bureau_exceptions/ref_data_bureaus/', {
+      cancelToken: new CancelToken((c) => {
+        cancelBureauExceptions = c;
+      }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bureauExceptionsRefDataBureausSuccess(data));
+          dispatch(bureauExceptionsRefDataBureausErrored(false));
+          dispatch(bureauExceptionsRefDataBureausLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(bureauExceptionsRefDataBureausLoading(true));
+            dispatch(bureauExceptionsRefDataBureausErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(bureauExceptionsRefDataBureausSuccess([]));
+            dispatch(bureauExceptionsRefDataBureausErrored(true));
+            dispatch(bureauExceptionsRefDataBureausLoading(false));
           });
         }
       });
@@ -124,9 +188,6 @@ export function bureauExceptionsFetchData() {
           });
         } else {
           batch(() => {
-            /* eslint-disable no-console */
-            console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 reminder: verify the structure is []');
-            console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 redux says so, so update there too if not');
             dispatch(bureauExceptionsSuccess([]));
             dispatch(bureauExceptionsErrored(true));
             dispatch(bureauExceptionsLoading(false));
