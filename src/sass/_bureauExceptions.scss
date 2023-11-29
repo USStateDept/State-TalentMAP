@@ -3,11 +3,11 @@
   min-width: 750px;
 
   // this card is used as a header for the other cards
-  .bureau-card:first-of-type {
+  .bureau-exceptions-card:first-of-type {
     background-color: $tm-white-smoke-light;
   }
 
-  .bureau-card {
+  .bureau-exceptions-card {
     display: grid;
     grid-template-columns: 30% 60% 10%;
     margin-block: 15px;
@@ -16,10 +16,10 @@
     padding: 16px;
   }
 
-  .bureau-exception-edit {
+  .bureau-exceptions-edit {
     color: $blue-primary;
   }
-  .bureau-exception-edit:hover {
+  .bureau-exceptions-edit:hover {
     color: $color-black;
   }
 
@@ -31,7 +31,7 @@
     }
   }
 
-  .bureau-exception-select-bureaus {
+  .bureau-exceptions-select-bureaus {
     height: 500px;
     overflow-y: scroll;
 
@@ -41,7 +41,7 @@
       left: 10%;
     }
 
-    .bureau-exception-select-bureaus-header {
+    .bureau-exceptions-select-bureaus-header {
       background-color: $bg-gray-dark-4;
       border: 1px solid $bg-gray-dark-3;
       border-bottom: none;
@@ -49,7 +49,7 @@
       border-collapse: collapse;
     }
 
-    .bureau-exception-select-bureaus-checkboxes {
+    .bureau-exceptions-select-bureaus-checkboxes {
       border-top: 1px solid $bg-gray-dark-3;
       padding-block: 20px;
       label {
@@ -59,10 +59,10 @@
         position: fixed;
       }
     }
-    .bureau-exception-select-bureaus-checkboxes:hover {
+    .bureau-exceptions-select-bureaus-checkboxes:hover {
       background-color: $bg-gray-dark-4;
     }
-    .bureau-exception-select-bureaus-checkboxes > * {
+    .bureau-exceptions-select-bureaus-checkboxes > * {
       display: inline-block;
     }
   }

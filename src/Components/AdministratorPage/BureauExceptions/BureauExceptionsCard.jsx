@@ -151,21 +151,21 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   };
 
   return (
-    <div className="bureau-card box-shadow-standard standard-blue-border-left">
+    <div className="bureau-exceptions-card box-shadow-standard standard-blue-border-left">
       <div>{name || 'N/A'}</div>
       <div>{userBureauCodes.length ? userBureauCodes.map(a => formatBureauDisplay(a)).join(', ') : 'No Access'}</div>
-      <InteractiveElement className={`bureau-exception-edit ${expandCard ? 'hide' : ''}`} onClick={disableEdit ? () => {} : () => setExpandCard(true)}>
+      <InteractiveElement className={`bureau-exceptions-edit ${expandCard ? 'hide' : ''}`} onClick={disableEdit ? () => {} : () => setExpandCard(true)}>
         <div className={`${disableEdit ? 'disabled-action' : ''}`}> <FA name="pencil" /> Edit </div>
       </InteractiveElement>
       {
         expandCard && (
           <form>
-            <div className="bureau-exception-select-bureaus ml-50 mt-50">
+            <div className="bureau-exceptions-select-bureaus ml-50 mt-50">
               {
                 getOverlay()
                   ||
                   <>
-                    <div className="bureau-exception-text-input mb-20">
+                    <div className="bureau-exceptions-text-input mb-20">
                       <TextInput
                         changeText={(e) => setBureauFilterText(e)}
                         placeholder="Filter by Bureau"
@@ -176,8 +176,8 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
                         }}
                       />
                     </div>
-                    <div className={`bureau-exception-select-bureaus-header
-                     bureau-exception-select-bureaus-checkboxes pl-20 ${bureauFilterText ? 'remove' : ''}`}
+                    <div className={`bureau-exceptions-select-bureaus-header
+                     bureau-exceptions-select-bureaus-checkboxes pl-20 ${bureauFilterText ? 'remove' : ''}`}
                     >
                       <CheckBox
                         onCheckBoxClick={handleSelectAll}
@@ -192,7 +192,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
                         <Alert type="info" title="No bureau descriptions match filter text." tinyAlert />
                         :
                         filteredBureaus.map((bur) => (
-                          <div className="bureau-exception-select-bureaus-checkboxes pl-20" key={bur.code}>
+                          <div className="bureau-exceptions-select-bureaus-checkboxes pl-20" key={bur.code}>
                             <CheckBox
                               value={userSelectedBureauCodes.includes(bur.code)}
                               onCheckBoxClick={() => handleSelectBureau(bur.code)}
