@@ -239,7 +239,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
             <div className="filter-div">
               <div className="label">Panel Date:</div>
               <TMDatePicker
-                {...pickyProps}
                 value={selectedPanelMeetDate}
                 onChange={setSelectedPanelMeetDate}
                 datePickerClassName="panel-meeting-date-range"
