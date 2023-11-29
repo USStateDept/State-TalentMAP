@@ -9,7 +9,7 @@ import { addUserBureauExceptions, deleteUserBureauExceptions,
   userBureauExceptionsAndMetaDataFetch } from 'actions/bureauExceptions';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
-import { filterArrayofObjectsOnString } from 'utilities';
+import { filterObjectArrayByString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from '../../CheckBox/CheckBox';
@@ -51,7 +51,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   }, [expandCard]);
 
   useEffect(() => {
-    setFilteredBureaus(filterArrayofObjectsOnString(refBureaus, 'long_description', bureauFilterText));
+    setFilteredBureaus(filterObjectArrayByString(refBureaus, 'long_description', bureauFilterText));
   }, [bureauFilterText]);
 
   const onCancelRequest = () => {
