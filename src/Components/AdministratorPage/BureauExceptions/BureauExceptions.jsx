@@ -58,7 +58,7 @@ const BureauExceptions = () => {
               />
             }
             <div className={`bureau-exceptions-card box-shadow-standard ${editMode ? '' : 'sticky'}`}>
-              <div className="pl-10">Name</div>
+              <div>Name</div>
               <div>Access</div>
             </div>
 
