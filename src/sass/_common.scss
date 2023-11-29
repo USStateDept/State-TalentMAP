@@ -73,7 +73,8 @@ $values in $filters-sizing-config {
         width: $label-width;
       }
 
-      .picky {
+      .picky,
+      .tm-datepicker {
         color: $color-black;
         width: $picky-width;
       }
