@@ -77,7 +77,8 @@ $values in $filters-sizing-config {
         width: $label-width;
       }
 
-      .picky {
+      .picky,
+      .tm-datepicker-wrapper {
         color: $color-black;
         width: $picky-width;
       }

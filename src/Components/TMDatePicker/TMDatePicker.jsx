@@ -5,6 +5,7 @@ import FA from 'react-fontawesome';
 const TMDatePicker = ({
   selected,
   onChange,
+  type,
   value,
   selectsRange,
   showTimeSelect,
@@ -13,33 +14,37 @@ const TMDatePicker = ({
   placeholderText,
   showIcon,
   icon,
-  wrapperClassName,
-  datePickerClassName,
   isClearable,
   excludeDates,
-}) =>
-  (
-    <>
-      <div className={`tm-datepicker-wrapper ${wrapperClassName}`}>
-        {showIcon && icon}
-        <DatePicker
-          selected={selected}
-          onChange={onChange}
-          selectsRange={selectsRange}
-          showTimeSelect={showTimeSelect}
-          showMonthDropdown={showMonthDropdown}
-          showYearDropdown={showYearDropdown}
-          startDate={selectsRange ? value[0] : null}
-          endDate={selectsRange ? value[1] : null}
-          isClearable={isClearable}
-          dropdownMode="select"
-          className={`tm-datepicker ${datePickerClassName}`}
-          placeholderText={placeholderText}
-          excludeDates={excludeDates}
-        />
-      </div>
-    </>
-  )
+}) => {
+  const typeClasses = {
+    filter: {
+      wrapper: 'larger-date-picker',
+      datePicker: 'tm-date-picker-range',
+    },
+
+  };
+  return (
+    <div className={`tm-datepicker-wrapper ${typeClasses[type].wrapper}`}>
+      {showIcon && icon}
+      <DatePicker
+        selected={selected}
+        onChange={onChange}
+        selectsRange={selectsRange}
+        showTimeSelect={showTimeSelect}
+        showMonthDropdown={showMonthDropdown}
+        showYearDropdown={showYearDropdown}
+        startDate={selectsRange ? value[0] : null}
+        endDate={selectsRange ? value[1] : null}
+        isClearable={isClearable}
+        dropdownMode="select"
+        className={`tm-datepicker ${typeClasses[type].datePicker}`}
+        placeholderText={placeholderText}
+        excludeDates={excludeDates}
+      />
+    </div>
+  );
+}
 ;
 
 export default TMDatePicker;
@@ -47,9 +52,8 @@ export default TMDatePicker;
 TMDatePicker.propTypes = {
   value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   onChange: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
   selected: PropTypes.instanceOf(Date),
-  wrapperClassName: PropTypes.string,
-  datePickerClassName: PropTypes.string,
   showMonthDropdown: PropTypes.bool,
   showYearDropdown: PropTypes.bool,
   placeholderText: PropTypes.string,
@@ -64,8 +68,6 @@ TMDatePicker.propTypes = {
 TMDatePicker.defaultProps = {
   value: [null, null],
   selected: null,
-  wrapperClassName: '',
-  datePickerClassName: '',
   showMonthDropdown: false,
   showYearDropdown: false,
   placeholderText: 'Select Date',
