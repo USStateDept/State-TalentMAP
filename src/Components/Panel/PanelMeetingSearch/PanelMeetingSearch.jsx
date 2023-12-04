@@ -241,8 +241,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
               <TMDatePicker
                 value={selectedPanelMeetDate}
                 onChange={setSelectedPanelMeetDate}
-                datePickerClassName="panel-meeting-date-range"
-                wrapperClassName="larger-date-picker"
+                type="filter"
                 showMonthDropdown
                 showYearDropdown
                 selectsRange

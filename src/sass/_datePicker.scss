@@ -132,13 +132,14 @@ $date-picker-width: 300px;
 }
 
 .tm-datepicker-wrapper {
+  width: 100%;
+
   .tm-datepicker::placeholder {
     color: $bg-gray-dark-2;
   }
-  .panel-meeting-date-range {
+  .tm-date-picker-range {
     font-size: 13px;
     height: 28px;
-    width: 200px;
     border: 1px solid $bg-gray-dark-2;
   }
   .react-datepicker-popper {
