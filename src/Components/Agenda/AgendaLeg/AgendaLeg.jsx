@@ -30,7 +30,7 @@ const AgendaLeg = props => {
     setActiveAIL,
   } = props;
 
-  const isSeparation = leg?.is_separation;
+  const isSeparation = leg?.is_separation || false;
   const defaultSepText = isSeparation ? '-' : false;
 
   const disabled = isEf;
