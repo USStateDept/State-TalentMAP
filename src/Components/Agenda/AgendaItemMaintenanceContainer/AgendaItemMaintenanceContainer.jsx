@@ -8,7 +8,7 @@ import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { aiCreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
+import { modifyAgenda, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
 import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
@@ -120,7 +120,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
     };
-    dispatch(aiCreate(maintenanceInfo, legs, personId, efInfo));
+    dispatch(modifyAgenda(maintenanceInfo, legs, personId, efInfo, agendaItem));
   };
 
   const updateFormMode = () => {
