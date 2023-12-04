@@ -831,7 +831,7 @@ export const AGENDA_ITEM = PropTypes.shape({
   id: PropTypes.number,
   modifier_name: PropTypes.number,
   panel_date: PropTypes.string,
-  panel_date_type: PropTypes.string,
+  pmt_code: PropTypes.string,
   panel_meeting_seq_num: PropTypes.string,
   perdet: PropTypes.number,
   status_full: PropTypes.string,
