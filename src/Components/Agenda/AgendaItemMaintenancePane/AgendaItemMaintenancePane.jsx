@@ -88,9 +88,9 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [selectedPanelCat, setPanelCat] = useState(get(agendaItem, 'report_category.code') || '');
 
-  const isPanelTypeML = get(agendaItem, 'panel_date_type') === 'ML';
-  const isPanelTypeID = get(agendaItem, 'panel_date_type') === 'ID';
-  const panelMeetingSeqNum = get(agendaItem, 'panel_meeting_seq_num') || '';
+  const isPanelTypeML = get(agendaItem, 'pmt_code') === 'ML';
+  const isPanelTypeID = get(agendaItem, 'pmt_code') === 'ID';
+  const panelMeetingSeqNum = get(agendaItem, 'pm_seq_num') || '';
   const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
   const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
   const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);

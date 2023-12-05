@@ -36,7 +36,7 @@ const fuseOptions = {
   minMatchCharLength: 1,
   keys: [
     'status_short',
-    'meeting_category',
+    'pmi_mic_code',
     'remarks.seq_num',
     'assignment.pos_num',
     'assignment.pos_title',
@@ -150,7 +150,7 @@ const PanelMeetingAgendas = (props) => {
       { status_short: abbr_desc_text }
     ));
     const categories$ = selectedCategories.map(({ mic_code }) => (
-      { meeting_category: mic_code }
+      { pmi_mic_code: mic_code }
     ));
     const remarks$ = selectedRemarks.map(({ seq_num }) => (
       { 'remarks.seq_num': seq_num.toString() }
@@ -276,7 +276,7 @@ const PanelMeetingAgendas = (props) => {
 
   function categorizeAgendas() {
     agendas$.forEach(a => {
-      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
+      agendasCategorized[meetingCategoryMap[get(a, 'pmi_mic_code')]].push(a);
     });
     return agendasCategorized;
   }

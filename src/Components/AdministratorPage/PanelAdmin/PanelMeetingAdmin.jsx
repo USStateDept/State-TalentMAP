@@ -211,7 +211,7 @@ const PanelMeetingAdmin = (props) => {
     let preconditioned = true;
     agendas.forEach(a => {
       // Approved Agenda Items must be in Off-Panel Meeting Category
-      if (a.status_short === 'APR' && a.meeting_category !== 'O') {
+      if (a.status_short === 'APR' && a.pmi_mic_code !== 'O') {
         preconditioned = false;
       }
       // Agenda Items must be Approved, Ready, Not Ready, or Deferred
