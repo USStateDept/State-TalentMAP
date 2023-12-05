@@ -1,5 +1,5 @@
 import { isNil } from 'lodash';
-import { Sort_Skill_Description, USER_SKILL_CODE_ARRAY } from '../../Constants/PropTypes';
+import { Sort_Skill_Code_Description, USER_SKILL_CODE_ARRAY } from '../../Constants/PropTypes';
 import { NO_USER_SKILL_CODE } from '../../Constants/SystemMessages';
 
 const SkillCodeList = ({ skillCodes, sortSkillCodeDescription }) => {
@@ -19,7 +19,7 @@ const SkillCodeList = ({ skillCodes, sortSkillCodeDescription }) => {
 
 SkillCodeList.propTypes = {
   skillCodes: USER_SKILL_CODE_ARRAY,
-  sortSkillCodeDescription: Sort_Skill_Description,
+  sortSkillCodeDescription: Sort_Skill_Code_Description,
 };
 
 SkillCodeList.defaultProps = {
