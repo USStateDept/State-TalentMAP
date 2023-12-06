@@ -31,7 +31,7 @@ const Languages = props => {
                   title={get(l, 'language') || 'N/A'}
                   content={
                     <div className="language-details">
-                      {`Reading: ${get(l, 'reading_score') || '--'} | Speaking: ${get(l, 'speaking_score') || '--'}`}
+                      {`Speaking: ${get(l, 'speaking_score') || '--'} | Reading: ${get(l, 'reading_score') || '--'}`}
                       <span>{`Test Date: ${getTestDate(l)}`}</span>
                     </div>
                   }
