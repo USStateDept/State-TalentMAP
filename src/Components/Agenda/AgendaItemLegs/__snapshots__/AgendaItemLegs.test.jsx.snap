@@ -112,6 +112,15 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
           </dt>
         </th>
       </tr>
+      <tr
+        key="Skill"
+      >
+        <th>
+          <dt>
+            Skill
+          </dt>
+        </th>
+      </tr>
     </tbody>
   </table>
 </div>
