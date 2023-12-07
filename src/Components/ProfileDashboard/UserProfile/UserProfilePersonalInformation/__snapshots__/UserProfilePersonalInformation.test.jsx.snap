@@ -23,6 +23,7 @@ exports[`UserProfilePersonalInformationComponent matches snapshot 1`] = `
               },
             ]
           }
+          sortSkillCodeDescription={false}
         />
       }
       sideBySide={false}
