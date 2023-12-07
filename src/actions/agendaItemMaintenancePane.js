@@ -29,7 +29,7 @@ export function aiCreateSuccess(data) {
   };
 }
 
-export function aiCreate(panel, legs, personId, ef) {
+export function modifyAgenda(panel, legs, personId, ef, refData) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateIsLoading(true));
@@ -40,6 +40,7 @@ export function aiCreate(panel, legs, personId, ef) {
         personId,
         ...panel,
         agendaLegs: legs,
+        refData,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;

@@ -76,7 +76,7 @@ const AgendaItemRow = props => {
                   >
                     Edit Agenda Item
                   </Link>
-                  Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+                  Panel Date: {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
                 </div>
                 : ''
             }
@@ -189,7 +189,7 @@ AgendaItemRow.propTypes = {
         type: null,
       }),
     ),
-    panel_date: PropTypes.string,
+    pmd_dttm: PropTypes.string,
     pmi_official_item_num: PropTypes.number,
     status: PropTypes.string,
     perdet: PropTypes.number,

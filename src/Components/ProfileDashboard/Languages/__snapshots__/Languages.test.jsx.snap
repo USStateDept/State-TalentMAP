@@ -27,7 +27,7 @@ exports[`LanguagesComponent matches snapshot 1`] = `
           <div
             className="language-details"
           >
-            Reading: 2 | Speaking: 2+
+            Speaking: 2+ | Reading: 2
             <span>
               Test Date: 05/28/2003
             </span>
@@ -56,7 +56,7 @@ exports[`LanguagesComponent matches snapshot when useWrapper is false 1`] = `
         <div
           className="language-details"
         >
-          Reading: 2 | Speaking: 2+
+          Speaking: 2+ | Reading: 2
           <span>
             Test Date: 05/28/2003
           </span>
