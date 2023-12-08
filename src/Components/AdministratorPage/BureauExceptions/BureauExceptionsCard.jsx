@@ -66,7 +66,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
       // add if pvId does not exist
       dispatch(addUserBureauExceptions({
         hruId,
-        bureauCodeList: userSelectedBureauCodes,
+        bureauCodes: userSelectedBureauCodes,
       }));
     } else if (userSelectedBureauCodes.length === 0) {
       // delete if pvId exists and no bureaus in current selection
@@ -81,7 +81,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
       dispatch(updateUserBureauExceptions({
         pvId,
         hruId,
-        bureauCodeList: userSelectedBureauCodes,
+        bureauCodes: userSelectedBureauCodes,
         lastUpdatedUserId: userBureauExceptionsAndMetaData?.lastUpdatedUserId,
         lastUpdatedDate: userBureauExceptionsAndMetaData?.lastUpdatedDate,
       }));
