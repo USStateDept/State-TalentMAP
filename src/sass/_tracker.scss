@@ -50,6 +50,8 @@
   .active .icon, .active .bar {
     &:not(.current) {
       background: $tertiary-success;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
     }
 
     .fa {

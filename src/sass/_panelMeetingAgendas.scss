@@ -229,3 +229,30 @@
     align-self: center;
   }
 }
+
+.pma-print-view {
+  width: 100%;
+  height: 100%;
+
+  .tracker-container {
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 1200px) {
+      flex-wrap: wrap;
+    }
+
+    .tracker {
+      .step-label {
+        text-align: left;
+      }
+      .step-description {
+        text-align: left;
+      }
+      li:last-child {
+        width: 25%;
+      }
+    }
+
+  }
+}

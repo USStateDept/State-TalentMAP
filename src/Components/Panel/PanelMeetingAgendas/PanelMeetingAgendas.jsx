@@ -3,6 +3,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
+import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
@@ -19,6 +20,7 @@ import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
 import ExportButton from 'Components/ExportButton';
+import PrintPanelMeetingAgendas from './PrintPanelMeetingAgendas';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -138,6 +140,7 @@ const PanelMeetingAgendas = (props) => {
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
+  const [printView, setPrintView] = useState(false);
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
@@ -355,8 +358,23 @@ const PanelMeetingAgendas = (props) => {
     }
   };
 
+  const pmaPrintView = () => {
+    setPrintView(true);
+    swal({
+      title: 'Panel Meeting Agenda:',
+      className: 'modal-full',
+      button: false,
+      content: (
+        <PrintPanelMeetingAgendas
+          panelMeetingData={panelMeetingData}
+          closeModal={() => setPrintView(false)}
+        />
+      ),
+    }).then(() => setPrintView(false));
+  };
+
   return (
-    isLoading ?
+    (isLoading || !!printView) ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="panel-meeting-agenda-page position-search">
@@ -523,6 +541,7 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
+                { <button onClick={pmaPrintView}>Print View</button> }
                 {
                   false &&
                   <div className="export-button-container">
