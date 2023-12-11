@@ -30,13 +30,10 @@ const AgendaItemLegs = props => {
       {
         legs$.map((leg, index) => {
           const keyId = index;
-          const skill = `${leg.skill}${leg.skill_secondary !== null ? `, ${leg.skill_secondary}` : ''}`;
           return (
             <td key={`${leg.id}-${keyId}`}>
               {
-                key === 'skill' ?
-                  <dd>{skill}</dd> :
-                  <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
+                <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
               }
             </td>
           );
@@ -122,7 +119,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'Skill',
-      content: getData('skill'),
+      content: getData('custom_skills_description'),
       cardView: false,
     },
   ];
