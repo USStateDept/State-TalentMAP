@@ -11,6 +11,7 @@ const AgendaItemLegs = props => {
     isCard,
     isPanelMeetingView,
   } = props;
+
   let legs$ = legs;
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
@@ -29,10 +30,13 @@ const AgendaItemLegs = props => {
       {
         legs$.map((leg, index) => {
           const keyId = index;
+          const skill = `${leg.skill}${leg.skill_secondary !== null ? `, ${leg.skill_secondary}` : ''}`;
           return (
             <td key={`${leg.id}-${keyId}`}>
               {
-                <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
+                key === 'skill' ?
+                  <dd>{skill}</dd> :
+                  <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
               }
             </td>
           );
