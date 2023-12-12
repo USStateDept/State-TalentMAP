@@ -292,37 +292,45 @@ $panelStatuses: (
 //**
 //* Agenda Item Maintenance Legs
 //*
+// might have to update onHover$ in AgendaLeg.jsx
 $aim-legs-sm-height-config: (
   "Position Number": 3,
-  "Grade": 4,
-  "Language": 5,
-  "Org": 6,
-  "ETA": 7,
-  "TED": 9,
-  "VICE": 13
+  "Org": 4,
+  "Grade": 5,
+  "ETA": 8,
+  "TED": 10,
+  "VICE": 14,
+  "Pay Plan": 15
 );
-
 $aim-legs-lrg-height-config: (
-  "TOD": 10,
-  "Action": 11,
-  "Travel": 12,
+  "Language": 6,
+  "Action": 12,
+  "Travel": 13,
+);
+$aim-legs-xlrg-height-config: (
+  "Skills": 7,
+  "TOD": 11,
 );
 
+// might have to update onHover in AgendaItemLegsFormReadOnly.jsx
 $aim-legs-sm-height-config-read-only: (
   "Org": 3,
   "Grade": 4,
-  "Language": 5,
-  "ETA": 6,
-  "TED": 8,
-  "Action": 10,
-  "Travel": 11,
+  "ETA": 7,
+  "TED": 9,
+  "Action": 11,
+  "Travel": 12,
+  "Pay Plan": 14,
 );
-
 $aim-legs-lrg-height-config-read-only: (
   "Position Title": 1,
   "Position Number": 2,
-  "TOD": 9,
-  "VICE": 12
+  "Language": 5,
+  "TOD": 10,
+  "VICE": 13
+);
+$aim-legs-xlrg-height-config-read-only: (
+  "Skills": 6,
 );
 //**
 //* resolution widths for .ai-legs

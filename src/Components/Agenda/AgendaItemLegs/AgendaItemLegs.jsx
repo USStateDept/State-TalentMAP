@@ -83,6 +83,11 @@ const AgendaItemLegs = props => {
       cardView: false,
     },
     {
+      title: 'Skills',
+      content: (getData('custom_skills_description')),
+      cardView: false,
+    },
+    {
       title: 'ETA',
       content: (getData('eta', formatDate)),
       cardView: true,
@@ -115,11 +120,6 @@ const AgendaItemLegs = props => {
     {
       title: 'Pay Plan',
       content: (getData('pay_plan')),
-      cardView: false,
-    },
-    {
-      title: 'Skill',
-      content: getData('custom_skills_description'),
       cardView: false,
     },
   ];
