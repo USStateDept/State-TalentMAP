@@ -79,7 +79,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'Skill',
-      content: (a => <div>{a?.skill || DEFAULT_TEXT}</div>),
+      content: (a => <div>{a?.custom_skills_description || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Action',
