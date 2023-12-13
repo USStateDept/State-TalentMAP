@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
-import { convertQueryToString } from 'utilities';
+import { convertQueryToString, scrollToTop } from 'utilities';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 import {
@@ -162,6 +162,7 @@ export function bureauExceptionsSuccess(results) {
   };
 }
 export function bureauExceptionsFetchData() {
+  scrollToTop({ delay: 0, duration: 0 });
   return (dispatch) => {
     if (cancelBureauExceptions) { cancelBureauExceptions('cancel'); dispatch(bureauExceptionsLoading(true)); }
     batch(() => {
