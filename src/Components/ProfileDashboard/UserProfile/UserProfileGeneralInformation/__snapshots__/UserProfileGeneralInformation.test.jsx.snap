@@ -126,6 +126,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
           <SkillCodeList
+            flipSkillCodeDescription={false}
             skillCodes={
               Array [
                 Object {
@@ -138,7 +139,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
                 },
               ]
             }
-            sortSkillCodeDescription={false}
           />
         }
         sideBySide={false}
@@ -276,6 +276,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
           <SkillCodeList
+            flipSkillCodeDescription={false}
             skillCodes={
               Array [
                 Object {
@@ -288,7 +289,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
                 },
               ]
             }
-            sortSkillCodeDescription={false}
           />
         }
         sideBySide={false}
@@ -426,6 +426,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
           <SkillCodeList
+            flipSkillCodeDescription={false}
             skillCodes={
               Array [
                 Object {
@@ -438,7 +439,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
                 },
               ]
             }
-            sortSkillCodeDescription={false}
           />
         }
         sideBySide={false}
