@@ -195,7 +195,6 @@ export const USER_SKILL_CODE = PropTypes.shape({
 });
 
 export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(USER_SKILL_CODE);
-export const Sort_Skill_Code_Description = PropTypes.bool;
 
 export const USER_NESTED_OBJECT = PropTypes.shape({
   username: PropTypes.string,

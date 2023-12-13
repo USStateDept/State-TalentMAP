@@ -23,7 +23,7 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
-  const userSkill = <SkillCodeList sortSkillCodeDescription skillCodes={get(clientData, 'skills') || []} />;
+  const userSkill = <SkillCodeList flipSkillCodeDescription skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const payPlan = get(clientData, 'pay_plan') || 'None Listed';
