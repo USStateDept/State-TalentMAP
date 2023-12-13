@@ -1,0 +1,164 @@
+.agenda-item-row-container, .ai-history-cards-container {
+  .ai-history-row, .ai-history-card {
+    background-color: $color-white;
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
+    margin: 20px 15px;
+    padding: 15px;
+    position: relative;
+
+    .ai-history-status {
+      position: absolute;
+      top: 0;
+      left: -2px;
+      font-family: 'Roboto';
+      display: flex;
+
+      .pmi-official-item-number {
+        font-size: 20px;
+        padding: 5px 20px;
+        color: white;
+        text-decoration: none;
+      }
+      .status-tag {
+        color: $color-white;
+        display: flex;
+        align-items: center;
+      }
+      .poly-slash {
+        padding: 5px 0;
+        clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
+        display: inline-block;
+        margin-left: -3px;
+        width: 30px;
+      }
+    }
+
+    .ai-history-row-panel-date {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 1.4rem;
+
+      @media screen and (max-width: 1600px) {
+        .ai-history-row-panel-date {
+          font-size: medium;
+        }
+      }
+    }
+
+    .ai-legs {
+      max-width: 60vw;
+      min-height: 300px;
+      overflow-x: auto;
+      padding-top: 20px;
+      margin-bottom: 20px;
+      @each $res, $vw in $ai-legs-width-config {
+        @media screen and (min-width: $res) {
+          max-width: $vw;
+        }
+      }
+
+      table {
+        margin: 0;
+
+        td {
+          border: none;
+          max-width: 300px;
+          padding: 0;
+        }
+
+        th {
+          border: none;
+          padding: .5rem 1rem;
+        }
+
+        dt {
+          font-weight: bold;
+        }
+
+        dd {
+          margin: 0 10px;
+        }
+
+        tr:hover {
+
+          th, td {
+            background-color: $color-gray-lightest;
+          }
+
+        }
+        // exclude arrow row
+        tr:hover:nth-child(8) {
+
+          th, td {
+            background-color: transparent;
+          }
+
+        }
+
+        td:nth-child(n+2) {
+          border-left: 1px solid $color-gray-lighter;
+          padding-right: 10px;
+        }
+
+      }
+
+    }
+
+  }
+
+  .first-row {
+    border: 1px dashed $bg-blue-dark-0;
+    display: flex;
+    height: 100px;
+    padding: 5px;
+
+    .plusIcon {
+      color: $bg-blue-dark-0;
+      font-size: 75px;
+      margin: auto;
+    }
+
+    .plusIcon:hover {
+      color: $tertiary-cool-blue;
+      font-size: 80px;
+    }
+
+  }
+
+  .agenda-bottom-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .agenda-item-combined-tod-text {
+    font-weight: bold;
+  }
+
+  .agenda-item-combined-tod {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.agenda-item-row-container {
+  .ai-history-row {
+    .status-tag {
+      padding: 5px 20px;
+    }
+  }
+  .ai-history-non-panel-meeting-view {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+}
+
+.ai-history-cards-container {
+  .ai-history-card {
+    .status-tag {
+      padding: 4px;
+    }
+  }
+}
