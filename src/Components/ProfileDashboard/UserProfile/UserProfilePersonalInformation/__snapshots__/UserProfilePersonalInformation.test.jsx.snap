@@ -11,6 +11,7 @@ exports[`UserProfilePersonalInformationComponent matches snapshot 1`] = `
       className="skill-code-data-point-container skill-code-data-point-container-one"
       content={
         <SkillCodeList
+          flipSkillCodeDescription={false}
           skillCodes={
             Array [
               Object {
@@ -23,7 +24,6 @@ exports[`UserProfilePersonalInformationComponent matches snapshot 1`] = `
               },
             ]
           }
-          sortSkillCodeDescription={false}
         />
       }
       sideBySide={false}
