@@ -52,6 +52,33 @@ export function biddingTools(state = [], action) {
   }
 }
 
+// ================ BIDDING TOOL DELETE ================
+
+export function biddingToolDeleteErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDING_TOOL_DELETE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function biddingToolDeleteLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDING_TOOL_DELETE_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function biddingToolDeleteSuccess(state = [], action) {
+  switch (action.type) {
+    case 'BIDDING_TOOL_DELETE_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 // ================ BIDDING TOOL EDIT ================
 
 export function biddingToolEditHasErrored(state = false, action) {
