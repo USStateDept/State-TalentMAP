@@ -23,7 +23,7 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
-  const userSkill = <SkillCodeList flipSkillCodeDescription skillCodes={get(clientData, 'skills') || []} />;
+  const userSkill = <SkillCodeList displayCodeFirst skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const payPlan = get(clientData, 'pay_plan') || 'None Listed';
@@ -92,7 +92,7 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">PP/Grade: </span> {payPlan} {userGrade}</div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
-                  <span className="label">Languages:</span>
+                  <span className="label">Languages: </span>
                   <span>
                     {
                       userLanguage.map((l) => (

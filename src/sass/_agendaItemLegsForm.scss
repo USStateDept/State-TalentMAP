@@ -14,16 +14,12 @@
       border: none!important;
     }
 
-    @each $row-num in map-values($aim-legs-xlrg-height-config) {
-      .grid-row-#{$row-num} {
-        min-height: 120px;
-      }
-    }
     @each $row-num in map-values($aim-legs-lrg-height-config) {
       .grid-row-#{$row-num} {
-        min-height: 85px;
+        min-height: 80px;
       }
     }
+
     @each $row-num in map-values($aim-legs-sm-height-config) {
       .grid-row-#{$row-num} {
         min-height: 60px;
@@ -40,7 +36,7 @@
       min-height: 105px;
     }
 
-    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
+    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ];
 
 
     @each $num in $cols-rows {
@@ -257,7 +253,14 @@ td:nth-child(n+2) {
   border-left: 1px solid $color-gray-lighter;
   padding-right: 10px;
 }
+// exclude arrow row
+tr:hover:nth-child(7) {
 
+  th, td {
+    background-color: transparent;
+  }
+
+}
 tr:hover {
 
   th, td {
