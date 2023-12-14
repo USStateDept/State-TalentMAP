@@ -23,13 +23,13 @@ let cancelBiddingTool;
 
 export function biddingToolFetchDataErrored(bool) {
   return {
-    type: 'BIDDING_TOOL_FETCH_HAS_ERRORED',
+    type: 'BIDDING_TOOL_FETCH_ERRORED',
     hasErrored: bool,
   };
 }
 export function biddingToolFetchDataLoading(bool) {
   return {
-    type: 'BIDDING_TOOL_FETCH_IS_LOADING',
+    type: 'BIDDING_TOOL_FETCH_LOADING',
     isLoading: bool,
   };
 }
@@ -74,13 +74,13 @@ export function biddingTool(id) {
 
 export function biddingToolsFetchDataErrored(bool) {
   return {
-    type: 'BIDDING_TOOLS_FETCH_HAS_ERRORED',
+    type: 'BIDDING_TOOLS_FETCH_ERRORED',
     hasErrored: bool,
   };
 }
 export function biddingToolsFetchDataLoading(bool) {
   return {
-    type: 'BIDDING_TOOLS_FETCH_IS_LOADING',
+    type: 'BIDDING_TOOLS_FETCH_LOADING',
     isLoading: bool,
   };
 }
@@ -122,13 +122,13 @@ export function biddingTools() {
 
 export function biddingToolDeleteErrored(bool) {
   return {
-    type: 'BIDDING_TOOL_DELETE_HAS_ERRORED',
+    type: 'BIDDING_TOOL_DELETE_ERRORED',
     hasErrored: bool,
   };
 }
 export function biddingToolDeleteLoading(bool) {
   return {
-    type: 'BIDDING_TOOL_DELETE_IS_LOADING',
+    type: 'BIDDING_TOOL_DELETE_LOADING',
     isLoading: bool,
   };
 }
@@ -146,12 +146,10 @@ export function biddingToolDelete(query) {
     });
     api().delete('/fsbid/bidding_tool/', query)
       .then(({ data }) => {
-        const toastTitle = DELETE_BIDDING_TOOL_SUCCESS_TITLE;
-        const toastMessage = DELETE_BIDDING_TOOL_SUCCESS;
         batch(() => {
           dispatch(biddingToolDeleteErrored(false));
-          dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(biddingToolDeleteSuccess(data));
+          dispatch(toastSuccess(DELETE_BIDDING_TOOL_SUCCESS, DELETE_BIDDING_TOOL_SUCCESS_TITLE));
           dispatch(biddingToolDeleteLoading(false));
         });
       })
@@ -162,11 +160,9 @@ export function biddingToolDelete(query) {
             dispatch(biddingToolDeleteErrored(false));
           });
         } else {
-          const toastTitle = DELETE_BIDDING_TOOL_ERROR_TITLE;
-          const toastMessage = DELETE_BIDDING_TOOL_ERROR;
           batch(() => {
             dispatch(biddingToolDeleteErrored(true));
-            dispatch(toastError(toastMessage, toastTitle));
+            dispatch(toastError(DELETE_BIDDING_TOOL_ERROR, DELETE_BIDDING_TOOL_ERROR_TITLE));
             dispatch(biddingToolDeleteLoading(false));
           });
         }
@@ -176,15 +172,15 @@ export function biddingToolDelete(query) {
 
 // ================ BIDDING TOOL EDIT ================
 
-export function biddingToolEditHasErrored(bool) {
+export function biddingToolEditErrored(bool) {
   return {
-    type: 'BIDDING_TOOL_EDIT_HAS_ERRORED',
+    type: 'BIDDING_TOOL_EDIT_ERRORED',
     hasErrored: bool,
   };
 }
-export function biddingToolEditIsLoading(bool) {
+export function biddingToolEditLoading(bool) {
   return {
-    type: 'BIDDING_TOOL_EDIT_IS_LOADING',
+    type: 'BIDDING_TOOL_EDIT_LOADING',
     isLoading: bool,
   };
 }
@@ -197,33 +193,29 @@ export function biddingToolEditSuccess(results) {
 export function biddingToolEdit(query) {
   return (dispatch) => {
     batch(() => {
-      dispatch(biddingToolEditIsLoading(true));
-      dispatch(biddingToolEditHasErrored(false));
+      dispatch(biddingToolEditLoading(true));
+      dispatch(biddingToolEditErrored(false));
     });
     api().put('/fsbid/bidding_tool/', query)
       .then(({ data }) => {
-        const toastTitle = EDIT_BIDDING_TOOL_SUCCESS_TITLE;
-        const toastMessage = EDIT_BIDDING_TOOL_SUCCESS;
         batch(() => {
-          dispatch(biddingToolEditHasErrored(false));
-          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(biddingToolEditErrored(false));
           dispatch(biddingToolEditSuccess(data));
-          dispatch(biddingToolEditIsLoading(false));
+          dispatch(toastSuccess(EDIT_BIDDING_TOOL_SUCCESS, EDIT_BIDDING_TOOL_SUCCESS_TITLE));
+          dispatch(biddingToolEditLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(biddingToolEditIsLoading(true));
-            dispatch(biddingToolEditHasErrored(false));
+            dispatch(biddingToolEditLoading(true));
+            dispatch(biddingToolEditErrored(false));
           });
         } else {
-          const toastTitle = EDIT_BIDDING_TOOL_ERROR_TITLE;
-          const toastMessage = EDIT_BIDDING_TOOL_ERROR;
           batch(() => {
-            dispatch(biddingToolEditHasErrored(true));
-            dispatch(toastError(toastMessage, toastTitle));
-            dispatch(biddingToolEditIsLoading(false));
+            dispatch(biddingToolEditErrored(true));
+            dispatch(toastError(EDIT_BIDDING_TOOL_ERROR, EDIT_BIDDING_TOOL_ERROR_TITLE));
+            dispatch(biddingToolEditLoading(false));
           });
         }
       });
@@ -233,15 +225,15 @@ export function biddingToolEdit(query) {
 
 // ================ BIDDING TOOL CREATE ================
 
-export function biddingToolCreateHasErrored(bool) {
+export function biddingToolCreateErrored(bool) {
   return {
-    type: 'BIDDING_TOOL_CREATE_HAS_ERRORED',
+    type: 'BIDDING_TOOL_CREATE_ERRORED',
     hasErrored: bool,
   };
 }
-export function biddingToolCreateIsLoading(bool) {
+export function biddingToolCreateLoading(bool) {
   return {
-    type: 'BIDDING_TOOL_CREATE_IS_LOADING',
+    type: 'BIDDING_TOOL_CREATE_LOADING',
     isLoading: bool,
   };
 }
@@ -254,33 +246,30 @@ export function biddingToolCreateSuccess(results) {
 export function biddingToolCreate(query) {
   return (dispatch) => {
     batch(() => {
-      dispatch(biddingToolCreateIsLoading(true));
-      dispatch(biddingToolCreateHasErrored(false));
+      dispatch(biddingToolCreateLoading(true));
+      dispatch(biddingToolCreateErrored(false));
     });
     api().put('/fsbid/bidding_tool/', query)
       .then(({ data }) => {
-        const toastTitle = CREATE_BIDDING_TOOL_SUCCESS_TITLE;
-        const toastMessage = CREATE_BIDDING_TOOL_SUCCESS;
         batch(() => {
-          dispatch(biddingToolCreateHasErrored(false));
-          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(biddingToolCreateErrored(false));
           dispatch(biddingToolCreateSuccess(data));
-          dispatch(biddingToolCreateIsLoading(false));
+          dispatch(toastSuccess(CREATE_BIDDING_TOOL_SUCCESS, CREATE_BIDDING_TOOL_SUCCESS_TITLE));
+          dispatch(biddingToolCreateLoading(false));
         });
       })
       .catch((err) => {
+        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(biddingToolEditIsLoading(true));
-            dispatch(biddingToolCreateHasErrored(false));
+            dispatch(biddingToolEditLoading(true));
+            dispatch(biddingToolCreateErrored(false));
           });
         } else {
-          const toastTitle = CREATE_BIDDING_TOOL_ERROR_TITLE;
-          const toastMessage = CREATE_BIDDING_TOOL_ERROR;
           batch(() => {
-            dispatch(biddingToolCreateHasErrored(true));
-            dispatch(toastError(toastMessage, toastTitle));
-            dispatch(biddingToolCreateIsLoading(false));
+            dispatch(biddingToolCreateErrored(true));
+            dispatch(toastError(CREATE_BIDDING_TOOL_ERROR, CREATE_BIDDING_TOOL_ERROR_TITLE));
+            dispatch(biddingToolCreateLoading(false));
           });
         }
       });

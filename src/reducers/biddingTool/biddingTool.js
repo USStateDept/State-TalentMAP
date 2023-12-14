@@ -2,7 +2,7 @@
 
 export function biddingToolFetchDataErrored(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_FETCH_HAS_ERRORED':
+    case 'BIDDING_TOOL_FETCH_ERRORED':
       return action.hasErrored;
     default:
       return state;
@@ -10,7 +10,7 @@ export function biddingToolFetchDataErrored(state = false, action) {
 }
 export function biddingToolFetchDataLoading(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_FETCH_IS_LOADING':
+    case 'BIDDING_TOOL_FETCH_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -29,7 +29,7 @@ export function biddingTool(state = [], action) {
 
 export function biddingToolsFetchDataErrored(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOLS_FETCH_HAS_ERRORED':
+    case 'BIDDING_TOOLS_FETCH_ERRORED':
       return action.hasErrored;
     default:
       return state;
@@ -37,7 +37,7 @@ export function biddingToolsFetchDataErrored(state = false, action) {
 }
 export function biddingToolsFetchDataLoading(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOLS_FETCH_IS_LOADING':
+    case 'BIDDING_TOOLS_FETCH_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -56,7 +56,7 @@ export function biddingTools(state = [], action) {
 
 export function biddingToolDeleteErrored(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_DELETE_HAS_ERRORED':
+    case 'BIDDING_TOOL_DELETE_ERRORED':
       return action.hasErrored;
     default:
       return state;
@@ -64,7 +64,7 @@ export function biddingToolDeleteErrored(state = false, action) {
 }
 export function biddingToolDeleteLoading(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_DELETE_IS_LOADING':
+    case 'BIDDING_TOOL_DELETE_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -73,7 +73,7 @@ export function biddingToolDeleteLoading(state = false, action) {
 export function biddingToolDeleteSuccess(state = [], action) {
   switch (action.type) {
     case 'BIDDING_TOOL_DELETE_SUCCESS':
-      return action.data;
+      return action.results;
     default:
       return state;
   }
@@ -81,17 +81,17 @@ export function biddingToolDeleteSuccess(state = [], action) {
 
 // ================ BIDDING TOOL EDIT ================
 
-export function biddingToolEditHasErrored(state = false, action) {
+export function biddingToolEditErrored(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_EDIT_HAS_ERRORED':
+    case 'BIDDING_TOOL_EDIT_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function biddingToolEditIsLoading(state = false, action) {
+export function biddingToolEditLoading(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_EDIT_IS_LOADING':
+    case 'BIDDING_TOOL_EDIT_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -100,7 +100,7 @@ export function biddingToolEditIsLoading(state = false, action) {
 export function biddingToolEditSuccess(state = [], action) {
   switch (action.type) {
     case 'BIDDING_TOOL_EDIT_SUCCESS':
-      return action.data;
+      return action.results;
     default:
       return state;
   }
@@ -108,17 +108,17 @@ export function biddingToolEditSuccess(state = [], action) {
 
 // ================ BIDDING TOOL CREATE ================
 
-export function biddingToolCreateHasErrored(state = false, action) {
+export function biddingToolCreateErrored(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_CREATE_HAS_ERRORED':
+    case 'BIDDING_TOOL_CREATE_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function biddingToolCreateIsLoading(state = false, action) {
+export function biddingToolCreateLoading(state = false, action) {
   switch (action.type) {
-    case 'BIDDING_TOOL_CREATE_IS_LOADING':
+    case 'BIDDING_TOOL_CREATE_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -127,7 +127,7 @@ export function biddingToolCreateIsLoading(state = false, action) {
 export function biddingToolCreateSuccess(state = [], action) {
   switch (action.type) {
     case 'BIDDING_TOOL_CREATE_SUCCESS':
-      return action.data;
+      return action.results;
     default:
       return state;
   }
