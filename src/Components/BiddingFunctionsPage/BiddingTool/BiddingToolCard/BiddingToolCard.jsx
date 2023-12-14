@@ -130,40 +130,40 @@ const BiddingToolCard = (props) => {
 
   /* eslint-disable quote-props */
   const sections = [
-    { 'TOD': tods.find(o => o.code === result?.tod)?.description || '' },
-    { 'R & R Point': result?.rr_point || '' },
-    { 'COLA': result?.cola?.toString() || '' },
-    { 'Differential Rate': result?.differential_rate?.toString() || '' },
+    { 'TOD': tods.find(o => o.code === result?.tod)?.description || 'None Listed' },
+    { 'R & R Point': result?.rr_point || 'None Listed' },
+    { 'COLA': result?.cola?.toString() || 'None Listed' },
+    { 'Differential Rate': result?.differential_rate?.toString() || 'None Listed' },
     { 'Consumable Allowance': result?.consumable_allowance ? 'Yes' : 'No' },
     { 'APO/FPO/DPO': result?.apo_fpo_dpo ? 'Yes' : 'No' },
-    { 'Danger Pay': result?.danger_pay?.toString() || '' },
+    { 'Danger Pay': result?.danger_pay?.toString() || 'None Listed' },
     { 'SND': result?.snd ? 'Yes' : 'No' },
     { 'HDS': result?.hds ? 'Yes' : 'No' },
-    { 'Unaccompanied Status': unaccompaniedStatuses.find(o => o.code === result?.unaccompanied_status)?.description || '' },
-    { 'Housing Type': housingTypes.find(o => o.code === result?.housing_type)?.description || '' },
-    { 'Quarters': quartersTypes.find(o => o.code === result?.quarters_type)?.description || '' },
-    { 'EFM Issues': ehcps.find(o => o.code === result?.efm_issues)?.description || '' },
+    { 'Unaccompanied Status': unaccompaniedStatuses.find(o => o.code === result?.unaccompanied_status)?.description || 'None Listed' },
+    { 'Housing Type': housingTypes.find(o => o.code === result?.housing_type)?.description || 'None Listed' },
+    { 'Quarters': quartersTypes.find(o => o.code === result?.quarters_type)?.description || 'None Listed' },
+    { 'EFM Issues': ehcps.find(o => o.code === result?.efm_issues)?.description || 'None Listed' },
   ];
   const textAreas = [{
     label: 'School Year',
     name: 'school-year',
-    value: result?.school_year,
+    value: result?.school_year ?? '',
   }, {
     label: 'Grade, Adequater Education at Post',
     name: 'grade-education',
-    value: result?.grade_education,
+    value: result?.grade_education ?? '',
   }, {
     label: 'EFM Employment Opportunities',
     name: 'efm-employment',
-    value: result?.efm_employment,
+    value: result?.efm_employment ?? '',
   }, {
     label: 'Medical',
     name: 'medical',
-    value: result?.medical,
+    value: result?.medical ?? '',
   }, {
     label: 'Remarks',
     name: 'remarks',
-    value: result?.remarks,
+    value: result?.remarks ?? '',
   }];
   /* eslint-enable quote-props */
 
@@ -174,7 +174,7 @@ const BiddingToolCard = (props) => {
           <div>
             <span>Post/Country/Code:</span>
             <span>
-              {location$?.state_country}, {location$?.code}
+              {location$?.state_country || 'None Listed'}, {location$?.code || 'None Listed'}
             </span>
           </div>
         </div>
