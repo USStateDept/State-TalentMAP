@@ -59,6 +59,10 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => <div>{formatLang(a?.languages) || DEFAULT_TEXT}</div>),
     },
     {
+      title: 'Skills',
+      content: (a => <div>{a?.custom_skills_description || DEFAULT_TEXT}</div>),
+    },
+    {
       title: 'ETA',
       content: (a => a?.is_separation ?
         <div>{SEPARATION_DEFAULT}</div> :
