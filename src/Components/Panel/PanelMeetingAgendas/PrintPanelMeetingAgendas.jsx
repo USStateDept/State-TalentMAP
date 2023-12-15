@@ -9,9 +9,9 @@ import { formatVice } from 'Components/Agenda/Constants';
 import { dateTernary } from '../../Agenda/Constants';
 import SkillCodeList from '../../SkillCodeList';
 
-const PrintPanelMeetingAgendas = ({ panelMeetingData, closeModal, agendas }) => {
+const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas }) => {
   const cancel = () => {
-    closeModal();
+    closePrintView();
   };
 
   const formatDate = (d) => {
@@ -189,7 +189,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closeModal, agendas }) => 
 
 PrintPanelMeetingAgendas.propTypes = {
   panelMeetingData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  closeModal: PropTypes.func.isRequired,
+  closePrintView: PropTypes.func.isRequired,
   agendas: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 

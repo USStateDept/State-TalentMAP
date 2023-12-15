@@ -286,8 +286,8 @@
   .pma-print-history-status {
     font-family: 'Roboto';
     display: flex;
-    -webkit-print-color-adjust: exact;   // Chrome, Safari 6 – 15.3, Edge
-    print-color-adjust: exact;           // Firefox 97+, Safari 15.4+
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 
     .pma-print-official-item-number {
       font-size: 16px;

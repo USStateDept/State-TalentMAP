@@ -364,10 +364,7 @@ const PanelMeetingAgendas = (props) => {
       overlay = (
         <PrintPanelMeetingAgendas
           panelMeetingData={panelMeetingData}
-          closeModal={() => setPrintView(false)}
-          headers={Object.keys(categorizeAgendas()).map(header => header)}
-          agendasCategorized={agendasCategorized}
-          categorizeAgendas={categorizeAgendas}
+          closePrintView={() => setPrintView(false)}
           agendas={agendas$}
         />
       );
