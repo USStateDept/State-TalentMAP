@@ -3,7 +3,6 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
@@ -358,24 +357,26 @@ const PanelMeetingAgendas = (props) => {
     }
   };
 
-  const pmaPrintView = () => {
-    setPrintView(true);
-    swal({
-      title: 'Panel Meeting Agenda:',
-      className: 'modal-full',
-      button: false,
-      content: (
+  const getOverlay = () => {
+    let overlay;
+    if (isLoading) overlay = <Spinner type="bureau-filters" size="small" />;
+    if (printView) {
+      overlay = (
         <PrintPanelMeetingAgendas
           panelMeetingData={panelMeetingData}
           closeModal={() => setPrintView(false)}
+          headers={Object.keys(categorizeAgendas()).map(header => header)}
+          agendasCategorized={agendasCategorized}
+          categorizeAgendas={categorizeAgendas}
+          agendas={agendas$}
         />
-      ),
-    }).then(() => setPrintView(false));
+      );
+    }
+    return overlay;
   };
 
   return (
-    (isLoading || !!printView) ?
-      <Spinner type="bureau-filters" size="small" /> :
+    getOverlay() ||
       <>
         <div className="panel-meeting-agenda-page position-search">
           <div className="usa-grid-full position-search--header search-bar-container">
@@ -541,7 +542,7 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
-                { <button onClick={pmaPrintView}>Print View</button> }
+                { <button onClick={() => setPrintView(true)}>Print View</button> }
                 {
                   false &&
                   <div className="export-button-container">

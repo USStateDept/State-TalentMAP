@@ -16,6 +16,8 @@
   font-size: 11px;
   display: inline;
   padding: 5px;
+  -webkit-print-color-adjust: exact;   // Chrome, Safari 6 – 15.3, Edge
+  print-color-adjust: exact;           // Firefox 97+, Safari 15.4+
 }
 
 .progress-container {
