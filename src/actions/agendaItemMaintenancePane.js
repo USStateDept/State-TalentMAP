@@ -33,6 +33,7 @@ export function modifyAgenda(panel, legs, personId, ef, refData) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateIsLoading(true));
+    dispatch(aiCreateSuccess(false));
     dispatch(aiCreateHasErrored(false));
     api()
       .post('/fsbid/agenda/agenda_item/', {
@@ -49,7 +50,7 @@ export function modifyAgenda(panel, legs, personId, ef, refData) {
       .then(({ data }) => {
         batch(() => {
           dispatch(aiCreateHasErrored(false));
-          dispatch(aiCreateSuccess(data || []));
+          dispatch(aiCreateSuccess(data));
           dispatch(toastSuccess(UPDATE_AGENDA_ITEM_SUCCESS, UPDATE_AGENDA_ITEM_SUCCESS_TITLE));
           dispatch(aiCreateIsLoading(false));
         });

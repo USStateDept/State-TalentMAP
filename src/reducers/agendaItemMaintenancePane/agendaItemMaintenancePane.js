@@ -14,7 +14,7 @@ export function aiCreateIsLoading(state = false, action) {
       return state;
   }
 }
-export function ai(state = [], action) {
+export function ai(state = false, action) {
   switch (action.type) {
     case 'AI_CREATE_SUCCESS':
       return action.data;

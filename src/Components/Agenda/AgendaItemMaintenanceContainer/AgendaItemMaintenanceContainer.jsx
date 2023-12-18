@@ -26,6 +26,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
   const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
   const AIvalidation = useSelector(state => state.aiValidation);
+  const aiCreateSuccess = useSelector(state => state.ai);
 
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
@@ -168,6 +169,14 @@ const AgendaItemMaintenanceContainer = (props) => {
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
+
+  useEffect(() => {
+    // Condition to leave the create page and go to edit page - now that it was just created
+    // Important they have the latest data call after saving else future edits will be stale
+    if (agendaID === '' && aiCreateSuccess) {
+      props.history.push(`/profile/ao/createagendaitem/${id}/${aiCreateSuccess}`);
+    }
+  }, [aiCreateSuccess]);
 
   return (
     <>
