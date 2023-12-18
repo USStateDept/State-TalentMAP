@@ -66,7 +66,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
       // add if pvId does not exist
       dispatch(addUserBureauExceptions({
         hruId,
-        bureauCodeList: userSelectedBureauCodes,
+        bureauCodes: userSelectedBureauCodes,
       }));
     } else if (userSelectedBureauCodes.length === 0) {
       // delete if pvId exists and no bureaus in current selection
@@ -81,7 +81,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
       dispatch(updateUserBureauExceptions({
         pvId,
         hruId,
-        bureauCodeList: userSelectedBureauCodes,
+        bureauCodes: userSelectedBureauCodes,
         lastUpdatedUserId: userBureauExceptionsAndMetaData?.lastUpdatedUserId,
         lastUpdatedDate: userBureauExceptionsAndMetaData?.lastUpdatedDate,
       }));
@@ -153,7 +153,7 @@ const BureauExceptionsCard = ({ userData, onEditModeSearch, disableEdit,
   return (
     <div className="bureau-exceptions-card box-shadow-standard standard-blue-border-left">
       <div>{name || 'N/A'}</div>
-      <div>{userBureauCodes.length ? userBureauCodes.map(a => formatBureauDisplay(a)).join(', ') : 'No Access'}</div>
+      <div>{userBureauCodes.length ? userBureauCodes.map(a => formatBureauDisplay(a)).join(', ') : 'Default Bureau Access'}</div>
       <InteractiveElement className={`bureau-exceptions-edit ${expandCard ? 'hide' : ''}`} onClick={disableEdit ? () => {} : () => setExpandCard(true)}>
         <div className={`${disableEdit ? 'disabled-action' : ''}`}> <FA name="pencil" /> Edit </div>
       </InteractiveElement>

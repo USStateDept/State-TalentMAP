@@ -186,13 +186,9 @@
 
   .panel-meeting-agendas-user-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     padding-bottom: 5px;
-
-    @media screen and (min-width: 1680px) {
-      flex-direction: row;
-    }
 
     .item {
       font-size: 1.4rem;
@@ -205,6 +201,9 @@
   .panel-meeting-maintenance-link-container {
     width: 110px;
     font-size: 13px;
+    a {
+      display: block;
+    }
   }
 
   .panel-meeting-agendas-profile-link {
