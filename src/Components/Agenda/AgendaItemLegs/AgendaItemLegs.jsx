@@ -83,6 +83,11 @@ const AgendaItemLegs = props => {
       cardView: false,
     },
     {
+      title: 'Skills',
+      content: (getData('custom_skills_description')),
+      cardView: false,
+    },
+    {
       title: 'ETA',
       content: (getData('eta', formatDate)),
       cardView: true,
