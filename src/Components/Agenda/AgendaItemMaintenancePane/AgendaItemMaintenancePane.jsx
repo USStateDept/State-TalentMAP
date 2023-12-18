@@ -90,7 +90,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   const isPanelTypeML = get(agendaItem, 'pmt_code') === 'ML';
   const isPanelTypeID = get(agendaItem, 'pmt_code') === 'ID';
-  const panelMeetingSeqNum = get(agendaItem, 'pm_seq_num') || '';
+  const panelMeetingSeqNum = get(agendaItem, 'pmi_pm_seq_num') || '';
   const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
   const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
   const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
@@ -138,7 +138,7 @@ const AgendaItemMaintenancePane = (props) => {
   useEffect(() => {
     sendMaintenancePaneInfo({
       personDetailId: perdet,
-      panelMeetingId: selectedPanelMLDate.concat(selectedPanelIDDate),
+      panelMeetingId: selectedPanelMLDate || selectedPanelIDDate,
       remarks: userRemarks || [],
       agendaStatusCode: selectedStatus || '',
       panelMeetingCategory: selectedPanelCat || '',
