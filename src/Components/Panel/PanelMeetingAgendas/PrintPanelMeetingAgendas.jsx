@@ -88,98 +88,96 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
         Object.keys(categorizeAgendas()).map(header => (
           <>
             <div className="pma-print-header">{header}</div>
-            <>
-              {
-                agendasCategorized[header].map(agenda => {
-                  const { user } = agenda;
-                  const cdo = user?.cdos[0]?.cdo_fullname || 'None Listed';
-                  const userBureau = user?.current_assignment?.position.bureau || 'None Listed';
-                  const userGrade = user?.grade || 'None Listed';
-                  const userLanguage = user?.languages || 'None Listed';
-                  const userSkill = <SkillCodeList skillCodes={user?.skills || []} />;
-                  const agendaStatus = agenda?.status_short || 'None Listed';
-                  const name = user?.shortened_name;
+            {
+              agendasCategorized[header].map(agenda => {
+                const { user } = agenda;
+                const cdo = user?.cdos[0]?.cdo_fullname || 'None Listed';
+                const userBureau = user?.current_assignment?.position.bureau || 'None Listed';
+                const userGrade = user?.grade || 'None Listed';
+                const userLanguage = user?.languages || 'None Listed';
+                const userSkill = <SkillCodeList skillCodes={user?.skills || []} />;
+                const agendaStatus = agenda?.status_short || 'None Listed';
+                const name = user?.shortened_name;
 
-                  const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
-                  const createDate = dateTernary(agenda?.creator_date);
-                  const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
-                  const updateDate = dateTernary(agenda?.modifier_date);
-                  const remarks = agenda?.remarks?.map(remark => remark?.text).join('; ') || '';
-                  const combinedTod = agenda?.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText;
-                  return (
-                    <div className={`pma-table-wrapper agenda-border-row--${agendaStatus} `}>
+                const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
+                const createDate = dateTernary(agenda?.creator_date);
+                const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
+                const updateDate = dateTernary(agenda?.modifier_date);
+                const remarks = agenda?.remarks?.map(remark => remark?.text).join('; ') || '';
+                const combinedTod = agenda?.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText;
+                return (
+                  <div className={`pma-table-wrapper agenda-border-row--${agendaStatus} `}>
 
-                      <div className="pma-print-history-status">
-                        <div className={`agenda-tag--${agendaStatus} pma-print-official-item-number`}>
-                          {agenda?.pmi_official_item_num}
-                        </div>
-                        <div className={`status-tag agenda-tag--${agendaStatus}`}>
-                          {agenda?.status_full || 'Default'}
-                        </div>
-                        <div className={`poly-slash agenda-tag--${agendaStatus}`} />
+                    <div className="pma-print-history-status">
+                      <div className={`agenda-tag--${agendaStatus} pma-print-official-item-number`}>
+                        {agenda?.pmi_official_item_num}
                       </div>
-
-                      <div className="pma-print-user-info">
-                        <div className="item"><span className="label">{name}</span></div>
-                        <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
-                        <div className="item"><span className="label">Grade: </span> {userGrade}</div>
-                        <div className="item"><span className="label">Skill: </span> {userSkill}</div>
-                        <div className="item">
-                          <span className="label">Languages:</span>
-                          <span>
-                            {
-                              userLanguage.map((l) => (
-                                `${l.custom_description} ${formatCurrentDate(l.test_date)} `
-                              ),
-                              ).join(', ')
-                            }
-                          </span>
-                        </div>
+                      <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                        {agenda?.status_full || 'Default'}
                       </div>
-
-                      <table className="pma-print-table">
-                        <thead>
-                          <tr>
-                            <th>Action</th>
-                            <th>Org</th>
-                            <th>Position Number</th>
-                            <th>Position Title</th>
-                            <th>Grade</th>
-                            <th>Lang</th>
-                            <th>ETA</th>
-                            <th>TED</th>
-                            <th>TOD</th>
-                            <th>Travel</th>
-                            <th>Vice</th>
-                            <th>Pay Plan</th>
-                          </tr>
-                        </thead>
-                        { printableAgendaTable(agenda) }
-                      </table>
-
-                      <div className="pma-footer-wrapper">
-                        <div className="pma-cdo-remarks-wrapper">
-                          <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                          <div className="item"><span className="label">Remarks: </span> {remarks}</div>
-                          <div className="item"><span className="label">Combined TOD: </span> {combinedTod}</div>
-                        </div>
-                        <div className="pma-created-modified-wrapper">
-                          <div className="pma-date-stamp-wrapper">
-                            <span className="stamp">Created: {createdByLast} {agenda?.creators?.first_name || ''}</span>
-                            <span className="date">{createDate}</span>
-                          </div>
-                          <div className="pma-date-stamp-wrapper">
-                            <span className="stamp">Modified: {updateByLast} {agenda?.creators?.last_name || ''}</span>
-                            <span className="date">{updateDate}</span>
-                          </div>
-                        </div>
-                      </div>
-
+                      <div className={`poly-slash agenda-tag--${agendaStatus}`} />
                     </div>
-                  );
-                })
-              }
-            </>
+
+                    <div className="pma-print-user-info">
+                      <div className="item"><span className="label">{name}</span></div>
+                      <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
+                      <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                      <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+                      <div className="item">
+                        <span className="label">Languages: </span>
+                        <span>
+                          {
+                            userLanguage.map((l) => (
+                              `${l.custom_description} ${formatCurrentDate(l.test_date)} `
+                            ),
+                            ).join(', ')
+                          }
+                        </span>
+                      </div>
+                    </div>
+
+                    <table className="pma-print-table">
+                      <thead>
+                        <tr>
+                          <th>Action</th>
+                          <th>Location/Org</th>
+                          <th>Position Number</th>
+                          <th>Position Title</th>
+                          <th>PP/Grade</th>
+                          <th>Lang</th>
+                          <th>ETA</th>
+                          <th>TED</th>
+                          <th>TOD</th>
+                          <th>Travel</th>
+                          <th>Vice</th>
+                          <th>Pay Plan</th>
+                        </tr>
+                      </thead>
+                      { printableAgendaTable(agenda) }
+                    </table>
+
+                    <div className="pma-footer-wrapper">
+                      <div className="pma-cdo-remarks-wrapper">
+                        <div className="item"><span className="label">CDO: </span> {cdo}</div>
+                        <div className="item"><span className="label">Remarks: </span> {remarks}</div>
+                        <div className="item"><span className="label">Combined TOD: </span> {combinedTod}</div>
+                      </div>
+                      <div className="pma-created-modified-wrapper">
+                        <div className="pma-date-stamp-wrapper">
+                          <span className="stamp">Created: {createdByLast} {agenda?.creators?.first_name || ''}</span>
+                          <span className="date">{createDate}</span>
+                        </div>
+                        <div className="pma-date-stamp-wrapper">
+                          <span className="stamp">Modified: {updateByLast} {agenda?.creators?.last_name || ''}</span>
+                          <span className="date">{updateDate}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                );
+              })
+            }
           </>
         ))
       }
