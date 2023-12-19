@@ -29,6 +29,59 @@ export function aiCreateSuccess(data) {
   };
 }
 
+export function fetchAIHasErrored(bool) {
+  return {
+    type: 'FETCH_AI_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function fetchAIIsLoading(bool) {
+  return {
+    type: 'FETCH_AI_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function fetchAISuccess(data) {
+  return {
+    type: 'FETCH_AI_SUCCESS',
+    data,
+  };
+}
+
+export function fetchAI(id) {
+  return (dispatch) => {
+    if (cancel) { cancel('cancel'); }
+    dispatch(fetchAIIsLoading(true));
+    dispatch(fetchAISuccess(false));
+    dispatch(fetchAIHasErrored(false));
+    api()
+      .get(`/fsbid/agenda/agenda_item/${id}`,
+        {
+          cancelToken: new CancelToken((c) => {
+            cancel = c;
+          }),
+        },
+      )
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(fetchAIHasErrored(false));
+          dispatch(fetchAISuccess(data));
+          dispatch(fetchAIIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          dispatch(fetchAIHasErrored(false));
+          dispatch(fetchAIIsLoading(false));
+        } else {
+          dispatch(fetchAIHasErrored(true));
+          dispatch(fetchAIIsLoading(false));
+        }
+      });
+  };
+}
+
+
 export function modifyAgenda(panel, legs, personId, ef, refData) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
