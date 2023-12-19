@@ -8,7 +8,7 @@ import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { modifyAgenda, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
+import { fetchAI, modifyAgenda, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
 import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
@@ -26,10 +26,12 @@ const AgendaItemMaintenanceContainer = (props) => {
   const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
   const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
   const AIvalidation = useSelector(state => state.aiValidation);
+  const agendaItemData = useSelector(state => state.fetchAISuccess);
+  const agendaItemLoading = useSelector(state => state.fetchAIIsLoading);
+  const agendaItemError = useSelector(state => state.fetchAIHasErrored);
   const aiCreateSuccess = useSelector(state => state.ai);
 
   const agendaID = get(props, 'match.params.agendaID') || '';
-  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
   const agendaItem = get(agendaItemData, 'data') || {};
 
   const id = get(props, 'match.params.id');
@@ -142,6 +144,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
+
+  useEffect(() => {
+    if (agendaID) {
+      dispatch(fetchAI(agendaID));
+    }
+  }, [agendaID]);
 
   useEffect(() => {
     if (!readMode) {

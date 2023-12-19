@@ -52,7 +52,7 @@ export function fetchAI(id) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(fetchAIIsLoading(true));
-    dispatch(fetchAISuccess(false));
+    dispatch(fetchAISuccess({}));
     dispatch(fetchAIHasErrored(false));
     api()
       .get(`/fsbid/agenda/agenda_item/${id}`,
