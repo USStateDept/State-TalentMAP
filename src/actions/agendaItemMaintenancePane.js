@@ -8,7 +8,9 @@ import { UPDATE_AGENDA_ITEM_ERROR,
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
-let cancel;
+let cancelFetchAI;
+let cancelModifyAI;
+let cancelValidateAI;
 
 export function aiCreateHasErrored(bool) {
   return {
@@ -50,15 +52,15 @@ export function fetchAISuccess(data) {
 
 export function fetchAI(id) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
+    if (cancelFetchAI) { cancelFetchAI('cancel'); }
     dispatch(fetchAIIsLoading(true));
     dispatch(fetchAISuccess({}));
     dispatch(fetchAIHasErrored(false));
     api()
-      .get(`/fsbid/agenda/agenda_item/${id}`,
+      .get(`/fsbid/agenda/agenda_items/${id}/`,
         {
           cancelToken: new CancelToken((c) => {
-            cancel = c;
+            cancelFetchAI = c;
           }),
         },
       )
@@ -84,7 +86,7 @@ export function fetchAI(id) {
 
 export function modifyAgenda(panel, legs, personId, ef, refData) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
+    if (cancelModifyAI) { cancelModifyAI('cancel'); }
     dispatch(aiCreateIsLoading(true));
     dispatch(aiCreateSuccess(false));
     dispatch(aiCreateHasErrored(false));
@@ -97,7 +99,7 @@ export function modifyAgenda(panel, legs, personId, ef, refData) {
         refData,
       }, {
         cancelToken: new CancelToken((c) => {
-          cancel = c;
+          cancelModifyAI = c;
         }),
       })
       .then(({ data }) => {
@@ -143,7 +145,7 @@ export function validateAISuccess(data) {
 
 export function validateAI(panel, legs, personId, ef) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
+    if (cancelValidateAI) { cancelValidateAI('cancel'); }
     dispatch(validateAIIsLoading(true));
     dispatch(validateAIHasErrored(false));
     api()
@@ -154,7 +156,7 @@ export function validateAI(panel, legs, personId, ef) {
         agendaLegs: legs,
       }, {
         cancelToken: new CancelToken((c) => {
-          cancel = c;
+          cancelValidateAI = c;
         }),
       })
       .then(({ data }) => {
