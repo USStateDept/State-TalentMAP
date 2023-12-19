@@ -7,6 +7,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
+import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { Link } from 'react-router-dom';
 import { fetchAI, modifyAgenda, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
@@ -308,6 +309,10 @@ const AgendaItemMaintenanceContainer = (props) => {
       </MediaQuery>
     </>
   );
+};
+
+AgendaItemMaintenanceContainer.propTypes = {
+  history: HISTORY_OBJECT.isRequired,
 };
 
 export default withRouter(AgendaItemMaintenanceContainer);
