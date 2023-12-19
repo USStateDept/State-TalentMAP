@@ -33,7 +33,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const aiCreateSuccess = useSelector(state => state.ai);
 
   const agendaID = get(props, 'match.params.agendaID') || '';
-  const agendaItem = agendaItemData || {};
+  const agendaItem = agendaID ? agendaItemData : {};
 
   const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
