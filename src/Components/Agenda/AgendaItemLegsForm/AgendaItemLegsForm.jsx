@@ -36,14 +36,6 @@ const AgendaItemLegsForm = props => {
   const showOverlay = !legs.length && !hasEf;
   const [rowHoverNum, setRowHoverNum] = useState();
 
-  const onHover = row => {
-    // this should check the row number of the
-    // Arrow Header '' to avoid highlighting the arrow row
-    if (row !== 8) {
-      setRowHoverNum(row);
-    }
-  };
-
   const onClose$ = leg => {
     onClose(leg);
   };
@@ -58,6 +50,7 @@ const AgendaItemLegsForm = props => {
     'Org',
     'Grade',
     'Lang',
+    'Skills',
     'ETA',
     '',
     'TED',
@@ -112,8 +105,8 @@ const AgendaItemLegsForm = props => {
                 legHeaderData.map((title, i) => (
                   <InteractiveElement
                     className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
-                    onMouseOver={() => onHover(i + 2)}
-                    onMouseLeave={() => onHover('')}
+                    onMouseOver={() => setRowHoverNum(i + 2)}
+                    onMouseLeave={() => setRowHoverNum('')}
                     key={title}
                   >
                     {title}
@@ -131,7 +124,7 @@ const AgendaItemLegsForm = props => {
                   onClose={onClose$}
                   updateLeg={updateLeg$}
                   isEf
-                  onHover={onHover}
+                  onHover={(row) => setRowHoverNum(row)}
                   rowNum={rowHoverNum}
                 />
               }
@@ -150,7 +143,7 @@ const AgendaItemLegsForm = props => {
                       travelFunctions={travelFunctions}
                       onClose={onClose$}
                       updateLeg={updateLeg$}
-                      onHover={onHover}
+                      onHover={(row) => setRowHoverNum(row)}
                       rowNum={rowHoverNum}
                       updateResearchPaneTab={updateResearchPaneTab}
                       setLegsContainerExpanded={setLegsContainerExpanded}

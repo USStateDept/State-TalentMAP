@@ -38,7 +38,7 @@ const AgendaLeg = props => {
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow
-    if (row !== 8) {
+    if (row !== 9) {
       onHover(row);
     }
   };
@@ -337,6 +337,10 @@ const AgendaLeg = props => {
     {
       title: 'Languages',
       content: (<div>{formatLang(get(leg, 'languages') || []) || defaultSepText || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Skills',
+      content: (<div>{get(leg, 'custom_skills_description') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
