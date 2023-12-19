@@ -259,10 +259,9 @@ export function biddingToolCreate(query) {
         });
       })
       .catch((err) => {
-        console.log(err);
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(biddingToolEditLoading(true));
+            dispatch(biddingToolCreateLoading(true));
             dispatch(biddingToolCreateErrored(false));
           });
         } else {
@@ -272,6 +271,47 @@ export function biddingToolCreate(query) {
             dispatch(biddingToolCreateLoading(false));
           });
         }
+      });
+  };
+}
+
+export function biddingToolCreateDataErrored(bool) {
+  return {
+    type: 'BIDDING_TOOL_CREATE_DATA_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function biddingToolCreateDataLoading(bool) {
+  return {
+    type: 'BIDDING_TOOL_CREATE_DATA_LOADING',
+    isLoading: bool,
+  };
+}
+export function biddingToolCreateDataSuccess(results) {
+  return {
+    type: 'BIDDING_TOOL_CREATE_DATA_SUCCESS',
+    results,
+  };
+}
+export function biddingToolCreateData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(biddingToolCreateDataLoading(true));
+      dispatch(biddingToolCreateDataErrored(false));
+    });
+    api().get('/fsbid/bidding_tool/create/', {
+      cancelToken: new CancelToken((c) => { cancelBiddingTool = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(biddingToolCreateDataErrored(false));
+          dispatch(biddingToolCreateDataSuccess(data));
+          dispatch(biddingToolCreateDataLoading(false));
+        });
+      })
+      .catch(() => {
+        dispatch(biddingToolCreateDataErrored(true));
+        dispatch(biddingToolCreateDataLoading(false));
       });
   };
 }
