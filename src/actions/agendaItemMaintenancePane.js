@@ -108,6 +108,7 @@ export function modifyAgenda(panel, legs, personId, ef, refData) {
           dispatch(aiCreateSuccess(data));
           dispatch(toastSuccess(UPDATE_AGENDA_ITEM_SUCCESS, UPDATE_AGENDA_ITEM_SUCCESS_TITLE));
           dispatch(aiCreateIsLoading(false));
+          dispatch(fetchAI(data));
         });
       })
       .catch((err) => {
