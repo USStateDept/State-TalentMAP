@@ -132,3 +132,28 @@ export function biddingToolCreateSuccess(state = [], action) {
       return state;
   }
 }
+
+export function biddingToolCreateDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDING_TOOL_CREATE_DATA_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function biddingToolCreateDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDING_TOOL_CREATE_DATA_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function biddingToolCreateDataSuccess(state = [], action) {
+  switch (action.type) {
+    case 'BIDDING_TOOL_CREATE_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
