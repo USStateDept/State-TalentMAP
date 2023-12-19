@@ -12,7 +12,7 @@ import { userHasPermissions } from 'utilities';
 import TabbedCard from 'Components/TabbedCard';
 import { Row } from 'Components/Layout';
 import { Definition } from '../../../DefinitionList';
-import { biddingTool, biddingToolCreate, biddingToolDelete, biddingToolEdit } from '../../../../actions/biddingTool';
+import { biddingTool, biddingToolCreate, biddingToolCreateData, biddingToolDelete, biddingToolEdit } from '../../../../actions/biddingTool';
 import Spinner from '../../../Spinner/Spinner';
 import CheckBox from '../../../CheckBox/CheckBox';
 import { history } from '../../../../store';
@@ -34,9 +34,12 @@ const BiddingToolCard = (props) => {
   const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   // ========================== DATA ==========================
-
-  const result = useSelector(state => state.biddingTool) || {};
-  const resultIsLoading = useSelector(state => state.biddingToolFetchDataLoading);
+  const result = (isCreate ?
+    useSelector(state => state.biddingToolCreateDataSuccess) :
+    useSelector(state => state.biddingTool)) || {};
+  const resultIsLoading = (isCreate ?
+    useSelector(state => state.biddingToolCreateDataLoading) :
+    useSelector(state => state.biddingToolFetchDataLoading)) || false;
   const deleteErrored = useSelector(state => state.biddingToolDeleteErrored);
   const createErrored = useSelector(state => state.biddingToolCreateErrored);
 
@@ -51,7 +54,9 @@ const BiddingToolCard = (props) => {
   const location$ = locations.find(o => o.code === result?.location);
 
   useEffect(() => {
-    if (!isCreate) {
+    if (isCreate) {
+      dispatch(biddingToolCreateData());
+    } else {
       dispatch(biddingTool(id));
     }
   }, []);
