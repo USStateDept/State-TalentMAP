@@ -19,6 +19,7 @@ import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
 import ExportButton from 'Components/ExportButton';
+import PrintPanelMeetingAgendas from './PrintPanelMeetingAgendas';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -138,6 +139,7 @@ const PanelMeetingAgendas = (props) => {
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
+  const [printView, setPrintView] = useState(false);
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
@@ -355,9 +357,23 @@ const PanelMeetingAgendas = (props) => {
     }
   };
 
+  const getOverlay = () => {
+    let overlay;
+    if (isLoading) overlay = <Spinner type="bureau-filters" size="small" />;
+    if (printView) {
+      overlay = (
+        <PrintPanelMeetingAgendas
+          panelMeetingData={panelMeetingData}
+          closePrintView={() => setPrintView(false)}
+          agendas={agendas$}
+        />
+      );
+    }
+    return overlay;
+  };
+
   return (
-    isLoading ?
-      <Spinner type="bureau-filters" size="small" /> :
+    getOverlay() ||
       <>
         <div className="panel-meeting-agenda-page position-search">
           <div className="usa-grid-full position-search--header search-bar-container">
@@ -523,6 +539,7 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
+                { <button onClick={() => setPrintView(true)}>Print View</button> }
                 {
                   false &&
                   <div className="export-button-container">

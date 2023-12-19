@@ -16,6 +16,8 @@
   font-size: 11px;
   display: inline;
   padding: 5px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .progress-container {
