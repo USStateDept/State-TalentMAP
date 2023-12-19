@@ -52,7 +52,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
       legs.map(leg => {
         const language = Array.isArray(leg.languages) ? formatLang(leg.languages) : '-';
         const vice = leg.vice ? formatVice(leg.vice) : '-';
-        const formattedTitle = formatStr(leg.pos_title);
+        const formattedSkillTitle = `(${leg.skill_code}) ${formatStr(leg.pos_title)}`;
         const formattedETA = formatDate(leg.eta);
         const formattedTED = formatDate(leg.ted);
         const formattedORG = formatStr(leg.org);
@@ -62,7 +62,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
               <td>{leg.action}</td>
               <td>{formattedORG}</td>
               <td>{leg.pos_num}</td>
-              <td>{formattedTitle}</td>
+              <td>{formattedSkillTitle}</td>
               <td>{leg.grade}</td>
               <td>{language}</td>
               <td>{formattedETA}</td>
@@ -94,9 +94,11 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                 const cdo = user?.cdos[0]?.cdo_fullname || 'None Listed';
                 const userBureau = user?.current_assignment?.position.bureau || 'None Listed';
                 const userGrade = user?.grade || 'None Listed';
+                const userPayPlan = user?.pay_plan || 'None Listed';
                 const userLanguage = user?.languages || 'None Listed';
                 const userSkill = <SkillCodeList skillCodes={user?.skills || []} />;
                 const agendaStatus = agenda?.status_short || 'None Listed';
+                const ppGrade = `${userPayPlan}, ${userGrade}`;
                 const name = user?.shortened_name;
 
                 const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
@@ -121,7 +123,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                     <div className="pma-print-user-info">
                       <div className="item"><span className="label">{name}</span></div>
                       <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
-                      <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                      <div className="item"><span className="label">PP/Grade: </span> {ppGrade}</div>
                       <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                       <div className="item">
                         <span className="label">Languages: </span>
@@ -140,10 +142,10 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                       <thead>
                         <tr>
                           <th>Action</th>
-                          <th>Location/Org</th>
+                          <th>Org</th>
                           <th>Position Number</th>
-                          <th>Position Title</th>
-                          <th>PP/Grade</th>
+                          <th>Skill/Title</th>
+                          <th>Grade</th>
                           <th>Lang</th>
                           <th>ETA</th>
                           <th>TED</th>
