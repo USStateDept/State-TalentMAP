@@ -37,7 +37,9 @@ const BiddingTool = (props) => {
   };
 
   useEffect(() => {
-    dispatch(biddingTools());
+    if (!id) {
+      dispatch(biddingTools());
+    }
   }, []);
 
   if (id) {
@@ -79,17 +81,17 @@ const BiddingTool = (props) => {
           </div>
         }
         {getResults()?.map(d => (
-          <Row fluid className="cycle-search-card box-shadow-standard">
+          <Row key={d.location_code} fluid className="cycle-search-card box-shadow-standard">
             <Row fluid className="cyc-card--row">
               <Column columns={3}>
-                {d.post_code}
+                {d.location_code}
               </Column>
               <Column columns={12} className="cyc-card--middle-cols">
-                {d.post} / {d.entry ? 'Y' : 'N'}
+                {d.dsv_name} / {d.bt_ind ? 'Y' : 'N'}
               </Column>
               <Column columns={3} className="cyc-card--link-col">
                 <span>
-                  <Link to={appendedLocation() + d.id}>
+                  <Link to={appendedLocation() + d.location_code}>
                     {isSuperUser ? 'View / Edit' : 'View'}
                   </Link>
                 </span>

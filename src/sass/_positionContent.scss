@@ -228,7 +228,26 @@
       color: white !important;
     }
   }
+
+  &.split-actions {
+    justify-content: space-between;
+
+    >button {
+      background-color: $secondary-base;
+      color: white;
+
+      .fa {
+        padding-right: 10px;
+      }
+
+      &:disabled {
+        background-color: $bg-gray-dark-2;
+        color: white !important;
+      }
+    }
+  }
 }
+
 
 .simple-action-modal {
   .help-text {
