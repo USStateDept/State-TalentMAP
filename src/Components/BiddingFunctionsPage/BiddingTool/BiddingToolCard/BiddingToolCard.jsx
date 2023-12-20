@@ -7,22 +7,23 @@ import TextareaAutosize from 'react-textarea-autosize';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
-import { getResult, userHasPermissions } from 'utilities';
+import { isEqual } from 'lodash';
+import { userHasPermissions } from 'utilities';
 import TabbedCard from 'Components/TabbedCard';
 import { Row } from 'Components/Layout';
 import { Definition } from '../../../DefinitionList';
-import { biddingTool, biddingToolCreate, biddingToolEdit } from '../../../../actions/biddingTool';
+import { biddingTool, biddingToolCreate, biddingToolCreateData, biddingToolDelete, biddingToolEdit } from '../../../../actions/biddingTool';
 import Spinner from '../../../Spinner/Spinner';
 import CheckBox from '../../../CheckBox/CheckBox';
 import { history } from '../../../../store';
 
-
+// eslint-disable-next-line
 const BiddingToolCard = (props) => {
-  const { id, location } = props;
+  const { id, location: routeLocation } = props;
   const isCreate = id === 'new';
 
   const rootLocation = () => {
-    const routeHistory = location.split('/');
+    const routeHistory = routeLocation.split('/');
     routeHistory.pop();
     return routeHistory.join('/');
   };
@@ -32,58 +33,142 @@ const BiddingToolCard = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
-  const result = useSelector(state => state.biddingTool) || {};
-  const resultIsLoading = useSelector(state => state.biddingToolFetchDataLoading);
+  // ========================== DATA ==========================
+  const result = (isCreate ?
+    useSelector(state => state.biddingToolCreateDataSuccess) :
+    useSelector(state => state.biddingTool)) || {};
+  const resultIsLoading = (isCreate ?
+    useSelector(state => state.biddingToolCreateDataLoading) :
+    useSelector(state => state.biddingToolFetchDataLoading)) || false;
+  const deleteErrored = useSelector(state => state.biddingToolDeleteErrored);
+  const createErrored = useSelector(state => state.biddingToolCreateErrored);
+
+  const locations = result?.locations || [];
+  const statuses = result?.statuses || [];
+  const tods = result?.tods || [];
+  const unaccompaniedStatuses = result?.unaccompanied_statuses || [];
+  const housingTypes = result?.housing_types || [];
+  const quartersTypes = result?.quarters_types || [];
+  const ehcps = result?.ehcps || [];
+
+  const location$ = locations.find(o => o.code === result?.location);
 
   useEffect(() => {
-    if (!isCreate) {
+    if (isCreate) {
+      dispatch(biddingToolCreateData());
+    } else {
       dispatch(biddingTool(id));
     }
   }, []);
 
+  const initialValues = isCreate ? {
+    location: null,
+    status: null,
+    tod: null,
+    unaccompanied_status: null,
+    housing: null,
+    quarters: null,
+    efm_issues: null,
+
+    snd: 'N',
+    hds: 'N',
+    apo_fpo_dpo: 'N',
+    consumable_allowance: 'N',
+    fm_fp: 'N',
+    inside_efm_employment: 'N',
+    outside_efm_employment: 'N',
+
+    cola: null,
+    differential_rate: null,
+    danger_pay: null,
+    climate_zone: null,
+
+    rr_point: '',
+    medical: '',
+    remarks: '',
+    quarters_remark: '',
+    special_ship_allowance: '',
+    school_year: '',
+    grade_education: '',
+    efm_employment: '',
+  } : {
+    location: result?.location,
+    status: result?.status,
+    tod: result?.tod,
+    unaccompanied_status: result?.unaccompanied_status,
+    housing: result?.housing,
+    quarters: result?.quarters,
+    efm_issues: result?.efm_issues,
+
+    snd: result?.snd ?? 'N',
+    hds: result?.hds ?? 'N',
+    apo_fpo_dpo: result?.apo_fpo_dpo ?? 'N',
+    consumable_allowance: result?.consumable_allowance ?? 'N',
+    fm_fp: result?.fm_fp ?? 'N',
+    inside_efm_employment: result?.inside_efm_employment ?? 'N',
+    outside_efm_employment: result?.outside_efm_employment ?? 'N',
+
+    cola: result?.cola,
+    differential_rate: result?.differential_rate,
+    danger_pay: result?.danger_pay,
+    climate_zone: result?.climate_zone,
+
+    rr_point: result?.rr_point ?? '',
+    medical: result?.medical ?? '',
+    remarks: result?.remarks ?? '',
+    quarters_remark: result?.quarters_remark ?? '',
+    special_ship_allowance: result?.special_ship_allowance ?? '',
+    school_year: result?.school_year ?? '',
+    grade_education: result?.grade_education ?? '',
+    efm_employment: result?.efm_employment ?? '',
+  };
+
   const [editMode, setEditMode] = useState(false);
+  const [values, setValues] = useState(initialValues);
+  useEffect(() => {
+    if (editMode) {
+      setValues(initialValues);
+    }
+  }, [editMode]);
 
   // ========================== VIEW MODE ==========================
 
   /* eslint-disable quote-props */
   const sections = [
-    { 'TOD': result?.tod || '' },
-    { 'R & R Point': result?.rr_point || '' },
-    { 'COLA': result?.cola },
-    { 'Differential Rate': result?.differential_rate || '' },
+    { 'TOD': tods.find(o => o.code === result?.tod)?.description || 'None Listed' },
+    { 'R & R Point': result?.rr_point || 'None Listed' },
+    { 'COLA': result?.cola?.toString() || 'None Listed' },
+    { 'Differential Rate': result?.differential_rate?.toString() || 'None Listed' },
     { 'Consumable Allowance': result?.consumable_allowance ? 'Yes' : 'No' },
     { 'APO/FPO/DPO': result?.apo_fpo_dpo ? 'Yes' : 'No' },
-    { 'Danger Pay': result?.danger_pay || '' },
+    { 'Danger Pay': result?.danger_pay?.toString() || 'None Listed' },
     { 'SND': result?.snd ? 'Yes' : 'No' },
     { 'HDS': result?.hds ? 'Yes' : 'No' },
-    { 'Unaccompanied Status': result?.unaccompanied_status || '' },
-    { 'Housing Type': result?.housing_type || '' },
-    { 'Quarters': result?.quarters || '' },
+    { 'Unaccompanied Status': unaccompaniedStatuses.find(o => o.code === result?.unaccompanied_status)?.description || 'None Listed' },
+    { 'Housing Type': housingTypes.find(o => o.code === result?.housing_type)?.description || 'None Listed' },
+    { 'Quarters': quartersTypes.find(o => o.code === result?.quarters_type)?.description || 'None Listed' },
+    { 'EFM Issues': ehcps.find(o => o.code === result?.efm_issues)?.description || 'None Listed' },
   ];
   const textAreas = [{
     label: 'School Year',
     name: 'school-year',
-    value: result?.school_year,
+    value: result?.school_year ?? '',
   }, {
     label: 'Grade, Adequater Education at Post',
-    name: 'grade-adequater',
-    value: result?.grade_adequater_education,
+    name: 'grade-education',
+    value: result?.grade_education ?? '',
   }, {
     label: 'EFM Employment Opportunities',
-    name: 'efm-employment-opportunities',
-    value: result?.efm_employment_opportunities,
-  }, {
-    label: 'EFM Issues',
-    name: 'efm-issues',
-    value: result?.efm_issues,
+    name: 'efm-employment',
+    value: result?.efm_employment ?? '',
   }, {
     label: 'Medical',
     name: 'medical',
-    value: result?.medical,
+    value: result?.medical ?? '',
   }, {
     label: 'Remarks',
     name: 'remarks',
-    value: result?.remarks,
+    value: result?.remarks ?? '',
   }];
   /* eslint-enable quote-props */
 
@@ -93,7 +178,9 @@ const BiddingToolCard = (props) => {
         <div className="line-separated-fields">
           <div>
             <span>Post/Country/Code:</span>
-            <span>{getResult(result, 'post')}, {getResult(result, 'post_code')}</span>
+            <span>
+              {location$?.state_country || 'None Listed'}, {location$?.code || 'None Listed'}
+            </span>
           </div>
         </div>
         {(isSuperUser && !editMode) &&
@@ -120,13 +207,13 @@ const BiddingToolCard = (props) => {
       </Row>
       <div>
         {textAreas.map(t => (
-          <Row fluid className="position-content--description">
+          <Row key={t.name} fluid className="position-content--description">
             <span className="definition-title">{t.label}</span>
             <Linkify properties={{ target: '_blank' }}>
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxLength="4000"
                 name={t.name}
                 placeholder="No Description"
                 defaultValue={t.value}
@@ -149,157 +236,76 @@ const BiddingToolCard = (props) => {
 
   // ========================== EDIT MODE ==========================
 
-  const dummySelectOptions = [
-    { code: 1, name: 'Example Option 1' },
-    { code: 2, name: 'Example Option 2' },
-    { code: 3, name: 'Example Option 3' },
-    { code: 4, name: 'Example Option 4' },
-    { code: 5, name: 'Example Option 5' },
-    { code: 6, name: 'Example Option 6' },
-    { code: 7, name: 'Example Option 7' },
-    { code: 8, name: 'Example Option 8' },
-    { code: 9, name: 'Example Option 9' },
-    { code: 10, name: 'Example Option 10' },
-    { code: 11, name: 'Example Option 11' },
-  ];
-
-  const [gsaLocation, setGsaLocation] = useState();
-  const [status, setStatus] = useState();
-  const [hds, setHds] = useState();
-  const [tod, setTod] = useState();
-  const [rrPoint, setRrPoint] = useState();
-  const [unaccompaniedStatus, setUnaccompaniedStatus] = useState();
-  const [apoFpoDpo, setApoFpoDpo] = useState();
-  const [cola, setCola] = useState();
-  const [differentialRate, setDifferentialRate] = useState();
-  const [dangerPay, setDangerPay] = useState();
-  const [medical, setMedical] = useState('');
-  const [remarks, setRemarks] = useState('');
-  const [climateZone, setClimateZone] = useState();
-  const [consumableAllowance, setConsumableAllowance] = useState();
-  const [fmFpAccepted, setFmFpAccepted] = useState();
-  const [housingType, setHousingType] = useState();
-  const [qtrsType, setQtrsType] = useState();
-  const [quartersRemark, setQuartersRemark] = useState('');
-  const [specialShipAllow, setSpecialShipAllow] = useState('');
-  const [schoolYearText, setSchoolYearText] = useState('');
-  const [edGradesAtPost, setEdGradesAtPost] = useState('');
-  const [employmentOpportunities, setEmploymentOpportunities] = useState('');
-  const [efmIssues, setEfmIssues] = useState('');
-  const [missionEfmEmp, setMissionEfmEmp] = useState();
-  const [outsideEfmEmp, setOutsideEfmEmp] = useState();
-
-  useEffect(() => {
-    if (isCreate) {
-      setGsaLocation('');
-      setStatus('');
-      setHds(false);
-      setTod('');
-      setRrPoint('');
-      setUnaccompaniedStatus('');
-      setApoFpoDpo(false);
-      setCola('');
-      setDifferentialRate('');
-      setDangerPay('');
-      setMedical('');
-      setRemarks('');
-      setClimateZone('');
-      setConsumableAllowance(false);
-      setFmFpAccepted(false);
-      setHousingType('');
-      setQtrsType('');
-      setQuartersRemark('');
-      setSpecialShipAllow('');
-      setSchoolYearText('');
-      setEdGradesAtPost('');
-      setEmploymentOpportunities('');
-      setEfmIssues('');
-      setMissionEfmEmp(false);
-      setOutsideEfmEmp(false);
-    } else if (editMode) {
-      setGsaLocation(result?.gsa_location ?? '');
-      setStatus(result?.status ?? '');
-      setHds(result?.hds);
-      setTod(result?.tod ?? '');
-      setRrPoint(result?.rr_point ?? '');
-      setUnaccompaniedStatus(result?.unaccompanied_status ?? '');
-      setApoFpoDpo(result?.apo_fpo_dpo);
-      setCola(result?.cola ?? '');
-      setDifferentialRate(result?.differential_rate ?? '');
-      setDangerPay(result?.danger_pay ?? '');
-      setMedical(result?.medical ?? '');
-      setRemarks(result?.remarks ?? '');
-      setClimateZone(result?.climate_zone ?? '');
-      setConsumableAllowance(result?.consumable_allowance);
-      setFmFpAccepted(result?.fm_fp_accepted);
-      setHousingType(result?.housing_type ?? '');
-      setQtrsType(result?.quarters ?? '');
-      setQuartersRemark(result?.quarters_remarks ?? '');
-      setSpecialShipAllow(result?.special_ship_allow ?? '');
-      setSchoolYearText(result?.school_year ?? '');
-      setEdGradesAtPost(result?.grade_adequater_education ?? '');
-      setEmploymentOpportunities(result?.efm_employment_opportunities ?? '');
-      setEfmIssues(result?.efm_issues ?? '');
-      setMissionEfmEmp(result?.mission_efm_emp);
-      setOutsideEfmEmp(result?.outside_efm_emp);
-    }
-  }, [editMode]);
-
   const onSubmit = () => {
-    let submitFunction = biddingToolEdit;
     if (isCreate) {
-      submitFunction = biddingToolCreate;
+      dispatch(biddingToolCreate(values));
+      if (!createErrored) {
+        history.push(`${rootLocation()}/${values.location}`);
+      }
+    } else {
+      dispatch(biddingToolEdit({
+        ...values,
+        updater_id: result?.updater_id,
+        updated_date: result?.updated_date,
+      }));
     }
-    dispatch(submitFunction({
-      id: isCreate ? id : undefined,
-      gsaLocation,
-      status,
-      hds,
-      tod,
-      rrPoint,
-      unaccompaniedStatus,
-      apoFpoDpo,
-      cola,
-      differentialRate,
-      dangerPay,
-      medical,
-      remarks,
-      climateZone,
-      consumableAllowance,
-      fmFpAccepted,
-      housingType,
-      qtrsType,
-      quartersRemark,
-      specialShipAllow,
-      schoolYearText,
-      edGradesAtPost,
-      employmentOpportunities,
-      efmIssues,
-      missionEfmEmp,
-      outsideEfmEmp,
-    }));
   };
 
   const onCancel = () => {
     if (isCreate) history.push(rootLocation());
     else if (setEditMode) setEditMode(false);
-    swal.close();
   };
   const showCancelModal = () => {
+    if (isEqual(initialValues, values)) {
+      onCancel();
+    } else {
+      swal({
+        title: 'Confirm Discard Changes',
+        button: false,
+        closeOnEsc: true,
+        content: (
+          <div className="simple-action-modal">
+            <div className="help-text">
+              {isCreate ?
+                <span>Are you sure you want to discard this Bidding Tool draft?</span> :
+                <span>Are you sure you want to discard all changes made to this Bidding Tool?</span>
+              }
+            </div>
+            <div className="modal-controls">
+              <button onClick={() => { onCancel(); swal.close(); }}>Yes</button>
+              <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
+            </div>
+          </div>
+        ),
+      });
+    }
+  };
+
+  const onDelete = () => {
+    dispatch(biddingToolDelete({
+      location: id,
+      updater_id: result?.updater_id,
+      updated_date: result?.updated_date,
+    }));
+    swal.close();
+    if (!deleteErrored) {
+      history.push(rootLocation());
+    }
+  };
+  const showDeleteModal = () => {
     swal({
-      title: 'Confirm Discard Changes',
+      title: 'Confirm Delete Bidding Tool',
       button: false,
       closeOnEsc: true,
       content: (
         <div className="simple-action-modal">
           <div className="help-text">
-            {isCreate ?
-              <span>Are you sure you want to discard this Bidding Tool draft?</span> :
-              <span>Are you sure you want to discard all changes made to this Bidding Tool?</span>
-            }
+            <span>
+              Are you sure you want to delete this Bidding Tool? This action cannot but undone.
+            </span>
           </div>
           <div className="modal-controls">
-            <button onClick={onCancel}>Yes</button>
+            <button onClick={onDelete}>Yes</button>
             <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
           </div>
         </div>
@@ -313,41 +319,53 @@ const BiddingToolCard = (props) => {
         <div className="position-form--inputs">
           <div className="position-form--label-input-container">
             <label htmlFor="gsa-location">GSA Location</label>
-            <input
-              id="gsa-location"
-              defaultValue={gsaLocation}
-              onChange={(e) => setGsaLocation(e.target.value)}
-            />
+            <select
+              id="location"
+              defaultValue={values.location}
+              onChange={(e) => setValues({ ...values, location: e.target.value })}
+            >
+              {locations?.map(b => (
+                <option key={b.code} value={b.code}>{b.state_country}</option>
+              ))}
+            </select>
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="status">Status</label>
             <select
               id="status"
-              defaultValue={status}
-              onChange={(e) => setStatus(e.target.value)}
+              defaultValue={values.status}
+              onChange={(e) => setValues({ ...values, status: e.target.value })}
             >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
+              {statuses?.map(b => (
+                <option key={b.code} value={b.code}>{b.description}</option>
               ))}
             </select>
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container mt-30">
+            <CheckBox
+              label="SND"
+              id="snd"
+              onCheckBoxClick={e => setValues({ ...values, snd: e ? 'Y' : 'N' })}
+              value={values.snd === 'Y'}
+            />
+          </div>
+          <div className="position-form--label-input-container mt-30">
             <CheckBox
               label="HDS"
               id="hds"
-              onCheckBoxClick={e => setHds(e)}
-              value={hds}
+              onCheckBoxClick={e => setValues({ ...values, hds: e ? 'Y' : 'N' })}
+              value={values.hds === 'Y'}
             />
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="tod">TOD</label>
             <select
               id="tod"
-              defaultValue={tod}
-              onChange={(e) => setTod(e.target.value)}
+              defaultValue={values.tod}
+              onChange={(e) => setValues({ ...values, tod: e.target.value })}
             >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
+              {tods?.map(b => (
+                <option key={b.code} value={b.code}>{b.description}</option>
               ))}
             </select>
           </div>
@@ -355,61 +373,61 @@ const BiddingToolCard = (props) => {
             <label htmlFor="rr-point">R & R Point</label>
             <input
               id="rr-point"
-              defaultValue={rrPoint}
-              onChange={(e) => setRrPoint(e.target.value)}
+              defaultValue={values.rr_point}
+              onChange={(e) => setValues({ ...values, rr_point: e.target.value })}
             />
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="unaccompanied-status">Unaccompanied Status</label>
             <select
               id="unaccompanied-status"
-              defaultValue={unaccompaniedStatus}
-              onChange={(e) => setUnaccompaniedStatus(e.target.value)}
+              defaultValue={values.unaccompanied_status}
+              onChange={(e) => setValues({ ...values, unaccompanied_status: e.target.value })}
             >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
+              {unaccompaniedStatuses?.map(b => (
+                <option key={b.code} value={b.code}>{b.description}</option>
               ))}
             </select>
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container mt-30">
             <CheckBox
               label="APO/FPO/DPO"
               id="apo"
-              onCheckBoxClick={e => setApoFpoDpo(e)}
-              value={apoFpoDpo}
+              onCheckBoxClick={e => setValues({ ...values, apo_fpo_dpo: e ? 'Y' : 'N' })}
+              value={values.apo_fpo_dpo === 'Y'}
             />
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="cola">COLA (0-160)</label>
             <input
               id="cola"
-              defaultValue={cola}
-              onChange={(e) => setCola(e.target.value)}
+              type="number"
+              min="0"
+              max="160"
+              defaultValue={values.cola}
+              onChange={(e) => setValues({ ...values, cola: e.target.value })}
             />
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="differential-rate">Differential Rate</label>
-            <select
+            <input
               id="differential-rate"
-              defaultValue={differentialRate}
-              onChange={(e) => setDifferentialRate(e.target.value)}
-            >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))}
-            </select>
+              type="number"
+              min="0"
+              defaultValue={values.differential_rate}
+              onChange={(e) => setValues({ ...values, differential_rate: e.target.value })}
+            />
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="danger-pay">Danger Pay (0-35)</label>
-            <select
+            <input
               id="danger-pay"
-              defaultValue={dangerPay}
-              onChange={(e) => setDangerPay(e.target.value)}
-            >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))}
-            </select>
+              type="number"
+              min="0"
+              max="35"
+              defaultValue={values.danger_pay}
+              onChange={(e) => setValues({ ...values, danger_pay: e.target.value })}
+            />
           </div>
         </div>
         <div className="position-form--label-input-container">
@@ -419,16 +437,16 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxLength="4000"
                 name="medical"
                 placeholder="No Description"
-                defaultValue={medical}
-                onChange={(e) => setMedical(e.target.value)}
+                defaultValue={values.medical}
+                onChange={(e) => setValues({ ...values, medical: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {medical.length} / 4,000
+              {values?.medical?.length} / 4,000
             </div>
           </Row>
         </div>
@@ -439,69 +457,67 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxLength="4000"
                 name="remarks"
                 placeholder="No Description"
-                defaultValue={remarks}
-                onChange={(e) => setRemarks(e.target.value)}
+                defaultValue={values.remarks}
+                onChange={(e) => setValues({ ...values, remarks: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {remarks.length} / 4,000
+              {values?.remarks?.length} / 4,000
             </div>
           </Row>
         </div>
         <div className="position-form--inputs">
           <div className="position-form--label-input-container">
             <label htmlFor="climate-zone">Climate Zone</label>
-            <select
+            <input
               id="climate-zone"
-              defaultValue={climateZone}
-              onChange={(e) => setClimateZone(e.target.value)}
-            >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))}
-            </select>
+              type="number"
+              min="0"
+              defaultValue={values.climate_zone}
+              onChange={(e) => setValues({ ...values, climate_zone: e.target.value })}
+            />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container mt-30">
             <CheckBox
               label="Consumable Allowance"
               id="consumable-allowance"
-              onCheckBoxClick={e => setConsumableAllowance(e)}
-              value={consumableAllowance}
+              onCheckBoxClick={e => setValues({ ...values, consumable_allowance: e ? 'Y' : 'N' })}
+              value={values.consumable_allowance === 'Y'}
             />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container mt-30">
             <CheckBox
               label="FM/FP Accepted"
-              id="fm-fp-accepted"
-              onCheckBoxClick={e => setFmFpAccepted(e)}
-              value={fmFpAccepted}
+              id="fm-fp"
+              onCheckBoxClick={e => setValues({ ...values, fm_fp: e ? 'Y' : 'N' })}
+              value={values.fm_fp === 'Y'}
             />
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="housing-type">Housing Type</label>
             <select
-              id="housing-type"
-              defaultValue={housingType}
-              onChange={(e) => setHousingType(e.target.value)}
+              id="housing"
+              defaultValue={values.housing}
+              onChange={(e) => setValues({ ...values, housing: e.target.value })}
             >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
+              {housingTypes?.map(b => (
+                <option key={b.code} value={b.code}>{b.description}</option>
               ))}
             </select>
           </div>
           <div className="position-form--label-input-container">
             <label htmlFor="qtrs-type">Qtrs. Type</label>
             <select
-              id="qtrs-type"
-              defaultValue={qtrsType}
-              onChange={(e) => setQtrsType(e.target.value)}
+              id="quarters"
+              defaultValue={values.quarters}
+              onChange={(e) => setValues({ ...values, quarters: e.target.value })}
             >
-              {dummySelectOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
+              {quartersTypes?.map(b => (
+                <option key={b.code} value={b.code}>{b.description}</option>
               ))}
             </select>
           </div>
@@ -513,16 +529,16 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxLength="4000"
                 name="quarters-remark"
                 placeholder="No Description"
-                defaultValue={quartersRemark}
-                onChange={(e) => setQuartersRemark(e.target.value)}
+                defaultValue={values.quarters_remark}
+                onChange={(e) => setValues({ ...values, quarters_remark: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {quartersRemark.length} / 4,000
+              {values?.quarters_remark?.length} / 4,000
             </div>
           </Row>
         </div>
@@ -533,16 +549,16 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
-                name="special-ship-allow"
+                maxLength="4000"
+                name="special-ship-allowance"
                 placeholder="No Description"
-                defaultValue={specialShipAllow}
-                onChange={(e) => setSpecialShipAllow(e.target.value)}
+                defaultValue={values.special_ship_allowance}
+                onChange={(e) => setValues({ ...values, special_ship_allowance: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {specialShipAllow.length} / 4,000
+              {values?.special_ship_allowance?.length} / 4,000
             </div>
           </Row>
         </div>
@@ -553,16 +569,16 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
-                name="school-year-text"
+                maxLength="4000"
+                name="school-year"
                 placeholder="No Description"
-                defaultValue={schoolYearText}
-                onChange={(e) => setSchoolYearText(e.target.value)}
+                defaultValue={values.school_year}
+                onChange={(e) => setValues({ ...values, school_year: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {schoolYearText.length} / 4,000
+              {values?.school_year?.length} / 4,000
             </div>
           </Row>
         </div>
@@ -573,16 +589,16 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
-                name="ed-grades-at-post"
+                maxLength="4000"
+                name="grade-education"
                 placeholder="No Description"
-                defaultValue={edGradesAtPost}
-                onChange={(e) => setEdGradesAtPost(e.target.value)}
+                defaultValue={values.grade_education}
+                onChange={(e) => setValues({ ...values, grade_education: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {edGradesAtPost.length} / 4,000
+              {values?.grade_education?.length} / 4,000
             </div>
           </Row>
         </div>
@@ -593,62 +609,66 @@ const BiddingToolCard = (props) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
-                name="employment-opportunities"
+                maxLength="4000"
+                name="efm-employment"
                 placeholder="No Description"
-                defaultValue={employmentOpportunities}
-                onChange={(e) => setEmploymentOpportunities(e.target.value)}
+                defaultValue={values.efm_employment}
+                onChange={(e) => setValues({ ...values, efm_employment: e.target.value })}
                 draggable={false}
               />
             </Linkify>
             <div className="word-count">
-              {employmentOpportunities.length} / 4,000
-            </div>
-          </Row>
-        </div>
-        <div className="position-form--label-input-container">
-          <Row fluid className="position-form--description">
-            <span className="definition-title">EFM Issues</span>
-            <Linkify properties={{ target: '_blank' }}>
-              <TextareaAutosize
-                maxRows={6}
-                minRows={6}
-                maxlength="4000"
-                name="efm-issues"
-                placeholder="No Description"
-                defaultValue={efmIssues}
-                onChange={(e) => setEfmIssues(e.target.value)}
-                draggable={false}
-              />
-            </Linkify>
-            <div className="word-count">
-              {efmIssues.length} / 4,000
+              {values?.efm_employment?.length} / 4,000
             </div>
           </Row>
         </div>
         <div className="position-form--inputs">
           <div className="position-form--label-input-container">
+            <label htmlFor="qtrs-type">EFM Issues</label>
+            <select
+              id="efm-issues"
+              defaultValue={values.efm_issues}
+              onChange={(e) => setValues({ ...values, efm_issues: e.target.value })}
+            >
+              {ehcps.map(b => (
+                <option key={b.code} value={b.code}>{b.description}</option>
+              ))}
+            </select>
+          </div>
+          <div className="position-form--label-input-container mt-30">
             <CheckBox
               label="Mission EFM EMP"
               id="mission-efm-emp"
-              onCheckBoxClick={e => setMissionEfmEmp(e)}
-              value={missionEfmEmp}
+              onCheckBoxClick={e => setValues({ ...values, inside_efm_employment: e ? 'Y' : 'N' })}
+              value={values.inside_efm_employment === 'Y'}
             />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container mt-30">
             <CheckBox
               label="Outside EFM EMP"
               id="outside-efm-emp"
-              onCheckBoxClick={e => setOutsideEfmEmp(e)}
-              value={outsideEfmEmp}
+              onCheckBoxClick={e => setValues({ ...values, outside_efm_employment: e ? 'Y' : 'N' })}
+              value={values.outside_efm_employment === 'Y'}
             />
           </div>
         </div>
       </div>
-      <div className="position-form--actions">
-        <button onClick={showCancelModal}>Cancel</button>
-        <button onClick={onSubmit}>{isCreate ? 'Create' : 'Save Bidding Tool'}</button>
-      </div>
+      {isCreate ?
+        <div className="position-form--actions">
+          <button onClick={showCancelModal}>Cancel</button>
+          <button onClick={onSubmit}>Create</button>
+        </div> :
+        <div className="position-form--actions split-actions">
+          <button onClick={showDeleteModal}>
+            <FA name="trash" />
+            Remove from Bid List
+          </button>
+          <div>
+            <button onClick={showCancelModal}>Cancel</button>
+            <button onClick={onSubmit}>Save Bidding Tool</button>
+          </div>
+        </div>
+      }
     </div>
   );
 
