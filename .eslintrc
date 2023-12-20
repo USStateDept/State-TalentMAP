@@ -68,7 +68,7 @@
     "camelcase": [0], // only because of UNSAFE_ react lifecycle methods
     "react/jsx-no-target-blank": [0],
     "react/prop-types": ["warn"],
-    "indent": ["error", 2, { "ignoredNodes": ["JSXAttribute", "JSXSpreadAttribute"], "SwitchCase": 1 }],
+    "indent": ["error", 2, { "ignoredNodes": ["JSXAttribute", "JSXSpreadAttribute", "TemplateLiteral"], "SwitchCase": 1 }],
     "react/jsx-indent": [0],
     "react/jsx-indent-props": ["error", 2],
     "complexity": ["warn", { "max": 40 }],
