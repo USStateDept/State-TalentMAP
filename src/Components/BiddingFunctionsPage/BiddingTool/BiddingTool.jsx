@@ -31,7 +31,7 @@ const BiddingTool = (props) => {
 
   const getResults = () => {
     if (!isSuperUser) {
-      return results.filter(o => o.entry);
+      return results.filter(o => o.bt_ind === "Y");
     }
     return results;
   };
@@ -87,7 +87,7 @@ const BiddingTool = (props) => {
                 {d.location_code}
               </Column>
               <Column columns={12} className="cyc-card--middle-cols">
-                {d.dsv_name} / {d.bt_ind ? 'Y' : 'N'}
+                {d.dsv_name} / {d.bt_ind}
               </Column>
               <Column columns={3} className="cyc-card--link-col">
                 <span>
