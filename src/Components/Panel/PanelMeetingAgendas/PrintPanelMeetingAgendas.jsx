@@ -131,7 +131,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                           {
                             Array.isArray(userLanguage) ?
                               userLanguage.map(l => (
-                                `${l?.custom_description} ${formatCurrentDate(l?.test_date)} `
+                                `${l.custom_description} ${formatCurrentDate(l.test_date)} `
                               )).join(', ')
                               :
                               userLanguage
