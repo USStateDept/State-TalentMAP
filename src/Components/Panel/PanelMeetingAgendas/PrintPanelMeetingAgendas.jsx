@@ -92,7 +92,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
               agendasCategorized[header].map(agenda => {
                 const { user } = agenda;
                 const cdo = user?.cdos?.[0]?.cdo_fullname || 'None Listed';
-                const userBureau = user?.current_assignment?.position.bureau || 'None Listed';
                 const userGrade = user?.grade || 'None Listed';
                 const userPayPlan = user?.pay_plan || 'None Listed';
                 const userLanguage = user?.languages || 'None Listed';
@@ -122,18 +121,18 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
 
                     <div className="pma-print-user-info">
                       <div className="item"><span className="label">{name}</span></div>
-                      <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                       <div className="item"><span className="label">PP/Grade: </span> {ppGrade}</div>
                       <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                       <div className="item">
                         <span className="label">Languages: </span>
                         <span>
                           {
-                            Array.isArray(userLanguage) ? userLanguage?.map((l) => (
-                              // eslint-disable-next-line
-                              `${l.custom_description} ${formatCurrentDate(l.test_date)} `
-                            ),
-                            ).join(', ') : userLanguage
+                            Array.isArray(userLanguage) ?
+                              userLanguage.map(l => (
+                                `${l.custom_description} ${formatCurrentDate(l.test_date)} `
+                              )).join(', ')
+                              :
+                              userLanguage
                           }
                         </span>
                       </div>
