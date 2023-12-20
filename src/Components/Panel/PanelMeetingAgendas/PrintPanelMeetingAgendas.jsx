@@ -129,11 +129,12 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                         <span className="label">Languages: </span>
                         <span>
                           {
-                            Array.isArray(userLanguage) ? userLanguage?.map((l) => (
-                              // eslint-disable-next-line
-                              `${l.custom_description} ${formatCurrentDate(l.test_date)} `
-                            ),
-                            ).join(', ') : userLanguage
+                            Array.isArray(userLanguage) ?
+                              userLanguage.map(l => (
+                                `${l.custom_description} ${formatCurrentDate(l.test_date)} `
+                              )).join(', ')
+                              :
+                              userLanguage
                           }
                         </span>
                       </div>
