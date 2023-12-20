@@ -301,6 +301,11 @@ export const CREATE_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been created';
 export const CREATE_BIDDING_TOOL_ERROR_TITLE = 'Create Bidding Tool Error';
 export const CREATE_BIDDING_TOOL_ERROR = 'There was an issue attempting to create this Bidding Tool. Please try again.';
 
+export const DELETE_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Deleted';
+export const DELETE_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been deleted';
+export const DELETE_BIDDING_TOOL_ERROR_TITLE = 'Delete Bidding Tool Error';
+export const DELETE_BIDDING_TOOL_ERROR = 'There was an issue attempting to delete this Bidding Tool. Please try again.';
+
 export const ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE = 'Assignment Cycle Updated';
 export const ASSIGNMENT_CYCLE_EDIT_SUCCESS = 'The Assignment Cycle has been updated';
 export const ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE = 'Assignment Cycle Edit Error';
