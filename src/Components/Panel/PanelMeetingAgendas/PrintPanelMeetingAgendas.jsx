@@ -129,16 +129,16 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                         <span className="label">Languages: </span>
                         <span>
                           {
-                            Array.isArray(userLanguage) ? userLanguage?.map((l) => (
-                              // eslint-disable-next-line
-                              `${l.custom_description} ${formatCurrentDate(l.test_date)} `
-                            ),
-                            ).join(', ') : userLanguage
+                            Array.isArray(userLanguage) ?
+                              userLanguage.map(l => (
+                                `${l?.custom_description} ${formatCurrentDate(l?.test_date)} `
+                              )).join(', ')
+                              :
+                              userLanguage
                           }
                         </span>
                       </div>
                     </div>
-
                     <table className="pma-print-table">
                       <thead>
                         <tr>
@@ -158,7 +158,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                       </thead>
                       { printableAgendaTable(agenda) }
                     </table>
-
                     <div className="pma-footer-wrapper">
                       <div className="pma-cdo-remarks-wrapper">
                         <div className="item"><span className="label">CDO: </span> {cdo}</div>
