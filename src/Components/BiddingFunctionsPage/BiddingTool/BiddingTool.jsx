@@ -31,7 +31,7 @@ const BiddingTool = (props) => {
 
   const getResults = () => {
     if (!isSuperUser) {
-      return results.filter(o => o.bt_ind === "Y");
+      return results.filter(o => o.bt_ind === 'Y');
     }
     return results;
   };
