@@ -350,7 +350,7 @@ const AgendaItemMaintenancePane = (props) => {
                       </option>
                       {
                         statuses.map(a => (
-                          <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
+                          <option key={a.code} value={a.code}>{a.desc_text}</option>
                         ))
                       }
                     </select>
