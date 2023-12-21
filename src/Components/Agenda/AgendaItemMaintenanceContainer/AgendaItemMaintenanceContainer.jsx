@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, isEqual } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { Link } from 'react-router-dom';
 import { fetchAI, modifyAgenda, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
-import { useDataLoader } from 'hooks';
+import { useDataLoader, usePrevious } from 'hooks';
 import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
@@ -31,6 +31,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaItemLoading = useSelector(state => state.fetchAIIsLoading);
   const agendaItemError = useSelector(state => state.fetchAIHasErrored);
   const aiCreateSuccess = useSelector(state => state.ai);
+
+  const prevAICreateSuccess = usePrevious(aiCreateSuccess);
 
   const agendaID = get(props, 'match.params.agendaID') || '';
   const agendaItem = agendaID ? agendaItemData : {};
@@ -182,7 +184,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   useEffect(() => {
     // Condition to leave the create page and go to edit page - now that it was just created
     // Important they have the latest data call after saving else future edits will be stale
-    if (agendaID === '' && aiCreateSuccess) {
+    if ((agendaID === '') && aiCreateSuccess && !isEqual(aiCreateSuccess, prevAICreateSuccess)) {
       props.history.push(`/profile/ao/createagendaitem/${id}/${aiCreateSuccess}`);
     }
   }, [aiCreateSuccess]);

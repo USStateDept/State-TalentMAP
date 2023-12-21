@@ -173,7 +173,7 @@ const AgendaLeg = props => {
             {
               data.map((a, i) => {
                 const keyId = `${a?.code}-${i}`;
-                return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
+                return <option key={keyId} value={get(a, 'code')}>{get(a, text)}</option>;
               })
             }
           </select>
