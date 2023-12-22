@@ -21,13 +21,13 @@ const CycleSearchCard = (props) => {
 
   const {
     id,
-    cycle_name,
-    cycle_status,
-    cycle_category,
-    cycle_begin_date,
-    cycle_end_date,
-    cycle_excl_position,
-    cycle_post_view,
+    name,
+    status,
+    category,
+    begin_date,
+    end_date,
+    excl_position,
+    post_view,
     isAO,
     onEditModeSearch,
   } = props;
@@ -208,26 +208,26 @@ const CycleSearchCard = (props) => {
     <Row fluid className="cycle-search-card box-shadow-standard">
       <Row fluid className="cyc-card--row">
         <Column columns={3}>
-          {cycle_name}
+          {name}
         </Column>
         <Column columns={12} className="cyc-card--middle-cols">
           <Column>
-            {`Cycle Start: ${cycle_begin_date ? formatDate(cycle_begin_date) : ''}`}
+            {`Cycle Start: ${begin_date ? formatDate(begin_date) : ''}`}
           </Column>
           <Column>
-            {`Bid Due: ${cycle_end_date ? formatDate(cycle_end_date) : ''}`}
+            {`Bid Due: ${end_date ? formatDate(end_date) : ''}`}
           </Column>
           <Column>
-            {cycle_status}
+            {status}
           </Column>
           <Column>
-            {`Status: ${cycle_category}`}
+            {`Status: ${category}`}
           </Column>
           <Column>
-            {`Exluded: ${cycle_excl_position}`}
+            {`Exluded: ${excl_position}`}
           </Column>
           <Column>
-            {`Post View: ${cycle_post_view}`}
+            {`Post View: ${post_view}`}
           </Column>
         </Column>
         <Column columns={3} className="cyc-card--link-col">
@@ -565,25 +565,25 @@ const CycleSearchCard = (props) => {
 
 CycleSearchCard.propTypes = {
   id: PropTypes.string.isRequired,
-  cycle_name: PropTypes.string,
-  cycle_status: PropTypes.string,
-  cycle_category: PropTypes.string,
-  cycle_begin_date: PropTypes.string,
-  cycle_end_date: PropTypes.string,
-  cycle_excl_position: PropTypes.string,
-  cycle_post_view: PropTypes.string,
+  name: PropTypes.string,
+  status: PropTypes.string,
+  category: PropTypes.string,
+  begin_date: PropTypes.string,
+  end_date: PropTypes.string,
+  excl_position: PropTypes.string,
+  post_view: PropTypes.string,
   isAO: PropTypes.bool,
   onEditModeSearch: PropTypes.func.isRequired,
 };
 
 CycleSearchCard.defaultProps = {
-  cycle_name: '',
-  cycle_status: '',
-  cycle_category: '',
-  cycle_begin_date: '',
-  cycle_end_date: null,
-  cycle_excl_position: null,
-  cycle_post_view: '',
+  name: '',
+  status: '',
+  category: '',
+  begin_date: '',
+  end_date: null,
+  excl_position: null,
+  post_view: '',
   isAO: false,
   onEditModeSearch: () => { },
 };

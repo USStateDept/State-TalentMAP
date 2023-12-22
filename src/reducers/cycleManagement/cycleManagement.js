@@ -48,15 +48,6 @@ export function cycleManagementAssignmentCycle(state = [], action) {
   }
 }
 
-export function cycleManagementSelections(state = {}, action) {
-  switch (action.type) {
-    case 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS':
-      return action.result;
-    default:
-      return state;
-  }
-}
-
 export function cyclePositionSearchFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'CYCLE_POSITION_SEARCH_FETCH_HAS_ERRORED':
