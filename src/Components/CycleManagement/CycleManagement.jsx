@@ -85,8 +85,8 @@ const CycleManagement = (props) => {
     }
   }, [
     selectedCycles,
-    selectedDates,
     selectedStatus,
+    selectedDates,
     cycleManagementData,
   ]);
 
@@ -104,7 +104,6 @@ const CycleManagement = (props) => {
     setSelectedDates(null);
     setClearFilters(false);
   };
-
 
   const onSave = (isNew, userData) => {
     dispatch(saveAssignmentCyclesSelections(userData));
