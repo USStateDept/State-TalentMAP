@@ -3,6 +3,7 @@ import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
+import { Tooltip } from 'react-tippy';
 import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import { formatDateFromStr, renderSelectionList } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
@@ -43,6 +44,7 @@ const PublishablePositionCard = ({
       { 'Status': data?.status || DEFAULT_TEXT },
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
+      { 'RWA/DETO Eligible': data?.deto || DEFAULT_TEXT },
     ],
     bodySecondary: PP_FLAG ?
       [
@@ -150,12 +152,23 @@ const PublishablePositionCard = ({
                 </select>
               </div>
             </div>
-            <CheckBox
-              id="exclude-checkbox"
-              label="Exclude Position from Bid Audit"
-              value={exclude}
-              onCheckBoxClick={e => setExclude(e)}
-            />
+            <div>
+              <CheckBox
+                id="exclude-checkbox"
+                label="Exclude Position from Bid Audit"
+                value={exclude}
+                onCheckBoxClick={e => setExclude(e)}
+              />
+              <Tooltip title="Eligibility can be modified in GEMS, contact your HRO to make changes.">
+                <CheckBox
+                  id="deto-checkbox"
+                  label="RWA/DETO Eligible"
+                  value={data?.deto === 'Eligible' || false}
+                  onCheckBoxClick={() => {}}
+                  disabled
+                />
+              </Tooltip>
+            </div>
           </div>
         }
         <div>
