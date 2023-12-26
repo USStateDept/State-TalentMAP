@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate, formatLang } from 'utilities';
 import swal from '@sweetalert/with-react';
+import { add } from 'date-fns-v2';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { GSA as LocationsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
@@ -83,6 +84,7 @@ const AgendaLeg = props => {
     });
   };
 
+
   const updateDropdown = (dropdown, value) => {
     if (dropdown === 'tod' && value === 'X') {
       openTodModal();
@@ -91,22 +93,41 @@ const AgendaLeg = props => {
 
     if (dropdown === 'tod') {
       const getTod = TODs.find(tod => tod.code === value);
+
+      // Update TED to reflect ETA + TOD
+      let ted = leg?.ted;
+      if (leg?.eta && getTod?.months) {
+        ted = add(new Date(leg.eta), { months: getTod.months });
+      }
+
       updateLeg(leg?.ail_seq_num, {
         tod: getTod?.code,
         tod_long_desc: getTod?.long_description,
         tod_short_desc: getTod?.short_description,
+        tod_ref_months: getTod?.months,
         tod_months: null, // only custom/other TOD will have months
         // only legacy and custom/other TOD Agenda Item Legs will render as a dropdown
         tod_is_dropdown: true,
+        ted,
       });
       return;
     }
 
-    updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
-
     if (dropdown === 'eta') {
+      // Update TED to reflect ETA + TOD
+      let ted = leg?.ted;
+      if (leg?.tod_ref_months) {
+        ted = add(new Date(value), { months: leg.tod_ref_months });
+      }
+      updateLeg(leg?.ail_seq_num, {
+        eta: value,
+        ted,
+      });
       swal.close();
+      return;
     }
+
+    updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
   };
 
   useEffect(() => {
