@@ -130,14 +130,14 @@ class SearchFiltersContainer extends Component {
 
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
-      'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus', 'handshake', 'hardToFill'];
+      'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus', 'handshake', 'hardToFill', 'deto-rwa'];
 
 
     const multiSelectFilterNamesTandemCommon = ['post', 'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus'];
     const multiSelectFilterNamesTandem1 = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language', 'handshake',
-      'hardToFill'];
+      'hardToFill', 'deto-rwa'];
     const multiSelectFilterNamesTandem2 = ['bidSeason-tandem', 'bidCycle-tandem', 'skill-tandem', 'grade-tandem',
-      'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem', 'hardToFill-tandem'];
+      'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem', 'hardToFill-tandem', 'deto-rwa-tandem'];
 
     const blackList = []; // don't create accordions for these
 
