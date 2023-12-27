@@ -175,6 +175,11 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           hasFixedTitleWidth={false}
           title="Posted"
         />
+        <CondensedCardDataPoint
+          content="Not Listed"
+          hasFixedTitleWidth={false}
+          title="RWA/DETO Eligible"
+        />
       </div>
     </div>
     <div
@@ -544,6 +549,11 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           content="Unknown"
           hasFixedTitleWidth={false}
           title="Posted"
+        />
+        <CondensedCardDataPoint
+          content="Not Listed"
+          hasFixedTitleWidth={false}
+          title="RWA/DETO Eligible"
         />
       </div>
     </div>
@@ -916,6 +926,11 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
           content="Unknown"
           hasFixedTitleWidth={false}
           title="Posted"
+        />
+        <CondensedCardDataPoint
+          content="Not Listed"
+          hasFixedTitleWidth={false}
+          title="RWA/DETO Eligible"
         />
       </div>
     </div>
