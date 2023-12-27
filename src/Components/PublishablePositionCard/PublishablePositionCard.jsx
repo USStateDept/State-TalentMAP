@@ -44,7 +44,7 @@ const PublishablePositionCard = ({
       { 'Status': data?.status || DEFAULT_TEXT },
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
-      { 'RWA/DETO Eligible': data?.deto || DEFAULT_TEXT },
+      { 'RWA/DETO Eligible': data?.deto_rwa ? 'Eligible' : 'Not Eligible' },
     ],
     bodySecondary: PP_FLAG ?
       [
@@ -163,7 +163,7 @@ const PublishablePositionCard = ({
                 <CheckBox
                   id="deto-checkbox"
                   label="RWA/DETO Eligible"
-                  value={data?.deto === 'Eligible' || false}
+                  value={data?.deto_rwa || false}
                   onCheckBoxClick={() => {}}
                   disabled
                 />

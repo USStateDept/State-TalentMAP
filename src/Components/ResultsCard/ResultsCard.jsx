@@ -100,7 +100,7 @@ class ResultsCard extends Component {
         'Language': language,
         'Post Differential | Danger Pay': getDifferentials(pos),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
-        'RWA/DETO Eligible': pos?.deto ?? 'Not Listed',
+        'RWA/DETO Eligible': pos?.deto_rwa ? 'Eligible' : 'Not Eligible',
       },
       {
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),

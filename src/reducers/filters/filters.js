@@ -727,13 +727,12 @@ const items =
           title: 'DETO/RWA',
           sort: 1400,
           description: 'deto-rwa',
-          selectionRef: ENDPOINT_PARAMS_TANDEM.detoRWA,
+          selectionRef: ENDPOINT_PARAMS.detoRWA,
           text: 'RWA/DETO Eligible',
-          isTandem: true,
         },
         data: [
-          { code: 'Y', description: 'Eligible' },
-          { code: 'N', description: 'Not Eligible' },
+          { code: true, description: 'Eligible' },
+          { code: false, description: 'Not Eligible' },
         ],
       },
       {
@@ -746,8 +745,8 @@ const items =
           isTandem: true,
         },
         data: [
-          { code: 'Y', description: 'Eligible' },
-          { code: 'N', description: 'Not Eligible' },
+          { code: true, description: 'Eligible' },
+          { code: false, description: 'Not Eligible' },
         ],
       },
     ],
