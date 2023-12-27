@@ -86,7 +86,7 @@ const PositionDetailsItem = (props) => {
   const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
   const assignee = get(position, 'assignee') || NO_USER_LISTED;
   const cycle = get(position, 'latest_bidcycle.name', 'None Listed');
-  const deto = position?.deto;
+  const deto = position?.deto ?? 'Not Listed';
 
   const getPostedDate = () => {
     const posted = get(position, COMMON_PROPERTIES.posted);
