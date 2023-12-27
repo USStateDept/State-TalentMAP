@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import { checkFlag } from 'flags';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -50,6 +51,7 @@ export const renderIsHardToFill = (details, ribbonClass) => (
   get(details, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} />
 );
 
+const DETO_RWA_FLAG = checkFlag('flags.deto_rwa');
 
 const PositionDetailsItem = (props) => {
   const {
@@ -147,7 +149,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
             { isProjectedVacancy && <CondensedCardDataPoint title="Assignee" content={assignee} /> }
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
-            <CondensedCardDataPoint title="RWA/DETO Eligible" content={deto} />
+            { DETO_RWA_FLAG && <CondensedCardDataPoint title="RWA/DETO Eligible" content={deto} /> }
           </div>
         </div>
         {

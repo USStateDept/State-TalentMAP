@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull } from 'lodash';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import { checkFlag } from 'flags';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -26,6 +27,8 @@ import {
   NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
+
+const DETO_RWA_FLAG = checkFlag('flags.deto_rwa');
 
 class ResultsCard extends Component {
   getInnerId = () => {
@@ -115,6 +118,10 @@ class ResultsCard extends Component {
         ...sections[1],
         Assignee: getResult(pos, 'assignee', NO_USER_LISTED),
       };
+    }
+
+    if (!DETO_RWA_FLAG) {
+      delete sections[1]['RWA/DETO Eligible'];
     }
 
     options.favorite = {
