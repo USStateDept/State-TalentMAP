@@ -138,7 +138,7 @@ const AgendaLeg = props => {
   }, []);
 
   const clearETA = () => {
-    updateLeg(leg?.ail_seq_num, { eta: '' });
+    updateLeg(leg?.ail_seq_num, { eta: '', ted: '' });
     swal.close();
   };
 
@@ -436,6 +436,7 @@ AgendaLeg.propTypes = {
     separation_location: PropTypes.shape({}),
     org: PropTypes.string,
     pay_plan: PropTypes.string,
+    tod_ref_months: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

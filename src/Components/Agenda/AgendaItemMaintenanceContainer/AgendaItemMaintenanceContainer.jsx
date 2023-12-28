@@ -2,14 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, isEqual } from 'lodash';
+import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { Link } from 'react-router-dom';
-import { fetchAI, modifyAgenda, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
+import { fetchAI, modifyAgenda, resetAICreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader, usePrevious } from 'hooks';
 import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
@@ -24,40 +25,72 @@ const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
   const researchPaneRef = useRef();
 
+  // Route parameters
+  const routeAgendaID = props?.match.params.agendaID || '';
+  const routeEmployeeID = props?.match.params.id;
+
+  // Validation States
   const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
   const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
   const AIvalidation = useSelector(state => state.aiValidation);
+
+  // Agenda Data States
   const agendaItemData = useSelector(state => state.fetchAISuccess);
   const agendaItemLoading = useSelector(state => state.fetchAIIsLoading);
   const agendaItemError = useSelector(state => state.fetchAIHasErrored);
-  const aiCreateSuccess = useSelector(state => state.ai);
+  const blankAgendaItem = {};
+  // Only use Agenda Item state if route is edit, otherwise blank for create
+  const agendaItemData$ = routeAgendaID ? agendaItemData : blankAgendaItem;
 
-  const prevAICreateSuccess = usePrevious(aiCreateSuccess);
+  // Create/Edit - False or returns an ID on success
+  const aiModifySuccessID = useSelector(state => state.ai);
+  const aiModifyIsLoading = useSelector(state => state.aiModifyIsLoading);
+  const aiModifyHasErrored = useSelector(state => state.aiModifyHasErrored);
+  const prevAIModifySuccessID = usePrevious(aiModifySuccessID);
 
-  const agendaID = get(props, 'match.params.agendaID') || '';
-  const agendaItem = agendaID ? agendaItemData : {};
-
-  const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
 
-  const { data: employeeData, error: employeeDataError, loading: employeeDataLoading } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const { data: employeeDataFallback, error: employeeDataFallbackError, loading: employeeDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
-
+  // Employee Meta Data Handling
+  const { data: employeeData, error: employeeDataError, loading: employeeDataLoading } = useDataLoader(api().get, `/fsbid/client/${routeEmployeeID}/`);
+  const { data: employeeDataFallback, error: employeeDataFallbackError, loading: employeeDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${routeEmployeeID}`);
   const employeeLoading = employeeDataLoading || employeeDataFallbackLoading;
   const employeeError = employeeDataError && employeeDataFallbackError;
-
   const employeeData$ = employeeData?.data || employeeDataFallback?.data?.results?.[0];
   const employeeName = employeeLoading ? '' : employeeData$?.name;
+
   // handles error where some employees have no Profile
   const employeeHasCDO = employeeLoading ? false : !!(employeeData$?.cdo?.name);
 
-  const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
+  // Employee Asg, Sep, and Bids
+  const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${routeEmployeeID}/`);
+  const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
+  const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
+
+  // Utility to find employee's most recent effective detail on which agenda is based
+  const findEffectiveAsgOrSep = (asgAndSep) => {
+    let max;
+    asgAndSep.forEach(a => {
+      if (a?.status === 'Effective') {
+        if (!max) max = a;
+        if (isAfter(new Date(a?.start_date), new Date(max?.start_date))) {
+          max = a;
+        }
+      }
+    });
+    return max;
+  };
+
+  // Effective Position is the first 'leg' from TMAP API (if agenda already exists)
+  // Otherwise use utility to find most recent to use in create form
+  const efPosition = get(agendaItemData$, 'legs[0]') || findEffectiveAsgOrSep(asgSepBidResults$) || {};
+
+  const agendaItemLegs = drop(get(agendaItemData$, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
     ...ail,
     ail_seq_num: get(ail, 'ail_seq_num') || shortid.generate(),
   }));
 
-  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
+  const agendaItemRemarks = get(agendaItemData$, 'remarks') || [];
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
@@ -72,24 +105,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [activeAIL, setActiveAIL] = useState();
   const [readMode, setReadMode] = useState(true);
 
-  const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
-  const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
-  const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-
-  const findEffectiveAsgOrSep = (asgAndSep) => {
-    let max;
-    asgAndSep.forEach(a => {
-      if (a?.status === 'Effective') {
-        if (!max) max = a;
-        if (isAfter(new Date(a?.start_date), new Date(max?.start_date))) {
-          max = a;
-        }
-      }
-    });
-    return max;
-  };
-
-  const efPosition = get(agendaItem, 'legs[0]') || findEffectiveAsgOrSep(asgSepBidResults$) || {};
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
@@ -121,12 +136,12 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = employeeData$?.id || id;
+    const personId = employeeData$?.id || routeEmployeeID;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
     };
-    dispatch(modifyAgenda(maintenanceInfo, legs, personId, efInfo, agendaItem));
+    dispatch(modifyAgenda(maintenanceInfo, legs, personId, efInfo, agendaItemData$));
   };
 
   const updateFormMode = () => {
@@ -148,15 +163,28 @@ const AgendaItemMaintenanceContainer = (props) => {
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
 
+  // Reset AI edit/create state on first render
+  // First render does not need success state since user is starting create/edit
   useEffect(() => {
-    if (agendaID) {
-      dispatch(fetchAI(agendaID));
+    dispatch(resetAICreate());
+  }, []);
+
+  useEffect(() => {
+    if (routeAgendaID) {
+      // Hydrate the agenda data if our route includes an agenda id
+      // Re-hydrate on successful modify agenda calls
+      dispatch(fetchAI(routeAgendaID));
+    } else if (aiModifySuccessID && !prevAIModifySuccessID &&
+        !aiModifyIsLoading && !aiModifyHasErrored) {
+      // Replace the create route with edit route if AI create state is truthy
+      // and previous state was empty aka in create form
+      props.history.replace(`/profile/${isCDO ? 'cdo' : 'ao'}/editagendaitem/${routeEmployeeID}/${aiModifySuccessID}`);
     }
-  }, [agendaID]);
+  }, [routeAgendaID, aiModifySuccessID]);
 
   useEffect(() => {
     if (!readMode) {
-      const personId = employeeData$?.id || id;
+      const personId = employeeData$?.id || routeEmployeeID;
       const efInfo = {
         assignmentId: get(efPosition, 'asg_seq_num'),
         assignmentVersion: get(efPosition, 'revision_num'),
@@ -176,18 +204,11 @@ const AgendaItemMaintenanceContainer = (props) => {
   useEffect(() => {
     if (!agendaItemLoading) {
       // If not creating a new AI, then we default initial mode to Read
-      setReadMode(!isEmpty(agendaItemData));
+      setReadMode(!isEmpty(agendaItemData$));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
 
-  useEffect(() => {
-    // Condition to leave the create page and go to edit page - now that it was just created
-    // Important they have the latest data call after saving else future edits will be stale
-    if ((agendaID === '') && aiCreateSuccess && !isEqual(aiCreateSuccess, prevAICreateSuccess)) {
-      props.history.push(`/profile/ao/createagendaitem/${id}/${aiCreateSuccess}`);
-    }
-  }, [aiCreateSuccess]);
 
   return (
     <>
@@ -202,7 +223,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             employeeHasCDO ?
               <span className="aim-title-dash">
                 {'- '}
-                <Link to={`/profile/public/${id}${isCDO ? '' : '/ao'}`}>
+                <Link to={`/profile/public/${routeEmployeeID}${isCDO ? '' : '/ao'}`}>
                   <span className="aim-title">
                     {`${employeeName}`}
                   </span>
@@ -227,12 +248,12 @@ const AgendaItemMaintenanceContainer = (props) => {
                 !agendaItemLoading &&
                 <>
                   {
-                    (agendaItemError && agendaID !== '') ?
+                    (agendaItemError && routeAgendaID !== '') ?
                       <Alert type="error" title="Error loading Agenda Item Maintenance Data" messages={[{ body: 'Please try again.' }]} /> :
                       <>
                         <AgendaItemMaintenancePane
                           onAddRemarksClick={openRemarksResearchTab}
-                          perdet={id}
+                          perdet={routeEmployeeID}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
                           updateSelection={readMode ? () => {} : updateSelection}
@@ -244,7 +265,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           legCount={legs.length}
                           saveAI={submitAI}
                           updateFormMode={updateFormMode}
-                          agendaItem={agendaItem}
+                          agendaItem={agendaItemData$}
                           readMode={readMode}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
@@ -266,7 +287,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           isNewSeparation={isNewSeparation}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
-                          fullAgendaItemLegs={agendaItem?.legs || []}
+                          fullAgendaItemLegs={agendaItemData$?.legs || []}
                           readMode={readMode}
                           AIvalidation={AIvalidation}
                         />
@@ -298,7 +319,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 clientData={employeeData$}
                 clientError={employeeError}
                 clientLoading={employeeLoading}
-                perdet={id}
+                perdet={routeEmployeeID}
                 ref={researchPaneRef}
                 updateSelection={readMode ? () => {} : updateSelection}
                 userSelections={userRemarks}
@@ -315,6 +336,13 @@ const AgendaItemMaintenanceContainer = (props) => {
 
 AgendaItemMaintenanceContainer.propTypes = {
   history: HISTORY_OBJECT.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+      agendaID: PropTypes.string,
+    }),
+  }).isRequired,
+
 };
 
 export default withRouter(AgendaItemMaintenanceContainer);

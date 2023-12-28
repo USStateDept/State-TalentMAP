@@ -76,7 +76,7 @@ const AgendaItemCard = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <Link
-            to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+            to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
           >
             Edit Agenda Item
           </Link>

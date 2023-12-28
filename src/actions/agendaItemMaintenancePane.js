@@ -12,25 +12,30 @@ let cancelFetchAI;
 let cancelModifyAI;
 let cancelValidateAI;
 
-export function aiCreateHasErrored(bool) {
+export function aiModifyHasErrored(bool) {
   return {
-    type: 'AI_CREATE_HAS_ERRORED',
+    type: 'AI_MODIFY_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-export function aiCreateIsLoading(bool) {
+export function aiModifyIsLoading(bool) {
   return {
-    type: 'AI_CREATE_IS_LOADING',
+    type: 'AI_MODIFY_IS_LOADING',
     isLoading: bool,
   };
 }
-export function aiCreateSuccess(data) {
+export function aiModifySuccess(data) {
   return {
-    type: 'AI_CREATE_SUCCESS',
+    type: 'AI_MODIFY_SUCCESS',
     data,
   };
 }
-
+export function resetAICreate() {
+  return {
+    type: 'AI_MODIFY_SUCCESS',
+    data: false,
+  };
+}
 export function fetchAIHasErrored(bool) {
   return {
     type: 'FETCH_AI_HAS_ERRORED',
@@ -83,13 +88,17 @@ export function fetchAI(id) {
   };
 }
 
+export function resetCreateAI() {
+  return (dispatch) => dispatch(resetAICreate());
+}
 
+// Used for editing and creating agenda
 export function modifyAgenda(panel, legs, personId, ef, refData) {
   return (dispatch) => {
     if (cancelModifyAI) { cancelModifyAI('cancel'); }
-    dispatch(aiCreateIsLoading(true));
-    dispatch(aiCreateSuccess(false));
-    dispatch(aiCreateHasErrored(false));
+    dispatch(aiModifyIsLoading(true));
+    dispatch(aiModifySuccess(false));
+    dispatch(aiModifyHasErrored(false));
     api()
       .post('/fsbid/agenda/agenda_item/', {
         ...ef,
@@ -104,21 +113,21 @@ export function modifyAgenda(panel, legs, personId, ef, refData) {
       })
       .then(({ data }) => {
         batch(() => {
-          dispatch(aiCreateHasErrored(false));
-          dispatch(aiCreateSuccess(data));
+          dispatch(aiModifyHasErrored(false));
+          dispatch(aiModifySuccess(data));
           dispatch(toastSuccess(UPDATE_AGENDA_ITEM_SUCCESS, UPDATE_AGENDA_ITEM_SUCCESS_TITLE));
-          dispatch(aiCreateIsLoading(false));
+          dispatch(aiModifyIsLoading(false));
           dispatch(fetchAI(data));
         });
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
-          dispatch(aiCreateHasErrored(false));
-          dispatch(aiCreateIsLoading(false));
+          dispatch(aiModifyHasErrored(false));
+          dispatch(aiModifyIsLoading(false));
         } else {
           dispatch(toastError(UPDATE_AGENDA_ITEM_ERROR, UPDATE_AGENDA_ITEM_ERROR_TITLE));
-          dispatch(aiCreateHasErrored(true));
-          dispatch(aiCreateIsLoading(false));
+          dispatch(aiModifyHasErrored(true));
+          dispatch(aiModifyIsLoading(false));
         }
       });
   };

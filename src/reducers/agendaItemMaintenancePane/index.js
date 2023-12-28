@@ -1,7 +1,7 @@
 import {
   ai,
-  aiCreateHasErrored,
-  aiCreateIsLoading,
+  aiModifyHasErrored,
+  aiModifyIsLoading,
   aiValidation,
   fetchAIHasErrored,
   fetchAIIsLoading,
@@ -12,8 +12,8 @@ import {
 
 export default {
   ai,
-  aiCreateHasErrored,
-  aiCreateIsLoading,
+  aiModifyHasErrored,
+  aiModifyIsLoading,
   fetchAIHasErrored,
   validateAIIsLoading,
   fetchAISuccess,
