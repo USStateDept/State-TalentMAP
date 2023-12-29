@@ -72,7 +72,7 @@ const AgendaItemMaintenanceContainer = (props) => {
     asgAndSep.forEach(a => {
       if (a?.status === 'Effective') {
         if (!max) max = a;
-        if (isAfter(new Date(a?.start_date), new Date(max?.start_date))) {
+        if (isAfter(new Date(a?.eta), new Date(max?.eta))) {
           max = a;
         }
       }
