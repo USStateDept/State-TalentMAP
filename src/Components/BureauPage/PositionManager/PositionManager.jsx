@@ -568,7 +568,10 @@ const PositionManager = props => {
                     <div className="position-search-controls--results">
                       <SelectForm
                         id="position-manager-num-results"
-                        options={sorts.options}
+                        /** adding this splice temporarily to remove 'featured positions'
+                        option from the sort per WS. Will be a ticket in the future to add back in
+                        */
+                        options={sorts.options.slice(0, -1)}
                         label="Sort by:"
                         defaultSort={ordering}
                         onSelectOption={value => setOrdering(value.target.value)}
