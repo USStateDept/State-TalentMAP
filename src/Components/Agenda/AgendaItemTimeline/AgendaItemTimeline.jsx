@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, isEqual } from 'lodash';
 import shortid from 'shortid';
 import { useDidMountEffect, usePrevious } from 'hooks';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -20,15 +20,26 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   const [legs, setLegs] = useState(agendaItemLegs);
 
   const usePrevIsNewSeparation = usePrevious(isNewSeparation);
+  const usePrevAgendaItemLegs = usePrevious(agendaItemLegs);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);
   }, [pos_results_loading]);
 
+  // Always call parent update method whenever legs form changes
   useEffect(() => {
     updateLegs(legs);
   }, [legs]);
 
+  // Set legs to original data if it has been changed i.e. the page has reloaded
+  // agenda data
+  useEffect(() => {
+    if (!isEqual(usePrevAgendaItemLegs, agendaItemLegs)) {
+      setLegs(agendaItemLegs);
+    }
+  }, [agendaItemLegs]);
+
+  // Adds a leg when a position is loaded in redux
   useDidMountEffect(() => {
     if (!pos_results_loading && !pos_results_errored) {
       if (pos_results) {
@@ -57,6 +68,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     }
   }, [pos_results]);
 
+  // Adds a leg when an assignment/separation/bid is selected
   useEffect(() => {
     if (!isEmpty(asgSepBid)) {
       const legs$ = [...legs];
@@ -86,6 +98,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     }
   }, [asgSepBid]);
 
+  // Adds a new separation leg when selected
   useDidMountEffect(() => {
     if (isNewSeparation !== usePrevIsNewSeparation) {
       const legs$ = [...legs];
