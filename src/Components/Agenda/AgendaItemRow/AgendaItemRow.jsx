@@ -72,7 +72,7 @@ const AgendaItemRow = props => {
               !isPanelMeetingView ?
                 <div className="ai-history-non-panel-meeting-view">
                   <Link
-                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                    to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
                   >
                     Edit Agenda Item
                   </Link>
@@ -105,7 +105,7 @@ const AgendaItemRow = props => {
               </div>
               <div className="panel-meeting-maintenance-link-container">
                 <Link
-                  to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
                 >
                   Edit Agenda Item
                 </Link>

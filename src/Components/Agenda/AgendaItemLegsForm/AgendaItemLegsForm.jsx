@@ -94,7 +94,7 @@ const AgendaItemLegsForm = props => {
           <Spinner type="legs" size="small" />
       }
       {
-        showOverlay &&
+        showOverlay && !legsLoading &&
         <Alert type="info" title="No Agenda Item Legs" />
       }
       {
