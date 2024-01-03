@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, find, get, includes } from 'lodash';
+import { filter, find, get, includes, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
@@ -80,21 +80,24 @@ const AgendaItemMaintenancePane = (props) => {
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
 
-  const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_full') || '');
+  const [selectedStatus, setStatus] = useState(agendaItem?.status_code || '');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(agendaItem, 'report_category.code') || '');
+  const [selectedPanelCat, setPanelCat] = useState(agendaItem?.report_category?.code || '');
 
-  const isPanelTypeML = get(agendaItem, 'pmt_code') === 'ML';
-  const isPanelTypeID = get(agendaItem, 'pmt_code') === 'ID';
-  const panelMeetingSeqNum = get(agendaItem, 'pmi_pm_seq_num') || '';
-  const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
-  const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
-  const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
-  const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
+  const calcPanelDates = () => {
+    const isPanelTypeML = agendaItem?.pmt_code === 'ML';
+    const isPanelTypeID = agendaItem?.pmt_code === 'ID';
+    const panelMeetingSeqNum = agendaItem?.pmi_pm_seq_num || '';
+    const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
+    const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
+    return { id: agendaItemPanelIDSeqNum, ml: agendaItemPanelMLSeqNum };
+  };
+  const [selectedPanelMLDate, setPanelMLDate] = useState(calcPanelDates()?.ml);
+  const [selectedPanelIDDate, setPanelIDDate] = useState(calcPanelDates()?.id);
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
@@ -155,6 +158,16 @@ const AgendaItemMaintenancePane = (props) => {
     combinedTodMonthsNum,
     combinedTodOtherText,
   ]);
+
+  useEffect(() => {
+    if (!isEmpty(agendaItem)) {
+      setStatus(agendaItem?.status_code);
+      setPanelCat(agendaItem?.report_category?.code);
+      setPanelMLDate(calcPanelDates()?.ml);
+      setPanelIDDate(calcPanelDates()?.id);
+      setCombinedTod(agendaItem?.aiCombinedTodCode);
+    }
+  }, [agendaItem]);
 
   useEffect(() => {
     const aiV = AIvalidation?.allValid;
@@ -350,7 +363,7 @@ const AgendaItemMaintenancePane = (props) => {
                       </option>
                       {
                         statuses.map(a => (
-                          <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
+                          <option key={a.code} value={a.code}>{a.desc_text}</option>
                         ))
                       }
                     </select>

@@ -137,7 +137,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                         </span>
                       </div>
                     </div>
-
                     <table className="pma-print-table">
                       <thead>
                         <tr>
@@ -157,7 +156,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                       </thead>
                       { printableAgendaTable(agenda) }
                     </table>
-
                     <div className="pma-footer-wrapper">
                       <div className="pma-cdo-remarks-wrapper">
                         <div className="item"><span className="label">CDO: </span> {cdo}</div>
