@@ -80,13 +80,13 @@ const AgendaItemMaintenancePane = (props) => {
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
 
-  const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_code') || '');
+  const [selectedStatus, setStatus] = useState(agendaItem?.status_code || '');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(agendaItem, 'report_category.code') || '');
+  const [selectedPanelCat, setPanelCat] = useState(agendaItem?.report_category?.code || '');
 
   const isPanelTypeML = get(agendaItem, 'pmt_code') === 'ML';
   const isPanelTypeID = get(agendaItem, 'pmt_code') === 'ID';
