@@ -90,7 +90,22 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div>
-      05/05/2019
+      <div
+        className="error-message-wrapper ail-form-ted"
+      >
+        <div
+          className="validation-error-message-label validation-error-message"
+        />
+        <div
+          className="validation-error-border"
+        >
+          05/05/2019
+          <FontAwesome
+            name="calendar"
+            onClick={[Function]}
+          />
+        </div>
+      </div>
     </div>
   </InteractiveElement>
   <InteractiveElement
@@ -115,21 +130,8 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div
-      className="error-message-wrapper ail-form-ted"
-    >
-      <div
-        className="validation-error-message-label validation-error-message"
-      />
-      <div
-        className="validation-error-border"
-      >
-        07/05/2020
-        <FontAwesome
-          name="calendar"
-          onClick={[Function]}
-        />
-      </div>
+    <div>
+      07/05/2020
     </div>
   </InteractiveElement>
   <InteractiveElement
