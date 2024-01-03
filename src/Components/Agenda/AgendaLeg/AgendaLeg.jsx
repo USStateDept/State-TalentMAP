@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate, formatLang } from 'utilities';
 import swal from '@sweetalert/with-react';
+import { add } from 'date-fns-v2';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { GSA as LocationsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
@@ -83,6 +84,7 @@ const AgendaLeg = props => {
     });
   };
 
+
   const updateDropdown = (dropdown, value) => {
     if (dropdown === 'tod' && value === 'X') {
       openTodModal();
@@ -91,22 +93,41 @@ const AgendaLeg = props => {
 
     if (dropdown === 'tod') {
       const getTod = TODs.find(tod => tod.code === value);
+
+      // Update TED to reflect ETA + TOD
+      let ted = leg?.ted;
+      if (leg?.eta && getTod?.months) {
+        ted = add(new Date(leg.eta), { months: getTod.months });
+      }
+
       updateLeg(leg?.ail_seq_num, {
         tod: getTod?.code,
         tod_long_desc: getTod?.long_description,
         tod_short_desc: getTod?.short_description,
+        tod_ref_months: getTod?.months,
         tod_months: null, // only custom/other TOD will have months
         // only legacy and custom/other TOD Agenda Item Legs will render as a dropdown
         tod_is_dropdown: true,
+        ted,
       });
       return;
     }
 
-    updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
-
-    if (dropdown === 'ted') {
+    if (dropdown === 'eta') {
+      // Update TED to reflect ETA + TOD
+      let ted = leg?.ted;
+      if (leg?.tod_ref_months) {
+        ted = add(new Date(value), { months: leg.tod_ref_months });
+      }
+      updateLeg(leg?.ail_seq_num, {
+        eta: value,
+        ted,
+      });
       swal.close();
+      return;
     }
+
+    updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
   };
 
   useEffect(() => {
@@ -116,34 +137,29 @@ const AgendaLeg = props => {
     }
   }, []);
 
-  const clearTed = () => {
-    updateLeg(leg?.ail_seq_num, { ted: '' });
+  const clearETA = () => {
+    updateLeg(leg?.ail_seq_num, { eta: '', ted: '' });
     swal.close();
   };
 
   const calendarModal = () => {
+    // TO DO: Update class names
     swal({
-      title: 'Tour End Date (TED)',
+      title: 'Estimated Time of Arrival (ETA)',
       closeOnEsc: true,
       button: false,
       className: 'swal-aim-ted-calendar',
       content: (
         <div className="ted-modal-content-container">
-          <div className="ted-modal-header">
-            {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
-          </div>
-          <div className="ted-modal-header">
-            Organization: ({get(leg, 'org') || 'None listed'})
-          </div>
           <div>
             <Calendar
               className="ted-react-calendar"
-              onChange={(e) => updateDropdown('ted', e)}
+              onChange={(e) => updateDropdown('eta', e)}
             />
           </div>
           <div className="ted-buttons">
             <button onClick={cancel}>Cancel</button>
-            <button onClick={clearTed}>Clear TED</button>
+            <button onClick={clearETA}>Clear ETA</button>
           </div>
         </div>
       ),
@@ -173,7 +189,7 @@ const AgendaLeg = props => {
             {
               data.map((a, i) => {
                 const keyId = `${a?.code}-${i}`;
-                return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
+                return <option key={keyId} value={get(a, 'code')}>{get(a, text)}</option>;
               })
             }
           </select>
@@ -249,13 +265,13 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     disabled ?
-      <>{formatDate(leg?.ted) || DEFAULT_TEXT}</> :
+      <>{formatDate(leg?.eta) || DEFAULT_TEXT}</> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.errorMessage}
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.errorMessage}
         </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(leg?.ted) || DEFAULT_TEXT}
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(leg?.eta) || DEFAULT_TEXT}
           <FA name="calendar" onClick={calendarModal} />
         </div>
       </div>
@@ -344,7 +360,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'ETA',
-      content: (<div>{defaultSepText || formatDate(get(leg, 'eta')) || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || getCalendar()}</div>),
     },
     {
       title: '',
@@ -352,7 +368,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TED',
-      content: (getCalendar()),
+      content: (<div>{formatDate(get(leg, 'ted')) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'TOD',
@@ -415,10 +431,12 @@ AgendaLeg.propTypes = {
     tod_is_dropdown: PropTypes.bool,
     vice: PropTypes.shape({}),
     ted: PropTypes.string,
+    eta: PropTypes.string,
     is_separation: PropTypes.bool,
     separation_location: PropTypes.shape({}),
     org: PropTypes.string,
     pay_plan: PropTypes.string,
+    tod_ref_months: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

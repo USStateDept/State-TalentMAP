@@ -122,7 +122,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, viewType }) => {
             {
               (showAgendaItemMaintenance && agendaIDExist) ?
                 <dd>
-                  <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
+                  <Link to={`/profile/${userRole}/editagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
                     {agendaStatus || 'No Status'}
                   </Link>
                 </dd>
@@ -141,7 +141,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, viewType }) => {
           {
             showAgendaItemMaintenance && showAgendaItemMaintenanceCreate &&
             <div className="button-box-container">
-              <LinkButton className="button-box" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
+              <LinkButton className="button-box" toLink={`/profile/${userRole}/editagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
             </div>
           }
         </div>

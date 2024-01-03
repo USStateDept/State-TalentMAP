@@ -21,7 +21,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
     </div>
     <Link
       replace={false}
-      to="/profile/ao/createagendaitem/undefined/undefined"
+      to="/profile/ao/editagendaitem/undefined/undefined"
     >
       Edit Agenda Item
     </Link>
