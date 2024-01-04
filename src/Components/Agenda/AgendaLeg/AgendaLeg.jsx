@@ -169,7 +169,7 @@ const AgendaLeg = props => {
   const getDropdown = (key, data, text) => {
     const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     if (isEf) {
-      return get(leg, key) || defaultText;
+      return <div className="read-only">{get(leg, key) || defaultText}</div>;
     }
     return (
       <div className="error-message-wrapper">
@@ -212,17 +212,17 @@ const AgendaLeg = props => {
     const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
-      return leg.tod_long_desc || defaultText;
+      return <div className="read-only">{leg.tod_long_desc || defaultText}</div>;
     }
     if (isSeparation) {
-      return ('-');
+      return <div className="read-only">-</div>;
     }
 
     if (!leg.tod_is_dropdown) {
       return (
         <div className="other-tod-wrapper">
           <div className="other-tod">
-            { leg.tod_long_desc }
+            {leg.tod_long_desc}
             {<FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
@@ -265,7 +265,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     disabled ?
-      <>{formatDate(leg?.eta) || DEFAULT_TEXT}</> :
+      <div className="read-only">{formatDate(leg?.eta) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
           {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.errorMessage}
@@ -322,7 +322,7 @@ const AgendaLeg = props => {
               }
             </div>
             :
-            displayText || DEFAULT_TEXT
+            <div className="read-only">{displayText || DEFAULT_TEXT}</div>
         }
       </div>
     );
@@ -344,7 +344,7 @@ const AgendaLeg = props => {
       content: isSeparation ?
         getLocation()
         :
-        (<div>{leg?.org || DEFAULT_TEXT}</div>),
+        (<div className="read-only">{leg?.org || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
@@ -360,7 +360,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'ETA',
-      content: (<div>{defaultSepText || getCalendar()}</div>),
+      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar()),
     },
     {
       title: '',
@@ -372,7 +372,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (defaultSepText || getTodDropdown()),
+      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
     },
     {
       title: 'Action',
