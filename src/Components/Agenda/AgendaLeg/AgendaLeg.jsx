@@ -189,7 +189,7 @@ const AgendaLeg = props => {
             {
               data.map((a, i) => {
                 const keyId = `${a?.code}-${i}`;
-                return <option key={keyId} value={get(a, 'code')}>{get(a, text)}</option>;
+                return <option key={keyId} value={a?.code}>{a?.[text]}</option>;
               })
             }
           </select>
@@ -348,15 +348,15 @@ const AgendaLeg = props => {
     },
     {
       title: 'Grade',
-      content: (<div>{get(leg, 'grade') || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{leg?.grade || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages') || []) || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{formatLang(leg?.languages || []) || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Skills',
-      content: (<div>{get(leg, 'custom_skills_description') || DEFAULT_TEXT}</div>),
+      content: (<div>{leg?.custom_skills_description || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
@@ -368,7 +368,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TED',
-      content: (<div>{formatDate(get(leg, 'ted')) || DEFAULT_TEXT}</div>),
+      content: (<div>{formatDate(leg?.ted) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'TOD',
@@ -376,11 +376,11 @@ const AgendaLeg = props => {
     },
     {
       title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'legActionType', getLegActionTypes(), 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
     },
     {
       title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
+      content: (getDropdown(isEf ? 'travel' : 'travel_code', travelFunctions, 'desc_text')),
     },
     {
       title: 'Vice',
@@ -437,6 +437,9 @@ AgendaLeg.propTypes = {
     org: PropTypes.string,
     pay_plan: PropTypes.string,
     tod_ref_months: PropTypes.string,
+    grade: PropTypes.string,
+    languages: PropTypes.shape([]),
+    custom_skills_description: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
