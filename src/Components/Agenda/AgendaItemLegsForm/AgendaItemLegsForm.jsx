@@ -153,6 +153,13 @@ AgendaItemLegsForm.propTypes = {
   updateResearchPaneTab: PropTypes.func,
   setActiveAIL: PropTypes.func,
   AIvalidation: AI_VALIDATION,
+  legsData: PropTypes.shape({
+    todData: PropTypes.shape({}),
+    legATData: PropTypes.shape({}),
+    legATLoading: PropTypes.bool,
+    travelFData: PropTypes.shape({}),
+    travelFLoading: PropTypes.bool,
+  }).isRequired
 };
 
 AgendaItemLegsForm.defaultProps = {
@@ -164,6 +171,13 @@ AgendaItemLegsForm.defaultProps = {
   updateResearchPaneTab: EMPTY_FUNCTION,
   setActiveAIL: EMPTY_FUNCTION,
   AIvalidation: {},
+  legsData: {
+    todData: {},
+    legATData: {},
+    legATLoading: false,
+    travelFData: {},
+    travelFLoading: false,
+  }
 };
 
 export default AgendaItemLegsForm;
