@@ -59,8 +59,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           tod_short_desc: null,
           tod_is_dropdown: true,
           grade: get(pos_results, 'grade'),
-          legActionType: null,
-          travelFunctionCode: null,
+          action_code: null,
+          travel_code: null,
           pay_plan: get(pos_results, 'pay_plan'),
         });
         setLegs(legs$);
@@ -90,8 +90,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: true,
         grade: get(asgSepBid, 'grade'),
-        legActionType: null,
-        travelFunctionCode: null,
+        action_code: null,
+        travel_code: null,
         pay_plan: null,
       });
       setLegs(legs$);
@@ -121,8 +121,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: false,
         grade: null,
-        legActionType: null,
-        travelFunctionCode: 'Separation from the Service',
+        action_code: null,
+        travel_code: 'Separation from the Service',
         is_separation: true,
       });
       setLegs(legs$);
