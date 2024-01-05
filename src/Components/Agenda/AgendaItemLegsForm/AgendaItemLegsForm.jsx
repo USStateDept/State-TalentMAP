@@ -159,7 +159,7 @@ AgendaItemLegsForm.propTypes = {
     legATLoading: PropTypes.bool,
     travelFData: PropTypes.shape({}),
     travelFLoading: PropTypes.bool,
-  }).isRequired
+  }).isRequired,
 };
 
 AgendaItemLegsForm.defaultProps = {
@@ -177,7 +177,7 @@ AgendaItemLegsForm.defaultProps = {
     legATLoading: false,
     travelFData: {},
     travelFLoading: false,
-  }
+  },
 };
 
 export default AgendaItemLegsForm;
