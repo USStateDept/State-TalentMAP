@@ -133,7 +133,7 @@ const AgendaLeg = props => {
   useEffect(() => {
     if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'),
-        { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
+        { action_code: get(leg, 'action_code') || '', travel_code: get(leg, 'travel_code') || '' });
     }
   }, []);
 

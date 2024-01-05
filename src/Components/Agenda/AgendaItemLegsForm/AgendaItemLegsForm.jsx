@@ -63,12 +63,12 @@ const AgendaItemLegsForm = props => {
 
   useEffect(() => {
     legs.forEach(l => {
-      const isLegacyValue = (!includes(legActionTypes, l.legActionType) && l.legActionType !== '');
+      const isLegacyValue = (!includes(legActionTypes, l.action_code) && l.action_code !== '');
       if (isLegacyValue) {
         legActionTypes.push({
           code: 'LA',
-          abbr_desc_text: l.legActionType,
-          desc_text: l.legActionType,
+          abbr_desc_text: l.action_code,
+          desc_text: l.action_code,
         });
       }
     });
@@ -76,12 +76,12 @@ const AgendaItemLegsForm = props => {
 
   useEffect(() => {
     legs.forEach(l => {
-      const isLegacyValue = (!includes(travelFunctions, l.travelFunctionCode) && l.travelFunctionCode !== '');
+      const isLegacyValue = (!includes(travelFunctions, l.travel_code) && l.travel_code !== '');
       if (isLegacyValue) {
         travelFunctions.push({
           code: '999',
-          desc_text: l.travelFunctionCode,
-          abbr_desc_text: l.travelFunctionCode,
+          desc_text: l.travel_code,
+          abbr_desc_text: l.travel_code,
         });
       }
     });
