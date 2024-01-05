@@ -11,7 +11,7 @@ import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   asgSepBid, efPos, agendaItemLegs, fullAgendaItemLegs, readMode, AIvalidation, isNewSeparation,
   updateResearchPaneTab, setLegsContainerExpanded, location, activeAIL, setActiveAIL,
-  setLocation,
+  setLocation, legsData,
 }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
@@ -154,22 +154,23 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   }, [location]);
 
   return (
-    !unitedLoading &&
-    readMode ?
-      <AgendaItemLegsFormReadOnly
-        legs={fullAgendaItemLegs}
-      />
-      :
-      <AgendaItemLegsForm
-        AIvalidation={AIvalidation}
-        efPos={efPos}
-        legs={legs}
-        setActiveAIL={setActiveAIL}
-        updateLeg={updateLeg}
-        updateResearchPaneTab={updateResearchPaneTab}
-        setLegsContainerExpanded={setLegsContainerExpanded}
-        onClose={onClose}
-      />
+    !unitedLoading && (
+      readMode ?
+        <AgendaItemLegsFormReadOnly
+          legs={fullAgendaItemLegs}
+        /> :
+        <AgendaItemLegsForm
+          AIvalidation={AIvalidation}
+          efPos={efPos}
+          legs={legs}
+          setActiveAIL={setActiveAIL}
+          updateLeg={updateLeg}
+          updateResearchPaneTab={updateResearchPaneTab}
+          setLegsContainerExpanded={setLegsContainerExpanded}
+          onClose={onClose}
+          legsData={legsData}
+        />
+    )
   );
 };
 
