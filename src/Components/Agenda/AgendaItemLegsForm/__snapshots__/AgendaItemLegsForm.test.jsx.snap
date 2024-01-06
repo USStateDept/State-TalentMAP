@@ -2,10 +2,167 @@
 
 exports[`AgendaItemLegs Component matches snapshot 1`] = `
 <Fragment>
-  <Spinner
-    size="small"
-    style={Object {}}
-    type="legs"
-  />
+  <div
+    className="legs-form-container validation-error-border-legs"
+  >
+    <div
+      className="legs-form"
+    >
+      <InteractiveElement
+        className="grid-col-1 grid-row-2"
+        key="Position Title"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Position Title
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-3"
+        key="Position Number"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Position Number
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-4"
+        key="Org"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Org
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-5"
+        key="Grade"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Grade
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-6"
+        key="Lang"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Lang
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-7"
+        key="Skills"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Skills
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-8"
+        key="ETA"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        ETA
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-9"
+        key=""
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      />
+      <InteractiveElement
+        className="grid-col-1 grid-row-10"
+        key="TED"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        TED
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-11"
+        key="TOD"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        TOD
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-12"
+        key="Action"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Action
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-13"
+        key="Travel"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Travel
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-14"
+        key="Vice"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Vice
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1 grid-row-15"
+        key="Pay Plan"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Pay Plan
+      </InteractiveElement>
+      <AgendaLeg
+        AIvalidation={Object {}}
+        TODs={Array []}
+        isEf={false}
+        key="undefined-0"
+        leg={
+          Object {
+            "action": "Extend",
+            "eta": "2019-05-05T00:00:00.000Z",
+            "grade": "00",
+            "id": 41387,
+            "org": "A",
+            "pos_num": "57019000",
+            "pos_title": "REGIONAL SECURITY OFFICER",
+            "ted": "2020-07-05T00:00:00.000Z",
+            "tod": "1 YEAR",
+            "travel": null,
+          }
+        }
+        legActionTypes={Array []}
+        legNum={2}
+        onClose={[Function]}
+        onHover={[Function]}
+        rowNum={null}
+        setActiveAIL={[Function]}
+        setLegsContainerExpanded={[Function]}
+        travelFunctions={Array []}
+        updateLeg={[Function]}
+        updateResearchPaneTab={[Function]}
+      />
+    </div>
+  </div>
 </Fragment>
 `;
