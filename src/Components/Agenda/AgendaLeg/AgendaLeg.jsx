@@ -58,6 +58,7 @@ const AgendaLeg = props => {
   );
 
   const submitCustomTod = (todArray, customTodMonths) => {
+    const ted = add(new Date(leg?.eta), { months: customTodMonths });
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
     updateLeg(leg?.ail_seq_num, {
       tod: 'X',
@@ -65,6 +66,7 @@ const AgendaLeg = props => {
       tod_long_desc: todCode,
       tod_short_desc: todCode,
       tod_is_dropdown: false,
+      ted,
     });
     swal.close();
   };
@@ -96,7 +98,9 @@ const AgendaLeg = props => {
 
       // Update TED to reflect ETA + TOD
       let ted = leg?.ted;
-      if (leg?.eta && getTod?.months) {
+      if (!value || value === 'Y' || value === 'Z') {
+        ted = '';
+      } else if (leg?.eta && getTod?.months) {
         ted = add(new Date(leg.eta), { months: getTod.months });
       }
 
@@ -104,7 +108,6 @@ const AgendaLeg = props => {
         tod: getTod?.code,
         tod_long_desc: getTod?.long_description,
         tod_short_desc: getTod?.short_description,
-        tod_ref_months: getTod?.months,
         tod_months: null, // only custom/other TOD will have months
         // only legacy and custom/other TOD Agenda Item Legs will render as a dropdown
         tod_is_dropdown: true,
@@ -446,7 +449,6 @@ AgendaLeg.propTypes = {
     separation_location: PropTypes.shape({}),
     org: PropTypes.string,
     pay_plan: PropTypes.string,
-    tod_ref_months: PropTypes.string,
     grade: PropTypes.string,
     languages: PropTypes.shape([]),
     custom_skills_description: PropTypes.string,
