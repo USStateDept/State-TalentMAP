@@ -120,9 +120,10 @@ const AgendaLeg = props => {
       const tod_ref_months = getTod?.months;
 
       if (leg?.tod === 'X') {
-        // only custom/other TOD will have months
+        // only custom/other TOD will have a tod_months value
         ted = add(new Date(value), { months: leg?.tod_months });
-      } else if (leg?.tod === 'Y' || leg?.tod === 'Z' || !leg?.tod_ref_months) { // Legacy, Indefinite, and N/A TOD
+      } else if (leg?.tod === 'Y' || leg?.tod === 'Z' || !tod_ref_months) {
+        // Legacy, Indefinite, and N/A TOD
         ted = '';
       } else {
         ted = add(new Date(value), { months: tod_ref_months });
