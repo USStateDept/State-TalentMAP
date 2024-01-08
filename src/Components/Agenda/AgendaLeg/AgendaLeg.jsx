@@ -116,8 +116,16 @@ const AgendaLeg = props => {
     if (dropdown === 'eta') {
       // Update TED to reflect ETA + TOD
       let ted = leg?.ted;
-      if (leg?.tod_ref_months) {
-        ted = add(new Date(value), { months: leg.tod_ref_months });
+      const getTod = TODs.find(tod => tod.code === leg.tod);
+      const tod_ref_months = getTod?.months;
+
+      if (leg?.tod === 'X') {
+        // only custom/other TOD will have months
+        ted = add(new Date(value), { months: leg?.tod_months });
+      } else if (leg?.tod === 'Y' || leg?.tod === 'Z' || !leg?.tod_ref_months) { // Legacy, Indefinite, and N/A TOD
+        ted = '';
+      } else {
+        ted = add(new Date(value), { months: tod_ref_months });
       }
       updateLeg(leg?.ail_seq_num, {
         eta: value,
@@ -428,6 +436,7 @@ AgendaLeg.propTypes = {
     tod_other_text: PropTypes.string,
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
+    tod_months: PropTypes.number,
     tod_is_dropdown: PropTypes.bool,
     vice: PropTypes.shape({}),
     ted: PropTypes.string,
