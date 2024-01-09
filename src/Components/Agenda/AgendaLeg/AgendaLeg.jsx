@@ -179,9 +179,12 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     if (isEf) {
-      return <div className="read-only">{get(leg, key) || defaultText}</div>;
+      let efDefaultText = 'None listed';
+      if (['action', 'travel'].includes(key)) {
+        efDefaultText = '-';
+      }
+      return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
     }
     return (
       <div className="error-message-wrapper">
@@ -196,7 +199,7 @@ const AgendaLeg = props => {
             disabled={disabled}
           >
             <option key={null} value={''}>
-              {defaultText}
+              Keep Unselected
             </option>
             {
               data.map((a, i) => {
@@ -221,10 +224,9 @@ const AgendaLeg = props => {
   };
 
   const getTodDropdown = () => {
-    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
-      return <div className="read-only">{leg.tod_long_desc || defaultText}</div>;
+      return <div className="read-only">{leg.tod_long_desc || 'None listed'}</div>;
     }
     if (isSeparation) {
       return <div className="read-only">-</div>;
@@ -253,9 +255,7 @@ const AgendaLeg = props => {
             onChange={(e) => updateDropdown('tod', e.target.value)}
             disabled={disabled}
           >
-            <option key={null} value={''}>
-              {defaultText}
-            </option>
+            <option key={null} value={''}>Keep Unselected</option>
             {
               TODs.map((tod, i) => {
                 const { code, long_description } = tod;
