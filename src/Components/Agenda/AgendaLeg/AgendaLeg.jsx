@@ -255,7 +255,9 @@ const AgendaLeg = props => {
             onChange={(e) => updateDropdown('tod', e.target.value)}
             disabled={disabled}
           >
-            <option key={null} value={''}>Keep Unselected</option>
+            <option key={null} value={''}>
+              Keep Unselected
+            </option>
             {
               TODs.map((tod, i) => {
                 const { code, long_description } = tod;
