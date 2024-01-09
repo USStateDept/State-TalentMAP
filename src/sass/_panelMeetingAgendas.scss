@@ -244,6 +244,12 @@
   .pma-print-close-icon {
     display: none;
   }
+  .Toastify {
+    display: none;
+  }
+  @page {
+    size: landscape
+  }
 }
 
 .pma-print-view {
@@ -275,7 +281,7 @@
   }
   .pma-table-wrapper {
     border-top: 2px solid gray;
-    break-inside: auto;
+    break-inside: avoid;
   }
 
   .pma-print-history-status {
