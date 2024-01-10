@@ -10,11 +10,7 @@ import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
 import TMDatePicker from 'Components/TMDatePicker';
-import {
-  cycleManagementFetchData,
-  postAssignmentCyclesSelections,
-  saveAssignmentCyclesSelections,
-} from 'actions/cycleManagement';
+import { cycleManagementCreateCycle, cycleManagementFetchData } from 'actions/cycleManagement';
 import { renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 import EditAssignmentCycles from './EditAssignmentCycles';
@@ -28,6 +24,8 @@ const CycleManagement = (props) => {
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
+  const cycleManagementCreateSuccess =
+    useSelector(state => state.cycleManagementCreateCycleSuccess);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
@@ -37,8 +35,8 @@ const CycleManagement = (props) => {
   const [cycleManagementData$, setCycleManagementData$] = useState(cycleManagementData);
   const [clearFilters, setClearFilters] = useState(false);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
-  const [addNewCycles, setAddNewCycles] = useState(false);
-  const disableInput = addNewCycles || cardsInEditMode.length > 0;
+  const disableInput = cardsInEditMode.length > 0;
+
   const noFiltersSelected = selectedCycles.flat().length === 0
     && selectedStatus.flat().length === 0
     && !selectedDates;
@@ -89,7 +87,11 @@ const CycleManagement = (props) => {
     selectedDates,
     cycleManagementData,
   ]);
-
+  useEffect(() => {
+    if (cycleManagementCreateSuccess === true) {
+      swal.close();
+    }
+  }, [cycleManagementCreateSuccess]);
 
   const uniqueStatuses = () => {
     const statuses = cycleManagementData.map(cycles => cycles.status);
@@ -105,27 +107,11 @@ const CycleManagement = (props) => {
     setClearFilters(false);
   };
 
-  const onSave = (isNew, userData) => {
-    dispatch(saveAssignmentCyclesSelections(userData));
-    setAddNewCycles(false);
-    swal.close();
-    if (!isNew) setCardsInEditMode([]);
+  const onSave = (data) => {
+    dispatch(cycleManagementCreateCycle(data));
   };
 
-  const onPost = (isNew, userData) => {
-    dispatch(postAssignmentCyclesSelections(userData));
-    setAddNewCycles(false);
-    swal.close();
-    if (!isNew) setCardsInEditMode([]);
-  };
-
-  const onClose = (isNew) => {
-    swal.close();
-    setAddNewCycles(false);
-    if (!isNew) setCardsInEditMode([]);
-  };
-
-  const onCardAdd = (e) => {
+  const onCardOpen = (e) => {
     if (cardsInEditMode.includes(e)) {
       setCardsInEditMode(cardsInEditMode.filter(item => item !== e));
     } else {
@@ -133,17 +119,14 @@ const CycleManagement = (props) => {
     }
   };
 
-  const addNewCycle = (e) => {
-    e.preventDefault();
+  const createNewAssignmentCycle = () => {
     swal({
       title: 'New Assignment Cycle',
-      className: 'modal-700',
+      className: 'modal-700-long',
       button: false,
       content: (
         <EditAssignmentCycles
-          onPost={onPost}
           onSave={onSave}
-          onClose={onClose}
         />
       ),
     });
@@ -240,7 +223,10 @@ const CycleManagement = (props) => {
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="bs-results">
                   <Link
-                    onClick={addNewCycle}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      createNewAssignmentCycle();
+                    }}
                     to="#"
                   >
                     {isSuperUser &&
@@ -256,7 +242,7 @@ const CycleManagement = (props) => {
                 {cycleManagementData$?.map(data => (
                   <CycleSearchCard
                     {...{ ...data, isAO }}
-                    onEditModeSearch={onCardAdd}
+                    onEditModeSearch={onCardOpen}
                     isSuperUser={isSuperUser}
                   />
                 ))}

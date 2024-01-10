@@ -258,12 +258,15 @@
 
 .assignment-cycle-form {
   width: 100%;
-  height: 500px;
+  height: 100%;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   row-gap: 10px;
   padding: 15px;
+  .ac-buttons {
+    flex-direction: row-reverse;
+  }
   .ac-sections {
     display: flex;
     flex-direction: column;
@@ -417,7 +420,7 @@
 
     .fa-close {
       position: absolute;
-      left: 270px;
+      left: 90%;
       top: 18px;
       color: gray;
       z-index: 1;

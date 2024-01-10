@@ -1,3 +1,6 @@
+
+// ================ Cycle Management GET ================
+
 export function cycleManagementFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'CYCLE_MANAGEMENT_FETCH_HAS_ERRORED':
@@ -22,6 +25,22 @@ export function cycleManagement(state = [], action) {
       return state;
   }
 }
+
+
+// ================ Cycle Management CREATE cycle ================
+
+export function cycleManagementCreateCycleSuccess(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_CREATE_CYCLE_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}
+
+
+// ================    ================
+
 
 export function cycleManagementAssignmentCycleFetchDataErrored(state = false, action) {
   switch (action.type) {

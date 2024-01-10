@@ -186,6 +186,40 @@ export function cycleManagementFetchData() {
 }
 
 
+// ================ Cycle Management CREATE cycle ================
+
+export function cycleManagementCreateCycleSuccess(bool) {
+  return {
+    type: 'CYCLE_MANAGEMENT_CREATE_CYCLE_SUCCESS',
+    success: bool,
+  };
+}
+
+export function cycleManagementCreateCycle(data) {
+  return (dispatch) => {
+    dispatch(cycleManagementCreateCycleSuccess(false));
+    api()
+      .post('/fsbid/assignment_cycles/create/', {
+        data,
+      })
+      .then(() => {
+        batch(() => {
+          dispatch(cycleManagementCreateCycleSuccess(true));
+          dispatch(toastSuccess(
+            ASSIGNMENT_CYCLE_POST_SUCCESS, ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE,
+          ));
+          dispatch(cycleManagementFetchData());
+        });
+      })
+      .catch(() => {
+        dispatch(cycleManagementCreateCycleSuccess(false));
+        dispatch(toastError(ASSIGNMENT_CYCLE_POST_ERROR, ASSIGNMENT_CYCLE_POST_ERROR_TITLE));
+      });
+  };
+}
+
+
+// ================    ================
 export function cycleManagementAssignmentCycleFetchDataErrored(bool) {
   return {
     type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED',
