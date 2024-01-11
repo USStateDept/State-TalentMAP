@@ -13,7 +13,7 @@ import TMDatePicker from 'Components/TMDatePicker';
 import { cycleManagementCreateCycle, cycleManagementFetchData } from 'actions/cycleManagement';
 import { renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
-import EditAssignmentCycles from './EditAssignmentCycles';
+import NewAssignmentCycle from './NewAssignmentCycle';
 
 const CycleManagement = (props) => {
   const dispatch = useDispatch();
@@ -125,7 +125,7 @@ const CycleManagement = (props) => {
       className: 'modal-700-long',
       button: false,
       content: (
-        <EditAssignmentCycles
+        <NewAssignmentCycle
           onSave={onSave}
         />
       ),

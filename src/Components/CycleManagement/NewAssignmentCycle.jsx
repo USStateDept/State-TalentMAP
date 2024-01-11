@@ -5,11 +5,12 @@ import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
 import swal from '@sweetalert/with-react';
+// import { formatDate } from 'utilities';
 import CheckBox from '../CheckBox';
 
-const DATE_FORMAT = 'MMMM d, yyyy';
+const DATE_FORMAT = 'MM/dd/yyyy';
 
-const EditAssignmentCycles = (props) => {
+const NewAssignmentCycle = (props) => {
   const { onSave } = props;
 
   const [assignmentCycle, setAssignmentCycle] = useState('');
@@ -406,13 +407,13 @@ const EditAssignmentCycles = (props) => {
   );
 };
 
-EditAssignmentCycles.propTypes = {
+NewAssignmentCycle.propTypes = {
   onSave: PropTypes.func.isRequired,
 };
 
 
-EditAssignmentCycles.defaultProps = {
+NewAssignmentCycle.defaultProps = {
   onSave: () => { },
 };
 
-export default EditAssignmentCycles;
+export default NewAssignmentCycle;
