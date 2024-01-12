@@ -148,6 +148,7 @@ const PanelMeetingAdmin = (props) => {
         panelMeetingStatus,
       },
     ));
+    clear();
   };
 
   // ============= Form Conditions =============
