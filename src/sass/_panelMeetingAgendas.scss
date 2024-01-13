@@ -241,6 +241,15 @@
   .tm-footer {
     display: none;
   }
+  .pma-print-close-icon {
+    display: none;
+  }
+  .Toastify {
+    display: none;
+  }
+  @page {
+    size: landscape
+  }
 }
 
 .pma-print-view {
@@ -260,25 +269,18 @@
       .step-description {
         text-align: left;
       }
-      li:last-child {
-        width: 25%;
-      }
     }
   }
 
   .pma-print-header {
     font-family: 'Roboto';
     font-size: 16px;
-    text-align: center;
     font-weight: bold;
-    padding: 10px 0 10px 0;
-    margin: 2px 0 2px 0px;
-    border-top: solid 5px $primary-gray-dark;
-    border-bottom: solid 5px $primary-gray-dark;
+    margin-left: -10px;
+    border-top: solid 3px $primary-gray-dark;
   }
   .pma-table-wrapper {
-    box-shadow: $tm-gray 6px 6px 20px;
-    margin-bottom: 15px;
+    border-top: 2px solid gray;
     break-inside: avoid;
   }
 

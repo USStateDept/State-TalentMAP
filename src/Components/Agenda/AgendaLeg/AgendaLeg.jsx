@@ -58,6 +58,7 @@ const AgendaLeg = props => {
   );
 
   const submitCustomTod = (todArray, customTodMonths) => {
+    const ted = add(new Date(leg?.eta), { months: customTodMonths });
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
     updateLeg(leg?.ail_seq_num, {
       tod: 'X',
@@ -65,6 +66,7 @@ const AgendaLeg = props => {
       tod_long_desc: todCode,
       tod_short_desc: todCode,
       tod_is_dropdown: false,
+      ted,
     });
     swal.close();
   };
@@ -96,7 +98,9 @@ const AgendaLeg = props => {
 
       // Update TED to reflect ETA + TOD
       let ted = leg?.ted;
-      if (leg?.eta && getTod?.months) {
+      if (!value || value === 'Y' || value === 'Z') {
+        ted = '';
+      } else if (leg?.eta && getTod?.months) {
         ted = add(new Date(leg.eta), { months: getTod.months });
       }
 
@@ -104,7 +108,6 @@ const AgendaLeg = props => {
         tod: getTod?.code,
         tod_long_desc: getTod?.long_description,
         tod_short_desc: getTod?.short_description,
-        tod_ref_months: getTod?.months,
         tod_months: null, // only custom/other TOD will have months
         // only legacy and custom/other TOD Agenda Item Legs will render as a dropdown
         tod_is_dropdown: true,
@@ -116,8 +119,17 @@ const AgendaLeg = props => {
     if (dropdown === 'eta') {
       // Update TED to reflect ETA + TOD
       let ted = leg?.ted;
-      if (leg?.tod_ref_months) {
-        ted = add(new Date(value), { months: leg.tod_ref_months });
+      const getTod = TODs.find(tod => tod.code === leg.tod);
+      const tod_ref_months = getTod?.months;
+
+      if (leg?.tod === 'X') {
+        // only custom/other TOD will have a tod_months value
+        ted = add(new Date(value), { months: leg?.tod_months });
+      } else if (leg?.tod === 'Y' || leg?.tod === 'Z' || !tod_ref_months) {
+        // Legacy, Indefinite, and N/A TOD
+        ted = '';
+      } else {
+        ted = add(new Date(value), { months: tod_ref_months });
       }
       updateLeg(leg?.ail_seq_num, {
         eta: value,
@@ -133,7 +145,7 @@ const AgendaLeg = props => {
   useEffect(() => {
     if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'),
-        { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
+        { action_code: get(leg, 'action_code') || '', travel_code: get(leg, 'travel_code') || '' });
     }
   }, []);
 
@@ -167,9 +179,12 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     if (isEf) {
-      return get(leg, key) || defaultText;
+      let efDefaultText = 'None listed';
+      if (['action', 'travel'].includes(key)) {
+        efDefaultText = '-';
+      }
+      return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
     }
     return (
       <div className="error-message-wrapper">
@@ -184,12 +199,12 @@ const AgendaLeg = props => {
             disabled={disabled}
           >
             <option key={null} value={''}>
-              {defaultText}
+              Keep Unselected
             </option>
             {
               data.map((a, i) => {
                 const keyId = `${a?.code}-${i}`;
-                return <option key={keyId} value={get(a, 'code')}>{get(a, text)}</option>;
+                return <option key={keyId} value={a?.code}>{a?.[text]}</option>;
               })
             }
           </select>
@@ -209,20 +224,19 @@ const AgendaLeg = props => {
   };
 
   const getTodDropdown = () => {
-    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
-      return leg.tod_long_desc || defaultText;
+      return <div className="read-only">{leg.tod_long_desc || 'None listed'}</div>;
     }
     if (isSeparation) {
-      return ('-');
+      return <div className="read-only">-</div>;
     }
 
     if (!leg.tod_is_dropdown) {
       return (
         <div className="other-tod-wrapper">
           <div className="other-tod">
-            { leg.tod_long_desc }
+            {leg.tod_long_desc}
             {<FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
@@ -242,7 +256,7 @@ const AgendaLeg = props => {
             disabled={disabled}
           >
             <option key={null} value={''}>
-              {defaultText}
+              Keep Unselected
             </option>
             {
               TODs.map((tod, i) => {
@@ -265,7 +279,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     disabled ?
-      <>{formatDate(leg?.eta) || DEFAULT_TEXT}</> :
+      <div className="read-only">{formatDate(leg?.eta) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
           {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.errorMessage}
@@ -322,7 +336,7 @@ const AgendaLeg = props => {
               }
             </div>
             :
-            displayText || DEFAULT_TEXT
+            <div className="read-only">{displayText || DEFAULT_TEXT}</div>
         }
       </div>
     );
@@ -344,23 +358,23 @@ const AgendaLeg = props => {
       content: isSeparation ?
         getLocation()
         :
-        (<div>{leg?.org || DEFAULT_TEXT}</div>),
+        (<div className="read-only">{leg?.org || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
-      content: (<div>{get(leg, 'grade') || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{leg?.grade || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages') || []) || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{formatLang(leg?.languages || []) || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Skills',
-      content: (<div>{get(leg, 'custom_skills_description') || DEFAULT_TEXT}</div>),
+      content: (<div>{leg?.custom_skills_description || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
-      content: (<div>{defaultSepText || getCalendar()}</div>),
+      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar()),
     },
     {
       title: '',
@@ -368,19 +382,19 @@ const AgendaLeg = props => {
     },
     {
       title: 'TED',
-      content: (<div>{formatDate(get(leg, 'ted')) || DEFAULT_TEXT}</div>),
+      content: (<div>{formatDate(leg?.ted) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'TOD',
-      content: (defaultSepText || getTodDropdown()),
+      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
     },
     {
       title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'legActionType', getLegActionTypes(), 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
     },
     {
       title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
+      content: (getDropdown(isEf ? 'travel' : 'travel_code', travelFunctions, 'desc_text')),
     },
     {
       title: 'Vice',
@@ -428,6 +442,7 @@ AgendaLeg.propTypes = {
     tod_other_text: PropTypes.string,
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
+    tod_months: PropTypes.number,
     tod_is_dropdown: PropTypes.bool,
     vice: PropTypes.shape({}),
     ted: PropTypes.string,
@@ -436,7 +451,9 @@ AgendaLeg.propTypes = {
     separation_location: PropTypes.shape({}),
     org: PropTypes.string,
     pay_plan: PropTypes.string,
-    tod_ref_months: PropTypes.string,
+    grade: PropTypes.string,
+    languages: PropTypes.shape([]),
+    custom_skills_description: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

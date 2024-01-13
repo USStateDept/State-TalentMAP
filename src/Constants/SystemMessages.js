@@ -9,6 +9,7 @@ import HandshakeOffered from 'Components/BidTracker/Messages/HandshakeOffered';
 import HandshakeRevoked from 'Components/BidTracker/Messages/HandshakeRevoked';
 import HandshakeAccepted from 'Components/BidTracker/Messages/HandshakeAccepted';
 import GenericSuccessToast from 'Components/GenericToast/Success';
+import PanelMeetingMessage from 'Components/AdministratorPage/PanelAdmin/PanelMeetingMessage';
 
 export const DEFAULT_TEXT = 'None listed';
 
@@ -174,7 +175,7 @@ export const SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE = 'Remark Save Error';
 export const SAVE_ADMIN_REMARK_HAS_ERRORED = 'There was an issue attempting to save this Remark. Please try again.';
 
 export const UPDATE_PANEL_MEETING_SUCCESS_TITLE = 'Panel Meeting Saved';
-export const UPDATE_PANEL_MEETING_SUCCESS = 'This Panel Meeting has been saved successfully.';
+export const UPDATE_PANEL_MEETING_SUCCESS = (id) => PanelMeetingMessage({ id });
 export const UPDATE_PANEL_MEETING_ERROR_TITLE = 'Panel Meeting Error';
 export const UPDATE_PANEL_MEETING_ERROR = 'There was an issue attempting to save this Panel Meeting. Please try again.';
 
