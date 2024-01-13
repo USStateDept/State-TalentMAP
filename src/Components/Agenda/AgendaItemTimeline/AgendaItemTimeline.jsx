@@ -11,7 +11,7 @@ import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   asgSepBid, efPos, agendaItemLegs, fullAgendaItemLegs, readMode, AIvalidation, isNewSeparation,
   updateResearchPaneTab, setLegsContainerExpanded, location, activeAIL, setActiveAIL,
-  setLocation,
+  setLocation, legsData,
 }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
@@ -48,7 +48,10 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           ail_seq_num: shortid.generate(),
           pos_title: get(pos_results, 'title'),
           pos_num: get(pos_results, 'position_number'),
-          posSeqNum: get(pos_results, 'pos_seq_num'),
+          ail_pos_seq_num: get(pos_results, 'pos_seq_num'),
+          ail_cp_id: null,
+          ail_asg_seq_num: null,
+          ail_asgd_revision_num: null,
           org: get(pos_results, 'organization'),
           eta: get(pos_results, 'start_date'),
           ted: null,
@@ -59,8 +62,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           tod_short_desc: null,
           tod_is_dropdown: true,
           grade: get(pos_results, 'grade'),
-          legActionType: null,
-          travelFunctionCode: null,
+          action_code: null,
+          travel_code: null,
           pay_plan: get(pos_results, 'pay_plan'),
         });
         setLegs(legs$);
@@ -76,10 +79,10 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         ail_seq_num: shortid.generate(),
         pos_title: get(asgSepBid, 'pos_title'),
         pos_num: get(asgSepBid, 'pos_num'),
-        posSeqNum: get(asgSepBid, 'pos_seq_num'),
-        cpId: get(asgSepBid, 'cp_id'),
-        legAssignmentId: get(asgSepBid, 'asg_seq_num'),
-        legAssignmentVersion: get(asgSepBid, 'revision_num'),
+        ail_pos_seq_num: get(asgSepBid, 'pos_seq_num'),
+        ail_cp_id: get(asgSepBid, 'ail_cp_id'),
+        ail_asg_seq_num: get(asgSepBid, 'asg_seq_num'),
+        ail_asgd_revision_num: get(asgSepBid, 'revision_num'),
         org: get(asgSepBid, 'org'),
         eta: null,
         ted: null,
@@ -90,8 +93,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: true,
         grade: get(asgSepBid, 'grade'),
-        legActionType: null,
-        travelFunctionCode: null,
+        action_code: null,
+        travel_code: null,
         pay_plan: null,
       });
       setLegs(legs$);
@@ -106,10 +109,10 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         ail_seq_num: shortid.generate(),
         pos_title: '-',
         pos_num: null,
-        posSeqNum: null,
-        cpId: null,
-        legAssignmentId: null,
-        legAssignmentVersion: null,
+        ail_pos_seq_num: null,
+        ail_cp_id: null,
+        ail_asg_seq_num: null,
+        ail_asgd_revision_num: null,
         org: null,
         separation_location: null,
         eta: null,
@@ -121,8 +124,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: false,
         grade: null,
-        legActionType: null,
-        travelFunctionCode: 'Separation from the Service',
+        action_code: null,
+        travel_code: 'Separation from the Service',
         is_separation: true,
       });
       setLegs(legs$);
@@ -154,22 +157,23 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   }, [location]);
 
   return (
-    !unitedLoading &&
-    readMode ?
-      <AgendaItemLegsFormReadOnly
-        legs={fullAgendaItemLegs}
-      />
-      :
-      <AgendaItemLegsForm
-        AIvalidation={AIvalidation}
-        efPos={efPos}
-        legs={legs}
-        setActiveAIL={setActiveAIL}
-        updateLeg={updateLeg}
-        updateResearchPaneTab={updateResearchPaneTab}
-        setLegsContainerExpanded={setLegsContainerExpanded}
-        onClose={onClose}
-      />
+    !unitedLoading && (
+      readMode ?
+        <AgendaItemLegsFormReadOnly
+          legs={fullAgendaItemLegs}
+        /> :
+        <AgendaItemLegsForm
+          AIvalidation={AIvalidation}
+          efPos={efPos}
+          legs={legs}
+          setActiveAIL={setActiveAIL}
+          updateLeg={updateLeg}
+          updateResearchPaneTab={updateResearchPaneTab}
+          setLegsContainerExpanded={setLegsContainerExpanded}
+          onClose={onClose}
+          legsData={legsData}
+        />
+    )
   );
 };
 

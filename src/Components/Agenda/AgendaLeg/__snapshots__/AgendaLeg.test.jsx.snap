@@ -45,7 +45,9 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div>
+    <div
+      className="read-only"
+    >
       A
     </div>
   </InteractiveElement>
@@ -89,22 +91,20 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div>
+    <div
+      className="error-message-wrapper ail-form-ted"
+    >
       <div
-        className="error-message-wrapper ail-form-ted"
+        className="validation-error-message-label validation-error-message"
+      />
+      <div
+        className="validation-error-border"
       >
-        <div
-          className="validation-error-message-label validation-error-message"
+        05/05/2019
+        <FontAwesome
+          name="calendar"
+          onClick={[Function]}
         />
-        <div
-          className="validation-error-border"
-        >
-          05/05/2019
-          <FontAwesome
-            name="calendar"
-            onClick={[Function]}
-          />
-        </div>
       </div>
     </div>
   </InteractiveElement>

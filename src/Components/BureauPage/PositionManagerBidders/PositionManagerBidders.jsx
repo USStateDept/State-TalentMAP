@@ -13,7 +13,7 @@ import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
 import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_LANGUAGE, NO_SKILL, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { DECONFLICT_TOOLTIP_TEXT, OTHER_HANDSHAKE_TOOLTIP_TEXT } from 'Constants/Tooltips';
-import { BUREAU_BIDDER_FILTERS, BUREAU_BIDDER_SORT } from 'Constants/Sort';
+import { BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
@@ -26,6 +26,10 @@ import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
 import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
+/**  removed BUREAU_BIDDER_SORT and sort option : line 547 temporarily until further notice per WS.
+Will be a ticket in the future to add back in.
+import { BUREAU_BIDDER_SORT } from 'Constants/Sort';
+*/
 
 const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
@@ -540,14 +544,17 @@ class PositionManagerBidders extends Component {
                       : shortListSection }
                     {/* eslint-enable no-nested-ternary */}
                     <div className="bidders-controls">
-                      <SelectForm
+                      {/* Removed the sort by dropdown temporarily per WS
+                      Will be a ticket in the future to add back in.
+                      */}
+                      {/* <SelectForm
                         id="sort"
                         label="Sort by:"
                         defaultSort={filters.ordering || 'bidder_grade'}
                         options={BUREAU_BIDDER_SORT.options}
                         disabled={false}
                         onSelectOption={e => this.props.onSort(e.target.value)}
-                      />
+                      /> */}
                       <SelectForm
                         id="filter"
                         options={BUREAU_BIDDER_FILTERS.options}
