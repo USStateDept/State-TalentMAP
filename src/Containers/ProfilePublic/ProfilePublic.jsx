@@ -94,6 +94,7 @@ class ProfilePublic extends Component {
           showLanguages: true,
           showSearchAsClient: false,
           showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: false,
         };
         break;
       default:
@@ -108,6 +109,7 @@ class ProfilePublic extends Component {
           showLanguages: true,
           showSearchAsClient: true,
           showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: false,
         };
     }
 
