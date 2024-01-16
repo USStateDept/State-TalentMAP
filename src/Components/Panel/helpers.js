@@ -1,4 +1,4 @@
-import { findLastIndex, get } from 'lodash';
+import { findLastIndex, get, isEmpty } from 'lodash';
 import { formatDate } from 'utilities';
 import { isPast } from 'date-fns-v2';
 import { createPanelMeeting } from '../../actions/panelMeetingAdmin';
@@ -92,5 +92,5 @@ export const submitPanelMeeting = (originalFields, newFields) => {
     //  (agendaCompletedTime ? new Date(agendaCompletedTime.pmd_dttm) : undefined),
   };
 
-  return createPanelMeeting(data);
+  return createPanelMeeting(data, isEmpty(originalFields));
 };

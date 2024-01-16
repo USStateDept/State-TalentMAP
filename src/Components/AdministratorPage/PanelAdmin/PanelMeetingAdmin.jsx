@@ -36,6 +36,7 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
 
+  const savePanelSuccess = useSelector(state => state.createPanelMeetingSuccess);
   const runPreliminarySuccess = useSelector(state => state.runOfficialPreliminarySuccess);
   const runAddendumSuccess = useSelector(state => state.runOfficialAddendumSuccess);
 
@@ -148,7 +149,13 @@ const PanelMeetingAdmin = (props) => {
         panelMeetingStatus,
       },
     ));
-    clear();
+    if (savePanelSuccess.length !== 0) {
+      if (isCreate) {
+        clear();
+      } else {
+        dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
+      }
+    }
   };
 
   // ============= Form Conditions =============
