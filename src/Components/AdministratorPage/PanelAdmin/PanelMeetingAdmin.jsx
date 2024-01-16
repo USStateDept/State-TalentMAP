@@ -149,12 +149,12 @@ const PanelMeetingAdmin = (props) => {
         panelMeetingStatus,
       },
     ));
-    if (isCreate) {
-      if (savePanelSuccess.length !== 0) {
+    if (savePanelSuccess.length !== 0) {
+      if (isCreate) {
         clear();
+      } else {
+        dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
       }
-    } else {
-      dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     }
   };
 
