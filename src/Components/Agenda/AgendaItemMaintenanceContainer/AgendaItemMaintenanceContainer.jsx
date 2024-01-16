@@ -66,6 +66,13 @@ const AgendaItemMaintenanceContainer = (props) => {
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
 
+  // Legs Form Data
+  const { data: todData, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/toursofduty/');
+  const { data: legATData, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  const { data: travelFData, loading: travelFLoading } = useDataLoader(api().get, '/fsbid/reference/travelfunctions/');
+  const legsData = { todData, TODLoading, legATData, legATLoading, travelFData, travelFLoading };
+  const legsFormLoading = TODLoading || legATLoading || travelFLoading;
+
   // Utility to find employee's most recent effective detail on which agenda is based
   const findEffectiveAsgOrSep = (asgAndSep) => {
     let max;
@@ -175,7 +182,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       // Re-hydrate on successful modify agenda calls
       dispatch(fetchAI(routeAgendaID));
     } else if (aiModifySuccessID && !prevAIModifySuccessID &&
-        !aiModifyIsLoading && !aiModifyHasErrored) {
+      !aiModifyIsLoading && !aiModifyHasErrored) {
       // Replace the create route with edit route if AI create state is truthy
       // and previous state was empty aka in create form
       props.history.replace(`/profile/${isCDO ? 'cdo' : 'ao'}/editagendaitem/${routeEmployeeID}/${aiModifySuccessID}`);
@@ -196,19 +203,22 @@ const AgendaItemMaintenanceContainer = (props) => {
   }, [maintenanceInfo, legs, readMode]);
 
   useEffect(() => {
-    if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
+    if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading && !legsFormLoading) {
       setSpinner(false);
     }
-  }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
+  }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading, legsFormLoading]);
 
   useEffect(() => {
     if (!agendaItemLoading) {
       // If not creating a new AI, then we default initial mode to Read
       setReadMode(!isEmpty(agendaItemData$));
-      setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
 
+  useEffect(() => {
+    // Update user remarks state anytime agenda item data changes
+    setUserRemarks(agendaItemRemarks);
+  }, [agendaItemData]);
 
   return (
     <>
@@ -242,7 +252,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
-                  <Spinner type="left-pane" size="small" />
+                <Spinner type="left-pane" size="small" />
               }
               {
                 !agendaItemLoading &&
@@ -256,7 +266,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           perdet={routeEmployeeID}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                          updateSelection={readMode ? () => {} : updateSelection}
+                          updateSelection={readMode ? () => { } : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
@@ -290,6 +300,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           fullAgendaItemLegs={agendaItemData$?.legs || []}
                           readMode={readMode}
                           AIvalidation={AIvalidation}
+                          legsData={legsData}
                         />
                       </>
                   }
@@ -321,7 +332,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 clientLoading={employeeLoading}
                 perdet={routeEmployeeID}
                 ref={researchPaneRef}
-                updateSelection={readMode ? () => {} : updateSelection}
+                updateSelection={readMode ? () => { } : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
                 readMode={readMode}

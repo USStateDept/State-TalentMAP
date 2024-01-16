@@ -41,10 +41,11 @@ export function createPanelMeeting(request) {
     api().post('/fsbid/admin/panel/edit/',
       request,
     ).then(({ data }) => {
+      const message = UPDATE_PANEL_MEETING_SUCCESS(data);
       batch(() => {
         dispatch(createPanelMeetingHasErrored(false));
         dispatch(createPanelMeetingSuccess(data || []));
-        dispatch(toastSuccess(UPDATE_PANEL_MEETING_SUCCESS, UPDATE_PANEL_MEETING_SUCCESS_TITLE));
+        dispatch(toastSuccess(message, UPDATE_PANEL_MEETING_SUCCESS_TITLE));
         dispatch(createPanelMeetingIsLoading(false));
       });
     }).catch(() => {

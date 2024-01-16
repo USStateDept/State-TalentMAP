@@ -97,7 +97,7 @@ const PanelMeetingAdmin = (props) => {
     if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
       setInitialInputResults();
     } else {
-      setPanelMeetingType('interdivisional');
+      setPanelMeetingType('ID');
       setPanelMeetingDate('');
       setPrelimCutoff('');
       setAddendumCutoff('');
@@ -148,6 +148,7 @@ const PanelMeetingAdmin = (props) => {
         panelMeetingStatus,
       },
     ));
+    clear();
   };
 
   // ============= Form Conditions =============
