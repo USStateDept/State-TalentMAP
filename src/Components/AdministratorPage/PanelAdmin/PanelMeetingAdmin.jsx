@@ -148,7 +148,9 @@ const PanelMeetingAdmin = (props) => {
         panelMeetingStatus,
       },
     ));
-    clear();
+    if (isCreate) {
+      clear();
+    }
   };
 
   // ============= Form Conditions =============
