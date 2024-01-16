@@ -49,7 +49,7 @@ const EmployeeProfileLink = ({
     const id = shortid.generate();
 
     dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id));
-    api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=${showRedactedProfilePreview ? 'true' : 'false'}`,
+    api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=${showRedactedProfilePreview}`,
       {
         responseType: 'arraybuffer',
       },
@@ -101,11 +101,10 @@ const EmployeeProfileLink = ({
 EmployeeProfileLink.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEmployeeProfileLinks: PropTypes.bool.isRequired,
-  showRedactedProfilePreview: PropTypes.bool,
+  showRedactedProfilePreview: PropTypes.bool.isRequired,
 };
 
 EmployeeProfileLink.defaultProps = {
-  showRedactedProfilePreview: false,
 };
 
 export default EmployeeProfileLink;
