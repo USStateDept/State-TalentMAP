@@ -166,6 +166,8 @@ const AgendaItemMaintenancePane = (props) => {
       setPanelMLDate(calcPanelDates()?.ml);
       setPanelIDDate(calcPanelDates()?.id);
       setCombinedTod(agendaItem?.aiCombinedTodCode);
+      setCombinedTodMonthsNum(agendaItem?.aiCombinedTodMonthsNum);
+      setCombinedTodOtherText(agendaItem?.aiCombinedTodOtherText);
     }
   }, [agendaItem]);
 
