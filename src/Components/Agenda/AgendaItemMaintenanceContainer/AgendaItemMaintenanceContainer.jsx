@@ -212,10 +212,13 @@ const AgendaItemMaintenanceContainer = (props) => {
     if (!agendaItemLoading) {
       // If not creating a new AI, then we default initial mode to Read
       setReadMode(!isEmpty(agendaItemData$));
-      setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
 
+  useEffect(() => {
+    // Update user remarks state anytime agenda item data changes
+    setUserRemarks(agendaItemRemarks);
+  }, [agendaItemData]);
 
   return (
     <>
