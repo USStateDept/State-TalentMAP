@@ -174,6 +174,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   // First render does not need success state since user is starting create/edit
   useEffect(() => {
     dispatch(resetCreateAI());
+    return () => dispatch(resetCreateAI()); // On unmount
   }, []);
 
   useEffect(() => {
