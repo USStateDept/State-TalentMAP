@@ -40,8 +40,8 @@ const OrgStats = () => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedBidCycle || []);
 
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
+  const { data: bureaus } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-bureaus/');
+  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.name]));
   const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
   const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
   const { data: orgs } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
@@ -65,6 +65,7 @@ const OrgStats = () => {
       selectedOrgs,
       selectedCycles,
     ];
+
     if (filters.flat().length === 0) {
       setClearFilters(false);
     } else {

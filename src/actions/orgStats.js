@@ -1,4 +1,9 @@
 import { batch } from 'react-redux';
+import { CancelToken } from 'axios';
+import { convertQueryToString } from 'utilities';
+import api from '../api';
+
+let cancelOrgStats;
 
 const dummyOrgStat = {
   results: [{
@@ -199,13 +204,40 @@ export function orgStatsFetchDataSuccess(results) {
   };
 }
 
-export function orgStatsFetchData() {
+export function orgStatsFetchData(query = {}) {
   return (dispatch) => {
+    if (cancelOrgStats) { cancelOrgStats('cancel'); dispatch(orgStatsFetchDataLoading(true)); }
     batch(() => {
-      dispatch(orgStatsFetchDataSuccess(dummyOrgStat));
+      dispatch(orgStatsFetchDataLoading(true));
       dispatch(orgStatsFetchDataErrored(false));
-      dispatch(orgStatsFetchDataLoading(false));
     });
+    const q = convertQueryToString(query);
+    api().get(`/fsbid/org_stats/?${q}`, {
+      cancelToken: new CancelToken((c) => {
+        cancelOrgStats = c;
+      }),
+    })
+      .then(() => {
+        batch(() => {
+          dispatch(orgStatsFetchDataSuccess(dummyOrgStat));
+          dispatch(orgStatsFetchDataErrored(false));
+          dispatch(orgStatsFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(orgStatsFetchDataLoading(true));
+            dispatch(orgStatsFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(orgStatsFetchDataSuccess([]));
+            dispatch(orgStatsFetchDataErrored(true));
+            dispatch(orgStatsFetchDataLoading(false));
+          });
+        }
+      });
   };
 }
 
