@@ -77,11 +77,11 @@ export const submitPanelMeeting = (originalFields, newFields) => {
     panelMeetingStatus: newFields?.panelMeetingStatus,
     panelMeetingType: newFields?.panelMeetingType,
     panelMeetingDate: newFields?.panelMeetingDate
-      && format(newFields?.panelMeetingDate, 'MM/dd/yyyy HH:mm'),
+      && format(newFields?.panelMeetingDate, 'yyyy-MM-dd HH:mm:ss'),
     prelimCutoff: newFields?.prelimCutoff
-      && format(newFields?.prelimCutoff, 'MM/dd/yyyy HH:mm'),
+      && format(newFields?.prelimCutoff, 'yyyy-MM-dd HH:mm:ss'),
     addendumCutoff: newFields?.addendumCutoff
-      && format(newFields?.addendumCutoff, 'MM/dd/yyyy HH:mm'),
+      && format(newFields?.addendumCutoff, 'yyyy-MM-dd HH:mm:ss'),
     // prelimRuntime: newFields?.prelimRuntime ??
     //  (prelimRuntime ? new Date(prelimRuntime.pmd_dttm) : undefined),
     // addendumRuntime: newFields?.addendumRuntime ??
