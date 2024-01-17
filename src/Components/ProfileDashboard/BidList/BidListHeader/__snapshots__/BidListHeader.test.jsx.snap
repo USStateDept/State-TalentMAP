@@ -5,6 +5,6 @@ exports[`BidListHeaderComponent matches snapshot 1`] = `
   buttonText="More Info"
   icon="clock-o"
   onButtonClick={[Function]}
-  title=" All bids are due 07/15/2019"
+  title=" All bids are due 07/Mo/yyyy"
 />
 `;

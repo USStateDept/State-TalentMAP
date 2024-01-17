@@ -100,7 +100,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       <div
         className="validation-error-border"
       >
-        05/05/2019
+        05/Su/yyyy
         <FontAwesome
           name="calendar"
           onClick={[Function]}
@@ -131,7 +131,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div>
-      07/05/2020
+      07/Su/yyyy
     </div>
   </InteractiveElement>
   <InteractiveElement

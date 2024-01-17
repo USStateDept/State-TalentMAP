@@ -50,8 +50,8 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     className="align-right"
   >
     <StartEnd
-      end="10/10/2018"
-      start="10/10/2016"
+      end="10/We/yyyy"
+      start="10/Mo/yyyy"
     />
   </div>
 </div>

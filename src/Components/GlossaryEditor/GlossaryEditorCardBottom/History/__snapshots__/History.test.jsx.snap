@@ -5,7 +5,7 @@ exports[`HistoryComponent matches snapshot 1`] = `
   className="usa-grid-full glossary-editor-card-bottom"
 >
   <div>
-    Updated on 02/12/2018
+    Updated on 02/Mo/yyyy
   </div>
   <div>
     Editor: 
@@ -45,7 +45,7 @@ exports[`HistoryComponent matches snapshot when isArchived is false 1`] = `
   className="usa-grid-full glossary-editor-card-bottom"
 >
   <div>
-    Updated on 02/12/2018
+    Updated on 02/Mo/yyyy
   </div>
   <div>
     Editor: 
@@ -65,7 +65,7 @@ exports[`HistoryComponent matches snapshot when updatedBy is undefined 1`] = `
   className="usa-grid-full glossary-editor-card-bottom"
 >
   <div>
-    Updated on 02/12/2018
+    Updated on 02/Mo/yyyy
   </div>
   <div>
     Editor: 
