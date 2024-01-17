@@ -10,7 +10,7 @@ import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { Link } from 'react-router-dom';
-import { fetchAI, modifyAgenda, resetAICreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
+import { fetchAI, modifyAgenda, resetAIValidation, resetCreateAI, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader, usePrevious } from 'hooks';
 import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
@@ -173,7 +173,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   // Reset AI edit/create state on first render
   // First render does not need success state since user is starting create/edit
   useEffect(() => {
-    dispatch(resetAICreate());
+    dispatch(resetCreateAI());
   }, []);
 
   useEffect(() => {
