@@ -98,6 +98,10 @@ const AgendaItemMaintenancePane = (props) => {
   };
   const [selectedPanelMLDate, setPanelMLDate] = useState(calcPanelDates()?.ml);
   const [selectedPanelIDDate, setPanelIDDate] = useState(calcPanelDates()?.id);
+  const isLegacyPanelDate = () => (
+    (panelDates.some(p => p?.pm_seq_num === agendaItem?.pmi_pm_seq_num))
+  );
+  const [showLegacyPanelMeetingDate, setShowLegacyPanelMeetingDate] = useState(isLegacyPanelDate());
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
@@ -168,6 +172,7 @@ const AgendaItemMaintenancePane = (props) => {
       setCombinedTod(agendaItem?.aiCombinedTodCode);
       setCombinedTodMonthsNum(agendaItem?.aiCombinedTodMonthsNum);
       setCombinedTodOtherText(agendaItem?.aiCombinedTodOtherText);
+      setShowLegacyPanelMeetingDate(isLegacyPanelDate());
     }
   }, [agendaItem]);
 
@@ -229,6 +234,12 @@ const AgendaItemMaintenancePane = (props) => {
         dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
       }
     }
+  };
+
+  const showPanelDatesDropdown = () => {
+    setShowLegacyPanelMeetingDate(false);
+    setPanelIDDate('');
+    setPanelMLDate('');
   };
 
   const setDate = (seq_num, isML) => {
@@ -407,46 +418,54 @@ const AgendaItemMaintenancePane = (props) => {
                     <div className="validation-error-message-label validation-error-message width-280">
                       {AIvalidation?.panelDate?.errorMessage}
                     </div>
-                    <div>
-                      <select
-                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                        id="ai-maintenance-status"
-                        onChange={(e) => setDate(get(e, 'target.value'), true)}
-                        value={selectedPanelMLDate}
-                        disabled={readMode}
-                      >
-                        <option value={''}>ML Dates</option>
-                        {
-                          panelDatesML.map(a => (
-                            <option
-                              key={get(a, 'pm_seq_num')}
-                              value={get(a, 'pm_seq_num')}
-                            >
-                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                            </option>
-                          ))
-                        }
-                      </select>
-                      <select
-                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                        id="ai-maintenance-status"
-                        onChange={(e) => setDate(get(e, 'target.value'), false)}
-                        value={selectedPanelIDDate}
-                        disabled={readMode}
-                      >
-                        <option value={''}>ID Dates</option>
-                        {
-                          panelDatesID.map(a => (
-                            <option
-                              key={get(a, 'pm_seq_num')}
-                              value={get(a, 'pm_seq_num')}
-                            >
-                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                            </option>
-                          ))
-                        }
-                      </select>
-                    </div>
+                    {
+                      showLegacyPanelMeetingDate ?
+                        <div className="">
+                          <span>{agendaItem?.pmt_code} {agendaItem?.pmd_dttm}</span>
+                          {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
+                        </div>
+                        :
+                        <div>
+                          <select
+                            className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                            id="ai-maintenance-status"
+                            onChange={(e) => setDate(get(e, 'target.value'), true)}
+                            value={selectedPanelMLDate}
+                            disabled={readMode}
+                          >
+                            <option value={''}>ML Dates</option>
+                            {
+                              panelDatesML.map(a => (
+                                <option
+                                  key={get(a, 'pm_seq_num')}
+                                  value={get(a, 'pm_seq_num')}
+                                >
+                                  {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                                </option>
+                              ))
+                            }
+                          </select>
+                          <select
+                            className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                            id="ai-maintenance-status"
+                            onChange={(e) => setDate(get(e, 'target.value'), false)}
+                            value={selectedPanelIDDate}
+                            disabled={readMode}
+                          >
+                            <option value={''}>ID Dates</option>
+                            {
+                              panelDatesID.map(a => (
+                                <option
+                                  key={get(a, 'pm_seq_num')}
+                                  value={get(a, 'pm_seq_num')}
+                                >
+                                  {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                                </option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                    }
                   </div>
                 </div>
             }
