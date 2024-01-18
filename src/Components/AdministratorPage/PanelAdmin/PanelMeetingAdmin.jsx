@@ -42,6 +42,7 @@ const PanelMeetingAdmin = (props) => {
 
   const agendas = useSelector(state => state.panelMeetingAgendas);
   const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+  const agendas$ = agendas?.results || [];
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
@@ -180,13 +181,12 @@ const PanelMeetingAdmin = (props) => {
       'panel-date-end': panelDateEnd.toJSON(),
     })}`,
   );
-  const subsequentPanel = subsequentPanels?.results?.length > 0
-    ? subsequentPanels.results[0] : undefined;
+  const subsequentPanel = subsequentPanels?.results?.[0] ?? undefined;
 
   // Helpers for input disabling conditions
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const beforePanelMeetingDate = (
     panelMeetingDate$ ? (new Date(panelMeetingDate$.pmd_dttm) - new Date() > 0) : true
@@ -218,7 +218,7 @@ const PanelMeetingAdmin = (props) => {
 
   const disableRunPrelim = () => {
     let preconditioned = true;
-    agendas.forEach(a => {
+    agendas$.forEach(a => {
       // Approved Agenda Items must be in Off-Panel Meeting Category
       if (a.status_short === 'APR' && a.pmi_mic_code !== 'O') {
         preconditioned = false;
@@ -233,7 +233,8 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    return !isSuperUser && (isCreate ||
+    return !isSuperUser && (
+      isCreate ||
       beforePrelimCutoff ||
       !beforePanelMeetingDate ||
       !preconditioned ||
@@ -243,7 +244,7 @@ const PanelMeetingAdmin = (props) => {
 
   const disableRunAddendum = () => {
     let preconditioned = true;
-    agendas.forEach(a => {
+    agendas$.forEach(a => {
       // Agenda Items must not be Disapproved or Not Ready
       if (a.status_short === 'DIS' || a.status_short === 'NR') {
         preconditioned = false;
