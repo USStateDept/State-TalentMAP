@@ -169,8 +169,6 @@ const PostPanelProcessing = (props) => {
   // ============= Submission Management =============
 
   const runPostPanelProcessing = () => {
-    const currTimestamp = new Date();
-    setPostPanelRuntime(currTimestamp);
     dispatch(runPanelMeeting(pmSeqNum, 'post_panel'));
     if (runPostPanelSuccess) {
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
@@ -218,7 +216,23 @@ const PostPanelProcessing = (props) => {
         aih_update_date: aihUpdateDate,
       }));
     }
+
     // TODO: Save Post Panel Started and Agenda Completed Time
+    // dispatch(submitPanelMeeting(panelMeetingsResults,
+    //   {
+    //     panelMeetingType,
+    //     panelMeetingDate,
+    //     prelimCutoff,
+    //     addendumCutoff,
+    //     prelimRuntime,
+    //     addendumRuntime,
+    //     panelMeetingStatus,
+    //   },
+    // ));
+    // if (savePanelSuccess.length !== 0) {
+    //   dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+    //   dispatch(postPanelProcessingFetchData(pmSeqNum));
+    // }
   };
 
   // ============= Form Conditions =============
@@ -226,7 +240,7 @@ const PostPanelProcessing = (props) => {
   const isLoading = postPanelIsLoading || panelMeetingsIsLoading;
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
@@ -236,13 +250,13 @@ const PostPanelProcessing = (props) => {
   // Additional business rules must be followed depending on the stage of the panel meeting
   // Post Panel Started and Agenda Completed Time are disabled until further notice
 
-  const disableTable = !isSuperUser &&
+  const disableTable = !isSuperUser ||
     (!beforeAgendaCompletedTime);
 
   const disableRunPostPanel =
     (postPanelRunTime$ || !beforeAgendaCompletedTime);
 
-  const disableSave = !isSuperUser &&
+  const disableSave = !isSuperUser ||
     (!beforeAgendaCompletedTime);
 
   const disableHold = (agenda, status) => {
