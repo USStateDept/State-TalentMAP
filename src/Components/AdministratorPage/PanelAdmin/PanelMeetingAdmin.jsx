@@ -124,17 +124,15 @@ const PanelMeetingAdmin = (props) => {
 
   // Submit current timestamp for specified field without saving other pending changes
   const handleRun = (field) => {
-    const currTimestamp = new Date();
     if (field === 'prelimRuntime') {
-      setPrelimRuntime(currTimestamp);
       dispatch(runPanelMeeting(pmSeqNum, 'preliminary'));
     }
     if (field === 'addendumRuntime') {
-      setAddendumRuntime(currTimestamp);
       dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
     }
     if (runPreliminarySuccess || runAddendumSuccess) {
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+      dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     }
   };
 
@@ -154,6 +152,7 @@ const PanelMeetingAdmin = (props) => {
       if (isCreate) {
         clear();
       } else {
+        dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
         dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
       }
     }
@@ -238,7 +237,8 @@ const PanelMeetingAdmin = (props) => {
       beforePrelimCutoff ||
       !beforePanelMeetingDate ||
       !preconditioned ||
-      !subsequentPanel
+      !subsequentPanel ||
+      prelimRunTime$
     );
   };
 
@@ -254,7 +254,8 @@ const PanelMeetingAdmin = (props) => {
       beforeAddendumCutoff ||
       !beforePanelMeetingDate ||
       !preconditioned ||
-      !subsequentPanel
+      !subsequentPanel ||
+      addendumRunTime$
     );
   };
 
