@@ -30,12 +30,7 @@ export function aiModifySuccess(data) {
     data,
   };
 }
-export function resetAICreate() {
-  return {
-    type: 'AI_MODIFY_SUCCESS',
-    data: false,
-  };
-}
+
 export function fetchAIHasErrored(bool) {
   return {
     type: 'FETCH_AI_HAS_ERRORED',
@@ -58,9 +53,11 @@ export function fetchAISuccess(data) {
 export function fetchAI(id) {
   return (dispatch) => {
     if (cancelFetchAI) { cancelFetchAI('cancel'); }
-    dispatch(fetchAIIsLoading(true));
-    dispatch(fetchAISuccess({}));
-    dispatch(fetchAIHasErrored(false));
+    batch(() => {
+      dispatch(fetchAIIsLoading(true));
+      dispatch(fetchAISuccess({}));
+      dispatch(fetchAIHasErrored(false));
+    });
     api()
       .get(`/fsbid/agenda/agenda_items/${id}/`,
         {
@@ -78,27 +75,39 @@ export function fetchAI(id) {
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
-          dispatch(fetchAIHasErrored(false));
-          dispatch(fetchAIIsLoading(false));
+          batch(() => {
+            dispatch(fetchAIHasErrored(false));
+            dispatch(fetchAIIsLoading(false));
+          });
         } else {
-          dispatch(fetchAIHasErrored(true));
-          dispatch(fetchAIIsLoading(false));
+          batch(() => {
+            dispatch(fetchAIHasErrored(true));
+            dispatch(fetchAIIsLoading(false));
+          });
         }
       });
   };
 }
 
 export function resetCreateAI() {
-  return (dispatch) => dispatch(resetAICreate());
+  return (dispatch) => {
+    batch(() => {
+      dispatch(aiModifyHasErrored(false));
+      dispatch(aiModifySuccess(false));
+      dispatch(aiModifyIsLoading(false));
+    });
+  };
 }
 
 // Used for editing and creating agenda
 export function modifyAgenda(panel, legs, personId, ef, refData) {
   return (dispatch) => {
     if (cancelModifyAI) { cancelModifyAI('cancel'); }
-    dispatch(aiModifyIsLoading(true));
-    dispatch(aiModifySuccess(false));
-    dispatch(aiModifyHasErrored(false));
+    batch(() => {
+      dispatch(aiModifyIsLoading(true));
+      dispatch(aiModifySuccess(false));
+      dispatch(aiModifyHasErrored(false));
+    });
     api()
       .post('/fsbid/agenda/agenda_item/', {
         ...ef,
@@ -122,12 +131,16 @@ export function modifyAgenda(panel, legs, personId, ef, refData) {
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
-          dispatch(aiModifyHasErrored(false));
-          dispatch(aiModifyIsLoading(false));
+          batch(() => {
+            dispatch(aiModifyHasErrored(false));
+            dispatch(aiModifyIsLoading(false));
+          });
         } else {
-          dispatch(toastError(UPDATE_AGENDA_ITEM_ERROR, UPDATE_AGENDA_ITEM_ERROR_TITLE));
-          dispatch(aiModifyHasErrored(true));
-          dispatch(aiModifyIsLoading(false));
+          batch(() => {
+            dispatch(toastError(UPDATE_AGENDA_ITEM_ERROR, UPDATE_AGENDA_ITEM_ERROR_TITLE));
+            dispatch(aiModifyHasErrored(true));
+            dispatch(aiModifyIsLoading(false));
+          });
         }
       });
   };
@@ -156,8 +169,10 @@ export function validateAISuccess(data) {
 export function validateAI(panel, legs, personId, ef) {
   return (dispatch) => {
     if (cancelValidateAI) { cancelValidateAI('cancel'); }
-    dispatch(validateAIIsLoading(true));
-    dispatch(validateAIHasErrored(false));
+    batch(() => {
+      dispatch(validateAIIsLoading(true));
+      dispatch(validateAIHasErrored(false));
+    });
     api()
       .post('/fsbid/agenda/agenda_item/validate/', {
         ...ef,
@@ -179,8 +194,10 @@ export function validateAI(panel, legs, personId, ef) {
         if (get(err, 'message') === 'cancel') {
           dispatch(validateAIIsLoading(false));
         } else {
-          dispatch(validateAIHasErrored(true));
-          dispatch(validateAIIsLoading(false));
+          batch(() => {
+            dispatch(validateAIHasErrored(true));
+            dispatch(validateAIIsLoading(false));
+          });
         }
       });
   };
