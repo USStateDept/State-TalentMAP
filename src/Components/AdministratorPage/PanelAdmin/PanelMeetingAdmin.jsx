@@ -200,19 +200,19 @@ const PanelMeetingAdmin = (props) => {
   // Only admins can access editable fields and run buttons
   // Additional business rules must be followed depending on the stage of the panel meeting
 
-  const disableMeetingType = !isSuperUser &&
+  const disableMeetingType = !isSuperUser ||
     (!isCreate && !beforeAddendumCutoff);
 
-  const disableStatus = !isSuperUser &&
+  const disableStatus = !isSuperUser ||
     (isCreate || !beforeAddendumCutoff);
 
-  const disablePanelMeetingDate = !isSuperUser &&
+  const disablePanelMeetingDate = !isSuperUser ||
     (!isCreate && !beforePanelMeetingDate);
 
-  const disablePrelimCutoff = !isSuperUser &&
+  const disablePrelimCutoff = !isSuperUser ||
     (!isCreate && !beforePrelimCutoff);
 
-  const disableAddendumCutoff = !isSuperUser &&
+  const disableAddendumCutoff = !isSuperUser ||
     (!isCreate && !beforeAddendumCutoff);
 
   const disableRunPrelim = () => {
@@ -232,7 +232,8 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    return !isSuperUser && (
+    return (
+      !isSuperUser ||
       isCreate ||
       beforePrelimCutoff ||
       !beforePanelMeetingDate ||
@@ -250,7 +251,9 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    return !isSuperUser && (isCreate ||
+    return (
+      !isSuperUser ||
+      isCreate ||
       beforeAddendumCutoff ||
       !beforePanelMeetingDate ||
       !preconditioned ||
@@ -259,10 +262,10 @@ const PanelMeetingAdmin = (props) => {
     );
   };
 
-  const disableClear = !isSuperUser &&
+  const disableClear = !isSuperUser ||
     (!isCreate && !beforePanelMeetingDate);
 
-  const disableSave = !isSuperUser &&
+  const disableSave = !isSuperUser ||
     (!isCreate && !beforePanelMeetingDate);
 
   const isLoading =
