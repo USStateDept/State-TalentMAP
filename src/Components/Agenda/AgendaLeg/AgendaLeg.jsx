@@ -382,7 +382,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TED',
-      content: (<div>{formatDate(leg?.ted) || DEFAULT_TEXT}</div>),
+      content: (<div>{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>),
     },
     {
       title: 'TOD',
