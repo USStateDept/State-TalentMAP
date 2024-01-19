@@ -222,7 +222,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   }, [agendaItemLoading]);
 
   useEffect(() => {
-    // Update user remarks anytime agenda item data changes
+    // Update user remarks state anytime agenda item data changes
     setUserRemarks(agendaItemRemarks);
     // setAgendaItemData$(agendaItemData);
   }, [agendaItemData]);
