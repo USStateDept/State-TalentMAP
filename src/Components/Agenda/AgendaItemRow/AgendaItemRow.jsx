@@ -8,7 +8,6 @@ import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
-import SkillCodeList from '../../SkillCodeList';
 
 const AgendaItemRow = props => {
   const {
@@ -19,15 +18,19 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const clientData = get(agenda, 'user');
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
-  const userSkill = <SkillCodeList displayCodeFirst skillCodes={get(clientData, 'skills') || []} />;
-  const userLanguage = get(clientData, 'languages') || [];
-  const userGrade = get(clientData, 'grade') || 'None Listed';
-  const payPlan = get(clientData, 'pay_plan') || 'None Listed';
-  const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
+
+  const userName = get(agenda, 'full_name') || 'None Listed';
+  const userSkill = get(agenda, 'skills') || '';
+  const userSkill$ = userSkill.length > 0 ? userSkill.map(s => `${s} `) : 'None Listed';
+  const userLanguages = get(agenda, 'languages') || '';
+  const userLanguages$ = userLanguages.length > 0 ? userLanguages.map(
+    (l) => `${l.pllangcode} ${l.pllpcodespeakcode}/${l.pllpcodereadcode} (${formatDate(l.pltestdate, 'MM/YYYY')}) `) : 'None Listed';
+  const userGrade = get(agenda, 'grade') || 'None Listed';
+  const userCDO$ = get(agenda, 'cdo') ? `${get(agenda, 'cdo.perpiifirstname')} ${get(agenda, 'cdo.perpiilastname')}` : 'None Listed';
+  const userPayPlan = get(agenda, 'pay_plan_code') || '';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
@@ -36,10 +39,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-  const formatCurrentDate = (currentDate) => {
-    if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
-    return '';
-  };
 
   return (
     <>
@@ -85,22 +84,15 @@ const AgendaItemRow = props => {
             isPanelMeetingView &&
             <div className="panel-meeting-person-data">
               <div className="panel-meeting-agendas-profile-link">
-                <Link to={publicProfileLink}>{get(clientData, 'shortened_name')}</Link>
+                <Link to={publicProfileLink}>{userName}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
-                <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                <div className="item"><span className="label">PP/Grade: </span> {payPlan} {userGrade}</div>
-                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+                <div className="item"><span className="label">CDO: </span> {userCDO$}</div>
+                <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill$}</div>
                 <div className="item">
                   <span className="label">Languages: </span>
-                  <span>
-                    {
-                      userLanguage.map((l) => (
-                        `${l.custom_description} ${formatCurrentDate(l.test_date)} `
-                      ),
-                      ).join(', ')
-                    }
-                  </span>
+                  <span>{userLanguages$}</span>
                 </div>
               </div>
               <div className="panel-meeting-maintenance-link-container">
