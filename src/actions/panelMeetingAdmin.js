@@ -41,6 +41,8 @@ export function createPanelMeeting(request, isCreate) {
     api().post('/fsbid/admin/panel/edit/',
       request,
     ).then(({ data }) => {
+      console.log(data);
+      console.log(isCreate);
       const message = UPDATE_PANEL_MEETING_SUCCESS(data, isCreate);
       batch(() => {
         dispatch(createPanelMeetingHasErrored(false));
