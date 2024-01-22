@@ -75,7 +75,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'TED',
-      content: (a => <div>{formatDate(a?.ted) || DEFAULT_TEXT}</div>),
+      content: (a => <div>{ (!a?.ted || a.ted === 'N/A') ? DEFAULT_TEXT : formatDate(a?.ted)}</div>),
     },
     {
       title: 'TOD',
