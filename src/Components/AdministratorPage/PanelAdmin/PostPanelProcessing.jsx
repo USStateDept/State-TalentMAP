@@ -10,7 +10,6 @@ import { Tooltip } from 'react-tippy';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { runPanelMeeting } from 'actions/panelMeetingAdmin';
-import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
 
 
@@ -35,6 +34,7 @@ const PostPanelProcessing = (props) => {
   const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
   const holdOptions = postPanelResults?.hold_options ?? [];
 
+  const editPostPanelSuccess = useSelector(state => state.editPostPanelProcessingSuccess);
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
   useEffect(() => {
@@ -68,19 +68,20 @@ const PostPanelProcessing = (props) => {
     }
   }, [panelMeetingsResults]);
 
-  useEffect(() => {
-    // - Submits current date as Post Panel Started upon opening this tab
-    // if Post Panel Processing has not started yet
-    // - Can be removed by the cancel button if Post Panel has not ran yet
-    // - Including conditions for all 3 dates because some Panels have post panel runtime
-    // and agenda completed dates but no post panel started date
-    if (!postPanelStarted$ && !postPanelRunTime$ && !agendaCompletedTime$) {
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { postPanelStarted: new Date() },
-      ));
-    }
-    setFormData(values);
-  }, [postPanelResults]);
+  // TODO: Finalize this block when Post Panel Started has business rules
+  // useEffect(() => {
+  //   // - Submits current date as Post Panel Started upon opening this tab
+  //   // if Post Panel Processing has not started yet
+  //   // - Can be removed by the cancel button if Post Panel has not ran yet
+  //   // - Including conditions for all 3 dates because some Panels have post panel runtime
+  //   // and agenda completed dates but no post panel started date
+  //   if (!postPanelStarted$ && !postPanelRunTime$ && !agendaCompletedTime$) {
+  //     dispatch(submitPanelMeeting(panelMeetingsResults$,
+  //       { postPanelStarted: new Date() },
+  //     ));
+  //   }
+  //   setFormData(values);
+  // }, [postPanelResults]);
 
   const handleHold = (objLabel, newStatus) => {
     if (newStatus === 'HLD') {
@@ -217,22 +218,12 @@ const PostPanelProcessing = (props) => {
       }));
     }
 
+    if (editPostPanelSuccess) {
+      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+      dispatch(postPanelProcessingFetchData(pmSeqNum));
+    }
+
     // TODO: Save Post Panel Started and Agenda Completed Time
-    // dispatch(submitPanelMeeting(panelMeetingsResults,
-    //   {
-    //     panelMeetingType,
-    //     panelMeetingDate,
-    //     prelimCutoff,
-    //     addendumCutoff,
-    //     prelimRuntime,
-    //     addendumRuntime,
-    //     panelMeetingStatus,
-    //   },
-    // ));
-    // if (savePanelSuccess.length !== 0) {
-    //   dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
-    //   dispatch(postPanelProcessingFetchData(pmSeqNum));
-    // }
   };
 
   // ============= Form Conditions =============
@@ -253,7 +244,7 @@ const PostPanelProcessing = (props) => {
   const disableTable = !isSuperUser ||
     (!beforeAgendaCompletedTime);
 
-  const disableRunPostPanel =
+  const disableRunPostPanel = !isSuperUser ||
     (postPanelRunTime$ || !beforeAgendaCompletedTime);
 
   const disableSave = !isSuperUser ||
