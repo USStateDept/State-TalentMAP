@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PanelMeetingMessage = ({ id, isCreate }) => {
+  console.log(id);
+  console.log(isCreate);
   if (isCreate) {
     return (
       <span>
