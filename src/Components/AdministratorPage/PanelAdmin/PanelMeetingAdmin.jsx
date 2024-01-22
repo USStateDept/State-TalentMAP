@@ -232,6 +232,14 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
+    console.log('----------------');
+    console.log(!isSuperUser);
+    console.log(isCreate);
+    console.log(beforePrelimCutoff);
+    console.log(!beforePanelMeetingDate);
+    console.log(!preconditioned);
+    console.log(!subsequentPanel);
+    console.log(prelimRunTime$);
     return (
       !isSuperUser ||
       isCreate ||
