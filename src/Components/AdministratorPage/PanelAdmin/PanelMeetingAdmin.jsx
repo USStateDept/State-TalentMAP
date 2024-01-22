@@ -180,7 +180,8 @@ const PanelMeetingAdmin = (props) => {
       'panel-date-end': panelDateEnd.toJSON(),
     })}`,
   );
-  const subsequentPanel = subsequentPanels?.results?.[0] ?? undefined;
+  const subsequentPanel = subsequentPanels?.results?.length > 0
+    ? subsequentPanels.results[0] : undefined;
 
   // Helpers for input disabling conditions
 
@@ -240,6 +241,9 @@ const PanelMeetingAdmin = (props) => {
     console.log(!preconditioned);
     console.log(!subsequentPanel);
     console.log(prelimRunTime$);
+    console.log('----------------');
+    console.log(subsequentPanels);
+    console.log(subsequentPanels?.results?.[0]);
     return (
       !isSuperUser ||
       isCreate ||
