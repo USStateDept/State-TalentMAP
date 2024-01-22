@@ -41,8 +41,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   const blankAgendaItem = {};
   // Only use Agenda Item state if route is edit, otherwise blank for create
   const agendaItemData$ = routeAgendaID ? agendaItemData : blankAgendaItem;
-  // const [agendaItemData$, setAgendaItemData$]
-  //   = useState(routeAgendaID ? agendaItemData : blankAgendaItem);
 
   // Create/Edit - False or returns an ID on success
   const aiModifySuccessID = useSelector(state => state.ai);
@@ -113,13 +111,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [location, setLocation] = useState();
   const [activeAIL, setActiveAIL] = useState();
   const [readMode, setReadMode] = useState(true);
-
-
-  console.log(agendaItemData);
-  console.log(agendaItemData$);
-  console.log(agendaItemLegs);
-  console.log(agendaItemLegs$);
-  console.log(legs);
 
 
   const updateSelection = (remark, textInputs) => {
@@ -228,8 +219,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   useEffect(() => {
     // Update user remarks state anytime agenda item data changes
     setUserRemarks(agendaItemRemarks);
-    setLegs(agendaItemLegs$);
-    // setAgendaItemData$(agendaItemData);
   }, [agendaItemData]);
 
   return (
