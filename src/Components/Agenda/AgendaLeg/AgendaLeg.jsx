@@ -437,8 +437,6 @@ const AgendaLeg = props => {
     {
       title: 'TED',
       content: (handleTED()),
-      // eslint-disable-next-line max-len
-      // content: (<div>{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>),
     },
     {
       title: 'TOD',
