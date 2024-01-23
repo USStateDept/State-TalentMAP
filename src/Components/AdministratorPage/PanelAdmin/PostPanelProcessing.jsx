@@ -31,7 +31,7 @@ const PostPanelProcessing = (props) => {
   const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
   const statuses = postPanelResults?.statuses?.filter(o => o.code !== 'N') ?? [];
-  const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
+  const values = postPanelResults?.values?.filter(v => v.status !== 'N') ?? [];
   const holdOptions = postPanelResults?.hold_options ?? [];
   const hasValidAgendaItems = values?.length > 0 ?? false;
 
@@ -85,7 +85,7 @@ const PostPanelProcessing = (props) => {
   // }, [postPanelResults]);
 
   const handleHold = (objLabel, newStatus) => {
-    if (newStatus === 'HLD') {
+    if (newStatus === 'H') {
       const ref = formData.find(o => o.label === objLabel);
       let option = ref?.aht_code || ref?.max_aht_code || holdOptions[0].code;
       let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
@@ -98,7 +98,7 @@ const PostPanelProcessing = (props) => {
           <div className="simple-action-modal">
             <div className="help-text">
               <div className="position-form--label-input-container">
-                <label htmlFor="status">Hold Option</label>
+                <label htmlFor="hold-option">Hold Option</label>
                 <select
                   id="hold-option"
                   defaultValue={option}
@@ -110,7 +110,7 @@ const PostPanelProcessing = (props) => {
                 </select>
               </div>
               <div className="position-form--label-input-container">
-                <label htmlFor="drafting-office">Description</label>
+                <label htmlFor="hold-description">Description</label>
                 <textarea
                   id="hold-description"
                   defaultValue={description}
@@ -125,7 +125,7 @@ const PostPanelProcessing = (props) => {
                     if (o.label === objLabel) {
                       return {
                         ...o,
-                        status: 'HLD',
+                        status: 'H',
                         aht_code: option,
                         aih_hold_comment: description,
                       };
@@ -152,7 +152,7 @@ const PostPanelProcessing = (props) => {
   };
 
   const handleStatusSelection = (objLabel, newStatus) => {
-    if (newStatus !== 'HLD') {
+    if (newStatus !== 'H') {
       const newFormData = formData.map(o => {
         if (o.label === objLabel) {
           return {
@@ -234,7 +234,7 @@ const PostPanelProcessing = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
-  const beforeAgendaCompletedTime = (
+  const beforeAgendaCompletedTime = !(
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
 
@@ -316,11 +316,6 @@ const PostPanelProcessing = (props) => {
             </thead>
             <tbody>
               {hasValidAgendaItems ?
-                <tr>
-                  <td colSpan="100%">
-                    This panel does not have any valid agenda items.
-                  </td>
-                </tr> :
                 formData.map(d => (
                   <tr key={d.label}>
                     <td key={`${d.label}-valid`}>
@@ -341,10 +336,10 @@ const PostPanelProcessing = (props) => {
                         <input
                           id={`${d.label}-status-${o.code}`}
                           type="radio"
-                          name={`${d.label}-status-${o.description}`}
-                          checked={d.status === o.description}
-                          onChange={() => handleStatusSelection(d.label, o.description)}
-                          onClick={() => handleHold(d.label, o.description)}
+                          name={`${d.label}-status-${o.code}`}
+                          checked={d.status === o.code}
+                          onChange={() => handleStatusSelection(d.label, o.code)}
+                          onClick={() => handleHold(d.label, o.code)}
                           disabled={disableTable || disableHold(d, o)}
                           className="interactive-element"
                         />
@@ -381,7 +376,13 @@ const PostPanelProcessing = (props) => {
                       );
                     })}
                   </tr>
-                ))}
+                )) :
+                <tr>
+                  <td colSpan="100%">
+                    This panel does not have any valid agenda items.
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
