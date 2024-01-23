@@ -140,7 +140,6 @@ const AgendaLeg = props => {
     }
 
     if (dropdown === 'ted') {
-      updateLeg(leg?.ail_seq_num, { eta: null }); // testing
       swal.close();
     }
 
