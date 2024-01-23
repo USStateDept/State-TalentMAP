@@ -87,12 +87,15 @@ const PanelMeetingAdmin = (props) => {
   }, [panelMeetingsResults]);
 
   const selectPanelMeetingDate = (date) => {
-    const prelimCutoffMins = 2875;
-    const addendumCutoffMins = 1435;
-
     setPanelMeetingDate(date);
-    setPrelimCutoff(subMinutes(date, prelimCutoffMins));
-    setAddendumCutoff(subMinutes(date, addendumCutoffMins));
+    if (!prelimCutoff) {
+      const prelimCutoffMins = 2875;
+      setPrelimCutoff(subMinutes(date, prelimCutoffMins));
+    }
+    if (!addendumCutoff) {
+      const addendumCutoffMins = 1435;
+      setAddendumCutoff(subMinutes(date, addendumCutoffMins));
+    }
   };
 
   const clear = () => {
