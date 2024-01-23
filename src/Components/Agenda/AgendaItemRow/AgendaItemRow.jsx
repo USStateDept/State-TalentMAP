@@ -22,15 +22,14 @@ const AgendaItemRow = props => {
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
 
-  const userName = get(agenda, 'full_name') || 'None Listed';
-  const userSkill = get(agenda, 'skills') || '';
-  const userSkill$ = userSkill.length > 0 ? userSkill.map(s => `${s} `) : 'None Listed';
-  const userLanguages = get(agenda, 'languages') || '';
-  const userLanguages$ = userLanguages.length > 0 ? userLanguages.map(
+  const userName = agenda?.full_name ? agenda.full_name : '';
+  const userSkill = agenda?.skills?.length > 0 ? agenda.skills.map(s => `${s} `) : 'None Listed';
+  const userLanguages = agenda?.languages?.length > 0 ? agenda.languages.map(
     (l) => `${l.pllangcode} ${l.pllpcodespeakcode}/${l.pllpcodereadcode} (${formatDate(l.pltestdate, 'MM/YYYY')}) `) : 'None Listed';
-  const userGrade = get(agenda, 'grade') || 'None Listed';
-  const userCDO$ = get(agenda, 'cdo') ? `${get(agenda, 'cdo.perpiifirstname')} ${get(agenda, 'cdo.perpiilastname')}` : 'None Listed';
-  const userPayPlan = get(agenda, 'pay_plan_code') || '';
+  const userGrade = agenda?.grade ? agenda.grade : 'None Listed';
+  const userCDO = agenda?.cdo ? `${agenda.cdo.perpiifirstname} ${agenda.cdo.perpiilastname}` : 'None Listed';
+  const userPayPlan = agenda?.pay_plan_code ? agenda.pay_plan_code : '';
+  const userOrg = agenda?.org ? agenda.org.orgmvgmdescrshort : 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
@@ -87,12 +86,13 @@ const AgendaItemRow = props => {
                 <Link to={publicProfileLink}>{userName}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
-                <div className="item"><span className="label">CDO: </span> {userCDO$}</div>
+                <div className="item"><span className="label">CDO: </span> {userCDO}</div>
+                <div className="item"><span className="label">Bureau: </span> {userOrg}</div>
                 <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
-                <div className="item"><span className="label">Skill: </span> {userSkill$}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages: </span>
-                  <span>{userLanguages$}</span>
+                  <span>{userLanguages}</span>
                 </div>
               </div>
               <div className="panel-meeting-maintenance-link-container">
@@ -201,6 +201,31 @@ AgendaItemRow.propTypes = {
         pay_plan: PropTypes.string,
       }),
     ),
+    skills: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+    languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        pllangcode: PropTypes.string,
+        pllpcodespeakcode: PropTypes.string,
+        pllpcodereadcode: PropTypes.string,
+        pltestdate: PropTypes.string,
+      }),
+    ),
+    grade: PropTypes.string,
+    cdo: PropTypes.arrayOf(
+      PropTypes.shape({
+        perpiifirstname: PropTypes.string,
+        perpiilastname: PropTypes.string,
+      }),
+    ),
+    pay_plan_code: PropTypes.string,
+    org: PropTypes.arrayOf(
+      PropTypes.shape({
+        orgmvgmdescrshort: PropTypes.string,
+      }),
+    ),
+    full_name: PropTypes.string,
     update_date: PropTypes.string,
     modifier_name: PropTypes.number,
     creator_name: PropTypes.number,
