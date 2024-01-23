@@ -316,7 +316,6 @@ const AgendaItemMaintenancePane = (props) => {
           }
         </select>
       </div>
-
       {combinedTod === 'X' && (
         <>
           <div />
@@ -326,7 +325,6 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
         </>
       )}
-
     </>
   );
 
@@ -420,8 +418,8 @@ const AgendaItemMaintenancePane = (props) => {
                     </div>
                     {
                       showLegacyPanelMeetingDate ?
-                        <div className="">
-                          <span>{agendaItem?.pmt_code} {agendaItem?.pmd_dttm}</span>
+                        <div className="read-only-pmd">
+                          <span>{agendaItem?.pmt_code} {formatDate(agendaItem?.pmd_dttm)}</span>
                           {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
                         </div>
                         :
