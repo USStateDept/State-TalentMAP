@@ -153,11 +153,13 @@ export function runPanelMeeting(id, type) {
         console.log('Run Error');
         console.log(err);
         console.log('---------');
-        dispatch(errored(true));
-        dispatch(toastError(
-          `${errorMessage} ${err?.error_message ?? ''}`,
-          errorTitle,
-        ));
+        batch(() => {
+          dispatch(errored(true));
+          dispatch(toastError(
+            `${errorMessage} ${err?.error_message ?? ''}`,
+            errorTitle,
+          ));
+        });
       });
   };
 }
