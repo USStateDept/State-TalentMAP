@@ -98,9 +98,10 @@ const AgendaItemMaintenancePane = (props) => {
   };
   const [selectedPanelMLDate, setPanelMLDate] = useState(calcPanelDates()?.ml);
   const [selectedPanelIDDate, setPanelIDDate] = useState(calcPanelDates()?.id);
-  const isLegacyPanelDate = () => (
-    (panelDates.some(p => p?.pm_seq_num === agendaItem?.pmi_pm_seq_num))
-  );
+  const isLegacyPanelDate = () => {
+    if (!panelDates.length || isEmpty(agendaItem)) return false;
+    return !(panelDates.some(p => p?.pm_seq_num === agendaItem?.pmi_pm_seq_num));
+  };
   const [showLegacyPanelMeetingDate, setShowLegacyPanelMeetingDate] = useState(isLegacyPanelDate());
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
@@ -165,6 +166,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   useEffect(() => {
     if (!isEmpty(agendaItem)) {
+      // Reset form values when agenda loads
       setStatus(agendaItem?.status_code);
       setPanelCat(agendaItem?.report_category?.code);
       setPanelMLDate(calcPanelDates()?.ml);
@@ -172,9 +174,13 @@ const AgendaItemMaintenancePane = (props) => {
       setCombinedTod(agendaItem?.aiCombinedTodCode);
       setCombinedTodMonthsNum(agendaItem?.aiCombinedTodMonthsNum);
       setCombinedTodOtherText(agendaItem?.aiCombinedTodOtherText);
-      setShowLegacyPanelMeetingDate(isLegacyPanelDate());
     }
   }, [agendaItem]);
+
+  useEffect(() => {
+    // Recalculate [legacy] panel meeting when agenda or dates load
+    setShowLegacyPanelMeetingDate(isLegacyPanelDate());
+  }, [agendaItem, panelDates]);
 
   useEffect(() => {
     const aiV = AIvalidation?.allValid;
