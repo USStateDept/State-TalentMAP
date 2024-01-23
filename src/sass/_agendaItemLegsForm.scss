@@ -19,7 +19,7 @@
         min-height: 120px;
       }
     }
-    
+
     @each $row-num in map-values($aim-legs-lrg-height-config) {
       .grid-row-#{$row-num} {
         min-height: 85px;
@@ -59,10 +59,13 @@
     // TED date and date picker
     .grid-row-10 {
       min-width: 150px;
+      .read-only {
+        padding-top: 15px;
+      }
     }
 
     // Validation Columns
-    .grid-col-1.grid-row-4, .grid-col-1.grid-row-8 {
+    .grid-col-1.grid-row-4, .grid-col-1.grid-row-8, .grid-col-1.grid-row-10 {
       padding-top: 25px;
     }
     .grid-row-4,
@@ -71,15 +74,15 @@
         padding-top: 15px;
       }
     }
-    
+
     // Dropdown Columns
-    .grid-col-1.grid-row-11, 
-    .grid-col-1.grid-row-12, 
+    .grid-col-1.grid-row-11,
+    .grid-col-1.grid-row-12,
     .grid-col-1.grid-row-13 {
       padding-top: 33px;
     }
-    .grid-row-11, 
-    .grid-row-12, 
+    .grid-row-11,
+    .grid-row-12,
     .grid-row-13 {
       .read-only {
         padding-top: 23px;

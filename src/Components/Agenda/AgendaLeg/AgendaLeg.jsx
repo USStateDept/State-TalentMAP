@@ -357,7 +357,7 @@ const AgendaLeg = props => {
     if (isSeparation) {
       return getTEDCalendar();
     }
-    return (<div>{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
+    return (<div className="read-only">{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
   };
 
   const getLocation = () => {
