@@ -93,6 +93,6 @@ export const submitPanelMeeting = (originalFields, newFields) => {
     // agendaCompletedTime: newFields?.agendaCompletedTime ??
     //  (agendaCompletedTime ? new Date(agendaCompletedTime.pmd_dttm) : undefined),
   };
-  
+
   return createPanelMeeting(data, isEmpty(originalFields));
 };
