@@ -158,6 +158,11 @@ const AgendaLeg = props => {
     swal.close();
   };
 
+  const clearTED = () => {
+    updateLeg(leg?.ail_seq_num, { ted: '' });
+    swal.close();
+  };
+
   const calendarModalETA = () => {
     // TO DO: Update class names
     swal({
@@ -199,7 +204,7 @@ const AgendaLeg = props => {
           </div>
           <div className="ted-buttons">
             <button onClick={cancel}>Cancel</button>
-            <button onClick={clearETAandTED}>Clear TED</button>
+            <button onClick={clearTED}>Clear TED</button>
           </div>
         </div>
       ),
