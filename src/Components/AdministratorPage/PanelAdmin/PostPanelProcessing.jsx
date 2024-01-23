@@ -33,6 +33,7 @@ const PostPanelProcessing = (props) => {
   const statuses = postPanelResults?.statuses?.filter(o => o.code !== 'N') ?? [];
   const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
   const holdOptions = postPanelResults?.hold_options ?? [];
+  const hasValidAgendaItems = values?.length > 0 ?? false;
 
   const editPostPanelSuccess = useSelector(state => state.editPostPanelProcessingSuccess);
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
@@ -245,7 +246,7 @@ const PostPanelProcessing = (props) => {
     (!beforeAgendaCompletedTime);
 
   const disableRunPostPanel = !isSuperUser ||
-    (postPanelRunTime$ || !beforeAgendaCompletedTime);
+    (postPanelRunTime$ || !beforeAgendaCompletedTime || !hasValidAgendaItems);
 
   const disableSave = !isSuperUser ||
     (!beforeAgendaCompletedTime);
@@ -314,67 +315,73 @@ const PostPanelProcessing = (props) => {
               </tr>
             </thead>
             <tbody>
-              {formData.map(d => (
-                <tr key={d.label}>
-                  <td key={`${d.label}-valid`}>
-                    {d.valid === 'Y' ?
-                      <FA name="check" /> :
-                      '---'
-                    }
+              {hasValidAgendaItems ?
+                <tr>
+                  <td colSpan="100%">
+                    This panel does not have any valid agenda items.
                   </td>
-                  <td key={`${d.label}-item`}>
-                    <span className="item-link">
-                      {d.item}
-                    </span>
-                  </td>
-                  <td key={`${d.label}-label`}>{d.label}</td>
-                  <td key={`${d.label}-employee`}>{d.employee}</td>
-                  {statuses.map((o) => {
-                    const radio = (
-                      <input
-                        id={`${d.label}-status-${o.code}`}
-                        type="radio"
-                        name={`${d.label}-status-${o.description}`}
-                        checked={d.status === o.description}
-                        onChange={() => handleStatusSelection(d.label, o.description)}
-                        onClick={() => handleHold(d.label, o.description)}
-                        disabled={disableTable || disableHold(d, o)}
-                        className="interactive-element"
-                      />
-                    );
-                    return (
-                      <td key={`${d.label}-${o.code}`}>
-                        {(o.code === 'H' && d.status === o.description) ?
-                          <Tooltip
-                            html={
-                              <div className="tooltip-text">
-                                <div>
-                                  <span className="title">
-                                    {holdOptions
-                                      .find(h => h.code === d.aht_code)?.description}
-                                  </span>
+                </tr> :
+                formData.map(d => (
+                  <tr key={d.label}>
+                    <td key={`${d.label}-valid`}>
+                      {d.valid === 'Y' ?
+                        <FA name="check" /> :
+                        '---'
+                      }
+                    </td>
+                    <td key={`${d.label}-item`}>
+                      <span className="item-link">
+                        {d.item}
+                      </span>
+                    </td>
+                    <td key={`${d.label}-label`}>{d.label}</td>
+                    <td key={`${d.label}-employee`}>{d.employee}</td>
+                    {statuses.map((o) => {
+                      const radio = (
+                        <input
+                          id={`${d.label}-status-${o.code}`}
+                          type="radio"
+                          name={`${d.label}-status-${o.description}`}
+                          checked={d.status === o.description}
+                          onChange={() => handleStatusSelection(d.label, o.description)}
+                          onClick={() => handleHold(d.label, o.description)}
+                          disabled={disableTable || disableHold(d, o)}
+                          className="interactive-element"
+                        />
+                      );
+                      return (
+                        <td key={`${d.label}-${o.code}`}>
+                          {(o.code === 'H' && d.status === o.description) ?
+                            <Tooltip
+                              html={
+                                <div className="tooltip-text">
+                                  <div>
+                                    <span className="title">
+                                      {holdOptions
+                                        .find(h => h.code === d.aht_code)?.description}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <span className="text">
+                                      {d.aih_hold_comment}
+                                    </span>
+                                  </div>
                                 </div>
-                                <div>
-                                  <span className="text">
-                                    {d.aih_hold_comment}
-                                  </span>
-                                </div>
-                              </div>
-                            }
-                            theme="oc-status"
-                            arrow
-                            interactive
-                            useContext
-                          >
-                            {radio}
-                          </Tooltip> :
-                          radio
-                        }
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
+                              }
+                              theme="oc-status"
+                              arrow
+                              interactive
+                              useContext
+                            >
+                              {radio}
+                            </Tooltip> :
+                            radio
+                          }
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
