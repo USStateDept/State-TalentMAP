@@ -135,10 +135,6 @@ export function runPanelMeeting(id, type) {
       cancelToken: new CancelToken((c) => { cancelRunPanel = c; }),
     })
       .then(({ data }) => {
-        console.log('---------');
-        console.log('Run Success');
-        console.log(data);
-        console.log('---------');
         batch(() => {
           dispatch(errored(false));
           dispatch(success(data));
@@ -149,10 +145,6 @@ export function runPanelMeeting(id, type) {
         });
       })
       .catch((err) => {
-        console.log('---------');
-        console.log('Run Error');
-        console.log(err);
-        console.log('---------');
         batch(() => {
           dispatch(errored(true));
           dispatch(toastError(

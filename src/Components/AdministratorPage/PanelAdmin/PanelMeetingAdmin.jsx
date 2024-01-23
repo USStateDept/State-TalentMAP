@@ -127,21 +127,16 @@ const PanelMeetingAdmin = (props) => {
 
   // Submit current timestamp for specified field without saving other pending changes
   const handleRun = (field) => {
-    console.log('---------');
     if (field === 'prelimRuntime') {
-      console.log('Run Prelim');
       dispatch(runPanelMeeting(pmSeqNum, 'preliminary'));
     }
     if (field === 'addendumRuntime') {
-      console.log('Run Addendum');
       dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
     }
     if (runPreliminarySuccess || runAddendumSuccess) {
-      console.log('Fetch Data Again');
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
       dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     }
-    console.log('---------');
   };
 
   const submit = () => {
@@ -156,8 +151,6 @@ const PanelMeetingAdmin = (props) => {
         panelMeetingStatus,
       },
     ));
-    console.log('Save Panel Success');
-    console.log(savePanelSuccess);
     if (savePanelSuccess.length !== 0) {
       if (isCreate) {
         clear();
@@ -243,17 +236,6 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    console.log('----------------');
-    console.log(!isSuperUser);
-    console.log(isCreate);
-    console.log(beforePrelimCutoff);
-    console.log(!beforePanelMeetingDate);
-    console.log(!preconditioned);
-    console.log(!subsequentPanel);
-    console.log(prelimRunTime$);
-    console.log('----------------');
-    console.log(subsequentPanels);
-    console.log(subsequentPanels?.results?.[0]);
     return (
       !isSuperUser ||
       isCreate ||
