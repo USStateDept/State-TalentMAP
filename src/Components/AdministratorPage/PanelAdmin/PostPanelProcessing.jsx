@@ -53,7 +53,11 @@ const PostPanelProcessing = (props) => {
   const [postPanelStarted, setPostPanelStarted] = useState();
   const [postPanelRuntime, setPostPanelRuntime] = useState();
   const [agendaCompletedTime, setAgendaCompletedTime] = useState();
-  const [formData, setFormData] = useState(values);
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    setFormData(values);
+  }, [postPanelResults]);
 
   useEffect(() => {
     if (!postPanelIsLoading && !panelMeetingsIsLoading) {
