@@ -310,30 +310,16 @@ const AgendaLeg = props => {
     updateResearchPaneTab(LocationsTabID);
   };
 
-  const getETACalendar = () => (
+  const getCalendar = (value) => (
     disabled ?
-      <div className="read-only">{formatDate(leg?.eta) || DEFAULT_TEXT}</div> :
+      <div className="read-only">{formatDate(leg?.[value]) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.errorMessage}
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.errorMessage}
         </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(leg?.eta) || DEFAULT_TEXT}
-          <FA name="calendar" onClick={calendarModalETA} />
-        </div>
-      </div>
-  );
-
-  const getTEDCalendar = () => (
-    disabled ?
-      <div className="read-only">{formatDate(leg?.ted) || DEFAULT_TEXT}</div> :
-      <div className="error-message-wrapper ail-form-ted">
-        <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.errorMessage}
-        </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(leg?.ted) || DEFAULT_TEXT}
-          <FA name="calendar" onClick={calendarModalTED} />
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(leg?.[value]) || DEFAULT_TEXT}
+          <FA name="calendar" onClick={value === 'eta' ? calendarModalETA : calendarModalTED} />
         </div>
       </div>
   );
@@ -355,7 +341,7 @@ const AgendaLeg = props => {
 
   const handleTED = () => {
     if (isSeparation) {
-      return getTEDCalendar();
+      return getCalendar('ted');
     }
     return (<div className="read-only">{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
   };
@@ -428,7 +414,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'ETA',
-      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getETACalendar()),
+      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar('eta')),
     },
     {
       title: '',
