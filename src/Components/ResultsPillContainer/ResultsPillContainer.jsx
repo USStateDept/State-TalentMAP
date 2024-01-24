@@ -9,7 +9,7 @@ const ResultsPillContainer = ({ items, onPillClick }) => {
 
   return (
     <div className="usa-grid-full">
-      <InteractiveElement title="Test" onClick={() => setShowFilters(!showFilters)}>
+      <InteractiveElement title="Show Filters" onClick={() => setShowFilters(!showFilters)}>
         <div className={`clients-filters-list ${showFilters ? 'clients-filters-list-expanded' : ''}`}>
           <div className={`clients-filters-title ${showFilters ? 'clients-filters-title-expanded' : ''}`}>
             Click to Show Filter Selections
