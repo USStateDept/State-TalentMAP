@@ -449,22 +449,22 @@ $cdo-search-container-padding: 10px;
 
 .bidder-portfolio-page {
 
-  .pma-pm-info {
+  .clients-filters-list {
     background-color: #BFB9B0;
     border: 1px solid #BFB9B0;
     border-radius: 10px;
     cursor: pointer;
     height: 41px;
-    margin: 30px 20px;
+    margin-top: 20px;
     width: 260px;
     transition: all .5s linear;
   }
 
-  .pma-pm-info-expanded {
+  .clients-filters-list-expanded {
     display: flex;
+    flex-direction: column;
     background-color: #E4E1DD;
     border: 3px solid #BFB9B0;
-    // height: 375px;
     height: auto;
     width: 98%;
     transition: border 1s, background-color 1s, width 1s, height 1s;
@@ -473,7 +473,7 @@ $cdo-search-container-padding: 10px;
     }
   }
 
-  .pma-pm-info-title {
+  .clients-filters-title {
     font-size: 16px;
     padding: 10px 0;
     text-align: center;
@@ -482,26 +482,30 @@ $cdo-search-container-padding: 10px;
     background-color: #BFB9B0;
     transition: all 1s linear;
   }
-  .pma-pm-info-title-expanded {
+  .clients-filters-title-expanded {
     border-radius: 7px 0 10px 0;
     min-width: 255px;
     max-height: 41px;
     transition: all 1s linear;
   }
 
-  .tracker-container {
+  .clients-filters-container {
     padding: 30px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    flex-direction: row;
+    .label {
+      min-width: 125px;
+    }
   }
 
-  .hideTracker {
+  .hideFilters {
     opacity: 0;
     transition: all 0s linear;
   }
-  .showTracker {
+  .showFilters {
     opacity: 100%;
-    transition: all 2s linear .5s;
+    transition: all .5s linear .5s;
   }
 
   border-top: 1px solid $color-white;

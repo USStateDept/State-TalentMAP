@@ -10,14 +10,12 @@ const ResultsPillContainer = ({ items, onPillClick }) => {
   return (
     <div className="usa-grid-full">
       <InteractiveElement title="Test" onClick={() => setShowFilters(!showFilters)}>
-        <div className={`pma-pm-info ${showFilters ? 'pma-pm-info-expanded' : ''}`}>
-          <div>
-            <div className={`pma-pm-info-title ${showFilters ? 'pma-pm-info-title-expanded' : ''}`}>
-              Click to Expand Filter Selections
-            </div>
+        <div className={`clients-filters-list ${showFilters ? 'clients-filters-list-expanded' : ''}`}>
+          <div className={`clients-filters-title ${showFilters ? 'clients-filters-title-expanded' : ''}`}>
+            Click to Show Filter Selections
           </div>
-          <div className={`tracker-container ${showFilters ? 'showTracker' : 'hideTracker'}`}>
-            <div className="selections-container">Your Selections:</div>
+          <div className={`clients-filters-container ${showFilters ? 'showFilters' : 'hideFilters'}`}>
+            <div className="label">Your Selections:</div>
             <PillList
               items={items}
               onPillClick={(param, value, remove) => onPillClick(param, value, remove)}
