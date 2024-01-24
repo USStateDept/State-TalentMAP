@@ -23,11 +23,11 @@ const AgendaItemRow = props => {
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
 
   const userName = agenda?.full_name ?? '';
-  const userSkill = agenda?.skills?.length ? agenda.skills.map(s => `${s} `) : 'None Listed';
+  const userSkill = agenda.skills.join(', ') || 'None Listed';
   const userLanguages = agenda?.languages?.length ? agenda.languages.map(
-    (l) => `${l.lang_code} ${l.speaking_score}/${l.reading_score} (${formatDate(l.test_date, 'MM/YYYY')}) `) : 'None Listed';
+    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')}) `) : 'None Listed';
   const userGrade = agenda?.grade ?? 'None Listed';
-  const userCDO = agenda?.cdo ? `${agenda.cdo.first_name} ${agenda.cdo.last_name}` : 'None Listed';
+  const userCDOFirst = agenda?.cdo?.first_name ? `${agenda.cdo.first_name} ` : '';
   const userPayPlan = agenda?.pay_plan_code ?? '';
   const userOrg = agenda?.org?.org_descr ?? 'None Listed';
 
@@ -86,7 +86,7 @@ const AgendaItemRow = props => {
                 <Link to={publicProfileLink}>{userName}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
-                <div className="item"><span className="label">CDO: </span> {userCDO}</div>
+                <div className="item"><span className="label">CDO: </span> {userCDOFirst} {agenda?.cdo?.last_name ?? ''}</div>
                 <div className="item"><span className="label">Bureau: </span> {userOrg}</div>
                 <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
