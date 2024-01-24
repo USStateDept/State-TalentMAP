@@ -139,6 +139,10 @@ const AgendaLeg = props => {
       return;
     }
 
+    if (dropdown === 'ted') {
+      swal.close();
+    }
+
     updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
   };
 
@@ -149,12 +153,17 @@ const AgendaLeg = props => {
     }
   }, []);
 
-  const clearETA = () => {
+  const clearETAandTED = () => {
     updateLeg(leg?.ail_seq_num, { eta: '', ted: '' });
     swal.close();
   };
 
-  const calendarModal = () => {
+  const clearTED = () => {
+    updateLeg(leg?.ail_seq_num, { ted: '' });
+    swal.close();
+  };
+
+  const calendarModalETA = () => {
     // TO DO: Update class names
     swal({
       title: 'Estimated Time of Arrival (ETA)',
@@ -171,7 +180,31 @@ const AgendaLeg = props => {
           </div>
           <div className="ted-buttons">
             <button onClick={cancel}>Cancel</button>
-            <button onClick={clearETA}>Clear ETA</button>
+            <button onClick={clearETAandTED}>Clear ETA</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const calendarModalTED = () => {
+    // TO DO: Update class names
+    swal({
+      title: 'Tour End Date (TED)',
+      closeOnEsc: true,
+      button: false,
+      className: 'swal-aim-ted-calendar',
+      content: (
+        <div className="ted-modal-content-container">
+          <div>
+            <Calendar
+              className="ted-react-calendar"
+              onChange={(e) => updateDropdown('ted', e)}
+            />
+          </div>
+          <div className="ted-buttons">
+            <button onClick={cancel}>Cancel</button>
+            <button onClick={clearTED}>Clear TED</button>
           </div>
         </div>
       ),
@@ -277,16 +310,16 @@ const AgendaLeg = props => {
     updateResearchPaneTab(LocationsTabID);
   };
 
-  const getCalendar = () => (
+  const getCalendar = (value) => (
     disabled ?
-      <div className="read-only">{formatDate(leg?.eta) || DEFAULT_TEXT}</div> :
+      <div className="read-only">{formatDate(leg?.[value]) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.errorMessage}
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.errorMessage}
         </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(leg?.eta) || DEFAULT_TEXT}
-          <FA name="calendar" onClick={calendarModal} />
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(leg?.[value]) || DEFAULT_TEXT}
+          <FA name="calendar" onClick={value === 'eta' ? calendarModalETA : calendarModalTED} />
         </div>
       </div>
   );
@@ -304,6 +337,13 @@ const AgendaLeg = props => {
     updateLeg(leg?.ail_seq_num, {
       separation_location: null,
     });
+  };
+
+  const handleTED = () => {
+    if (isSeparation) {
+      return getCalendar('ted');
+    }
+    return (<div className="read-only">{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
   };
 
   const getLocation = () => {
@@ -374,7 +414,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'ETA',
-      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar()),
+      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar('eta')),
     },
     {
       title: '',
@@ -382,7 +422,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TED',
-      content: (<div>{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>),
+      content: (handleTED()),
     },
     {
       title: 'TOD',
