@@ -23,9 +23,9 @@ const AgendaItemRow = props => {
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
 
   const userName = agenda?.full_name ?? '';
-  const userSkill = agenda.skills.join(', ') || 'None Listed';
+  const userSkill = agenda?.skills?.join(', ') || 'None Listed';
   const userLanguages = agenda?.languages?.length ? agenda.languages.map(
-    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')}) `) : 'None Listed';
+    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
   const userGrade = agenda?.grade ?? 'None Listed';
   const userCDOFirst = agenda?.cdo?.first_name ? `${agenda.cdo.first_name} ` : '';
   const userPayPlan = agenda?.pay_plan_code ?? '';
