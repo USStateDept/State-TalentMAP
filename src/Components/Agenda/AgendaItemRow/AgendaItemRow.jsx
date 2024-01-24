@@ -25,11 +25,11 @@ const AgendaItemRow = props => {
   const userName = agenda?.full_name ? agenda.full_name : '';
   const userSkill = agenda?.skills?.length > 0 ? agenda.skills.map(s => `${s} `) : 'None Listed';
   const userLanguages = agenda?.languages?.length > 0 ? agenda.languages.map(
-    (l) => `${l.pllangcode} ${l.pllpcodespeakcode}/${l.pllpcodereadcode} (${formatDate(l.pltestdate, 'MM/YYYY')}) `) : 'None Listed';
+    (l) => `${l.lang_code} ${l.speaking_score}/${l.reading_score} (${formatDate(l.test_date, 'MM/YYYY')}) `) : 'None Listed';
   const userGrade = agenda?.grade ? agenda.grade : 'None Listed';
-  const userCDO = agenda?.cdo ? `${agenda.cdo.perpiifirstname} ${agenda.cdo.perpiilastname}` : 'None Listed';
+  const userCDO = agenda?.cdo ? `${agenda.cdo.first_name} ${agenda.cdo.last_name}` : 'None Listed';
   const userPayPlan = agenda?.pay_plan_code ? agenda.pay_plan_code : '';
-  const userOrg = agenda?.org ? agenda.org.orgmvgmdescrshort : 'None Listed';
+  const userOrg = agenda?.org ? agenda.org.org_descr : 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
