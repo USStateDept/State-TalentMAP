@@ -36,6 +36,7 @@ const PostPanelProcessing = (props) => {
   const holdOptions = postPanelResults?.hold_options ?? [];
   const hasValidAgendaItems = values?.length > 0 ?? false;
 
+  const editPostPanelLoading = useSelector(state => state.editPostPanelProcessingIsLoading);
   const editPostPanelSuccess = useSelector(state => state.editPostPanelProcessingSuccess);
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
@@ -224,7 +225,7 @@ const PostPanelProcessing = (props) => {
       }));
     }
 
-    if (editPostPanelSuccess) {
+    if (!editPostPanelLoading && editPostPanelSuccess) {
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
       dispatch(postPanelProcessingFetchData(pmSeqNum));
     }
