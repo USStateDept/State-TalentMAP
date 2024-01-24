@@ -26,9 +26,9 @@ const AgendaItemRow = props => {
   const userSkill = agenda?.skills?.join(', ') || 'None Listed';
   const userLanguages = agenda?.languages?.length ? agenda.languages.map(
     (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
-  const userGrade = agenda?.grade ?? 'None Listed';
   const userCDOFirst = agenda?.cdo?.first_name ? `${agenda.cdo.first_name} ` : '';
-  const userPayPlan = agenda?.pay_plan_code ?? '';
+  const userPayPlan = agenda?.pay_plan_code ?? 'None Listed';
+  const userGrade = agenda?.grade ?? '';
   const userOrg = agenda?.org?.org_descr ?? 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
@@ -206,23 +206,24 @@ AgendaItemRow.propTypes = {
     ),
     languages: PropTypes.arrayOf(
       PropTypes.shape({
-        pllangcode: PropTypes.string,
-        pllpcodespeakcode: PropTypes.string,
-        pllpcodereadcode: PropTypes.string,
-        pltestdate: PropTypes.string,
+        lang_code: PropTypes.string,
+        speaking_score: PropTypes.string,
+        reading_score: PropTypes.string,
+        test_date: PropTypes.string,
+        custom_description: PropTypes.string,
       }),
     ),
     grade: PropTypes.string,
     cdo: PropTypes.arrayOf(
       PropTypes.shape({
-        perpiifirstname: PropTypes.string,
-        perpiilastname: PropTypes.string,
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
       }),
     ),
     pay_plan_code: PropTypes.string,
     org: PropTypes.arrayOf(
       PropTypes.shape({
-        orgmvgmdescrshort: PropTypes.string,
+        org_descr: PropTypes.string,
       }),
     ),
     full_name: PropTypes.string,
