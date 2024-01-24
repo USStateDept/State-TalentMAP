@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash';
+// import { useState } from 'react';
+// import InteractiveElement from 'Components/InteractiveElement';
 import { PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import Pill from '../Pill/Pill';
 
 const PillList = ({ items, onPillClick }, { isTandemSearch }) => {
   const ordering = ['description', 'code'];
   const orders = [];
+
+  // const [showFilters, setShowFilters] = useState();
+
   if (isTandemSearch) {
     ordering.splice(0, 0, 'isCommon', 'isTandem');
     orders.splice(0, 0, 'asc', 'desc');
@@ -31,6 +36,7 @@ const PillList = ({ items, onPillClick }, { isTandemSearch }) => {
           />))
       }
     </div>
+    // </InteractiveElement>
   );
 };
 
