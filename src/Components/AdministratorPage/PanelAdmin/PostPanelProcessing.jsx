@@ -24,6 +24,7 @@ const PostPanelProcessing = (props) => {
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
   const { panelMeetingDates } = panelMeetingsResults$;
 
+  const panelMeetingDate$ = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
   const postPanelStarted$ = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
   const postPanelRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'POST');
   const agendaCompletedTime$ = panelMeetingDates?.find(x => x.mdt_code === 'COMP');
@@ -35,6 +36,7 @@ const PostPanelProcessing = (props) => {
   const holdOptions = postPanelResults?.hold_options ?? [];
   const hasValidAgendaItems = values?.length > 0 ?? false;
 
+  const editPostPanelLoading = useSelector(state => state.editPostPanelProcessingIsLoading);
   const editPostPanelSuccess = useSelector(state => state.editPostPanelProcessingSuccess);
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
@@ -223,7 +225,7 @@ const PostPanelProcessing = (props) => {
       }));
     }
 
-    if (editPostPanelSuccess) {
+    if (!editPostPanelLoading && editPostPanelSuccess) {
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
       dispatch(postPanelProcessingFetchData(pmSeqNum));
     }
@@ -238,6 +240,9 @@ const PostPanelProcessing = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
+  const beforePanelMeetingDate = (
+    panelMeetingDate$ ? (new Date(panelMeetingDate$.pmd_dttm) - new Date() > 0) : true
+  );
   const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
@@ -249,8 +254,12 @@ const PostPanelProcessing = (props) => {
   const disableTable = !isSuperUser ||
     (!beforeAgendaCompletedTime);
 
-  const disableRunPostPanel = !isSuperUser ||
-    (postPanelRunTime$ || !beforeAgendaCompletedTime || !hasValidAgendaItems);
+  const disableRunPostPanel = !isSuperUser || (
+    postPanelRunTime$ ||
+    !beforeAgendaCompletedTime ||
+    !hasValidAgendaItems ||
+    beforePanelMeetingDate
+  );
 
   const disableSave = !isSuperUser ||
     (!beforeAgendaCompletedTime);
