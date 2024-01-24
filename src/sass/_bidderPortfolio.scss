@@ -449,7 +449,7 @@ $cdo-search-container-padding: 10px;
 
 .bidder-portfolio-page {
 
-  .clients-filters-list {
+  .clients-filters-container {
     background-color: #BFB9B0;
     border: 1px solid #BFB9B0;
     border-radius: 10px;
@@ -460,7 +460,7 @@ $cdo-search-container-padding: 10px;
     transition: all .5s linear;
   }
 
-  .clients-filters-list-expanded {
+  .clients-filters-container-expanded {
     display: flex;
     flex-direction: column;
     background-color: #E4E1DD;
@@ -489,7 +489,7 @@ $cdo-search-container-padding: 10px;
     transition: all 1s linear;
   }
 
-  .clients-filters-container {
+  .clients-filters-list {
     padding: 30px;
     display: flex;
     align-items: baseline;
