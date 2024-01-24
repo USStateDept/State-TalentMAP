@@ -4,42 +4,62 @@ exports[`ResultsPillContainerComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <div
-    className="selections-container"
+  <InteractiveElement
+    className=""
+    onClick={[Function]}
+    title="Show Filters"
+    type="div"
   >
-    Your Selections:
-  </div>
-  <PillList
-    items={
-      Array [
-        Object {
-          "codeRef": "code",
-          "description": "a",
-          "selectionRef": "selection",
-        },
-        Object {
-          "codeRef": "code2",
-          "description": "c",
-          "selectionRef": "selection2",
-        },
-        Object {
-          "codeRef": "code3",
-          "description": "c",
-          "selectionRef": "selection3",
-        },
-        Object {
-          "codeRef": "code4",
-          "description": "d",
-          "selectionRef": "selection3",
-        },
-        Object {
-          "codeRef": "code2",
-          "description": "b",
-          "selectionRef": "selection2",
-        },
-      ]
-    }
-    onPillClick={[Function]}
-  />
+    <div
+      className="clients-filters-list "
+    >
+      <div
+        className="clients-filters-title "
+      >
+        Click to Show Filter Selections
+      </div>
+      <div
+        className="clients-filters-container hideFilters"
+      >
+        <div
+          className="label"
+        >
+          Your Selections:
+        </div>
+        <PillList
+          items={
+            Array [
+              Object {
+                "codeRef": "code",
+                "description": "a",
+                "selectionRef": "selection",
+              },
+              Object {
+                "codeRef": "code2",
+                "description": "c",
+                "selectionRef": "selection2",
+              },
+              Object {
+                "codeRef": "code3",
+                "description": "c",
+                "selectionRef": "selection3",
+              },
+              Object {
+                "codeRef": "code4",
+                "description": "d",
+                "selectionRef": "selection3",
+              },
+              Object {
+                "codeRef": "code2",
+                "description": "b",
+                "selectionRef": "selection2",
+              },
+            ]
+          }
+          onPillClick={[Function]}
+        />
+      </div>
+    </div>
+  </InteractiveElement>
 </div>
 `;
