@@ -238,7 +238,7 @@ const PostPanelProcessing = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
-  const beforeAgendaCompletedTime = !(
+  const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
 
