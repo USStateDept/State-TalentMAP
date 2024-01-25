@@ -169,7 +169,6 @@ const PanelMeetingAgendas = (props) => {
     ]));
     const orgs$ = selectedOrgs.flatMap(({ name }) => ([
       { 'legs.org': `=${name}` },
-      { 'org.org_descr': `=${name}` },
     ]));
     const skills$ = selectedSkills.map(({ code }) => (
       { skills: code }
