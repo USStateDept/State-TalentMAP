@@ -89,6 +89,7 @@ class BidControls extends Component {
   };
 
   onFilterChange = (q, value) => {
+    console.log('onFilterChange');
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
@@ -122,6 +123,7 @@ class BidControls extends Component {
   };
 
   generatePills = () => {
+    console.log('generatePills');
     const pills = [];
     const { filterBy } = this.state;
     this.state.proxyCdos.forEach(a => {
@@ -157,9 +159,11 @@ class BidControls extends Component {
   };
 
   pillClick = (dropdownID, pillID) => {
+    console.log('pillClick');
     const q = filter(this.state.unassignedBidders, (o) => o.value !== pillID);
     switch (dropdownID) {
       case 'proxyCdos':
+        console.log('proxyCdos');
         this.setState({ proxyCdos:
                 filter(this.state.proxyCdos, (o) => o.id !== pillID) }, this.generatePills);
         break;
