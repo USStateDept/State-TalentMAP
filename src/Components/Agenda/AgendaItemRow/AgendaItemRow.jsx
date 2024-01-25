@@ -29,7 +29,6 @@ const AgendaItemRow = props => {
   const userCDOFirst = agenda?.cdo?.first_name ? `${agenda.cdo.first_name} ` : '';
   const userPayPlan = agenda?.pay_plan_code ?? 'None Listed';
   const userGrade = agenda?.grade ?? '';
-  const userOrg = agenda?.org?.org_descr ?? 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
@@ -87,7 +86,6 @@ const AgendaItemRow = props => {
               </div>
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {userCDOFirst} {agenda?.cdo?.last_name ?? ''}</div>
-                <div className="item"><span className="label">Bureau: </span> {userOrg}</div>
                 <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
