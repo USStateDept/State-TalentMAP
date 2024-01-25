@@ -55,13 +55,12 @@ const fuseOptions = {
     'updaters.first_name',
     'updaters.emp_user.emp_user_last_name',
     'updaters.emp_user.emp_user_first_name',
-    'user.current_assignment.position.bureau',
-    'user.skills.code',
-    'user.grade',
-    'user.languages.code',
-    'user.cdos.cdo_fullname',
-    'user.name',
-    'user.shortened_name',
+    'languages.lang_code',
+    'cdo.first_name',
+    'cdo.last_name',
+    'full_name',
+    'skills',
+    'grade',
     'pmi_official_item_num',
   ],
 };
@@ -162,20 +161,18 @@ const PanelMeetingAgendas = (props) => {
     ));
     const languages$ = selectedLanguages.flatMap(({ code }) => ([
       { 'legs.languages.code': code },
-      { 'user.languages.code': code },
+      { 'languages.lang_code': code },
     ]));
     const grades$ = selectedGrades.flatMap(({ code }) => ([
       { 'legs.grade': code },
-      { 'user.grade': code },
+      { grade: code },
     ]));
-    const orgs$ = selectedOrgs.map(({ name }) => (
-      { 'legs.org': `=${name}` }
-    ));
-    const bureaus$ = selectedBureaus.map(({ custom_description }) => (
-      { 'user.current_assignment.position.bureau': custom_description }
-    ));
+    const orgs$ = selectedOrgs.flatMap(({ name }) => ([
+      { 'legs.org': `=${name}` },
+      { 'org.org_descr': `=${name}` },
+    ]));
     const skills$ = selectedSkills.map(({ code }) => (
-      { 'user.skills.code': code }
+      { skills: code }
     ));
     if (orgs$.length) { fuseQuery.push({ $or: orgs$ }); }
     if (grades$.length) { fuseQuery.push({ $or: grades$ }); }
@@ -184,7 +181,6 @@ const PanelMeetingAgendas = (props) => {
     if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
     if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
     if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
-    if (bureaus$.length) { fuseQuery.push({ $or: bureaus$ }); }
     if (skills$.length) { fuseQuery.push({ $or: skills$ }); }
     if (textSearch) {
       const t = textSearch;
@@ -202,9 +198,9 @@ const PanelMeetingAgendas = (props) => {
         { 'updaters.first_name': t },
         { 'updaters.emp_user.emp_user_last_name': t },
         { 'updaters.emp_user.emp_user_first_name': t },
-        { 'user.cdos.cdo_fullname': t },
-        { 'user.name': t },
-        { 'user.shortened_name': t },
+        { 'cdo.first_name': t },
+        { 'cdo.last_name': t },
+        { full_name: t },
         { pmi_official_item_num: `^${t}` },
       ];
       fuseQuery.push({ $or: freeTextLookups });
