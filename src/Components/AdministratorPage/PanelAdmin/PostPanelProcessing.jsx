@@ -226,7 +226,7 @@ const PostPanelProcessing = (props) => {
         aih_sequence_number: aihSequenceNumber,
         aih_update_id: aihUpdateId,
         aih_update_date: aihUpdateDate,
-      }));
+      }, pmSeqNum));
     }
 
     // TODO: Save Post Panel Started and Agenda Completed Time

@@ -6,6 +6,7 @@ import {
   UPDATE_POST_PANEL_PROCESSING_SUCCESS, UPDATE_POST_PANEL_PROCESSING_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { toastError, toastSuccess } from './toast';
+import { panelMeetingsFetchData } from './panelMeetings';
 
 let cancelPostPanel;
 let cancelEditPostPanel;
@@ -85,7 +86,7 @@ export function editPostPanelProcessingSuccess(data) {
 }
 
 // eslint-disable-next-line no-unused-vars
-export function editPostPanelProcessing(props) {
+export function editPostPanelProcessing(props, pmSeqNum) {
   return (dispatch) => {
     if (cancelEditPostPanel) {
       cancelEditPostPanel('cancel');
