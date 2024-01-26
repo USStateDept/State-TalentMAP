@@ -434,15 +434,11 @@ const PostPanelProcessing = (props) => {
 
 PostPanelProcessing.propTypes = {
   pmSeqNum: PropTypes.string,
-  panelMeetingsResults: PropTypes.shape(),
-  panelMeetingsIsLoading: PropTypes.bool,
 };
 
 PostPanelProcessing.defaultProps = {
   match: {},
   pmSeqNum: undefined,
-  panelMeetingsResults: undefined,
-  panelMeetingsIsLoading: false,
 };
 
 export default withRouter(PostPanelProcessing);
