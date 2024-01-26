@@ -14,13 +14,15 @@ import { userHasPermissions } from '../../../utilities';
 
 
 const PostPanelProcessing = (props) => {
-  const { panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
+  const { pmSeqNum } = props;
 
   const dispatch = useDispatch();
 
 
   // ============= Retrieve Data =============
 
+  const panelMeetingsResults = useSelector(state => state.panelMeetings);
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
   const { panelMeetingDates } = panelMeetingsResults$;
 
@@ -36,11 +38,10 @@ const PostPanelProcessing = (props) => {
   const holdOptions = postPanelResults?.hold_options ?? [];
   const hasValidAgendaItems = values?.length > 0 ?? false;
 
-  const editPostPanelLoading = useSelector(state => state.editPostPanelProcessingIsLoading);
-  const editPostPanelSuccess = useSelector(state => state.editPostPanelProcessingSuccess);
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
   useEffect(() => {
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     dispatch(postPanelProcessingFetchData(pmSeqNum));
   }, []);
 
@@ -58,11 +59,14 @@ const PostPanelProcessing = (props) => {
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
-    setFormData(values);
+    if (!postPanelIsLoading) {
+      setFormData(values);
+    }
   }, [postPanelResults]);
 
+
   useEffect(() => {
-    if (!postPanelIsLoading && !panelMeetingsIsLoading) {
+    if (!panelMeetingsIsLoading) {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
@@ -223,11 +227,6 @@ const PostPanelProcessing = (props) => {
         aih_update_id: aihUpdateId,
         aih_update_date: aihUpdateDate,
       }));
-    }
-
-    if (!editPostPanelLoading && editPostPanelSuccess) {
-      dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
-      dispatch(postPanelProcessingFetchData(pmSeqNum));
     }
 
     // TODO: Save Post Panel Started and Agenda Completed Time

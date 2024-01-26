@@ -109,14 +109,19 @@ export function editPostPanelProcessing(props) {
             UPDATE_POST_PANEL_PROCESSING_SUCCESS_TITLE,
           ));
           dispatch(editPostPanelProcessingIsLoading(false));
+
+          dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+          dispatch(postPanelProcessingFetchData(pmSeqNum));
         });
       }).catch((err) => {
-        dispatch(toastError(
-          `${UPDATE_POST_PANEL_PROCESSING_ERROR} ${err?.error_message ?? ''}`,
-          UPDATE_POST_PANEL_PROCESSING_ERROR_TITLE,
-        ));
-        dispatch(editPostPanelProcessingHasErrored(true));
-        dispatch(editPostPanelProcessingIsLoading(false));
+        batch(() => {
+          dispatch(editPostPanelProcessingHasErrored(true));
+          dispatch(editPostPanelProcessingIsLoading(false));
+          dispatch(toastError(
+            `${UPDATE_POST_PANEL_PROCESSING_ERROR} ${err?.error_message ?? ''}`,
+            UPDATE_POST_PANEL_PROCESSING_ERROR_TITLE,
+          ));
+        });
       });
   };
 }
