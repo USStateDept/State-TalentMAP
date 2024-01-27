@@ -43,8 +43,8 @@ const AgendaItemLegsFormReadOnly = props => {
         if (a?.is_separation) {
           const location = a?.separation_location;
           if (location) {
-            const { city, country } = location;
-            return `${city}, ${country}`;
+            const { city, country, code } = location;
+            return city || country || code || '';
           }
         }
         return <div>{a?.org || DEFAULT_TEXT}</div>;
