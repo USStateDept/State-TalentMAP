@@ -6,7 +6,6 @@ import Pill from '../Pill/Pill';
 const PillList = ({ items, onPillClick }, { isTandemSearch }) => {
   const ordering = ['description', 'code'];
   const orders = [];
-
   if (isTandemSearch) {
     ordering.splice(0, 0, 'isCommon', 'isTandem');
     orders.splice(0, 0, 'asc', 'desc');
