@@ -89,7 +89,6 @@ class BidControls extends Component {
   };
 
   onFilterChange = (q, value) => {
-    console.log('onFilterChange');
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
@@ -123,7 +122,6 @@ class BidControls extends Component {
   };
 
   generatePills = () => {
-    console.log('generatePills');
     const pills = [];
     const { filterBy } = this.state;
     this.state.proxyCdos.forEach(a => {
