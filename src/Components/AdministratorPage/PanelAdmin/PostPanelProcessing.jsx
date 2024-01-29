@@ -37,7 +37,7 @@ const PostPanelProcessing = (props) => {
   const values = postPanelResults?.values?.filter(v => v.status !== 'N') ?? [];
   const holdOptions = postPanelResults?.hold_options ?? [];
   const validValues = postPanelResults?.values?.filter(v => v.valid !== 'N') ?? [];
-  const hasValidAgendaItems = validValues.length > 0 ?? false;
+  const hasValidAgendaItems = validValues?.length > 0 ?? false;
 
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
