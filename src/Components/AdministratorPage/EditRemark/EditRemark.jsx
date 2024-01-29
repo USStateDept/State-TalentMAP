@@ -135,6 +135,7 @@ const EditRemark = (props) => {
           value={longDescription}
           disabled={isEdit}
           className={`${isEdit ? 'disabled-bg' : ''}`}
+          maxLength="100"
         />
       </div>
       <div className="edit-remark-input">
@@ -157,6 +158,7 @@ const EditRemark = (props) => {
                     onChange={e => setInsertionInput(e.target.value)}
                     disabled={isEdit}
                     className={`${isEdit ? 'disabled-bg' : ''}`}
+                    maxLength="30"
                   />
                   <InteractiveElement
                     onClick={submitInsertion}
@@ -184,6 +186,7 @@ const EditRemark = (props) => {
           value={shortDescription}
           disabled={isEdit}
           className={`${isEdit ? 'disabled-bg' : ''}`}
+          maxLength="20"
         />
       </div>
       <div className="edit-remark-input">
