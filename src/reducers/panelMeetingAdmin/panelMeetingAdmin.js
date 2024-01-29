@@ -40,7 +40,7 @@ export function runOfficialPreliminaryErrored(state = false, action) {
 export function runOfficialPreliminarySuccess(state = {}, action) {
   switch (action.type) {
     case 'RUN_OFFICIAL_PRELIMINARY_SUCCESS':
-      return action.results;
+      return action.result;
     default:
       return state;
   }
@@ -56,7 +56,7 @@ export function runOfficialAddendumErrored(state = false, action) {
 export function runOfficialAddendumSuccess(state = {}, action) {
   switch (action.type) {
     case 'RUN_OFFICIAL_ADDENDUM_SUCCESS':
-      return action.results;
+      return action.result;
     default:
       return state;
   }
@@ -72,7 +72,7 @@ export function runPostPanelProcessingErrored(state = false, action) {
 export function runPostPanelProcessingSuccess(state = {}, action) {
   switch (action.type) {
     case 'RUN_POST_PANEL_PROCESSING_SUCCESS':
-      return action.results;
+      return action.result;
     default:
       return state;
   }
