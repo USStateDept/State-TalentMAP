@@ -159,11 +159,9 @@ class BidControls extends Component {
   };
 
   pillClick = (dropdownID, pillID) => {
-    console.log('pillClick');
     const q = filter(this.state.unassignedBidders, (o) => o.value !== pillID);
     switch (dropdownID) {
       case 'proxyCdos':
-        console.log('proxyCdos');
         this.setState({ proxyCdos:
                 filter(this.state.proxyCdos, (o) => o.id !== pillID) }, this.generatePills);
         break;
