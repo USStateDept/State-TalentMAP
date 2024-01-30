@@ -32,6 +32,7 @@ const EditRemark = (props) => {
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
   const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  const [showErrorText, setShowErrorText] = useState(false);
   const update_date = remark?.update_date;
   const seq_num = remark?.seq_num;
   const create_id = remark?.create_id;
@@ -41,27 +42,34 @@ const EditRemark = (props) => {
     swal.close();
   };
 
-  const submitRemark = () => (
-    isEdit ?
-      dispatch(editRemark({
-        seq_num,
-        rmrkInsertionList,
-        rmrkCategory,
-        longDescription,
-        shortDescription,
-        activeIndicator,
-        update_date,
-        create_id,
-      }))
-      :
-      dispatch(saveRemark({
-        rmrkInsertionList,
-        rmrkCategory,
-        longDescription,
-        shortDescription,
-        activeIndicator,
-      }))
-  );
+  const submitRemark = () => {
+    if (rmrkCategory && longDescription && shortDescription) {
+      if (isEdit) {
+        dispatch(editRemark({
+          seq_num,
+          rmrkInsertionList,
+          rmrkCategory,
+          longDescription,
+          shortDescription,
+          activeIndicator,
+          update_date,
+          create_id,
+        }));
+        setShowErrorText(false);
+      } else {
+        dispatch(saveRemark({
+          rmrkInsertionList,
+          rmrkCategory,
+          longDescription,
+          shortDescription,
+          activeIndicator,
+        }));
+        setShowErrorText(false);
+      }
+    } else {
+      setShowErrorText(true);
+    }
+  };
 
   const onRemoveInsertionClick = (i) => {
     const returnArray = [...rmrkInsertionList];
@@ -96,6 +104,10 @@ const EditRemark = (props) => {
       <div className="help-text">
         <span>* indicates a required field</span>
       </div>
+      {
+        showErrorText &&
+          <div className="validation-error-text">Please make sure all required fields are filled out</div>
+      }
       <div className="edit-remark-input">
         <label htmlFor="edit-remark-categories">*Remark Category:</label>
         <select
@@ -123,6 +135,7 @@ const EditRemark = (props) => {
           value={longDescription}
           disabled={isEdit}
           className={`${isEdit ? 'disabled-bg' : ''}`}
+          maxLength="100"
         />
       </div>
       <div className="edit-remark-input">
@@ -145,6 +158,7 @@ const EditRemark = (props) => {
                     onChange={e => setInsertionInput(e.target.value)}
                     disabled={isEdit}
                     className={`${isEdit ? 'disabled-bg' : ''}`}
+                    maxLength="30"
                   />
                   <InteractiveElement
                     onClick={submitInsertion}
@@ -164,7 +178,7 @@ const EditRemark = (props) => {
         }
       </div>
       <div className="edit-remark-input">
-        <label htmlFor="edit-remark-short-description">Remark Short Description:</label>
+        <label htmlFor="edit-remark-short-description">*Remark Short Description:</label>
         <input
           id="edit-remark-short-description"
           placeholder="Enter Remark Short Description"
@@ -172,6 +186,7 @@ const EditRemark = (props) => {
           value={shortDescription}
           disabled={isEdit}
           className={`${isEdit ? 'disabled-bg' : ''}`}
+          maxLength="20"
         />
       </div>
       <div className="edit-remark-input">
