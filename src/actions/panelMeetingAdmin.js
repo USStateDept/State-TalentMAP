@@ -33,7 +33,7 @@ export function createPanelMeetingSuccess(data) {
 }
 
 // eslint-disable-next-line no-unused-vars
-export function createPanelMeeting(request) {
+export function createPanelMeeting(request, isCreate) {
   return (dispatch) => {
     dispatch(createPanelMeetingSuccess([]));
     dispatch(createPanelMeetingIsLoading(true));
@@ -41,7 +41,7 @@ export function createPanelMeeting(request) {
     api().post('/fsbid/admin/panel/edit/',
       request,
     ).then(({ data }) => {
-      const message = UPDATE_PANEL_MEETING_SUCCESS(data);
+      const message = UPDATE_PANEL_MEETING_SUCCESS(data, isCreate);
       batch(() => {
         dispatch(createPanelMeetingHasErrored(false));
         dispatch(createPanelMeetingSuccess(data || []));
@@ -145,11 +145,13 @@ export function runPanelMeeting(id, type) {
         });
       })
       .catch((err) => {
-        dispatch(errored(true));
-        dispatch(toastError(
-          `${errorMessage} ${err?.error_message ?? ''}`,
-          errorTitle,
-        ));
+        batch(() => {
+          dispatch(errored(true));
+          dispatch(toastError(
+            `${errorMessage} ${err?.error_message ?? ''}`,
+            errorTitle,
+          ));
+        });
       });
   };
 }

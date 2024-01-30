@@ -266,6 +266,12 @@
       margin-top: 0px;
     }
 
+    label,
+    select,
+    textarea {
+      max-width: none;
+    }
+
     padding: 10px 0px;
   }
 }
