@@ -53,7 +53,7 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/fsbid/panel/reference/dates/');
   const { data: todData, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/toursofduty/');
   const { asgSepBidResults$, asgSepBidError, asgSepBidLoading } = asgSepBidData;
-  let tempAsgSepBids = asgSepBidResults$ || [];
+  const tempAsgSepBids = asgSepBidResults$ || [];
   const asgSepBids = tempAsgSepBids.filter((a) => a !== null);
 
 
