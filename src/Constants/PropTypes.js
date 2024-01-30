@@ -805,19 +805,8 @@ export const POS_LANGUAGES = PropTypes.arrayOf(
   }),
 );
 
-export const EMP_USER = PropTypes.shape({
-  emp_user_first_name: PropTypes.string,
-  emp_user_last_name: PropTypes.string,
-  emp_user_middle_name: PropTypes.string,
-  emp_user_seq_num: PropTypes.number,
-  emp_user_suffix_name: PropTypes.string,
-  per_desc: PropTypes.string,
-  perdet_seqnum: PropTypes.number,
-});
-
 export const CREATORS_OR_UPDATERS = PropTypes.shape({
   emp_seq_num: PropTypes.number,
-  emp_user: EMP_USER,
   first_name: PropTypes.string,
   hru_id: PropTypes.string,
   last_name: PropTypes.string,
