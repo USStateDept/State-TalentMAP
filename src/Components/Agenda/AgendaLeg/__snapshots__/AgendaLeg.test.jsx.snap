@@ -130,7 +130,9 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div>
+    <div
+      className="read-only"
+    >
       07/05/2020
     </div>
   </InteractiveElement>
