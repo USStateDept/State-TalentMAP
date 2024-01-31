@@ -78,10 +78,6 @@ class ResultsContainer extends Component {
           }
         </MediaQuery>
         <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'controls-sticky-client-view'}`}>
-          <ResultsPillContainer
-            items={pillFilters}
-            onPillClick={onQueryParamToggle}
-          />
           <ResultsControls
             results={results}
             hasLoaded={hasLoaded}
@@ -93,6 +89,10 @@ class ResultsContainer extends Component {
             queryParamUpdate={queryParamUpdate}
           />
         </Sticky>
+        <ResultsPillContainer
+          items={pillFilters}
+          onPillClick={onQueryParamToggle}
+        />
         <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
