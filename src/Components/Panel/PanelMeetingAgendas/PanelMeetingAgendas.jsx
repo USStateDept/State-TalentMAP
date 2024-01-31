@@ -517,13 +517,13 @@ const PanelMeetingAgendas = (props) => {
           {
             <div className="panel-meeting-agendas-rows-container">
               <InteractiveElement title="Toggle Panel Information" onClick={() => setShowPanelMeetingInfo(!showPanelMeetingInfo)}>
-                <div className={`pma-pm-info ${showPanelMeetingInfo ? 'pma-pm-info-expanded' : ''}`}>
-                  <div className={`pma-pm-info-title ${showPanelMeetingInfo ? 'pma-pm-info-title-expanded' : ''}`}>
+                <div className={`collapsible-container ${showPanelMeetingInfo ? 'collapsible-container-expanded' : ''}`}>
+                  <div className={`collapsible-title ${showPanelMeetingInfo ? 'collapsible-title-expanded' : ''}`}>
                     Panel Meeting Information
                   </div>
                   {
                     !panelMeetingsIsLoading && !panelMeetingsHasErrored &&
-                     <div className={`tracker-container ${showPanelMeetingInfo ? 'showTracker' : 'hideTracker'}`}>
+                     <div className={`collapsible-section ${showPanelMeetingInfo ? 'showCollapse' : 'hideCollapse'}`}>
                        <PanelMeetingTracker panelMeeting={get(panelMeetingData, 'results.[0]')} />
                      </div>
                   }

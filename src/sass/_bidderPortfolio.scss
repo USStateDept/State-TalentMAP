@@ -448,48 +448,25 @@ $cdo-search-container-width: 270px;
 $cdo-search-container-padding: 10px;
 
 .bidder-portfolio-page {
-
-  .clients-filters-container {
-    background-color: #BFB9B0;
-    border: 1px solid #BFB9B0;
-    border-radius: 10px;
-    cursor: pointer;
-    height: 41px;
+  .collapsible-container {
+    margin: 0px;
     margin-top: 20px;
-    width: 260px;
     transition: all .5s linear;
   }
 
-  .clients-filters-container-expanded {
+  .collapsible-container-expanded {
     display: flex;
     flex-direction: column;
-    background-color: #E4E1DD;
-    border: 3px solid #BFB9B0;
     height: auto;
-    width: 98%;
     transition: border 1s, background-color 1s, width 1s, height 1s;
-    @media screen and (max-width: 1500px) {
-      width: 95%;
-    }
   }
 
-  .clients-filters-title {
-    font-size: 16px;
-    padding: 10px 0;
-    text-align: center;
-    width: 255px;
-    border-radius: 10px;
-    background-color: #BFB9B0;
-    transition: all 1s linear;
-  }
-  .clients-filters-title-expanded {
-    border-radius: 7px 0 10px 0;
+  .collapsible-title-expanded {
     min-width: 255px;
     max-height: 41px;
-    transition: all 1s linear;
   }
 
-  .clients-filters-list {
+  .collapsible-section {
     padding: 30px;
     display: flex;
     align-items: baseline;
@@ -499,12 +476,7 @@ $cdo-search-container-padding: 10px;
     }
   }
 
-  .hideFilters {
-    opacity: 0;
-    transition: all 0s linear;
-  }
-  .showFilters {
-    opacity: 100%;
+  .showCollapse {
     transition: all .5s linear .5s;
   }
 

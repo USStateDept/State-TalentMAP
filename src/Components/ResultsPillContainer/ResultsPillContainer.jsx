@@ -8,13 +8,13 @@ const ResultsPillContainer = ({ items, onPillClick }) => {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <div className={`clients-filters-container ${showFilters ? 'clients-filters-container-expanded' : ''}`}>
+    <div className={`collapsible-container ${showFilters ? 'collapsible-container-expanded' : ''}`}>
       <InteractiveElement title="Show Filters" onClick={() => setShowFilters(!showFilters)}>
-        <div className={`clients-filters-title ${showFilters ? 'clients-filters-title-expanded' : ''}`}>
+        <div className={`collapsible-title ${showFilters ? 'collapsible-title-expanded' : ''}`}>
           Click to Show Filter Selections
         </div>
       </InteractiveElement>
-      <div className={`clients-filters-list ${showFilters ? 'showFilters' : 'hideFilters'}`}>
+      <div className={`collapsible-section ${showFilters ? 'showCollapse' : 'hideCollapse'}`}>
         <div className="label">Your Selections:</div>
         <PillList
           items={items}
