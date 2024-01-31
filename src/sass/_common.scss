@@ -12,6 +12,7 @@
 .ml-50 { margin-left: 50px; }
 
 .mbl-10 { margin-block: 10px; }
+.mbl-20 { margin-block: 20px; }
 
 
 .pt-12 { padding-top: 12px; }
@@ -171,7 +172,6 @@ $values in $filters-sizing-config {
   border-radius: 10px;
   cursor: pointer;
   height: 41px;
-  margin: 30px 20px;
   width: 260px;
   transition: all 1s linear;
 }

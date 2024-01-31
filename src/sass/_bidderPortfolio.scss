@@ -449,13 +449,10 @@ $cdo-search-container-padding: 10px;
 
 .bidder-portfolio-page {
   .collapsible-container {
-    margin: 0px;
-    margin-top: 20px;
     transition: all 0s linear;
   }
 
   .collapsible-container-expanded {
-    display: flex;
     flex-direction: column;
     height: auto;
   }
@@ -470,8 +467,6 @@ $cdo-search-container-padding: 10px;
   }
 
   .collapsible-section {
-    padding: 30px;
-    display: flex;
     align-items: baseline;
     flex-direction: row;
     .label {
