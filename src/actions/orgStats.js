@@ -217,9 +217,11 @@ export function orgStatsFetchData(query = {}) {
         cancelOrgStats = c;
       }),
     })
-      .then(() => {
+      .then(({ data }) => {
+        console.log('orgStatsFetchData', data);
+        console.log('dummyOrgStat', dummyOrgStat);
         batch(() => {
-          dispatch(orgStatsFetchDataSuccess(dummyOrgStat));
+          dispatch(orgStatsFetchDataSuccess(data));
           dispatch(orgStatsFetchDataErrored(false));
           dispatch(orgStatsFetchDataLoading(false));
         });

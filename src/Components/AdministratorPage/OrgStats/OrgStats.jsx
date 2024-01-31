@@ -175,9 +175,9 @@ const OrgStats = () => {
       {getOverlay() ||
         <div className="bs-lower-section">
           {orgStatsData$?.map((data, index) => {
-            const bureauSummary = orgStatsSummary$.find(s => s.bureau === data.bureau);
-            const currBureau = data.bureau;
-            const nextBureau = orgStatsData$[index + 1]?.bureau;
+            const bureauSummary = orgStatsSummary$.find(s => s.bureau_code === data.bureau_code);
+            const currBureau = data.bureau_code;
+            const nextBureau = orgStatsData$[index + 1]?.bureau_code;
             if (currBureau !== nextBureau) {
               const summaryBody = {
                 'Bureau: ': bureauSummary.bureau_short_desc,
