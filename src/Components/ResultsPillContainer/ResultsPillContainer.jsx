@@ -11,7 +11,7 @@ const ResultsPillContainer = ({ items, onPillClick }) => {
     <div className={`collapsible-container ${showFilters ? 'collapsible-container-expanded' : ''}`}>
       <InteractiveElement title="Show Filters" onClick={() => setShowFilters(!showFilters)}>
         <div className={`collapsible-title ${showFilters ? 'collapsible-title-expanded' : ''}`}>
-          Click to Show Filter Selections
+          {`Click to ${showFilters ? 'Hide' : 'Show'} Filter Selections`}
         </div>
       </InteractiveElement>
       <div className={`collapsible-section ${showFilters ? 'showCollapse' : 'hideCollapse'}`}>

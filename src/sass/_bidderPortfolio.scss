@@ -451,14 +451,17 @@ $cdo-search-container-padding: 10px;
   .collapsible-container {
     margin: 0px;
     margin-top: 20px;
-    transition: all .5s linear;
+    transition: all 0s linear;
   }
 
   .collapsible-container-expanded {
     display: flex;
     flex-direction: column;
     height: auto;
-    transition: border 1s, background-color 1s, width 1s, height 1s;
+  }
+
+  .collapsible-title {
+    transition: all 0s linear;
   }
 
   .collapsible-title-expanded {
@@ -477,7 +480,7 @@ $cdo-search-container-padding: 10px;
   }
 
   .showCollapse {
-    transition: all .5s linear .5s;
+    transition: all 0.5s linear;
   }
 
   border-top: 1px solid $color-white;
