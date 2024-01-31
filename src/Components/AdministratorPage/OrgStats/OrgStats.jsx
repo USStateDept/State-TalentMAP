@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { get, sortBy, uniqBy } from 'lodash';
+import { sortBy, uniqBy } from 'lodash';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import Alert from 'Components/Alert';
@@ -9,19 +9,15 @@ import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import DefinitionList from 'Components/DefinitionList';
 import { Row } from 'Components/Layout';
-import { useDataLoader } from 'hooks';
 import { renderSelectionList } from 'utilities';
 import OrgStatsCard from './OrgStatsCard';
-import api from '../../../api';
-import { orgStatsFetchData, saveOrgStatsSelections } from '../../../actions/orgStats';
+import { orgStatsFetchData, orgStatsFiltersFetchData, saveOrgStatsSelections } from '../../../actions/orgStats';
 
 const OrgStats = () => {
   const dispatch = useDispatch();
 
   // ================= DATA RETRIEVAL =================
 
-  const genericFilters = useSelector(state => state.filters);
-  const genericFilters$ = get(genericFilters, 'filters') || [];
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
   const userSelections = useSelector(state => state.orgStatsSelections);
@@ -32,6 +28,16 @@ const OrgStats = () => {
   const orgStatsIsLoading = useSelector(state => state.orgStatsIsLoading);
   const orgStatsError = useSelector(state => state.orgStatsError);
 
+  const filtersHasErrored = useSelector(state => state.orgStatsFiltersHasErrored);
+  const filtersIsLoading = useSelector(state => state.orgStatsFiltersIsLoading);
+  const orgStatsfilters = useSelector(state => state.orgStatsFilters);
+
+  const bureaus = orgStatsfilters?.bureauFilters;
+  const orgs = orgStatsfilters?.orgFilters;
+  const cycles = orgStatsfilters?.cycleFilters;
+  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
+  const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
+  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
   // ================= FILTER/PAGINATION =================
 
   const [clearFilters, setClearFilters] = useState(false);
@@ -40,12 +46,6 @@ const OrgStats = () => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedBidCycle || []);
 
-  const { data: bureaus } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-bureaus/');
-  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.name]));
-  const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const { data: orgs } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const getCurrentInputs = () => ({
     selectedBureaus,
@@ -72,6 +72,7 @@ const OrgStats = () => {
       setClearFilters(true);
     }
     dispatch(orgStatsFetchData(getQuery()));
+    dispatch(orgStatsFiltersFetchData());
     dispatch(saveOrgStatsSelections(getCurrentInputs()));
   };
 
@@ -93,9 +94,9 @@ const OrgStats = () => {
   const noResults = orgStatsData?.length === 0;
   const getOverlay = () => {
     let overlay;
-    if (orgStatsIsLoading) {
+    if (orgStatsIsLoading || filtersIsLoading) {
       overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
-    } else if (orgStatsError) {
+    } else if (orgStatsError || filtersHasErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
@@ -143,7 +144,7 @@ const OrgStats = () => {
             <Picky
               placeholder="Select Organization(s)"
               value={selectedOrgs}
-              options={organizationOptions}
+              options={orgOptions}
               onChange={setSelectedOrgs}
               numberDisplayed={2}
               multiple

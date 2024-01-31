@@ -4,6 +4,7 @@ import { convertQueryToString } from 'utilities';
 import api from '../api';
 
 let cancelOrgStats;
+let cancelOSfiltersData;
 
 export function orgStatsFetchDataErrored(bool) {
   return {
@@ -71,4 +72,59 @@ export function orgStatsSelectionsSaveSuccess(result) {
 
 export function saveOrgStatsSelections(queryObject) {
   return (dispatch) => dispatch(orgStatsSelectionsSaveSuccess(queryObject));
+}
+
+export function orgStatsFiltersErrored(bool) {
+  return {
+    type: 'ORG_STATS_FILTERS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function orgStatsFiltersLoading(bool) {
+  return {
+    type: 'ORG_STATS_FILTERS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function orgStatsFiltersSuccess(results) {
+  return {
+    type: 'ORG_STATS_FILTERS_SUCCESS',
+    results,
+  };
+}
+export function orgStatsFiltersFetchData() {
+  return (dispatch) => {
+    if (cancelOSfiltersData) { cancelOSfiltersData('cancel'); dispatch(orgStatsFiltersLoading(true)); }
+    batch(() => {
+      dispatch(orgStatsFiltersLoading(true));
+      dispatch(orgStatsFiltersErrored(false));
+    });
+    api().get('/fsbid/org_stats/filters/', {
+      cancelToken: new CancelToken((c) => { cancelOSfiltersData = c; }),
+    })
+      .then(({ data }) => {
+        console.log('data', data);
+        batch(() => {
+          dispatch(orgStatsFetchDataErrored(false));
+          dispatch(orgStatsFetchDataLoading(false));
+          dispatch(orgStatsFiltersSuccess(data));
+          dispatch(orgStatsFiltersErrored(false));
+          dispatch(orgStatsFiltersLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(orgStatsFiltersLoading(true));
+            dispatch(orgStatsFiltersErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(orgStatsFiltersSuccess({}));
+            dispatch(orgStatsFiltersErrored(true));
+            dispatch(orgStatsFiltersLoading(false));
+          });
+        }
+      });
+  };
 }
