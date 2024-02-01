@@ -509,7 +509,7 @@ const PanelMeetingAgendas = (props) => {
           {
             <div className="panel-meeting-agendas-rows-container">
               <InteractiveElement title="Toggle Panel Information" onClick={() => setShowPanelMeetingInfo(!showPanelMeetingInfo)}>
-                <div className={`pmt-container collapsible-container ${showPanelMeetingInfo ? 'collapsible-container-expanded' : ''}`}>
+                <div className={`mt-30 mbl-20 collapsible-container ${showPanelMeetingInfo ? 'collapsible-container-expanded' : ''}`}>
                   <div className={`collapsible-title ${showPanelMeetingInfo ? 'collapsible-title-expanded' : ''}`}>
                     Panel Meeting Information
                   </div>
