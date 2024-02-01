@@ -9,7 +9,7 @@ const ResultsPillContainer = ({ items, onPillClick, isClientsPage }) => {
 
   return (
     isClientsPage ?
-      <div className={`mt-20 collapsible-container ${showFilters ? 'collapsible-container-expanded display-flex' : ''}`}>
+      <div className={`collapsible-container ${showFilters ? 'collapsible-container-expanded' : ''}`}>
         <InteractiveElement title="Show Filters" onClick={() => setShowFilters(!showFilters)}>
           <div className={`collapsible-title ${showFilters ? 'collapsible-title-expanded' : ''}`}>
             {`Click to ${showFilters ? 'Hide' : 'Show'} Filter Selections`}
