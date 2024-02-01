@@ -15,7 +15,7 @@ const ResultsPillContainer = ({ items, onPillClick, isClientsPage }) => {
             {`Click to ${showFilters ? 'Hide' : 'Show'} Filter Selections`}
           </div>
         </InteractiveElement>
-        <div className={`collapsible-section ${showFilters ? 'showCollapse' : 'hideCollapse'}`}>
+        <div className={`collapsible-section cc-section-label ${showFilters ? 'showCollapse' : 'hideCollapse'}`}>
           <div className="label">Your Selections:</div>
           <PillList
             items={items}
