@@ -103,7 +103,6 @@ export function orgStatsFiltersFetchData() {
       cancelToken: new CancelToken((c) => { cancelOSfiltersData = c; }),
     })
       .then(({ data }) => {
-        console.log('data', data);
         batch(() => {
           dispatch(orgStatsFetchDataErrored(false));
           dispatch(orgStatsFetchDataLoading(false));

@@ -46,7 +46,6 @@ const OrgStats = () => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedBidCycle || []);
 
-
   const getCurrentInputs = () => ({
     selectedBureaus,
     selectedOrgs,
@@ -54,9 +53,9 @@ const OrgStats = () => {
   });
 
   const getQuery = () => ({
-    'org-stats-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'org-stats-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'org-stats-cycles': selectedCycles.map(cycleObject => (cycleObject?.id)),
+    bureaus: selectedBureaus.map(bureauObject => (bureauObject?.description)),
+    orgs: selectedOrgs.map(orgObject => (orgObject?.code)),
+    cycles: selectedCycles.map(cycleObject => (cycleObject?.code)),
   });
 
   const fetchAndSet = () => {
@@ -127,16 +126,16 @@ const OrgStats = () => {
             <div className="label">Bureau:</div>
             <Picky
               placeholder="Select Bureau(s)"
-              value={selectedBureaus.filter(f => f)}
+              value={selectedBureaus}
               options={bureauOptions}
               onChange={setSelectedBureaus}
-              numberDisplayed={2}
+              numberDisplayed={1}
               multiple
               includeFilter
               dropdownHeight={255}
               renderList={renderSelectionList}
-              valueKey="code"
-              labelKey="long_description"
+              valueKey="description"
+              labelKey="description"
             />
           </div>
           <div className="filter-div">
@@ -146,13 +145,13 @@ const OrgStats = () => {
               value={selectedOrgs}
               options={orgOptions}
               onChange={setSelectedOrgs}
-              numberDisplayed={2}
+              numberDisplayed={1}
               multiple
               includeFilter
               dropdownHeight={255}
               renderList={renderSelectionList}
               valueKey="code"
-              labelKey="long_description"
+              labelKey="description"
             />
           </div>
           <div className="filter-div">
@@ -162,13 +161,13 @@ const OrgStats = () => {
               value={selectedCycles}
               options={cycleOptions}
               onChange={setSelectedCycles}
-              numberDisplayed={2}
+              numberDisplayed={1}
               multiple
               includeFilter
               dropdownHeight={255}
               renderList={renderSelectionList}
-              valueKey="id"
-              labelKey="custom_description"
+              valueKey="code"
+              labelKey="description"
             />
           </div>
         </div>
