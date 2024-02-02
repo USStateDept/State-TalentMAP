@@ -345,8 +345,8 @@ const AgendaLeg = props => {
     let displayText;
 
     if (location) {
-      const { city, country } = location;
-      displayText = `${city}, ${country}`;
+      const { city, country, code } = location;
+      displayText = (city && country) ? `${city}, ${country}` : city || country || code || '';
     }
 
     return (

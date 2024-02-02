@@ -38,16 +38,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'Org',
-      content: (a => {
-        if (a?.is_separation) {
-          const location = a?.separation_location;
-          if (location) {
-            const { city, country } = location;
-            return `${city}, ${country}`;
-          }
-        }
-        return <div>{a?.org || DEFAULT_TEXT}</div>;
-      }),
+      content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
