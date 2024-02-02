@@ -202,6 +202,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     className="usa-width-one-whole portfolio-filter-pills-container"
   >
     <ResultsPillContainer
+      isClientsPage={true}
       items={Array []}
       onPillClick={[Function]}
     />
@@ -411,6 +412,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     className="usa-width-one-whole portfolio-filter-pills-container"
   >
     <ResultsPillContainer
+      isClientsPage={true}
       items={Array []}
       onPillClick={[Function]}
     />
