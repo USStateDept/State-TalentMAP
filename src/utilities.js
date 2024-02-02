@@ -324,6 +324,7 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // format provided with the dateFormat param.
 export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
+    if (date === '-') return '-';
     // date-fns assumes incoming date is UTC, must adjust for timezones
     // before passing to format for correct FE rendering
     const date$ = new Date(date);
