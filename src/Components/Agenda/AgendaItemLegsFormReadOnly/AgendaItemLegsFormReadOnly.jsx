@@ -12,7 +12,6 @@ const AgendaItemLegsFormReadOnly = props => {
 
   const showOverlay = !legs.length;
   const [rowHoverNum, setRowHoverNum] = useState();
-  const SEPARATION_DEFAULT = '-';
 
   const onHover = row => {
     // to avoid highlighting the arrow row
@@ -55,10 +54,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'ETA',
-      content: (a => a?.is_separation ?
-        <div>{SEPARATION_DEFAULT}</div> :
-        <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>
-      ),
+      content: (a => <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
@@ -66,7 +62,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'TED',
-      content: (a => <div>{ (!a?.ted || a.ted === 'N/A') ? DEFAULT_TEXT : formatDate(a?.ted)}</div>),
+      content: (a => <div>{ !a?.ted ? DEFAULT_TEXT : formatDate(a?.ted)}</div>),
     },
     {
       title: 'TOD',

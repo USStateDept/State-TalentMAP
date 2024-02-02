@@ -16,7 +16,7 @@ import { formatVice } from '../Constants';
 const AgendaLeg = props => {
   const {
     AIvalidation,
-    isEf, // check if leg is first leg, or separation
+    isEf, // check if leg is first leg (effective leg)
     leg,
     legNum,
     updateLeg,
@@ -213,10 +213,7 @@ const AgendaLeg = props => {
 
   const getDropdown = (key, data, text) => {
     if (isEf) {
-      let efDefaultText = 'None listed';
-      if (['action', 'travel'].includes(key)) {
-        efDefaultText = '-';
-      }
+      const efDefaultText = 'None listed';
       return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
     }
     return (
@@ -260,9 +257,6 @@ const AgendaLeg = props => {
     const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
       return <div className="read-only">{leg.tod_long_desc || 'None listed'}</div>;
-    }
-    if (isSeparation) {
-      return <div className="read-only">-</div>;
     }
 
     if (!leg.tod_is_dropdown) {
@@ -343,7 +337,7 @@ const AgendaLeg = props => {
     if (isSeparation) {
       return getCalendar('ted');
     }
-    return (<div className="read-only">{ (!leg?.ted || leg.ted === 'N/A') ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
+    return (<div className="read-only">{ !leg?.ted ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
   };
 
   const getLocation = () => {
@@ -385,13 +379,11 @@ const AgendaLeg = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: isSeparation ?
-        (<div>{defaultSepText}</div>) :
-        (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Position Number',
-      content: (<div>{get(leg, 'pos_num') || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Org',
@@ -402,19 +394,19 @@ const AgendaLeg = props => {
     },
     {
       title: 'Grade',
-      content: (<div>{leg?.grade || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || leg?.grade || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(leg?.languages || []) || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || formatLang(leg?.languages || []) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Skills',
-      content: (<div>{leg?.custom_skills_description || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || leg?.custom_skills_description || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
-      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar('eta')),
+      content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getCalendar('eta')),
     },
     {
       title: '',
@@ -426,7 +418,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
+      content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
     },
     {
       title: 'Action',
