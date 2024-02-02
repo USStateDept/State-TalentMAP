@@ -9,6 +9,7 @@
 .mb-20 { margin-bottom: 20px; }
 
 .ml-10 { margin-left: 10px; }
+.ml-20 { margin-left: 20px; }
 .ml-50 { margin-left: 50px; }
 
 .mbl-10 { margin-block: 10px; }
@@ -172,7 +173,6 @@ $values in $filters-sizing-config {
   border-radius: 10px;
   cursor: pointer;
   max-height: 40px;
-  margin: 20px 0px 0px 0px;
   width: 260px;
   transition: all 0.5s linear;
 }
