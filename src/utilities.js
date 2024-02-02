@@ -324,6 +324,7 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // format provided with the dateFormat param.
 export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
+    if (date === '-') return '-';
     // date-fns assumes incoming date is UTC, must adjust for timezones
     // before passing to format for correct FE rendering
     const date$ = new Date(date);
@@ -941,7 +942,7 @@ export const determineEnv = (url) => {
 
 export const formatLang = (langArr = []) => {
   if (langArr === '-') return '-';
-  if (langArr.length === 0) return 'None Listed';
+  if (langArr?.length === 0) return 'None Listed';
   const langArr$ = langArr || [];
   return langArr$.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`

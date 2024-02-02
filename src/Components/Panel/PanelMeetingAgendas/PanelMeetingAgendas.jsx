@@ -49,19 +49,14 @@ const fuseOptions = {
     'legs.org',
     'creators.last_name',
     'creators.first_name',
-    'creators.emp_user.emp_user_last_name',
-    'creators.emp_user.emp_user_first_name',
     'updaters.last_name',
     'updaters.first_name',
-    'updaters.emp_user.emp_user_last_name',
-    'updaters.emp_user.emp_user_first_name',
-    'user.current_assignment.position.bureau',
-    'user.skills.code',
-    'user.grade',
-    'user.languages.code',
-    'user.cdos.cdo_fullname',
-    'user.name',
-    'user.shortened_name',
+    'languages.lang_code',
+    'cdo.first_name',
+    'cdo.last_name',
+    'full_name',
+    'skills',
+    'grade',
     'pmi_official_item_num',
   ],
 };
@@ -162,20 +157,17 @@ const PanelMeetingAgendas = (props) => {
     ));
     const languages$ = selectedLanguages.flatMap(({ code }) => ([
       { 'legs.languages.code': code },
-      { 'user.languages.code': code },
+      { 'languages.lang_code': code },
     ]));
     const grades$ = selectedGrades.flatMap(({ code }) => ([
       { 'legs.grade': code },
-      { 'user.grade': code },
+      { grade: code },
     ]));
-    const orgs$ = selectedOrgs.map(({ name }) => (
-      { 'legs.org': `=${name}` }
-    ));
-    const bureaus$ = selectedBureaus.map(({ custom_description }) => (
-      { 'user.current_assignment.position.bureau': custom_description }
-    ));
+    const orgs$ = selectedOrgs.flatMap(({ name }) => ([
+      { 'legs.org': `=${name}` },
+    ]));
     const skills$ = selectedSkills.map(({ code }) => (
-      { 'user.skills.code': code }
+      { skills: code }
     ));
     if (orgs$.length) { fuseQuery.push({ $or: orgs$ }); }
     if (grades$.length) { fuseQuery.push({ $or: grades$ }); }
@@ -184,7 +176,6 @@ const PanelMeetingAgendas = (props) => {
     if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
     if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
     if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
-    if (bureaus$.length) { fuseQuery.push({ $or: bureaus$ }); }
     if (skills$.length) { fuseQuery.push({ $or: skills$ }); }
     if (textSearch) {
       const t = textSearch;
@@ -196,15 +187,11 @@ const PanelMeetingAgendas = (props) => {
         { 'legs.pos_title': t },
         { 'creators.last_name': t },
         { 'creators.first_name': t },
-        { 'creators.emp_user.emp_user_last_name': t },
-        { 'creators.emp_user.emp_user_first_name': t },
         { 'updaters.last_name': t },
         { 'updaters.first_name': t },
-        { 'updaters.emp_user.emp_user_last_name': t },
-        { 'updaters.emp_user.emp_user_first_name': t },
-        { 'user.cdos.cdo_fullname': t },
-        { 'user.name': t },
-        { 'user.shortened_name': t },
+        { 'cdo.first_name': t },
+        { 'cdo.last_name': t },
+        { full_name: t },
         { pmi_official_item_num: `^${t}` },
       ];
       fuseQuery.push({ $or: freeTextLookups });
@@ -522,13 +509,13 @@ const PanelMeetingAgendas = (props) => {
           {
             <div className="panel-meeting-agendas-rows-container">
               <InteractiveElement title="Toggle Panel Information" onClick={() => setShowPanelMeetingInfo(!showPanelMeetingInfo)}>
-                <div className={`pma-pm-info ${showPanelMeetingInfo ? 'pma-pm-info-expanded' : ''}`}>
-                  <div className={`pma-pm-info-title ${showPanelMeetingInfo ? 'pma-pm-info-title-expanded' : ''}`}>
+                <div className={`collapsible-container ${showPanelMeetingInfo ? 'collapsible-container-expanded' : ''}`}>
+                  <div className={`collapsible-title ${showPanelMeetingInfo ? 'collapsible-title-expanded' : ''}`}>
                     Panel Meeting Information
                   </div>
                   {
                     !panelMeetingsIsLoading && !panelMeetingsHasErrored &&
-                     <div className={`tracker-container ${showPanelMeetingInfo ? 'showTracker' : 'hideTracker'}`}>
+                     <div className={`collapsible-section ${showPanelMeetingInfo ? 'showCollapse' : 'hideCollapse'}`}>
                        <PanelMeetingTracker panelMeeting={get(panelMeetingData, 'results.[0]')} />
                      </div>
                   }

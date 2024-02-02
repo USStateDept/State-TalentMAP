@@ -448,6 +448,37 @@ $cdo-search-container-width: 270px;
 $cdo-search-container-padding: 10px;
 
 .bidder-portfolio-page {
+  .collapsible-container {
+    margin: 0px;
+    margin-top: 20px;
+    transition: all .5s linear;
+  }
+
+  .collapsible-container-expanded {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    transition: border 1s, background-color 1s, width 1s, height 1s;
+  }
+
+  .collapsible-title-expanded {
+    min-width: 255px;
+    max-height: 41px;
+  }
+
+  .collapsible-section {
+    padding: 30px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    .label {
+      min-width: 125px;
+    }
+  }
+
+  .showCollapse {
+    transition: all .5s linear .5s;
+  }
 
   border-top: 1px solid $color-white;
 

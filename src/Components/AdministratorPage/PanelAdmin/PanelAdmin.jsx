@@ -173,8 +173,6 @@ const PanelAdmin = (props) => {
         return (
           <PostPanelProcessing
             pmSeqNum={pmSeqNum}
-            panelMeetingsResults={panelMeetingsResults}
-            panelMeetingsIsLoading={panelMeetingsIsLoading}
           />
         );
 
