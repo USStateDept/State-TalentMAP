@@ -16,7 +16,6 @@ const ResultsPillContainer = ({ items, onPillClick, isClientsPage }) => {
           </div>
         </InteractiveElement>
         <div className={`collapsible-section cc-section-label ${showFilters ? 'showCollapse' : 'hideCollapse'}`}>
-          <div className="label">Your Selections:</div>
           <PillList
             items={items}
             onPillClick={(param, value, remove) => onPillClick(param, value, remove)}

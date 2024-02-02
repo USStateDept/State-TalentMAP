@@ -2,60 +2,44 @@
 
 exports[`ResultsPillContainerComponent matches snapshot 1`] = `
 <div
-  className="collapsible-container "
+  className="usa-grid-full"
 >
-  <InteractiveElement
-    className=""
-    onClick={[Function]}
-    title="Show Filters"
-    type="div"
-  >
-    <div
-      className="collapsible-title "
-    >
-      Click to Show Filter Selections
-    </div>
-  </InteractiveElement>
   <div
-    className="collapsible-section hideCollapse"
+    className="selections-container"
   >
-    <div
-      className="label"
-    >
-      Your Selections:
-    </div>
-    <PillList
-      items={
-        Array [
-          Object {
-            "codeRef": "code",
-            "description": "a",
-            "selectionRef": "selection",
-          },
-          Object {
-            "codeRef": "code2",
-            "description": "c",
-            "selectionRef": "selection2",
-          },
-          Object {
-            "codeRef": "code3",
-            "description": "c",
-            "selectionRef": "selection3",
-          },
-          Object {
-            "codeRef": "code4",
-            "description": "d",
-            "selectionRef": "selection3",
-          },
-          Object {
-            "codeRef": "code2",
-            "description": "b",
-            "selectionRef": "selection2",
-          },
-        ]
-      }
-      onPillClick={[Function]}
-    />
+    Your Selections:
   </div>
+  <PillList
+    items={
+      Array [
+        Object {
+          "codeRef": "code",
+          "description": "a",
+          "selectionRef": "selection",
+        },
+        Object {
+          "codeRef": "code2",
+          "description": "c",
+          "selectionRef": "selection2",
+        },
+        Object {
+          "codeRef": "code3",
+          "description": "c",
+          "selectionRef": "selection3",
+        },
+        Object {
+          "codeRef": "code4",
+          "description": "d",
+          "selectionRef": "selection3",
+        },
+        Object {
+          "codeRef": "code2",
+          "description": "b",
+          "selectionRef": "selection2",
+        },
+      ]
+    }
+    onPillClick={[Function]}
+  />
 </div>
 `;

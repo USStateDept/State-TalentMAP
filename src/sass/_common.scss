@@ -186,6 +186,10 @@ $values in $filters-sizing-config {
   @media screen and (max-width: 1500px) {
     width: 95%;
   }
+  @media screen and (max-width: 1700px) {
+    max-height: 400px;
+    overflow-y: auto;
+  }
 }
 
 .collapsible-title {
