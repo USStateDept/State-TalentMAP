@@ -16,7 +16,7 @@ import PositionClassification from './PositionClassification/PositionClassificat
 
 
 const PP_FLAG = checkFlag('flags.publishable_positions');
-const DETO_RWA_FLAG = checkFlag('flags.deto_rwa');
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const hardcodedFilters = {
   statusFilters: [{ code: 1, description: '' }, { code: 2, description: 'Publishable' }, { code: 3, description: 'Vet' }],
@@ -63,7 +63,7 @@ const PublishablePositionCard = ({
     /* eslint-enable quote-props */
   };
 
-  if (DETO_RWA_FLAG) {
+  if (DETO_RWA_FLAG()) {
     sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.deto_rwa ? 'Eligible' : 'Not Eligible' });
   }
 
@@ -162,7 +162,7 @@ const PublishablePositionCard = ({
                 value={exclude}
                 onCheckBoxClick={e => setExclude(e)}
               />
-              { DETO_RWA_FLAG &&
+              { DETO_RWA_FLAG() &&
                 <Tooltip title="Eligibility can be modified in GEMS, contact your HRO to make changes.">
                   <CheckBox
                     id="deto-checkbox"

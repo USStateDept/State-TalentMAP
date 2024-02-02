@@ -51,7 +51,7 @@ export const renderIsHardToFill = (details, ribbonClass) => (
   get(details, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} />
 );
 
-const DETO_RWA_FLAG = checkFlag('flags.deto_rwa');
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const PositionDetailsItem = (props) => {
   const {
@@ -149,7 +149,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
             { isProjectedVacancy && <CondensedCardDataPoint title="Assignee" content={assignee} /> }
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
-            { DETO_RWA_FLAG && <CondensedCardDataPoint title="RWA/DETO Eligible" content={deto} /> }
+            { DETO_RWA_FLAG() && <CondensedCardDataPoint title="RWA/DETO Eligible" content={deto} /> }
           </div>
         </div>
         {

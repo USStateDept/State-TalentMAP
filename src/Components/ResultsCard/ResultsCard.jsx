@@ -28,7 +28,7 @@ import {
   NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
-const DETO_RWA_FLAG = checkFlag('flags.deto_rwa');
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 class ResultsCard extends Component {
   getInnerId = () => {
@@ -103,7 +103,6 @@ class ResultsCard extends Component {
         'Language': language,
         'Post Differential | Danger Pay': getDifferentials(pos),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
-        'RWA/DETO Eligible': pos?.deto_rwa ? 'Eligible' : 'Not Eligible',
       },
       {
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
@@ -120,8 +119,11 @@ class ResultsCard extends Component {
       };
     }
 
-    if (!DETO_RWA_FLAG) {
-      delete sections[1]['RWA/DETO Eligible'];
+    if (DETO_RWA_FLAG()) {
+      sections[1] = {
+        ...sections[1],
+        'RWA/DETO Eligible': pos?.deto_rwa ? 'Eligible' : 'Not Eligible',
+      };
     }
 
     options.favorite = {
