@@ -45,7 +45,6 @@ const PublishablePositionCard = ({
       { 'Status': data?.status || DEFAULT_TEXT },
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
-      { 'RWA/DETO Eligible': data?.deto_rwa ? 'Eligible' : 'Not Eligible' },
     ],
     bodySecondary: PP_FLAG ?
       [
@@ -64,8 +63,8 @@ const PublishablePositionCard = ({
     /* eslint-enable quote-props */
   };
 
-  if (!DETO_RWA_FLAG) {
-    sections.bodyPrimary.pop();
+  if (DETO_RWA_FLAG) {
+    sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.deto_rwa ? 'Eligible' : 'Not Eligible' });
   }
 
   // =============== Overview: Edit Mode ===============
@@ -168,7 +167,7 @@ const PublishablePositionCard = ({
                   <CheckBox
                     id="deto-checkbox"
                     label="RWA/DETO Eligible"
-                    value={data?.deto_rwa || false}
+                    value={data?.deto_rwa}
                     onCheckBoxClick={() => {}}
                     disabled
                   />
