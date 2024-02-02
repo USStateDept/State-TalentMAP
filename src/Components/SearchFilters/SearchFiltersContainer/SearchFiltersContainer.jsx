@@ -18,7 +18,7 @@ import TandemSelectionFilter from '../TandemSelectionFilter';
 import { getPostName, mapDuplicates, propOrDefault, propSort, sortGrades, sortTods } from '../../../utilities';
 import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
-const DETO_RWA_FLAG = checkFlag('flags.deto_rwa');
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 class SearchFiltersContainer extends Component {
   constructor(props) {
@@ -144,7 +144,7 @@ class SearchFiltersContainer extends Component {
 
     const blackList = []; // don't create accordions for these
 
-    if (DETO_RWA_FLAG) {
+    if (DETO_RWA_FLAG()) {
       multiSelectFilterNames.push('deto-rwa');
       multiSelectFilterNamesTandem1.push('deto-rwa');
       multiSelectFilterNamesTandem2.push('deto-rwa-tandem');
