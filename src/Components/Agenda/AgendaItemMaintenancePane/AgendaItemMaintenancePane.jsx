@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, find, get, includes } from 'lodash';
+import { filter, find, get, includes, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
@@ -53,7 +53,9 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/fsbid/panel/reference/dates/');
   const { data: todData, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/toursofduty/');
   const { asgSepBidResults$, asgSepBidError, asgSepBidLoading } = asgSepBidData;
-  const asgSepBids = asgSepBidResults$ || [];
+  const tempAsgSepBids = asgSepBidResults$ || [];
+  const asgSepBids = tempAsgSepBids.filter((a) => a !== null);
+
 
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
@@ -80,21 +82,29 @@ const AgendaItemMaintenancePane = (props) => {
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
 
-  const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_full') || '');
+  const [selectedStatus, setStatus] = useState(agendaItem?.status_code || '');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(agendaItem, 'report_category.code') || '');
+  const [selectedPanelCat, setPanelCat] = useState(agendaItem?.report_category?.code || '');
 
-  const isPanelTypeML = get(agendaItem, 'pmt_code') === 'ML';
-  const isPanelTypeID = get(agendaItem, 'pmt_code') === 'ID';
-  const panelMeetingSeqNum = get(agendaItem, 'pmi_pm_seq_num') || '';
-  const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
-  const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
-  const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
-  const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
+  const calcPanelDates = () => {
+    const isPanelTypeML = agendaItem?.pmt_code === 'ML';
+    const isPanelTypeID = agendaItem?.pmt_code === 'ID';
+    const panelMeetingSeqNum = agendaItem?.pmi_pm_seq_num || '';
+    const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
+    const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
+    return { id: agendaItemPanelIDSeqNum, ml: agendaItemPanelMLSeqNum };
+  };
+  const [selectedPanelMLDate, setPanelMLDate] = useState(calcPanelDates()?.ml);
+  const [selectedPanelIDDate, setPanelIDDate] = useState(calcPanelDates()?.id);
+  const isLegacyPanelDate = () => {
+    if (!panelDates.length || isEmpty(agendaItem)) return false;
+    return !(panelDates.some(p => p?.pm_seq_num === agendaItem?.pmi_pm_seq_num));
+  };
+  const [showLegacyPanelMeetingDate, setShowLegacyPanelMeetingDate] = useState(isLegacyPanelDate());
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
@@ -157,6 +167,24 @@ const AgendaItemMaintenancePane = (props) => {
   ]);
 
   useEffect(() => {
+    if (!isEmpty(agendaItem)) {
+      // Reset form values when agenda loads
+      setStatus(agendaItem?.status_code);
+      setPanelCat(agendaItem?.report_category?.code);
+      setPanelMLDate(calcPanelDates()?.ml);
+      setPanelIDDate(calcPanelDates()?.id);
+      setCombinedTod(agendaItem?.aiCombinedTodCode);
+      setCombinedTodMonthsNum(agendaItem?.aiCombinedTodMonthsNum);
+      setCombinedTodOtherText(agendaItem?.aiCombinedTodOtherText);
+    }
+  }, [agendaItem]);
+
+  useEffect(() => {
+    // Recalculate [legacy] panel meeting when agenda or dates load
+    setShowLegacyPanelMeetingDate(isLegacyPanelDate());
+  }, [agendaItem, panelDates]);
+
+  useEffect(() => {
     const aiV = AIvalidation?.allValid;
     const buttonMetadata = {
       classNames: 'save-ai-btn',
@@ -214,6 +242,12 @@ const AgendaItemMaintenancePane = (props) => {
         dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
       }
     }
+  };
+
+  const showPanelDatesDropdown = () => {
+    setShowLegacyPanelMeetingDate(false);
+    setPanelIDDate('');
+    setPanelMLDate('');
   };
 
   const setDate = (seq_num, isML) => {
@@ -290,7 +324,6 @@ const AgendaItemMaintenancePane = (props) => {
           }
         </select>
       </div>
-
       {combinedTod === 'X' && (
         <>
           <div />
@@ -300,7 +333,6 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
         </>
       )}
-
     </>
   );
 
@@ -350,7 +382,7 @@ const AgendaItemMaintenancePane = (props) => {
                       </option>
                       {
                         statuses.map(a => (
-                          <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
+                          <option key={a.code} value={a.code}>{a.desc_text}</option>
                         ))
                       }
                     </select>
@@ -392,46 +424,54 @@ const AgendaItemMaintenancePane = (props) => {
                     <div className="validation-error-message-label validation-error-message width-280">
                       {AIvalidation?.panelDate?.errorMessage}
                     </div>
-                    <div>
-                      <select
-                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                        id="ai-maintenance-status"
-                        onChange={(e) => setDate(get(e, 'target.value'), true)}
-                        value={selectedPanelMLDate}
-                        disabled={readMode}
-                      >
-                        <option value={''}>ML Dates</option>
-                        {
-                          panelDatesML.map(a => (
-                            <option
-                              key={get(a, 'pm_seq_num')}
-                              value={get(a, 'pm_seq_num')}
-                            >
-                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                            </option>
-                          ))
-                        }
-                      </select>
-                      <select
-                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                        id="ai-maintenance-status"
-                        onChange={(e) => setDate(get(e, 'target.value'), false)}
-                        value={selectedPanelIDDate}
-                        disabled={readMode}
-                      >
-                        <option value={''}>ID Dates</option>
-                        {
-                          panelDatesID.map(a => (
-                            <option
-                              key={get(a, 'pm_seq_num')}
-                              value={get(a, 'pm_seq_num')}
-                            >
-                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                            </option>
-                          ))
-                        }
-                      </select>
-                    </div>
+                    {
+                      showLegacyPanelMeetingDate ?
+                        <div className="read-only-pmd">
+                          <span>{agendaItem?.pmt_code} {formatDate(agendaItem?.pmd_dttm)}</span>
+                          {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
+                        </div>
+                        :
+                        <div>
+                          <select
+                            className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                            id="ai-maintenance-status"
+                            onChange={(e) => setDate(get(e, 'target.value'), true)}
+                            value={selectedPanelMLDate}
+                            disabled={readMode}
+                          >
+                            <option value={''}>ML Dates</option>
+                            {
+                              panelDatesML.map(a => (
+                                <option
+                                  key={get(a, 'pm_seq_num')}
+                                  value={get(a, 'pm_seq_num')}
+                                >
+                                  {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                                </option>
+                              ))
+                            }
+                          </select>
+                          <select
+                            className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                            id="ai-maintenance-status"
+                            onChange={(e) => setDate(get(e, 'target.value'), false)}
+                            value={selectedPanelIDDate}
+                            disabled={readMode}
+                          >
+                            <option value={''}>ID Dates</option>
+                            {
+                              panelDatesID.map(a => (
+                                <option
+                                  key={get(a, 'pm_seq_num')}
+                                  value={get(a, 'pm_seq_num')}
+                                >
+                                  {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                                </option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                    }
                   </div>
                 </div>
             }

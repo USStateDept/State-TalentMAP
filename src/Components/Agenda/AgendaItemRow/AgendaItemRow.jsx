@@ -8,7 +8,6 @@ import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
-import SkillCodeList from '../../SkillCodeList';
 
 const AgendaItemRow = props => {
   const {
@@ -19,15 +18,17 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const clientData = get(agenda, 'user');
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
-  const userSkill = <SkillCodeList displayCodeFirst skillCodes={get(clientData, 'skills') || []} />;
-  const userLanguage = get(clientData, 'languages') || [];
-  const userGrade = get(clientData, 'grade') || 'None Listed';
-  const payPlan = get(clientData, 'pay_plan') || 'None Listed';
-  const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
+
+  const userName = agenda?.full_name ?? '';
+  const userSkill = agenda?.skills?.join(', ') || 'None Listed';
+  const userLanguages = agenda?.languages?.length ? agenda.languages.map(
+    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
+  const userCDOFirst = agenda?.cdo?.first_name ? `${agenda.cdo.first_name} ` : '';
+  const userPayPlan = agenda?.pay_plan_code ?? 'None Listed';
+  const userGrade = agenda?.grade ?? '';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
@@ -36,10 +37,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-  const formatCurrentDate = (currentDate) => {
-    if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
-    return '';
-  };
 
   return (
     <>
@@ -72,7 +69,7 @@ const AgendaItemRow = props => {
               !isPanelMeetingView ?
                 <div className="ai-history-non-panel-meeting-view">
                   <Link
-                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                    to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
                   >
                     Edit Agenda Item
                   </Link>
@@ -85,27 +82,20 @@ const AgendaItemRow = props => {
             isPanelMeetingView &&
             <div className="panel-meeting-person-data">
               <div className="panel-meeting-agendas-profile-link">
-                <Link to={publicProfileLink}>{get(clientData, 'shortened_name')}</Link>
+                <Link to={publicProfileLink}>{userName}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
-                <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                <div className="item"><span className="label">PP/Grade: </span> {payPlan} {userGrade}</div>
+                <div className="item"><span className="label">CDO: </span> {userCDOFirst} {agenda?.cdo?.last_name ?? ''}</div>
+                <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages: </span>
-                  <span>
-                    {
-                      userLanguage.map((l) => (
-                        `${l.custom_description} ${formatCurrentDate(l.test_date)} `
-                      ),
-                      ).join(', ')
-                    }
-                  </span>
+                  <span>{userLanguages}</span>
                 </div>
               </div>
               <div className="panel-meeting-maintenance-link-container">
                 <Link
-                  to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
                 >
                   Edit Agenda Item
                 </Link>
@@ -209,6 +199,32 @@ AgendaItemRow.propTypes = {
         pay_plan: PropTypes.string,
       }),
     ),
+    skills: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+    languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        lang_code: PropTypes.string,
+        speaking_score: PropTypes.string,
+        reading_score: PropTypes.string,
+        test_date: PropTypes.string,
+        custom_description: PropTypes.string,
+      }),
+    ),
+    grade: PropTypes.string,
+    cdo: PropTypes.arrayOf(
+      PropTypes.shape({
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
+      }),
+    ),
+    pay_plan_code: PropTypes.string,
+    org: PropTypes.arrayOf(
+      PropTypes.shape({
+        org_descr: PropTypes.string,
+      }),
+    ),
+    full_name: PropTypes.string,
     update_date: PropTypes.string,
     modifier_name: PropTypes.number,
     creator_name: PropTypes.number,

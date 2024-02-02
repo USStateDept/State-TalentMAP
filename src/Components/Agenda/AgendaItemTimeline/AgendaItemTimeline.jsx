@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, isEqual } from 'lodash';
 import shortid from 'shortid';
 import { useDidMountEffect, usePrevious } from 'hooks';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -11,7 +11,7 @@ import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   asgSepBid, efPos, agendaItemLegs, fullAgendaItemLegs, readMode, AIvalidation, isNewSeparation,
   updateResearchPaneTab, setLegsContainerExpanded, location, activeAIL, setActiveAIL,
-  setLocation,
+  setLocation, legsData,
 }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
@@ -20,15 +20,26 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   const [legs, setLegs] = useState(agendaItemLegs);
 
   const usePrevIsNewSeparation = usePrevious(isNewSeparation);
+  const usePrevAgendaItemLegs = usePrevious(agendaItemLegs);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);
   }, [pos_results_loading]);
 
+  // Always call parent update method whenever legs form changes
   useEffect(() => {
     updateLegs(legs);
   }, [legs]);
 
+  // Set legs to original data if it has been changed i.e. the page has reloaded
+  // agenda data
+  useEffect(() => {
+    if (!isEqual(usePrevAgendaItemLegs, agendaItemLegs)) {
+      setLegs(agendaItemLegs);
+    }
+  }, [agendaItemLegs]);
+
+  // Adds a leg when a position is loaded in redux
   useDidMountEffect(() => {
     if (!pos_results_loading && !pos_results_errored) {
       if (pos_results) {
@@ -37,9 +48,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           ail_seq_num: shortid.generate(),
           pos_title: get(pos_results, 'title'),
           pos_num: get(pos_results, 'position_number'),
-          posSeqNum: get(pos_results, 'pos_seq_num'),
+          ail_pos_seq_num: get(pos_results, 'pos_seq_num'),
+          ail_cp_id: null,
+          ail_asg_seq_num: null,
+          ail_asgd_revision_num: null,
           org: get(pos_results, 'organization'),
-          legStartDate: get(pos_results, 'start_date'),
+          eta: get(pos_results, 'start_date'),
           ted: null,
           languages: get(pos_results, 'languages'),
           tod: null,
@@ -48,8 +62,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           tod_short_desc: null,
           tod_is_dropdown: true,
           grade: get(pos_results, 'grade'),
-          legActionType: null,
-          travelFunctionCode: null,
+          action_code: null,
+          travel_code: null,
           pay_plan: get(pos_results, 'pay_plan'),
         });
         setLegs(legs$);
@@ -57,6 +71,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     }
   }, [pos_results]);
 
+  // Adds a leg when an assignment/separation/bid is selected
   useEffect(() => {
     if (!isEmpty(asgSepBid)) {
       const legs$ = [...legs];
@@ -64,12 +79,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         ail_seq_num: shortid.generate(),
         pos_title: get(asgSepBid, 'pos_title'),
         pos_num: get(asgSepBid, 'pos_num'),
-        posSeqNum: get(asgSepBid, 'pos_seq_num'),
-        cpId: get(asgSepBid, 'cp_id'),
-        legAssignmentId: get(asgSepBid, 'asg_seq_num'),
-        legAssignmentVersion: get(asgSepBid, 'revision_num'),
+        ail_pos_seq_num: get(asgSepBid, 'pos_seq_num'),
+        ail_cp_id: get(asgSepBid, 'ail_cp_id'),
+        ail_asg_seq_num: get(asgSepBid, 'asg_seq_num'),
+        ail_asgd_revision_num: get(asgSepBid, 'revision_num'),
         org: get(asgSepBid, 'org'),
-        legStartDate: 'Coming Soon',
+        eta: null,
         ted: null,
         languages: get(asgSepBid, 'languages'),
         tod: null,
@@ -78,14 +93,15 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: true,
         grade: get(asgSepBid, 'grade'),
-        legActionType: null,
-        travelFunctionCode: null,
+        action_code: null,
+        travel_code: null,
         pay_plan: null,
       });
       setLegs(legs$);
     }
   }, [asgSepBid]);
 
+  // Adds a new separation leg when selected
   useDidMountEffect(() => {
     if (isNewSeparation !== usePrevIsNewSeparation) {
       const legs$ = [...legs];
@@ -93,14 +109,14 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         ail_seq_num: shortid.generate(),
         pos_title: '-',
         pos_num: null,
-        posSeqNum: null,
-        cpId: null,
-        legAssignmentId: null,
-        legAssignmentVersion: null,
+        ail_pos_seq_num: null,
+        ail_cp_id: null,
+        ail_asg_seq_num: null,
+        ail_asgd_revision_num: null,
         org: null,
         separation_location: null,
-        legStartDate: 'Coming Soon',
-        legEndDate: null,
+        eta: null,
+        ted: null,
         languages: [],
         tod: null,
         tod_months: null,
@@ -108,8 +124,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: false,
         grade: null,
-        legActionType: null,
-        travelFunctionCode: 'Separation from the Service',
+        action_code: null,
+        travel_code: 'Separation from the Service',
         is_separation: true,
       });
       setLegs(legs$);
@@ -141,22 +157,23 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   }, [location]);
 
   return (
-    !unitedLoading &&
-    readMode ?
-      <AgendaItemLegsFormReadOnly
-        legs={fullAgendaItemLegs}
-      />
-      :
-      <AgendaItemLegsForm
-        AIvalidation={AIvalidation}
-        efPos={efPos}
-        legs={legs}
-        setActiveAIL={setActiveAIL}
-        updateLeg={updateLeg}
-        updateResearchPaneTab={updateResearchPaneTab}
-        setLegsContainerExpanded={setLegsContainerExpanded}
-        onClose={onClose}
-      />
+    !unitedLoading && (
+      readMode ?
+        <AgendaItemLegsFormReadOnly
+          legs={fullAgendaItemLegs}
+        /> :
+        <AgendaItemLegsForm
+          AIvalidation={AIvalidation}
+          efPos={efPos}
+          legs={legs}
+          setActiveAIL={setActiveAIL}
+          updateLeg={updateLeg}
+          updateResearchPaneTab={updateResearchPaneTab}
+          setLegsContainerExpanded={setLegsContainerExpanded}
+          onClose={onClose}
+          legsData={legsData}
+        />
+    )
   );
 };
 

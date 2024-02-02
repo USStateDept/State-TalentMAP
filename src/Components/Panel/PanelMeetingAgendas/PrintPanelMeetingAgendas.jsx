@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import { formatLang, shortenString } from 'utilities';
 import { format, isDate } from 'date-fns-v2';
+import shortid from 'shortid';
 import FA from 'react-fontawesome';
+import { useDispatch } from 'react-redux';
+import { toastInfo } from 'actions/toast';
 import InteractiveElement from 'Components/InteractiveElement';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
@@ -13,6 +16,12 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
   const cancel = () => {
     closePrintView();
   };
+
+  const dispatch = useDispatch();
+  dispatch(toastInfo('After opening the browser\'s print dialog, adjust print scale to fit more agendas per page (recommended 75)',
+    '', shortid.generate(),
+    false,
+    { autoClose: false, draggable: false, closeOnClick: false }));
 
   const formatDate = (d) => {
     if (d) {
@@ -137,7 +146,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                         </span>
                       </div>
                     </div>
-
                     <table className="pma-print-table">
                       <thead>
                         <tr>
@@ -157,7 +165,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                       </thead>
                       { printableAgendaTable(agenda) }
                     </table>
-
                     <div className="pma-footer-wrapper">
                       <div className="pma-cdo-remarks-wrapper">
                         <div className="item"><span className="label">CDO: </span> {cdo}</div>
