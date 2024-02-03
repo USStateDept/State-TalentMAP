@@ -17,9 +17,6 @@ const OrgStats = () => {
   const dispatch = useDispatch();
 
   // ================= DATA RETRIEVAL =================
-
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-
   const userSelections = useSelector(state => state.orgStatsSelections);
 
   const orgStatsData = useSelector(state => state.orgStats);
@@ -71,9 +68,12 @@ const OrgStats = () => {
       setClearFilters(true);
     }
     dispatch(orgStatsFetchData(getQuery()));
-    dispatch(orgStatsFiltersFetchData());
     dispatch(saveOrgStatsSelections(getCurrentInputs()));
   };
+
+  useEffect(() => {
+    dispatch(orgStatsFiltersFetchData());
+  }, []);
 
   useEffect(() => {
     fetchAndSet();
@@ -105,7 +105,7 @@ const OrgStats = () => {
     return overlay;
   };
 
-  return (!genericFiltersIsLoading ?
+  return (filtersIsLoading ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="bid-seasons-page position-search">
       <div className="usa-grid-full position-search--header">
@@ -180,16 +180,16 @@ const OrgStats = () => {
             const nextBureau = orgStatsData$[index + 1]?.bureau_code;
             if (currBureau !== nextBureau) {
               const summaryBody = {
-                'Bureau: ': bureauSummary.bureau_short_desc,
-                'Total POS': bureauSummary.total_pos,
-                'Total Filled': bureauSummary.total_filled,
-                '% Filled': bureauSummary.total_percent,
-                'Overseas POS': bureauSummary.overseas_pos,
-                'Overseas Filled': bureauSummary.overseas_filled,
-                '% Overseas': bureauSummary.overseas_percent,
-                'Domestic POS': bureauSummary.domestic_pos,
-                'Domestic Filled': bureauSummary.domestic_filled,
-                '% Domestic': bureauSummary.domestic_percent,
+                'Bureau: ': bureauSummary?.bureau_short_desc,
+                'Total POS': bureauSummary?.total_pos,
+                'Total Filled': bureauSummary?.total_filled,
+                '% Filled': bureauSummary?.total_percent,
+                'Overseas POS': bureauSummary?.overseas_pos,
+                'Overseas Filled': bureauSummary?.overseas_filled,
+                '% Overseas': bureauSummary?.overseas_percent,
+                'Domestic POS': bureauSummary?.domestic_pos,
+                'Domestic Filled': bureauSummary?.domestic_filled,
+                '% Domestic': bureauSummary?.domestic_percent,
               };
               return (
                 <Row fluid className="tabbed-card dark box-shadow-standard">
