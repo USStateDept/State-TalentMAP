@@ -9,9 +9,11 @@
 .mb-20 { margin-bottom: 20px; }
 
 .ml-10 { margin-left: 10px; }
+.ml-20 { margin-left: 20px; }
 .ml-50 { margin-left: 50px; }
 
 .mbl-10 { margin-block: 10px; }
+.mbl-20 { margin-block: 20px; }
 
 
 .pt-12 { padding-top: 12px; }
@@ -170,20 +172,23 @@ $values in $filters-sizing-config {
   border: 1px solid #BFB9B0;
   border-radius: 10px;
   cursor: pointer;
-  height: 41px;
-  margin: 30px 20px;
+  max-height: 40px;
   width: 260px;
-  transition: all 1s linear;
+  transition: all 0.5s linear;
 }
 
 .collapsible-container-expanded {
   background-color: #E4E1DD;
   border: 3px solid #BFB9B0;
-  height: 250px;
+  max-height: 500px;
   width: 98%;
-  transition: border 1s, background-color 1s, width 2s, height 2s;
+  transition: border 1s, background-color 1s, width 1s, max-height 2s;
   @media screen and (max-width: 1500px) {
     width: 95%;
+  }
+  @media screen and (max-width: 1700px) {
+    max-height: 400px;
+    overflow-y: auto;
   }
 }
 
@@ -218,5 +223,12 @@ $values in $filters-sizing-config {
 }
 .showCollapse {
   opacity: 100%;
-  transition: all 2s linear .5s;
+  transition: all 1s linear 1s;
+}
+
+.cc-section-label {
+  align-items: baseline;
+  .label {
+    min-width: 125px;
+  }
 }

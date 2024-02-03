@@ -268,6 +268,7 @@ class BidControls extends Component {
           <ResultsPillContainer
             items={pills}
             onPillClick={this.pillClick}
+            isClientsPage
           />
         </div>
       </div>

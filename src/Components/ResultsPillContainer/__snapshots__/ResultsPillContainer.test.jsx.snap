@@ -2,7 +2,7 @@
 
 exports[`ResultsPillContainerComponent matches snapshot 1`] = `
 <div
-  className="collapsible-container "
+  className="mt-20 collapsible-container "
 >
   <InteractiveElement
     className=""
@@ -17,13 +17,8 @@ exports[`ResultsPillContainerComponent matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <div
-    className="collapsible-section hideCollapse"
+    className="collapsible-section cc-section-label hideCollapse"
   >
-    <div
-      className="label"
-    >
-      Your Selections:
-    </div>
     <PillList
       items={
         Array [
