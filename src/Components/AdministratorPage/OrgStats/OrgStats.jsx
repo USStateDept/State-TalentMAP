@@ -129,7 +129,7 @@ const OrgStats = () => {
               value={selectedBureaus}
               options={bureauOptions}
               onChange={setSelectedBureaus}
-              numberDisplayed={1}
+              numberDisplayed={2}
               multiple
               includeFilter
               dropdownHeight={255}
@@ -145,7 +145,7 @@ const OrgStats = () => {
               value={selectedOrgs}
               options={orgOptions}
               onChange={setSelectedOrgs}
-              numberDisplayed={1}
+              numberDisplayed={2}
               multiple
               includeFilter
               dropdownHeight={255}
@@ -161,7 +161,7 @@ const OrgStats = () => {
               value={selectedCycles}
               options={cycleOptions}
               onChange={setSelectedCycles}
-              numberDisplayed={1}
+              numberDisplayed={2}
               multiple
               includeFilter
               dropdownHeight={255}
