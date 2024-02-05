@@ -22,8 +22,8 @@ const OrgStats = () => {
   const orgStatsData = useSelector(state => state.orgStats);
   const orgStatsData$ = orgStatsData?.results || [];
   const orgStatsSummary$ = orgStatsData?.bureau_summary || [];
-  const orgStatsIsLoading = useSelector(state => state.orgStatsIsLoading);
-  const orgStatsError = useSelector(state => state.orgStatsError);
+  const orgStatsIsLoading = useSelector(state => state.orgStatsFetchDataLoading);
+  const orgStatsError = useSelector(state => state.orgStatsFetchDataErrored);
 
   const filtersHasErrored = useSelector(state => state.orgStatsFiltersHasErrored);
   const filtersIsLoading = useSelector(state => state.orgStatsFiltersIsLoading);
