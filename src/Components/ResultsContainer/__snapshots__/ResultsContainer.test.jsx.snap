@@ -30,6 +30,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     wrapperCmp="div"
   >
     <ResultsPillContainer
+      isClientsPage={false}
       items={Array []}
       onPillClick={[Function]}
     />

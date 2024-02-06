@@ -22,7 +22,14 @@ class UserProfileGeneralInformation extends Component {
   }
 
   render() {
-    const { userProfile, colorProp, isPublic, showEmployeeProfileLinks } = this.props;
+    const {
+      userProfile,
+      colorProp,
+      isPublic,
+      showEmployeeProfileLinks,
+      showRedactedProfilePreview,
+    } = this.props;
+
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
@@ -60,8 +67,9 @@ class UserProfileGeneralInformation extends Component {
             <EmployeeProfileLink
               userProfile={userProfile}
               showEmployeeProfileLinks={showEmployeeProfileLinks}
+              showRedactedProfilePreview={showRedactedProfilePreview}
             />
-            { isPublic &&
+            {isPublic &&
               <InformationDataPoint
                 content={`Employee ID: ${userID}`}
                 className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
@@ -85,12 +93,14 @@ class UserProfileGeneralInformation extends Component {
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEmployeeProfileLinks: PropTypes.bool.isRequired,
+  showRedactedProfilePreview: PropTypes.bool,
   colorProp: PropTypes.string,
   isPublic: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
   colorProp: 'displayName',
+  showRedactedProfilePreview: false,
   isPublic: false,
 };
 

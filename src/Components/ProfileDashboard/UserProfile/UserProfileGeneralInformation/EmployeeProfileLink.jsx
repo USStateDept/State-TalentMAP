@@ -11,7 +11,9 @@ import api from '../../../../api';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
-const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
+const EmployeeProfileLink = ({
+  userProfile, showEmployeeProfileLinks, showRedactedProfilePreview,
+}) => {
   const dispatch = useDispatch();
   const hruId = userProfile?.user_info?.hru_id;
 
@@ -47,15 +49,15 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
     const id = shortid.generate();
 
     dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id));
-    api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
+    api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=${showRedactedProfilePreview}`,
       {
         responseType: 'arraybuffer',
       },
     ).then(response => {
-      dispatch(toastSuccess('Viewing Unredacted Profile.', 'Success', id, true));
+      dispatch(toastSuccess(`Viewing ${showRedactedProfilePreview ? 'Redacted' : 'Unredacted'} Profile.`, 'Success', id, true));
 
-      const unredactedBlob = new Blob([response?.data], { type: 'application/pdf' });
-      const bloburl = window.URL.createObjectURL(unredactedBlob);
+      const blob = new Blob([response?.data], { type: 'application/pdf' });
+      const bloburl = window.URL.createObjectURL(blob);
 
       openPdf(bloburl);
     }).catch(() => {
@@ -73,7 +75,10 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
               <InteractiveElement
                 onClick={viewEmployeeProfile}
                 type="a"
-                title="View Unredacted Employee Profile PDF"
+                title={
+                  `View ${showRedactedProfilePreview ?
+                    'Unredacted' : 'Redacted'} Employee Profile PDF`
+                }
               >
                 Employee Profile
               </InteractiveElement>
@@ -96,6 +101,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
 EmployeeProfileLink.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEmployeeProfileLinks: PropTypes.bool.isRequired,
+  showRedactedProfilePreview: PropTypes.bool.isRequired,
 };
 
 EmployeeProfileLink.defaultProps = {
