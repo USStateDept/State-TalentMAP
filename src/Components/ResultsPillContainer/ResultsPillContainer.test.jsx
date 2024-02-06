@@ -9,6 +9,7 @@ describe('ResultsPillContainerComponent', () => {
     const wrapper = shallow(<ResultsPillContainer
       items={items}
       onPillClick={() => {}}
+      isClientsPage
     />);
     expect(wrapper).toBeDefined();
   });
@@ -17,6 +18,7 @@ describe('ResultsPillContainerComponent', () => {
     const wrapper = shallow(<ResultsPillContainer
       items={items}
       onPillClick={() => {}}
+      isClientsPage
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
@@ -26,6 +28,7 @@ describe('ResultsPillContainerComponent', () => {
     const wrapper = mount(<ResultsPillContainer
       items={items}
       onPillClick={onPillClick}
+      isClientsPage
     />);
     wrapper.find('button').last().simulate('click');
     expect(onPillClick.calledOnce).toBe(true);

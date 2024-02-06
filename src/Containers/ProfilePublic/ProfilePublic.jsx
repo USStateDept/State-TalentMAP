@@ -65,7 +65,8 @@ class ProfilePublic extends Component {
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: false,
+          showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: true,
         };
         break;
       case 'post':
@@ -78,7 +79,8 @@ class ProfilePublic extends Component {
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: false,
+          showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: true,
         };
         break;
       case 'ao':
@@ -92,6 +94,7 @@ class ProfilePublic extends Component {
           showLanguages: true,
           showSearchAsClient: false,
           showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: false,
         };
         break;
       default:
@@ -106,6 +109,7 @@ class ProfilePublic extends Component {
           showLanguages: true,
           showSearchAsClient: true,
           showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: false,
         };
     }
 
