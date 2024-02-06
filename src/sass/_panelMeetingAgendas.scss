@@ -4,62 +4,6 @@
     color: $color-white;
   }
 
-  .pma-pm-info {
-    background-color: #BFB9B0;
-    border: 1px solid #BFB9B0;
-    border-radius: 10px;
-    cursor: pointer;
-    height: 41px;
-    margin: 30px 20px;
-    width: 260px;
-    transition: all 1s linear;
-  }
-
-  .pma-pm-info-expanded {
-    background-color: #E4E1DD;
-    border: 3px solid #BFB9B0;
-    height: 250px;
-    width: 98%;
-    transition: border 1s, background-color 1s, width 2s, height 2s;
-    @media screen and (max-width: 1500px) {
-      width: 95%;
-    }
-  }
-
-  .pma-pm-info-title {
-    font-size: 16px;
-    padding: 10px 0;
-    text-align: center;
-    width: 255px;
-    border-radius: 10px;
-    background-color: #BFB9B0;
-    transition: all 1s linear;
-  }
-  .pma-pm-info-title-expanded {
-    border-radius: 7px 0 10px 0;
-    width: 260px;
-    transition: all 1s linear;
-  }
-
-  .tracker-container {
-    padding: 30px;
-    display: flex;
-    align-items: center;
-
-    @media screen and (max-width: 1200px) {
-      flex-wrap: wrap;
-    }
-  }
-
-  .hideTracker {
-    opacity: 0;
-    transition: all 0s linear;
-  }
-  .showTracker {
-    opacity: 100%;
-    transition: all 2s linear .5s;
-  }
-
   .panel-meeting-agendas-rows-container {
     .pma-category-header{
       font-family: 'Roboto';
@@ -199,7 +143,7 @@
     }
   }
   .panel-meeting-maintenance-link-container {
-    width: 110px;
+    min-width: 110px;
     font-size: 13px;
     a {
       display: block;

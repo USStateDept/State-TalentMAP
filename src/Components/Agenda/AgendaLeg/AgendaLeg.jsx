@@ -16,7 +16,7 @@ import { formatVice } from '../Constants';
 const AgendaLeg = props => {
   const {
     AIvalidation,
-    isEf, // check if leg is first leg, or separation
+    isEf, // check if leg is first leg (effective leg)
     leg,
     legNum,
     updateLeg,
@@ -139,6 +139,10 @@ const AgendaLeg = props => {
       return;
     }
 
+    if (dropdown === 'ted') {
+      swal.close();
+    }
+
     updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
   };
 
@@ -149,12 +153,17 @@ const AgendaLeg = props => {
     }
   }, []);
 
-  const clearETA = () => {
+  const clearETAandTED = () => {
     updateLeg(leg?.ail_seq_num, { eta: '', ted: '' });
     swal.close();
   };
 
-  const calendarModal = () => {
+  const clearTED = () => {
+    updateLeg(leg?.ail_seq_num, { ted: '' });
+    swal.close();
+  };
+
+  const calendarModalETA = () => {
     // TO DO: Update class names
     swal({
       title: 'Estimated Time of Arrival (ETA)',
@@ -171,7 +180,31 @@ const AgendaLeg = props => {
           </div>
           <div className="ted-buttons">
             <button onClick={cancel}>Cancel</button>
-            <button onClick={clearETA}>Clear ETA</button>
+            <button onClick={clearETAandTED}>Clear ETA</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const calendarModalTED = () => {
+    // TO DO: Update class names
+    swal({
+      title: 'Tour End Date (TED)',
+      closeOnEsc: true,
+      button: false,
+      className: 'swal-aim-ted-calendar',
+      content: (
+        <div className="ted-modal-content-container">
+          <div>
+            <Calendar
+              className="ted-react-calendar"
+              onChange={(e) => updateDropdown('ted', e)}
+            />
+          </div>
+          <div className="ted-buttons">
+            <button onClick={cancel}>Cancel</button>
+            <button onClick={clearTED}>Clear TED</button>
           </div>
         </div>
       ),
@@ -180,10 +213,7 @@ const AgendaLeg = props => {
 
   const getDropdown = (key, data, text) => {
     if (isEf) {
-      let efDefaultText = 'None listed';
-      if (['action', 'travel'].includes(key)) {
-        efDefaultText = '-';
-      }
+      const efDefaultText = 'None listed';
       return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
     }
     return (
@@ -227,9 +257,6 @@ const AgendaLeg = props => {
     const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
       return <div className="read-only">{leg.tod_long_desc || 'None listed'}</div>;
-    }
-    if (isSeparation) {
-      return <div className="read-only">-</div>;
     }
 
     if (!leg.tod_is_dropdown) {
@@ -277,16 +304,16 @@ const AgendaLeg = props => {
     updateResearchPaneTab(LocationsTabID);
   };
 
-  const getCalendar = () => (
+  const getCalendar = (value) => (
     disabled ?
-      <div className="read-only">{formatDate(leg?.eta) || DEFAULT_TEXT}</div> :
+      <div className="read-only">{formatDate(leg?.[value]) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.errorMessage}
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.errorMessage}
         </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.eta?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(leg?.eta) || DEFAULT_TEXT}
-          <FA name="calendar" onClick={calendarModal} />
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(leg?.[value]) || DEFAULT_TEXT}
+          <FA name="calendar" onClick={value === 'eta' ? calendarModalETA : calendarModalTED} />
         </div>
       </div>
   );
@@ -306,13 +333,20 @@ const AgendaLeg = props => {
     });
   };
 
+  const handleTED = () => {
+    if (isSeparation) {
+      return getCalendar('ted');
+    }
+    return (<div className="read-only">{ !leg?.ted ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
+  };
+
   const getLocation = () => {
     const location = leg?.separation_location;
     let displayText;
 
     if (location) {
-      const { city, country } = location;
-      displayText = `${city}, ${country}`;
+      const { city, country, code } = location;
+      displayText = (city && country) ? `${city}, ${country}` : city || country || code || '';
     }
 
     return (
@@ -345,13 +379,11 @@ const AgendaLeg = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: isSeparation ?
-        (<div>{defaultSepText}</div>) :
-        (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Position Number',
-      content: (<div>{get(leg, 'pos_num') || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Org',
@@ -362,19 +394,19 @@ const AgendaLeg = props => {
     },
     {
       title: 'Grade',
-      content: (<div>{leg?.grade || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || leg?.grade || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(leg?.languages || []) || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || formatLang(leg?.languages || []) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Skills',
-      content: (<div>{leg?.custom_skills_description || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || leg?.custom_skills_description || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
-      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getCalendar()),
+      content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getCalendar('eta')),
     },
     {
       title: '',
@@ -382,11 +414,11 @@ const AgendaLeg = props => {
     },
     {
       title: 'TED',
-      content: (<div>{formatDate(leg?.ted) || DEFAULT_TEXT}</div>),
+      content: (handleTED()),
     },
     {
       title: 'TOD',
-      content: (defaultSepText ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
+      content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
     },
     {
       title: 'Action',

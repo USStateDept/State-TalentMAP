@@ -9,9 +9,11 @@
 .mb-20 { margin-bottom: 20px; }
 
 .ml-10 { margin-left: 10px; }
+.ml-20 { margin-left: 20px; }
 .ml-50 { margin-left: 50px; }
 
 .mbl-10 { margin-block: 10px; }
+.mbl-20 { margin-block: 20px; }
 
 
 .pt-12 { padding-top: 12px; }
@@ -163,4 +165,70 @@ $values in $filters-sizing-config {
   position: -webkit-sticky;
   top: 0;
   z-index: 1;
+}
+
+.collapsible-container {
+  background-color: #BFB9B0;
+  border: 1px solid #BFB9B0;
+  border-radius: 10px;
+  cursor: pointer;
+  max-height: 40px;
+  width: 260px;
+  transition: all 0.5s linear;
+}
+
+.collapsible-container-expanded {
+  background-color: #E4E1DD;
+  border: 3px solid #BFB9B0;
+  max-height: 500px;
+  width: 98%;
+  transition: border 1s, background-color 1s, width 1s, max-height 2s;
+  @media screen and (max-width: 1500px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 1700px) {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+
+.collapsible-title {
+  font-size: 16px;
+  padding: 10px 0;
+  text-align: center;
+  width: 255px;
+  border-radius: 10px;
+  background-color: #BFB9B0;
+  transition: all 1s linear;
+}
+.collapsible-title-expanded {
+  border-radius: 7px 0 10px 0;
+  width: 260px;
+  transition: all 1s linear;
+}
+
+.collapsible-section {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 1200px) {
+    flex-wrap: wrap;
+  }
+}
+
+.hideCollapse {
+  opacity: 0;
+  transition: all 0s linear;
+}
+.showCollapse {
+  opacity: 100%;
+  transition: all 1s linear 1s;
+}
+
+.cc-section-label {
+  align-items: baseline;
+  .label {
+    min-width: 125px;
+  }
 }

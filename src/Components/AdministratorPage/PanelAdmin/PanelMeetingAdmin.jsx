@@ -42,6 +42,7 @@ const PanelMeetingAdmin = (props) => {
 
   const agendas = useSelector(state => state.panelMeetingAgendas);
   const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+  const agendas$ = agendas?.results || [];
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
@@ -86,12 +87,15 @@ const PanelMeetingAdmin = (props) => {
   }, [panelMeetingsResults]);
 
   const selectPanelMeetingDate = (date) => {
-    const prelimCutoffMins = 2875;
-    const addendumCutoffMins = 1435;
-
     setPanelMeetingDate(date);
-    setPrelimCutoff(subMinutes(date, prelimCutoffMins));
-    setAddendumCutoff(subMinutes(date, addendumCutoffMins));
+    if (!prelimCutoff) {
+      const prelimCutoffMins = 2875;
+      setPrelimCutoff(subMinutes(date, prelimCutoffMins));
+    }
+    if (!addendumCutoff) {
+      const addendumCutoffMins = 1435;
+      setAddendumCutoff(subMinutes(date, addendumCutoffMins));
+    }
   };
 
   const clear = () => {
@@ -123,17 +127,15 @@ const PanelMeetingAdmin = (props) => {
 
   // Submit current timestamp for specified field without saving other pending changes
   const handleRun = (field) => {
-    const currTimestamp = new Date();
     if (field === 'prelimRuntime') {
-      setPrelimRuntime(currTimestamp);
       dispatch(runPanelMeeting(pmSeqNum, 'preliminary'));
     }
     if (field === 'addendumRuntime') {
-      setAddendumRuntime(currTimestamp);
       dispatch(runPanelMeeting(pmSeqNum, 'addendum'));
     }
     if (runPreliminarySuccess || runAddendumSuccess) {
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+      dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     }
   };
 
@@ -153,6 +155,7 @@ const PanelMeetingAdmin = (props) => {
       if (isCreate) {
         clear();
       } else {
+        dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
         dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
       }
     }
@@ -180,12 +183,13 @@ const PanelMeetingAdmin = (props) => {
       'panel-date-end': panelDateEnd.toJSON(),
     })}`,
   );
-  const subsequentPanel = subsequentPanels ? subsequentPanels[0] : undefined;
+  const subsequentPanel = subsequentPanels?.data?.results?.length > 0
+    ? subsequentPanels.data.results[0] : undefined;
 
   // Helpers for input disabling conditions
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
   const beforePanelMeetingDate = (
     panelMeetingDate$ ? (new Date(panelMeetingDate$.pmd_dttm) - new Date() > 0) : true
@@ -200,24 +204,24 @@ const PanelMeetingAdmin = (props) => {
   // Only admins can access editable fields and run buttons
   // Additional business rules must be followed depending on the stage of the panel meeting
 
-  const disableMeetingType = !isSuperUser &&
+  const disableMeetingType = !isSuperUser ||
     (!isCreate && !beforeAddendumCutoff);
 
-  const disableStatus = !isSuperUser &&
+  const disableStatus = !isSuperUser ||
     (isCreate || !beforeAddendumCutoff);
 
-  const disablePanelMeetingDate = !isSuperUser &&
+  const disablePanelMeetingDate = !isSuperUser ||
     (!isCreate && !beforePanelMeetingDate);
 
-  const disablePrelimCutoff = !isSuperUser &&
+  const disablePrelimCutoff = !isSuperUser ||
     (!isCreate && !beforePrelimCutoff);
 
-  const disableAddendumCutoff = !isSuperUser &&
+  const disableAddendumCutoff = !isSuperUser ||
     (!isCreate && !beforeAddendumCutoff);
 
   const disableRunPrelim = () => {
     let preconditioned = true;
-    agendas.forEach(a => {
+    agendas$.forEach(a => {
       // Approved Agenda Items must be in Off-Panel Meeting Category
       if (a.status_short === 'APR' && a.pmi_mic_code !== 'O') {
         preconditioned = false;
@@ -232,34 +236,40 @@ const PanelMeetingAdmin = (props) => {
         preconditioned = false;
       }
     });
-    return !isSuperUser && (isCreate ||
+    return (
+      !isSuperUser ||
+      isCreate ||
       beforePrelimCutoff ||
       !beforePanelMeetingDate ||
       !preconditioned ||
-      !subsequentPanel
+      !subsequentPanel ||
+      prelimRunTime$
     );
   };
 
   const disableRunAddendum = () => {
     let preconditioned = true;
-    agendas.forEach(a => {
+    agendas$.forEach(a => {
       // Agenda Items must not be Disapproved or Not Ready
       if (a.status_short === 'DIS' || a.status_short === 'NR') {
         preconditioned = false;
       }
     });
-    return !isSuperUser && (isCreate ||
+    return (
+      !isSuperUser ||
+      isCreate ||
       beforeAddendumCutoff ||
       !beforePanelMeetingDate ||
       !preconditioned ||
-      !subsequentPanel
+      !subsequentPanel ||
+      addendumRunTime$
     );
   };
 
-  const disableClear = !isSuperUser &&
+  const disableClear = !isSuperUser ||
     (!isCreate && !beforePanelMeetingDate);
 
-  const disableSave = !isSuperUser &&
+  const disableSave = !isSuperUser ||
     (!isCreate && !beforePanelMeetingDate);
 
   const isLoading =

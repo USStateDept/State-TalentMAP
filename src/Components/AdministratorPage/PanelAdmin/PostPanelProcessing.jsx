@@ -10,21 +10,23 @@ import { Tooltip } from 'react-tippy';
 import { editPostPanelProcessing, postPanelProcessingFetchData } from 'actions/postPanelProcessing';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { runPanelMeeting } from 'actions/panelMeetingAdmin';
-import { submitPanelMeeting } from '../../Panel/helpers';
 import { userHasPermissions } from '../../../utilities';
 
 
 const PostPanelProcessing = (props) => {
-  const { panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
+  const { pmSeqNum } = props;
 
   const dispatch = useDispatch();
 
 
   // ============= Retrieve Data =============
 
+  const panelMeetingsResults = useSelector(state => state.panelMeetings);
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
   const { panelMeetingDates } = panelMeetingsResults$;
 
+  const panelMeetingDate$ = panelMeetingDates?.find(x => x.mdt_code === 'MEET');
   const postPanelStarted$ = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
   const postPanelRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'POST');
   const agendaCompletedTime$ = panelMeetingDates?.find(x => x.mdt_code === 'COMP');
@@ -32,12 +34,15 @@ const PostPanelProcessing = (props) => {
   const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
   const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
   const statuses = postPanelResults?.statuses?.filter(o => o.code !== 'N') ?? [];
-  const values = postPanelResults?.values?.filter(v => v.status !== 'NR') ?? [];
+  const values = postPanelResults?.values?.filter(v => v.status !== 'N') ?? [];
   const holdOptions = postPanelResults?.hold_options ?? [];
+  const validValues = postPanelResults?.values?.filter(v => v.valid !== 'N') ?? [];
+  const hasValidAgendaItems = validValues?.length > 0 ?? false;
 
   const runPostPanelSuccess = useSelector(state => state.runPostPanelProcessingSuccess);
 
   useEffect(() => {
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     dispatch(postPanelProcessingFetchData(pmSeqNum));
   }, []);
 
@@ -52,10 +57,17 @@ const PostPanelProcessing = (props) => {
   const [postPanelStarted, setPostPanelStarted] = useState();
   const [postPanelRuntime, setPostPanelRuntime] = useState();
   const [agendaCompletedTime, setAgendaCompletedTime] = useState();
-  const [formData, setFormData] = useState(values);
+  const [formData, setFormData] = useState([]);
 
   useEffect(() => {
-    if (!postPanelIsLoading && !panelMeetingsIsLoading) {
+    if (!postPanelIsLoading) {
+      setFormData(values);
+    }
+  }, [postPanelResults]);
+
+
+  useEffect(() => {
+    if (!panelMeetingsIsLoading) {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
@@ -68,22 +80,23 @@ const PostPanelProcessing = (props) => {
     }
   }, [panelMeetingsResults]);
 
-  useEffect(() => {
-    // - Submits current date as Post Panel Started upon opening this tab
-    // if Post Panel Processing has not started yet
-    // - Can be removed by the cancel button if Post Panel has not ran yet
-    // - Including conditions for all 3 dates because some Panels have post panel runtime
-    // and agenda completed dates but no post panel started date
-    if (!postPanelStarted$ && !postPanelRunTime$ && !agendaCompletedTime$) {
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { postPanelStarted: new Date() },
-      ));
-    }
-    setFormData(values);
-  }, [postPanelResults]);
+  // TODO: Finalize this block when Post Panel Started has business rules
+  // useEffect(() => {
+  //   // - Submits current date as Post Panel Started upon opening this tab
+  //   // if Post Panel Processing has not started yet
+  //   // - Can be removed by the cancel button if Post Panel has not ran yet
+  //   // - Including conditions for all 3 dates because some Panels have post panel runtime
+  //   // and agenda completed dates but no post panel started date
+  //   if (!postPanelStarted$ && !postPanelRunTime$ && !agendaCompletedTime$) {
+  //     dispatch(submitPanelMeeting(panelMeetingsResults$,
+  //       { postPanelStarted: new Date() },
+  //     ));
+  //   }
+  //   setFormData(values);
+  // }, [postPanelResults]);
 
   const handleHold = (objLabel, newStatus) => {
-    if (newStatus === 'HLD') {
+    if (newStatus === 'H') {
       const ref = formData.find(o => o.label === objLabel);
       let option = ref?.aht_code || ref?.max_aht_code || holdOptions[0].code;
       let description = ref?.aih_hold_comment || ref?.max_aih_hold_comment || '';
@@ -96,7 +109,7 @@ const PostPanelProcessing = (props) => {
           <div className="simple-action-modal">
             <div className="help-text">
               <div className="position-form--label-input-container">
-                <label htmlFor="status">Hold Option</label>
+                <label htmlFor="hold-option">Hold Option</label>
                 <select
                   id="hold-option"
                   defaultValue={option}
@@ -108,7 +121,7 @@ const PostPanelProcessing = (props) => {
                 </select>
               </div>
               <div className="position-form--label-input-container">
-                <label htmlFor="drafting-office">Description</label>
+                <label htmlFor="hold-description">Description</label>
                 <textarea
                   id="hold-description"
                   defaultValue={description}
@@ -123,7 +136,7 @@ const PostPanelProcessing = (props) => {
                     if (o.label === objLabel) {
                       return {
                         ...o,
-                        status: 'HLD',
+                        status: 'H',
                         aht_code: option,
                         aih_hold_comment: description,
                       };
@@ -150,7 +163,7 @@ const PostPanelProcessing = (props) => {
   };
 
   const handleStatusSelection = (objLabel, newStatus) => {
-    if (newStatus !== 'HLD') {
+    if (newStatus !== 'H') {
       const newFormData = formData.map(o => {
         if (o.label === objLabel) {
           return {
@@ -169,8 +182,6 @@ const PostPanelProcessing = (props) => {
   // ============= Submission Management =============
 
   const runPostPanelProcessing = () => {
-    const currTimestamp = new Date();
-    setPostPanelRuntime(currTimestamp);
     dispatch(runPanelMeeting(pmSeqNum, 'post_panel'));
     if (runPostPanelSuccess) {
       dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
@@ -216,8 +227,9 @@ const PostPanelProcessing = (props) => {
         aih_sequence_number: aihSequenceNumber,
         aih_update_id: aihUpdateId,
         aih_update_date: aihUpdateDate,
-      }));
+      }, pmSeqNum));
     }
+
     // TODO: Save Post Panel Started and Agenda Completed Time
   };
 
@@ -226,8 +238,11 @@ const PostPanelProcessing = (props) => {
   const isLoading = postPanelIsLoading || panelMeetingsIsLoading;
 
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
 
+  const beforePanelMeetingDate = (
+    panelMeetingDate$ ? (new Date(panelMeetingDate$.pmd_dttm) - new Date() > 0) : true
+  );
   const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
@@ -236,13 +251,17 @@ const PostPanelProcessing = (props) => {
   // Additional business rules must be followed depending on the stage of the panel meeting
   // Post Panel Started and Agenda Completed Time are disabled until further notice
 
-  const disableTable = !isSuperUser &&
+  const disableTable = !isSuperUser ||
     (!beforeAgendaCompletedTime);
 
-  const disableRunPostPanel =
-    (postPanelRunTime$ || !beforeAgendaCompletedTime);
+  const disableRunPostPanel = !isSuperUser || (
+    postPanelRunTime$ ||
+    !beforeAgendaCompletedTime ||
+    !hasValidAgendaItems ||
+    beforePanelMeetingDate
+  );
 
-  const disableSave = !isSuperUser &&
+  const disableSave = !isSuperUser ||
     (!beforeAgendaCompletedTime);
 
   const disableHold = (agenda, status) => {
@@ -309,67 +328,74 @@ const PostPanelProcessing = (props) => {
               </tr>
             </thead>
             <tbody>
-              {formData.map(d => (
-                <tr key={d.label}>
-                  <td key={`${d.label}-valid`}>
-                    {d.valid === 'Y' ?
-                      <FA name="check" /> :
-                      '---'
-                    }
-                  </td>
-                  <td key={`${d.label}-item`}>
-                    <span className="item-link">
-                      {d.item}
-                    </span>
-                  </td>
-                  <td key={`${d.label}-label`}>{d.label}</td>
-                  <td key={`${d.label}-employee`}>{d.employee}</td>
-                  {statuses.map((o) => {
-                    const radio = (
-                      <input
-                        id={`${d.label}-status-${o.code}`}
-                        type="radio"
-                        name={`${d.label}-status-${o.description}`}
-                        checked={d.status === o.description}
-                        onChange={() => handleStatusSelection(d.label, o.description)}
-                        onClick={() => handleHold(d.label, o.description)}
-                        disabled={disableTable || disableHold(d, o)}
-                        className="interactive-element"
-                      />
-                    );
-                    return (
-                      <td key={`${d.label}-${o.code}`}>
-                        {(o.code === 'H' && d.status === o.description) ?
-                          <Tooltip
-                            html={
-                              <div className="tooltip-text">
-                                <div>
-                                  <span className="title">
-                                    {holdOptions
-                                      .find(h => h.code === d.aht_code)?.description}
-                                  </span>
+              {hasValidAgendaItems ?
+                formData.map(d => (
+                  <tr key={d.label}>
+                    <td key={`${d.label}-valid`}>
+                      {d.valid === 'Y' ?
+                        <FA name="check" /> :
+                        '---'
+                      }
+                    </td>
+                    <td key={`${d.label}-item`}>
+                      <span className="item-link">
+                        {d.item}
+                      </span>
+                    </td>
+                    <td key={`${d.label}-label`}>{d.label}</td>
+                    <td key={`${d.label}-employee`}>{d.employee}</td>
+                    {statuses.map((o) => {
+                      const radio = (
+                        <input
+                          id={`${d.label}-status-${o.code}`}
+                          type="radio"
+                          name={`${d.label}-status-${o.code}`}
+                          checked={d.status === o.code}
+                          onChange={() => handleStatusSelection(d.label, o.code)}
+                          onClick={() => handleHold(d.label, o.code)}
+                          disabled={disableTable || disableHold(d, o)}
+                          className="interactive-element"
+                        />
+                      );
+                      return (
+                        <td key={`${d.label}-${o.code}`}>
+                          {(o.code === 'H' && d.status === o.description) ?
+                            <Tooltip
+                              html={
+                                <div className="tooltip-text">
+                                  <div>
+                                    <span className="title">
+                                      {holdOptions
+                                        .find(h => h.code === d.aht_code)?.description}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <span className="text">
+                                      {d.aih_hold_comment}
+                                    </span>
+                                  </div>
                                 </div>
-                                <div>
-                                  <span className="text">
-                                    {d.aih_hold_comment}
-                                  </span>
-                                </div>
-                              </div>
-                            }
-                            theme="oc-status"
-                            arrow
-                            interactive
-                            useContext
-                          >
-                            {radio}
-                          </Tooltip> :
-                          radio
-                        }
-                      </td>
-                    );
-                  })}
+                              }
+                              theme="oc-status"
+                              arrow
+                              interactive
+                              useContext
+                            >
+                              {radio}
+                            </Tooltip> :
+                            radio
+                          }
+                        </td>
+                      );
+                    })}
+                  </tr>
+                )) :
+                <tr>
+                  <td colSpan="100%">
+                    This panel does not have any valid agenda items.
+                  </td>
                 </tr>
-              ))}
+              }
             </tbody>
           </table>
         </div>
@@ -409,15 +435,11 @@ const PostPanelProcessing = (props) => {
 
 PostPanelProcessing.propTypes = {
   pmSeqNum: PropTypes.string,
-  panelMeetingsResults: PropTypes.shape(),
-  panelMeetingsIsLoading: PropTypes.bool,
 };
 
 PostPanelProcessing.defaultProps = {
   match: {},
   pmSeqNum: undefined,
-  panelMeetingsResults: undefined,
-  panelMeetingsIsLoading: false,
 };
 
 export default withRouter(PostPanelProcessing);

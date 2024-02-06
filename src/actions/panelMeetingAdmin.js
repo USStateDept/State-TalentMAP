@@ -145,11 +145,13 @@ export function runPanelMeeting(id, type) {
         });
       })
       .catch((err) => {
-        dispatch(errored(true));
-        dispatch(toastError(
-          `${errorMessage} ${err?.error_message ?? ''}`,
-          errorTitle,
-        ));
+        batch(() => {
+          dispatch(errored(true));
+          dispatch(toastError(
+            `${errorMessage} ${err?.error_message ?? ''}`,
+            errorTitle,
+          ));
+        });
       });
   };
 }

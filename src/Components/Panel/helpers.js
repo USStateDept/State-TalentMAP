@@ -1,6 +1,5 @@
 import { findLastIndex, get, isEmpty } from 'lodash';
-import { formatDate } from 'utilities';
-import { isPast } from 'date-fns-v2';
+import { format, isPast } from 'date-fns-v2';
 import { createPanelMeeting } from '../../actions/panelMeetingAdmin';
 
 export const formatPanelMeetingTrackerData = (meetingDates = []) => {
@@ -10,7 +9,7 @@ export const formatPanelMeetingTrackerData = (meetingDates = []) => {
   const post = { label: 'Post-Panel' };
 
   meetingDates.forEach(pmd => {
-    const meetingDate = formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || '';
+    const meetingDate = pmd?.pmd_dttm ? format(new Date(pmd.pmd_dttm), 'MM/dd/yyyy hh:mm a') : '';
     const code = get(pmd, 'mdt_code');
     const isPast$ = isPast(new Date(pmd.pmd_dttm));
 
@@ -77,9 +76,12 @@ export const submitPanelMeeting = (originalFields, newFields) => {
     originalReference: originalFields,
     panelMeetingStatus: newFields?.panelMeetingStatus,
     panelMeetingType: newFields?.panelMeetingType,
-    panelMeetingDate: newFields?.panelMeetingDate,
-    prelimCutoff: newFields?.prelimCutoff,
-    addendumCutoff: newFields?.addendumCutoff,
+    panelMeetingDate: newFields?.panelMeetingDate
+      && format(newFields?.panelMeetingDate, 'yyyy-MM-dd HH:mm:ss'),
+    prelimCutoff: newFields?.prelimCutoff
+      && format(newFields?.prelimCutoff, 'yyyy-MM-dd HH:mm:ss'),
+    addendumCutoff: newFields?.addendumCutoff
+      && format(newFields?.addendumCutoff, 'yyyy-MM-dd HH:mm:ss'),
     // prelimRuntime: newFields?.prelimRuntime ??
     //  (prelimRuntime ? new Date(prelimRuntime.pmd_dttm) : undefined),
     // addendumRuntime: newFields?.addendumRuntime ??
