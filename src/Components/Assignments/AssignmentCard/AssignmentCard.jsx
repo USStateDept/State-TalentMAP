@@ -113,7 +113,6 @@ const AssignmentCard = (props) => {
       { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
       { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
       { 'Location': getPostName(pos?.post) || NO_POST },
-      // { '': <CheckBox id="deto" label="DETO" value disabled /> },
       { 'Skill': getResult(pos, 'skill') || NO_SKILL },
       { 'Grade': getResult(pos, 'grade') || NO_GRADE },
       { 'Pay Plan': '---' },

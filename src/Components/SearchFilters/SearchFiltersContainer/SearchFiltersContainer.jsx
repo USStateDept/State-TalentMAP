@@ -145,9 +145,9 @@ class SearchFiltersContainer extends Component {
     const blackList = []; // don't create accordions for these
 
     if (DETO_RWA_FLAG()) {
-      multiSelectFilterNames.push('deto-rwa');
-      multiSelectFilterNamesTandem1.push('deto-rwa');
-      multiSelectFilterNamesTandem2.push('deto-rwa-tandem');
+      multiSelectFilterNames.push('detoRwa');
+      multiSelectFilterNamesTandem1.push('detoRwa');
+      multiSelectFilterNamesTandem2.push('detoRwa-tandem');
     }
 
     // START TOGGLE FILTERS

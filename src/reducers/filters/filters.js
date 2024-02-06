@@ -726,7 +726,7 @@ const items =
         item: {
           title: 'DETO/RWA',
           sort: 1400,
-          description: 'deto-rwa',
+          description: 'detoRwa',
           selectionRef: ENDPOINT_PARAMS.detoRWA,
           text: 'RWA/DETO Eligible',
         },
@@ -739,7 +739,7 @@ const items =
         item: {
           title: 'DETO/RWA',
           sort: 1400,
-          description: 'deto-rwa-tandem',
+          description: 'detoRwa-tandem',
           selectionRef: ENDPOINT_PARAMS_TANDEM.detoRWA,
           text: 'RWA/DETO Eligible',
           isTandem: true,
