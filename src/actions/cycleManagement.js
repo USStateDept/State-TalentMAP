@@ -159,7 +159,6 @@ export function cycleManagementFetchData() {
   return (dispatch) => {
     if (cancelCycleManagementFetch) {
       cancelCycleManagementFetch('cancel');
-      dispatch(cycleManagementFetchDataLoading(true)); // ???
     }
     batch(() => {
       dispatch(cycleManagementFetchDataLoading(true));
@@ -176,11 +175,14 @@ export function cycleManagementFetchData() {
           dispatch(cycleManagementFetchDataLoading(false));
         });
       })
-      .catch(() => {
-        batch(() => {
-          dispatch(cycleManagementFetchDataErrored(true));
-          dispatch(cycleManagementFetchDataLoading(false));
-        });
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(cycleManagementFetchDataSuccess([]));
+            dispatch(cycleManagementFetchDataErrored(true));
+            dispatch(cycleManagementFetchDataLoading(false));
+          });
+        }
       });
   };
 }
