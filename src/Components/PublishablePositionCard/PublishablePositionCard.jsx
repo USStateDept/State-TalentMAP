@@ -3,6 +3,7 @@ import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
+import { Tooltip } from 'react-tippy';
 import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import { formatDateFromStr, renderSelectionList } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
@@ -15,6 +16,7 @@ import PositionClassification from './PositionClassification/PositionClassificat
 
 
 const PP_FLAG = checkFlag('flags.publishable_positions');
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const hardcodedFilters = {
   statusFilters: [{ code: 1, description: '' }, { code: 2, description: 'Publishable' }, { code: 3, description: 'Vet' }],
@@ -61,6 +63,9 @@ const PublishablePositionCard = ({
     /* eslint-enable quote-props */
   };
 
+  if (DETO_RWA_FLAG()) {
+    sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.deto_rwa ? 'Eligible' : 'Not Eligible' });
+  }
 
   // =============== Overview: Edit Mode ===============
 
@@ -150,12 +155,25 @@ const PublishablePositionCard = ({
                 </select>
               </div>
             </div>
-            <CheckBox
-              id="exclude-checkbox"
-              label="Exclude Position from Bid Audit"
-              value={exclude}
-              onCheckBoxClick={e => setExclude(e)}
-            />
+            <div>
+              <CheckBox
+                id="exclude-checkbox"
+                label="Exclude Position from Bid Audit"
+                value={exclude}
+                onCheckBoxClick={e => setExclude(e)}
+              />
+              { DETO_RWA_FLAG() &&
+                <Tooltip title="Eligibility can be modified in GEMS, contact your HRO to make changes.">
+                  <CheckBox
+                    id="deto-checkbox"
+                    label="RWA/DETO Eligible"
+                    value={data?.deto_rwa}
+                    onCheckBoxClick={() => {}}
+                    disabled
+                  />
+                </Tooltip>
+              }
+            </div>
           </div>
         }
         <div>
