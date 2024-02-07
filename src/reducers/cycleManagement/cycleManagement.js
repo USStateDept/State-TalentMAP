@@ -38,6 +38,15 @@ export function cycleManagementCreateCycleSuccess(state = false, action) {
   }
 }
 
+export function cycleManagementSelections(state = {}, action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS':
+      return action.result;
+    default:
+      return state;
+  }
+}
+
 
 // ================    ================
 

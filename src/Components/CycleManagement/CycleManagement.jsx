@@ -10,7 +10,11 @@ import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
 import TMDatePicker from 'Components/TMDatePicker';
-import { cycleManagementCreateCycle, cycleManagementFetchData } from 'actions/cycleManagement';
+import {
+  cycleManagementCreateCycle,
+  cycleManagementFetchData,
+  saveCycleManagementSelections,
+} from 'actions/cycleManagement';
 import { renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 import NewAssignmentCycle from './NewAssignmentCycle';
@@ -21,6 +25,7 @@ const CycleManagement = (props) => {
 
   // Redux State
   const userProfile = useSelector(state => state.userProfile);
+  const userSelections = useSelector(state => state.cycleManagementSelections);
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
@@ -29,18 +34,21 @@ const CycleManagement = (props) => {
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
-  const [selectedCycles, setSelectedCycles] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState([]);
-  const [selectedDates, setSelectedDates] = useState(null);
+  const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
+  const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
+  const [selectedDate, setSelectedDate] = useState(userSelections?.selectedDate || null);
   const [cycleManagementData$, setCycleManagementData$] = useState(cycleManagementData);
   const [clearFilters, setClearFilters] = useState(false);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const disableInput = cardsInEditMode.length > 0;
+  const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
+    && !selectedDate;
 
-  const noFiltersSelected = selectedCycles.flat().length === 0
-    && selectedStatus.flat().length === 0
-    && !selectedDates;
-
+  const getCurrentInputs = () => ({
+    selectedCycles,
+    selectedStatus,
+    selectedDate,
+  });
 
   const filterCyclesByDate = (cycles, date) => {
     const filteredCycles = cycles.filter(cycle => {
@@ -64,7 +72,7 @@ const CycleManagement = (props) => {
       );
     }
 
-    if (selectedDates) return filterCyclesByDate(cycles, selectedDates);
+    if (selectedDate) return filterCyclesByDate(cycles, selectedDate);
     return cycles;
   };
 
@@ -75,6 +83,7 @@ const CycleManagement = (props) => {
   }, []);
 
   useEffect(() => {
+    dispatch(saveCycleManagementSelections(getCurrentInputs()));
     setCycleManagementData$(cycleDataFiltered);
     if (noFiltersSelected) {
       setClearFilters(false);
@@ -84,7 +93,7 @@ const CycleManagement = (props) => {
   }, [
     selectedCycles,
     selectedStatus,
-    selectedDates,
+    selectedDate,
     cycleManagementData,
   ]);
   useEffect(() => {
@@ -103,7 +112,7 @@ const CycleManagement = (props) => {
   const resetFilters = () => {
     setSelectedCycles([]);
     setSelectedStatus([]);
-    setSelectedDates(null);
+    setSelectedDate(null);
     setClearFilters(false);
   };
 
@@ -205,8 +214,8 @@ const CycleManagement = (props) => {
               <div className="filter-div">
                 <div className="label">Cycle Date:</div>
                 <TMDatePicker
-                  onChange={setSelectedDates}
-                  selected={selectedDates}
+                  onChange={setSelectedDate}
+                  selected={selectedDate}
                   type="filter"
                   showMonthDropdown
                   showYearDropdown

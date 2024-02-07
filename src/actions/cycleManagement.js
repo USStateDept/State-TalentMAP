@@ -185,6 +185,17 @@ export function cycleManagementFetchData() {
   };
 }
 
+export function cycleManagementSelectionsSaveSuccess(result) {
+  return {
+    type: 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveCycleManagementSelections(queryObject) {
+  return (dispatch) => dispatch(cycleManagementSelectionsSaveSuccess(queryObject));
+}
+
 
 // ================ Cycle Management CREATE cycle ================
 

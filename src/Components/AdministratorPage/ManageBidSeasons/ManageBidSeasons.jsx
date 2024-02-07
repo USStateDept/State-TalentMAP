@@ -24,11 +24,11 @@ const ManageBidSeasons = () => {
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] = useState([]);
-  const [selectedDates, setSelectedDates] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [bidSeasonData$, setBidSeasonData$] = useState(ManageBidSeasonsData);
   const [clearFilters, setClearFilters] = useState(false);
 
-  const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDates;
+  const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDate;
 
 
   const filterSeasonsByDate = (seasons, date) => {
@@ -43,7 +43,7 @@ const ManageBidSeasons = () => {
   const bidSeasonDataFiltered = () => {
     if (noFiltersSelected) return ManageBidSeasonsData;
     const seasons = selectedBidSeasons.length > 0 ? selectedBidSeasons : ManageBidSeasonsData;
-    if (selectedDates) return filterSeasonsByDate(seasons, selectedDates);
+    if (selectedDate) return filterSeasonsByDate(seasons, selectedDate);
     return seasons;
   };
 
@@ -61,12 +61,12 @@ const ManageBidSeasons = () => {
     }
   }, [
     selectedBidSeasons,
-    selectedDates,
+    selectedDate,
     ManageBidSeasonsData,
   ]);
 
   const resetFilters = () => {
-    setSelectedDates(null);
+    setSelectedDate(null);
     setSelectedBidSeasons([]);
     setClearFilters(false);
   };
@@ -144,8 +144,8 @@ const ManageBidSeasons = () => {
           <div className="filter-div">
             <div className="label">Season Date:</div>
             <TMDatePicker
-              onChange={setSelectedDates}
-              selected={selectedDates}
+              onChange={setSelectedDate}
+              selected={selectedDate}
               type="filter"
               showMonthDropdown
               showYearDropdown

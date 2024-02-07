@@ -23,7 +23,6 @@ const CycleSearchCard = (props) => {
     id,
     name,
     status,
-    category,
     begin_date,
     end_date,
     excl_position,
@@ -218,10 +217,7 @@ const CycleSearchCard = (props) => {
             {`Bid Due: ${end_date ? formatDate(end_date) : ''}`}
           </Column>
           <Column>
-            {status}
-          </Column>
-          <Column>
-            {`Status: ${category}`}
+            {`Status: ${status}`}
           </Column>
           <Column>
             {`Exluded: ${excl_position}`}
@@ -567,7 +563,6 @@ CycleSearchCard.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string,
   status: PropTypes.string,
-  category: PropTypes.string,
   begin_date: PropTypes.string,
   end_date: PropTypes.string,
   excl_position: PropTypes.string,
@@ -579,7 +574,6 @@ CycleSearchCard.propTypes = {
 CycleSearchCard.defaultProps = {
   name: '',
   status: '',
-  category: '',
   begin_date: '',
   end_date: null,
   excl_position: null,
