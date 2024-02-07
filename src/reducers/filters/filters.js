@@ -722,6 +722,33 @@ const items =
           { code: 'N', description: 'Not Hard to Fill' },
         ],
       },
+      {
+        item: {
+          title: 'DETO/RWA',
+          sort: 1400,
+          description: 'detoRwa',
+          selectionRef: ENDPOINT_PARAMS.detoRWA,
+          text: 'RWA/DETO Eligible',
+        },
+        data: [
+          { code: true, description: 'Eligible' },
+          { code: false, description: 'Not Eligible' },
+        ],
+      },
+      {
+        item: {
+          title: 'DETO/RWA',
+          sort: 1400,
+          description: 'detoRwa-tandem',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.detoRWA,
+          text: 'RWA/DETO Eligible',
+          isTandem: true,
+        },
+        data: [
+          { code: true, description: 'Eligible' },
+          { code: false, description: 'Not Eligible' },
+        ],
+      },
     ],
   };
 
