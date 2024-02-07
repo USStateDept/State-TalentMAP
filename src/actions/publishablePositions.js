@@ -34,7 +34,7 @@ export function publishablePositionsSuccess(results) {
 }
 export function publishablePositionsFetchData(query = {}) {
   return (dispatch) => {
-    if (cancelPPData) { cancelPPData('cancel'); dispatch(publishablePositionsLoading(true)); }
+    if (cancelPPData) { cancelPPData('cancel'); }
     batch(() => {
       dispatch(publishablePositionsLoading(true));
       dispatch(publishablePositionsErrored(false));
@@ -51,12 +51,7 @@ export function publishablePositionsFetchData(query = {}) {
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(publishablePositionsLoading(true));
-            dispatch(publishablePositionsErrored(false));
-          });
-        } else {
+        if (err?.message !== 'cancel') {
           batch(() => {
             dispatch(publishablePositionsSuccess([]));
             dispatch(publishablePositionsErrored(true));
