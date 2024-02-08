@@ -23,6 +23,15 @@ export function cycleManagement(state = [], action) {
   }
 }
 
+export function cycleManagementSelections(state = {}, action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS':
+      return action.result;
+    default:
+      return state;
+  }
+}
+
 export function cycleManagementAssignmentCycleFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED':
@@ -43,15 +52,6 @@ export function cycleManagementAssignmentCycle(state = [], action) {
   switch (action.type) {
     case 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_SUCCESS':
       return action.results;
-    default:
-      return state;
-  }
-}
-
-export function cycleManagementSelections(state = {}, action) {
-  switch (action.type) {
-    case 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS':
-      return action.result;
     default:
       return state;
   }
