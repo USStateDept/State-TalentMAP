@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import TMDatePicker from 'Components/TMDatePicker';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
@@ -24,31 +24,26 @@ const ManageBidSeasons = () => {
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] = useState([]);
-  const [selectedDates, setSelectedDates] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [bidSeasonData$, setBidSeasonData$] = useState(ManageBidSeasonsData);
   const [clearFilters, setClearFilters] = useState(false);
 
-  const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDates;
+  const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDate;
 
 
-  const filterSeasonsByDateRange = (seasons, dateRange) => {
-    const startDateRange = dateRange[0].getTime();
-    const endDateRange = dateRange[1].getTime();
-
+  const filterSeasonsByDate = (seasons, date) => {
     const filteredSeasons = seasons.filter(season => {
       const startDate = new Date(season.bidSeasonsBeginDate).getTime();
       const endDate = new Date(season.bidSeasonsEndDate).getTime();
-      return ((startDate >= startDateRange) && (startDate <= endDateRange))
-        || ((endDate >= startDateRange) && (endDate <= endDateRange));
+      return ((date >= startDate) && (date <= endDate));
     });
-
     return filteredSeasons;
   };
 
   const bidSeasonDataFiltered = () => {
     if (noFiltersSelected) return ManageBidSeasonsData;
     const seasons = selectedBidSeasons.length > 0 ? selectedBidSeasons : ManageBidSeasonsData;
-    if (selectedDates) return filterSeasonsByDateRange(seasons, selectedDates);
+    if (selectedDate) return filterSeasonsByDate(seasons, selectedDate);
     return seasons;
   };
 
@@ -66,12 +61,12 @@ const ManageBidSeasons = () => {
     }
   }, [
     selectedBidSeasons,
-    selectedDates,
+    selectedDate,
     ManageBidSeasonsData,
   ]);
 
   const resetFilters = () => {
-    setSelectedDates(null);
+    setSelectedDate(null);
     setSelectedBidSeasons([]);
     setClearFilters(false);
   };
@@ -148,12 +143,13 @@ const ManageBidSeasons = () => {
           </div>
           <div className="filter-div">
             <div className="label">Season Date:</div>
-            <DateRangePicker
-              onChange={setSelectedDates}
-              value={selectedDates}
-              maxDetail="month"
-              calendarIcon={null}
-              showLeadingZeros
+            <TMDatePicker
+              onChange={setSelectedDate}
+              selected={selectedDate}
+              type="filter"
+              showMonthDropdown
+              showYearDropdown
+              isClearable
             />
           </div>
         </div>

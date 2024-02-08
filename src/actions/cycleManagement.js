@@ -130,6 +130,11 @@ const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
   });
 });
 
+
+// ================ Cycle Management GET ================
+
+let cancelCycleManagementFetch;
+
 export function cycleManagementFetchDataErrored(bool) {
   return {
     type: 'CYCLE_MANAGEMENT_FETCH_HAS_ERRORED',
@@ -149,6 +154,50 @@ export function cycleManagementFetchDataSuccess(results) {
     results,
   };
 }
+
+export function cycleManagementFetchData() {
+  return (dispatch) => {
+    if (cancelCycleManagementFetch) {
+      cancelCycleManagementFetch('cancel');
+    }
+    batch(() => {
+      dispatch(cycleManagementFetchDataLoading(true));
+      dispatch(cycleManagementFetchDataErrored(false));
+    });
+    const endpoint = '/fsbid/assignment_cycles/';
+    api().get(endpoint, {
+      cancelToken: new CancelToken((c) => { cancelCycleManagementFetch = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(cycleManagementFetchDataSuccess(data));
+          dispatch(cycleManagementFetchDataErrored(false));
+          dispatch(cycleManagementFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(cycleManagementFetchDataSuccess([]));
+            dispatch(cycleManagementFetchDataErrored(true));
+            dispatch(cycleManagementFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function cycleManagementSelectionsSaveSuccess(result) {
+  return {
+    type: 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveCycleManagementSelections(queryObject) {
+  return (dispatch) => dispatch(cycleManagementSelectionsSaveSuccess(queryObject));
+}
+
 
 export function cycleManagementAssignmentCycleFetchDataErrored(bool) {
   return {
@@ -171,41 +220,6 @@ export function cycleManagementAssignmentCycleFetchDataSuccess(results) {
   };
 }
 
-// eslint-disable-next-line no-unused-vars
-export function cycleManagementFetchData(cycleId) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(cycleManagementFetchDataLoading(true));
-      dispatch(cycleManagementFetchDataErrored(false));
-    });
-    // const q = convertQueryToString(query);
-    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
-    // api().get(endpoint)
-    dispatch(cycleManagementFetchDataLoading(true));
-    dummyDataToReturn({})
-      .then((data) => {
-        batch(() => {
-          dispatch(cycleManagementFetchDataSuccess(data));
-          dispatch(cycleManagementFetchDataErrored(false));
-          dispatch(cycleManagementFetchDataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(cycleManagementFetchDataLoading(true));
-            dispatch(cycleManagementFetchDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(cycleManagementFetchDataSuccess(dummyDataToReturn));
-            dispatch(cycleManagementFetchDataErrored(false));
-            dispatch(cycleManagementFetchDataLoading(false));
-          });
-        }
-      });
-  };
-}
 
 // eslint-disable-next-line no-unused-vars
 export function cycleManagementAssignmentCycleFetchData() {
@@ -241,16 +255,6 @@ export function cycleManagementAssignmentCycleFetchData() {
   };
 }
 
-export function cycleManagementSelectionsSaveSuccess(result) {
-  return {
-    type: 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-
-export function saveCycleManagementSelections(queryObject) {
-  return (dispatch) => dispatch(cycleManagementSelectionsSaveSuccess(queryObject));
-}
 
 export function cyclePositionSearchFetchDataErrored(bool) {
   return {
