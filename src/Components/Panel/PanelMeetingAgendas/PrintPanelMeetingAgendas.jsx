@@ -102,7 +102,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                 const cdoLast = agenda?.cdo?.last_name || '';
                 const cdoComma = (cdoLast && cdoFirst) ? ',' : '';
                 const cdoFull = `${cdoLast}${cdoComma} ${cdoFirst}`;
-                const cdo = cdoFull || 'None Listed';
+                const cdo = cdoFull !== ' ' ? cdoFull : 'None Listed';
                 const userGrade = agenda?.grade || 'None Listed';
                 const userPayPlan = agenda?.pay_plan_code || 'None Listed';
                 const userLanguage = agenda?.languages || 'None Listed';
