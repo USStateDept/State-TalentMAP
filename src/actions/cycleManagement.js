@@ -221,7 +221,6 @@ export function cycleManagementCreateCycle(data) {
         });
       })
       .catch(() => {
-        dispatch(cycleManagementCreateCycleSuccess(false));
         dispatch(toastError(ASSIGNMENT_CYCLE_POST_ERROR, ASSIGNMENT_CYCLE_POST_ERROR_TITLE));
       });
   };
