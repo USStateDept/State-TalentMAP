@@ -215,7 +215,6 @@ export function cycleManagementCreateCycle(data) {
       })
       .then(() => {
         batch(() => {
-          dispatch(cycleManagementCreateCycleSuccess(true));
           dispatch(toastSuccess(
             ASSIGNMENT_CYCLE_POST_SUCCESS, ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE,
           ));
