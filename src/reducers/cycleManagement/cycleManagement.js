@@ -29,14 +29,6 @@ export function cycleManagement(state = [], action) {
 
 // ================ Cycle Management CREATE cycle ================
 
-export function cycleManagementCreateCycleSuccess(state = false, action) {
-  switch (action.type) {
-    case 'CYCLE_MANAGEMENT_CREATE_CYCLE_SUCCESS':
-      return action.success;
-    default:
-      return state;
-  }
-}
 
 export function cycleManagementSelections(state = {}, action) {
   switch (action.type) {
