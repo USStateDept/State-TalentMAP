@@ -95,6 +95,12 @@ const CycleManagement = (props) => {
     cycleManagementData,
   ]);
 
+  useEffect(() => {
+    if (swal?.getState()?.isOpen) {
+      swal.close();
+    }
+  }, [cycleManagementDataLoading]);
+
   const uniqueStatuses = () => {
     const statuses = cycleManagementData.map(cycles => cycles.status);
     const uniq = [...new Set(statuses)];
