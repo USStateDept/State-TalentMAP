@@ -34,7 +34,6 @@ export default {
   cycleManagementAssignmentCycle,
   cycleManagementAssignmentCycleFetchDataErrored,
   cycleManagementAssignmentCycleFetchDataLoading,
-  cycleManagementCreateCycleSuccess,
   cycleManagementFetchDataErrored,
   cycleManagementFetchDataLoading,
   cycleManagementSelections,
