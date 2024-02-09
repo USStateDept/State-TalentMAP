@@ -4,12 +4,14 @@ import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
+import swal from '@sweetalert/with-react';
+// import { formatDate } from 'utilities';
 import CheckBox from '../CheckBox';
 
-const DATE_FORMAT = 'MMMM d, yyyy';
+const DATE_FORMAT = 'MM/dd/yyyy';
 
-const EditAssignmentCycles = (props) => {
-  const { onClose, onPost, onSave } = props;
+const NewAssignmentCycle = (props) => {
+  const { onSave } = props;
 
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
@@ -21,6 +23,7 @@ const EditAssignmentCycles = (props) => {
   const [twelveMonthLanguage, setTwelveMonthLanguage] = useState(null);
   const [twentyFourMonthLanguage, setTwentyFourMonthLanguage] = useState(null);
   const [bureauPositionReview, setBureauPositionReview] = useState('');
+  const [biddingStart, setBiddingStart] = useState('');
   const [bidDue, setBidDue] = useState('');
   const [bureauPreSeasonBidReview, setBureauPreSeasonBidReview] = useState('');
   const [bureauEarlySeasonBidReview, setBureauEarlySeasonBidReview] = useState('');
@@ -46,7 +49,6 @@ const EditAssignmentCycles = (props) => {
     { value: 'P', label: 'P(Proposed)' },
   ];
 
-  // These functions arent functional for now.
   const saveAC = (e) => {
     e.preventDefault();
     const userData = {
@@ -60,6 +62,7 @@ const EditAssignmentCycles = (props) => {
       twelveMonthLanguage,
       twentyFourMonthLanguage,
       bureauPositionReview,
+      biddingStart,
       bidDue,
       bureauPreSeasonBidReview,
       bureauEarlySeasonBidReview,
@@ -72,40 +75,12 @@ const EditAssignmentCycles = (props) => {
       mdsReview,
       assignedBidder,
     };
-    onSave(true, userData);
-  };
-
-  const postAC = (e) => {
-    e.preventDefault();
-    const userData = {
-      assignmentCycle,
-      cycleCategory,
-      cycleStatus,
-      exclusivePositions,
-      postViewable,
-      cycleBoundries,
-      sixMonthLanguage,
-      twelveMonthLanguage,
-      twentyFourMonthLanguage,
-      bureauPositionReview,
-      bidDue,
-      bureauPreSeasonBidReview,
-      bureauEarlySeasonBidReview,
-      bureauBidReview,
-      bidAudit,
-      bidBookReview,
-      bidCountReview,
-      htfReview,
-      organizationCountReview,
-      mdsReview,
-      assignedBidder,
-    };
-    onPost(true, userData);
+    onSave(userData);
   };
 
   const cancelAC = (e) => {
     e.preventDefault();
-    onClose(true);
+    swal.close();
   };
 
   return (
@@ -116,6 +91,8 @@ const EditAssignmentCycles = (props) => {
           <span className="bs-validation-container">
             <TextareaAutosize
               maxlength="255"
+              maxRows={4}
+              minRows={4}
               name="description"
               placeholder="Please provide a description of the assignment cycle."
               defaultValue={assignmentCycle}
@@ -248,6 +225,20 @@ const EditAssignmentCycles = (props) => {
                   dateFormat={DATE_FORMAT}
                   placeholderText={'Select a bureau position review date'}
                   minDate={bureauPositionReview}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bidding Start Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+                <FA name="times" className={`${biddingStart ? '' : 'hide'} fa-close`} onClick={() => setBiddingStart(null)} />
+                <DatePicker
+                  selected={biddingStart}
+                  onChange={(date) => setBiddingStart(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={'Select a bidding start date'}
+                  minDate={biddingStart}
                 />
               </span>
             </div>
@@ -407,9 +398,8 @@ const EditAssignmentCycles = (props) => {
             </div>
           </>
         }
-        <div>
+        <div className="ac-buttons">
           <button onClick={saveAC}>Save</button>
-          <button onClick={postAC} type="submit">Post Open Positions</button>
           <button onClick={cancelAC}>Cancel</button>
         </div>
       </form>
@@ -417,17 +407,13 @@ const EditAssignmentCycles = (props) => {
   );
 };
 
-EditAssignmentCycles.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onPost: PropTypes.func.isRequired,
+NewAssignmentCycle.propTypes = {
   onSave: PropTypes.func.isRequired,
 };
 
 
-EditAssignmentCycles.defaultProps = {
-  onClose: () => { },
-  onPost: () => { },
+NewAssignmentCycle.defaultProps = {
   onSave: () => { },
 };
 
-export default EditAssignmentCycles;
+export default NewAssignmentCycle;
