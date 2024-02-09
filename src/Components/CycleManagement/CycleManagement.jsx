@@ -29,8 +29,6 @@ const CycleManagement = (props) => {
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
-  const cycleManagementCreateSuccess =
-    useSelector(state => state.cycleManagementCreateCycleSuccess);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
@@ -96,11 +94,6 @@ const CycleManagement = (props) => {
     selectedDate,
     cycleManagementData,
   ]);
-  useEffect(() => {
-    if (cycleManagementCreateSuccess === true) {
-      swal.close();
-    }
-  }, [cycleManagementCreateSuccess]);
 
   const uniqueStatuses = () => {
     const statuses = cycleManagementData.map(cycles => cycles.status);
