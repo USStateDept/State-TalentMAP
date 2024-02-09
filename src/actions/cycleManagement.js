@@ -208,7 +208,6 @@ export function cycleManagementCreateCycleSuccess(bool) {
 
 export function cycleManagementCreateCycle(data) {
   return (dispatch) => {
-    dispatch(cycleManagementCreateCycleSuccess(false));
     api()
       .post('/fsbid/assignment_cycles/create/', {
         data,
