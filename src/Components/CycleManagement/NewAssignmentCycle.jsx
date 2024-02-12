@@ -90,11 +90,11 @@ const NewAssignmentCycle = (props) => {
           <label className="label-desc" htmlFor="status">Assignment Cycle</label>
           <span className="bs-validation-container">
             <TextareaAutosize
-              maxlength="255"
-              maxRows={4}
-              minRows={4}
+              maxlength="100"
+              maxRows={1}
+              minRows={1}
               name="description"
-              placeholder="Please provide a description of the assignment cycle."
+              placeholder="Name of the assignment cycle."
               defaultValue={assignmentCycle}
               onChange={(e) => setAssignmentCycle(e.target.value)}
             />
