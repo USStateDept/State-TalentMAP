@@ -86,15 +86,16 @@ const NewAssignmentCycle = (props) => {
   return (
     <div>
       <form className="assignment-cycle-form">
+        <div><div className="error-color pr-10">*</div>Required fields</div>
         <div>
-          <label className="label-desc" htmlFor="status">Assignment Cycle</label>
+          <label htmlFor="status"><div className="error-color">*</div>Assignment Cycle</label>
           <span className="bs-validation-container">
             <TextareaAutosize
-              maxlength="255"
-              maxRows={4}
-              minRows={4}
+              maxlength="100"
+              maxRows={1}
+              minRows={1}
               name="description"
-              placeholder="Please provide a description of the assignment cycle."
+              placeholder="Name of the assignment cycle."
               defaultValue={assignmentCycle}
               onChange={(e) => setAssignmentCycle(e.target.value)}
             />
@@ -160,244 +161,240 @@ const NewAssignmentCycle = (props) => {
             />
           </span>
         </div>
-        {
-          <>
-            <div>
-              <dt>Cycle Boundary Dates</dt>
-              <span className="date-picker-validation-container-new larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <DateRangePicker
-                  onChange={setCycleBoundries}
-                  value={cycleBoundries}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  className="date-picker-validation-container"
-                />
-              </span>
-            </div>
-            <div>
-              <dt>6 Month Language Dates </dt>
-              <span className="date-picker-validation-container-new larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <DateRangePicker
-                  onChange={setSixMonthLanguage}
-                  value={sixMonthLanguage}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  className="date-picker-validation-container"
-                />
-              </span>
-            </div>
-            <div>
-              <dt>12 Month Language Dates</dt>
-              <span className="date-picker-validation-container-new larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <DateRangePicker
-                  onChange={setTwelveMonthLanguage}
-                  value={twelveMonthLanguage}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  className="date-picker-validation-container"
-                />
-              </span>
-            </div>
-            <div>
-              <dt>24 Month Language Dates</dt>
-              <span className="date-picker-validation-container-new larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <DateRangePicker
-                  onChange={setTwentyFourMonthLanguage}
-                  value={twentyFourMonthLanguage}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  className="date-picker-validation-container"
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bureau Position Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bureauPositionReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPositionReview(null)} />
-                <DatePicker
-                  selected={bureauPositionReview}
-                  onChange={(date) => setBureauPositionReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bureau position review date'}
-                  minDate={bureauPositionReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bidding Start Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${biddingStart ? '' : 'hide'} fa-close`} onClick={() => setBiddingStart(null)} />
-                <DatePicker
-                  selected={biddingStart}
-                  onChange={(date) => setBiddingStart(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bidding start date'}
-                  minDate={biddingStart}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bid Due Date </dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidDue ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} />
-                <DatePicker
-                  selected={bidDue}
-                  onChange={(date) => setBidDue(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bid due date'}
-                  minDate={bidDue}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bureau Pre-Season Bid Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bureauPreSeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPreSeasonBidReview(null)} />
-                <DatePicker
-                  selected={bureauPreSeasonBidReview}
-                  onChange={(date) => setBureauPreSeasonBidReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bureau pre-season bid review date'}
-                  minDate={bureauPreSeasonBidReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bureau Early Season Bid Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bureauEarlySeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauEarlySeasonBidReview(null)} />
-                <DatePicker
-                  selected={bureauEarlySeasonBidReview}
-                  onChange={(date) => setBureauEarlySeasonBidReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bureau early season bid review date'}
-                  minDate={bureauEarlySeasonBidReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bureau Bid Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bureauBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauBidReview(null)} />
-                <DatePicker
-                  selected={bureauBidReview}
-                  onChange={(date) => setBureauBidReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bureau bid review date'}
-                  minDate={bureauBidReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bid Audit Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidAudit ? '' : 'hide'} fa-close`} onClick={() => setBidAudit(null)} />
-                <DatePicker
-                  selected={bidAudit}
-                  onChange={(date) => setBidAudit(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bid audit date'}
-                  minDate={bidAudit}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bid Book Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidBookReview ? '' : 'hide'} fa-close`} onClick={() => setBidBookReview(null)} />
-                <DatePicker
-                  selected={bidBookReview}
-                  onChange={(date) => setBidBookReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bid book review date'}
-                  minDate={bidBookReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Bid Count Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidCountReview ? '' : 'hide'} fa-close`} onClick={() => setBidCountReview(null)} />
-                <DatePicker
-                  selected={bidCountReview}
-                  onChange={(date) => setBidCountReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a bid count review date'}
-                  minDate={bidCountReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>HTF Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${htfReview ? '' : 'hide'} fa-close`} onClick={() => setHtfReview(null)} />
-                <DatePicker
-                  selected={htfReview}
-                  onChange={(date) => setHtfReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a HTF review date'}
-                  minDate={htfReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Organization Count Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${organizationCountReview ? '' : 'hide'} fa-close`} onClick={() => setOrganizationCountReview(null)} />
-                <DatePicker
-                  selected={organizationCountReview}
-                  onChange={(date) => setOrganizationCountReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a organization count review date'}
-                  minDate={organizationCountReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>MDS Review Date</dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${mdsReview ? '' : 'hide'} fa-close`} onClick={() => setMdsReview(null)} />
-                <DatePicker
-                  selected={mdsReview}
-                  onChange={(date) => setMdsReview(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a MDS review date'}
-                  minDate={mdsReview}
-                />
-              </span>
-            </div>
-            <div>
-              <dt>Assigned Bidder Date </dt>
-              <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${assignedBidder ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidder(null)} />
-                <DatePicker
-                  selected={assignedBidder}
-                  onChange={(date) => setAssignedBidder(date)}
-                  dateFormat={DATE_FORMAT}
-                  placeholderText={'Select a assigned bidder date'}
-                  minDate={assignedBidder}
-                />
-              </span>
-            </div>
-          </>
-        }
+        <div>
+          <dt><div className="error-color">*</div>Cycle Boundary Dates</dt>
+          <span className="date-picker-validation-container-new larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <DateRangePicker
+              onChange={setCycleBoundries}
+              value={cycleBoundries}
+              maxDetail="month"
+              calendarIcon={null}
+              className="date-picker-validation-container"
+            />
+          </span>
+        </div>
+        <div>
+          <dt>6 Month Language Dates </dt>
+          <span className="date-picker-validation-container-new larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <DateRangePicker
+              onChange={setSixMonthLanguage}
+              value={sixMonthLanguage}
+              maxDetail="month"
+              calendarIcon={null}
+              className="date-picker-validation-container"
+            />
+          </span>
+        </div>
+        <div>
+          <dt>12 Month Language Dates</dt>
+          <span className="date-picker-validation-container-new larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <DateRangePicker
+              onChange={setTwelveMonthLanguage}
+              value={twelveMonthLanguage}
+              maxDetail="month"
+              calendarIcon={null}
+              className="date-picker-validation-container"
+            />
+          </span>
+        </div>
+        <div>
+          <dt>24 Month Language Dates</dt>
+          <span className="date-picker-validation-container-new larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <DateRangePicker
+              onChange={setTwentyFourMonthLanguage}
+              value={twentyFourMonthLanguage}
+              maxDetail="month"
+              calendarIcon={null}
+              className="date-picker-validation-container"
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bureau Position Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bureauPositionReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPositionReview(null)} />
+            <DatePicker
+              selected={bureauPositionReview}
+              onChange={(date) => setBureauPositionReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bureau position review date'}
+              minDate={bureauPositionReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bidding Start Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${biddingStart ? '' : 'hide'} fa-close`} onClick={() => setBiddingStart(null)} />
+            <DatePicker
+              selected={biddingStart}
+              onChange={(date) => setBiddingStart(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bidding start date'}
+              minDate={biddingStart}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bid Due Date </dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bidDue ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} />
+            <DatePicker
+              selected={bidDue}
+              onChange={(date) => setBidDue(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bid due date'}
+              minDate={bidDue}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bureau Pre-Season Bid Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bureauPreSeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPreSeasonBidReview(null)} />
+            <DatePicker
+              selected={bureauPreSeasonBidReview}
+              onChange={(date) => setBureauPreSeasonBidReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bureau pre-season bid review date'}
+              minDate={bureauPreSeasonBidReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bureau Early Season Bid Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bureauEarlySeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauEarlySeasonBidReview(null)} />
+            <DatePicker
+              selected={bureauEarlySeasonBidReview}
+              onChange={(date) => setBureauEarlySeasonBidReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bureau early season bid review date'}
+              minDate={bureauEarlySeasonBidReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bureau Bid Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bureauBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauBidReview(null)} />
+            <DatePicker
+              selected={bureauBidReview}
+              onChange={(date) => setBureauBidReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bureau bid review date'}
+              minDate={bureauBidReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bid Audit Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bidAudit ? '' : 'hide'} fa-close`} onClick={() => setBidAudit(null)} />
+            <DatePicker
+              selected={bidAudit}
+              onChange={(date) => setBidAudit(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bid audit date'}
+              minDate={bidAudit}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bid Book Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bidBookReview ? '' : 'hide'} fa-close`} onClick={() => setBidBookReview(null)} />
+            <DatePicker
+              selected={bidBookReview}
+              onChange={(date) => setBidBookReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bid book review date'}
+              minDate={bidBookReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Bid Count Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${bidCountReview ? '' : 'hide'} fa-close`} onClick={() => setBidCountReview(null)} />
+            <DatePicker
+              selected={bidCountReview}
+              onChange={(date) => setBidCountReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a bid count review date'}
+              minDate={bidCountReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>HTF Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${htfReview ? '' : 'hide'} fa-close`} onClick={() => setHtfReview(null)} />
+            <DatePicker
+              selected={htfReview}
+              onChange={(date) => setHtfReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a HTF review date'}
+              minDate={htfReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Organization Count Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${organizationCountReview ? '' : 'hide'} fa-close`} onClick={() => setOrganizationCountReview(null)} />
+            <DatePicker
+              selected={organizationCountReview}
+              onChange={(date) => setOrganizationCountReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a organization count review date'}
+              minDate={organizationCountReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>MDS Review Date</dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${mdsReview ? '' : 'hide'} fa-close`} onClick={() => setMdsReview(null)} />
+            <DatePicker
+              selected={mdsReview}
+              onChange={(date) => setMdsReview(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a MDS review date'}
+              minDate={mdsReview}
+            />
+          </span>
+        </div>
+        <div>
+          <dt>Assigned Bidder Date </dt>
+          <span className="date-picker-validation-container larger-date-picker">
+            <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
+            <FA name="times" className={`${assignedBidder ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidder(null)} />
+            <DatePicker
+              selected={assignedBidder}
+              onChange={(date) => setAssignedBidder(date)}
+              dateFormat={DATE_FORMAT}
+              placeholderText={'Select a assigned bidder date'}
+              minDate={assignedBidder}
+            />
+          </span>
+        </div>
         <div className="ac-buttons">
           <button onClick={saveAC}>Save</button>
           <button onClick={cancelAC}>Cancel</button>
