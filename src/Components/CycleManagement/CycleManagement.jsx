@@ -11,14 +11,13 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
 import TMDatePicker from 'Components/TMDatePicker';
 import {
+  cycleManagementCreateCycle,
   cycleManagementFetchData,
-  postAssignmentCyclesSelections,
-  saveAssignmentCyclesSelections,
   saveCycleManagementSelections,
 } from 'actions/cycleManagement';
 import { renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
-import EditAssignmentCycles from './EditAssignmentCycles';
+import NewAssignmentCycle from './NewAssignmentCycle';
 
 const CycleManagement = (props) => {
   const dispatch = useDispatch();
@@ -39,8 +38,7 @@ const CycleManagement = (props) => {
   const [cycleManagementData$, setCycleManagementData$] = useState(cycleManagementData);
   const [clearFilters, setClearFilters] = useState(false);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
-  const [addNewCycles, setAddNewCycles] = useState(false);
-  const disableInput = addNewCycles || cardsInEditMode.length > 0;
+  const disableInput = cardsInEditMode.length > 0;
   const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
     && !selectedDate;
 
@@ -97,6 +95,11 @@ const CycleManagement = (props) => {
     cycleManagementData,
   ]);
 
+  useEffect(() => {
+    if (swal?.getState()?.isOpen) {
+      swal.close();
+    }
+  }, [cycleManagementDataLoading]);
 
   const uniqueStatuses = () => {
     const statuses = cycleManagementData.map(cycles => cycles.status);
@@ -112,27 +115,11 @@ const CycleManagement = (props) => {
     setClearFilters(false);
   };
 
-  const onSave = (isNew, userData) => {
-    dispatch(saveAssignmentCyclesSelections(userData));
-    setAddNewCycles(false);
-    swal.close();
-    if (!isNew) setCardsInEditMode([]);
+  const onSave = (data) => {
+    dispatch(cycleManagementCreateCycle(data));
   };
 
-  const onPost = (isNew, userData) => {
-    dispatch(postAssignmentCyclesSelections(userData));
-    setAddNewCycles(false);
-    swal.close();
-    if (!isNew) setCardsInEditMode([]);
-  };
-
-  const onClose = (isNew) => {
-    swal.close();
-    setAddNewCycles(false);
-    if (!isNew) setCardsInEditMode([]);
-  };
-
-  const onCardAdd = (e) => {
+  const onCardOpen = (e) => {
     if (cardsInEditMode.includes(e)) {
       setCardsInEditMode(cardsInEditMode.filter(item => item !== e));
     } else {
@@ -140,17 +127,14 @@ const CycleManagement = (props) => {
     }
   };
 
-  const addNewCycle = (e) => {
-    e.preventDefault();
+  const createNewAssignmentCycle = () => {
     swal({
       title: 'New Assignment Cycle',
-      className: 'modal-700',
+      className: 'modal-700-long',
       button: false,
       content: (
-        <EditAssignmentCycles
-          onPost={onPost}
+        <NewAssignmentCycle
           onSave={onSave}
-          onClose={onClose}
         />
       ),
     });
@@ -247,7 +231,10 @@ const CycleManagement = (props) => {
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="bs-results">
                   <Link
-                    onClick={addNewCycle}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      createNewAssignmentCycle();
+                    }}
                     to="#"
                   >
                     {isSuperUser &&
@@ -263,7 +250,7 @@ const CycleManagement = (props) => {
                 {cycleManagementData$?.map(data => (
                   <CycleSearchCard
                     {...{ ...data, isAO }}
-                    onEditModeSearch={onCardAdd}
+                    onEditModeSearch={onCardOpen}
                     isSuperUser={isSuperUser}
                   />
                 ))}
