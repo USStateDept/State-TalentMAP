@@ -259,7 +259,7 @@
 .assignment-cycle-form {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   row-gap: 10px;
@@ -312,7 +312,7 @@
 
   label,
   dt {
-    display: block;
+    display: flex;
     margin-top: 3rem;
     width: 210px;
     text-align: left;
