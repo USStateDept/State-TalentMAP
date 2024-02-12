@@ -10,7 +10,7 @@ describe('ServiceNeedDifferentialComponent', () => {
 
   it('text correct when !shortName', () => {
     const wrapper = shallow(<ServiceNeedDifferential />);
-    expect(wrapper.find('Ribbon').props().text).toBe('Service need differential');
+    expect(wrapper.find('Ribbon').props().text).toBe('Service Need Differential');
   });
 
   it('text correct when shortName', () => {

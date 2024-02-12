@@ -12,12 +12,11 @@ const AgendaItemLegsFormReadOnly = props => {
 
   const showOverlay = !legs.length;
   const [rowHoverNum, setRowHoverNum] = useState();
-  const SEPARATION_DEFAULT = '-';
 
   const onHover = row => {
     // to avoid highlighting the arrow row
     // Note: varies by -1 from the editable version bc of the row of Xs to remove legs
-    if (row !== 7) {
+    if (row !== 8) {
       setRowHoverNum(row);
     }
   };
@@ -39,16 +38,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'Org',
-      content: (a => {
-        if (a?.is_separation) {
-          const location = a?.separation_location;
-          if (location) {
-            const { city, country } = location;
-            return `${city}, ${country}`;
-          }
-        }
-        return <div>{a?.org || DEFAULT_TEXT}</div>;
-      }),
+      content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
@@ -59,11 +49,12 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => <div>{formatLang(a?.languages) || DEFAULT_TEXT}</div>),
     },
     {
+      title: 'Skills',
+      content: (a => <div>{a?.custom_skills_description || DEFAULT_TEXT}</div>),
+    },
+    {
       title: 'ETA',
-      content: (a => a?.is_separation ?
-        <div>{SEPARATION_DEFAULT}</div> :
-        <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>
-      ),
+      content: (a => <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
@@ -71,7 +62,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'TED',
-      content: (a => <div>{formatDate(a?.ted) || DEFAULT_TEXT}</div>),
+      content: (a => <div>{ !a?.ted ? DEFAULT_TEXT : formatDate(a?.ted)}</div>),
     },
     {
       title: 'TOD',
@@ -88,6 +79,10 @@ const AgendaItemLegsFormReadOnly = props => {
     {
       title: 'Vice',
       content: (a => formatVice(a?.vice)),
+    },
+    {
+      title: 'Pay Plan',
+      content: (a => <div>{a?.pay_plan || DEFAULT_TEXT}</div>),
     },
   ];
 

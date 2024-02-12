@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import { checkFlag } from 'flags';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -50,6 +51,7 @@ export const renderIsHardToFill = (details, ribbonClass) => (
   get(details, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} />
 );
 
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const PositionDetailsItem = (props) => {
   const {
@@ -86,6 +88,7 @@ const PositionDetailsItem = (props) => {
   const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
   const assignee = get(position, 'assignee') || NO_USER_LISTED;
   const cycle = get(position, 'latest_bidcycle.name', 'None Listed');
+  const deto = position?.deto_rwa ? 'Eligible' : 'Not Eligible';
 
   const getPostedDate = () => {
     const posted = get(position, COMMON_PROPERTIES.posted);
@@ -138,14 +141,15 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Skill" content={<PositionSkillCodeList primarySkill={get(position, 'skill')} secondarySkill={get(position, 'skill_secondary')} />} />
             <CondensedCardDataPoint title="Grade" content={get(position, 'grade', NO_GRADE)} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
-            <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
+            <CondensedCardDataPoint title="Tour of Duty" content={formattedTOD} />
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={get(position, 'languages')} propToUse="representation" />} />
-            <CondensedCardDataPoint title="Post differential | Danger Pay" content={differentials} />
+            <CondensedCardDataPoint title="Post Differential | Danger Pay" content={differentials} />
             <CondensedCardDataPoint title={isProjectedVacancy ? 'Bid Season' : 'Bid Cycle'} content={cycle} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
             { isProjectedVacancy && <CondensedCardDataPoint title="Assignee" content={assignee} /> }
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
+            { DETO_RWA_FLAG() && <CondensedCardDataPoint title="RWA/DETO Eligible" content={deto} /> }
           </div>
         </div>
         {

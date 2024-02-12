@@ -23,7 +23,7 @@ describe('async actions', () => {
     ({ mock, spy } = spyMockAdapter({
       url: '/fsbid/agenda_employees/export/?', response: [200, { results: [] }],
     })); mock();
-    actions.agendaItemHistoryExport();
+    actions.employeeAgendaSearchExport();
     expectMockWasCalled({ spy, cb: done });
   });
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull } from 'lodash';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import { checkFlag } from 'flags';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -26,6 +27,8 @@ import {
   NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
+
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 class ResultsCard extends Component {
   getInnerId = () => {
@@ -77,7 +80,7 @@ class ResultsCard extends Component {
 
     const innerId = this.getInnerId();
 
-    const bidTypeTitle = isProjectedVacancy ? 'Bid season' : 'Bid cycle';
+    const bidTypeTitle = isProjectedVacancy ? 'Bid Season' : 'Bid Cycle';
 
     const isTandem1 = result.tandem_nbr === 1;
     const isTandem2 = result.tandem_nbr === 2;
@@ -96,14 +99,14 @@ class ResultsCard extends Component {
         'Bureau': getResult(pos, 'bureau', NO_BUREAU),
       },
       {
-        'Tour of duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
+        'Tour of Duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
         'Language': language,
-        'Post differential | Danger Pay': getDifferentials(pos),
+        'Post Differential | Danger Pay': getDifferentials(pos),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
       },
       {
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
-        'Position number': position,
+        'Position Number': position,
       },
       /* eslint-enable quote-props */
     ];
@@ -113,6 +116,13 @@ class ResultsCard extends Component {
       sections[1] = {
         ...sections[1],
         Assignee: getResult(pos, 'assignee', NO_USER_LISTED),
+      };
+    }
+
+    if (DETO_RWA_FLAG()) {
+      sections[1] = {
+        ...sections[1],
+        'RWA/DETO Eligible': pos?.deto_rwa ? 'Eligible' : 'Not Eligible',
       };
     }
 

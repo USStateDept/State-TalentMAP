@@ -1,52 +1,70 @@
 .custom-table {
-    width: 100%;
-    border-collapse: collapse; /* Collapse borders */
-    border-spacing: 0;
-    th {
+  position: relative;
+  width: 100%;
+  border-collapse: collapse; /* Collapse borders */
+  border-spacing: 0;
+  th {
+    border: none;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 8px; /* Add padding to cells for better readability */
+  }
+  tr {
+    height: 50px;
+  }
+  tbody {
+    td {
       border: none;
       border-top: 1px solid #ddd;
       border-bottom: 1px solid #ddd;
-      padding: 8px; /* Add padding to cells for better readability */
+      padding: 8px;
     }
-    tr {
-      height: 50px;
+  }
+  .checkbox-pac {
+      min-width: 30px;
     }
-    tbody {
-      td {
-        border: none;
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-        padding: 8px;
-      }
-    }
-    .checkbox-pac {
-        min-width: 30px;
-      }
-      .checkbox-pos {
-        >div{
-          >label {
-            margin-top: 0;
-          }
+    .checkbox-pos {
+      > div{
+        > label {
+          margin-top: 0;
         }
       }
+    }
 }
 
-.post-access-emp-search-div {
-  input {
-    border-radius: 0px;
-    height: 28px;
-    max-width: none;
-    width: 240px;
-    border-right: 1px solid $color-gray-lighter;
-    font-size: 1.3rem;
-  }
-  .searchbar {
-    .text-input-wrapper {
-      > span {
-        font-size: 15px;
-        left: 210px;
-        top: 5px;
-      }
-    }
+.post-access-scroll-container {
+overflow: auto;
+height: 800px;
+}
+
+.post-access-container-cb {
+  position: relative;
+  bottom: 10px;
+}
+
+.mpa-grant-box-wrapper {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+}
+
+.mpa-grant-box {
+  height: 500px;
+  width: 25%;
+  border: 2px solid $tm-gray;
+  margin: 10px;
+  overflow-y: scroll;
+  box-shadow: $tm-gray 1px;
+}
+
+.mpa-grant-box-item {
+  margin: 10px;
+}
+
+.mpa-remove-item-wrapper {
+  display: flex;
+  .mpa-remove-item {
+    color: $secondary-darkest;
+    margin-inline: 10px;
   }
 }

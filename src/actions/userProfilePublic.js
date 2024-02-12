@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from 'axios';
 import { get, isArray } from 'lodash';
 import { clientBidListFetchDataSuccess } from './bidList';

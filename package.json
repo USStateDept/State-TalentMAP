@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "11.0.0",
+  "version": "12.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.17.9",
@@ -105,6 +105,9 @@
     "typeface-roboto": "^1.1.13",
     "use-query-params": "^1.2.3",
     "uswds": "~1.6.12"
+  },
+    "resolutions": {
+      "**/**/type-fest": "0.21.3"
   },
   "@comment devDependencies": [
     "dart-sass 1.33.0 introduces a breaking change to division. This causes uswds compilation to fail. https://github.com/sass/dart-sass/releases/tag/1.33.0",

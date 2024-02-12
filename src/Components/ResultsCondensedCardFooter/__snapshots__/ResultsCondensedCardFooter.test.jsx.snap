@@ -14,7 +14,7 @@ exports[`ResultsCondensedCardFooterComponent matches snapshot 1`] = `
         className="condensed-card-footer-left"
       >
         <strong>
-          Position number: 
+          Position Number: 
         </strong>
         10034001
       </div>

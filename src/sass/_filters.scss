@@ -21,6 +21,11 @@
       .hide-clear-filters {
         visibility: hidden;
       }
+
+      button:disabled {
+        background-color: transparent !important;
+        color: $bg-gray-medium-1;
+      }
     }
 }
 
@@ -30,7 +35,7 @@
   justify-content: space-between;
   padding-top: 15px;
 
-  div:first-child {
+  >div:first-child {
     padding-left: 35px;
   }
 

@@ -59,36 +59,42 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: false,
           showAssignmentHistory: false,
+          showMaintainAssignmentLink: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: false,
+          showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: true,
         };
         break;
       case 'post':
         props = {
           showAgendaItemHistory: false,
           showAssignmentHistory: false,
+          showMaintainAssignmentLink: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: false,
+          showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: true,
         };
         break;
       case 'ao':
         props = {
           showAgendaItemHistory: true,
           showAssignmentHistory: true,
+          showMaintainAssignmentLink: true,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
           showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: false,
         };
         break;
       default:
@@ -96,12 +102,14 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: true,
           showAssignmentHistory: true,
+          showMaintainAssignmentLink: false,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,
           showLanguages: true,
           showSearchAsClient: true,
           showEmployeeProfileLinks: true,
+          showRedactedProfilePreview: false,
         };
     }
 

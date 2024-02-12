@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tippy';
 import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
-import { NO_POST } from '../../Constants/SystemMessages';
-import { getBidStatisticsObject, getPostName } from '../../utilities';
+import { getBidStatisticsObject } from '../../utilities';
 
 const ResultsCondensedCardTop = ({
   position,
@@ -25,7 +24,6 @@ const ResultsCondensedCardTop = ({
     vacancyClass = 'vacancy--recent';
     vacancyText = 'Now available';
   }
-  const p = position.position || position;
   const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
   const isDifficultToStaff = get(position, 'isDifficultToStaff', false);
@@ -65,7 +63,7 @@ const ResultsCondensedCardTop = ({
         {
           isServiceNeedDifferential &&
           <Tooltip
-            title="Service need differential"
+            title="Service Need Differential"
             arrow
             offset={-100}
           >
@@ -102,13 +100,6 @@ const ResultsCondensedCardTop = ({
           }
         >
           { titleHeader }
-        </div>
-      </div>
-      <div className="usa-grid-full post-ribbon-container">
-        <div className="post-container">
-          <span><span className="title">Location:</span> <span className="data">
-            { getPostName(p.post, NO_POST) }
-          </span></span>
         </div>
       </div>
     </div>

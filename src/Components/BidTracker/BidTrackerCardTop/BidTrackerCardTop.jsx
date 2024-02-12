@@ -40,6 +40,7 @@ class BidTrackerCardTop extends Component {
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}
+            organization={position?.organization}
             showBidCount={showBidCount}
             bidCycle={get(position_info, 'bidcycle.name')}
           />

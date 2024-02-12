@@ -1,0 +1,21 @@
+.bidding-tool-page {
+  .page-heading {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+
+    span {
+      font-size: 16px;
+    }
+
+    span:first-of-type {
+      font-size: 30px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .controls-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

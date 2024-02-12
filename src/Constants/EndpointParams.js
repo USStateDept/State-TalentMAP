@@ -28,6 +28,7 @@ export const ENDPOINT_PARAMS = {
   tmHandshake: 'lead_hs_status_code',
   hardToFill: 'htf_indicator',
   ordering: 'ordering',
+  detoRWA: 'deto_rwa',
 };
 
 export const ENDPOINT_PARAMS_TANDEM = {

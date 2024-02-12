@@ -131,7 +131,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
       >
         <LinkButton
           className="button-box"
-          toLink="/profile/ao/createagendaitem/"
+          toLink="/profile/ao/editagendaitem/"
         >
           Create Agenda Item
         </LinkButton>

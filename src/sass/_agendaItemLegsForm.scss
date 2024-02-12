@@ -14,9 +14,15 @@
       border: none!important;
     }
 
+    @each $row-num in map-values($aim-legs-xlrg-height-config) {
+      .grid-row-#{$row-num} {
+        min-height: 120px;
+      }
+    }
+
     @each $row-num in map-values($aim-legs-lrg-height-config) {
       .grid-row-#{$row-num} {
-        min-height: 80px;
+        min-height: 85px;
       }
     }
 
@@ -36,7 +42,7 @@
       min-height: 105px;
     }
 
-    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ];
+    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
 
 
     @each $num in $cols-rows {
@@ -50,20 +56,37 @@
       }
     }
 
-    //TED date and date picker
-    .grid-row-9 {
+    // TED date and date picker
+    .grid-row-10 {
       min-width: 150px;
+      .read-only {
+        padding-top: 15px;
+      }
+    }
+
+    // Validation Columns
+    .grid-col-1.grid-row-4, .grid-col-1.grid-row-8, .grid-col-1.grid-row-10 {
+      padding-top: 25px;
+    }
+    .grid-row-4,
+    .grid-row-8 {
+      .read-only {
+        padding-top: 15px;
+      }
     }
 
     // Dropdown Columns
-    .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
-      padding-top: 25px;
+    .grid-col-1.grid-row-11,
+    .grid-col-1.grid-row-12,
+    .grid-col-1.grid-row-13 {
+      padding-top: 33px;
     }
-
-    .ef-pos-dropdown {
-      padding-left: 10px;
-      padding-top: 41px;
-      padding-bottom: 25px;
+    .grid-row-11,
+    .grid-row-12,
+    .grid-row-13 {
+      .read-only {
+        padding-top: 23px;
+      }
     }
 
     .grid-row-hover {
@@ -220,8 +243,8 @@
     cursor: default;
   }
   .other-tod {
-    align-self: center;
-    padding-top: 13px;
+    align-self: flex-start;
+    padding-top: 23px;
   }
   .other-tod-icon {
     cursor: pointer;
@@ -237,6 +260,7 @@
   font-size: 1.6rem;
   max-width: none;
   padding: 2px 10px 2px 2px;
+  height: auto;
 }
 
 .leg-dropdown:hover {
@@ -253,14 +277,7 @@ td:nth-child(n+2) {
   border-left: 1px solid $color-gray-lighter;
   padding-right: 10px;
 }
-// exclude arrow row
-tr:hover:nth-child(7) {
 
-  th, td {
-    background-color: transparent;
-  }
-
-}
 tr:hover {
 
   th, td {

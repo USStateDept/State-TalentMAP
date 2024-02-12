@@ -81,6 +81,7 @@ class ResultsContainer extends Component {
           <ResultsPillContainer
             items={pillFilters}
             onPillClick={onQueryParamToggle}
+            isClientsPage={false}
           />
           <ResultsControls
             results={results}

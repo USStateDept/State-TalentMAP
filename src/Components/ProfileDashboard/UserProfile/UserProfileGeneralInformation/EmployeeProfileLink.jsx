@@ -1,82 +1,96 @@
 import swal from '@sweetalert/with-react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import axios from 'axios';
+import shortid from 'shortid';
+import { useDispatch } from 'react-redux';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
-import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
+import { downloadPdfStream } from 'utilities';
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
-import Alert from '../../../Alert';
+import api from '../../../../api';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
-const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
+const EmployeeProfileLink = ({
+  userProfile, showEmployeeProfileLinks, showRedactedProfilePreview,
+}) => {
   const dispatch = useDispatch();
-  const emp_profile_urls = userProfile?.employee_profile_url;
-  let redactedUrl = emp_profile_urls?.internalRedacted;
-  let unredactedUrl = emp_profile_urls?.internal;
+  const hruId = userProfile?.user_info?.hru_id;
 
-  if (isOnProxy()) {
-    redactedUrl = emp_profile_urls?.externalRedacted;
-    unredactedUrl = emp_profile_urls?.external;
-  }
 
   const downloadEmployeeProfile = () => {
-    dispatch(toastInfo('Please wait while we process your request.', 'Loading...'));
-    axios.get(redactedUrl, {
-      withCredentials: true,
-      headers: { JWTAuthorization: fetchJWT() },
-      responseType: 'arraybuffer' },
-    )
-      .then(response => {
-        downloadPdfStream(response.data);
-        dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
-      })
-      .catch(() => {
-        dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred'));
-      });
+    const id = shortid.generate();
+    dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id));
+
+    api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=true`,
+      {
+        responseType: 'arraybuffer',
+      },
+    ).then(response => {
+      downloadPdfStream(response.data);
+      dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success', id, true));
+    }).catch(() => {
+      dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred', id, true));
+    });
   };
 
-  const openPdf = () => swal({
+  const openPdf = (url) => swal({
     title: 'Employee Profile Report:',
     button: false,
     className: 'modal-1300',
     content: (
       <EmployeeProfileModal
-        url={unredactedUrl}
+        url={url}
       />
     ),
   });
+
+  const viewEmployeeProfile = () => {
+    const id = shortid.generate();
+
+    dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id));
+    api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=${showRedactedProfilePreview}`,
+      {
+        responseType: 'arraybuffer',
+      },
+    ).then(response => {
+      dispatch(toastSuccess(`Viewing ${showRedactedProfilePreview ? 'Redacted' : 'Unredacted'} Profile.`, 'Success', id, true));
+
+      const blob = new Blob([response?.data], { type: 'application/pdf' });
+      const bloburl = window.URL.createObjectURL(blob);
+
+      openPdf(bloburl);
+    }).catch(() => {
+      dispatch(toastError('We were unable to process your Employee Profile request. Please try again later.', 'An error has occurred', id, true));
+    });
+  };
 
   return (
     <InformationDataPoint
       content={
         <div>
           {
-            showEmployeeProfileLinks && !unredactedUrl && !redactedUrl &&
-            <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
-          }
-          {
-            showEmployeeProfileLinks && unredactedUrl &&
-            <InteractiveElement
-              onClick={openPdf}
-              type="a"
-              title="View Unredacted Employee Profile PDF"
-            >
-              Employee Profile
-            </InteractiveElement>
-          }
-          {
-            showEmployeeProfileLinks && redactedUrl &&
-            <InteractiveElement
-              onClick={downloadEmployeeProfile}
-              type="a"
-              title="Download Redacted Employee Profile PDF"
-              className="ml-10"
-            >
-              <FA name="download" />
-            </InteractiveElement>
+            showEmployeeProfileLinks &&
+            <>
+              <InteractiveElement
+                onClick={viewEmployeeProfile}
+                type="a"
+                title={
+                  `View ${showRedactedProfilePreview ?
+                    'Unredacted' : 'Redacted'} Employee Profile PDF`
+                }
+              >
+                Employee Profile
+              </InteractiveElement>
+              <InteractiveElement
+                onClick={downloadEmployeeProfile}
+                type="a"
+                title="Download Redacted Employee Profile PDF"
+                className="ml-10"
+              >
+                <FA name="download" />
+              </InteractiveElement>
+            </>
           }
         </div>
       }
@@ -87,6 +101,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
 EmployeeProfileLink.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEmployeeProfileLinks: PropTypes.bool.isRequired,
+  showRedactedProfilePreview: PropTypes.bool.isRequired,
 };
 
 EmployeeProfileLink.defaultProps = {

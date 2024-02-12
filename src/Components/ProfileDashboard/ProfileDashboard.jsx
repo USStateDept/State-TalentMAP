@@ -25,7 +25,8 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showSearchAsClient,
   unregisterHandshake, showLanguages, canEditClassifications,
-  showAgendaItemHistory, showAssignmentHistory, showEmployeeProfileLinks, isAOView,
+  showAgendaItemHistory, showAssignmentHistory, showMaintainAssignmentLink,
+  showEmployeeProfileLinks, isAOView, showRedactedProfilePreview,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -63,12 +64,16 @@ const ProfileDashboard = ({
                         userProfile={userProfile}
                         isPublic={isPublic}
                         showEmployeeProfileLinks={showEmployeeProfileLinks}
+                        showRedactedProfilePreview={showRedactedProfilePreview}
                       />
                     </BoxShadow>
                     {
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments id={perdet} />
+                        <Assignments
+                          id={perdet}
+                          showMaintainAssignmentLink={showMaintainAssignmentLink}
+                        />
                       </BoxShadow>
                     }
                   </Column>
@@ -171,12 +176,14 @@ ProfileDashboard.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   showAgendaItemHistory: PropTypes.bool.isRequired,
   showAssignmentHistory: PropTypes.bool.isRequired,
+  showMaintainAssignmentLink: PropTypes.bool.isRequired,
   showBidTracker: PropTypes.bool.isRequired,
   showClassifications: PropTypes.bool.isRequired,
   canEditClassifications: PropTypes.bool.isRequired,
   showLanguages: PropTypes.bool.isRequired,
   showSearchAsClient: PropTypes.bool.isRequired,
   showEmployeeProfileLinks: PropTypes.bool.isRequired,
+  showRedactedProfilePreview: PropTypes.bool,
   notifications: NOTIFICATION_RESULTS,
   notificationsIsLoading: PropTypes.bool,
   bidList: BID_RESULTS,
@@ -197,6 +204,7 @@ ProfileDashboard.defaultProps = {
   favoritePositions: [],
   isLoading: false,
   favoritePositionsIsLoading: false,
+  showRedactedProfilePreview: false,
   notifications: [],
   notificationsIsLoading: false,
   bidList: [],

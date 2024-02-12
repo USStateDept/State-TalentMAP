@@ -117,59 +117,66 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
 
   const sections = {
     /* eslint-disable quote-props */
-    subheading: {
-      'Position Number': getResult(pos, 'position_number') || NO_POSITION_NUMBER,
-      'Skill': getResult(pos, 'position_skill_code') || NO_SKILL,
-      'Position Title': getResult(pos, 'position_title') || NO_POSITION_TITLE,
-    },
-    bodyPrimary: {
-      'Assignee TED': getResult(pos, 'assignee_tour_end_date') || NO_TOUR_END_DATE,
-      'Incumbent TED': getResult(pos, 'incumbent') || NO_TOUR_END_DATE,
-      'Bid Season': getResult(pos, 'bid_season_description') || 'None Listed',
-      'Tour of Duty': getResult(pos, 'tour_of_duty_description') || NO_TOUR_OF_DUTY,
-      'Language': <LanguageList
-        languages={[getResult(pos, 'positon_language1_code'), getResult(pos, 'positon_language1_code')]}
-        propToUse="representation"
-      />,
-    },
-    bodySecondary: {
-      'Bureau': getResult(pos, 'bureau_short_description') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'location_description') || NO_POST),
-      'Status': getResult(pos, 'future_vacancy_status_description') || NO_STATUS,
-      'Organization': getResult(pos, 'organization_short_description') || NO_ORG,
-      'TED': getResult(result, 'future_vacancy_override_tour_end_date') || NO_TOUR_END_DATE,
-      'Incumbent': getResult(pos, 'incumbent') || NO_USER_LISTED,
-      'Language Offset Summer': '12 Months',
-      'Language Offset Winter': '3 Months',
-      'Grade': getResult(pos, 'position_grade_code') || NO_GRADE,
-      'Pay Plan': getResult(pos, 'position_pay_plan_code') || NO_GRADE,
-      'Post Differential | Danger Pay': getDifferentials(pos),
-    },
+    subheading: [
+      { 'Position Number': getResult(pos, 'position_number') || NO_POSITION_NUMBER },
+      { 'Skill': getResult(pos, 'position_skill_code') || NO_SKILL },
+      { 'Position Title': getResult(pos, 'position_title') || NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { 'Assignee TED': getResult(pos, 'assignee_tour_end_date') || NO_TOUR_END_DATE },
+      { 'Incumbent TED': getResult(pos, 'incumbent') || NO_TOUR_END_DATE },
+      { 'Bid Season': getResult(pos, 'bid_season_description') || 'None Listed' },
+      { 'Tour of Duty': getResult(pos, 'tour_of_duty_description') || NO_TOUR_OF_DUTY },
+      {
+        'Language': <LanguageList
+          languages={[getResult(pos, 'positon_language1_code'), getResult(pos, 'positon_language1_code')]}
+          propToUse="representation"
+        />
+      },
+    ],
+    bodySecondary: [
+      { 'Bureau': getResult(pos, 'bureau_short_description') || NO_BUREAU },
+      { 'Location': getPostName(get(pos, 'location_description')) || NO_POST },
+      { 'Status': getResult(pos, 'future_vacancy_status_description') || NO_STATUS },
+      { 'Organization': getResult(pos, 'organization') || NO_ORG },
+      { 'TED': getResult(result, 'future_vacancy_override_tour_end_date') || NO_TOUR_END_DATE },
+      { 'Incumbent': getResult(pos, 'incumbent') || NO_USER_LISTED },
+      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
+      { 'Language Offset Summer': '12 Months' },
+      { 'Language Offset Winter': '3 Months' },
+      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
+      { 'Grade': getResult(pos, 'position_grade_code') || NO_GRADE },
+      { 'Pay Plan': getResult(pos, 'position_pay_plan_code') || NO_GRADE },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+    ],
     textarea: get(pos, 'description.content') || 'No description.',
-    metadata: {
-      'Position Posted': getResult(pos, 'posted_date') || NO_UPDATE_DATE,
-      'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
-    },
+    metadata: [
+      { 'Position Posted': getResult(pos, 'posted_date') || NO_UPDATE_DATE },
+      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+    ],
     /* eslint-enable quote-props */
   };
   const form = {
     /* eslint-disable quote-props */
-    staticBody: {
-      'Assignee TED': getResult(pos, 'assignee') || NO_USER_LISTED,
-      'Incumbent TED': getResult(pos, 'incumbent') || NO_USER_LISTED,
-      'Tour of Duty': getResult(pos, 'tour_of_duty_description') || NO_TOUR_OF_DUTY,
-      'Language': <LanguageList
-        languages={[getResult(pos, 'positon_language1_code'), getResult(pos, 'positon_language1_code')]}
-        propToUse="representation"
-      />,
-      'Bureau': getResult(pos, 'bureau_short_description') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'location_description') || NO_POST),
-      'Organization': getResult(pos, 'organization_short_description') || NO_ORG,
-      'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Grade': getResult(pos, 'position_grade_code') || NO_GRADE,
-      'Pay Plan': getResult(pos, 'position_pay_plan_code') || NO_GRADE,
-      'Post Differential | Danger Pay': getDifferentials(pos),
-    },
+    staticBody: [
+      { 'Assignee TED': getResult(pos, 'assignee') || NO_USER_LISTED },
+      { 'Incumbent TED': getResult(pos, 'incumbent') || NO_USER_LISTED },
+      { 'Tour of Duty': getResult(pos, 'tour_of_duty_description') || NO_TOUR_OF_DUTY },
+      { 
+        'Language': <LanguageList
+          languages={[getResult(pos, 'positon_language1_code'), getResult(pos, 'positon_language1_code')]}
+          propToUse="representation"
+        /> 
+      },
+      { 'Bureau': getResult(pos, 'bureau_short_description') || NO_BUREAU },
+      { 'Location': getPostName(get(pos, 'location_description') || NO_POST) },
+      { 'Organization': getResult(pos, 'organization_short_description') || NO_ORG },
+      { 'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
+      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
+      { 'Grade': getResult(pos, 'position_grade_code') || NO_GRADE },
+      { 'Pay Plan': getResult(pos, 'position_pay_plan_code') || NO_GRADE },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+    ],
     inputBody: <div className="position-form">
       <div className="position-form--inputs">
         <div className="position-form--label-input-container">

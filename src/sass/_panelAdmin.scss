@@ -52,6 +52,10 @@
       margin-top: -20px;
     }
 
+    .validation-error-text {
+      color: $alert-red;
+    }
+
     label {
       text-align: left;
       min-width: 200px;

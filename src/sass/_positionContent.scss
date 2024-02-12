@@ -38,6 +38,20 @@
     &::after {
       content: none;
     }
+
+    &.no-space {
+      justify-content: flex-start !important;
+    }
+  }
+
+  .title-link {
+    text-decoration: underline;
+    color: $primary-blue;
+    cursor: pointer;
+
+    padding-right: 7px;
+    margin-right: 7px;
+    border-right: 1px solid black;
   }
 
   .toggle-edit-mode {
@@ -56,6 +70,20 @@
     &:hover {
       div {
         text-decoration: underline;
+      }
+    }
+  }
+
+  .toggle-edit-mode-disabled {
+    color: gray;
+    cursor: not-allowed;
+
+    &:hover {
+
+      div,
+      span {
+        cursor: not-allowed;
+        text-decoration: none;
       }
     }
   }
@@ -84,9 +112,15 @@
       }
 
       dt {
-        color: $color-black;
+        color: inherit;
         font-size: 15px;
         margin-bottom: 7px;
+      }
+    }
+
+    &.condensed {
+      dl {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
       }
     }
   }
@@ -177,9 +211,6 @@
 
   button {
     font-size: 16px;
-  }
-
-  button:first-of-type {
     background-color: transparent;
     color: $primary-blue;
 
@@ -187,7 +218,36 @@
       color: $bg-gray-dark-2 !important;
     }
   }
+
+  button:last-of-type {
+    background-color: $primary-blue;
+    color: white;
+
+    &:disabled {
+      background-color: $bg-gray-dark-2;
+      color: white !important;
+    }
+  }
+
+  &.split-actions {
+    justify-content: space-between;
+
+    >button {
+      background-color: $secondary-base;
+      color: white;
+
+      .fa {
+        padding-right: 10px;
+      }
+
+      &:disabled {
+        background-color: $bg-gray-dark-2;
+        color: white !important;
+      }
+    }
+  }
 }
+
 
 .simple-action-modal {
   .help-text {
@@ -199,6 +259,20 @@
 
   .modal-controls {
     padding-top: 28px;
+  }
+
+  .position-form--label-input-container {
+    label {
+      margin-top: 0px;
+    }
+
+    label,
+    select,
+    textarea {
+      max-width: none;
+    }
+
+    padding: 10px 0px;
   }
 }
 
@@ -244,7 +318,6 @@
       padding-bottom: 5px;
       margin-top: 0;
     }
-
   }
 
   .position-form--picky {
@@ -268,15 +341,27 @@
     grid-template-columns: repeat(auto-fill, minmax($select-width + 50, 1fr));
 
     .position-form--label-input-container {
-      select {
+      align-self: end;
+
+      select,
+      input {
         width: $select-width;
       }
     }
   }
 
+  .position-form--label-input-container-flex {
+    display: flex;
+
+    select,
+    input {
+      width: $select-width;
+    }
+  }
+
   .position-form--label-input-container {
     label {
-      font-weight: bold;
+      font-weight: 500;
       font-size: 15px;
     }
   }
@@ -310,6 +395,23 @@
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(228, 229, 230, 1);
     padding: 5px 20px;
+  }
+
+  .position-form--inputs-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 500px;
+    margin-top: 30px;
+
+    div {
+      padding-right: 10px;
+    }
   }
 }
 
@@ -364,6 +466,7 @@
     }
 
     tr {
+
       th,
       td {
         background-color: transparent;
@@ -393,7 +496,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 0px 0px 10px;
-  
+
     button {
       font-size: 16px;
     }

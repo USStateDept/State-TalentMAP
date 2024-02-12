@@ -4,62 +4,6 @@
     color: $color-white;
   }
 
-  .pma-pm-info {
-    background-color: #BFB9B0;
-    border: 1px solid #BFB9B0;
-    border-radius: 10px;
-    cursor: pointer;
-    height: 41px;
-    margin: 30px 20px;
-    width: 260px;
-    transition: all 1s linear;
-  }
-
-  .pma-pm-info-expanded {
-    background-color: #E4E1DD;
-    border: 3px solid #BFB9B0;
-    height: 250px;
-    width: 98%;
-    transition: border 1s, background-color 1s, width 2s, height 2s;
-    @media screen and (max-width: 1500px) {
-      width: 95%;
-    }
-  }
-
-  .pma-pm-info-title {
-    font-size: 16px;
-    padding: 10px 0;
-    text-align: center;
-    width: 255px;
-    border-radius: 10px;
-    background-color: #BFB9B0;
-    transition: all 1s linear;
-  }
-  .pma-pm-info-title-expanded {
-    border-radius: 7px 0 10px 0;
-    width: 260px;
-    transition: all 1s linear;
-  }
-
-  .tracker-container {
-    padding: 30px;
-    display: flex;
-    align-items: center;
-
-    @media screen and (max-width: 1200px) {
-      flex-wrap: wrap;
-    }
-  }
-
-  .hideTracker {
-    opacity: 0;
-    transition: all 0s linear;
-  }
-  .showTracker {
-    opacity: 100%;
-    transition: all 2s linear .5s;
-  }
-
   .panel-meeting-agendas-rows-container {
     .pma-category-header{
       font-family: 'Roboto';
@@ -86,6 +30,7 @@
 
       .panel-meeting-person-data {
         display: flex;
+        justify-content: space-between;
         margin: 10px 0px;
         gap: 10px;
         align-items: baseline;
@@ -185,13 +130,9 @@
 
   .panel-meeting-agendas-user-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     padding-bottom: 5px;
-
-    @media screen and (min-width: 1600px) {
-      flex-direction: row;
-    }
 
     .item {
       font-size: 1.4rem;
@@ -199,6 +140,13 @@
       .label {
         font-weight: bold;
       }
+    }
+  }
+  .panel-meeting-maintenance-link-container {
+    min-width: 110px;
+    font-size: 13px;
+    a {
+      display: block;
     }
   }
 
@@ -222,5 +170,154 @@
   .date {
     font-size: 10px;
     align-self: center;
+  }
+}
+
+// ---------------------------- Panel Meeting Print View
+
+@media print {
+  .profile-menu {
+    display: none;
+  }
+  .search-bar-hidden {
+    display: none;
+  }
+  .tm-footer {
+    display: none;
+  }
+  .pma-print-close-icon {
+    display: none;
+  }
+  .Toastify {
+    display: none;
+  }
+  @page {
+    size: landscape
+  }
+}
+
+.pma-print-view {
+  padding: 30px;
+  .pma-print-close-icon {
+    color: $alert-red;
+    font-size: 2.2rem;
+  }
+
+  .tracker-container {
+    display: flex;
+    align-items: center;
+    .tracker {
+      .step-label {
+        text-align: left;
+      }
+      .step-description {
+        text-align: left;
+      }
+    }
+  }
+
+  .pma-print-header {
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: -10px;
+    border-top: solid 3px $primary-gray-dark;
+  }
+  .pma-table-wrapper {
+    border-top: 2px solid gray;
+    break-inside: avoid;
+  }
+
+  .pma-print-history-status {
+    font-family: 'Roboto';
+    display: flex;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+
+    .pma-print-official-item-number {
+      font-size: 16px;
+      padding: 5px 20px;
+      color: $color-white;
+    }
+    .status-tag {
+      color: $color-white;
+      display: flex;
+      align-items: center;
+      min-width: 100px;
+      font-size: 16px;
+    }
+    .poly-slash {
+      padding: 5px 0;
+      clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
+      display: inline-block;
+      width: 30px;
+    }
+  }
+
+  .pma-print-user-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .item {
+      font-size: 1.4rem;
+      margin-left: 20px;
+      .label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .pma-print-table {
+    width: 100%;
+    font-size: 12px;
+    margin: 5px 0 10px 0;
+    th {
+      padding: 5px 10px 5px 10px;
+      border-right: none;
+      border-left: none;
+    }
+    td {
+      border: none;
+      text-align: left;
+      padding: 5px 10px 5px 10px;
+    }
+  }
+
+  .pma-footer-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .pma-cdo-remarks-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-bottom: 5px;
+  }
+  .pma-created-modified-wrapper {
+    align-self: flex-end;
+    padding-bottom: 10px;
+    .pma-date-stamp-wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 5px;
+      .date {
+        font-size: 10px;
+        margin-left: 10px;
+      }
+      .stamp {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .item {
+    font-size: 1.4rem;
+    padding: 5px;
+    .label {
+      font-weight: bold;
+    }
   }
 }

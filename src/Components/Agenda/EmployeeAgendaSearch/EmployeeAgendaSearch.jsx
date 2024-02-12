@@ -6,7 +6,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { filter, flatten, get, has, identity, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import { isDate, startOfDay } from 'date-fns-v2';
-import { agendaEmployeesFetchData, agendaEmployeesFiltersFetchData, agendaItemHistoryExport, saveAgendaEmployeesSelections } from 'actions/agendaEmployees';
+import { agendaEmployeesFetchData, agendaEmployeesFiltersFetchData, employeeAgendaSearchExport, saveAgendaEmployeesSelections } from 'actions/agendaEmployees';
 import { bidderPortfolioCDOsFetchData } from 'actions/bidderPortfolio';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import Spinner from 'Components/Spinner';
@@ -215,7 +215,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const exportAgendaEmployees = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(getQuery())
+      employeeAgendaSearchExport(getQuery())
         .then(() => {
           setExportIsLoading(false);
         })
@@ -328,7 +328,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="last-name-search" className="label">
                     Last Name:
                     </label>
-                    <div className="emp-search-div">
+                    <div className="filter-search-bar fsb-240">
                       <PositionManagerSearch
                         id="last-name-search"
                         submitSearch={submitSearch}
@@ -345,7 +345,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="first-name-search" className="label">
                     First Name:
                     </label>
-                    <div className="emp-search-div">
+                    <div className="filter-search-bar fsb-240">
                       <PositionManagerSearch
                         id="first-name-search"
                         submitSearch={submitSearch}
@@ -362,7 +362,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="emp-id-search" className="label">
                     Employee ID:
                     </label>
-                    <div className="emp-search-div">
+                    <div className="filter-search-bar fsb-240">
                       <PositionManagerSearch
                         id="emp-id-search"
                         submitSearch={submitSearch}
@@ -494,6 +494,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 </div>
                 <div className="export-button-container">
                   <ExportButton
+                    text="Export - Max. 500"
                     onClick={exportAgendaEmployees}
                     isLoading={exportIsLoading}
                     disabled={exportDisabled}

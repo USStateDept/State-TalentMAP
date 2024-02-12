@@ -90,6 +90,10 @@ $date-picker-width: 300px;
       padding-inline-start: 50px;
     }
   }
+
+  .react-datepicker-popper {
+    z-index: 2;
+  }
 }
 
 .date-picker-wrapper {
@@ -124,5 +128,34 @@ $date-picker-width: 300px;
 
   .react-datepicker-popper {
     z-index: 2;
+  }
+}
+
+.tm-datepicker-wrapper {
+  width: 100%;
+
+  .tm-datepicker::placeholder {
+    color: $bg-gray-dark-2;
+  }
+  .tm-date-picker-range {
+    font-size: 13px;
+    height: 28px;
+    border: 1px solid $bg-gray-dark-2;
+  }
+  .react-datepicker-popper {
+    z-index: 2;
+  }
+  .react-datepicker__close-icon {
+    padding: 0px;
+    margin: 0px 5px 0px 0px;
+    &::after {
+      font-size: 20px;
+      color: $alert-red;
+      line-height: unset;
+      background-color: transparent;
+    }
+    &:hover {
+      background-color: transparent;
+    }
   }
 }

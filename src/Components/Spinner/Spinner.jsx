@@ -10,6 +10,9 @@ const Spinner = ({ type, size, style }) => {
     case ('small'):
       sizeClass = 'tm-spinner-small';
       break;
+    case ('medium'):
+      sizeClass = 'tm-spinner-medium';
+      break;
     default:
       break;
   }
@@ -24,7 +27,7 @@ const Spinner = ({ type, size, style }) => {
 
 Spinner.propTypes = {
   type: PropTypes.string, // user defined classes stored elsewhere using "tm-spinner-" as a prefix
-  size: PropTypes.oneOf(['big', 'small']),
+  size: PropTypes.oneOf(['big', 'medium', 'small']),
   style: PropTypes.shape({}),
 };
 

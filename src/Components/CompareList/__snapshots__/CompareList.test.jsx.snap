@@ -423,7 +423,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Tour of duty
+              Tour of Duty
             </th>
             <td
               key="46"
@@ -504,7 +504,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post differential | Danger Pay
+              Post Differential | Danger Pay
             </th>
             <td
               key="56"
@@ -1064,7 +1064,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Tour of duty
+              Tour of Duty
             </th>
             <td
               key="46"
@@ -1145,7 +1145,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Post differential | Danger Pay
+              Post Differential | Danger Pay
             </th>
             <td
               key="56"

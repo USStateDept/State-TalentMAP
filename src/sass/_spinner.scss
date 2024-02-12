@@ -43,6 +43,13 @@
   }
 }
 
+.tm-spinner-medium{
+  img {
+    height: 75px;
+    width: 75px;
+  }
+}
+
 .tm-spinner-results-filter {
   left: 40%;
   position: absolute;
@@ -102,10 +109,40 @@
   z-index: $bureau-spinner-z;
 }
 
+.tm-spinner-standard-center {
+  left: 50%;
+  position: absolute;
+  top: 40%;
+}
+
+@media screen and (max-width: 1400px) {
+  .tm-spinner-standard-center {
+    left: 60%;
+  }
+}
+
 .tm-spinner-bureau-filters {
   left: 45%;
   position: absolute;
   top: 50px;
+}
+
+.tm-spinner-post-access-filters {
+  left: 50%;
+  position: absolute;
+  top: 50px;
+}
+
+.tm-spinner-job-categories-results {
+  left: 45%;
+  position: absolute;
+  top: 60px;
+}
+
+.tm-spinner-job-categories-dropdown {
+  left: 22%;
+  position: absolute;
+  top: 145px;
 }
 
 $favorite-spinner-border-width: 3px;

@@ -1,0 +1,91 @@
+.admin-job-categories-page {
+  padding: 20px 35px;
+
+  .jc-post-controls {
+    display: flex;
+  }
+  .select-container {
+    margin-top: -15px;
+    label {
+      font-weight: bold;
+    }
+    .select-dropdown {
+      display: inline-block;
+      max-width: 300px;
+      max-height: 50px;
+      font-size: 17px;
+    }
+    .disabled-bg {
+      display: inline-block;
+      max-width: 300px;
+      max-height: 50px;
+      font-size: 17px;
+    }
+  }
+  .custom-table {
+    .checkbox-pos {
+      width: 50px;
+    }
+    .skill-code-column {
+      width: 200px;
+    }
+    .skill-desc-column {
+      width: 500px;
+    }
+  }
+
+  .jc-toggle-container {
+    margin-top: 25px;
+  }
+}
+
+.delete-jc-modal-content {
+  .delete-jc-modal-description {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .delete-modal-button-container {
+    margin-top: 20px;
+  }
+}
+
+.jc-delete-button {
+  background-color: $alert-red;
+}
+
+.create-jc-modal {
+  width: 750px;
+
+  .jc-modal-body {
+    margin-top: -30px;
+
+    .jc-modal-input {
+      margin: auto;
+      padding-top: 15px;
+      width: 300px;
+
+      input {
+        text-align: center;
+      }
+    }
+    .custom-table {
+      .checkbox-pos {
+        width: 75px;
+      }
+      .skill-code-column {
+        width: 200px;
+      }
+      .skill-desc-column {
+        width: 500px;
+      }
+      td {
+        text-align: left;
+      }
+    }
+
+    .jc-toggle-container {
+      margin-top: 25px;
+    }
+  }
+}

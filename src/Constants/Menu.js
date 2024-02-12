@@ -80,6 +80,19 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/settings/',
           icon: 'cogs',
         } : null,
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/biddingtool/',
+          icon: 'cog',
+          roles: [
+            'superuser',
+            'post_user',
+            'ao_user',
+            'bureau_user',
+            'cdo',
+          ],
+        } : null,
     ],
   },
   {
@@ -149,11 +162,83 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bid_audit') ?
+        {
+          text: 'Bid Audit',
+          route: '/profile/administrator/bidaudit/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.bureau_exceptions') ?
+        {
+          text: 'Bureau Exceptions',
+          route: '/profile/administrator/bureauexceptions/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.cycle_job_categories') ?
+        {
+          text: 'Cycle Job Categories',
+          route: '/profile/administrator/cyclejobcategories/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.org_stats') ?
+        {
+          text: 'Org Stats',
+          route: '/profile/administrator/orgstats/',
+          icon: 'building',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.manage_entry_level') ?
+        {
+          text: 'Manage Entry Level',
+          route: '/profile/administrator/manageentrylevel/',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.bid_season_management') ?
+        {
+          text: 'Bid Season Management',
+          route: '/profile/administrator/managebidseasons/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
           route: '/profile/administrator/panel/',
           icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.job_categories') ?
+        {
+          text: 'Job Categories',
+          route: '/profile/administrator/jobcategories/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/administrator/biddingtool/',
+          icon: 'cog',
           roles: [
             'superuser',
           ],
@@ -184,7 +269,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         route: '/profile/bureau/availablebidders',
         icon: 'users',
         roles: [
-          'super_user',
+          'superuser',
           'bureau_user',
         ],
       },
@@ -194,44 +279,54 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/bureau/projectedvacancy',
           icon: ' fa-keyboard-o',
           roles: [
-            'super_user',
+            'superuser',
             'bureau_user',
           ],
         } : null,
-      {
-        text: 'Manage Post Access',
-        route: '/profile/bureau/managepostaccess',
-        icon: 'building',
-        roles: [
-          'super_user',
-          'bureau_user',
-        ],
-      },
+      checkFlag('flags.manage_post_access') ?
+        {
+          text: 'Manage Post Access',
+          route: '/profile/bureau/managepostaccess',
+          icon: 'building',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
           route: '/profile/bureau/cyclemanagement',
           icon: 'cogs',
           roles: [
-            'super_user',
-            'bureau_user',
-          ],
-        } : null,
-      checkFlag('flags.publishable_positions') ?
-        {
-          text: 'Publishable Positions',
-          route: '/profile/bureau/publishablepositions',
-          icon: ' fa-newspaper-o',
-          roles: [
             'superuser',
             'bureau_user',
           ],
         } : null,
+      {
+        text: 'Publishable Positions',
+        route: '/profile/bureau/publishablepositions',
+        icon: ' fa-newspaper-o',
+        roles: [
+          'superuser',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.search_post_access') ?
         {
           text: 'Search Post Access',
           route: '/profile/bureau/searchpostaccess',
           icon: ' fa-search-minus',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/bureau/biddingtool/',
+          icon: 'cog',
           roles: [
             'superuser',
             'bureau_user',
@@ -267,6 +362,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/post/biddingtool/',
+          icon: 'cog',
+          roles: [
+            'superuser',
+            'post_user',
+          ],
+        } : null,
     ],
   },
   {
@@ -279,6 +384,18 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'superuser',
     ],
     children: [
+      {
+        text: 'Client Profiles', // aka Bidder Portfolio
+        route: '/profile/ao/bidderportfolio',
+        icon: 'address-book',
+        roles: [
+          'ao_user',
+          'superuser',
+        ],
+        params: {
+          type: 'all',
+        },
+      },
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employee Agendas',
@@ -315,9 +432,28 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           icon: 'cogs',
           roles: [
             'ao_user',
-            'super_user',
+            'superuser',
           ],
         } : null,
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/ao/biddingtool/',
+          icon: 'cog',
+          roles: [
+            'superuser',
+            'ao_user',
+          ],
+        } : null,
+      {
+        text: 'Publishable Positions',
+        route: '/profile/ao/publishablepositions',
+        icon: ' fa-newspaper-o',
+        roles: [
+          'superuser',
+          'ao_user',
+        ],
+      },
     ],
   },
   {
@@ -336,6 +472,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'address-book',
         roles: [
           'cdo',
+          'superuser',
         ],
         params: {
           type: 'all',
@@ -367,6 +504,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           roles: [
             'cdo',
             'superuser',
+          ],
+        } : null,
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/cdo/biddingtool/',
+          icon: 'cog',
+          roles: [
+            'superuser',
+            'cdo',
           ],
         } : null,
     ],

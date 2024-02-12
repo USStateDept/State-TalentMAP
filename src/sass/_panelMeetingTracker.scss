@@ -16,26 +16,18 @@
   font-size: 11px;
   display: inline;
   padding: 5px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .progress-container {
   position: relative;
   width: 100%;
-  margin: 0 20px;
+  margin-left: 20px;
 }
 
 @each $status, $color in $panelStatuses {
   .panel-status--#{$status} {
     background-color: $color;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .panel-meeting-type-container {
-    display: flex;
-    align-items: flex-start;
-  }
-  .progress-container {
-    order: 2;
   }
 }

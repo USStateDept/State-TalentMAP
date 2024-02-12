@@ -141,6 +141,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
             },
           }
         }
+        viewType=""
       />
     </AccordionItem>
     <AccordionItem
@@ -263,6 +264,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
             },
           }
         }
+        viewType=""
       />
     </AccordionItem>
     <AccordionItem
@@ -385,6 +387,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
             },
           }
         }
+        viewType=""
       />
     </AccordionItem>
     <AccordionItem
@@ -522,6 +525,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
             },
           }
         }
+        viewType=""
       />
     </AccordionItem>
     <AccordionItem
@@ -644,6 +648,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
             },
           }
         }
+        viewType=""
       />
     </AccordionItem>
     <AccordionItem
@@ -781,6 +786,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
             },
           }
         }
+        viewType=""
       />
     </AccordionItem>
   </Accordion>

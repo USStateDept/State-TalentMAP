@@ -5,13 +5,9 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
-import { checkFlag } from 'flags';
 import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
-import SkillCodeList from '../../SkillCodeList';
-
-const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemRow = props => {
   const {
@@ -22,18 +18,17 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const showAgendaItemMaintenance = useAgendaItemMaintenance();
-  const clientData = get(agenda, 'user');
-
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
 
-  const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
-  const userLanguage = get(clientData, 'languages') || [];
-  const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
-  const userGrade = get(clientData, 'grade') || 'None Listed';
-  const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
+  const userName = agenda?.full_name ?? '';
+  const userSkill = agenda?.skills?.join(', ') || 'None Listed';
+  const userLanguages = agenda?.languages?.length ? agenda.languages.map(
+    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
+  const userCDOFirst = agenda?.cdo?.first_name ? `${agenda.cdo.first_name} ` : '';
+  const userPayPlan = agenda?.pay_plan_code ?? 'None Listed';
+  const userGrade = agenda?.grade ?? '';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
@@ -42,14 +37,6 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
-
-  const pmi = (<>
-    {
-      agenda?.pmi_official_item_num && isPanelMeetingView &&
-      <>{agenda?.pmi_official_item_num}</>
-    }
-    <FA name="sticky-note" />
-  </>);
 
   return (
     <>
@@ -70,17 +57,7 @@ const AgendaItemRow = props => {
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
             <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
-              {
-                showAgendaItemMaintenance ?
-                  <Link
-                    className="ai-id-link"
-                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
-                  >
-                    {pmi}
-                  </Link>
-                  :
-                  pmi
-              }
+              {isPanelMeetingView && agenda?.pmi_official_item_num}
             </div>
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
@@ -90,7 +67,14 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             {
               !isPanelMeetingView ?
-                `Panel Date: ${agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}`
+                <div className="ai-history-non-panel-meeting-view">
+                  <Link
+                    to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
+                  >
+                    Edit Agenda Item
+                  </Link>
+                  Panel Date: {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
+                </div>
                 : ''
             }
           </div>
@@ -98,23 +82,37 @@ const AgendaItemRow = props => {
             isPanelMeetingView &&
             <div className="panel-meeting-person-data">
               <div className="panel-meeting-agendas-profile-link">
-                <Link to={publicProfileLink}>{get(clientData, 'shortened_name')}</Link>
+                <Link to={publicProfileLink}>{userName}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
-                <div className="item"><span className="label">CDO: </span> {cdo}</div>
-                <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
-                <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                <div className="item"><span className="label">CDO: </span> {userCDOFirst} {agenda?.cdo?.last_name ?? ''}</div>
+                <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages: </span>
-                  {userLanguage.map((l, i) => (
-                    ` ${l.custom_description}${i + 1 === userLanguage.length ? '' : ','}`
-                  ))}
+                  <span>{userLanguages}</span>
                 </div>
-                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+              </div>
+              <div className="panel-meeting-maintenance-link-container">
+                <Link
+                  to={`/profile/${userRole}/editagendaitem/${perdet$}/${agenda?.id}`}
+                >
+                  Edit Agenda Item
+                </Link>
               </div>
             </div>
           }
           <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
+
+          {agenda.aiCombinedTodDescText &&
+            <div className="agenda-item-combined-tod">
+              <span>
+                <span className="agenda-item-combined-tod-text">{'Combined TOD: '}</span>
+                {agenda.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText}
+              </span>
+            </div>
+          }
+
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
@@ -122,6 +120,18 @@ const AgendaItemRow = props => {
                 remarks.map(remark => (
                   <RemarksPill key={remark.text} remark={remark} />
                 ))
+              }
+              {agenda?.ahtCode &&
+                <RemarksPill
+                  key="hold-remark"
+                  remark={{
+                    text: `
+                    ${agenda?.ahtDescText} 
+                    #${agenda?.aihHoldNum}
+                    ${agenda?.aihHoldComment ? ` ${agenda?.aihHoldComment}` : ''}
+                    `,
+                  }}
+                />
               }
             </div>
             <div className="ai-updater-creator">
@@ -151,6 +161,13 @@ AgendaItemRow.propTypes = {
     id: PropTypes.number,
     creator_date: PropTypes.string,
     modifier_date: PropTypes.string,
+    aiCombinedTodCode: PropTypes.string,
+    aiCombinedTodDescText: PropTypes.string,
+    aiCombinedTodOtherText: PropTypes.string,
+    ahtCode: PropTypes.string,
+    ahtDescText: PropTypes.string,
+    aihHoldNum: PropTypes.number,
+    aihHoldComment: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
@@ -162,7 +179,7 @@ AgendaItemRow.propTypes = {
         type: null,
       }),
     ),
-    panel_date: PropTypes.string,
+    pmd_dttm: PropTypes.string,
     pmi_official_item_num: PropTypes.number,
     status: PropTypes.string,
     perdet: PropTypes.number,
@@ -182,6 +199,32 @@ AgendaItemRow.propTypes = {
         pay_plan: PropTypes.string,
       }),
     ),
+    skills: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+    languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        lang_code: PropTypes.string,
+        speaking_score: PropTypes.string,
+        reading_score: PropTypes.string,
+        test_date: PropTypes.string,
+        custom_description: PropTypes.string,
+      }),
+    ),
+    grade: PropTypes.string,
+    cdo: PropTypes.arrayOf(
+      PropTypes.shape({
+        first_name: PropTypes.string,
+        last_name: PropTypes.string,
+      }),
+    ),
+    pay_plan_code: PropTypes.string,
+    org: PropTypes.arrayOf(
+      PropTypes.shape({
+        org_descr: PropTypes.string,
+      }),
+    ),
+    full_name: PropTypes.string,
     update_date: PropTypes.string,
     modifier_name: PropTypes.number,
     creator_name: PropTypes.number,

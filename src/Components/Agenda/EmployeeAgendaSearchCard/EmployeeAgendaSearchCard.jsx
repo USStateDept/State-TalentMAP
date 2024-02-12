@@ -136,7 +136,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
           {
             (showAgendaItemMaintenance && agendaIDExist) ?
               <dd>
-                <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
+                <Link to={`/profile/${userRole}/editagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
                   {agendaStatus || 'No Status'}
                 </Link>
               </dd>

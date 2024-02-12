@@ -2,177 +2,99 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { useDataLoader, usePrevious } from 'hooks';
-import { filtersFetchData } from 'actions/filters/filters';
-import { managePostEdit, managePostFetchData, saveManagePostSelections } from 'actions/managePostAccess';
+import { managePostEdit, managePostFetchFilters } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import CheckBox from 'Components/CheckBox';
-import SelectForm from 'Components/SelectForm';
-import TotalResults from 'Components/TotalResults';
-import PaginationWrapper from 'Components/PaginationWrapper';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import Alert from 'Components/Alert';
-import { getGenericFilterOptions, nameSort, renderSelectionList } from 'utilities';
-import api from '../../api';
+import { renderSelectionList } from 'utilities';
 
 const ManagePostAccess = () => {
   const dispatch = useDispatch();
 
   // State
-  const managePostSelections = useSelector(state => state.managePostSelections);
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const genericFilters = useSelector(state => state.filters);
-  const managePostData = useSelector(state => state.managePost);
-  const managePostFetchDataLoading = useSelector(state => state.managePostFetchDataLoading);
-  const managePostFetchDataError = useSelector(state => state.managePostFetchDataErrored);
+  const managePostFilters = useSelector(state => state.managePostFetchFilterData);
+  const managePostEditSuccess = useSelector(state => state.managePostEdit);
+  const managePostFiltersIsLoading =
+    useSelector(state => state.managePostFetchFiltersLoading);
 
   // Local State & Filters
-  const [selectedCountries, setSelectedCountries] =
-   useState(managePostSelections?.selectedCountries || []);
-  const [selectedPositions, setSelectedPositions] =
-   useState(managePostSelections?.selectedPositions || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(managePostSelections?.selectedOrgs || []);
-  const [selectedPersons, setSelectedPersons] = useState(managePostSelections?.selectedGrade || []);
-  const [selectedRoles, setSelectedRoles] = useState(managePostSelections?.selectedSkills || []);
-  const [checkedPostIds, setCheckedPostIds] = useState([]);
+  const [selectedPositions, setSelectedPositions] = useState([]);
+  const [selectedOrgs, setSelectedOrgs] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const [selectedPersons, setSelectedPersons] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
-  const [selectAll, setSelectAll] = useState(false);
+  const [personHRO, setPersonHRO] = useState(false);
+  const [positionHRO, setPositionHRO] = useState(false);
+
+  const personSelected = selectedPersons.length > 0;
+  const positionSelected = selectedPositions.length > 0;
+  const requirementsMet =
+    (personSelected || positionSelected) && selectedOrgs.length > 0 && selectedRoles.length > 0;
 
   // Filter Options
-  const genericFilters$ = genericFilters?.filters || [];
-  const positionOptions = getGenericFilterOptions(genericFilters$, 'region', 'short_description');
-  const roleOptions = getGenericFilterOptions(genericFilters$, 'skill', 'code');
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = (orgs?.data?.length && nameSort(orgs?.data, 'name')) || [];
+  const peopleOptionsHRO = managePostFilters?.personFilters?.filter(
+    person => person.skillCode === '2010' || person.skillCode === '2201') || [];
+  const positionOptionsHRO = managePostFilters?.positionFilters?.filter(
+    position => position.skillCode === '2201' || position.skillCode === '2010') || [];
+  const peopleOptions = personHRO ? peopleOptionsHRO : managePostFilters?.personFilters || [];
+  const positionOptions = positionHRO
+    ? positionOptionsHRO : managePostFilters?.positionFilters || [];
+  const roleOptions = managePostFilters?.roleFilters || [];
+  const organizationOptions = managePostFilters?.orgFilters || [];
 
-  // Pagination
-  const [page, setPage] = useState(managePostSelections?.page || 1);
-  const [limit, setLimit] = useState(managePostSelections?.limit || 10);
-  const prevPage = usePrevious(page);
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
-  const filtersLoading = genericFiltersIsLoading || orgsLoading;
-
-  const getQuery = () => ({
-    'post-access-countries': selectedCountries.map(statusObject => (statusObject?.code)),
-    'post-access-positions': selectedPositions.map(bureauObject => (bureauObject?.code)),
-    'post-access-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'post-access-persons': selectedPersons.map(gradeObject => (gradeObject?.code)),
-    'post-access-roles': selectedRoles.map(skillObject => (skillObject?.code)),
-    page,
-    limit,
-  });
-
-  const getCurrentInputs = () => ({
-    selectedCountries,
+  const filters = [
     selectedPositions,
     selectedOrgs,
     selectedPersons,
     selectedRoles,
-    page,
-    limit,
-  });
-
-  const fetchAndSet = (resetPage = false) => {
-    const filters = [
-      selectedCountries,
-      selectedPositions,
-      selectedOrgs,
-      selectedPersons,
-      selectedRoles,
-    ];
-    if (filters.flat().length === 0) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    if (resetPage) {
-      setPage(1);
-    }
-    dispatch(saveManagePostSelections(getCurrentInputs()));
-    dispatch(managePostFetchData(getQuery()));
-  };
-
+    ...personHRO ? ['Y'] : [],
+    ...positionHRO ? ['Y'] : [],
+  ];
+  const filterCount = filters.flat().length;
 
   // Initial Render
   useEffect(() => {
-    dispatch(saveManagePostSelections(getCurrentInputs()));
-    dispatch(filtersFetchData(genericFilters));
+    dispatch(managePostFetchFilters());
   }, []);
 
-  // Re-Render on Filter Selections
   useEffect(() => {
-    setCheckedPostIds([]);
-    setSelectAll(false);
-    if (prevPage) {
-      fetchAndSet(true);
-    }
+    setClearFilters(!!filterCount);
   }, [
-    selectedCountries,
     selectedPositions,
     selectedOrgs,
     selectedPersons,
     selectedRoles,
-    limit,
+    personHRO,
+    positionHRO,
   ]);
 
-  // Handle Pagination
-  useEffect(() => {
-    setCheckedPostIds([]);
-    setSelectAll(false);
-    fetchAndSet(false);
-  }, [page]);
-
-
   const resetFilters = () => {
-    setSelectedCountries([]);
     setSelectedPositions([]);
     setSelectedOrgs([]);
     setSelectedPersons([]);
     setSelectedRoles([]);
+    setPositionHRO(false);
+    setPersonHRO(false);
     setClearFilters(false);
   };
 
-  const noResults = managePostData?.results?.length === 0;
-  const getOverlay = () => {
-    let overlay;
-    if (managePostFetchDataLoading) {
-      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (managePostFetchDataError) {
-      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-    } else if (noResults) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
-    } else {
-      return false;
+  // clear filters on successful submit
+  useEffect(() => {
+    if (managePostEditSuccess) {
+      resetFilters();
     }
-    return overlay;
-  };
+  }, [managePostEditSuccess]);
+
 
   const submitGrantAccess = () => {
-    dispatch(managePostEdit(checkedPostIds));
+    dispatch(managePostEdit({
+      orgs: [...selectedOrgs],
+      positions: [...selectedPositions],
+      persons: [...selectedPersons],
+      roles: [...selectedRoles],
+    }));
   };
-
-  const tableHeaderNames = ['Post/Org', 'Person', 'Role', 'Position'];
-
-  const handleSelectAll = () => {
-    if (!selectAll) {
-      setSelectAll(true);
-      setCheckedPostIds(
-        managePostData?.results?.map(post => post.id),
-      );
-    } else {
-      setSelectAll(false);
-      setCheckedPostIds([]);
-    }
-  };
-
-  const handleSelectPost = (post => {
-    if (checkedPostIds.includes(post.id)) {
-      const filteredPosts = checkedPostIds.filter(x => x !== post.id);
-      setCheckedPostIds(filteredPosts);
-    } else setCheckedPostIds([...checkedPostIds, post.id]);
-  });
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -180,62 +102,14 @@ const ManagePostAccess = () => {
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
 
-
-  // Hardcoded - find where to get this data
-  const peopleOptions = [
-    { code: 1, name: 'John Smith' },
-    { code: 2, name: 'Emily Johnson' },
-    { code: 3, name: 'Michael Williams' },
-    { code: 4, name: 'Emma Jones' },
-    { code: 5, name: 'William Brown' },
-    { code: 6, name: 'Olivia Davis' },
-    { code: 7, name: 'James Miller' },
-    { code: 8, name: 'Sophia Wilson' },
-    { code: 9, name: 'Benjamin Taylor' },
-    { code: 10, name: 'Ava Martinez' },
-    { code: 11, name: 'Alexander Anderson' },
-    { code: 12, name: 'Isabella Garcia' },
-    { code: 13, name: 'Daniel Rodriguez' },
-    { code: 14, name: 'Mia Martinez' },
-    { code: 15, name: 'David Davis' },
-    { code: 16, name: 'Charlotte Johnson' },
-    { code: 17, name: 'Joseph Smith' },
-    { code: 18, name: 'Sophia Wilson' },
-    { code: 19, name: 'Matthew Anderson' },
-    { code: 20, name: 'Olivia Taylor' },
-  ];
-  // Hardcoded - find where to get this data
-  const countryOptions = [
-    { code: 1, name: 'Bahamas' },
-    { code: 2, name: 'Andorra' },
-    { code: 3, name: 'Vanuatu' },
-    { code: 4, name: 'Malawi' },
-    { code: 5, name: 'Equatorial Guinea' },
-    { code: 6, name: 'Sierra Leone' },
-    { code: 7, name: 'Mozambique' },
-    { code: 8, name: 'France' },
-    { code: 9, name: 'Sudan' },
-    { code: 10, name: 'Iran' },
-    { code: 11, name: 'Malta' },
-    { code: 12, name: 'Papua New Guinea' },
-    { code: 13, name: 'Congo' },
-    { code: 14, name: 'Nauru' },
-    { code: 15, name: 'Guatemala' },
-    { code: 16, name: 'Wallis and Futuna' },
-    { code: 17, name: 'Madagascar' },
-    { code: 18, name: 'Virgin Islands' },
-    { code: 19, name: 'Saint Pierre and Miquelon' },
-    { code: 20, name: 'Tajikistan' },
-    { code: 21, name: 'Trinidad and Tobago' },
-    { code: 22, name: 'Iceland' },
-    { code: 23, name: 'Italy' },
-    { code: 24, name: 'Panama' },
-    { code: 25, name: 'Lithuania' },
-  ];
-
+  const displayCount = () => {
+    if (positionSelected) {
+      return (`${selectedPositions.length} ${selectedPositions.length < 2 ? 'Position' : 'Positions'} Selected`);
+    }
+    return (`${selectedPersons.length} ${selectedPersons.length < 2 ? 'Person' : 'People'} Selected`);
+  };
 
   return (
     <div className="position-search">
@@ -244,7 +118,7 @@ const ManagePostAccess = () => {
         <div className="results-search-bar pt-20">
 
           <div className="filterby-container">
-            <div className="filterby-label">Filter by:</div>
+            <div className="filterby-label">Select:</div>
             <div className="filterby-clear">
               {clearFilters &&
                 <button
@@ -258,163 +132,171 @@ const ManagePostAccess = () => {
             </div>
           </div>
 
-          <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
-            <div className="filter-div">
-              <div className="label">Country:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Countries"
-                value={selectedCountries}
-                options={countryOptions}
-                onChange={setSelectedCountries}
-                valueKey="code"
-                labelKey="name"
-                disabled={filtersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Org:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Org(s)"
-                value={selectedOrgs}
-                options={organizationOptions}
-                onChange={setSelectedOrgs}
-                valueKey="code"
-                labelKey="name"
-                disabled={filtersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Position:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Position(s)"
-                value={selectedPositions}
-                options={positionOptions}
-                onChange={setSelectedPositions}
-                valueKey="code"
-                labelKey="long_description"
-                disabled={filtersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Person:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Person(s)"
-                value={selectedPersons}
-                options={peopleOptions}
-                onChange={setSelectedPersons}
-                valueKey="code"
-                labelKey="name"
-                disabled={filtersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Role:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Role(s)"
-                value={selectedRoles}
-                options={roleOptions}
-                onChange={setSelectedRoles}
-                valueKey="code"
-                labelKey="custom_description"
-                disabled={filtersLoading}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+          <div className="usa-width-one-whole position-search--filters--mpa results-dropdown">
 
-
-      {
-        getOverlay() ||
+            { managePostFiltersIsLoading
+              ?
+              <Spinner type="post-access-filters" size="small" />
+              :
               <>
-                <div className="usa-width-one-whole results-dropdown controls-container">
-                  <TotalResults
-                    total={managePostData.count}
-                    pageNumber={page}
-                    pageSize={limit}
-                    suffix="Results"
-                    isHidden={managePostFetchDataLoading}
+                <div className="filter-div">
+                  <div className="label">Organization:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Organization(s)"
+                    value={selectedOrgs}
+                    options={organizationOptions}
+                    onChange={setSelectedOrgs}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={managePostFiltersIsLoading}
                   />
-                  <div className="position-search-controls--right">
-                    <div className="position-search-controls--results">
-                      <SelectForm
-                        id="position-manager-num-results"
-                        options={pageSizes.options}
-                        label="Results:"
-                        defaultSort={limit}
-                        onSelectOption={value => setLimit(value.target.value)}
-                        disabled={managePostFetchDataLoading}
-                      />
-                    </div>
+                </div>
+                <div className="filter-div">
+                  <div className="label">Position:</div>
+                  <div className="post-access-container-cb">
+                    <CheckBox
+                      label="HRO/MO Only"
+                      small
+                      value={positionHRO}
+                      onCheckBoxClick={() => setPositionHRO(!positionHRO)}
+                      id="position-filter-toggle"
+                    />
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Position(s)"
+                      value={selectedPositions}
+                      options={positionOptions}
+                      onChange={setSelectedPositions}
+                      valueKey="code"
+                      labelKey="description"
+                      disabled={managePostFiltersIsLoading || personSelected}
+                    />
                   </div>
                 </div>
-                <div className="usa-width-one-whole post-access-search--results">
-                  <div className="usa-grid-full post-access-list">
-
-                    <table className="custom-table">
-                      <thead>
-                        <tr>
-                          <th className="checkbox-pos">
-                            <CheckBox
-                              checked={selectAll}
-                              onCheckBoxClick={handleSelectAll}
-                            />
-                          </th>
-                          {
-                            tableHeaderNames.map((item) => (
-                              <th key={item}>{item}</th>
-                            ))
-                          }
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          managePostData?.results?.length &&
-                            managePostData.results.map(post => (
-                              <tr key={post.id}>
-                                <td className="checkbox-pac checkbox-pos">
-                                  <CheckBox
-                                    value={checkedPostIds.includes(post.id)}
-                                    onCheckBoxClick={() => handleSelectPost(post)}
-                                  />
-                                </td>
-                                <td>{post?.post || '---'}</td>
-                                <td>{post?.person || '---'}</td>
-                                <td>{post?.role || '---'}</td>
-                                <td>{post?.position || '---'}</td>
-                              </tr>
-                            ))
-                        }
-                      </tbody>
-                    </table>
-
+                <div className="filter-div">
+                  <div className="label">Person:</div>
+                  <div className="post-access-container-cb">
+                    <CheckBox
+                      label="HRO/MO Only"
+                      small
+                      value={personHRO}
+                      onCheckBoxClick={() => setPersonHRO(!personHRO)}
+                      id="person-filter-toggle"
+                    />
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Person(s)"
+                      value={selectedPersons}
+                      options={peopleOptions}
+                      onChange={setSelectedPersons}
+                      valueKey="code"
+                      labelKey="description"
+                      disabled={managePostFiltersIsLoading || positionSelected}
+                    />
                   </div>
                 </div>
-                <div className="usa-grid-full react-paginate position-search-controls--pagination">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={managePostData.count}
+                <div className="filter-div">
+                  <div className="label">Role:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Role(s)"
+                    value={selectedRoles}
+                    options={roleOptions}
+                    onChange={setSelectedRoles}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={managePostFiltersIsLoading}
                   />
                 </div>
               </>
-      }
+            }
 
-      { checkedPostIds.length > 0 &&
-            <div className="proposed-cycle-banner">
-              {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
-              {
-                checkedPostIds.length > 0 &&
-                <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
-              }
+          </div>
+        </div>
+      </div>
+      <div className="mpa-grant-box-wrapper">
+        <div className="mpa-grant-box">
+          <div>Organizations:</div>
+          {selectedOrgs?.map(x => (
+            <div className="mpa-grant-box-item">
+              <div className="mpa-remove-item-wrapper">
+                <FA
+                  name="times"
+                  onClick={() => setSelectedOrgs(
+                    selectedOrgs.filter(y => y.code !== x.code))}
+                  className="mpa-remove-item"
+                />
+                {x.description} ({x.code})
+              </div>
             </div>
-      }
+          ))}
+        </div>
+        <div className="mpa-grant-box">
+          <div>Positions:</div>
+          {personSelected && (
+            <div className="mpa-grant-box-item">
+                  Grant Access to either Persons or Positions.
+            </div>
+          )}
+          {selectedPositions?.map(x => (
+            <div className="mpa-grant-box-item">
+              <div className="mpa-remove-item-wrapper">
+                <FA
+                  name="times"
+                  onClick={() => setSelectedPositions(
+                    selectedPositions.filter(y => y.code !== x.code))}
+                  className="mpa-remove-item"
+                />
+                {x.description}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mpa-grant-box">
+          <div>Persons:</div>
+          {positionSelected && (
+            <div className="mpa-grant-box-item">
+                  Grant Access to either Persons or Positions.
+            </div>
+          )}
+          {selectedPersons?.map(x => (
+            <div className="mpa-grant-box-item">
+              <div className="mpa-remove-item-wrapper">
+                <FA
+                  name="times"
+                  onClick={() => setSelectedPersons(
+                    selectedPersons.filter(y => y.code !== x.code))}
+                  className="mpa-remove-item"
+                />
+                {x.description}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mpa-grant-box">
+          <div>Roles:</div>
+          {selectedRoles?.map(x => (
+            <div className="mpa-grant-box-item">
+              <div className="mpa-remove-item-wrapper">
+                <FA
+                  name="times"
+                  onClick={() => setSelectedRoles(
+                    selectedRoles.filter(y => y.code !== x.code))}
+                  className="mpa-remove-item"
+                />
+                {x.description}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      { requirementsMet && (
+        <div className="proposed-cycle-banner">
+          {displayCount()}
+          <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
+        </div>
+      )}
 
     </div>
   );

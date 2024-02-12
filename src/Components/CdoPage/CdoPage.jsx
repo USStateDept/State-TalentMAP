@@ -6,18 +6,21 @@ import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHis
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
+import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
     <Switch>
       <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
-      <Route path="/profile/cdo/bidderportfolio" render={() => <BidderPortfolio />} />
+      <Route path="/profile/cdo/bidderportfolio" render={() => <BidderPortfolio viewType="cdo" />} />
       <Route path="/profile/cdo/employeeagendas" render={() => <EmployeeAgendaSearch isCDO viewType="cdo" />} />
       <Route path="/profile/cdo/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO viewType="cdo" />} />
-      <Route path="/profile/cdo/createagendaitem/:id/:agendaID" render={() => <AgendaItemMaintenanceContainer isCDO />} />
+      <Route path="/profile/cdo/editagendaitem/:id/:agendaID" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
       <Route path="/profile/cdo/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isCDO />} />
+      <Route path="/profile/cdo/biddingtool/:id" render={() => <BiddingTool />} />
+      <Route path="/profile/cdo/biddingtool/" render={() => <BiddingTool />} />
     </Switch>
   </div>
 );

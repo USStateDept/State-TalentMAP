@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import { checkFlag } from 'flags';
 import { scrollToId } from 'utilities';
 import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
@@ -21,12 +22,16 @@ class BidderPortfolioContainer extends Component {
   };
 
   render() {
-    const { bidderPortfolio, pageSize, showListView, showEdit, isLoading,
+    const { bidderPortfolio, pageSize, showListView, isLoading, viewType,
       cdosLength, hideControls, classifications, hasErrored, pageNumber } = this.props;
+
+    const showCDOD30 = checkFlag('flags.CDOD30');
+
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     const showNoCdosAlert = !cdosLength;
-    const showEdit$ = showEdit && !hideControls;
+    const showEdit$ = !hideControls && showCDOD30;
     const showExpand = !hideControls;
+
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
@@ -38,11 +43,13 @@ class BidderPortfolioContainer extends Component {
                 showExpand={showExpand}
                 results={bidderPortfolio.results}
                 classifications={classifications}
+                viewType={viewType}
               />
               :
               <BidderPortfolioCardList
                 results={bidderPortfolio.results}
                 classifications={classifications}
+                viewType={viewType}
               />
           )
         }
@@ -89,24 +96,24 @@ BidderPortfolioContainer.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
   showListView: PropTypes.bool,
-  showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
   isLoading: PropTypes.bool,
   cdosLength: PropTypes.number,
   hideControls: PropTypes.bool,
   hasErrored: PropTypes.bool,
   updatePagination: PropTypes.func,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioContainer.defaultProps = {
   showListView: false,
-  showEdit: false,
   classifications: [],
   isLoading: false,
   cdosLength: 0,
   hideControls: false,
   hasErrored: false,
   updatePagination: EMPTY_FUNCTION,
+  viewType: '',
 };
 
 export default BidderPortfolioContainer;
