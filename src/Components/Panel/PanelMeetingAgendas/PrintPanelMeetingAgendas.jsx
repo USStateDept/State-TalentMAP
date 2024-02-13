@@ -10,7 +10,6 @@ import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
 import { formatVice } from 'Components/Agenda/Constants';
 import { dateTernary } from '../../Agenda/Constants';
-import SkillCodeList from '../../SkillCodeList';
 
 const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas }) => {
   const cancel = () => {
@@ -99,15 +98,18 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
             <div className="pma-print-header">{header}</div>
             {
               agendasCategorized[header].map(agenda => {
-                const { user } = agenda;
-                const cdo = user?.cdos?.[0]?.cdo_fullname || 'None Listed';
-                const userGrade = user?.grade || 'None Listed';
-                const userPayPlan = user?.pay_plan || 'None Listed';
-                const userLanguage = user?.languages || 'None Listed';
-                const userSkill = <SkillCodeList skillCodes={user?.skills || []} />;
+                const cdoFirst = agenda?.cdo?.first_name || '';
+                const cdoLast = agenda?.cdo?.last_name || '';
+                const cdoComma = (cdoLast && cdoFirst) ? ',' : '';
+                const cdoFull = `${cdoLast}${cdoComma} ${cdoFirst}`;
+                const cdo = cdoFull !== ' ' ? cdoFull : 'None Listed';
+                const userGrade = agenda?.grade || 'None Listed';
+                const userPayPlan = agenda?.pay_plan_code || 'None Listed';
+                const userLanguage = agenda?.languages || 'None Listed';
+                const userSkill = agenda?.skills?.join(', ') || 'None Listed';
                 const agendaStatus = agenda?.status_short || 'None Listed';
                 const ppGrade = `${userPayPlan}, ${userGrade}`;
-                const name = user?.shortened_name;
+                const name = agenda?.full_name ?? '';
 
                 const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
                 const createDate = dateTernary(agenda?.creator_date);
