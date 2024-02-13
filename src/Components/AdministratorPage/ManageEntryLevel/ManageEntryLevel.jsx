@@ -2,16 +2,13 @@ import { useEffect, useState } from 'react';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { get, includes, sortBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
-import { useDataLoader } from 'hooks';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
-import { entryLevelFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
+import { entryLevelFetchData, entryLevelFiltersFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import api from '../../../api';
 import EntryLevelCard from './EntryLevelCard';
 import CheckBox from '../../CheckBox/CheckBox';
 
@@ -40,26 +37,16 @@ const ManageEntryLevel = () => {
   const dummyid = dummyPositionDetails?.id;
   const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
 
-  const genericFilters$ = get(genericFilters, 'filters') || [];
-  const tps = genericFilters$.find(f => get(f, 'item.description') === 'tp');
-  const tpsOptions = uniqBy(sortBy(get(tps, 'data'), [(b) => b.short_description]));
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
-  const gradesOptions = uniqBy(get(grades, 'data'), 'code');
-  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const jobs = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const jobsOptions = uniqBy(sortBy(get(jobs, 'data'), [(c) => c.description]), 'job');
-  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
-  const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const elFiltersList = useSelector(state => state.entryLevelFilters);
+  const tpFilters = elFiltersList?.tpFilters;
+  const bureauFilters = elFiltersList?.bureauFilters;
+  const orgFilters = elFiltersList?.orgFilters;
+  const gradeFilters = elFiltersList?.gradeFilters;
+  const skillsFilters = elFiltersList?.skillsFilters;
+  const jcFilters = elFiltersList?.jcFilters;
+  const languageFilters = elFiltersList?.languageFilters;
 
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
-
-  const entryLevelFiltersIsLoading = includes([orgsLoading], true);
-
-  const isLoading = genericFiltersIsLoading || entryLevelFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading;
   const disableSearch = cardsInEditMode.length > 0;
   const disableInput = isLoading || disableSearch;
 
@@ -101,6 +88,7 @@ const ManageEntryLevel = () => {
   useEffect(() => {
     dispatch(saveEntryLevelSelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
+    dispatch(entryLevelFiltersFetchData());
   }, []);
 
   const fetchAndSet = () => {
@@ -175,10 +163,10 @@ const ManageEntryLevel = () => {
                 {...pickyProps}
                 placeholder="Select TP(s)"
                 value={selectedTps}
-                options={tpsOptions}
+                options={tpFilters}
                 onChange={setSelectedTps}
-                valueKey="id"
-                labelKey="name"
+                valueKey="code"
+                labelKey="description"
                 disabled={disableInput}
               />
             </div>
@@ -188,10 +176,10 @@ const ManageEntryLevel = () => {
                 {...pickyProps}
                 placeholder="Select Bureau(s)"
                 value={selectedBureaus}
-                options={bureausOptions}
+                options={bureauFilters}
                 onChange={setSelectedBureaus}
                 valueKey="code"
-                labelKey="long_description"
+                labelKey="description"
                 disabled={disableInput}
               />
             </div>
@@ -201,10 +189,10 @@ const ManageEntryLevel = () => {
                 {...pickyProps}
                 placeholder="Select Organization(s)"
                 value={selectedOrgs}
-                options={organizationOptions}
+                options={orgFilters}
                 onChange={setSelectedOrgs}
                 valueKey="code"
-                labelKey="name"
+                labelKey="description"
                 disabled={disableInput}
               />
             </div>
@@ -214,10 +202,10 @@ const ManageEntryLevel = () => {
                 {...pickyProps}
                 placeholder="Select Grade(s)"
                 value={selectedGrades}
-                options={gradesOptions}
+                options={gradeFilters}
                 onChange={setSelectedGrades}
                 valueKey="code"
-                labelKey="custom_description"
+                labelKey="description"
                 disabled={disableInput}
               />
             </div>
@@ -227,7 +215,7 @@ const ManageEntryLevel = () => {
                 {...pickyProps}
                 placeholder="Select Skill(s)"
                 value={selectedSkills}
-                options={skillsOptions}
+                options={skillsFilters}
                 onChange={setSelectedSkills}
                 valueKey="code"
                 labelKey="custom_description"
@@ -238,12 +226,12 @@ const ManageEntryLevel = () => {
               <div className="label">Job Categories:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Categories(s)"
+                placeholder="Select Job Categories(s)"
                 value={selectedJobs}
-                options={jobsOptions}
+                options={jcFilters}
                 onChange={setSelectedJobs}
                 valueKey="code"
-                labelKey="custom_description"
+                labelKey="description"
                 disabled={disableInput}
               />
             </div>
@@ -253,10 +241,10 @@ const ManageEntryLevel = () => {
                 {...pickyProps}
                 placeholder="Select Language(s)"
                 value={selectedLanguages}
-                options={languagesOptions}
+                options={languageFilters}
                 onChange={setSelectedLanguages}
                 valueKey="code"
-                labelKey="custom_description"
+                labelKey="description"
                 disabled={disableInput}
               />
             </div>
