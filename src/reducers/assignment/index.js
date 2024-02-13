@@ -1,3 +1,10 @@
-import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
+import { altAssignment, altAssignmentHasErrored, altAssignmentIsLoading, assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
 
-export default { assignmentHasErrored, assignmentIsLoading, assignment };
+export default {
+  altAssignment,
+  altAssignmentHasErrored,
+  altAssignmentIsLoading,
+  assignmentHasErrored,
+  assignmentIsLoading,
+  assignment,
+};
