@@ -29,13 +29,17 @@ export function assignmentFetchData(id) {
     api()
       .get(`/fsbid/assignment_history/${id ? `${id}/` : ''}`)
       .then(({ data }) => {
-        dispatch(assignmentFetchDataSuccess(data));
-        dispatch(assignmentIsLoading(false));
-        dispatch(assignmentHasErrored(false));
+        batch(() => {
+          dispatch(assignmentFetchDataSuccess(data));
+          dispatch(assignmentIsLoading(false));
+          dispatch(assignmentHasErrored(false));
+        });
       })
       .catch(() => {
-        dispatch(assignmentHasErrored(true));
-        dispatch(assignmentIsLoading(false));
+        batch(() => {
+          dispatch(assignmentHasErrored(true));
+          dispatch(assignmentIsLoading(false));
+        });
       });
   };
 }
