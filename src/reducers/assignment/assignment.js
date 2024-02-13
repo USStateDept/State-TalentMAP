@@ -48,3 +48,31 @@ export function altAssignment(state = [], action) {
       return state;
   }
 }
+
+
+// Alt Assignment Detail uses FSBID 1:1 proc for ref data and options
+export function altAssignmentDetailHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'ALT_ASSIGNMENT_DETAIL_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function altAssignmentDetailIsLoading(state = true, action) {
+  switch (action.type) {
+    case 'ALT_ASSIGNMENT_DETAIL_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function altAssignmentDetail(state = [], action) {
+  switch (action.type) {
+    case 'ALT_ASSIGNMENT_DETAIL_FETCH_DATA_SUCCESS':
+      return action.altAssignmentDetail;
+    default:
+      return state;
+  }
+}
+//

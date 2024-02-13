@@ -44,7 +44,7 @@ export function assignmentFetchData(id) {
   };
 }
 
-// Alt Assignment is using FSBID procs 1:1
+// Alt Assignment is using FSBID procs 1:1 to fetch all assignments for perdet
 export function altAssignmentHasErrored(bool) {
   return {
     type: 'ALT_ASSIGNMENT_HAS_ERRORED',
@@ -82,6 +82,49 @@ export function altAssignmentFetchData(id) {
         batch(() => {
           dispatch(altAssignmentHasErrored(true));
           dispatch(altAssignmentIsLoading(false));
+        });
+      });
+  };
+}
+
+// Alt Assignment details is using FSBID procs 1:1 to fetch single assignments and ref data
+export function altAssignmentDetailHasErrored(bool) {
+  return {
+    type: 'ALT_ASSIGNMENT_DETAIL_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function altAssignmentDetailIsLoading(bool) {
+  return {
+    type: 'ALT_ASSIGNMENT_DETAIL_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function altAssignmentDetailFetchDataSuccess(altAssignmentDetail) {
+  return {
+    type: 'ALT_ASSIGNMENT_DETAIL_FETCH_DATA_SUCCESS',
+    altAssignmentDetail,
+  };
+}
+export function altAssignmentDetailFetchData(perdet, asgId) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(altAssignmentDetailIsLoading(true));
+      dispatch(altAssignmentDetailHasErrored(false));
+    });
+    api()
+      .get(`/fsbid/assignment_history/${perdet}/assignment/${asgId}`)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(altAssignmentDetailFetchDataSuccess(data));
+          dispatch(altAssignmentDetailIsLoading(false));
+          dispatch(altAssignmentDetailHasErrored(false));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(altAssignmentDetailHasErrored(true));
+          dispatch(altAssignmentDetailIsLoading(false));
         });
       });
   };
