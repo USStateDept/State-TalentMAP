@@ -5,6 +5,7 @@ import {
   UPDATE_ENTRY_LEVEL_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import { batch } from 'react-redux';
+import { CancelToken } from 'axios';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
@@ -147,6 +148,10 @@ const dummyPositionDetails = {
   has_short_list: false,
 };
 
+// let cancelELdata;
+// let cancelELedit;
+let cancelELfiltersData;
+
 export function entryLevelEditErrored(bool) {
   return {
     type: 'ENTRY_LEVEL_EDIT_HAS_ERRORED',
@@ -274,11 +279,48 @@ export function entryLevelFiltersFetchDataSuccess(results) {
     results,
   };
 }
+// export function entryLevelFiltersFetchData() {
+//   return (dispatch) => {
+//     batch(() => {
+//       dispatch(entryLevelFiltersFetchDataSuccess({}));
+//       dispatch(entryLevelFiltersFetchDataLoading(false));
+//     });
+//   };
+// }
+
 export function entryLevelFiltersFetchData() {
+  console.log('hit action file');
   return (dispatch) => {
+    if (cancelELfiltersData) { cancelELfiltersData('cancel'); dispatch(entryLevelFiltersFetchDataLoading(true)); }
     batch(() => {
-      dispatch(entryLevelFiltersFetchDataSuccess({}));
-      dispatch(entryLevelFiltersFetchDataLoading(false));
+      dispatch(entryLevelFiltersFetchDataLoading(true));
+      dispatch(entryLevelFiltersFetchDataErrored(false));
     });
+    api().get('/fsbid/positions/el_positions/filters/', {
+      cancelToken: new CancelToken((c) => { cancelELfiltersData = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          // dispatch(entryLevelFiltersFetchDataErrored(false));
+          // dispatch(entryLevelFiltersFetchDataLoading(false));
+          dispatch(entryLevelFiltersFetchDataSuccess(data));
+          dispatch(entryLevelFiltersFetchDataErrored(false));
+          dispatch(entryLevelFiltersFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(entryLevelFiltersFetchDataLoading(true));
+            dispatch(entryLevelFiltersFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(entryLevelFiltersFetchDataSuccess({}));
+            dispatch(entryLevelFiltersFetchDataErrored(true));
+            dispatch(entryLevelFiltersFetchDataLoading(false));
+          });
+        }
+      });
   };
 }
