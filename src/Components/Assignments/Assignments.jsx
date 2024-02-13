@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 // import InteractiveElement from 'Components/InteractiveElement';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
-import { assignmentFetchData } from 'actions/assignment';
+import { altAssignmentFetchData } from 'actions/assignment';
 import AssignmentCard from './AssignmentCard';
 // import { formatDate } from 'utilities';
 import api from '../../api';
@@ -18,9 +18,9 @@ const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
 
 const Assignments = (props) => {
-  const assignments = useSelector(state => state.assignment);
-  const assignmentsErrored = useSelector(state => state.assignmentHasErrored);
-  const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
+  const assignments = useSelector(state => state.altAssignment);
+  const assignmentsErrored = useSelector(state => state.altAssignmentHasErrored);
+  const assignmentsLoading = useSelector(state => state.altAssignmentIsLoading);
 
   // default || newAsgSep || memo || notification
   const [cardMode, setCardMode] = useState('default');
@@ -119,7 +119,7 @@ const Assignments = (props) => {
 
 
   useEffect(() => {
-    dispatch(assignmentFetchData(id));
+    dispatch(altAssignmentFetchData(id));
   }, [id]);
 
   const noResults = assignments?.length === 0;
@@ -141,14 +141,21 @@ const Assignments = (props) => {
   const getCardMode = () => {
     switch (cardMode) {
       case 'newAsgSep':
-        return <AssignmentCard isNew setNewAsgSep={setCardMode} refFilters={refFilters} />;
+        return (
+          <AssignmentCard
+            perdet={id}
+            isNew
+            setNewAsgSep={setCardMode}
+            refFilters={refFilters}
+          />
+        );
       case 'notification':
         return <NotificationCard />;
       case 'memo':
         return <NotificationCard />;
       default:
         return assignments?.map(data =>
-          <AssignmentCard data={data} refFilters={refFilters} />);
+          <AssignmentCard perdet={id} data={data} refFilters={refFilters} />);
     }
   };
 
