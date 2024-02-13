@@ -8,91 +8,192 @@ import {
   UPDATE_PROJECTED_VACANCY_SUCCESS,
   UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
+import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
-import { get, keys, orderBy } from 'lodash';
-import Q from 'q';
+import { get } from 'lodash';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
-import { convertQueryToString, mapDuplicates } from '../utilities';
+import { convertQueryToString } from '../utilities';
 
+let cancelProjectedVacancy;
 
-export function projectedVacancyAddToProposedCycleErrored(bool) {
+// ================ GET LIST ================
+
+export function projectedVacancyFetchDataErrored(bool) {
   return {
-    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_HAS_ERRORED',
+    type: 'PROJECTED_VACANCY_FETCH_ERRORED',
     hasErrored: bool,
   };
 }
-export function projectedVacancyAddToProposedCycleLoading(bool) {
+export function projectedVacancyFetchDataLoading(bool) {
   return {
-    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_IS_LOADING',
+    type: 'PROJECTED_VACANCY_FETCH_LOADING',
     isLoading: bool,
   };
 }
-export function projectedVacancyAddToProposedCycleSuccess(results) {
+export function projectedVacancyFetchDataSuccess(results) {
   return {
-    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_SUCCESS',
+    type: 'PROJECTED_VACANCY_FETCH_SUCCESS',
     results,
   };
 }
-export function projectedVacancyAddToProposedCycle(id, data) {
+
+export function projectedVacancyFetchData(query = {}) {
   return (dispatch) => {
     batch(() => {
-      dispatch(projectedVacancyAddToProposedCycleLoading(true));
-      dispatch(projectedVacancyAddToProposedCycleErrored(false));
+      dispatch(projectedVacancyFetchDataLoading(true));
+      dispatch(projectedVacancyFetchDataErrored(false));
     });
-
-    api().patch(`ao/${id}/projectedVacancy/`, data)
-      .then(() => {
-        const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
-        const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
+    const q = convertQueryToString(query);
+    const endpoint = '/fsbid/admin/projected_vacancies/';
+    const ep = `${endpoint}?${q}`;
+    api().get(ep)
+      .then(({ data }) => {
         batch(() => {
-          dispatch(projectedVacancyAddToProposedCycleErrored(false));
-          dispatch(projectedVacancyAddToProposedCycleSuccess(true));
-          dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(projectedVacancyAddToProposedCycleSuccess());
-          dispatch(projectedVacancyAddToProposedCycleLoading(false));
+          dispatch(projectedVacancyFetchDataSuccess(data));
+          dispatch(projectedVacancyFetchDataErrored(false));
+          dispatch(projectedVacancyFetchDataLoading(false));
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
+        if (get(err, 'message') === 'cancel') {
           batch(() => {
-            dispatch(projectedVacancyAddToProposedCycleLoading(true));
-            dispatch(projectedVacancyAddToProposedCycleErrored(false));
+            dispatch(projectedVacancyFetchDataErrored(false));
+            dispatch(projectedVacancyFetchDataLoading(true));
           });
         } else {
-          // Start: temp toast logic
-          // temp to randomly show toast error or success
-          // when set up, just keep the error toast here
-          const randInt = Math.floor(Math.random() * 2);
-          if (randInt) {
-            const toastTitle = ADD_TO_PROPOSED_CYCLE_ERROR_TITLE;
-            const toastMessage = ADD_TO_PROPOSED_CYCLE_ERROR;
-            dispatch(toastError(toastMessage, toastTitle));
-          } else {
-            const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
-            const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
-            dispatch(toastSuccess(toastMessage, toastTitle));
-          }
-          // End: temp toast logic
           batch(() => {
-            dispatch(projectedVacancyAddToProposedCycleErrored(true));
-            dispatch(projectedVacancyAddToProposedCycleLoading(false));
+            dispatch(projectedVacancyFetchDataErrored(true));
+            dispatch(projectedVacancyFetchDataLoading(false));
           });
         }
       });
   };
 }
 
+// ================ EDIT FILTER SELECTIONS ================
+
+export function projectedVacancySelectionsSaveSuccess(result) {
+  return {
+    type: 'PROJECTED_VACANCY_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+export function saveProjectedVacancySelections(queryObject) {
+  return (dispatch) => dispatch(projectedVacancySelectionsSaveSuccess(queryObject));
+}
+
+// ================ GET FILTER DATA ================
+
+export function projectedVacancyFiltersErrored(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_FILTERS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function projectedVacancyFiltersLoading(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_FILTERS_LOADING',
+    isLoading: bool,
+  };
+}
+export function projectedVacancyFiltersSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_FILTERS_SUCCESS',
+    results,
+  };
+}
+export function projectedVacancyFilters() {
+  return (dispatch) => {
+    if (cancelProjectedVacancy) {
+      cancelProjectedVacancy('cancel');
+      dispatch(projectedVacancyFiltersLoading(true));
+    }
+    batch(() => {
+      dispatch(projectedVacancyFiltersLoading(true));
+      dispatch(projectedVacancyFiltersErrored(false));
+    });
+    const ep = '/fsbid/admin/projected_vacancies/filters/';
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => { cancelProjectedVacancy = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(projectedVacancyFiltersSuccess(data));
+          dispatch(projectedVacancyFiltersErrored(false));
+          dispatch(projectedVacancyFiltersLoading(false));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(projectedVacancyFiltersErrored(true));
+          dispatch(projectedVacancyFiltersLoading(false));
+        });
+      });
+  };
+}
+
+// ================ GET LANGUAGE OFFSET DATA ================
+
+export function projectedVacancyLanguageOffsetsErrored(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function projectedVacancyLanguageOffsetsLoading(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_LOADING',
+    isLoading: bool,
+  };
+}
+export function projectedVacancyLanguageOffsetsSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS',
+    results,
+  };
+}
+export function projectedVacancyLanguageOffsets() {
+  return (dispatch) => {
+    if (cancelProjectedVacancy) {
+      cancelProjectedVacancy('cancel');
+      dispatch(projectedVacancyLanguageOffsetsLoading(true));
+    }
+    batch(() => {
+      dispatch(projectedVacancyLanguageOffsetsLoading(true));
+      dispatch(projectedVacancyLanguageOffsetsErrored(false));
+    });
+    const ep = '/fsbid/admin/projected_vacancies/language_offsets/';
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => { cancelProjectedVacancy = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(projectedVacancyLanguageOffsetsSuccess(data));
+          dispatch(projectedVacancyLanguageOffsetsErrored(false));
+          dispatch(projectedVacancyLanguageOffsetsLoading(false));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(projectedVacancyLanguageOffsetsErrored(true));
+          dispatch(projectedVacancyLanguageOffsetsLoading(false));
+        });
+      });
+  };
+}
+
+// ================ EDIT ================
 
 export function projectedVacancyEditErrored(bool) {
   return {
-    type: 'PROJECTED_VACANCY_EDIT_HAS_ERRORED',
+    type: 'PROJECTED_VACANCY_EDIT_ERRORED',
     hasErrored: bool,
   };
 }
 export function projectedVacancyEditLoading(bool) {
   return {
-    type: 'PROJECTED_VACANCY_EDIT_IS_LOADING',
+    type: 'PROJECTED_VACANCY_EDIT_LOADING',
     isLoading: bool,
   };
 }
@@ -150,145 +251,71 @@ export function projectedVacancyEdit(id, data) {
   };
 }
 
+// ================ ADD TO PROPOSED CYCLE ================
 
-export function projectedVacancyFetchDataErrored(bool) {
+export function projectedVacancyAddToProposedCycleErrored(bool) {
   return {
-    type: 'PROJECTED_VACANCY_FETCH_HAS_ERRORED',
+    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_ERRORED',
     hasErrored: bool,
   };
 }
-export function projectedVacancyFetchDataLoading(bool) {
+export function projectedVacancyAddToProposedCycleLoading(bool) {
   return {
-    type: 'PROJECTED_VACANCY_FETCH_IS_LOADING',
+    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_LOADING',
     isLoading: bool,
   };
 }
-export function projectedVacancyFetchDataSuccess(results) {
+export function projectedVacancyAddToProposedCycleSuccess(results) {
   return {
-    type: 'PROJECTED_VACANCY_FETCH_SUCCESS',
+    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_SUCCESS',
     results,
   };
 }
-
-export function projectedVacancyFetchData(query = {}) {
+export function projectedVacancyAddToProposedCycle(id, data) {
   return (dispatch) => {
     batch(() => {
-      dispatch(projectedVacancyFetchDataLoading(true));
-      dispatch(projectedVacancyFetchDataErrored(false));
+      dispatch(projectedVacancyAddToProposedCycleLoading(true));
+      dispatch(projectedVacancyAddToProposedCycleErrored(false));
     });
-    const q = convertQueryToString(query);
-    const endpoint = '/fsbid/projected_vacancies/';
-    const ep = `${endpoint}?${q}`;
-    api().get(ep)
-      .then(({ data }) => {
+
+    api().patch(`ao/${id}/projectedVacancy/`, data)
+      .then(() => {
+        const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
+        const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
         batch(() => {
-          dispatch(projectedVacancyFetchDataSuccess(data));
-          dispatch(projectedVacancyFetchDataErrored(false));
-          dispatch(projectedVacancyFetchDataLoading(false));
+          dispatch(projectedVacancyAddToProposedCycleErrored(false));
+          dispatch(projectedVacancyAddToProposedCycleSuccess(true));
+          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(projectedVacancyAddToProposedCycleSuccess());
+          dispatch(projectedVacancyAddToProposedCycleLoading(false));
         });
       })
       .catch((err) => {
-        if (get(err, 'message') === 'cancel') {
+        if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(projectedVacancyFetchDataErrored(false));
-            dispatch(projectedVacancyFetchDataLoading(true));
+            dispatch(projectedVacancyAddToProposedCycleLoading(true));
+            dispatch(projectedVacancyAddToProposedCycleErrored(false));
           });
         } else {
+          // Start: temp toast logic
+          // temp to randomly show toast error or success
+          // when set up, just keep the error toast here
+          const randInt = Math.floor(Math.random() * 2);
+          if (randInt) {
+            const toastTitle = ADD_TO_PROPOSED_CYCLE_ERROR_TITLE;
+            const toastMessage = ADD_TO_PROPOSED_CYCLE_ERROR;
+            dispatch(toastError(toastMessage, toastTitle));
+          } else {
+            const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
+            const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
+            dispatch(toastSuccess(toastMessage, toastTitle));
+          }
+          // End: temp toast logic
           batch(() => {
-            dispatch(projectedVacancyFetchDataErrored(true));
-            dispatch(projectedVacancyFetchDataLoading(false));
+            dispatch(projectedVacancyAddToProposedCycleErrored(true));
+            dispatch(projectedVacancyAddToProposedCycleLoading(false));
           });
         }
-      });
-  };
-}
-
-
-export function projectedVacancySelectionsSaveSuccess(result) {
-  return {
-    type: 'PROJECTED_VACANCY_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-export function saveProjectedVacancySelections(queryObject) {
-  return (dispatch) => dispatch(projectedVacancySelectionsSaveSuccess(queryObject));
-}
-
-
-export function projectedVacancyFiltersFetchDataErrored(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_FILTERS_FETCH_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function projectedVacancyFiltersFetchDataLoading(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_FILTERS_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function projectedVacancyFiltersFetchDataSuccess(results) {
-  return {
-    type: 'PROJECTED_VACANCY_FILTERS_FETCH_SUCCESS',
-    results,
-  };
-}
-export function projectedVacancyFiltersFetchData() {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(projectedVacancyFiltersFetchDataLoading(true));
-      dispatch(projectedVacancyFiltersFetchDataErrored(false));
-    });
-    const ep = [
-      '/fsbid/reference/cycles/',
-      '/fsbid/reference/bureaus/',
-      '/fsbid/reference/organizations/',
-      '/fsbid/reference/skills/',
-      '/fsbid/reference/grades/',
-      '/fsbid/reference/locations/',
-    ];
-    const queryProms = ep.map(url =>
-      api().get(url)
-        .then((r) => r)
-        .catch((e) => e),
-    );
-    Q.allSettled(queryProms)
-      .then((results) => {
-        const successCount = results.filter(r => get(r, 'state') === 'fulfilled' && get(r, 'value')).length || 0;
-        const queryPromsLen = queryProms.length || 0;
-        const countDiff = queryPromsLen - successCount;
-        if (countDiff > 0) {
-          batch(() => {
-            dispatch(projectedVacancyFiltersFetchDataErrored(true));
-            dispatch(projectedVacancyFiltersFetchDataLoading(false));
-          });
-        } else {
-          const cycles = get(results, '[0].value.data', []);
-          const bureaus = get(results, '[1].value.data', []);
-          const organizations = get(results, '[2].value.data', []);
-          const skills = get(results, '[3].value.data', []);
-          const grades = get(results, '[4].value.data', []);
-          const locations = get(results, '[5].value.data', []);
-          const filters = {
-            cycles, bureaus, organizations, skills, grades, locations,
-          };
-          const transformFunction = e => ({ ...e, name: get(e, 'code') ? `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name') });
-          keys(filters).forEach(k => {
-            filters[k] = mapDuplicates(filters[k], 'name', transformFunction);
-            filters[k] = orderBy(filters[k], 'name');
-          });
-          batch(() => {
-            dispatch(projectedVacancyFiltersFetchDataSuccess(filters));
-            dispatch(projectedVacancyFiltersFetchDataErrored(false));
-            dispatch(projectedVacancyFiltersFetchDataLoading(false));
-          });
-        }
-      })
-      .catch(() => {
-        batch(() => {
-          dispatch(projectedVacancyFiltersFetchDataErrored(true));
-          dispatch(projectedVacancyFiltersFetchDataLoading(false));
-        });
       });
   };
 }
