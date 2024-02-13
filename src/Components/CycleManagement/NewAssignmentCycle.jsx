@@ -102,7 +102,7 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="season">Cycle Category</label>
+          <label htmlFor="season"><div className="error-color">*</div>Cycle Category</label>
           <span className="bs-validation-container">
             <select
               id="cycleCategory"
@@ -110,17 +110,17 @@ const NewAssignmentCycle = (props) => {
               onChange={(e) => setCycleCategory(e.target.value)}
               value={cycleCategory}
             >
-              {cycleCategories.length === 0 ?
-                <option value="">None Listed</option> : cycleCategories.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
+              <option value="">None listed</option>
+              {cycleCategories.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </span>
         </div>
         <div>
-          <label htmlFor="season">Cycle Status</label>
+          <label htmlFor="season"><div className="error-color">*</div>Cycle Status</label>
           <span className="bs-validation-container">
             <select
               id="cycleStatus"
@@ -128,12 +128,12 @@ const NewAssignmentCycle = (props) => {
               onChange={(e) => setCycleStatus(e.target.value)}
               value={cycleStatus}
             >
-              {cycleStatuses.length === 0 ?
-                <option value="">None Listed</option> : cycleStatuses.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
+              <option value="">None listed</option>
+              {cycleStatuses.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </span>
         </div>
