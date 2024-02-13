@@ -172,7 +172,7 @@ export function entryLevelEdit(id, data) {
       dispatch(entryLevelEditErrored(false));
     });
 
-    api().patch(`/entryLevel/${id}`, data)
+    api().patch(`/entryLevel/save/${id}`, data)
       .then(() => {
         const toastTitle = UPDATE_ENTRY_LEVEL_SUCCESS_TITLE;
         const toastMessage = UPDATE_ENTRY_LEVEL_SUCCESS;
