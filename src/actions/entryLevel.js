@@ -279,17 +279,8 @@ export function entryLevelFiltersFetchDataSuccess(results) {
     results,
   };
 }
-// export function entryLevelFiltersFetchData() {
-//   return (dispatch) => {
-//     batch(() => {
-//       dispatch(entryLevelFiltersFetchDataSuccess({}));
-//       dispatch(entryLevelFiltersFetchDataLoading(false));
-//     });
-//   };
-// }
 
 export function entryLevelFiltersFetchData() {
-  console.log('hit action file');
   return (dispatch) => {
     if (cancelELfiltersData) { cancelELfiltersData('cancel'); dispatch(entryLevelFiltersFetchDataLoading(true)); }
     batch(() => {
