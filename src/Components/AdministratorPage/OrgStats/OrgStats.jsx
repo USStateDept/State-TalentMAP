@@ -87,9 +87,7 @@ const OrgStats = () => {
   }, []);
 
   useEffect(() => {
-    if (filterSelectionValid()) {
-      fetchAndSet();
-    }
+    fetchAndSet();
   }, [
     selectedBureaus,
     selectedOrgs,
@@ -100,6 +98,8 @@ const OrgStats = () => {
     setSelectedBureaus([]);
     setSelectedOrgs([]);
     setSelectedCycles([]);
+    dispatch(saveOrgStatsSelections(getCurrentInputs()));
+    setClearFilters(false);
   };
 
   // Overlay for error, info, and loading state
