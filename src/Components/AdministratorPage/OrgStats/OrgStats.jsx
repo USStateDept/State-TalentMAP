@@ -103,7 +103,7 @@ const OrgStats = () => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = orgStatsData?.length === 0;
+  const noResults = orgStatsData?.results.length === 0;
   const getOverlay = () => {
     let overlay;
     if (orgStatsIsLoading || filtersIsLoading) {
