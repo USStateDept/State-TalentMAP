@@ -4,6 +4,7 @@ import { NO_BUREAU, NO_ORG } from 'Constants/SystemMessages';
 import { getResult } from 'utilities';
 
 const OrgStatsCard = (props) => {
+  console.log('CARD PROPS', props);
   const sections = {
     /* eslint-disable quote-props */
     heading: {
