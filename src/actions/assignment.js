@@ -106,14 +106,14 @@ export function altAssignmentDetailFetchDataSuccess(altAssignmentDetail) {
     altAssignmentDetail,
   };
 }
-export function altAssignmentDetailFetchData(perdet, asgId) {
+export function altAssignmentDetailFetchData(perdet, asgId, revision_num) {
   return (dispatch) => {
     batch(() => {
       dispatch(altAssignmentDetailIsLoading(true));
       dispatch(altAssignmentDetailHasErrored(false));
     });
     api()
-      .get(`/fsbid/assignment_history/${perdet}/assignment/${asgId}/`)
+      .get(`/fsbid/assignment_history/${perdet}/assignment/${asgId}?revision_num=${revision_num}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(altAssignmentDetailFetchDataSuccess(data));

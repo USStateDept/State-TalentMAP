@@ -32,7 +32,8 @@ const AssignmentCard = (props) => {
 
   useEffect(() => {
     const asgId = data?.ASG_SEQ_NUM;
-    dispatch(altAssignmentDetailFetchData(perdet, asgId));
+    const revision_num = data?.ASGD_REVISION_NUM;
+    dispatch(altAssignmentDetailFetchData(perdet, asgId, revision_num));
   }, []);
 
   // Break out ref data
