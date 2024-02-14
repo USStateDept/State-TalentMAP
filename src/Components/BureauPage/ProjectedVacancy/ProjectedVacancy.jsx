@@ -5,8 +5,8 @@ import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import { get, sortBy } from 'lodash';
 import {
-  projectedVacancyAddToProposedCycle, projectedVacancyFetchData,
-  projectedVacancyFilters, projectedVacancyLanguageOffsets, saveProjectedVacancySelections,
+  projectedVacancyFetchData, projectedVacancyFilters,
+  projectedVacancyLanguageOffsets, saveProjectedVacancySelections,
 } from 'actions/projectedVacancy';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
@@ -152,7 +152,7 @@ const ProjectedVacancy = ({ isAO }) => {
   };
 
   const addToProposedCycle = () => {
-    dispatch(projectedVacancyAddToProposedCycle());
+    // TODO: Use mass edit endpoint to update with include
   };
 
   return (isLoading ?
