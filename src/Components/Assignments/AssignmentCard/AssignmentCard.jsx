@@ -377,7 +377,7 @@ AssignmentCard.defaultProps = {
   data: {},
   isNew: false,
   setNewAsgSep: EMPTY_FUNCTION,
-  perdet: "",
+  perdet: '',
 };
 
 export default AssignmentCard;
