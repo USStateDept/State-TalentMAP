@@ -1,83 +1,102 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import datefns from 'date-fns';
-import { getDifferentials, getPostName, getResult } from 'utilities';
-import ToggleButton from 'Components/ToggleButton';
+// import datefns from 'date-fns';
+import { getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY,
+  NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
+  NO_STATUS, NO_TOUR_END_DATE, NO_VALUE,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
+import { altAssignmentDetailFetchData, updateAssignment } from 'actions/assignment';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
 
 const AssignmentCard = (props) => {
-  const { data, refFilters, isNew, setNewAsgSep } = props;
+  const { perdet, data, isNew, setNewAsgSep } = props;
   const [editMode, setEditMode] = useState(isNew);
 
-  // const dispatch = useDispatch();
-  const pos = data?.position || data;
-  const altPos = data?.pos;
+  const dispatch = useDispatch();
 
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
     datePickerRef.current.setOpen(true);
   };
 
+  const assignmentDetails = useSelector(state => state.altAssignmentDetail);
+  const assignmentsDetailsErrored = useSelector(state => state.altAssignmentDetailHasErrored);
+  const assignmentsDetailsLoading = useSelector(state => state.altAssignmentDetailIsLoading);
+
+  useEffect(() => {
+    const asgId = data?.ASG_SEQ_NUM;
+    const revision_num = data?.ASGD_REVISION_NUM;
+    dispatch(altAssignmentDetailFetchData(perdet, asgId, revision_num));
+  }, []);
+
+  // Break out ref data
+  const statusOptions = assignmentDetails?.QRY_LSTASGS_REF;
+  const actionOptions = assignmentDetails?.QRY_LSTLAT_REF;
+  const todOptions = assignmentDetails?.QRY_LSTTOD_REF;
+  const travelOptions = assignmentDetails?.QRY_LSTTF_REF;
+  const fundingOptions = assignmentDetails?.QRY_LSTBUREAUS_REF;
+  const waiverOptions = assignmentDetails?.QRY_LSTWRT_REF;
+
+  // Asg Detail Data (Not to be confused with the Asg List)
+  const asgDetail = assignmentDetails?.QRY_GETASGDTL_REF?.[0];
+
   // =============== View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
     subheading: [
-      { 'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER) },
-      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+      { 'Position Number': getResult(data, 'POS_NUM_TXT') || NO_POSITION_NUMBER },
+      { 'Position Title': getResult(data, 'POS_TITLE_TXT') || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Status': getResult(data, 'status') || NO_STATUS },
-      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Org/Code': getResult(altPos, 'posorgshortdesc') || NO_ORG },
-      { 'Location': getPostName(pos?.post) || NO_POST },
-      { 'ETA': getResult(data, 'start_date') || NO_TOUR_END_DATE },
-      { 'Panel Meeting Date': <a href="tbd" rel="PMD" target="_blank">{datefns.format(datefns.subYears(data?.start_date, 2), 'MM/DD/YYYY')}</a> },
-      { 'DIP': '----' },
-      { 'Memo Sent': datefns.format(datefns.subMonths(data?.start_date, 22), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
-      { 'Note Sent': datefns.format(datefns.subMonths(data?.start_date, 18), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
-      { 'TED': getResult(data, 'end_date') || NO_TOUR_END_DATE },
+      { 'Status': getResult(data, 'ASGS_CODE') || NO_STATUS },
+      { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
+      { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
+      { 'ETA': getResult(data, 'ASGD_ETA_DATE') || NO_VALUE },
+      { 'DIP': getResult(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
+      { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_VALUE },
+      { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_VALUE },
+      { 'TED': getResult(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
     ],
     bodySecondary: [
-      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
-      { 'Skill': getResult(pos, 'skill') || NO_SKILL },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Pay Plan': 'FP' },
-      { 'Post Differential | Danger Pay': getDifferentials(pos) },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { 'Grade': getResult(data, 'GRD_CD') || NO_GRADE },
+      { 'Pay Plan': getResult(data, 'PPL_CODE') || NO_VALUE },
     ],
     /* eslint-enable quote-props */
   };
 
 
   // =============== Edit Mode ===============
-  const { statusOptions, actionOptions, todOptions, travelOptions,
-    fundingOptions, waiverOptions } = refFilters;
-  const [included, setIncluded] = useState(false);
-  const [status, setStatus] = useState(statusOptions[0]);
-  const [action, setAction] = useState(actionOptions[0]);
-  const [ted, setTED] = useState();
-  const [eta, setETA] = useState();
-  const [tod, setTOD] = useState(todOptions[0]);
-  const [travel, setTravel] = useState(travelOptions[0]);
-  const [funding, setFunding] = useState(fundingOptions[0]);
+
+  const formatMonthYear = (date) => {
+    const splitDate = date?.split('/');
+    if (splitDate?.length) {
+      return new Date(splitDate[1], Number(splitDate[0]) - 1);
+    }
+    return new Date();
+  };
+
+  const [status, setStatus] = useState(asgDetail?.ASGS_CODE);
+  const [action, setAction] = useState(asgDetail?.LAT_CODE);
+  const [ted, setTED] = useState(formatMonthYear(asgDetail?.ASGD_ETD_TED_DATE));
+  const [eta, setETA] = useState(formatMonthYear(asgDetail?.ASGD_ETA_DATE));
+  const [tod, setTOD] = useState(asgDetail?.TOD_CODE);
+  const [travel, setTravel] = useState(asgDetail?.TF_CD);
+  const [funding, setFunding] = useState(asgDetail?.ASGD_ORG_CODE);
   const [adj, setAdj] = useState('');
-  const [salaryReimbursement, setSalaryReimbursement] = useState(false);
-  const [travelReimbursement, setTravelReimbursement] = useState(false);
-  const [training, setTraining] = useState(false);
-  const [criticalNeed, setCriticalNeed] = useState(false);
-  const [waiver, setWaiver] = useState(waiverOptions[0]);
-  const [sent, setSent] = useState('');
+  const [salaryReimbursement, setSalaryReimbursement] = useState(asgDetail?.ASGD_SALARY_REIMBURSE_IND === 'Y');
+  const [travelReimbursement, setTravelReimbursement] = useState(asgDetail?.ASGD_TRAVEL_REIMBURSE_IND === 'Y');
+  const [training, setTraining] = useState(asgDetail?.ASGD_TRIANING_IND === 'Y');
+  const [criticalNeed, setCriticalNeed] = useState(asgDetail?.ASGD_CRITICAL_NEED_IND === 'Y');
+  const [waiver, setWaiver] = useState(asgDetail?.WRT_CODE_RR_REPAY);
+  const [sent, setSent] = useState(asgDetail?.NOTE_LAST_SENT_DATE);
 
   const onCancelForm = () => {
     // this is likely not going to be needed, as we should be
@@ -102,22 +121,37 @@ const AssignmentCard = (props) => {
   };
   const onSubmitForm = () => {
     // createAssignment(data)
-    // editAssignment(data)
+    dispatch(updateAssignment({
+      asg_seq_num: asgDetail?.ASG_SEQ_NUM,
+      asgd_revision_num: asgDetail?.ASGD_REVISION_NUM,
+      eta: `${eta.getMonth() + 1}/${eta.getFullYear()}`,
+      etd: `${ted.getMonth() + 1}/${ted.getFullYear()}`,
+      tod,
+      salary_reimburse_ind: salaryReimbursement,
+      travel_reimburse_ind: travelReimbursement,
+      training_ind: training,
+      critical_need_ind: criticalNeed,
+      org_code: funding,
+      status_code: status,
+      lat_code: action,
+      travel_code: travel,
+      rr_repay_ind: waiver,
+      update_date: asgDetail?.ASGD_UPDATE_DATE,
+    }, perdet));
+
     // TO-DO: refresh assignments and separations after?
-    setNewAsgSep('default');
+    // setNewAsgSep('default');
   };
 
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Location': getPostName(pos?.post) || NO_POST },
-      { 'Skill': getResult(pos, 'skill') || NO_SKILL },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Pay Plan': '---' },
-      { 'Post Differential | Danger Pay': getDifferentials(pos) },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { 'Position Number': getResult(data, 'POS_NUM_TXT') || NO_POSITION_NUMBER },
+      { 'Position Title': getResult(data, 'POS_TITLE_TXT') || NO_POSITION_TITLE },
+      { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
+      { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
+      { 'Grade': getResult(data, 'GRD_CD') || NO_GRADE },
+      { 'Pay Plan': getResult(data, 'PPL_CODE') || NO_GRADE },
     ],
     inputBody:
       <div className="position-form">
@@ -129,9 +163,9 @@ const AssignmentCard = (props) => {
               defaultValue={status}
               onChange={(e) => setStatus(e?.target.value)}
             >
-              {statusOptions.map(s => (
-                <option value={s.code}>
-                  {s.name}
+              {statusOptions?.map(s => (
+                <option value={s.ASGS_CODE}>
+                  {s.ASGS_DESC_TEXT}
                 </option>
               ))}
             </select>
@@ -143,9 +177,9 @@ const AssignmentCard = (props) => {
               defaultValue={action}
               onChange={(e) => setAction(e?.target.value)}
             >
-              {actionOptions.map(a => (
-                <option value={a.code}>
-                  {a.name}
+              {actionOptions?.map(a => (
+                <option value={a.LAT_CODE}>
+                  {a.LAT_ABBR_DESC_TEXT}
                 </option>
               ))}
             </select>
@@ -158,8 +192,9 @@ const AssignmentCard = (props) => {
               <DatePicker
                 selected={eta}
                 onChange={setETA}
-                dateFormat="MM/dd/yyyy"
-                placeholderText={'MM/DD/YYY'}
+                placeholderText={'MM/YYYY'}
+                showMonthYearPicker
+                dateFormat="MM/yyyy"
                 ref={datePickerRef}
               />
             </div>
@@ -172,8 +207,9 @@ const AssignmentCard = (props) => {
               <DatePicker
                 selected={ted}
                 onChange={setTED}
-                dateFormat="MM/dd/yyyy"
-                placeholderText={'MM/DD/YYY'}
+                showMonthYearPicker
+                dateFormat="MM/yyyy"
+                placeholderText={'MM/YYYY'}
                 ref={datePickerRef}
               />
             </div>
@@ -185,9 +221,9 @@ const AssignmentCard = (props) => {
               defaultValue={tod}
               onChange={(e) => setTOD(e?.target.value)}
             >
-              {todOptions.map(t => (
-                <option value={t.code}>
-                  {t.name}
+              {todOptions?.map(t => (
+                <option value={t.TOD_CODE}>
+                  {t.TOD_DESC_TEXT}
                 </option>
               ))}
             </select>
@@ -199,9 +235,9 @@ const AssignmentCard = (props) => {
               defaultValue={travel}
               onChange={(e) => setTravel(e?.target.value)}
             >
-              {travelOptions.map(t => (
-                <option value={t.code}>
-                  {t.name}
+              {travelOptions?.map(t => (
+                <option value={t.TF_CODE}>
+                  {t.TF_SHORT_DESC_TEXT}
                 </option>
               ))}
             </select>
@@ -213,9 +249,9 @@ const AssignmentCard = (props) => {
               defaultValue={funding}
               onChange={(e) => setFunding(e?.target.value)}
             >
-              {fundingOptions.map(f => (
-                <option value={f.code}>
-                  {f.name}
+              {fundingOptions?.map(f => (
+                <option value={f.ORG_CODE}>
+                  {f.ORGS_SHORT_DESC}
                 </option>
               ))}
             </select>
@@ -276,9 +312,9 @@ const AssignmentCard = (props) => {
               defaultValue={waiver}
               onChange={(e) => setWaiver(e?.target.value)}
             >
-              {waiverOptions.map(w => (
-                <option value={w.code}>
-                  {w.name}
+              {waiverOptions?.map(w => (
+                <option value={w.WRT_CODE}>
+                  {w.WRT_DESC}
                 </option>
               ))}
             </select>
@@ -310,6 +346,7 @@ const AssignmentCard = (props) => {
   }
 
   return (
+    !assignmentsDetailsErrored && !assignmentsDetailsLoading &&
     <TabbedCard
       tabs={[{
         text: isNew ? 'New Assignment' : 'Assignment Overview',
@@ -320,14 +357,6 @@ const AssignmentCard = (props) => {
               sections={sections}
               form={form}
             />
-            <div className="toggle-include">
-              <ToggleButton
-                labelTextRight={!included ? 'Excluded' : 'Included'}
-                checked={included}
-                onChange={() => setIncluded(!included)}
-                onColor="#0071BC"
-              />
-            </div>
           </div>
         ),
       }]}
@@ -341,21 +370,15 @@ AssignmentCard.propTypes = {
   cycle: PropTypes.shape({
     cycle_name: PropTypes.string,
   }).isRequired,
-  refFilters: PropTypes.shape({
-    statusOptions: PropTypes.shape([]),
-    actionOptions: PropTypes.shape([]),
-    todOptions: PropTypes.shape([]),
-    travelOptions: PropTypes.shape([]),
-    fundingOptions: PropTypes.shape([]),
-    waiverOptions: PropTypes.shape([]),
-  }).isRequired,
   setNewAsgSep: PropTypes.func,
+  perdet: PropTypes.string,
 };
 
 AssignmentCard.defaultProps = {
   data: {},
   isNew: false,
   setNewAsgSep: EMPTY_FUNCTION,
+  perdet: '',
 };
 
 export default AssignmentCard;
