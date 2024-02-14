@@ -45,7 +45,6 @@ const AssignmentCard = (props) => {
 
   // Asg Detail Data (Not to be confused with the Asg List)
   const asgDetail = assignmentDetails?.QRY_GETASGDTL_REF?.[0];
-  console.log(asgDetail);
 
   // =============== View Mode ===============
 
@@ -371,12 +370,14 @@ AssignmentCard.propTypes = {
     cycle_name: PropTypes.string,
   }).isRequired,
   setNewAsgSep: PropTypes.func,
+  perdet: PropTypes.string,
 };
 
 AssignmentCard.defaultProps = {
   data: {},
   isNew: false,
   setNewAsgSep: EMPTY_FUNCTION,
+  perdet: "",
 };
 
 export default AssignmentCard;
