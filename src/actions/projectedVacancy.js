@@ -1,8 +1,4 @@
 import {
-  ADD_TO_PROPOSED_CYCLE_ERROR,
-  ADD_TO_PROPOSED_CYCLE_ERROR_TITLE,
-  ADD_TO_PROPOSED_CYCLE_SUCCESS,
-  ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE,
   UPDATE_PROJECTED_VACANCY_ERROR,
   UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
   UPDATE_PROJECTED_VACANCY_SUCCESS,
@@ -37,7 +33,6 @@ export function projectedVacancyFetchDataSuccess(results) {
     results,
   };
 }
-
 export function projectedVacancyFetchData(query = {}) {
   return (dispatch) => {
     batch(() => {
@@ -203,21 +198,22 @@ export function projectedVacancyEditSuccess(results) {
     results,
   };
 }
-export function projectedVacancyEdit(id, data) {
+export function projectedVacancyEdit(query) {
   return (dispatch) => {
     batch(() => {
       dispatch(projectedVacancyEditLoading(true));
       dispatch(projectedVacancyEditErrored(false));
     });
 
-    api().put(`/fsbid/projected_vacancies/${id}/`, data)
-      .then(() => {
-        const toastTitle = UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE;
-        const toastMessage = UPDATE_PROJECTED_VACANCY_SUCCESS;
+    api().put('/fsbid/admin/projected_vacancies/edit/', query)
+      .then(({ data }) => {
         batch(() => {
           dispatch(projectedVacancyEditErrored(false));
-          dispatch(projectedVacancyEditSuccess(true));
-          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(projectedVacancyEditSuccess(data));
+          dispatch(toastSuccess(
+            UPDATE_PROJECTED_VACANCY_SUCCESS,
+            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
+          ));
           dispatch(projectedVacancyEditLoading(false));
         });
       })
@@ -228,22 +224,12 @@ export function projectedVacancyEdit(id, data) {
             dispatch(projectedVacancyEditErrored(false));
           });
         } else {
-          // Start: temp toast logic
-          // temp to randomly show toast error or success
-          // when set up, just keep the error toast here
-          const randInt = Math.floor(Math.random() * 2);
-          if (randInt) {
-            const toastTitle = UPDATE_PROJECTED_VACANCY_ERROR_TITLE;
-            const toastMessage = UPDATE_PROJECTED_VACANCY_ERROR;
-            dispatch(toastError(toastMessage, toastTitle));
-          } else {
-            const toastTitle = UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE;
-            const toastMessage = UPDATE_PROJECTED_VACANCY_SUCCESS;
-            dispatch(toastSuccess(toastMessage, toastTitle));
-          }
-          // End: temp toast logic
           batch(() => {
             dispatch(projectedVacancyEditErrored(true));
+            dispatch(toastError(
+              UPDATE_PROJECTED_VACANCY_ERROR,
+              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+            ));
             dispatch(projectedVacancyEditLoading(false));
           });
         }
@@ -251,69 +237,118 @@ export function projectedVacancyEdit(id, data) {
   };
 }
 
-// ================ ADD TO PROPOSED CYCLE ================
+// ================ EDIT LANGUAGE OFFSETS ================
 
-export function projectedVacancyAddToProposedCycleErrored(bool) {
+export function projectedVacancyEditLangOffsetsErrored(bool) {
   return {
-    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_ERRORED',
+    type: 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_ERRORED',
     hasErrored: bool,
   };
 }
-export function projectedVacancyAddToProposedCycleLoading(bool) {
+export function projectedVacancyEditLangOffsetsLoading(bool) {
   return {
-    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_LOADING',
+    type: 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_LOADING',
     isLoading: bool,
   };
 }
-export function projectedVacancyAddToProposedCycleSuccess(results) {
+export function projectedVacancyEditLangOffsetsSuccess(results) {
   return {
-    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_SUCCESS',
+    type: 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_SUCCESS',
     results,
   };
 }
-export function projectedVacancyAddToProposedCycle(id, data) {
+export function projectedVacancyEditLangOffsets(query) {
   return (dispatch) => {
     batch(() => {
-      dispatch(projectedVacancyAddToProposedCycleLoading(true));
-      dispatch(projectedVacancyAddToProposedCycleErrored(false));
+      dispatch(projectedVacancyEditLangOffsetsLoading(true));
+      dispatch(projectedVacancyEditLangOffsetsErrored(false));
     });
 
-    api().patch(`ao/${id}/projectedVacancy/`, data)
-      .then(() => {
-        const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
-        const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
+    api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', query)
+      .then(({ data }) => {
         batch(() => {
-          dispatch(projectedVacancyAddToProposedCycleErrored(false));
-          dispatch(projectedVacancyAddToProposedCycleSuccess(true));
-          dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(projectedVacancyAddToProposedCycleSuccess());
-          dispatch(projectedVacancyAddToProposedCycleLoading(false));
+          dispatch(projectedVacancyEditLangOffsetsErrored(false));
+          dispatch(projectedVacancyEditLangOffsetsSuccess(data));
+          dispatch(toastSuccess(
+            UPDATE_PROJECTED_VACANCY_SUCCESS,
+            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
+          ));
+          dispatch(projectedVacancyEditLangOffsetsLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(projectedVacancyAddToProposedCycleLoading(true));
-            dispatch(projectedVacancyAddToProposedCycleErrored(false));
+            dispatch(projectedVacancyEditLangOffsetsLoading(true));
+            dispatch(projectedVacancyEditLangOffsetsErrored(false));
           });
         } else {
-          // Start: temp toast logic
-          // temp to randomly show toast error or success
-          // when set up, just keep the error toast here
-          const randInt = Math.floor(Math.random() * 2);
-          if (randInt) {
-            const toastTitle = ADD_TO_PROPOSED_CYCLE_ERROR_TITLE;
-            const toastMessage = ADD_TO_PROPOSED_CYCLE_ERROR;
-            dispatch(toastError(toastMessage, toastTitle));
-          } else {
-            const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
-            const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
-            dispatch(toastSuccess(toastMessage, toastTitle));
-          }
-          // End: temp toast logic
           batch(() => {
-            dispatch(projectedVacancyAddToProposedCycleErrored(true));
-            dispatch(projectedVacancyAddToProposedCycleLoading(false));
+            dispatch(projectedVacancyEditLangOffsetsErrored(true));
+            dispatch(toastError(
+              UPDATE_PROJECTED_VACANCY_ERROR,
+              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+            ));
+            dispatch(projectedVacancyEditLangOffsetsLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// ================ EDIT CAPSULE DESCRIPTION ================
+
+export function projectedVacancyEditCapsuleDescErrored(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function projectedVacancyEditCapsuleDescLoading(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_LOADING',
+    isLoading: bool,
+  };
+}
+export function projectedVacancyEditCapsuleDescSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_SUCCESS',
+    results,
+  };
+}
+export function projectedVacancyEditCapsuleDesc(query) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(projectedVacancyEditCapsuleDescLoading(true));
+      dispatch(projectedVacancyEditCapsuleDescErrored(false));
+    });
+
+    api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', query)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(projectedVacancyEditCapsuleDescErrored(false));
+          dispatch(projectedVacancyEditCapsuleDescSuccess(data));
+          dispatch(toastSuccess(
+            UPDATE_PROJECTED_VACANCY_SUCCESS,
+            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
+          ));
+          dispatch(projectedVacancyEditCapsuleDescLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(projectedVacancyEditCapsuleDescLoading(true));
+            dispatch(projectedVacancyEditCapsuleDescErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(projectedVacancyEditCapsuleDescErrored(true));
+            dispatch(toastError(
+              UPDATE_PROJECTED_VACANCY_ERROR,
+              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+            ));
+            dispatch(projectedVacancyEditCapsuleDescLoading(false));
           });
         }
       });
