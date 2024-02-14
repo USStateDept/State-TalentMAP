@@ -4,7 +4,6 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
-import { filtersFetchData } from 'actions/filters/filters';
 import { entryLevelFetchData, entryLevelFiltersFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
@@ -16,11 +15,12 @@ const ManageEntryLevel = () => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.entryLevelSelections);
-  const dummyPositionDetails = useSelector(state => state.entryLevel);
-  const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const genericFilters = useSelector(state => state.filters);
+  const elPositionsList = useSelector(state => state.entryLevelPositions);
+  const elPositionsIsLoading = useSelector(state => state.entryLevelFetchDataLoading);
+  const elFiltersIsLoading = useSelector(state => state.entryLevelFiltersFetchDataLoading);
+
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
   const [selectedTps, setSelectedTps] = useState(userSelections?.selectedTps || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
@@ -34,9 +34,6 @@ const ManageEntryLevel = () => {
   const [domestic, setDomestic] = useState(userSelections?.domestic || false);
   const [clearFilters, setClearFilters] = useState(false);
 
-  const dummyid = dummyPositionDetails?.id;
-  const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
-
   const elFiltersList = useSelector(state => state.entryLevelFilters);
   const tpFilters = elFiltersList?.tpFilters;
   const bureauFilters = elFiltersList?.bureauFilters;
@@ -46,7 +43,7 @@ const ManageEntryLevel = () => {
   const jcFilters = elFiltersList?.jcFilters;
   const languageFilters = elFiltersList?.languageFilters;
 
-  const isLoading = genericFiltersIsLoading;
+  const isLoading = elPositionsIsLoading || elFiltersIsLoading;
   const disableSearch = cardsInEditMode.length > 0;
   const disableInput = isLoading || disableSearch;
 
@@ -86,9 +83,9 @@ const ManageEntryLevel = () => {
   });
 
   useEffect(() => {
-    dispatch(saveEntryLevelSelections(getCurrentInputs()));
-    dispatch(filtersFetchData(genericFilters));
+    // dispatch(saveEntryLevelSelections(getCurrentInputs()));
     dispatch(entryLevelFiltersFetchData());
+    dispatch(entryLevelFetchData());
   }, []);
 
   const fetchAndSet = () => {
@@ -282,16 +279,18 @@ const ManageEntryLevel = () => {
       }
       <div className="usa-width-one-whole position-search--results">
         <div className="usa-grid-full position-list">
-          {dummyIds.map(k => (
-            <EntryLevelCard
-              id={k}
-              key={k}
-              result={dummyPositionDetails}
-              onEditModeSearch={(editMode, id) =>
-                onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
-              }
-            />
-          ))}
+          {
+            elPositionsList?.map((pos, i) => (
+              <EntryLevelCard
+                id={i}
+                // key={i}
+                result={pos}
+                appendAdditionalFieldsToBodyPrimary={false}
+                onEditModeSearch={(editMode, id) =>
+                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
+                }
+              />
+            ))}
         </div>
       </div>
       {disableSearch &&

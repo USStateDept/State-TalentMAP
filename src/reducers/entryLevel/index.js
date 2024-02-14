@@ -1,5 +1,4 @@
 import {
-  entryLevel,
   entryLevelEdit,
   entryLevelEditErrored,
   entryLevelEditLoading,
@@ -8,11 +7,11 @@ import {
   entryLevelFilters,
   entryLevelFiltersFetchDataErrored,
   entryLevelFiltersFetchDataLoading,
+  entryLevelPositions,
   entryLevelSelections,
 } from './entryLevel';
 
 export default {
-  entryLevel,
   entryLevelEdit,
   entryLevelEditErrored,
   entryLevelEditLoading,
@@ -21,5 +20,6 @@ export default {
   entryLevelFilters,
   entryLevelFiltersFetchDataErrored,
   entryLevelFiltersFetchDataLoading,
+  entryLevelPositions,
   entryLevelSelections,
 };
