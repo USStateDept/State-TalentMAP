@@ -113,7 +113,7 @@ export function altAssignmentDetailFetchData(perdet, asgId, revision_num) {
       dispatch(altAssignmentDetailHasErrored(false));
     });
     api()
-      .get(`/fsbid/assignment_history/${perdet}/assignment/${asgId}?revision_num=${revision_num}`)
+      .get(`/fsbid/assignment_history/${perdet}/assignment/${asgId}/?revision_num=${revision_num}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(altAssignmentDetailFetchDataSuccess(data));
