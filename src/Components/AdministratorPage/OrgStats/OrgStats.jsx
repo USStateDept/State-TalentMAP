@@ -70,7 +70,6 @@ const OrgStats = () => {
     ];
     const a = [];
     fils.forEach(f => { if (f.length) { a.push(true); } });
-    console.log(a.length > 1);
     return a.length > 1;
   };
 
