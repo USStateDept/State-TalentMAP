@@ -55,12 +55,6 @@ const OrgStats = () => {
     cycles: selectedCycles.map(cycleObject => (cycleObject?.code)),
   });
 
-  const numSelectedFilters = [
-    selectedCycles,
-    selectedBureaus,
-    selectedOrgs,
-  ].flat().filter(text => text !== '').length;
-
 
   const filterSelectionValid = () => {
     const fils = [
@@ -70,13 +64,14 @@ const OrgStats = () => {
     ];
     const a = [];
     fils.forEach(f => { if (f.length) { a.push(true); } });
-    return a.length > 1;
+    return a.length;
   };
 
-  const fetchAndSet = () => {
-    setClearFilters(!!numSelectedFilters);
 
-    if (filterSelectionValid) {
+  const fetchAndSet = () => {
+    setClearFilters(filterSelectionValid() !== 0);
+
+    if (filterSelectionValid() > 1) {
       dispatch(orgStatsFetchData(getQuery()));
       dispatch(saveOrgStatsSelections(getCurrentInputs()));
     }
@@ -103,7 +98,7 @@ const OrgStats = () => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = orgStatsData?.results.length === 0;
+  const noResults = orgStatsData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (orgStatsIsLoading || filtersIsLoading) {
@@ -112,7 +107,7 @@ const OrgStats = () => {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
-    } else if (!filterSelectionValid()) {
+    } else if (filterSelectionValid() < 2) {
       overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search.' }]} />;
     } else {
       return false;
