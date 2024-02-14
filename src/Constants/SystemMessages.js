@@ -13,6 +13,7 @@ import PanelMeetingMessage from 'Components/AdministratorPage/PanelAdmin/PanelMe
 
 export const DEFAULT_TEXT = 'None listed';
 
+export const NO_VALUE = DEFAULT_TEXT;
 export const NO_ASSIGNMENT_DATE = DEFAULT_TEXT;
 export const NO_ASSIGNMENT_POSITION = DEFAULT_TEXT;
 export const NO_ASSIGNMENT_STATUS = DEFAULT_TEXT;
