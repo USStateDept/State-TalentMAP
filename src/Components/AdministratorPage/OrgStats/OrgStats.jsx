@@ -55,20 +55,32 @@ const OrgStats = () => {
     cycles: selectedCycles.map(cycleObject => (cycleObject?.code)),
   });
 
-  const fetchAndSet = () => {
-    const filters = [
+  const numSelectedFilters = [
+    selectedCycles,
+    selectedBureaus,
+    selectedOrgs,
+  ].flat().filter(text => text !== '').length;
+
+
+  const filterSelectionValid = () => {
+    const fils = [
       selectedBureaus,
       selectedOrgs,
       selectedCycles,
     ];
+    const a = [];
+    fils.forEach(f => { if (f.length) { a.push(true); } });
+    console.log(a.length > 1);
+    return a.length > 1;
+  };
 
-    if (filters.flat().length === 0) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
+  const fetchAndSet = () => {
+    setClearFilters(!!numSelectedFilters);
+
+    if (filterSelectionValid) {
+      dispatch(orgStatsFetchData(getQuery()));
+      dispatch(saveOrgStatsSelections(getCurrentInputs()));
     }
-    dispatch(orgStatsFetchData(getQuery()));
-    dispatch(saveOrgStatsSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
@@ -76,7 +88,9 @@ const OrgStats = () => {
   }, []);
 
   useEffect(() => {
-    fetchAndSet();
+    if (filterSelectionValid()) {
+      fetchAndSet();
+    }
   }, [
     selectedBureaus,
     selectedOrgs,
@@ -99,6 +113,8 @@ const OrgStats = () => {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else if (!filterSelectionValid()) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search or search by Position Number.' }]} />;
     } else {
       return false;
     }

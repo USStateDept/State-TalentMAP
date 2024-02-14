@@ -34,9 +34,7 @@ export function orgStatsFetchData(query = {}) {
     });
     const q = convertQueryToString(query);
     api().get(`/fsbid/org_stats/?${q}`, {
-      cancelToken: new CancelToken((c) => {
-        cancelOrgStats = c;
-      }),
+      cancelToken: new CancelToken((c) => { cancelOrgStats = c; }),
     })
       .then(({ data }) => {
         batch(() => {
