@@ -129,3 +129,20 @@ export function altAssignmentDetailFetchData(perdet, asgId) {
       });
   };
 }
+export function updateAssignment(query, perdet) {
+  return (dispatch) => {
+    api()
+      .patch(`/fsbid/assignment_history/${perdet}/alt/`, query)
+      .then(() => {
+        batch(() => {
+          dispatch(altAssignmentFetchData(perdet));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(altAssignmentDetailHasErrored(true));
+          dispatch(altAssignmentDetailIsLoading(false));
+        });
+      });
+  };
+}

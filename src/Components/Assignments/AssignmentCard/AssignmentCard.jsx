@@ -12,7 +12,7 @@ import CheckBox from 'Components/CheckBox';
 import { checkFlag } from 'flags';
 import TabbedCard from 'Components/TabbedCard';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import { altAssignmentDetailFetchData } from 'actions/assignment';
+import { altAssignmentDetailFetchData, updateAssignment } from 'actions/assignment';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
 
@@ -40,7 +40,6 @@ const AssignmentCard = (props) => {
     dispatch(altAssignmentDetailFetchData(perdet, asgId));
   }, []);
 
-  console.log(data);
   // Break out ref data
   const statusOptions = assignmentDetails?.QRY_LSTASGS_REF;
   const actionOptions = assignmentDetails?.QRY_LSTLAT_REF;
@@ -51,6 +50,7 @@ const AssignmentCard = (props) => {
 
   // Asg Detail Data (Not to be confused with the Asg List)
   const asgDetail = assignmentDetails?.QRY_GETASGDTL_REF?.[0];
+  console.log(asgDetail);
 
   // =============== View Mode ===============
 
@@ -129,9 +129,26 @@ const AssignmentCard = (props) => {
   };
   const onSubmitForm = () => {
     // createAssignment(data)
-    // editAssignment(data)
+    dispatch(updateAssignment({
+      asg_seq_num: asgDetail?.ASG_SEQ_NUM,
+      asgd_revision_num: asgDetail?.ASGD_REVISION_NUM,
+      eta: `${eta.getMonth() + 1}/${eta.getFullYear()}`,
+      etd: `${ted.getMonth() + 1}/${ted.getFullYear()}`,
+      tod,
+      salary_reimburse_ind: salaryReimbursement,
+      travel_reimburse_ind: travelReimbursement,
+      training_ind: training,
+      critical_need_ind: criticalNeed,
+      org_code: funding,
+      status_code: status,
+      lat_code: action,
+      travel_code: travel,
+      rr_repay_ind: waiver,
+      update_date: asgDetail?.ASGD_UPDATE_DATE,
+    }, perdet));
+
     // TO-DO: refresh assignments and separations after?
-    setNewAsgSep('default');
+    // setNewAsgSep('default');
   };
 
   const form = {
