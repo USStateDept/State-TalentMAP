@@ -18,6 +18,7 @@ import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
+import { projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets } from '../../actions/projectedVacancy';
 
 const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
@@ -60,6 +61,28 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
       setTextArea(result?.capsule_description);
     }
   }, [editMode]);
+
+  const onSubmit = () => {
+    dispatch(projectedVacancyEdit({
+      ...result,
+      future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
+      bid_season_code: season,
+      future_vacancy_status_code: status,
+      future_vacancy_override_tour_end_date: overrideTED,
+    }));
+    dispatch(projectedVacancyEditLangOffsets({
+      positon_seq_num: result?.positon_seq_num,
+      language_offset_summer: langOffsetSummer,
+      language_offset_winter: langOffsetWinter,
+    }));
+    dispatch(projectedVacancyEditCapsuleDesc({
+      positon_seq_num: result?.positon_seq_num,
+      capsule_description: textArea,
+      updater_id: result?.updater_id,
+      updated_date: result?.updated_date,
+    }));
+    // TODO: Toggle edit mode off when all 3 edits are successful
+  };
 
   /* eslint-disable quote-props */
   const sections = {
@@ -214,23 +237,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
       </div>
     </div>,
     cancelText: 'Are you sure you want to discard all changes made to this Projected Vacancy position?',
-    handleSubmit: () => dispatch(projectedVacancyEdit({
-      id,
-      ...result,
-      ted: overrideTED,
-      position: {
-        ...result.position,
-        description: {
-          content: textArea,
-          date_updated: new Date(),
-        },
-        bid_cycle: {
-          ...result.bidcycle,
-          name: bidSeasons,
-          active: status === 1,
-        },
-      },
-    })),
+    handleSubmit: onSubmit,
     handleCancel: () => { },
     handleEdit: {
       editMode,
