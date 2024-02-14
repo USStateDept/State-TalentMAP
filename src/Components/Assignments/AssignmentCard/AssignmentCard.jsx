@@ -6,7 +6,7 @@ import { getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_STATUS, NO_TOUR_END_DATE,
+  NO_STATUS, NO_TOUR_END_DATE, NO_VALUE,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
@@ -59,15 +59,15 @@ const AssignmentCard = (props) => {
       { 'Status': getResult(data, 'ASGS_CODE') || NO_STATUS },
       { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
       { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
-      { 'ETA': getResult(data, 'ASGD_ETA_DATE') || NO_TOUR_END_DATE },
+      { 'ETA': getResult(data, 'ASGD_ETA_DATE') || NO_VALUE },
       { 'DIP': getResult(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
-      { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_TOUR_END_DATE },
-      { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_TOUR_END_DATE },
+      { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_VALUE },
+      { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_VALUE },
       { 'TED': getResult(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
     ],
     bodySecondary: [
       { 'Grade': getResult(data, 'GRD_CD') || NO_GRADE },
-      { 'Pay Plan': getResult(data, 'PPL_CODE') || NO_GRADE },
+      { 'Pay Plan': getResult(data, 'PPL_CODE') || NO_VALUE },
     ],
     /* eslint-enable quote-props */
   };
