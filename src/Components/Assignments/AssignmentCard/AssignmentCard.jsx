@@ -52,7 +52,7 @@ const AssignmentCard = (props) => {
   const sections = {
     /* eslint-disable quote-props */
     subheading: [
-      { 'Position Number': getResult(data, 'POS_NUM_TXT', NO_POSITION_NUMBER) },
+      { 'Position Number': getResult(data, 'POS_NUM_TXT') || NO_POSITION_NUMBER },
       { 'Position Title': getResult(data, 'POS_TITLE_TXT') || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
@@ -146,7 +146,7 @@ const AssignmentCard = (props) => {
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Position Number': getResult(data, 'POS_NUM_TXT', NO_POSITION_NUMBER) },
+      { 'Position Number': getResult(data, 'POS_NUM_TXT') || NO_POSITION_NUMBER },
       { 'Position Title': getResult(data, 'POS_TITLE_TXT') || NO_POSITION_TITLE },
       { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
       { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
