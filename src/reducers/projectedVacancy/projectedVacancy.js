@@ -117,27 +117,54 @@ export function projectedVacancyEdit(state = {}, action) {
   }
 }
 
-// ================ ADD TO PROPOSED CYCLE ================
+// ================ EDIT LANGUAGE OFFSETS ================
 
-export function projectedVacancyAddToProposedCycleErrored(state = false, action) {
+export function projectedVacancyEditLangOffsetsErrored(state = false, action) {
   switch (action.type) {
-    case 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_ERRORED':
+    case 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function projectedVacancyAddToProposedCycleLoading(state = false, action) {
+export function projectedVacancyEditLangOffsetsLoading(state = false, action) {
   switch (action.type) {
-    case 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_LOADING':
+    case 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
-export function projectedVacancyAddToProposedCycle(state = {}, action) {
+export function projectedVacancyEditLangOffsets(state = {}, action) {
   switch (action.type) {
-    case 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_SUCCESS':
+    case 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
+// ================ EDIT CAPSULE DESCRIPTION ================
+
+export function projectedVacancyEditCapsuleDescErrored(state = false, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function projectedVacancyEditCapsuleDescLoading(state = false, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function projectedVacancyEditCapsuleDesc(state = {}, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_SUCCESS':
       return action.results;
     default:
       return state;
