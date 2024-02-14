@@ -8,21 +8,16 @@ import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
-import CheckBox from 'Components/CheckBox';
-import { checkFlag } from 'flags';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import swal from '@sweetalert/with-react';
 import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
-const useDeto = () => checkFlag('flags.deto');
 
 const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const dispatch = useDispatch();
   const pos = data?.position || data;
-  const showDeto = useDeto();
-
   const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
@@ -45,7 +40,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
       { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
     ],
     bodySecondary: [
-      { '': <CheckBox id="deto" label="DETO" value disabled /> },
       { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
       { 'Cycle Position': '---' },
       { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
@@ -62,10 +56,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
     ],
     /* eslint-enable quote-props */
   };
-
-  if (!showDeto) {
-    sections.bodySecondary.slice(1);
-  }
 
 
   // =============== Edit Mode ===============
@@ -129,7 +119,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
       { 'Grade': getResult(pos, 'grade') || NO_GRADE },
       { 'Status': getResult(pos, 'status') || NO_STATUS },
       { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
-      { '': <CheckBox id="deto" label="DETO" value disabled /> },
       { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
       { 'Cycle Position': '---' },
       { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },

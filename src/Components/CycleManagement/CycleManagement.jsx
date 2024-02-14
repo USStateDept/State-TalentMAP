@@ -2,168 +2,124 @@ import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { isDate, startOfDay } from 'date-fns-v2';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import PaginationWrapper from 'Components/PaginationWrapper';
-import TotalResults from 'Components/TotalResults';
 import Alert from 'Components/Alert';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import SelectForm from 'Components/SelectForm';
-import { usePrevious } from 'hooks';
-import { filtersFetchData } from 'actions/filters/filters';
+import TMDatePicker from 'Components/TMDatePicker';
 import {
-  cycleManagementAssignmentCycleFetchData,
+  cycleManagementCreateCycle,
   cycleManagementFetchData,
-  postAssignmentCyclesSelections,
-  saveAssignmentCyclesSelections,
   saveCycleManagementSelections,
 } from 'actions/cycleManagement';
-import { nameSort, renderSelectionList, userHasPermissions } from 'utilities';
+import { renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
-import EditAssignmentCycles from './EditAssignmentCycles';
+import NewAssignmentCycle from './NewAssignmentCycle';
 
 const CycleManagement = (props) => {
   const dispatch = useDispatch();
   const { isAO } = props;
 
+  // Redux State
   const userProfile = useSelector(state => state.userProfile);
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.cycleManagementSelections);
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
-  const genericFilters = useSelector(state => state.filters);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
-  const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
+  const [selectedDate, setSelectedDate] = useState(userSelections?.selectedDate || null);
+  const [cycleManagementData$, setCycleManagementData$] = useState(cycleManagementData);
   const [clearFilters, setClearFilters] = useState(false);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
-  const [addNewCycles, setAddNewCycles] = useState(false);
-
-  // Pagination
-  const [page, setPage] = useState(userSelections.page || 1);
-  const [limit, setLimit] = useState(userSelections.limit || 10);
-  const prevPage = usePrevious(page);
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
-  const disableInput = addNewCycles || cardsInEditMode.length > 0 || genericFiltersIsLoading;
-
-  const currentInputs = {
-    page,
-    limit,
-    selectedCycles,
-    selectedStatus,
-    selectedDates,
-  };
+  const disableInput = cardsInEditMode.length > 0;
+  const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
+    && !selectedDate;
 
   const getCurrentInputs = () => ({
-    page,
-    limit,
     selectedCycles,
     selectedStatus,
-    selectedDates,
+    selectedDate,
   });
 
-  const getQuery = () => ({
-    'cycle-cycles': selectedCycles.map(bidCycleObject => (bidCycleObject?.id)),
-    'cycle-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
-    'cycle-date-start': isDate(selectedDates?.[0]) ? startOfDay(selectedDates?.[0]).toJSON() : '',
-    'cycle-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
-    limit,
-    page,
-  });
+  const filterCyclesByDate = (cycles, date) => {
+    const filteredCycles = cycles.filter(cycle => {
+      const startDate = new Date(cycle.begin_date).getTime();
+      const endDate = new Date(cycle.end_date).getTime();
+      return ((date >= startDate) && (date <= endDate));
+    });
+    return filteredCycles;
+  };
 
-  const fetchAndSet = (resetPage = false) => {
-    const filters = [
-      selectedCycles,
-      selectedStatus,
-    ];
-    if (filters.flat().length === 0 && !selectedDates) {
+  const cycleDataFiltered = () => {
+    if (noFiltersSelected) return cycleManagementData;
+
+    let cycles = cycleManagementData;
+    if (selectedCycles.length > 0) {
+      cycles = selectedCycles;
+    }
+    if (selectedStatus.length > 0) {
+      cycles = cycles.filter(cycle =>
+        selectedStatus.some(status => status.text === cycle.status),
+      );
+    }
+
+    if (selectedDate) return filterCyclesByDate(cycles, selectedDate);
+    return cycles;
+  };
+
+
+  // initial render
+  useEffect(() => {
+    dispatch(cycleManagementFetchData());
+  }, []);
+
+  useEffect(() => {
+    dispatch(saveCycleManagementSelections(getCurrentInputs()));
+    setCycleManagementData$(cycleDataFiltered);
+    if (noFiltersSelected) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
     }
-    if (resetPage) {
-      setPage(1);
-    }
-    dispatch(saveCycleManagementSelections(getCurrentInputs()));
-    dispatch(cycleManagementFetchData(getQuery()));
-    dispatch(cycleManagementAssignmentCycleFetchData());
-  };
-
-  // initial render
-  useEffect(() => {
-    dispatch(filtersFetchData(genericFilters));
-    dispatch(saveCycleManagementSelections(currentInputs));
-  }, []);
-
-  useEffect(() => {
-    if (prevPage) {
-      fetchAndSet(true);
-    }
   }, [
-    limit,
     selectedCycles,
     selectedStatus,
-    selectedDates,
+    selectedDate,
+    cycleManagementData,
   ]);
 
   useEffect(() => {
-    fetchAndSet(false);
-  }, [
-    page,
-  ]);
+    if (swal?.getState()?.isOpen) {
+      swal.close();
+    }
+  }, [cycleManagementDataLoading]);
 
-  // Hardcoded - find where to get this data
-  const statusOptions = [
-    { code: 1, name: 'Active' },
-    { code: 2, name: 'Closed' },
-    { code: 3, name: 'Merged' },
-    { code: 4, name: 'Proposed' },
-  ];
-
-  const genericFilters$ = genericFilters?.filters || [];
-  const bidCycle = genericFilters$.find(f => f?.item?.description === 'bidCycle');
-  const bidCycleOptions = bidCycle?.data?.length
-    ? nameSort([...new Set(bidCycle.data)], 'name') : [];
+  const uniqueStatuses = () => {
+    const statuses = cycleManagementData.map(cycles => cycles.status);
+    const uniq = [...new Set(statuses)];
+    const uniqObj = uniq.map(x => ({ text: x }));
+    return uniqObj;
+  };
 
   const resetFilters = () => {
     setSelectedCycles([]);
     setSelectedStatus([]);
-    setSelectedDates(null);
+    setSelectedDate(null);
     setClearFilters(false);
   };
 
-  const onSave = (isNew, userData) => {
-    dispatch(saveAssignmentCyclesSelections(userData));
-    setAddNewCycles(false);
-    swal.close();
-    if (!isNew) setCardsInEditMode([]);
+  const onSave = (data) => {
+    dispatch(cycleManagementCreateCycle(data));
   };
 
-  const onPost = (isNew, userData) => {
-    dispatch(postAssignmentCyclesSelections(userData));
-    setAddNewCycles(false);
-    swal.close();
-    if (!isNew) setCardsInEditMode([]);
-  };
-
-  const onClose = (isNew) => {
-    swal.close();
-    setAddNewCycles(false);
-    if (!isNew) setCardsInEditMode([]);
-  };
-
-  const onCardAdd = (e) => {
+  const onCardOpen = (e) => {
     if (cardsInEditMode.includes(e)) {
       setCardsInEditMode(cardsInEditMode.filter(item => item !== e));
     } else {
@@ -171,24 +127,21 @@ const CycleManagement = (props) => {
     }
   };
 
-  const addNewCycle = (e) => {
-    e.preventDefault();
+  const createNewAssignmentCycle = () => {
     swal({
       title: 'New Assignment Cycle',
-      className: 'modal-700',
+      className: 'modal-700-long',
       button: false,
       content: (
-        <EditAssignmentCycles
-          onPost={onPost}
+        <NewAssignmentCycle
           onSave={onSave}
-          onClose={onClose}
         />
       ),
     });
   };
 
   // Overlay for error, info, and loading state
-  const noResults = cycleManagementData?.results?.length === 0;
+  const noResults = cycleManagementData$?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (cycleManagementDataLoading) {
@@ -213,7 +166,7 @@ const CycleManagement = (props) => {
   };
 
   return (
-    genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
+    cycleManagementDataLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
         <div className="cycle-management-page position-search">
           <div className="usa-grid-full position-search--header">
@@ -232,24 +185,11 @@ const CycleManagement = (props) => {
 
             <div className="usa-width-one-whole position-search--filters--cm">
               <div className="filter-div">
-                <div className="label">Status:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Status"
-                  options={statusOptions}
-                  valueKey="code"
-                  labelKey="name"
-                  onChange={setSelectedStatus}
-                  value={selectedStatus}
-                  disabled={disableInput}
-                />
-              </div>
-              <div className="filter-div">
                 <div className="label">Cycle:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Bid Cycle(s)"
-                  options={bidCycleOptions}
+                  options={cycleManagementData}
                   valueKey="id"
                   labelKey="name"
                   disabled={disableInput}
@@ -258,45 +198,43 @@ const CycleManagement = (props) => {
                 />
               </div>
               <div className="filter-div">
+                <div className="label">Status:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Status"
+                  options={uniqueStatuses()}
+                  valueKey="text"
+                  labelKey="text"
+                  onChange={setSelectedStatus}
+                  value={selectedStatus}
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
                 <div className="label">Cycle Date:</div>
-                <DateRangePicker
-                  onChange={setSelectedDates}
-                  value={selectedDates}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  showLeadingZeros
+                <TMDatePicker
+                  onChange={setSelectedDate}
+                  selected={selectedDate}
+                  type="filter"
+                  showMonthDropdown
+                  showYearDropdown
+                  isClearable
                   disabled={disableInput}
                 />
               </div>
             </div>
 
           </div>
-          {getOverlay() ||
+          {
+            getOverlay() ||
             <>
-              <div className="usa-grid-full results-dropdown controls-container">
-                <div className="cm-results">
-                  <TotalResults
-                    total={cycleManagementData.count}
-                    pageNumber={page}
-                    pageSize={limit}
-                    suffix="Results"
-                    isHidden={cycleManagementDataLoading}
-                  />
-                </div>
-                <div className="cm-results-dropdown cm-results">
-                  <SelectForm
-                    options={pageSizes.options}
-                    label="Results:"
-                    defaultSort={limit}
-                    onSelectOption={value => setLimit(value.target.value)}
-                    disabled={cycleManagementDataLoading}
-                  />
-                </div>
-              </div>
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="bs-results">
                   <Link
-                    onClick={addNewCycle}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      createNewAssignmentCycle();
+                    }}
                     to="#"
                   >
                     {isSuperUser &&
@@ -309,22 +247,13 @@ const CycleManagement = (props) => {
                 </div>
               </div>
               <div className="cm-lower-section">
-                {cycleManagementData?.results?.map(data => (
+                {cycleManagementData$?.map(data => (
                   <CycleSearchCard
                     {...{ ...data, isAO }}
-                    onEditModeSearch={onCardAdd}
+                    onEditModeSearch={onCardOpen}
                     isSuperUser={isSuperUser}
                   />
-                ),
-                )}
-                <div className="usa-grid-full react-paginate bureau-pagination-controls">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={cycleManagementData.count}
-                  />
-                </div>
+                ))}
               </div>
             </>
           }

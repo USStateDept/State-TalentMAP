@@ -9,14 +9,11 @@ import {
   NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
-import { checkFlag } from 'flags';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
-
-const useDeto = () => checkFlag('flags.deto');
 
 const AssignmentCard = (props) => {
   const { data, refFilters, isNew, setNewAsgSep } = props;
@@ -25,8 +22,6 @@ const AssignmentCard = (props) => {
   // const dispatch = useDispatch();
   const pos = data?.position || data;
   const altPos = data?.pos;
-
-  const showDeto = useDeto();
 
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
@@ -60,14 +55,10 @@ const AssignmentCard = (props) => {
       { 'Pay Plan': 'FP' },
       { 'Post Differential | Danger Pay': getDifferentials(pos) },
       { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
-      { '': <CheckBox id="deto" label="DETO" value disabled /> },
     ],
     /* eslint-enable quote-props */
   };
 
-  if (!showDeto) {
-    delete sections.bodySecondary[''];
-  }
 
   // =============== Edit Mode ===============
   const { statusOptions, actionOptions, todOptions, travelOptions,
@@ -122,7 +113,6 @@ const AssignmentCard = (props) => {
       { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
       { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
       { 'Location': getPostName(pos?.post) || NO_POST },
-      // { '': <CheckBox id="deto" label="DETO" value disabled /> },
       { 'Skill': getResult(pos, 'skill') || NO_SKILL },
       { 'Grade': getResult(pos, 'grade') || NO_GRADE },
       { 'Pay Plan': '---' },

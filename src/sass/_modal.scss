@@ -4,6 +4,10 @@
 .swal-modal.modal-700 {
   width: 700px;
 }
+.swal-modal.modal-700-long {
+  width: 700px;
+  height: 100%;
+}
 
 @media screen and (min-width: 1350px) {
   .swal-modal.modal-1300 {
