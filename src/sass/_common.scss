@@ -21,6 +21,8 @@
 
 .pb-20 { padding-bottom: 20px; }
 
+.pr-10 { padding-right: 10px; }
+
 .pl-10 { padding-left: 10px; }
 .pl-20 { padding-left: 20px; }
 
@@ -231,4 +233,8 @@ $values in $filters-sizing-config {
   .label {
     min-width: 125px;
   }
+}
+
+.error-color {
+  color: $secondary-dark;
 }

@@ -19,7 +19,7 @@
     "CDOD30": true,
     "cycle_job_categories": true,
     "cycle_management": true,
-    "deto": false,
+    "deto_rwa": true,
     "handshake_bidding": true,
     "job_categories": true,
     "maintain_assignment": true,

@@ -9,22 +9,17 @@ import {
   NO_STATUS, NO_TOUR_END_DATE,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
-import { checkFlag } from 'flags';
 import TabbedCard from 'Components/TabbedCard';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import { altAssignmentDetailFetchData, updateAssignment } from 'actions/assignment';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
 
-const useDeto = () => checkFlag('flags.deto');
-
 const AssignmentCard = (props) => {
   const { perdet, data, isNew, setNewAsgSep } = props;
   const [editMode, setEditMode] = useState(isNew);
 
   const dispatch = useDispatch();
-
-  const showDeto = useDeto();
 
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
@@ -77,9 +72,6 @@ const AssignmentCard = (props) => {
     /* eslint-enable quote-props */
   };
 
-  if (!showDeto) {
-    delete sections.bodySecondary[''];
-  }
 
   // =============== Edit Mode ===============
 
