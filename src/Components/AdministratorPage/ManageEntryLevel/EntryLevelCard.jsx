@@ -13,7 +13,6 @@ import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import PropTypes from 'prop-types';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-// import LanguageList from '../../LanguageList/LanguageList';
 import { entryLevelEdit } from '../../../actions/entryLevel';
 
 const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
