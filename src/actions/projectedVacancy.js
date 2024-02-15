@@ -11,7 +11,9 @@ import api from '../api';
 import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
 
-let cancelProjectedVacancy;
+let cancelPVList;
+let cancelPVLangOffsets;
+let cancelPVFilters;
 
 // ================ GET LIST ================
 
@@ -35,6 +37,7 @@ export function projectedVacancyFetchDataSuccess(results) {
 }
 export function projectedVacancyFetchData(query = {}) {
   return (dispatch) => {
+    if (cancelPVList) { cancelPVList('cancel'); }
     batch(() => {
       dispatch(projectedVacancyFetchDataLoading(true));
       dispatch(projectedVacancyFetchDataErrored(false));
@@ -42,7 +45,9 @@ export function projectedVacancyFetchData(query = {}) {
     const q = convertQueryToString(query);
     const endpoint = '/fsbid/admin/projected_vacancies/';
     const ep = `${endpoint}?${q}`;
-    api().get(ep)
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => { cancelPVList = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(projectedVacancyFetchDataSuccess(data));
@@ -100,17 +105,13 @@ export function projectedVacancyFiltersSuccess(results) {
 }
 export function projectedVacancyFilters() {
   return (dispatch) => {
-    if (cancelProjectedVacancy) {
-      cancelProjectedVacancy('cancel');
-      dispatch(projectedVacancyFiltersLoading(true));
-    }
+    if (cancelPVFilters) { cancelPVFilters('cancel'); }
     batch(() => {
       dispatch(projectedVacancyFiltersLoading(true));
       dispatch(projectedVacancyFiltersErrored(false));
     });
-    const ep = '/fsbid/admin/projected_vacancies/filters/';
-    api().get(ep, {
-      cancelToken: new CancelToken((c) => { cancelProjectedVacancy = c; }),
+    api().get('/fsbid/admin/projected_vacancies/filters/', {
+      cancelToken: new CancelToken((c) => { cancelPVFilters = c; }),
     })
       .then(({ data }) => {
         batch(() => {
@@ -119,11 +120,14 @@ export function projectedVacancyFilters() {
           dispatch(projectedVacancyFiltersLoading(false));
         });
       })
-      .catch(() => {
-        batch(() => {
-          dispatch(projectedVacancyFiltersErrored(true));
-          dispatch(projectedVacancyFiltersLoading(false));
-        });
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(projectedVacancyFiltersSuccess({}));
+            dispatch(projectedVacancyFiltersErrored(true));
+            dispatch(projectedVacancyFiltersLoading(false));
+          });
+        }
       });
   };
 }
@@ -150,17 +154,13 @@ export function projectedVacancyLanguageOffsetsSuccess(results) {
 }
 export function projectedVacancyLanguageOffsets() {
   return (dispatch) => {
-    if (cancelProjectedVacancy) {
-      cancelProjectedVacancy('cancel');
-      dispatch(projectedVacancyLanguageOffsetsLoading(true));
-    }
+    if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
     batch(() => {
       dispatch(projectedVacancyLanguageOffsetsLoading(true));
       dispatch(projectedVacancyLanguageOffsetsErrored(false));
     });
-    const ep = '/fsbid/admin/projected_vacancies/language_offsets/';
-    api().get(ep, {
-      cancelToken: new CancelToken((c) => { cancelProjectedVacancy = c; }),
+    api().get('/fsbid/admin/projected_vacancies/language_offsets/', {
+      cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
     })
       .then(({ data }) => {
         batch(() => {
@@ -169,11 +169,14 @@ export function projectedVacancyLanguageOffsets() {
           dispatch(projectedVacancyLanguageOffsetsLoading(false));
         });
       })
-      .catch(() => {
-        batch(() => {
-          dispatch(projectedVacancyLanguageOffsetsErrored(true));
-          dispatch(projectedVacancyLanguageOffsetsLoading(false));
-        });
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(projectedVacancyFiltersSuccess({}));
+            dispatch(projectedVacancyLanguageOffsetsErrored(true));
+            dispatch(projectedVacancyLanguageOffsetsLoading(false));
+          });
+        }
       });
   };
 }
