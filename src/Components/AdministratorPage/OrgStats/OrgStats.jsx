@@ -21,8 +21,6 @@ const OrgStats = () => {
 
   const orgStatsData = useSelector(state => state.orgStats);
   const orgStatsData$ = orgStatsData?.results || [];
-  console.log('orgStatsData', orgStatsData);
-  console.log('orgStatsData$', orgStatsData$);
   const orgStatsSummary$ = orgStatsData?.bureau_summary || [];
   const orgStatsIsLoading = useSelector(state => state.orgStatsFetchDataLoading);
   const orgStatsError = useSelector(state => state.orgStatsFetchDataErrored);
