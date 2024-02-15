@@ -20,13 +20,17 @@ import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import { projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets } from '../../actions/projectedVacancy';
 
-const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, selectOptions }) => {
+const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
+
+  const id = result?.future_vacancy_seq_num || undefined;
 
   const bidSeasons = selectOptions?.bidSeasons?.length ? selectOptions.bidSeasons : [];
   const statuses = selectOptions?.statuses?.length ? selectOptions.statuses : [];
-  const languageOffsets =
-    selectOptions?.languageOffsets?.length ? selectOptions.languageOffsets : [];
+  const summerLanguageOffsets = selectOptions?.languageOffsets?.summerLanguageOffsetFilters?.length
+    ? selectOptions.languageOffsets.summerLanguageOffsetFilters : [];
+  const winterLanguageOffsets = selectOptions?.languageOffsets?.winterLanguageOffsetFilters?.length
+    ? selectOptions.languageOffsets.winterLanguageOffsetFilters : [];
 
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
@@ -34,7 +38,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
   };
 
   const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator);
-  const [season, setSeason] = useState(result?.bid_season_description);
+  const [season, setSeason] = useState(result?.bid_season_code);
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
   const [overrideTED, setOverrideTED] = useState(result?.future_vacancy_override_tour_end_date);
   const [langOffsetSummer, setLangOffsetSummer] = useState();
@@ -53,8 +57,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
     onEditModeSearch(editMode, id);
     if (editMode) {
       setIncluded(result?.future_vacancy_exclude_import_indicator);
-      setSeason(result?.bid_season_description);
-      setStatus(result?.future_vacancy_status_description);
+      setSeason(result?.bid_season_code);
+      setStatus(result?.future_vacancy_status_code);
       setOverrideTED(result?.future_vacancy_override_tour_end_date);
       setLangOffsetSummer(null);
       setLangOffsetWinter(null);
@@ -197,7 +201,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
             defaultValue={langOffsetSummer}
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
-            {languageOffsets.map(b => (
+            {summerLanguageOffsets.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -209,7 +213,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
             defaultValue={langOffsetWinter}
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
-            {languageOffsets.map(b => (
+            {winterLanguageOffsets.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -275,10 +279,12 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch, se
 ProjectedVacancyCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   updateIncluded: PropTypes.func,
-  id: PropTypes.number,
   onEditModeSearch: PropTypes.func,
   selectOptions: PropTypes.shape({
-    languageOffsets: PropTypes.arrayOf(PropTypes.shape({})),
+    languageOffsets: PropTypes.shape({
+      summerLanguageOffsetFilters: PropTypes.arrayOf(PropTypes.shape({})),
+      winterLanguageOffsetFilters: PropTypes.arrayOf(PropTypes.shape({})),
+    }),
     bidSeasons: PropTypes.arrayOf(PropTypes.shape({})),
     statuses: PropTypes.arrayOf(PropTypes.shape({})),
   }),
@@ -286,7 +292,6 @@ ProjectedVacancyCard.propTypes = {
 
 ProjectedVacancyCard.defaultProps = {
   updateIncluded: EMPTY_FUNCTION,
-  id: null,
   onEditModeSearch: EMPTY_FUNCTION,
   selectOptions: {
     languageOffsets: [],

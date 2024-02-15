@@ -49,7 +49,7 @@ const ProjectedVacancy = ({ isAO }) => {
 
   useEffect(() => {
     if (positions) {
-      setIncludedPositions(positions?.map(k => k.id));
+      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
     }
   }, [positions]);
 
@@ -305,8 +305,7 @@ const ProjectedVacancy = ({ isAO }) => {
           {positions?.map(k => (
             <ProjectedVacancyCard
               result={k}
-              key={k.id}
-              id={k.id}
+              key={k.future_vacancy_seq_num}
               updateIncluded={onIncludedUpdate}
               onEditModeSearch={(editMode, id) =>
                 onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
