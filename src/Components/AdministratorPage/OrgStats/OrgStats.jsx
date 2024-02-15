@@ -185,21 +185,23 @@ const OrgStats = () => {
       {getOverlay() ||
         <div className="bs-lower-section">
           {orgStatsData$?.map((data, index) => {
-            const bureauSummary = orgStatsSummary$.find(s => s.bureau_code === data.bureau_code);
-            const currBureau = data.bureau_code;
-            const nextBureau = orgStatsData$[index + 1]?.bureau_code;
+            const bureauSummary = orgStatsSummary$.find(s =>
+              s.bureau_short_desc === data.bureau_short_desc);
+            const currBureau = data.bureau_short_desc;
+            const nextBureau = orgStatsData$[index + 1]?.bureau_short_desc;
             if (currBureau !== nextBureau) {
               const summaryBody = {
+                // the alternative zero is to prevent the value from being falsy
                 'Bureau: ': bureauSummary?.bureau_short_desc,
-                'Total POS': bureauSummary?.total_pos,
-                'Total Filled': bureauSummary?.total_filled,
-                '% Filled': bureauSummary?.total_percent,
-                'Overseas POS': bureauSummary?.overseas_pos,
-                'Overseas Filled': bureauSummary?.overseas_filled,
-                '% Overseas': bureauSummary?.overseas_percent,
-                'Domestic POS': bureauSummary?.domestic_pos,
-                'Domestic Filled': bureauSummary?.domestic_filled,
-                '% Domestic': bureauSummary?.domestic_percent,
+                'Total POS': bureauSummary?.total_pos || '0',
+                'Total Filled': bureauSummary?.total_filled || '0',
+                '% Filled': bureauSummary?.total_percent || '0',
+                'Overseas POS': bureauSummary?.overseas_pos || '0',
+                'Overseas Filled': bureauSummary?.overseas_filled || '0',
+                '% Overseas': bureauSummary?.overseas_percent || '0',
+                'Domestic POS': bureauSummary?.domestic_pos || '0',
+                'Domestic Filled': bureauSummary?.domestic_filled || '0',
+                '% Domestic': bureauSummary?.domestic_percent || '0',
               };
               return (
                 <Row fluid className="tabbed-card dark box-shadow-standard">
