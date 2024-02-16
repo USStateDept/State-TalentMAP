@@ -212,18 +212,23 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
+    const legValidation = AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key];
+
+    const noValidationRequired = ['travel_code'].includes(key);
+
     if (isEf) {
       const efDefaultText = 'None listed';
       return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
     }
+
     return (
-      <div className="error-message-wrapper">
+      <div className={noValidationRequired ? '' : 'error-message-wrapper'}>
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key]?.errorMessage}
+          {legValidation?.errorMessage}
         </div>
         <div>
           <select
-            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key]?.valid ? '' : 'validation-error-border'}`}
+            className={`leg-dropdown ${(legValidation?.valid || noValidationRequired) ? '' : 'validation-error-border'}`}
             value={get(leg, key) || ''}
             onChange={(e) => updateDropdown(key, e.target.value)}
             disabled={disabled}
