@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
@@ -18,7 +17,7 @@ import { entryLevelEdit } from '../../../actions/entryLevel';
 const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
   const dispatch = useDispatch();
 
-  const pos = get(result, 'position') || result; // probably can delete
+  const pos = result;
 
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
