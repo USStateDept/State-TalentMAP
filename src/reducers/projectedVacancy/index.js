@@ -9,8 +9,11 @@ import {
   projectedVacancyFetchDataErrored,
   projectedVacancyFetchDataLoading,
   projectedVacancyFilters,
-  projectedVacancyFiltersFetchDataErrored,
-  projectedVacancyFiltersFetchDataLoading,
+  projectedVacancyFiltersErrored,
+  projectedVacancyFiltersLoading,
+  projectedVacancyLanguageOffsets,
+  projectedVacancyLanguageOffsetsErrored,
+  projectedVacancyLanguageOffsetsLoading,
   projectedVacancySelections,
 } from './projectedVacancy';
 
@@ -25,7 +28,10 @@ export default {
   projectedVacancyFetchDataErrored,
   projectedVacancyFetchDataLoading,
   projectedVacancyFilters,
-  projectedVacancyFiltersFetchDataErrored,
-  projectedVacancyFiltersFetchDataLoading,
+  projectedVacancyFiltersErrored,
+  projectedVacancyFiltersLoading,
+  projectedVacancyLanguageOffsets,
+  projectedVacancyLanguageOffsetsErrored,
+  projectedVacancyLanguageOffsetsLoading,
   projectedVacancySelections,
 };
