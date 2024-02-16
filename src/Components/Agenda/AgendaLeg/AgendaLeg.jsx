@@ -33,6 +33,7 @@ const AgendaLeg = props => {
 
   const isSeparation = leg?.is_separation || false;
   const defaultSepText = isSeparation ? '-' : false;
+  const legValidation = AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num];
 
   const disabled = isEf;
 
@@ -212,9 +213,7 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    const legValidation = AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key];
-
-    const noValidationRequired = ['travel_code'].includes(key);
+    const noValidationRequired = ['travel_code', 'travel'].includes(key);
 
     if (isEf) {
       const efDefaultText = 'None listed';
@@ -223,12 +222,12 @@ const AgendaLeg = props => {
 
     return (
       <div className={noValidationRequired ? '' : 'error-message-wrapper'}>
-        <div className="validation-error-message-label validation-error-message">
-          {legValidation?.errorMessage}
+        <div className={noValidationRequired ? '' : 'validation-error-message-label validation-error-message'}>
+          {legValidation?.[key]?.errorMessage}
         </div>
         <div>
           <select
-            className={`leg-dropdown ${(legValidation?.valid || noValidationRequired) ? '' : 'validation-error-border'}`}
+            className={`leg-dropdown ${(legValidation?.[key]?.valid || noValidationRequired) ? '' : 'validation-error-border'}`}
             value={get(leg, key) || ''}
             onChange={(e) => updateDropdown(key, e.target.value)}
             disabled={disabled}
@@ -278,11 +277,11 @@ const AgendaLeg = props => {
     return (
       <div className="error-message-wrapper">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.errorMessage}
+          {legValidation?.tod?.errorMessage}
         </div>
         <div>
           <select
-            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.valid ? '' : 'validation-error-border'}`}
+            className={`leg-dropdown ${legValidation?.tod?.valid ? '' : 'validation-error-border'}`}
             value={getTod?.code || ''}
             onChange={(e) => updateDropdown('tod', e.target.value)}
             disabled={disabled}
@@ -314,9 +313,9 @@ const AgendaLeg = props => {
       <div className="read-only">{formatDate(leg?.[value]) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.errorMessage}
+          {legValidation?.[value]?.errorMessage}
         </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.valid ? '' : 'validation-error-border'}`}>
+        <div className={`${legValidation?.[value]?.valid ? '' : 'validation-error-border'}`}>
           {formatDate(leg?.[value]) || DEFAULT_TEXT}
           <FA name="calendar" onClick={value === 'eta' ? calendarModalETA : calendarModalTED} />
         </div>
@@ -365,7 +364,7 @@ const AgendaLeg = props => {
         </div>
         {
           !isEf ?
-            <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.separation_location?.valid ? '' : 'validation-error-border'}`}>
+            <div className={`${legValidation?.separation_location?.valid ? '' : 'validation-error-border'}`}>
               {displayText || DEFAULT_TEXT}
               {
                 displayText ?
