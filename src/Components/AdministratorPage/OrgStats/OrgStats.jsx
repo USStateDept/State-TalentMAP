@@ -35,7 +35,7 @@ const OrgStats = () => {
   const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
   const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
-  // ================= FILTER/PAGINATION =================
+  // ================= FILTER =================
 
   const [clearFilters, setClearFilters] = useState(false);
 
