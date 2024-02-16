@@ -141,7 +141,7 @@ const PositionExpandableContent = ({
                   <TextareaAutosize
                     maxRows={6}
                     minRows={6}
-                    maxlength="2000"
+                    maxLength="2000"
                     name="position-description"
                     placeholder="No Description"
                     defaultValue={sections.textarea}
