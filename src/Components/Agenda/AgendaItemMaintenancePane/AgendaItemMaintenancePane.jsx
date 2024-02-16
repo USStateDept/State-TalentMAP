@@ -198,7 +198,7 @@ const AgendaItemMaintenancePane = (props) => {
       buttonMetadata.classNames = 'ai-validation-errored';
       buttonMetadata.clickFunction = () => {};
       buttonMetadata.disabled = true;
-      buttonMetadata.text = 'AI Validation Failed';
+      buttonMetadata.text = 'Item Not Saved';
     }
 
     if (AIvalidationIsLoading) {
