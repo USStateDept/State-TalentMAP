@@ -71,14 +71,13 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
               <td>{formattedORG}</td>
               <td>{leg.pos_num}</td>
               <td>{formattedSkillTitle}</td>
-              <td>{leg.grade}</td>
               <td>{language}</td>
               <td>{formattedETA}</td>
               <td>{formattedTED}</td>
               <td>{leg.tod_short_desc}</td>
               <td>{leg.travel}</td>
               <td>{vice}</td>
-              <td>{leg.pay_plan}</td>
+              <td>{leg.combined_pp_grade}</td>
             </tr>
           </tbody>
         );
@@ -155,14 +154,13 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                           <th>Org</th>
                           <th>Position Number</th>
                           <th>Skill/Title</th>
-                          <th>Grade</th>
                           <th>Lang</th>
                           <th>ETA</th>
                           <th>TED</th>
                           <th>TOD</th>
                           <th>Travel</th>
                           <th>Vice</th>
-                          <th>Pay Plan</th>
+                          <th>PP/Grade</th>
                         </tr>
                       </thead>
                       { printableAgendaTable(agenda) }

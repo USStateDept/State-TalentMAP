@@ -41,10 +41,6 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Grade',
-      content: (a => <div>{a?.grade || DEFAULT_TEXT}</div>),
-    },
-    {
       title: 'Lang',
       content: (a => <div>{formatLang(a?.languages) || DEFAULT_TEXT}</div>),
     },
@@ -81,8 +77,8 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => formatVice(a?.vice)),
     },
     {
-      title: 'Pay Plan',
-      content: (a => <div>{a?.pay_plan || DEFAULT_TEXT}</div>),
+      title: 'PP/Grade',
+      content: (a => <div>{a?.combined_pp_grade || DEFAULT_TEXT}</div>),
     },
   ];
 

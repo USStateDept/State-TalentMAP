@@ -393,10 +393,6 @@ const AgendaLeg = props => {
         (<div className="read-only">{leg?.org || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Grade',
-      content: (<div>{defaultSepText || leg?.grade || DEFAULT_TEXT}</div>),
-    },
-    {
       title: 'Languages',
       content: (<div>{defaultSepText || formatLang(leg?.languages || []) || DEFAULT_TEXT}</div>),
     },
@@ -433,8 +429,8 @@ const AgendaLeg = props => {
       content: formatVice(leg?.vice),
     },
     {
-      title: 'Pay Plan',
-      content: (<div>{get(leg, 'pay_plan') || defaultSepText || DEFAULT_TEXT}</div>),
+      title: 'PP/Grade',
+      content: (<div>{`${get(leg, 'pay_plan') || defaultSepText || '--'} ${defaultSepText || leg?.grade || '--'}`}</div>),
     },
   ];
 
