@@ -55,11 +55,18 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
         let remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
         remarkInsertValue = remarkInsertValue[0] === '{' ? '' : remarkInsertValue;
 
+        // {text}, {text1}, {text2} -> text
+        // {#}, {cable#} -> number, cablenumber
+        // date -> MM/DD/YYYY
+        const rInsertionTextSanitized = rInsertionText.replace(/[{}\d]/g, '')
+          .replace(/#/g, 'number')
+          .replace(/date/g, 'MM/DD/YYYY');
+
         rText.splice(rTextI, 1, <TextInput
           value={remarkInsertValue}
           changeText={v => setTextInput(a?.rirmrkseqnum, a?.riseqnum, v)}
           customContainerClass="remark-input"
-          placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
+          placeholder={rInsertionTextSanitized}
           id="remarks-custom-input"
           key={a.riseqnum}
           inputProps={{ autoComplete: 'off' }}
