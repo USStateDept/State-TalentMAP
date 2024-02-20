@@ -115,6 +115,18 @@ const OrgStats = () => {
     return overlay;
   };
 
+  const occurenceOfValues = (arr, val) => {
+    let count = 0;
+    arr.forEach(obj => {
+      Object.values(obj).forEach((v) => {
+        if (v === val) {
+          count += 1;
+        }
+      });
+    });
+    return count;
+  };
+
   return (filtersIsLoading ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="bid-seasons-page position-search">
@@ -204,16 +216,21 @@ const OrgStats = () => {
                 '% Domestic': bureauSummary?.domestic_percent || '0',
               };
               return (
-                <Row fluid className="tabbed-card dark box-shadow-standard">
-                  <div className="position-content pt-12">
-                    <Row fluid className="position-content--section position-content--details condensed">
-                      <DefinitionList
-                        itemProps={{ excludeColon: true }}
-                        items={summaryBody}
-                      />
-                    </Row>
-                  </div>
-                </Row>
+                <div>
+                  {occurenceOfValues(orgStatsData$, currBureau) === 1 &&
+                    <OrgStatsCard {...data} />
+                  }
+                  <Row fluid className="tabbed-card dark box-shadow-standard">
+                    <div className="position-content pt-12">
+                      <Row fluid className="position-content--section position-content--details condensed">
+                        <DefinitionList
+                          itemProps={{ excludeColon: true }}
+                          items={summaryBody}
+                        />
+                      </Row>
+                    </div>
+                  </Row>
+                </div>
               );
             }
             return <OrgStatsCard {...data} />;
