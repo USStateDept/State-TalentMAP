@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { get, sortBy, uniqBy } from 'lodash';
+import { sortBy, uniqBy } from 'lodash';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import Alert from 'Components/Alert';
@@ -9,43 +9,39 @@ import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import DefinitionList from 'Components/DefinitionList';
 import { Row } from 'Components/Layout';
-import { useDataLoader } from 'hooks';
 import { renderSelectionList } from 'utilities';
 import OrgStatsCard from './OrgStatsCard';
-import api from '../../../api';
-import { orgStatsFetchData, saveOrgStatsSelections } from '../../../actions/orgStats';
+import { orgStatsFetchData, orgStatsFiltersFetchData, saveOrgStatsSelections } from '../../../actions/orgStats';
 
 const OrgStats = () => {
   const dispatch = useDispatch();
 
   // ================= DATA RETRIEVAL =================
-
-  const genericFilters = useSelector(state => state.filters);
-  const genericFilters$ = get(genericFilters, 'filters') || [];
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-
   const userSelections = useSelector(state => state.orgStatsSelections);
 
   const orgStatsData = useSelector(state => state.orgStats);
   const orgStatsData$ = orgStatsData?.results || [];
   const orgStatsSummary$ = orgStatsData?.bureau_summary || [];
-  const orgStatsIsLoading = useSelector(state => state.orgStatsIsLoading);
-  const orgStatsError = useSelector(state => state.orgStatsError);
+  const orgStatsIsLoading = useSelector(state => state.orgStatsFetchDataLoading);
+  const orgStatsError = useSelector(state => state.orgStatsFetchDataErrored);
 
-  // ================= FILTER/PAGINATION =================
+  const filtersHasErrored = useSelector(state => state.orgStatsFiltersHasErrored);
+  const filtersIsLoading = useSelector(state => state.orgStatsFiltersIsLoading);
+  const orgStatsfilters = useSelector(state => state.orgStatsFilters);
+
+  const bureaus = orgStatsfilters?.bureauFilters;
+  const orgs = orgStatsfilters?.orgFilters;
+  const cycles = orgStatsfilters?.cycleFilters;
+  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
+  const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
+  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
+  // ================= FILTER =================
 
   const [clearFilters, setClearFilters] = useState(false);
 
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedBidCycle || []);
-
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const { data: orgs } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const getCurrentInputs = () => ({
     selectedBureaus,
@@ -54,25 +50,36 @@ const OrgStats = () => {
   });
 
   const getQuery = () => ({
-    'org-stats-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'org-stats-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'org-stats-cycles': selectedCycles.map(cycleObject => (cycleObject?.id)),
+    bureaus: selectedBureaus.map(bureauObject => (bureauObject?.description)),
+    orgs: selectedOrgs.map(orgObject => (orgObject?.code)),
+    cycles: selectedCycles.map(cycleObject => (cycleObject?.code)),
   });
 
-  const fetchAndSet = () => {
-    const filters = [
+
+  const filterSelectionValid = () => {
+    const fils = [
       selectedBureaus,
       selectedOrgs,
       selectedCycles,
     ];
-    if (filters.flat().length === 0) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    dispatch(orgStatsFetchData(getQuery()));
-    dispatch(saveOrgStatsSelections(getCurrentInputs()));
+    const a = [];
+    fils.forEach(f => { if (f.length) { a.push(true); } });
+    return a.length;
   };
+
+
+  const fetchAndSet = () => {
+    setClearFilters(filterSelectionValid() !== 0);
+
+    if (filterSelectionValid() > 1) {
+      dispatch(orgStatsFetchData(getQuery()));
+      dispatch(saveOrgStatsSelections(getCurrentInputs()));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(orgStatsFiltersFetchData());
+  }, []);
 
   useEffect(() => {
     fetchAndSet();
@@ -86,25 +93,29 @@ const OrgStats = () => {
     setSelectedBureaus([]);
     setSelectedOrgs([]);
     setSelectedCycles([]);
+    dispatch(saveOrgStatsSelections(getCurrentInputs()));
+    setClearFilters(false);
   };
 
   // Overlay for error, info, and loading state
-  const noResults = orgStatsData?.length === 0;
+  const noResults = orgStatsData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
-    if (orgStatsIsLoading) {
+    if (orgStatsIsLoading || filtersIsLoading) {
       overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
-    } else if (orgStatsError) {
+    } else if (orgStatsError || filtersHasErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else if (filterSelectionValid() < 2) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search.' }]} />;
     } else {
       return false;
     }
     return overlay;
   };
 
-  return (!genericFiltersIsLoading ?
+  return (filtersIsLoading ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="bid-seasons-page position-search">
       <div className="usa-grid-full position-search--header">
@@ -125,7 +136,7 @@ const OrgStats = () => {
             <div className="label">Bureau:</div>
             <Picky
               placeholder="Select Bureau(s)"
-              value={selectedBureaus.filter(f => f)}
+              value={selectedBureaus}
               options={bureauOptions}
               onChange={setSelectedBureaus}
               numberDisplayed={2}
@@ -133,8 +144,8 @@ const OrgStats = () => {
               includeFilter
               dropdownHeight={255}
               renderList={renderSelectionList}
-              valueKey="code"
-              labelKey="long_description"
+              valueKey="description"
+              labelKey="description"
             />
           </div>
           <div className="filter-div">
@@ -142,7 +153,7 @@ const OrgStats = () => {
             <Picky
               placeholder="Select Organization(s)"
               value={selectedOrgs}
-              options={organizationOptions}
+              options={orgOptions}
               onChange={setSelectedOrgs}
               numberDisplayed={2}
               multiple
@@ -150,7 +161,7 @@ const OrgStats = () => {
               dropdownHeight={255}
               renderList={renderSelectionList}
               valueKey="code"
-              labelKey="long_description"
+              labelKey="description"
             />
           </div>
           <div className="filter-div">
@@ -165,8 +176,8 @@ const OrgStats = () => {
               includeFilter
               dropdownHeight={255}
               renderList={renderSelectionList}
-              valueKey="id"
-              labelKey="custom_description"
+              valueKey="code"
+              labelKey="description"
             />
           </div>
         </div>
@@ -174,21 +185,23 @@ const OrgStats = () => {
       {getOverlay() ||
         <div className="bs-lower-section">
           {orgStatsData$?.map((data, index) => {
-            const bureauSummary = orgStatsSummary$.find(s => s.bureau === data.bureau);
-            const currBureau = data.bureau;
-            const nextBureau = orgStatsData$[index + 1]?.bureau;
+            const bureauSummary = orgStatsSummary$.find(s =>
+              s.bureau_short_desc === data.bureau_short_desc);
+            const currBureau = data.bureau_short_desc;
+            const nextBureau = orgStatsData$[index + 1]?.bureau_short_desc;
             if (currBureau !== nextBureau) {
               const summaryBody = {
-                'Bureau: ': bureauSummary.bureau_short_desc,
-                'Total POS': bureauSummary.total_pos,
-                'Total Filled': bureauSummary.total_filled,
-                '% Filled': bureauSummary.total_percent,
-                'Overseas POS': bureauSummary.overseas_pos,
-                'Overseas Filled': bureauSummary.overseas_filled,
-                '% Overseas': bureauSummary.overseas_percent,
-                'Domestic POS': bureauSummary.domestic_pos,
-                'Domestic Filled': bureauSummary.domestic_filled,
-                '% Domestic': bureauSummary.domestic_percent,
+                // the alternative zero is to prevent the value from being falsy
+                'Bureau: ': bureauSummary?.bureau_short_desc,
+                'Total POS': bureauSummary?.total_pos || '0',
+                'Total Filled': bureauSummary?.total_filled || '0',
+                '% Filled': bureauSummary?.total_percent || '0',
+                'Overseas POS': bureauSummary?.overseas_pos || '0',
+                'Overseas Filled': bureauSummary?.overseas_filled || '0',
+                '% Overseas': bureauSummary?.overseas_percent || '0',
+                'Domestic POS': bureauSummary?.domestic_pos || '0',
+                'Domestic Filled': bureauSummary?.domestic_filled || '0',
+                '% Domestic': bureauSummary?.domestic_percent || '0',
               };
               return (
                 <Row fluid className="tabbed-card dark box-shadow-standard">
