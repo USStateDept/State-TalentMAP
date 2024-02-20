@@ -88,9 +88,9 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
       return remarkInsertValue[0] === '{';
     });
 
-    const allDisabled = isReadOnly;
-    const inputDisabled = isReadOnly || someAreEmpty;
     const selected = find(userSelections, { seq_num: r.seq_num });
+    const allDisabled = isReadOnly;
+    const inputDisabled = isReadOnly || (someAreEmpty && !selected);
 
     return { selected, allDisabled, inputDisabled };
   };
