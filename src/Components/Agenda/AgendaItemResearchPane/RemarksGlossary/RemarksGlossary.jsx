@@ -51,6 +51,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     rInserts.forEach((a) => {
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
+
       if (rTextI > -1) {
         let remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
         remarkInsertValue = remarkInsertValue[0] === '{' ? '' : remarkInsertValue;
@@ -80,10 +81,18 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   };
 
   const remarkStatus = (r) => {
-    const disabled = isReadOnly;
+    // disable if any insertions are empty
+    const rInserts = r?.remark_inserts || [];
+    const someAreEmpty = rInserts.some((a) => {
+      const remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
+      return remarkInsertValue[0] === '{';
+    });
+
+    const allDisabled = isReadOnly;
+    const inputDisabled = isReadOnly || someAreEmpty;
     const selected = find(userSelections, { seq_num: r.seq_num });
 
-    return { selected, disabled };
+    return { selected, allDisabled, inputDisabled };
   };
 
   const [remarks$, setRemarks$] = useState(remarks);
@@ -152,14 +161,14 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
                   const rStatus = remarkStatus(r);
                   return (<li key={r.seq_num}>
                     <InteractiveElement
-                      onClick={() => rStatus?.disabled ? {} : updateSelection(r, textInputs)}
+                      onClick={() => rStatus?.inputDisabled ? {} : updateSelection(r, textInputs)}
                     >
                       <FA
                         name={`${rStatus?.selected ? 'minus-circle' : 'plus-circle'}`}
-                        className={`${rStatus?.disabled ? 'fa-disabled' : ''}`}
+                        className={`${rStatus?.inputDisabled ? 'fa-disabled' : ''}`}
                       />
                     </InteractiveElement>
-                    {renderText(r, rStatus?.disabled || rStatus?.selected)}
+                    {renderText(r, rStatus?.allDisabled || rStatus?.selected)}
                   </li>);
                 })}
               </ul>
