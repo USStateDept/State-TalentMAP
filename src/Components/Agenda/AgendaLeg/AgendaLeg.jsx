@@ -386,7 +386,7 @@ const AgendaLeg = props => {
       content: (<div>{defaultSepText || get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Org',
+      title: 'Location/Org',
       content: isSeparation ?
         getLocation()
         :
