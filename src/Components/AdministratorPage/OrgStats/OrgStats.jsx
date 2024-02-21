@@ -204,16 +204,19 @@ const OrgStats = () => {
                 '% Domestic': bureauSummary?.domestic_percent || '0',
               };
               return (
-                <Row fluid className="tabbed-card dark box-shadow-standard">
-                  <div className="position-content pt-12">
-                    <Row fluid className="position-content--section position-content--details condensed">
-                      <DefinitionList
-                        itemProps={{ excludeColon: true }}
-                        items={summaryBody}
-                      />
-                    </Row>
-                  </div>
-                </Row>
+                <div>
+                  <OrgStatsCard {...data} />
+                  <Row fluid className="tabbed-card dark box-shadow-standard">
+                    <div className="position-content pt-12">
+                      <Row fluid className="position-content--section position-content--details condensed">
+                        <DefinitionList
+                          itemProps={{ excludeColon: true }}
+                          items={summaryBody}
+                        />
+                      </Row>
+                    </div>
+                  </Row>
+                </div>
               );
             }
             return <OrgStatsCard {...data} />;
