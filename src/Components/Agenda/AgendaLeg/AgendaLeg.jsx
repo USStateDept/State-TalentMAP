@@ -212,6 +212,7 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
+    console.log('key: ', key);
     if (isEf) {
       const efDefaultText = 'None listed';
       return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
@@ -228,9 +229,15 @@ const AgendaLeg = props => {
             onChange={(e) => updateDropdown(key, e.target.value)}
             disabled={disabled}
           >
-            <option key={null} value={''}>
-              Keep Unselected
-            </option>
+            {key !== 'action_code' ?
+              <option key={null} value={''}>
+                Keep Unselected
+              </option>
+              :
+              <option key={null} value={''}>
+                Select Action
+              </option>
+            }
             {
               data.map((a, i) => {
                 const keyId = `${a?.code}-${i}`;
