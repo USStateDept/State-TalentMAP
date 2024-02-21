@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
 import DatePicker from 'react-datepicker';
@@ -18,19 +18,30 @@ import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import { projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets } from '../../actions/projectedVacancy';
+import {
+  projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets,
+  projectedVacancyLanguageOffsets, projectedVacancyMetadata,
+} from '../../actions/projectedVacancy';
 
 const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
 
   const id = result?.future_vacancy_seq_num || undefined;
 
+  const metadata = useSelector(state => state.projectedVacancyMetadata);
+  const languageOffsets = useSelector(state => state.projectedVacancyLanguageOffsets);
+
   const bidSeasons = selectOptions?.bidSeasons?.length ? selectOptions.bidSeasons : [];
   const statuses = selectOptions?.statuses?.length ? selectOptions.statuses : [];
-  const summerLanguageOffsets = selectOptions?.languageOffsets?.summerLanguageOffsetFilters?.length
-    ? selectOptions.languageOffsets.summerLanguageOffsetFilters : [];
-  const winterLanguageOffsets = selectOptions?.languageOffsets?.winterLanguageOffsetFilters?.length
-    ? selectOptions.languageOffsets.winterLanguageOffsetFilters : [];
+  const summerLanguageOffsets = selectOptions?.languageOffsets?.summer_language_offsets?.length
+    ? selectOptions.languageOffsets.summer_language_offsets : [];
+  const winterLanguageOffsets = selectOptions?.languageOffsets?.winter_language_offsets?.length
+    ? selectOptions.languageOffsets.winter_language_offsets : [];
+
+  useEffect(() => {
+    dispatch(projectedVacancyMetadata({ future_vacancy_seq_num: result?.future_vacancy_seq_num }));
+    dispatch(projectedVacancyLanguageOffsets({ positon_seq_num: result?.position_seq_num }));
+  }, []);
 
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
@@ -41,12 +52,19 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const [season, setSeason] = useState(result?.bid_season_code);
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
   const [overrideTED, setOverrideTED] = useState(result?.future_vacancy_override_tour_end_date);
-  const [langOffsetSummer, setLangOffsetSummer] = useState();
-  const [langOffsetWinter, setLangOffsetWinter] = useState();
+  const [langOffsetSummer, setLangOffsetSummer] = useState(languageOffsets?.language_offset_summer);
+  const [langOffsetWinter, setLangOffsetWinter] = useState(languageOffsets?.language_offset_winter);
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
   const updateUser = result?.updated_user;
   const updateDate = result?.update_date;
+  const differentials = {
+    post: {
+      danger_pay: result?.bidding_tool_danger_rate_number,
+      differential_rate: result?.bidding_tool_differential_rate_number,
+      post_bidding_considerations_url: '',
+    },
+  };
 
   useDidMountEffect(() => {
     updateIncluded(id, included);
@@ -60,20 +78,24 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
       setOverrideTED(result?.future_vacancy_override_tour_end_date);
-      setLangOffsetSummer(null);
-      setLangOffsetWinter(null);
+      setLangOffsetSummer(languageOffsets?.language_offset_summer);
+      setLangOffsetWinter(languageOffsets?.language_offset_winter);
       setTextArea(result?.capsule_description);
     }
   }, [editMode]);
 
   const onSubmit = () => {
-    dispatch(projectedVacancyEdit({
+    dispatch(projectedVacancyEdit([{
       ...result,
       future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
       bid_season_code: season,
       future_vacancy_status_code: status,
       future_vacancy_override_tour_end_date: overrideTED,
-    }));
+      creator_id: metadata?.creator_id,
+      created_date: metadata?.created_date,
+      updater_id: metadata?.updater_id,
+      updated_date: metadata?.updated_date,
+    }]));
     dispatch(projectedVacancyEditLangOffsets({
       positon_seq_num: result?.positon_seq_num,
       language_offset_summer: langOffsetSummer,
@@ -123,11 +145,11 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
       { 'Pay Plan': result?.position_pay_plan_code || NO_GRADE },
-      { 'Post Differential | Danger Pay': getDifferentials(result) },
+      { 'Post Differential | Danger Pay': getDifferentials(differentials) },
     ],
     textarea: result?.capsule_description || 'No description.',
     metadata: [
-      { 'Position Posted': result?.posted_date || NO_UPDATE_DATE },
+      { 'Position Posted': result?.created_date || NO_UPDATE_DATE },
       { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
     ],
   };
@@ -152,7 +174,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
       { 'Pay Plan': result?.position_pay_plan_code || NO_GRADE },
-      { 'Post Differential | Danger Pay': getDifferentials(result) },
+      { 'Post Differential | Danger Pay': getDifferentials(differentials) },
     ],
     inputBody: <div className="position-form">
       <div className="position-form--inputs">
@@ -282,8 +304,8 @@ ProjectedVacancyCard.propTypes = {
   onEditModeSearch: PropTypes.func,
   selectOptions: PropTypes.shape({
     languageOffsets: PropTypes.shape({
-      summerLanguageOffsetFilters: PropTypes.arrayOf(PropTypes.shape({})),
-      winterLanguageOffsetFilters: PropTypes.arrayOf(PropTypes.shape({})),
+      summer_language_offsets: PropTypes.arrayOf(PropTypes.shape({})),
+      winter_language_offsets: PropTypes.arrayOf(PropTypes.shape({})),
     }),
     bidSeasons: PropTypes.arrayOf(PropTypes.shape({})),
     statuses: PropTypes.arrayOf(PropTypes.shape({})),
@@ -301,4 +323,3 @@ ProjectedVacancyCard.defaultProps = {
 };
 
 export default ProjectedVacancyCard;
-
