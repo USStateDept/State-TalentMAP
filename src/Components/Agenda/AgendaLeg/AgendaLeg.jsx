@@ -378,6 +378,10 @@ const AgendaLeg = props => {
 
   const columnData = [
     {
+      title: 'Action',
+      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
+    },
+    {
       title: 'Position Title',
       content: (<div>{defaultSepText || get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
@@ -419,10 +423,6 @@ const AgendaLeg = props => {
     {
       title: 'TOD',
       content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
-    },
-    {
-      title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
     },
     {
       title: 'Travel',
