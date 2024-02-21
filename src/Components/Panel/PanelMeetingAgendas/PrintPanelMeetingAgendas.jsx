@@ -170,7 +170,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                     </table>
                     <div className="pma-footer-wrapper">
                       <div className="pma-cdo-remarks-wrapper">
-                        <div className="item"><span className="label">CDO: </span> {cdo}</div>
                         <div className="item"><span className="label">Remarks: </span> {remarks}</div>
                         <div className="item"><span className="label">Combined TOD: </span> {combinedTod}</div>
                       </div>
