@@ -85,7 +85,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     const rInserts = r?.remark_inserts || [];
     const someAreEmpty = rInserts.some((a) => {
       const remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
-      return remarkInsertValue[0] === '{';
+      return (remarkInsertValue[0] === '{' || remarkInsertValue === '');
     });
 
     const selected = find(userSelections, { seq_num: r.seq_num });
