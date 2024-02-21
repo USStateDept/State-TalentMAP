@@ -337,7 +337,7 @@ const AgendaItemMaintenancePane = (props) => {
   );
 
   const handleAddSeparation = () => {
-    setIsNewSeparation(true);
+    setIsNewSeparation();
     setPanelCat('S');
   };
 
