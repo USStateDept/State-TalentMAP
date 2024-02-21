@@ -132,49 +132,49 @@ export function projectedVacancyFilters() {
   };
 }
 
-// ================ GET LANGUAGE OFFSET DATA ================
+// ================ GET LANGUAGE OFFSET OPTIONS ================
 
-export function projectedVacancyLanguageOffsetsErrored(bool) {
+export function projectedVacancyLanguageOffsetOptionsErrored(bool) {
   return {
-    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERRORED',
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSET_OPTIONS_ERRORED',
     hasErrored: bool,
   };
 }
-export function projectedVacancyLanguageOffsetsLoading(bool) {
+export function projectedVacancyLanguageOffsetOptionsLoading(bool) {
   return {
-    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_LOADING',
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSET_OPTIONS_LOADING',
     isLoading: bool,
   };
 }
-export function projectedVacancyLanguageOffsetsSuccess(results) {
+export function projectedVacancyLanguageOffsetOptionsSuccess(results) {
   return {
-    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS',
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSET_OPTIONS_SUCCESS',
     results,
   };
 }
-export function projectedVacancyLanguageOffsets() {
+export function projectedVacancyLanguageOffsetOptions() {
   return (dispatch) => {
     if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
     batch(() => {
-      dispatch(projectedVacancyLanguageOffsetsLoading(true));
-      dispatch(projectedVacancyLanguageOffsetsErrored(false));
+      dispatch(projectedVacancyLanguageOffsetOptionsLoading(true));
+      dispatch(projectedVacancyLanguageOffsetOptionsErrored(false));
     });
     api().get('/fsbid/admin/projected_vacancies/language_offsets/', {
       cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
     })
       .then(({ data }) => {
         batch(() => {
-          dispatch(projectedVacancyLanguageOffsetsSuccess(data));
-          dispatch(projectedVacancyLanguageOffsetsErrored(false));
-          dispatch(projectedVacancyLanguageOffsetsLoading(false));
+          dispatch(projectedVacancyLanguageOffsetOptionsSuccess(data));
+          dispatch(projectedVacancyLanguageOffsetOptionsErrored(false));
+          dispatch(projectedVacancyLanguageOffsetOptionsLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(projectedVacancyFiltersSuccess({}));
-            dispatch(projectedVacancyLanguageOffsetsErrored(true));
-            dispatch(projectedVacancyLanguageOffsetsLoading(false));
+            dispatch(projectedVacancyLanguageOffsetOptionsSuccess({}));
+            dispatch(projectedVacancyLanguageOffsetOptionsErrored(true));
+            dispatch(projectedVacancyLanguageOffsetOptionsLoading(false));
           });
         }
       });
@@ -352,6 +352,104 @@ export function projectedVacancyEditCapsuleDesc(query) {
               UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
             ));
             dispatch(projectedVacancyEditCapsuleDescLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// ================ GET METADATA ================
+
+export function projectedVacancyMetadataErrored(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_METADATA_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function projectedVacancyMetadataLoading(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_METADATA_LOADING',
+    isLoading: bool,
+  };
+}
+export function projectedVacancyMetadataSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_METADATA_SUCCESS',
+    results,
+  };
+}
+export function projectedVacancyMetadata() {
+  return (dispatch) => {
+    if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
+    batch(() => {
+      dispatch(projectedVacancyMetadataLoading(true));
+      dispatch(projectedVacancyMetadataErrored(false));
+    });
+    api().get('/fsbid/admin/projected_vacancies/metadata/', {
+      cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(projectedVacancyMetadataSuccess(data));
+          dispatch(projectedVacancyMetadataErrored(false));
+          dispatch(projectedVacancyMetadataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(projectedVacancyMetadataSuccess({}));
+            dispatch(projectedVacancyMetadataErrored(true));
+            dispatch(projectedVacancyMetadataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// ================ GET LANGUAGE OFFSET DATA ================
+
+export function projectedVacancyLanguageOffsetsErrored(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function projectedVacancyLanguageOffsetsLoading(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_LOADING',
+    isLoading: bool,
+  };
+}
+export function projectedVacancyLanguageOffsetsSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS',
+    results,
+  };
+}
+export function projectedVacancyLanguageOffsets() {
+  return (dispatch) => {
+    if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
+    batch(() => {
+      dispatch(projectedVacancyLanguageOffsetsLoading(true));
+      dispatch(projectedVacancyLanguageOffsetsErrored(false));
+    });
+    api().get('/fsbid/admin/projected_vacancies/language_offsets/', {
+      cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(projectedVacancyLanguageOffsetsSuccess(data));
+          dispatch(projectedVacancyLanguageOffsetsErrored(false));
+          dispatch(projectedVacancyLanguageOffsetsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(projectedVacancyLanguageOffsetsSuccess({}));
+            dispatch(projectedVacancyLanguageOffsetsErrored(true));
+            dispatch(projectedVacancyLanguageOffsetsLoading(false));
           });
         }
       });
