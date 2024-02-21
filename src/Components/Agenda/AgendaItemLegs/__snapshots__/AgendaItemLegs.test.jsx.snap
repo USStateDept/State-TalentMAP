@@ -7,6 +7,15 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
   <table>
     <tbody>
       <tr
+        key="Action"
+      >
+        <th>
+          <dt>
+            Action
+          </dt>
+        </th>
+      </tr>
+      <tr
         key="Position Title"
       >
         <th>
@@ -91,15 +100,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         <th>
           <dt>
             TOD
-          </dt>
-        </th>
-      </tr>
-      <tr
-        key="Action"
-      >
-        <th>
-          <dt>
-            Action
           </dt>
         </th>
       </tr>

@@ -18,147 +18,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </div>
   <InteractiveElement
     className="grid-col-3 grid-row-2"
-    key="Position Title"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div>
-      REGIONAL SECURITY OFFICER
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-3"
-    key="Position Number"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div>
-      57019000
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-4"
-    key="Org"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="read-only"
-    >
-      A
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-5"
-    key="Grade"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div>
-      00
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-6"
-    key="Languages"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div>
-      None Listed
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-7"
-    key="Skills"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div>
-      None listed
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-8"
-    key="ETA"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="error-message-wrapper ail-form-ted"
-    >
-      <div
-        className="validation-error-message-label validation-error-message"
-      />
-      <div
-        className="validation-error-border"
-      >
-        05/05/2019
-        <FontAwesome
-          name="calendar"
-          onClick={[Function]}
-        />
-      </div>
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-9"
-    key=""
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="arrow"
-    >
-      <FontAwesome
-        name="arrow-down"
-      />
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-10"
-    key="TED"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="read-only"
-    >
-      07/05/2020
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-11"
-    key="TOD"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="other-tod-wrapper"
-    >
-      <div
-        className="other-tod"
-      >
-        <FontAwesome
-          className="other-tod-icon"
-          name="times"
-          onClick={[Function]}
-        />
-      </div>
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-12"
     key="Action"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -184,6 +43,147 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
             Keep Unselected
           </option>
         </select>
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-3"
+    key="Position Title"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      REGIONAL SECURITY OFFICER
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-4"
+    key="Position Number"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      57019000
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-5"
+    key="Org"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="read-only"
+    >
+      A
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-6"
+    key="Grade"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      00
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-7"
+    key="Languages"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None Listed
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-8"
+    key="Skills"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None listed
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-9"
+    key="ETA"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="error-message-wrapper ail-form-ted"
+    >
+      <div
+        className="validation-error-message-label validation-error-message"
+      />
+      <div
+        className="validation-error-border"
+      >
+        05/05/2019
+        <FontAwesome
+          name="calendar"
+          onClick={[Function]}
+        />
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-10"
+    key=""
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="arrow"
+    >
+      <FontAwesome
+        name="arrow-down"
+      />
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-11"
+    key="TED"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="read-only"
+    >
+      07/05/2020
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-12"
+    key="TOD"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="other-tod-wrapper"
+    >
+      <div
+        className="other-tod"
+      >
+        <FontAwesome
+          className="other-tod-icon"
+          name="times"
+          onClick={[Function]}
+        />
       </div>
     </div>
   </InteractiveElement>
