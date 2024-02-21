@@ -5,8 +5,8 @@ import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import { get, sortBy } from 'lodash';
 import {
-  projectedVacancyFetchData, projectedVacancyFilters,
-  projectedVacancyLanguageOffsets, saveProjectedVacancySelections,
+  projectedVacancyEdit, projectedVacancyFetchData, projectedVacancyFilters,
+  projectedVacancyLanguageOffsetOptions, saveProjectedVacancySelections,
 } from 'actions/projectedVacancy';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
@@ -23,8 +23,9 @@ const ProjectedVacancy = ({ isAO }) => {
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const filters = useSelector(state => state.projectedVacancyFilters) ?? [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
-  const languageOffsets = useSelector(state => state.projectedVacancyLanguageOffsets) ?? [];
-  const languageOffsetsLoading = useSelector(state => state.projectedVacancyLanguageOffsetsLoading);
+  const languageOffsets = useSelector(state => state.projectedVacancyLanguageOffsetOptions) ?? [];
+  const languageOffsetsLoading =
+    useSelector(state => state.projectedVacancyLanguageOffsetOptionsLoading);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
   const positions = positionsData?.length ? positionsData : [];
@@ -53,13 +54,13 @@ const ProjectedVacancy = ({ isAO }) => {
     }
   }, [positions]);
 
-  const bureaus = sortBy(filters?.bureauFilters || [], [o => o.description]);
-  const grades = sortBy(filters?.gradeFilters || [], [o => o.code]);
-  const skills = sortBy(filters?.skillFilters || [], [o => o.description]);
-  const languages = sortBy(filters?.languageFilters || [], [o => o.description]);
-  const bidSeasons = sortBy(filters?.bidSeasonFilters || [], [o => o.description]);
-  const organizations = sortBy(filters?.organizationFilters || [], [o => o.description]);
-  const statuses = sortBy(filters?.futureVacancyStatusFilters || [], [o => o.description]);
+  const bureaus = sortBy(filters?.bureaus || [], [o => o.description]);
+  const grades = sortBy(filters?.grades || [], [o => o.code]);
+  const skills = sortBy(filters?.skills || [], [o => o.description]);
+  const languages = sortBy(filters?.languages || [], [o => o.description]);
+  const bidSeasons = sortBy(filters?.bid_seasons || [], [o => o.description]);
+  const organizations = sortBy(filters?.organizations || [], [o => o.description]);
+  const statuses = sortBy(filters?.statuses || [], [o => o.description]);
 
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
@@ -100,7 +101,7 @@ const ProjectedVacancy = ({ isAO }) => {
   useEffect(() => {
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(projectedVacancyFilters());
-    dispatch(projectedVacancyLanguageOffsets());
+    dispatch(projectedVacancyLanguageOffsetOptions());
   }, []);
 
   const fetchAndSet = () => {
@@ -152,7 +153,19 @@ const ProjectedVacancy = ({ isAO }) => {
   };
 
   const addToProposedCycle = () => {
-    // TODO: Use mass edit endpoint to update with include
+    const updatedPvs = positions?.map(p => {
+      if (includedPositions.find(o => o === p.future_vacancy_seq_num)) {
+        return {
+          ...p,
+          future_vacancy_exclude_import_indicator: 'N',
+        };
+      }
+      return {
+        ...p,
+        future_vacancy_exclude_import_indicator: 'Y',
+      };
+    });
+    dispatch(projectedVacancyEdit(updatedPvs));
   };
 
   return (isLoading ?
