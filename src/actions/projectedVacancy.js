@@ -12,8 +12,10 @@ import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
 
 let cancelPVList;
-let cancelPVLangOffsets;
+let cancelPVLangOffsetFilters;
 let cancelPVFilters;
+let cancelPVLangOffsets;
+let cancelPVMetadata;
 
 // ================ GET LIST ================
 
@@ -154,13 +156,13 @@ export function projectedVacancyLanguageOffsetOptionsSuccess(results) {
 }
 export function projectedVacancyLanguageOffsetOptions() {
   return (dispatch) => {
-    if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
+    if (cancelPVLangOffsetFilters) { cancelPVLangOffsetFilters('cancel'); }
     batch(() => {
       dispatch(projectedVacancyLanguageOffsetOptionsLoading(true));
       dispatch(projectedVacancyLanguageOffsetOptionsErrored(false));
     });
     api().get('/fsbid/admin/projected_vacancies/language_offsets/', {
-      cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
+      cancelToken: new CancelToken((c) => { cancelPVLangOffsetFilters = c; }),
     })
       .then(({ data }) => {
         batch(() => {
@@ -380,13 +382,13 @@ export function projectedVacancyMetadataSuccess(results) {
 }
 export function projectedVacancyMetadata() {
   return (dispatch) => {
-    if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
+    if (cancelPVMetadata) { cancelPVMetadata('cancel'); }
     batch(() => {
       dispatch(projectedVacancyMetadataLoading(true));
       dispatch(projectedVacancyMetadataErrored(false));
     });
     api().get('/fsbid/admin/projected_vacancies/metadata/', {
-      cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
+      cancelToken: new CancelToken((c) => { cancelPVMetadata = c; }),
     })
       .then(({ data }) => {
         batch(() => {
