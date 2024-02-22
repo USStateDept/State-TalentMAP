@@ -40,7 +40,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
 
   useEffect(() => {
     dispatch(projectedVacancyMetadata({ future_vacancy_seq_num: result?.future_vacancy_seq_num }));
-    dispatch(projectedVacancyLangOffsets({ positon_seq_num: result?.position_seq_num }));
+    dispatch(projectedVacancyLangOffsets({ position_seq_num: result?.position_seq_num }));
   }, []);
 
   const datePickerRef = useRef(null);
@@ -97,12 +97,12 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       updated_date: metadata?.updated_date,
     }]));
     dispatch(projectedVacancyEditLangOffsets({
-      positon_seq_num: result?.positon_seq_num,
+      position_seq_num: result?.position_seq_num,
       language_offset_summer: langOffsetSummer,
       language_offset_winter: langOffsetWinter,
     }));
     dispatch(projectedVacancyEditCapsuleDesc({
-      positon_seq_num: result?.positon_seq_num,
+      position_seq_num: result?.position_seq_num,
       capsule_description: textArea,
       updater_id: result?.updater_id,
       updated_date: result?.updated_date,
