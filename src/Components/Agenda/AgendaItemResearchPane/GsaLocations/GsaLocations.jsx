@@ -54,16 +54,16 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
     'Status',
   ];
 
-
-  const getMessage = () => (
-    isEnabled ?
-      'Hover on a search result and click the add button beneath the glowing globe icon' :
-      'Must select Org input on proposed separation to allow selection of GSA location'
-  );
-
   return (
     <div className="search-locations-container">
-      <Alert type="info" title="Separation Locations" messages={[{ body: getMessage() }]} />
+      <Alert
+        type="info"
+        title="Separation Locations"
+        messages={[{
+          body: isEnabled ?
+            'Hover on a search result and click the add button beneath the glowing globe icon' : '',
+        }]}
+      />
       <div className="search-locations-filters">
         <div className="filter">
           <label htmlFor="citySearch">City:</label>
@@ -112,48 +112,48 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
       }
       {
         !(locationsLoading || locationsErrored) &&
-          <div className="frequent-positions-table">
-            <table className="gsa-locations">
-              <thead>
-                <tr>
-                  {headers.map(h => <th key={h}>{h}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  !!locationResults?.length && locationResults.map(l => (
-                    <tr key={l.code}>
-                      <td>
-                        <InteractiveElement
-                          className={isEnabled ? '' : 'hide'}
-                          onClick={isEnabled ? () => setLocation(l) : () => { }}
-                          title="Add to Agenda Item"
-                        >
-                          <FA
-                            name="plus-circle"
-                            className="fa-enabled"
-                          />
-                        </InteractiveElement>
-                      </td>
-                      <td>{l.code}</td>
-                      <td>{l.city}</td>
-                      <td>{l.state}</td>
-                      <td>{l.country}</td>
-                      <td>{l.status}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                pageSize={10}
-                onPageChange={(p) => setPage(p.page)}
-                forcePage={page}
-                totalResults={locations?.count}
-              />
-            </div>
+        <div className="frequent-positions-table">
+          <table className="gsa-locations">
+            <thead>
+              <tr>
+                {headers.map(h => <th key={h}>{h}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {
+                !!locationResults?.length && locationResults.map(l => (
+                  <tr key={l.code}>
+                    <td>
+                      <InteractiveElement
+                        className={isEnabled ? '' : 'hide'}
+                        onClick={isEnabled ? () => setLocation(l) : () => { }}
+                        title="Add to Agenda Item"
+                      >
+                        <FA
+                          name="plus-circle"
+                          className="fa-enabled"
+                        />
+                      </InteractiveElement>
+                    </td>
+                    <td>{l.code}</td>
+                    <td>{l.city}</td>
+                    <td>{l.state}</td>
+                    <td>{l.country}</td>
+                    <td>{l.status}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <div className="usa-grid-full react-paginate">
+            <PaginationWrapper
+              pageSize={10}
+              onPageChange={(p) => setPage(p.page)}
+              forcePage={page}
+              totalResults={locations?.count}
+            />
           </div>
+        </div>
       }
     </div>
   );
