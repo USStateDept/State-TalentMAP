@@ -11,15 +11,16 @@ const OrgStatsCard = (props) => {
       'Organization': getResult(props, 'organization') || NO_ORG,
     },
     body: {
-      'Total POS': getResult(props, 'total_pos'),
-      'Total Filled': getResult(props, 'total_filled'),
-      '% Filled': getResult(props, 'total_percent'),
-      'Overseas POS': getResult(props, 'overseas_pos'),
-      'Overseas Filled': getResult(props, 'overseas_filled'),
-      '% Overseas': getResult(props, 'overseas_percent'),
-      'Domestic POS': getResult(props, 'domestic_pos'),
-      'Domestic Filled': getResult(props, 'domestic_filled'),
-      '% Domestic': getResult(props, 'domestic_percent'),
+      // the alternative zero is to prevent the value from being falsy
+      'Total POS': getResult(props, 'total_pos') || '0',
+      'Total Filled': getResult(props, 'total_filled') || '0',
+      '% Filled': getResult(props, 'total_percent') || '0',
+      'Overseas POS': getResult(props, 'overseas_pos') || '0',
+      'Overseas Filled': getResult(props, 'overseas_filled') || '0',
+      '% Overseas': getResult(props, 'overseas_percent') || 0,
+      'Domestic POS': getResult(props, 'domestic_pos') || '0',
+      'Domestic Filled': getResult(props, 'domestic_filled') || '0',
+      '% Domestic': getResult(props, 'domestic_percent') || '0',
     },
     /* eslint-enable quote-props */
   };

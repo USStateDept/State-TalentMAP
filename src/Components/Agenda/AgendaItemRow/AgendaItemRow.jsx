@@ -85,13 +85,13 @@ const AgendaItemRow = props => {
                 <Link to={publicProfileLink}>{userName}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
-                <div className="item"><span className="label">CDO: </span> {userCDOFirst} {agenda?.cdo?.last_name ?? ''}</div>
-                <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
-                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                 <div className="item">
                   <span className="label">Languages: </span>
                   <span>{userLanguages}</span>
                 </div>
+                <div className="item"><span className="label">PP/Grade: </span> {userPayPlan} {userGrade}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+                <div className="item"><span className="label">CDO: </span> {userCDOFirst} {agenda?.cdo?.last_name ?? ''}</div>
               </div>
               <div className="panel-meeting-maintenance-link-container">
                 <Link
