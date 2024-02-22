@@ -7,7 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import PropTypes from 'prop-types';
 import { useDidMountEffect } from 'hooks';
 import { projectedVacancyEdit } from 'actions/projectedVacancy';
-import { getDifferentials } from 'utilities';
+import { formatDateFromStr, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
@@ -56,8 +56,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const [langOffsetWinter, setLangOffsetWinter] = useState(languageOffsets?.language_offset_winter);
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
-  const updateUser = result?.updated_user;
-  const updateDate = result?.update_date;
+  const updateUser = metadata?.updated_user;
+  const updateDate = metadata?.update_date ? formatDateFromStr(metadata?.update_date) : undefined;
   const differentials = {
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
@@ -104,8 +104,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     dispatch(projectedVacancyEditCapsuleDesc({
       position_seq_num: result?.position_seq_num,
       capsule_description: textArea,
-      updater_id: result?.updater_id,
-      updated_date: result?.updated_date,
+      updater_id: metadata?.updater_id,
+      updated_date: metadata?.updated_date,
     }));
     // TODO: Toggle edit mode off when all 3 edits are successful
   };
@@ -149,7 +149,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ],
     textarea: result?.capsule_description || 'No description.',
     metadata: [
-      { 'Position Posted': result?.created_date || NO_UPDATE_DATE },
+      { 'Position Posted': metadata?.created_date ? formatDateFromStr(metadata?.created_date) : NO_UPDATE_DATE },
       { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
     ],
   };
@@ -224,7 +224,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
             {summerLanguageOffsets.map(b => (
-              <option key={b.code} value={b.code}>{b.description}</option>
+              <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>
             ))}
           </select>
         </div>
@@ -236,7 +236,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
             {winterLanguageOffsets.map(b => (
-              <option key={b.code} value={b.code}>{b.description}</option>
+              <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>
             ))}
           </select>
         </div>
