@@ -380,14 +380,17 @@ export function projectedVacancyMetadataSuccess(results) {
     results,
   };
 }
-export function projectedVacancyMetadata() {
+export function projectedVacancyMetadata(query = {}) {
   return (dispatch) => {
     if (cancelPVMetadata) { cancelPVMetadata('cancel'); }
     batch(() => {
       dispatch(projectedVacancyMetadataLoading(true));
       dispatch(projectedVacancyMetadataErrored(false));
     });
-    api().get('/fsbid/admin/projected_vacancies/metadata/', {
+    const q = convertQueryToString(query);
+    const endpoint = '/fsbid/admin/projected_vacancies/metadata/';
+    const ep = `${endpoint}?${q}`;
+    api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelPVMetadata = c; }),
     })
       .then(({ data }) => {
@@ -429,14 +432,17 @@ export function projectedVacancyLangOffsetsSuccess(results) {
     results,
   };
 }
-export function projectedVacancyLangOffsets() {
+export function projectedVacancyLangOffsets(query = {}) {
   return (dispatch) => {
     if (cancelPVLangOffsets) { cancelPVLangOffsets('cancel'); }
     batch(() => {
       dispatch(projectedVacancyLangOffsetsLoading(true));
       dispatch(projectedVacancyLangOffsetsErrored(false));
     });
-    api().get('/fsbid/admin/projected_vacancies/language_offsets/', {
+    const q = convertQueryToString(query);
+    const endpoint = '/fsbid/admin/projected_vacancies/language_offsets/';
+    const ep = `${endpoint}?${q}`;
+    api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelPVLangOffsets = c; }),
     })
       .then(({ data }) => {
