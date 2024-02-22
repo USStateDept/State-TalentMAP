@@ -132,8 +132,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
 
                     <div className="pma-print-user-info">
                       <div className="item"><span className="label">{name}</span></div>
-                      <div className="item"><span className="label">PP/Grade: </span> {ppGrade}</div>
-                      <div className="item"><span className="label">Skill: </span> {userSkill}</div>
                       <div className="item">
                         <span className="label">Languages: </span>
                         <span>
@@ -147,6 +145,9 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                           }
                         </span>
                       </div>
+                      <div className="item"><span className="label">PP/Grade: </span> {ppGrade}</div>
+                      <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+                      <div className="item"><span className="label">CDO: </span> {cdo}</div>
                     </div>
                     <table className="pma-print-table">
                       <thead>
@@ -169,7 +170,6 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                     </table>
                     <div className="pma-footer-wrapper">
                       <div className="pma-cdo-remarks-wrapper">
-                        <div className="item"><span className="label">CDO: </span> {cdo}</div>
                         <div className="item"><span className="label">Remarks: </span> {remarks}</div>
                         <div className="item"><span className="label">Combined TOD: </span> {combinedTod}</div>
                       </div>
