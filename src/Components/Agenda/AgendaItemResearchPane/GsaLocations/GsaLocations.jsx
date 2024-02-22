@@ -99,7 +99,7 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
           />
         </div>
         <button onClick={() => setIsSearching(!isSearching)}>
-          Search
+          SEARCH
         </button>
       </div>
       {
