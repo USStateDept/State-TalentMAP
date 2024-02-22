@@ -20,7 +20,7 @@ import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import {
   projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets,
-  projectedVacancyLanguageOffsets, projectedVacancyMetadata,
+  projectedVacancyLangOffsets, projectedVacancyMetadata,
 } from '../../actions/projectedVacancy';
 
 const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
@@ -29,7 +29,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const id = result?.future_vacancy_seq_num || undefined;
 
   const metadata = useSelector(state => state.projectedVacancyMetadata);
-  const languageOffsets = useSelector(state => state.projectedVacancyLanguageOffsets);
+  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets);
 
   const bidSeasons = selectOptions?.bidSeasons?.length ? selectOptions.bidSeasons : [];
   const statuses = selectOptions?.statuses?.length ? selectOptions.statuses : [];
@@ -40,7 +40,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
 
   useEffect(() => {
     dispatch(projectedVacancyMetadata({ future_vacancy_seq_num: result?.future_vacancy_seq_num }));
-    dispatch(projectedVacancyLanguageOffsets({ positon_seq_num: result?.position_seq_num }));
+    dispatch(projectedVacancyLangOffsets({ positon_seq_num: result?.position_seq_num }));
   }, []);
 
   const datePickerRef = useRef(null);

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { get, sortBy } from 'lodash';
 import {
   projectedVacancyEdit, projectedVacancyFetchData, projectedVacancyFilters,
-  projectedVacancyLanguageOffsetOptions, saveProjectedVacancySelections,
+  projectedVacancyLangOffsetOptions, saveProjectedVacancySelections,
 } from 'actions/projectedVacancy';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
@@ -23,9 +23,9 @@ const ProjectedVacancy = ({ isAO }) => {
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const filters = useSelector(state => state.projectedVacancyFilters) ?? [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
-  const languageOffsets = useSelector(state => state.projectedVacancyLanguageOffsetOptions) ?? [];
+  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsetOptions) ?? [];
   const languageOffsetsLoading =
-    useSelector(state => state.projectedVacancyLanguageOffsetOptionsLoading);
+    useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
   const positions = positionsData?.length ? positionsData : [];
@@ -101,7 +101,7 @@ const ProjectedVacancy = ({ isAO }) => {
   useEffect(() => {
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(projectedVacancyFilters());
-    dispatch(projectedVacancyLanguageOffsetOptions());
+    dispatch(projectedVacancyLangOffsetOptions());
   }, []);
 
   const fetchAndSet = () => {
