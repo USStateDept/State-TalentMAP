@@ -106,6 +106,13 @@ const AgendaItemMaintenancePane = (props) => {
   };
   const [showLegacyPanelMeetingDate, setShowLegacyPanelMeetingDate] = useState(isLegacyPanelDate());
 
+  const userSkill = agendaItem?.skills?.join(', ') || 'None Listed';
+  const userLanguages = agendaItem?.languages?.length ? agendaItem.languages.map(
+    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
+  const userCDOFirst = agendaItem?.cdo?.first_name ? `${agendaItem.cdo.first_name} ` : '';
+  const userPayPlan = agendaItem?.pay_plan_code ?? 'None Listed';
+  const userGrade = agendaItem?.grade ?? '';
+
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
   const createDate = dateTernary(agendaItem?.creator_date);
@@ -483,6 +490,24 @@ const AgendaItemMaintenancePane = (props) => {
 
             { !TODLoading && combinedTodDropdown() }
 
+          </div>
+          <div className="panel-meeting-agendas-user-info mt-20">
+            <div className="item">
+              <span className="label">Languages: </span>
+              <span>{userLanguages}</span>
+            </div>
+            <div className="item">
+              <span className="label">PP/Grade: </span>
+              {userPayPlan} {userGrade}
+            </div>
+            <div className="item">
+              <span className="label">Skill: </span>
+              {userSkill}
+            </div>
+            <div className="item">
+              <span className="label">CDO: </span>
+              {userCDOFirst} {agendaItem?.cdo?.last_name ?? ''}
+            </div>
           </div>
           <div className="remarks">
             <label htmlFor="remarks">Remarks:</label>
