@@ -65,7 +65,7 @@ class ProfilePublic extends Component {
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: true,
+          showEmployeeProfileLinks: false, // Temporarily off (pending WS changes)
           showRedactedProfilePreview: true,
         };
         break;
@@ -79,7 +79,7 @@ class ProfilePublic extends Component {
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: true,
+          showEmployeeProfileLinks: false, // Temporarily off (pending WS changes)
           showRedactedProfilePreview: true,
         };
         break;
