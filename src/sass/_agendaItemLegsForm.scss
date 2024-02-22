@@ -311,6 +311,7 @@ tr:hover {
 
     .filter {
       display: inline-flex;
+      flex-direction: column;
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: flex-start;
@@ -320,12 +321,7 @@ tr:hover {
       input[type="search"] {
         border-right: 0.1rem solid #5b616b;
         width: 240px;
-      }
-      span {
-        margin-left: -25px;
-      }
-      .fa-search {
-        cursor: default;
+        margin-right: 25px;
       }
     }
   }

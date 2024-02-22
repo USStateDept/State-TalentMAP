@@ -75,7 +75,6 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             onChange={(e) => setCity(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
           />
-          <FA name="search" />
         </div>
         <div className="filter">
           <label htmlFor="stateSearch">State:</label>
@@ -87,7 +86,6 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             onChange={(e) => setCountryState(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
           />
-          <FA name="search" />
         </div>
         <div className="filter">
           <label htmlFor="countrySearch">Country:</label>
@@ -99,7 +97,6 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             onChange={(e) => setCountry(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
           />
-          <FA name="search" />
         </div>
         <button onClick={() => setIsSearching(!isSearching)}>
           Search
@@ -115,48 +112,48 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
       }
       {
         !(locationsLoading || locationsErrored) &&
-          <div className="frequent-positions-table">
-            <table className="gsa-locations">
-              <thead>
-                <tr>
-                  {headers.map(h => <th key={h}>{h}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  !!locationResults?.length && locationResults.map(l => (
-                    <tr key={l.code}>
-                      <td>
-                        <InteractiveElement
-                          className={isEnabled ? '' : 'hide'}
-                          onClick={isEnabled ? () => setLocation(l) : () => {}}
-                          title="Add to Agenda Item"
-                        >
-                          <FA
-                            name="plus-circle"
-                            className="fa-enabled"
-                          />
-                        </InteractiveElement>
-                      </td>
-                      <td>{l.code}</td>
-                      <td>{l.city}</td>
-                      <td>{l.state}</td>
-                      <td>{l.country}</td>
-                      <td>{l.status}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                pageSize={10}
-                onPageChange={(p) => setPage(p.page)}
-                forcePage={page}
-                totalResults={locations?.count}
-              />
-            </div>
+        <div className="frequent-positions-table">
+          <table className="gsa-locations">
+            <thead>
+              <tr>
+                {headers.map(h => <th key={h}>{h}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {
+                !!locationResults?.length && locationResults.map(l => (
+                  <tr key={l.code}>
+                    <td>
+                      <InteractiveElement
+                        className={isEnabled ? '' : 'hide'}
+                        onClick={isEnabled ? () => setLocation(l) : () => { }}
+                        title="Add to Agenda Item"
+                      >
+                        <FA
+                          name="plus-circle"
+                          className="fa-enabled"
+                        />
+                      </InteractiveElement>
+                    </td>
+                    <td>{l.code}</td>
+                    <td>{l.city}</td>
+                    <td>{l.state}</td>
+                    <td>{l.country}</td>
+                    <td>{l.status}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <div className="usa-grid-full react-paginate">
+            <PaginationWrapper
+              pageSize={10}
+              onPageChange={(p) => setPage(p.page)}
+              forcePage={page}
+              totalResults={locations?.count}
+            />
           </div>
+        </div>
       }
     </div>
   );
