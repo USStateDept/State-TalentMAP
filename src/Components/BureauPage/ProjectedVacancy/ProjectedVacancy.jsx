@@ -49,7 +49,7 @@ const ProjectedVacancy = ({ isAO }) => {
     useState(userSelections?.selectedBidSeasons || []);
 
   useEffect(() => {
-    if (positions) {
+    if (positions.length) {
       setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
     }
   }, [positions]);
