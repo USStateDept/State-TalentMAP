@@ -52,8 +52,10 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const [season, setSeason] = useState(result?.bid_season_code);
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
   const [overrideTED, setOverrideTED] = useState(result?.future_vacancy_override_tour_end_date);
-  const [langOffsetSummer, setLangOffsetSummer] = useState(languageOffsets?.language_offset_summer);
-  const [langOffsetWinter, setLangOffsetWinter] = useState(languageOffsets?.language_offset_winter);
+  const [langOffsetSummer, setLangOffsetSummer] =
+    useState(languageOffsets?.language_offset_summer ?? null);
+  const [langOffsetWinter, setLangOffsetWinter] =
+    useState(languageOffsets?.language_offset_winter ?? null);
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
   const updateUser = metadata?.updated_user;
@@ -78,8 +80,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
       setOverrideTED(result?.future_vacancy_override_tour_end_date);
-      setLangOffsetSummer(languageOffsets?.language_offset_summer);
-      setLangOffsetWinter(languageOffsets?.language_offset_winter);
+      setLangOffsetSummer(languageOffsets?.language_offset_summer ?? null);
+      setLangOffsetWinter(languageOffsets?.language_offset_winter ?? null);
       setTextArea(result?.capsule_description);
     }
   }, [editMode]);
@@ -220,19 +222,19 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
           <label htmlFor="langOffsetSummer">Language Offset Summer</label>
           <select
             id="langOffsetSummer"
-            defaultValue={langOffsetSummer}
+            value={langOffsetSummer}
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
-            {summerLanguageOffsets.map(b => (
-              <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>
-            ))}
+            {summerLanguageOffsets.map(b => {
+              return <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>;
+            })}
           </select>
         </div>
         <div className="position-form--label-input-container">
           <label htmlFor="langOffsetWinter">Language Offset Winter</label>
           <select
             id="langOffsetWinter"
-            defaultValue={langOffsetWinter}
+            value={langOffsetWinter}
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
             {winterLanguageOffsets.map(b => (
