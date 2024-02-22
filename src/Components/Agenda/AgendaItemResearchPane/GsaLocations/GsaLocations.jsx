@@ -63,7 +63,7 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
 
   return (
     <div className="search-locations-container">
-      <Alert type="info" title="Only for Separation Legs" messages={[{ body: getMessage() }]} />
+      <Alert type="info" title="Separation Locations" messages={[{ body: getMessage() }]} />
       <div className="search-locations-filters">
         <div className="filter">
           <label htmlFor="citySearch">City:</label>
