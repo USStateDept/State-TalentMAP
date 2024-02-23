@@ -1078,6 +1078,17 @@ export const filterObjectArrayByString = (array, property, matchString) => (
   )
 );
 
+/*
+orderMatters will keep order of empties(transformed to defaultText),
+unless all empties, in which case it will return a single defaultText
+
+Examples:
+([null, 'my str', '  ', ''], 'None', true)  ->  "None, my str, None, None"
+([null, '  ', ''], 'None Listed', true)     ->  "None Listed"
+([null, 'my str', '  ', ''])                ->  "my str"
+([null, 'my str', '  ', 'str2'])            ->  "my str, str2"
+([null, '  ', ''])                          ->  "None Listed"
+*/
 export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = false) => {
   const sanitizedArray = [];
   // do not push empties and nulls to sanitizedArray
