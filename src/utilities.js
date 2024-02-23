@@ -1078,8 +1078,8 @@ export const filterObjectArrayByString = (array, property, matchString) => (
   )
 );
 
-export const joinIfThere = (array, defaultText='None Listed', orderMatters=false) => {
-  let sanitizedArray = [];
+export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = false) => {
+  const sanitizedArray = [];
   // do not push empties and nulls to sanitizedArray
   array.forEach(a => {
     let a$ = a;
@@ -1087,14 +1087,14 @@ export const joinIfThere = (array, defaultText='None Listed', orderMatters=false
       a$ = a.trim();
     }
     if (['', null].includes(a$)) {
-      if (orderMatters){
+      if (orderMatters) {
         sanitizedArray.push(defaultText);
       }
     } else {
       console.log(a$);
       sanitizedArray.push(a$);
     }
-  })
+  });
   // if all are defaultText, return one defaultText
   if (sanitizedArray.every((b) => b === defaultText)) {
     return defaultText;
