@@ -1091,7 +1091,6 @@ export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = f
         sanitizedArray.push(defaultText);
       }
     } else {
-      console.log(a$);
       sanitizedArray.push(a$);
     }
   });
