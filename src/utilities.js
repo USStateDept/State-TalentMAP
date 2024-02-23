@@ -1078,4 +1078,28 @@ export const filterObjectArrayByString = (array, property, matchString) => (
   )
 );
 
+export const joinIfThere = (array, defaultText='None Listed', orderMatters=false) => {
+  let sanitizedArray = [];
+  // do not push empties and nulls to sanitizedArray
+  array.forEach(a => {
+    let a$ = a;
+    if (a) {
+      a$ = a.trim();
+    }
+    if (['', null].includes(a$)) {
+      if (orderMatters){
+        sanitizedArray.push(defaultText);
+      }
+    } else {
+      console.log(a$);
+      sanitizedArray.push(a$);
+    }
+  })
+  // if all are defaultText, return one defaultText
+  if (sanitizedArray.every((b) => b === defaultText)) {
+    return defaultText;
+  }
+  return sanitizedArray.join(',') || defaultText;
+};
+
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
