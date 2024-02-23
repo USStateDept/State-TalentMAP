@@ -225,9 +225,9 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             value={langOffsetSummer}
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
-            {summerLanguageOffsets.map(b => {
-              return <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>;
-            })}
+            {summerLanguageOffsets.map(b => (
+              <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>
+            ))}
           </select>
         </div>
         <div className="position-form--label-input-container">
