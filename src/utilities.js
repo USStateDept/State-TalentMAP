@@ -1099,7 +1099,7 @@ export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = f
   if (sanitizedArray.every((b) => b === defaultText)) {
     return defaultText;
   }
-  return sanitizedArray.join(',') || defaultText;
+  return sanitizedArray.join(', ') || defaultText;
 };
 
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
