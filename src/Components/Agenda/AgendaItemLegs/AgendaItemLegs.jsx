@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { formatLang, shortenString } from 'utilities';
+import { formatLang, formatMonthYearDate, shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
-import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import { formatVice } from '../Constants';
 
@@ -18,12 +17,6 @@ const AgendaItemLegs = props => {
   }
   const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
-  const formatDate = (d) => {
-    if (d) {
-      return !isNaN(new Date(d)) && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : d;
-    }
-    return '';
-  };
 
   const getData = (key, helperFunc = () => {}) => (
     <>
@@ -89,7 +82,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'ETA',
-      content: (getData('eta', formatDate)),
+      content: (getData('eta', formatMonthYearDate)),
       cardView: true,
     },
     {
@@ -99,7 +92,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'TED',
-      content: (getData('ted', formatDate)),
+      content: (getData('ted', formatMonthYearDate)),
       cardView: true,
     },
     {

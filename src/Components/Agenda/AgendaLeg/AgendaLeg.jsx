@@ -4,13 +4,14 @@ import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
-import { formatDate, formatLang } from 'utilities';
+import { formatLang, formatMonthYearDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { add } from 'date-fns-v2';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { GSA as LocationsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 import TodModal from './TodModal';
+import MonthYearDropdown from './MonthYearDropdown';
 import { formatVice } from '../Constants';
 
 const AgendaLeg = props => {
@@ -172,12 +173,7 @@ const AgendaLeg = props => {
       className: 'swal-aim-ted-calendar',
       content: (
         <div className="ted-modal-content-container">
-          <div>
-            <Calendar
-              className="ted-react-calendar"
-              onChange={(e) => updateDropdown('eta', e)}
-            />
-          </div>
+          <MonthYearDropdown />
           <div className="ted-buttons">
             <button onClick={cancel}>Cancel</button>
             <button onClick={clearETAandTED}>Clear ETA</button>
@@ -306,13 +302,13 @@ const AgendaLeg = props => {
 
   const getCalendar = (value) => (
     disabled ?
-      <div className="read-only">{formatDate(leg?.[value]) || DEFAULT_TEXT}</div> :
+      <div className="read-only">{formatMonthYearDate(leg?.[value]) || DEFAULT_TEXT}</div> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
           {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.errorMessage}
         </div>
         <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(leg?.[value]) || DEFAULT_TEXT}
+          {formatMonthYearDate(leg?.[value]) || DEFAULT_TEXT}
           <FA name="calendar" onClick={value === 'eta' ? calendarModalETA : calendarModalTED} />
         </div>
       </div>
@@ -337,7 +333,7 @@ const AgendaLeg = props => {
     if (isSeparation) {
       return getCalendar('ted');
     }
-    return (<div className="read-only">{ !leg?.ted ? DEFAULT_TEXT : formatDate(leg.ted)}</div>);
+    return (<div className="read-only">{ !leg?.ted ? DEFAULT_TEXT : formatMonthYearDate(leg.ted)}</div>);
   };
 
   const getLocation = () => {
