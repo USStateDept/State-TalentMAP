@@ -308,12 +308,15 @@ tr:hover {
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
-
+    button {
+      margin: 0;
+    }
     .filter {
       display: inline-flex;
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: flex-start;
+      width: 250px;
       label {
         margin-right: 5px;
       }
@@ -324,7 +327,7 @@ tr:hover {
       span {
         margin-left: -25px;
       }
-      .fa-search {
+      .fa-close {
         cursor: default;
       }
     }

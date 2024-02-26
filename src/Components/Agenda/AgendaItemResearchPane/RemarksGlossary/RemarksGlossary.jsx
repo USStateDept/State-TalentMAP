@@ -117,16 +117,19 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
-      <TextInput
-        changeText={e => { search(e); setTerm(e); }}
-        value={term}
-        labelSrOnly
-        placeholder="Search for Remarks"
-        id="remarks-search"
-        inputProps={{
-          autoComplete: 'off',
-        }}
-      />
+      <div className="filter">
+        <TextInput
+          changeText={e => { search(e); setTerm(e); }}
+          value={term}
+          labelSrOnly
+          placeholder="Search for Remarks"
+          id="remarks-search"
+          inputProps={{
+            autoComplete: 'off',
+          }}
+        />
+        <FA className="close-fa" name={term && 'close'} onClick={() => setTerm('')} />
+      </div>
       <div className="remarks-glossary-container">
         <div className="usa-grid-full remarks-categories-container">
           {remarkCategories$.map(a => (
