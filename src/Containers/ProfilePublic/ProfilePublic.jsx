@@ -52,8 +52,10 @@ class ProfilePublic extends Component {
     const viewType = get(this.props, 'match.params.viewType');
 
     let props = {};
-    // making the props isRequired essentially makes this a living document
-    // for profiles
+    // Making props isRequired makes this a living document for profiles
+    // Employee Profile Props:
+    // showRedactedProfilePreview is only applicable when showEmployeeProfileLinks is true
+    // when true, the employee profile link accesses the redacted version in the preview
     switch (viewType) {
       case 'bureau':
         props = {
@@ -65,7 +67,7 @@ class ProfilePublic extends Component {
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: true,
+          showEmployeeProfileLinks: false, // Temporarily off (pending WS changes)
           showRedactedProfilePreview: true,
         };
         break;
@@ -79,7 +81,7 @@ class ProfilePublic extends Component {
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          showEmployeeProfileLinks: true,
+          showEmployeeProfileLinks: false, // Temporarily off (pending WS changes)
           showRedactedProfilePreview: true,
         };
         break;
