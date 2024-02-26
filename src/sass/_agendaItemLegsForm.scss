@@ -313,6 +313,7 @@ tr:hover {
     }
     .filter {
       display: inline-flex;
+      flex-direction: column;
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: flex-start;
@@ -323,6 +324,7 @@ tr:hover {
       input[type="search"] {
         border-right: 0.1rem solid #5b616b;
         width: 240px;
+        margin-right: 25px;
       }
       span {
         margin-left: -25px;
@@ -330,6 +332,9 @@ tr:hover {
       .fa-close {
         cursor: default;
       }
+    }
+    button {
+      margin-bottom: 0px;
     }
   }
   .active-globe {
