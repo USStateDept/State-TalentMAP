@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
-import { distanceInWords } from 'date-fns';
-import { format, isDate } from 'date-fns-v2';
+import { distanceInWords, format } from 'date-fns';
+import { format as formatV2, isDate } from 'date-fns-v2';
 import {
   cloneDeep, get, has, identity, includes, intersection, isArray, isEmpty, isEqual,
   isFunction, isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy,
@@ -323,7 +323,7 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // Format the date into our preferred format.
 // We can take any valid date and convert it into M.D.YYYY format, or any
 // format provided with the dateFormat param.
-export const formatDate = (date, dateFormat = 'MM/dd/yyyy') => {
+export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     if (date === '-') return '-';
     // date-fns assumes incoming date is UTC, must adjust for timezones
@@ -354,7 +354,7 @@ export const formatDateFromStr = (date) => {
 
 export const formatMonthYearDate = (d) => {
   if (d) {
-    return !isNaN(new Date(d)) && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : d;
+    return !isNaN(new Date(d)) && isDate(new Date(d)) ? formatV2(new Date(d), 'MM/yy') : d;
   }
   return '';
 };
