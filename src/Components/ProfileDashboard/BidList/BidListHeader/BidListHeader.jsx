@@ -19,7 +19,7 @@ BidListHeader.propTypes = {
 };
 
 BidListHeader.defaultProps = {
-  date: dateFns.format('07/15/2019', 'MM/dd/yyyy'),
+  date: dateFns.format('07/15/2019', 'MM/DD/YYYY'),
 };
 
 export default BidListHeader;
