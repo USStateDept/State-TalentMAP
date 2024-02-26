@@ -58,12 +58,12 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
   const getMessage = () => (
     isEnabled ?
       'Hover on a search result and click the add button beneath the glowing globe icon' :
-      'Must select Org input on proposed separation to allow selection of GSA location'
+      'Search text must be in ALL CAPS. State and Country must be in abbreviated code (e.g. VA, USA).'
   );
 
   return (
     <div className="search-locations-container">
-      <Alert type="info" title="Only for Separation Legs" messages={[{ body: getMessage() }]} />
+      <Alert type="info" title="Separation Locations" messages={[{ body: getMessage() }]} />
       <div className="search-locations-filters">
         <div className="filter">
           <label htmlFor="citySearch">City:</label>
@@ -132,7 +132,7 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
                       <td>
                         <InteractiveElement
                           className={isEnabled ? '' : 'hide'}
-                          onClick={isEnabled ? () => setLocation(l) : () => {}}
+                          onClick={isEnabled ? () => setLocation(l) : () => { }}
                           title="Add to Agenda Item"
                         >
                           <FA
