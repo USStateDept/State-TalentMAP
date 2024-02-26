@@ -40,7 +40,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-4"
-    key="Org"
+    key="Location/Org"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -195,14 +195,14 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div
-      className="error-message-wrapper"
+      className=""
     >
       <div
-        className="validation-error-message-label validation-error-message"
+        className=""
       />
       <div>
         <select
-          className="leg-dropdown validation-error-border"
+          className="leg-dropdown "
           disabled={false}
           onChange={[Function]}
           value=""
