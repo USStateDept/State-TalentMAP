@@ -331,6 +331,9 @@ tr:hover {
         cursor: default;
       }
     }
+    button {
+      margin-bottom: 0px;
+    }
   }
   .active-globe {
     text-shadow: 0px 0px 12px $color-blue-neon;
