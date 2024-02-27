@@ -4,7 +4,7 @@ import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
-import { formatLang, formatMonthYearDate } from 'utilities';
+import { formatDate, formatLang, formatMonthYearDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { add } from 'date-fns-v2';
 import { useEffect } from 'react';
@@ -136,11 +136,10 @@ const AgendaLeg = props => {
         eta: value,
         ted,
       });
-      swal.close();
       return;
     }
 
-    if (dropdown === 'ted') {
+    if (dropdown === 'ted' && isSeparation) {
       swal.close();
     }
 
@@ -154,33 +153,9 @@ const AgendaLeg = props => {
     }
   }, []);
 
-  const clearETAandTED = () => {
-    updateLeg(leg?.ail_seq_num, { eta: '', ted: '' });
-    swal.close();
-  };
-
   const clearTED = () => {
     updateLeg(leg?.ail_seq_num, { ted: '' });
     swal.close();
-  };
-
-  const calendarModalETA = () => {
-    // TO DO: Update class names
-    swal({
-      title: 'Estimated Time of Arrival (ETA)',
-      closeOnEsc: true,
-      button: false,
-      className: 'swal-aim-ted-calendar',
-      content: (
-        <div className="ted-modal-content-container">
-          <MonthYearDropdown />
-          <div className="ted-buttons">
-            <button onClick={cancel}>Cancel</button>
-            <button onClick={clearETAandTED}>Clear ETA</button>
-          </div>
-        </div>
-      ),
-    });
   };
 
   const calendarModalTED = () => {
@@ -302,14 +277,28 @@ const AgendaLeg = props => {
 
   const getCalendar = (value) => (
     disabled ?
-      <div className="read-only">{formatMonthYearDate(leg?.[value]) || DEFAULT_TEXT}</div> :
+      // Read only
+      <div className="read-only">{formatMonthYearDate(leg?.[value]) || DEFAULT_TEXT}</div>
+      :
+      // Edit
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
           {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.errorMessage}
         </div>
         <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[value]?.valid ? '' : 'validation-error-border'}`}>
-          {formatMonthYearDate(leg?.[value]) || DEFAULT_TEXT}
-          <FA name="calendar" onClick={value === 'eta' ? calendarModalETA : calendarModalTED} />
+          {
+            value === 'ted' && isSeparation ?
+              <>
+                {formatDate(leg?.[value]) || DEFAULT_TEXT}
+                <FA name="calendar" onClick={calendarModalTED} />
+              </>
+              :
+              <MonthYearDropdown
+                date={leg?.[value]}
+                updateDropdown={updateDropdown}
+                dropdownType={value}
+              />
+          }
         </div>
       </div>
   );
