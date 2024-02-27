@@ -1,8 +1,4 @@
 import {
-  assignmentCycle,
-  assignmentCycleFetchDataErrored,
-  assignmentCycleFetchDataLoading,
-  assignmentCycleSelections,
   cycleManagement,
   cycleManagementAssignmentCycle,
   cycleManagementAssignmentCycleFetchDataErrored,
@@ -25,10 +21,6 @@ import {
 } from './cycleManagement';
 
 export default {
-  assignmentCycle,
-  assignmentCycleFetchDataErrored,
-  assignmentCycleFetchDataLoading,
-  assignmentCycleSelections,
   cycleManagement,
   cycleManagementAssignmentCycle,
   cycleManagementAssignmentCycleFetchDataErrored,

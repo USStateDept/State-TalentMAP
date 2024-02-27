@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
 import swal from '@sweetalert/with-react';
-// import { formatDate } from 'utilities';
 import CheckBox from '../CheckBox';
 
 const DATE_FORMAT = 'MM/dd/yyyy';
@@ -16,7 +15,7 @@ const NewAssignmentCycle = (props) => {
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
   const [cycleStatus, setCycleStatus] = useState('');
-  const [exclusivePositions, setExclusivePositions] = useState(false);
+  const [exclusivePosition, setExclusivePosition] = useState(false);
   const [postViewable, setPostViewable] = useState(false);
   const [cycleBoundries, setCycleBoundries] = useState(null);
   const [sixMonthLanguage, setSixMonthLanguage] = useState(null);
@@ -55,7 +54,7 @@ const NewAssignmentCycle = (props) => {
       assignmentCycle,
       cycleCategory,
       cycleStatus,
-      exclusivePositions,
+      exclusivePosition,
       postViewable,
       cycleBoundries,
       sixMonthLanguage,
@@ -138,14 +137,14 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="exclusivePositions">Exclusive Positions</label>
+          <label htmlFor="exclusivePosition">Exclusive Positions</label>
           <span className="bs-validation-container">
             <CheckBox
-              className="exclusivePositions-new"
-              id="exclusivePositions-new"
-              name="exclusivePositions-new"
-              checked={exclusivePositions}
-              onChange={() => setExclusivePositions(e => !e)}
+              className="exclusivePosition-new"
+              id="exclusivePosition-new"
+              name="exclusivePosition-new"
+              checked={exclusivePosition}
+              onChange={() => setExclusivePosition(e => !e)}
             />
           </span>
         </div>

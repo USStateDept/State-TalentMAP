@@ -37,8 +37,6 @@ const CycleManagement = (props) => {
   const [selectedDate, setSelectedDate] = useState(userSelections?.selectedDate || null);
   const [cycleManagementData$, setCycleManagementData$] = useState(cycleManagementData);
   const [clearFilters, setClearFilters] = useState(false);
-  const [cardsInEditMode, setCardsInEditMode] = useState([]);
-  const disableInput = cardsInEditMode.length > 0;
   const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
     && !selectedDate;
 
@@ -119,14 +117,6 @@ const CycleManagement = (props) => {
     dispatch(cycleManagementCreateCycle(data));
   };
 
-  const onCardOpen = (e) => {
-    if (cardsInEditMode.includes(e)) {
-      setCardsInEditMode(cardsInEditMode.filter(item => item !== e));
-    } else {
-      setCardsInEditMode([...cardsInEditMode, e]);
-    }
-  };
-
   const createNewAssignmentCycle = () => {
     swal({
       title: 'New Assignment Cycle',
@@ -192,7 +182,6 @@ const CycleManagement = (props) => {
                   options={cycleManagementData}
                   valueKey="id"
                   labelKey="name"
-                  disabled={disableInput}
                   onChange={setSelectedCycles}
                   value={selectedCycles}
                 />
@@ -207,7 +196,6 @@ const CycleManagement = (props) => {
                   labelKey="text"
                   onChange={setSelectedStatus}
                   value={selectedStatus}
-                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -219,7 +207,6 @@ const CycleManagement = (props) => {
                   showMonthDropdown
                   showYearDropdown
                   isClearable
-                  disabled={disableInput}
                 />
               </div>
             </div>
@@ -250,7 +237,6 @@ const CycleManagement = (props) => {
                 {cycleManagementData$?.map(data => (
                   <CycleSearchCard
                     {...{ ...data, isAO }}
-                    onEditModeSearch={onCardOpen}
                     isSuperUser={isSuperUser}
                   />
                 ))}

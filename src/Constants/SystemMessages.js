@@ -318,10 +318,15 @@ export const ASSIGNMENT_CYCLE_DELETE_SUCCESS = 'The Assignment Cycle has been de
 export const ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE = 'Assignment Cycle Delete Error';
 export const ASSIGNMENT_CYCLE_DELETE_ERROR = 'There was an issue attempting to delete this Assignment Cycle. Please try again.';
 
-export const ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE = 'Assignment Cycle Created';
-export const ASSIGNMENT_CYCLE_POST_SUCCESS = 'The Assignment Cycle has been created';
-export const ASSIGNMENT_CYCLE_POST_ERROR_TITLE = 'Assignment Cycle Create Error';
-export const ASSIGNMENT_CYCLE_POST_ERROR = 'There was an issue attempting to create this Assignment Cycle. Please try again.';
+export const ASSIGNMENT_CYCLE_CREATE_SUCCESS_TITLE = 'Assignment Cycle Created';
+export const ASSIGNMENT_CYCLE_CREATE_SUCCESS = 'The Assignment Cycle has been created';
+export const ASSIGNMENT_CYCLE_CREATE_ERROR_TITLE = 'Assignment Cycle Create Error';
+export const ASSIGNMENT_CYCLE_CREATE_ERROR = 'There was an issue attempting to create this Assignment Cycle. Please try again.';
+
+export const ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE = 'Open Positions Posted';
+export const ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS = 'The Open Positions for this Assignment Cycle have been posted';
+export const ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE = 'Open Positions Post Error';
+export const ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR = 'There was an issue attempting to post the Open Positions for this Assignment Cycle. Please try again.';
 
 export const UPDATE_POSITION_CLASSIFICATION_SUCCESS_TITLE = 'Position Clasifications Saved';
 export const UPDATE_POSITION_CLASSIFICATION_SUCCESS = 'This Position Clasifications has been successfully saved.';

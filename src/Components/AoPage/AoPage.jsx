@@ -7,6 +7,7 @@ import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeeting
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import CycleManagement from 'Components/CycleManagement';
 import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
+import AssignmentCycleEdit from 'Components/CycleManagement/AssignmentCycleEdit';
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import Assignments from 'Components/Assignments';
 import BidderPortfolio from 'Containers/BidderPortfolio';
@@ -23,6 +24,7 @@ const AoPage = () => (
       <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
       <Route path="/profile/ao/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isAO />} />
       <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement isAO />} />
+      <Route path="/profile/ao/assginmentcycle/:id" render={() => <AssignmentCycleEdit />} />
       <Route path="/profile/ao/cyclepositionsearch/:id" render={() => <CyclePositionSearch isAO />} />
       <Route path="/profile/ao/publishablepositions" render={() => <PublishablePositions viewType="ao" />} />
       <Route path="/profile/ao/:id/assignments" render={(props) => <Assignments {...props} />} />
