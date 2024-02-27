@@ -102,7 +102,7 @@ export function entryLevelFetchDataSuccess(results) {
 
 export function entryLevelFetchData() {
   return (dispatch) => {
-    if (cancelELdata) { cancelELdata('cancel'); dispatch(entryLevelFetchDataLoading(true)); }
+    if (cancelELdata) { cancelELdata('cancel'); }
     batch(() => {
       dispatch(entryLevelFetchDataLoading(true));
       dispatch(entryLevelFetchDataErrored(false));
@@ -118,14 +118,9 @@ export function entryLevelFetchData() {
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
+        if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(entryLevelFetchDataLoading(true));
-            dispatch(entryLevelFetchDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(entryLevelFetchDataSuccess({}));
+            dispatch(entryLevelFetchDataSuccess([]));
             dispatch(entryLevelFetchDataErrored(true));
             dispatch(entryLevelFetchDataLoading(false));
           });
@@ -167,7 +162,7 @@ export function entryLevelFiltersFetchDataSuccess(results) {
 
 export function entryLevelFiltersFetchData() {
   return (dispatch) => {
-    if (cancelELfiltersData) { cancelELfiltersData('cancel'); dispatch(entryLevelFiltersFetchDataLoading(true)); }
+    if (cancelELfiltersData) { cancelELfiltersData('cancel'); }
     batch(() => {
       dispatch(entryLevelFiltersFetchDataLoading(true));
       dispatch(entryLevelFiltersFetchDataErrored(false));
