@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 const MonthYearDropdown = ({ date, updateDropdown, dropdownType }) => {
   const [selectedMonth, setSelectedMonth] = useState(date ? new Date(date).getMonth() : null);
   const [selectedYear, setSelectedYear] = useState(date ? new Date(date).getFullYear() : null);
+  console.log('selectedYear', selectedYear);
+  console.log('year', new Date(date).getFullYear());
 
   useEffect(() => {
     if (selectedMonth && selectedYear) {
@@ -28,9 +30,9 @@ const MonthYearDropdown = ({ date, updateDropdown, dropdownType }) => {
     '12',
   ];
 
-  // Generate years from current year up to 10 years in the future
+  // Generate years from current year up to 10 years in the future and 10 years past
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 10 }, (_, index) => currentYear + index);
+  const years = Array.from({ length: 20 }, (_, index) => (currentYear - 10) + index);
 
   return (
     <div className="month-year-dropdown-wrapper">
