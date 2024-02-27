@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 const MonthYearDropdown = ({ date, updateDropdown, dropdownType }) => {
   const [selectedMonth, setSelectedMonth] = useState(date ? new Date(date).getMonth() : null);
   const [selectedYear, setSelectedYear] = useState(date ? new Date(date).getFullYear() : null);
-  console.log('selectedYear', selectedYear);
-  console.log('year', new Date(date).getFullYear());
 
   useEffect(() => {
     if (selectedMonth && selectedYear) {
