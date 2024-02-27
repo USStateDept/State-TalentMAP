@@ -73,7 +73,7 @@ const AgendaItemLegs = props => {
       cardView: false,
     },
     {
-      title: 'Org',
+      title: 'Location/Org',
       content: (getData('org', formatStr)),
       cardView: true,
     },
