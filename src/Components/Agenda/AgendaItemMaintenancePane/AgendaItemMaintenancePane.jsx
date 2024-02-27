@@ -112,7 +112,7 @@ const AgendaItemMaintenancePane = (props) => {
   // Data is parsed differently depending on whether the data comes from agendaItem or userInfo
   // agendaItem is available during edit and userInfo is fallback used on create for client users
 
-  const isCreate = Object.keys(agendaItem).length === 0;
+  const isCreate = agendaItem ? Object.keys(agendaItem).length === 0 : true;
   const userData = isCreate ? userInfo?.data : agendaItem;
 
   const userLanguages = userData?.languages?.length ? userData.languages.map(
