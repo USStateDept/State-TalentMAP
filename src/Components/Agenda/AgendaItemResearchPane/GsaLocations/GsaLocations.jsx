@@ -55,15 +55,20 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
   ];
 
 
-  const getMessage = () => (
-    isEnabled ?
-      'Hover on a search result and click the add button beneath the glowing globe icon' :
-      'Search text must be in ALL CAPS. State and Country must be in abbreviated code (e.g. VA, USA).'
-  );
+  const getMessage = () => {
+    const message = [
+      { body: 'Search text must be in ALL CAPS.' },
+      { body: 'State and Country must be in abbreviated code (e.g. VA, USA).' },
+    ];
+    if (isEnabled) {
+      message.push({ body: 'Hover on a search result and click the add button beneath the glowing globe icon.' });
+    }
+    return message;
+  };
 
   return (
     <div className="search-locations-container">
-      <Alert type="info" title="Separation Locations" messages={[{ body: getMessage() }]} />
+      <Alert type="info" title="Separation Locations" messages={getMessage()} />
       <div className="search-locations-filters">
         <div className="filter">
           <label htmlFor="citySearch">City:</label>
@@ -74,7 +79,9 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             placeholder="Search city"
             onChange={(e) => setCity(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
+            value={city}
           />
+          <FA name={city && 'close'} onClick={() => setCity('')} />
         </div>
         <div className="filter">
           <label htmlFor="stateSearch">State:</label>
@@ -85,7 +92,9 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             placeholder="Search state"
             onChange={(e) => setCountryState(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
+            value={countryState}
           />
+          <FA name={countryState && 'close'} onClick={() => setCountryState('')} />
         </div>
         <div className="filter">
           <label htmlFor="countrySearch">Country:</label>
@@ -96,7 +105,9 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             placeholder="Search country"
             onChange={(e) => setCountry(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
+            value={country}
           />
+          <FA name={country && 'close'} onClick={() => setCountry('')} />
         </div>
         <button onClick={() => setIsSearching(!isSearching)}>
           Search
@@ -112,48 +123,48 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
       }
       {
         !(locationsLoading || locationsErrored) &&
-          <div className="frequent-positions-table">
-            <table className="gsa-locations">
-              <thead>
-                <tr>
-                  {headers.map(h => <th key={h}>{h}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  !!locationResults?.length && locationResults.map(l => (
-                    <tr key={l.code}>
-                      <td>
-                        <InteractiveElement
-                          className={isEnabled ? '' : 'hide'}
-                          onClick={isEnabled ? () => setLocation(l) : () => { }}
-                          title="Add to Agenda Item"
-                        >
-                          <FA
-                            name="plus-circle"
-                            className="fa-enabled"
-                          />
-                        </InteractiveElement>
-                      </td>
-                      <td>{l.code}</td>
-                      <td>{l.city}</td>
-                      <td>{l.state}</td>
-                      <td>{l.country}</td>
-                      <td>{l.status}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                pageSize={10}
-                onPageChange={(p) => setPage(p.page)}
-                forcePage={page}
-                totalResults={locations?.count}
-              />
-            </div>
+        <div className="frequent-positions-table">
+          <table className="gsa-locations">
+            <thead>
+              <tr>
+                {headers.map(h => <th key={h}>{h}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {
+                !!locationResults?.length && locationResults.map(l => (
+                  <tr key={l.code}>
+                    <td>
+                      <InteractiveElement
+                        className={isEnabled ? '' : 'hide'}
+                        onClick={isEnabled ? () => setLocation(l) : () => { }}
+                        title="Add to Agenda Item"
+                      >
+                        <FA
+                          name="plus-circle"
+                          className="fa-enabled"
+                        />
+                      </InteractiveElement>
+                    </td>
+                    <td>{l.code}</td>
+                    <td>{l.city}</td>
+                    <td>{l.state}</td>
+                    <td>{l.country}</td>
+                    <td>{l.status}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <div className="usa-grid-full react-paginate">
+            <PaginationWrapper
+              pageSize={10}
+              onPageChange={(p) => setPage(p.page)}
+              forcePage={page}
+              totalResults={locations?.count}
+            />
           </div>
+        </div>
       }
     </div>
   );
