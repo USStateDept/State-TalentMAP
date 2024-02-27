@@ -152,7 +152,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                       <thead>
                         <tr>
                           <th>Action</th>
-                          <th>Org</th>
+                          <th>Location/Org</th>
                           <th>Position Number</th>
                           <th>Skill/Title</th>
                           <th>Lang</th>

@@ -49,22 +49,25 @@ const FrequentPositions = (props) => {
 
   return (
     <div className="frequent-positions-table">
-      <FieldSet
-        className="glossary-fieldset"
-        legend="Enter a keyword to search"
-        legendSrOnly
-      >
-        <TextInput
-          changeText={e => { search(e); setTerm(e); }}
-          value={term}
-          id={'frequent-positions-search'}
-          labelSrOnly
-          placeholder="Search for Frequent Positions"
-          inputProps={{
-            autoComplete: 'off',
-          }}
-        />
-      </FieldSet>
+      <div className="filter">
+        <FieldSet
+          className="glossary-fieldset"
+          legend="Enter a keyword to search"
+          legendSrOnly
+        >
+          <TextInput
+            changeText={e => { search(e); setTerm(e); }}
+            value={term}
+            id={'frequent-positions-search'}
+            labelSrOnly
+            placeholder="Search for Frequent Positions"
+            inputProps={{
+              autoComplete: 'off',
+            }}
+          />
+        </FieldSet>
+        <FA name={term && 'close'} onClick={() => setTerm('')} />
+      </div>
       <table>
         <thead>
           <tr>
