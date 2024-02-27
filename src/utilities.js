@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
+import { format as formatV2, isDate } from 'date-fns-v2';
 import {
   cloneDeep, get, has, identity, includes, intersection, isArray, isEmpty, isEqual,
   isFunction, isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy,
@@ -349,6 +350,13 @@ export const formatDateFromStr = (date) => {
     return dateArr.join('/');
   }
   return null;
+};
+
+export const formatMonthYearDate = (d) => {
+  if (d) {
+    return !isNaN(new Date(d)) && isDate(new Date(d)) ? formatV2(new Date(d), 'MM/yy') : d;
+  }
+  return '';
 };
 
 // Prefix asset paths with the PUBLIC_URL
