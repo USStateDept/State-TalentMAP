@@ -1,58 +1,63 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const MonthYearDropdown = (date) => {
-  const [selectedDate, setSelectedDate] = useState(date ? new Date(date) : new Date());
+const MonthYearDropdown = ({ date, updateDropdown, dropdownType }) => {
+  const [selectedMonth, setSelectedMonth] = useState(date ? new Date(date).getMonth() : null);
+  const [selectedYear, setSelectedYear] = useState(date ? new Date(date).getFullYear() : null);
+
+  useEffect(() => {
+    if (selectedMonth && selectedYear) {
+      // Day should always be set to the first of the month per FSBID
+      const newDate = new Date(selectedYear, selectedMonth, 1);
+      updateDropdown(dropdownType, newDate);
+    }
+  }, [selectedMonth, selectedYear]);
 
   const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
   ];
 
   // Generate years from current year up to 10 years in the future
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, index) => currentYear + index);
 
-  const handleMonthChange = (e) => {
-    const newDate = new Date(selectedDate);
-    newDate.setMonth(months.indexOf(e.target.value));
-    newDate.setDate(1);
-    setSelectedDate(newDate);
-  };
-
-  // Handle year change
-  const handleYearChange = (e) => {
-    const newDate = new Date(selectedDate);
-    newDate.setFullYear(e.target.value);
-    newDate.setDate(1);
-    setSelectedDate(newDate);
-  };
-
   return (
-    <div>
-      <select value={months[selectedDate.getMonth()]} onChange={handleMonthChange}>
-        <option value="">Select Month</option>
-        {months.map((month) => (
-          <option value={month}>{month}</option>
+    <div className="month-year-dropdown-wrapper">
+      <select className="leg-dropdown" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
+        <option value="">Month</option>
+        {months.map((month, idx) => (
+          <option value={idx}>{month}</option>
         ))}
       </select>
-      <select value={selectedDate.getFullYear()} onChange={handleYearChange}>
-        <option value="">Select Year</option>
+      <select className="leg-dropdown" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+        <option value="">Year</option>
         {years.map(year => (
           <option key={year} value={year}>{year}</option>
         ))}
       </select>
     </div>
   );
+};
+
+MonthYearDropdown.propTypes = {
+  date: PropTypes.string,
+  updateDropdown: PropTypes.func.isRequired,
+  dropdownType: PropTypes.string.isRequired,
+};
+
+MonthYearDropdown.defaultProps = {
+  date: '',
 };
 
 export default MonthYearDropdown;
