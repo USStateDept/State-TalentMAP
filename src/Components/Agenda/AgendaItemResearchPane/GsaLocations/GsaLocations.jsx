@@ -74,7 +74,9 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             placeholder="Search city"
             onChange={(e) => setCity(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
+            value={city}
           />
+          <FA name={city && 'close'} onClick={() => setCity('')} />
         </div>
         <div className="filter">
           <label htmlFor="stateSearch">State:</label>
@@ -85,7 +87,9 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             placeholder="Search state"
             onChange={(e) => setCountryState(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
+            value={countryState}
           />
+          <FA name={countryState && 'close'} onClick={() => setCountryState('')} />
         </div>
         <div className="filter">
           <label htmlFor="countrySearch">Country:</label>
@@ -96,7 +100,9 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             placeholder="Search country"
             onChange={(e) => setCountry(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
+            value={country}
           />
+          <FA name={country && 'close'} onClick={() => setCountry('')} />
         </div>
         <button onClick={() => setIsSearching(!isSearching)}>
           Search
