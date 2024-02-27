@@ -36,7 +36,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         Position Number
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-1 grid-row-4"
+        className="grid-col-1 grid-row-5"
         key="Location/ Org"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
