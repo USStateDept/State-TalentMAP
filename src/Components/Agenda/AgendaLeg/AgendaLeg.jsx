@@ -430,7 +430,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'PP/Grade',
-      content: (<div>{`${get(leg, 'pay_plan') || defaultSepText || '--'} ${defaultSepText || leg?.grade || '--'}`}</div>),
+      content: (<div>{defaultSepText || get(leg, 'combined_pp_grade') || DEFAULT_TEXT}</div>),
     },
   ];
 
