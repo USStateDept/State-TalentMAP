@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { formatLang, formatMonthYearDate, shortenString } from 'utilities';
+import { formatDate, formatLang, formatMonthYearDate, shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import FA from 'react-fontawesome';
 import { formatVice } from '../Constants';
@@ -49,6 +49,31 @@ const AgendaItemLegs = props => {
     </>
   );
 
+  const getTeds = () => (
+    <>
+      {
+        legs$.map((leg, index) => {
+          let ted = 'None listed';
+          const keyId = index;
+          if (leg?.ted) {
+            if (leg?.is_separation) {
+              ted = formatDate(leg?.ted);
+            } else {
+              ted = formatMonthYearDate(leg?.ted);
+            }
+          }
+          return (
+            <td key={`${leg.id}-${keyId}`}>
+              {
+                <dd>{ted}</dd>
+              }
+            </td>
+          );
+        })
+      }
+    </>
+  );
+
   const tableData = [
     {
       title: 'Position Title',
@@ -92,7 +117,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'TED',
-      content: (getData('ted', formatMonthYearDate)),
+      content: (getTeds()),
       cardView: true,
     },
     {
