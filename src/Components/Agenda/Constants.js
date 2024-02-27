@@ -1,4 +1,4 @@
-import { formatDate } from 'utilities';
+import { formatDate, formatMonthYearDate } from 'utilities';
 
 /* eslint-disable import/prefer-default-export */
 // TODO: remove
@@ -32,7 +32,7 @@ export const statusRenaming = [
 ];
 /* eslint-enable import/prefer-default-export */
 
-export const dateTernary = date => date ? `${formatDate(date, 'MM/DD/YY')}` : '--/--/--';
+export const dateTernary = date => date ? `${formatDate(date, 'MM/DD/YYYY')}` : '--/--/--';
 
 export const formatVice = (viceObj) => {
   const first = viceObj?.emp_first_name;
@@ -40,7 +40,7 @@ export const formatVice = (viceObj) => {
   const vice = (first || last)
     ? `${first ? `${first} ` : ''}${last || ''}`
     : '';
-  const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
+  const vacancy = viceObj?.asgd_etd_ted_date && formatMonthYearDate(viceObj.asgd_etd_ted_date);
   if (vice || vacancy) {
     return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
   }
