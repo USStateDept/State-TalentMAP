@@ -212,7 +212,6 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    console.log('key: ', key);
     if (isEf) {
       const efDefaultText = 'None listed';
       return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
@@ -229,15 +228,9 @@ const AgendaLeg = props => {
             onChange={(e) => updateDropdown(key, e.target.value)}
             disabled={disabled}
           >
-            {key !== 'action_code' ?
-              <option key={null} value={''}>
-                Keep Unselected
-              </option>
-              :
-              <option key={null} value={''}>
-                Select Action
-              </option>
-            }
+            <option key={null} value={''}>
+              Keep Unselected
+            </option>
             {
               data.map((a, i) => {
                 const keyId = `${a?.code}-${i}`;
@@ -297,6 +290,40 @@ const AgendaLeg = props => {
                 const { code, long_description } = tod;
                 const todKey = `${code}-${i}`; // custom tods will have the same code as other
                 return <option key={todKey} value={code}>{long_description}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
+    );
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const getActionDropdown = () => {
+    const actionOptions = getLegActionTypes();
+    if (isEf) {
+      return <div className="read-only">{leg.tod_long_desc || 'None listed'}</div>;
+    }
+
+    return (
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.valid ? '' : 'validation-error-border'}`}
+            value={get(leg, 'action_code') || 'E'}
+            onChange={(e) => updateDropdown('action_code', e.target.value)}
+            disabled={disabled}
+          >
+            <option key={null} value={''}>
+              Select Action
+            </option>
+            {
+              actionOptions.map((action) => {
+                const { code, abbr_desc_text } = action;
+                return <option key={code} value={abbr_desc_text}>{abbr_desc_text}</option>;
               })
             }
           </select>
@@ -429,7 +456,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
+      content: (isEf ? getDropdown('action', getLegActionTypes(), 'abbr_desc_text') : getActionDropdown()),
     },
     {
       title: 'Travel',
