@@ -387,8 +387,7 @@ const AgendaItemMaintenancePane = (props) => {
             </span>
           </div>
           <div className="ai-maintenance-header-dd">
-            {
-              !statusLoading && !statusError &&
+            {!statusLoading && !statusError &&
               <div>
                 <label className="select-label" htmlFor="ai-maintenance-status">Status:</label>
                 <div className="error-message-wrapper">
@@ -414,8 +413,7 @@ const AgendaItemMaintenancePane = (props) => {
                 </div>
               </div>
             }
-            {
-              !panelCatLoading && !panelCatError &&
+            {!panelCatLoading && !panelCatError &&
               <div>
                 <label className="select-label" htmlFor="ai-maintenance-report-category">Report Category:</label>
                 <div className="error-message-wrapper">
@@ -441,61 +439,54 @@ const AgendaItemMaintenancePane = (props) => {
                 </div>
               </div>
             }
-            {
-              !panelDatesLoading && !panelDatesError &&
+            {!panelDatesLoading && !panelDatesError &&
               <div>
                 <label className="select-label" htmlFor="ai-maintenance-date">Panel Date:</label>
                 <div className="error-message-wrapper">
                   <div className="validation-error-message-label validation-error-message width-280">
                     {AIvalidation?.panelDate?.errorMessage}
                   </div>
-                  {
-                    showLegacyPanelMeetingDate ?
-                      <div className="read-only-pmd">
-                        <span>{agendaItem?.pmt_code} {formatDate(agendaItem?.pmd_dttm)}</span>
-                        {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
-                      </div>
-                      :
-                      <div>
-                        <select
-                          className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                          id="ai-maintenance-status"
-                          onChange={(e) => setDate(get(e, 'target.value'), true)}
-                          value={selectedPanelMLDate}
-                          disabled={readMode}
-                        >
-                          <option value={''}>ML Dates</option>
-                          {
-                            panelDatesML.map(a => (
-                              <option
-                                key={get(a, 'pm_seq_num')}
-                                value={get(a, 'pm_seq_num')}
-                              >
-                                {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                              </option>
-                            ))
-                          }
-                        </select>
-                        <select
-                          className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                          id="ai-maintenance-status"
-                          onChange={(e) => setDate(get(e, 'target.value'), false)}
-                          value={selectedPanelIDDate}
-                          disabled={readMode}
-                        >
-                          <option value={''}>ID Dates</option>
-                          {
-                            panelDatesID.map(a => (
-                              <option
-                                key={get(a, 'pm_seq_num')}
-                                value={get(a, 'pm_seq_num')}
-                              >
-                                {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                              </option>
-                            ))
-                          }
-                        </select>
-                      </div>
+                  {showLegacyPanelMeetingDate ?
+                    <div className="read-only-pmd">
+                      <span>{agendaItem?.pmt_code} {formatDate(agendaItem?.pmd_dttm)}</span>
+                      {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
+                    </div> :
+                    <div>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), true)}
+                        value={selectedPanelMLDate}
+                        disabled={readMode}
+                      >
+                        <option value={''}>ML Dates</option>
+                        {panelDatesML.map(a => (
+                          <option
+                            key={get(a, 'pm_seq_num')}
+                            value={get(a, 'pm_seq_num')}
+                          >
+                            {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                          </option>
+                        ))}
+                      </select>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), false)}
+                        value={selectedPanelIDDate}
+                        disabled={readMode}
+                      >
+                        <option value={''}>ID Dates</option>
+                        {panelDatesID.map(a => (
+                          <option
+                            key={get(a, 'pm_seq_num')}
+                            value={get(a, 'pm_seq_num')}
+                          >
+                            {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   }
                 </div>
               </div>
@@ -535,17 +526,15 @@ const AgendaItemMaintenancePane = (props) => {
               >
                 <FA name="plus" />
               </InteractiveElement>
-              {
-                userRemarks.map(remark => (
-                  <RemarksPill
-                    isEditable={!readMode}
-                    remark={remark}
-                    key={remark.seq_num}
-                    updateSelection={updateSelection}
-                    fromAIM
-                  />
-                ))
-              }
+              {userRemarks.map(remark => (
+                <RemarksPill
+                  isEditable={!readMode}
+                  remark={remark}
+                  key={remark.seq_num}
+                  updateSelection={updateSelection}
+                  fromAIM
+                />
+              ))}
             </div>
           </div>
           <div className="add-legs-container">
@@ -554,8 +543,7 @@ const AgendaItemMaintenancePane = (props) => {
                 {AIvalidation?.legs?.allLegs?.errorMessage}
               </div>
             </div>
-            {
-              !asgSepBidLoading && !asgSepBidError &&
+            {!asgSepBidLoading && !asgSepBidError &&
               <select
                 className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
                 onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
@@ -568,19 +556,17 @@ const AgendaItemMaintenancePane = (props) => {
                 <option hidden value={'legLimit'}>
                   Leg Limit of 10 Reached
                 </option>
-                {
-                  asgSepBids.map((a, i) => {
-                    const keyId = i;
-                    return (
-                      <option key={`${a.pos_title}-${keyId}`} value={a.pos_num}>
-                        {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        '{a.status || defaultText}'
-                        in {a.org || defaultText} -&nbsp;
-                        {a.pos_title || defaultText}({a.pos_num || defaultText})
-                      </option>
-                    );
-                  })
-                }
+                {asgSepBids.map((a, i) => {
+                  const keyId = i;
+                  return (
+                    <option key={`${a.pos_title}-${keyId}`} value={a.pos_num}>
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      '{a.status || defaultText}'
+                      in {a.org || defaultText} -&nbsp;
+                      {a.pos_title || defaultText}({a.pos_num || defaultText})
+                    </option>
+                  );
+                })}
               </select>
             }
             <div className="position-number-container">
