@@ -69,7 +69,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-4"
+    className="grid-col-3 grid-row-5"
     key="Location/Org"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
