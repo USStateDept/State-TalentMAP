@@ -82,13 +82,13 @@ const AgendaItemMaintenancePane = (props) => {
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
 
-  const [selectedStatus, setStatus] = useState(agendaItem?.status_code || '');
+  const [selectedStatus, setStatus] = useState(agendaItem?.status_code || 'R');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(agendaItem?.report_category?.code || '');
+  const [selectedPanelCat, setPanelCat] = useState(agendaItem?.report_category?.code || 'R');
 
   const calcPanelDates = () => {
     const isPanelTypeML = agendaItem?.pmt_code === 'ML';
@@ -336,6 +336,11 @@ const AgendaItemMaintenancePane = (props) => {
     </>
   );
 
+  const handleAddSeparation = () => {
+    setIsNewSeparation();
+    setPanelCat('S');
+  };
+
   return (
     <div className="ai-maintenance-header">
       { !unitedLoading &&
@@ -565,7 +570,7 @@ const AgendaItemMaintenancePane = (props) => {
               <a className="add-fp-link" aria-hidden="true" onClick={onAddFPClick}>Open Frequent Positions Tab</a>
             </div>
             <div>
-              <a className="add-fp-link" aria-hidden="true" onClick={legLimit || readMode ? () => {} : setIsNewSeparation}>Add New Separation</a>
+              <a className="add-fp-link" aria-hidden="true" onClick={legLimit || readMode ? () => {} : handleAddSeparation}>Add New Separation</a>
             </div>
           </div>
         </>
