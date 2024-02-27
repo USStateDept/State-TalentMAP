@@ -46,7 +46,7 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => <div>{a?.pos_num || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Org',
+      title: 'Location/ Org',
       content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
     },
     {
