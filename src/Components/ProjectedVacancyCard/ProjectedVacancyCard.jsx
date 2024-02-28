@@ -10,7 +10,7 @@ import { projectedVacancyEdit } from 'actions/projectedVacancy';
 import { formatDate, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
+  DEFAULT_TEXT, NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
@@ -26,7 +26,7 @@ import {
 // eslint-disable-next-line
 const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
-  console.log(result);
+
   const id = result?.future_vacancy_seq_num || undefined;
 
   const metadata = useSelector(state => state.projectedVacancyMetadata);
@@ -123,7 +123,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     bodyPrimary: [
       { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
       { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
-      { 'Bid Season': result?.bid_season_description || 'None Listed' },
+      { 'Bid Season': result?.bid_season_description || DEFAULT_TEXT },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       {
         'Languages': <LanguageList
@@ -143,8 +143,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'TED': result?.future_vacancy_override_tour_end_date || NO_TOUR_END_DATE },
       { 'Incumbent': result?.incumbent || NO_USER_LISTED },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
-      { 'Language Offset Summer': '12 Months' },
-      { 'Language Offset Winter': '3 Months' },
+      { 'Language Offset Summer': summerLanguageOffsets?.find(o => o.code === langOffsetSummer)?.description || DEFAULT_TEXT },
+      { 'Language Offset Winter': winterLanguageOffsets?.find(o => o.code === langOffsetWinter)?.description || DEFAULT_TEXT },
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
       { 'Pay Plan': result?.position_pay_plan_code || NO_GRADE },
@@ -227,7 +227,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
             {summerLanguageOffsets.map(b => (
-              <option key={b.code || 'null'} value={b.code || ''}>{b.description || 'None Listed'}</option>
+              <option key={b.code || 'null'} value={b.code || ''}>{b.description || DEFAULT_TEXT}</option>
             ))}
           </select>
         </div>
@@ -239,7 +239,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
             {winterLanguageOffsets.map(b => (
-              <option key={b.code || 'null'} value={b.code || ''}>{b.description || 'None Listed'}</option>
+              <option key={b.code || 'null'} value={b.code || ''}>{b.description || DEFAULT_TEXT}</option>
             ))}
           </select>
         </div>
