@@ -16,7 +16,7 @@ const AgendaItemLegsFormReadOnly = props => {
   const onHover = row => {
     // to avoid highlighting the arrow row
     // Note: varies by -1 from the editable version bc of the row of Xs to remove legs
-    if (row !== 7) {
+    if (row !== 8) {
       setRowHoverNum(row);
     }
   };
@@ -37,6 +37,10 @@ const AgendaItemLegsFormReadOnly = props => {
   };
 
   const columnData = [
+    {
+      title: 'Action',
+      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
+    },
     {
       title: 'Position Title',
       content: (a => <div>{a?.pos_title || DEFAULT_TEXT}</div>),
@@ -72,10 +76,6 @@ const AgendaItemLegsFormReadOnly = props => {
     {
       title: 'TOD',
       content: (a => <div>{a?.tod_long_desc || DEFAULT_TEXT}</div>),
-    },
-    {
-      title: 'Action',
-      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Travel',

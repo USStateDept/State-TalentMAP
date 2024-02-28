@@ -41,7 +41,7 @@ const AgendaLeg = props => {
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow
-    if (row !== 8) {
+    if (row !== 9) {
       onHover(row);
     }
   };
@@ -367,6 +367,10 @@ const AgendaLeg = props => {
 
   const columnData = [
     {
+      title: 'Action',
+      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
+    },
+    {
       title: 'Position Title',
       content: (<div>{defaultSepText || get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
@@ -404,10 +408,6 @@ const AgendaLeg = props => {
     {
       title: 'TOD',
       content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
-    },
-    {
-      title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
     },
     {
       title: 'Travel',

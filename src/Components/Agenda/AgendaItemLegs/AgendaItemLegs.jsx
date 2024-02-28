@@ -76,6 +76,11 @@ const AgendaItemLegs = props => {
 
   const tableData = [
     {
+      title: 'Action',
+      content: (getData('action')),
+      cardView: false,
+    },
+    {
       title: 'Position Title',
       content: (getData('pos_title', formatStr)),
       cardView: false,
@@ -118,11 +123,6 @@ const AgendaItemLegs = props => {
     {
       title: 'TOD',
       content: (getData('tod_short_desc')),
-      cardView: false,
-    },
-    {
-      title: 'Action',
-      content: (getData('action')),
       cardView: false,
     },
     {
