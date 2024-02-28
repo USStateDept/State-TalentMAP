@@ -60,7 +60,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
   const updateUser = metadata?.updated_user;
-  const updateDate = metadata?.update_date ? formatDateFromStr(metadata?.update_date) : undefined;
+  const updateDate = metadata?.update_date ? formatDate(metadata?.update_date) : undefined;
   const differentials = {
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
