@@ -294,7 +294,7 @@ $panelStatuses: (
 //*
 // might have to update onHover$ in AgendaLeg.jsx
 $aim-legs-sm-height-config: (
-  "Position Number": 3,
+  "Position Number": 4,
   "Grade": 5,
   "ETA": 8,
   "TED": 10,
@@ -303,11 +303,11 @@ $aim-legs-sm-height-config: (
 );
 $aim-legs-lrg-height-config: (
   "Language": 6,
-  "Action": 1,
+  "Action": 2,
   "Travel": 12,
 );
 $aim-legs-xlrg-height-config: (
-  "Org": 4,
+  "Org": 5,
   "Skills": 7,
   "TOD": 11,
 );
