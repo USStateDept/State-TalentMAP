@@ -12,7 +12,7 @@ import { Definition } from '../DefinitionList';
 
 const PositionExpandableContent = ({
   sections, form, appendAdditionalFieldsToBodyPrimary, tempHideEdit,
-  showLoadingAnimation, onShowMore, isCondensed, isEL }) => {
+  showLoadingAnimation, onShowMore, isCondensed }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -112,7 +112,6 @@ const PositionExpandableContent = ({
               <button
                 className={`toggle-edit-mode ${disableEdit ? 'toggle-edit-mode-disabled' : ''}`}
                 onClick={disableEdit ? () => {} : () => setEditMode(!editMode)}
-                disabled={isEL}
               >
                 <FA name="pencil" />
                 <div>Edit</div>
@@ -217,7 +216,6 @@ PositionExpandableContent.propTypes = {
   tempHideEdit: PropTypes.bool,
   onShowMore: PropTypes.func,
   isCondensed: PropTypes.bool,
-  isEL: PropTypes.bool,
 };
 
 PositionExpandableContent.defaultProps = {
@@ -228,7 +226,6 @@ PositionExpandableContent.defaultProps = {
   tempHideEdit: false,
   onShowMore: EMPTY_FUNCTION,
   isCondensed: false,
-  isEL: false,
 };
 
 export default PositionExpandableContent;

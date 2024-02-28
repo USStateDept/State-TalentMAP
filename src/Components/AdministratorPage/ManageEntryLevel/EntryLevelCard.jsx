@@ -130,6 +130,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     handleEdit: {
       editMode,
       setEditMode,
+      disableEdit: true,
     },
     /* eslint-enable quote-props */
   };
@@ -145,7 +146,6 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
               sections={sections}
               form={form}
               isCondensed
-              isEL
             />
           </div>
         ),
