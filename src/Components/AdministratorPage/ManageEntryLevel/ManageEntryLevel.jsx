@@ -134,10 +134,10 @@ const ManageEntryLevel = () => {
 
   return (
     <div className="position-search">
-      {elFiltersIsLoading ?
-        <Spinner type="bureau-filters" size="small" /> :
-        <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Manage Entry Level" icon="keyboard-o" className="xl-icon" />
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Manage Entry Level" icon="keyboard-o" className="xl-icon" />
+        {elFiltersIsLoading ?
+          <Spinner type="manage-el-filters" size="small" /> :
           <div className="results-search-bar pt-20">
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
@@ -266,8 +266,8 @@ const ManageEntryLevel = () => {
               </div>
             </div>
           </div>
-        </div>
-      }
+        }
+      </div>
       {disableSearch &&
         <Alert
           type="warning"
@@ -280,7 +280,7 @@ const ManageEntryLevel = () => {
         />
       }
       {elFiltersIsLoading && !isLoading ?
-        <Spinner type="bureau-filters" size="small" /> :
+        <Spinner type="tm-spinner-manage-el-positions" size="small" /> :
         <div className="usa-width-one-whole position-search--results">
           <div className="usa-grid-full position-list">
             {
