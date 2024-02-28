@@ -183,7 +183,7 @@ const AssignmentCycleEdit = ({ match }) => {
   const readView = (
     <>
       <div className="ace-heading">
-        <span>Assignment Cycle: {assignmentCycle?.cycle_name}</span>
+        <span>Assignment Cycle: {cycleName}</span>
         <span>
           {isSuperUser &&
             <Link
@@ -205,7 +205,7 @@ const AssignmentCycleEdit = ({ match }) => {
       <div className="assignment-cycle-form">
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Cycle Category</label>
-          <span>{assignmentCycle?.cycle_category?.label}</span>
+          <span>{cycleCategory?.label}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="exclusivePosition">Exclusive Position</label>
@@ -213,7 +213,7 @@ const AssignmentCycleEdit = ({ match }) => {
             <CheckBox
               id="exclusivePosition"
               name="exclusivePosition"
-              value={assignmentCycle?.exclusive_position === 'Y'}
+              value={exclusivePosition === 'Y'}
               overrideLifecycle
             />
           </span>
@@ -224,30 +224,30 @@ const AssignmentCycleEdit = ({ match }) => {
             <CheckBox
               id="postViewable"
               name="postViewable"
-              value={assignmentCycle?.post_viewable === 'Y'}
+              value={postViewable === 'Y'}
               overrideLifecycle
             />
           </span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Cycle Status</label>
-          <span>{assignmentCycle?.cycle_status?.label}</span>
+          <span>{cycleStatus?.label}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Cycle Boundry Dates</label>
-          <span>{assignmentCycle?.dates_mapping?.CYCLE?.begin_date} - {assignmentCycle?.dates_mapping?.CYCLE?.end_date}</span>
+          <span>{cycleDates?.[0]} - {cycleDates?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">6 Month Language Dates</label>
-          <span>{assignmentCycle?.dates_mapping?.['6MOLANG']?.begin_date} - {assignmentCycle?.dates_mapping?.['6MOLANG']?.end_date}</span>
+          <span>{sixMonthLang?.[0]} - {sixMonthLang?.[0]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">12 Month Language Dates</label>
-          <span>{assignmentCycle?.dates_mapping?.['12MOLANG']?.begin_date} - {assignmentCycle?.dates_mapping?.['12MOLANG']?.end_date}</span>
+          <span>{twelveMonthLang?.[0]} - {twelveMonthLang?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">24 Month Language Dates</label>
-          <span>{assignmentCycle?.dates_mapping?.['24MOLANG']?.begin_date} - {assignmentCycle?.dates_mapping?.['24MOLANG']?.end_date}</span>
+          <span>{twentyFourMonthLang?.[0]} - {twentyFourMonthLang?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bureau Position Review Date</label>
