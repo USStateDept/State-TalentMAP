@@ -320,22 +320,22 @@ $aim-legs-xlrg-height-config: (
 
 // might have to update onHover in AgendaItemLegsFormReadOnly.jsx
 $aim-legs-sm-height-config-read-only: (
-  "Org": 3,
-  "ETA": 6,
-  "TED": 8,
-  "Action": 10,
+  "Action": 1,
+  "Org": 4,
+  "ETA": 7,
+  "TED": 9,
   "Travel": 11,
   "Pay Plan": 13,
 );
 $aim-legs-lrg-height-config-read-only: (
-  "Position Title": 1,
-  "Position Number": 2,
-  "Language": 4,
-  "TOD": 9,
+  "Position Title": 2,
+  "Position Number": 3,
+  "Language": 5,
+  "TOD": 10,
   "VICE": 12
 );
 $aim-legs-xlrg-height-config-read-only: (
-  "Skills": 5,
+  "Skills": 6,
 );
 //**
 //* resolution widths for .ai-legs
