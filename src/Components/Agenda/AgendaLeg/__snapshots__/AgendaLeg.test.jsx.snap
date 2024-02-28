@@ -1,1 +1,236 @@
-placeholder
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaLeg Component matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="grid-col-3 grid-row-1"
+  >
+    <InteractiveElement
+      className="remove-leg-button"
+      onClick={[Function]}
+      title="Remove leg"
+      type="div"
+    >
+      <FontAwesome
+        name="times"
+      />
+    </InteractiveElement>
+  </div>
+  <InteractiveElement
+    className="grid-col-3 grid-row-2"
+    key="Action"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="error-message-wrapper"
+    >
+      <div
+        className="validation-error-message-label validation-error-message"
+      />
+      <div>
+        <select
+          className="leg-dropdown validation-error-border"
+          disabled={false}
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            key="null"
+            value=""
+          >
+            Keep Unselected
+          </option>
+        </select>
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-3"
+    key="Position Title"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      REGIONAL SECURITY OFFICER
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-4"
+    key="Position Number"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      57019000
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-5"
+    key="Location/Org"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="read-only"
+    >
+      A
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-6"
+    key="Languages"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None Listed
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-7"
+    key="Skills"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None listed
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-8"
+    key="ETA"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="error-message-wrapper ail-form-ted"
+    >
+      <div
+        className="validation-error-message-label validation-error-message"
+      />
+      <div
+        className="validation-error-border"
+      >
+        <MonthYearDropdown
+          date="2019-05-05T00:00:00.000Z"
+          dropdownType="eta"
+          updateDropdown={[Function]}
+        />
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-9"
+    key=""
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="arrow"
+    >
+      <FontAwesome
+        name="arrow-down"
+      />
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-10"
+    key="TED"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="read-only"
+    >
+      07/20
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-11"
+    key="TOD"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="other-tod-wrapper"
+    >
+      <div
+        className="other-tod"
+      >
+        <FontAwesome
+          className="other-tod-icon"
+          name="times"
+          onClick={[Function]}
+        />
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-12"
+    key="Travel"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className=""
+    >
+      <div
+        className=""
+      />
+      <div>
+        <select
+          className="leg-dropdown "
+          disabled={false}
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            key="null"
+            value=""
+          >
+            Keep Unselected
+          </option>
+          <option
+            key="undefined-0"
+          />
+          <option
+            key="undefined-1"
+          />
+        </select>
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-13"
+    key="Vice"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    -
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-14"
+    key="PP/Grade"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None listed
+    </div>
+  </InteractiveElement>
+</Fragment>
+`;
