@@ -40,7 +40,7 @@ const AgendaItemLegsForm = props => {
     'Action',
     'Position Title',
     'Position Number',
-    'Location/Org',
+    'Location/ Org',
     'Lang',
     'Skills',
     'ETA',

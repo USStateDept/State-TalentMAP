@@ -41,7 +41,7 @@ const AgendaLeg = props => {
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow
-    if (row !== 8) {
+    if (row !== 9) {
       onHover(row);
     }
   };
