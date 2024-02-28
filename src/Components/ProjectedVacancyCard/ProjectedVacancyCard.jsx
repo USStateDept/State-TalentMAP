@@ -60,7 +60,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
   const updateUser = metadata?.updated_user;
-  const updateDate = metadata?.update_date ? formatDate(metadata?.update_date) : undefined;
+  const updateDate = formatDate(metadata?.updated_date);
   const differentials = {
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
@@ -121,7 +121,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Position Title': result?.position_title || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Assignee TED': result?.assignee_tour_end_date || NO_TOUR_END_DATE },
+      { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
       { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
       { 'Bid Season': result?.bid_season_description || 'None Listed' },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
@@ -152,7 +152,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ],
     textarea: result?.capsule_description || 'No description.',
     metadata: [
-      { 'Position Posted': metadata?.created_date ? formatDate(metadata?.created_date) : NO_UPDATE_DATE },
+      { 'Position Posted': formatDate(metadata?.created_date) || NO_UPDATE_DATE },
       { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
     ],
   };
