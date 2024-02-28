@@ -23,6 +23,7 @@ import {
   projectedVacancyLangOffsets, projectedVacancyMetadata,
 } from '../../actions/projectedVacancy';
 
+// eslint-disable-next-line
 const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
 
