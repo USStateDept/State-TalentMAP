@@ -54,9 +54,9 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
   const [overrideTED, setOverrideTED] = useState(result?.future_vacancy_override_tour_end_date);
   const [langOffsetSummer, setLangOffsetSummer] =
-    useState(languageOffsets?.language_offset_summer ?? null);
+    useState(languageOffsets?.language_offset_summer || '');
   const [langOffsetWinter, setLangOffsetWinter] =
-    useState(languageOffsets?.language_offset_winter ?? null);
+    useState(languageOffsets?.language_offset_winter || '');
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
   const updateUser = metadata?.updated_user;
@@ -81,8 +81,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
       setOverrideTED(result?.future_vacancy_override_tour_end_date);
-      setLangOffsetSummer(languageOffsets?.language_offset_summer ?? null);
-      setLangOffsetWinter(languageOffsets?.language_offset_winter ?? null);
+      setLangOffsetSummer(languageOffsets?.language_offset_summer || '');
+      setLangOffsetWinter(languageOffsets?.language_offset_winter || '');
       setTextArea(result?.capsule_description);
     }
   }, [editMode]);
@@ -101,8 +101,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     }]));
     dispatch(projectedVacancyEditLangOffsets({
       position_seq_num: result?.position_seq_num,
-      language_offset_summer: langOffsetSummer,
-      language_offset_winter: langOffsetWinter,
+      language_offset_summer: langOffsetSummer || null,
+      language_offset_winter: langOffsetWinter || null,
     }));
     dispatch(projectedVacancyEditCapsuleDesc({
       position_seq_num: result?.position_seq_num,
@@ -227,7 +227,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
             {summerLanguageOffsets.map(b => (
-              <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>
+              <option key={b.code || 'null'} value={b.code || ''}>{b.description || 'None Listed'}</option>
             ))}
           </select>
         </div>
@@ -239,7 +239,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
             {winterLanguageOffsets.map(b => (
-              <option key={b.code} value={b.code}>{b.description || 'None Listed'}</option>
+              <option key={b.code || 'null'} value={b.code || ''}>{b.description || 'None Listed'}</option>
             ))}
           </select>
         </div>
