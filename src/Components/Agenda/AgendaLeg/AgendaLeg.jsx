@@ -41,7 +41,7 @@ const AgendaLeg = props => {
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow
-    if (row !== 9) {
+    if (row !== 8) {
       onHover(row);
     }
   };
@@ -382,10 +382,6 @@ const AgendaLeg = props => {
         (<div className="read-only">{leg?.org || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Grade',
-      content: (<div>{defaultSepText || leg?.grade || DEFAULT_TEXT}</div>),
-    },
-    {
       title: 'Languages',
       content: (<div>{defaultSepText || formatLang(leg?.languages || []) || DEFAULT_TEXT}</div>),
     },
@@ -422,8 +418,8 @@ const AgendaLeg = props => {
       content: formatVice(leg?.vice),
     },
     {
-      title: 'Pay Plan',
-      content: (<div>{get(leg, 'pay_plan') || defaultSepText || DEFAULT_TEXT}</div>),
+      title: 'PP/Grade',
+      content: (<div>{defaultSepText || get(leg, 'combined_pp_grade') || DEFAULT_TEXT}</div>),
     },
   ];
 

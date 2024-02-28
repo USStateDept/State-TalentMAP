@@ -91,11 +91,6 @@ const AgendaItemLegs = props => {
       cardView: true,
     },
     {
-      title: 'Grade',
-      content: (getData('grade')),
-      cardView: false,
-    },
-    {
       title: 'Lang',
       content: (getData('languages', formatLang)),
       cardView: false,
@@ -136,8 +131,8 @@ const AgendaItemLegs = props => {
       cardView: false,
     },
     {
-      title: 'Pay Plan',
-      content: (getData('pay_plan')),
+      title: 'PP/Grade',
+      content: (getData('combined_pp_grade')),
       cardView: false,
     },
   ];
