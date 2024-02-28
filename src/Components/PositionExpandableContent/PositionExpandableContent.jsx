@@ -12,7 +12,7 @@ import { Definition } from '../DefinitionList';
 
 const PositionExpandableContent = ({
   sections, form, appendAdditionalFieldsToBodyPrimary, tempHideEdit,
-  showLoadingAnimation, onShowMore }) => {
+  showLoadingAnimation, onShowMore, isCondensed }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -118,7 +118,7 @@ const PositionExpandableContent = ({
               </button>
               }
             </Row>
-            <Row fluid className="position-content--section position-content--details">
+            <Row fluid className={`position-content--section position-content--details ${isCondensed ? 'condensed' : ''}`}>
               <dl className="definitions">
                 {getBody().map(item => {
                   const key = Object.keys(item)[0];
@@ -215,6 +215,7 @@ PositionExpandableContent.propTypes = {
   showLoadingAnimation: PropTypes.bool,
   tempHideEdit: PropTypes.bool,
   onShowMore: PropTypes.func,
+  isCondensed: PropTypes.bool,
 };
 
 PositionExpandableContent.defaultProps = {
@@ -224,6 +225,7 @@ PositionExpandableContent.defaultProps = {
   showLoadingAnimation: false,
   tempHideEdit: false,
   onShowMore: EMPTY_FUNCTION,
+  isCondensed: false,
 };
 
 export default PositionExpandableContent;
