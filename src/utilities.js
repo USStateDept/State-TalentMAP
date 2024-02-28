@@ -1098,7 +1098,7 @@ Examples:
 ([null, '  ', ''])                          ->  "None Listed"
 */
 export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = false) => {
-  if (array && array.length) {
+  if (Array.isArray(array)) {
     const sanitizedArray = [];
     // do not push empties and nulls to sanitizedArray
     array.forEach(a => {
