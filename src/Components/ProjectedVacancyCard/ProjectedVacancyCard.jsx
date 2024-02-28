@@ -26,7 +26,7 @@ import {
 // eslint-disable-next-line
 const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
-
+  console.log(result);
   const id = result?.future_vacancy_seq_num || undefined;
 
   const metadata = useSelector(state => state.projectedVacancyMetadata);
@@ -158,8 +158,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   };
   const form = {
     staticBody: [
-      { 'Assignee TED': result?.assignee_tour_end_date || NO_USER_LISTED },
-      { 'Incumbent TED': result?.incumbent || NO_USER_LISTED },
+      { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
+      { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       {
         'Languages': <LanguageList
