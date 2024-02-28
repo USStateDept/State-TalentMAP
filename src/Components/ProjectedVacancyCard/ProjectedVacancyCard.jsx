@@ -122,7 +122,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ],
     bodyPrimary: [
       { 'Assignee TED': result?.assignee_tour_end_date || NO_TOUR_END_DATE },
-      { 'Incumbent TED': result?.incumbent || NO_TOUR_END_DATE },
+      { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
       { 'Bid Season': result?.bid_season_description || 'None Listed' },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       {
