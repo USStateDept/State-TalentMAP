@@ -146,7 +146,6 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
               sections={sections}
               form={form}
               isCondensed
-              isEL
             />
           </div>
         ),
