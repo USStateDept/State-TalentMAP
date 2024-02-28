@@ -7,7 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import PropTypes from 'prop-types';
 import { useDidMountEffect } from 'hooks';
 import { projectedVacancyEdit } from 'actions/projectedVacancy';
-import { formatDateFromStr, getDifferentials } from 'utilities';
+import { formatDate, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
