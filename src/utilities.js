@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
+import { format as formatV2, isDate } from 'date-fns-v2';
 import {
   cloneDeep, get, has, identity, includes, intersection, isArray, isEmpty, isEqual,
   isFunction, isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy,
@@ -349,6 +350,13 @@ export const formatDateFromStr = (date) => {
     return dateArr.join('/');
   }
   return null;
+};
+
+export const formatMonthYearDate = (d) => {
+  if (d) {
+    return !isNaN(new Date(d)) && isDate(new Date(d)) ? formatV2(new Date(d), 'MM/yy') : d;
+  }
+  return '';
 };
 
 // Prefix asset paths with the PUBLIC_URL
@@ -1077,5 +1085,39 @@ export const filterObjectArrayByString = (array, property, matchString) => (
     x[property].toLowerCase().includes(matchString.toLowerCase()),
   )
 );
+
+/*
+orderMatters will keep order of empties(transformed to defaultText),
+unless all empties, in which case it will return a single defaultText
+
+Examples:
+([null, 'my str', '  ', ''], 'None', true)  ->  "None, my str, None, None"
+([null, '  ', ''], 'None Listed', true)     ->  "None Listed"
+([null, 'my str', '  ', ''])                ->  "my str"
+([null, 'my str', '  ', 'str2'])            ->  "my str, str2"
+([null, '  ', ''])                          ->  "None Listed"
+*/
+export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = false) => {
+  const sanitizedArray = [];
+  // do not push empties and nulls to sanitizedArray
+  array.forEach(a => {
+    let a$ = a;
+    if (a) {
+      a$ = a.trim();
+    }
+    if (['', null].includes(a$)) {
+      if (orderMatters) {
+        sanitizedArray.push(defaultText);
+      }
+    } else {
+      sanitizedArray.push(a$);
+    }
+  });
+  // if all are defaultText, return one defaultText
+  if (sanitizedArray.every((b) => b === defaultText)) {
+    return defaultText;
+  }
+  return sanitizedArray.join(', ') || defaultText;
+};
 
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
