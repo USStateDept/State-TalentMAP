@@ -325,7 +325,7 @@ export const ASSIGNMENT_CYCLE_CREATE_ERROR = 'There was an issue attempting to c
 
 export const ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE = 'Open Positions Posted';
 export const ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS = 'The Open Positions for this Assignment Cycle have been posted';
-export const ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE = 'Open Positions Post Error';
+export const ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE = 'Post Open Positions Error';
 export const ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR = 'There was an issue attempting to post the Open Positions for this Assignment Cycle. Please try again.';
 
 export const UPDATE_POSITION_CLASSIFICATION_SUCCESS_TITLE = 'Position Clasifications Saved';

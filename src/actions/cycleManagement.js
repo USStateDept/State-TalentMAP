@@ -250,7 +250,12 @@ export function cycleManagementAssignmentCycleFetchData(id) {
 
 // ================  Cycle Management UPDATE cycle  ================
 
-// Success State to trigger page refresh?
+export function cycleManagementUpdateCycleSuccess(bool) {
+  return {
+    type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_UPDATE_SUCCESS',
+    success: bool,
+  };
+}
 
 export function cycleManagementUpdateCycle(data) {
   return (dispatch) => {
@@ -263,7 +268,7 @@ export function cycleManagementUpdateCycle(data) {
           dispatch(toastSuccess(
             ASSIGNMENT_CYCLE_EDIT_SUCCESS, ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
           ));
-          dispatch(cycleManagementFetchData());
+          dispatch(cycleManagementUpdateCycleSuccess(true));
         });
       })
       .catch(() => {
@@ -275,13 +280,13 @@ export function cycleManagementUpdateCycle(data) {
 export function cycleManagementPostOpenPositions(id) {
   return (dispatch) => {
     api()
-      .post(`/fsbid/assignment_cycles/post/${id}`)
+      .post(`/fsbid/assignment_cycles/post/${id}/`)
       .then(() => {
         batch(() => {
           dispatch(toastSuccess(
             ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS, ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE,
           ));
-          dispatch(cycleManagementFetchData());
+          dispatch(cycleManagementUpdateCycleSuccess(true));
         });
       })
       .catch(() => {

@@ -14,7 +14,12 @@ import CheckBox from 'Components/CheckBox';
 import Alert from 'Components/Alert/Alert';
 import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import { cycleManagementAssignmentCycleFetchData, cycleManagementPostOpenPositions, cycleManagementUpdateCycle } from 'actions/cycleManagement';
+import {
+  cycleManagementAssignmentCycleFetchData,
+  cycleManagementPostOpenPositions,
+  cycleManagementUpdateCycle,
+  cycleManagementUpdateCycleSuccess,
+} from 'actions/cycleManagement';
 import { userHasPermissions } from 'utilities';
 
 const AssignmentCycleEdit = ({ match }) => {
@@ -25,6 +30,7 @@ const AssignmentCycleEdit = ({ match }) => {
   const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
   const assignmentCycleLoading = useSelector(state => state.cycleManagementAssignmentCycleFetchDataLoading);
   const assignmentCycleError = useSelector(state => state.cycleManagementAssignmentCycleFetchDataErrored);
+  const assignmentCycleUpdateSuccess = useSelector(state => state.cycleManagementAssignmentCycleUpdateSuccess);
 
   const [editMode, setEditMode] = useState(false);
   const [cycleName, setCycleName] = useState(assignmentCycle?.cycle_name);
@@ -58,6 +64,14 @@ const AssignmentCycleEdit = ({ match }) => {
   useEffect(() => {
     dispatch(cycleManagementAssignmentCycleFetchData(match?.params?.id));
   }, []);
+
+  useEffect(() => {
+    if (assignmentCycleUpdateSuccess) {
+      setEditMode(false);
+      dispatch(cycleManagementUpdateCycleSuccess(false));
+      dispatch(cycleManagementAssignmentCycleFetchData(match?.params?.id));
+    }
+  }, [assignmentCycleUpdateSuccess]);
 
   useEffect(() => {
     setCycleName(assignmentCycle?.cycle_name);
@@ -293,7 +307,7 @@ const AssignmentCycleEdit = ({ match }) => {
 
 
   const editView = () => (
-    <div>
+    <>
       <form className="assignment-cycle-form" >
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Assignment Cycle</label>
@@ -419,13 +433,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="brrd">Bureau Position Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bureauPositionReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPositionReview(null)} /> */}
+                <FA name="times" className={`${burPos ? '' : 'hide'} fa-close`} onClick={() => setBurPos('')} />
                 <DatePicker
                   selected={burPos && new Date(burPos)}
                   onChange={(date) => setBurPos(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bureauPositionReview}
-                  // minDate={bureauPositionReview}
                 />
               </span>
             </div>
@@ -433,13 +444,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bdd">Bidding Start Date </label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bidDue ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} /> */}
+                <FA name="times" className={`${bidStart ? '' : 'hide'} fa-close`} onClick={() => setBidStart('')} />
                 <DatePicker
                   selected={bidStart && new Date(bidStart)}
                   onChange={(date) => setBidStart(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bidDue}
-                  // minDate={bidDue}
                 />
               </span>
             </div>
@@ -447,13 +455,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bdd">Bid Due Date </label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bidDue ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} /> */}
+                <FA name="times" className={`${bidDue ? '' : 'hide'} fa-close`} onClick={() => setBidDue('')} />
                 <DatePicker
                   selected={bidDue && new Date(bidDue)}
                   onChange={(date) => setBidDue(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bidDue}
-                  // minDate={bidDue}
                 />
               </span>
             </div>
@@ -461,13 +466,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bpsbrd">Bureau Pre-Season Bid Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bureauPreSeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPreSeasonBidReview(null)} /> */}
+                <FA name="times" className={`${burPrebd ? '' : 'hide'} fa-close`} onClick={() => setBurPrebd('')} />
                 <DatePicker
                   selected={burPrebd && new Date(burPrebd)}
                   onChange={(date) => setBurPrebd(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bureauPreSeasonBidReview}
-                  // minDate={bureauPreSeasonBidReview}
                 />
               </span>
             </div>
@@ -475,13 +477,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="besbrd">Bureau Early Season Bid Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bureauEarlySeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauEarlySeasonBidReview(null)} /> */}
+                <FA name="times" className={`${burEarly ? '' : 'hide'} fa-close`} onClick={() => setBurEarly('')} />
                 <DatePicker
                   selected={burEarly && new Date(burEarly)}
                   onChange={(date) => setBurEarly(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bureauEarlySeasonBidReview}
-                  // minDate={bureauEarlySeasonBidReview}
                 />
               </span>
             </div>
@@ -489,13 +488,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bbrd">Bureau Bid Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bureauBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauBidReview(null)} /> */}
+                <FA name="times" className={`${burBid ? '' : 'hide'} fa-close`} onClick={() => setBurBid('')} />
                 <DatePicker
                   selected={burBid && new Date(burBid)}
                   onChange={(date) => setBurBid(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bureauBidReview}
-                  // minDate={bureauBidReview}
                 />
               </span>
             </div>
@@ -503,13 +499,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bad">Bid Audit Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bidAudit ? '' : 'hide'} fa-close`} onClick={() => setBidAudit(null)} /> */}
+                <FA name="times" className={`${bidAudit ? '' : 'hide'} fa-close`} onClick={() => setBidAudit('')} />
                 <DatePicker
                   selected={bidAudit && new Date(bidAudit)}
                   onChange={(date) => setBidAudit(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bidAudit}
-                  // minDate={bidAudit}
                 />
               </span>
             </div>
@@ -517,13 +510,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bbrd">Bid Book Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bidBookReview ? '' : 'hide'} fa-close`} onClick={() => setBidBookReview(null)} /> */}
+                <FA name="times" className={`${bidBook ? '' : 'hide'} fa-close`} onClick={() => setBidBook('')} />
                 <DatePicker
                   selected={bidBook && new Date(bidBook)}
                   onChange={(date) => setBidBook(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bidBookReview}
-                  // minDate={bidBookReview}
                 />
               </span>
             </div>
@@ -531,13 +521,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="bcrd">Bid Count Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${bidCountReview ? '' : 'hide'} fa-close`} onClick={() => setBidCountReview(null)} /> */}
+                <FA name="times" className={`${bidCount ? '' : 'hide'} fa-close`} onClick={() => setBidCount('')} />
                 <DatePicker
                   selected={bidCount && new Date(bidCount)}
                   onChange={(date) => setBidCount(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={bidCountReview}
-                  // minDate={bidCountReview}
                 />
               </span>
             </div>
@@ -545,13 +532,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="htf">HTF Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${htfReview ? '' : 'hide'} fa-close`} onClick={() => setHtfReview(null)} /> */}
+                <FA name="times" className={`${bidHtf ? '' : 'hide'} fa-close`} onClick={() => setBidHtf('')} />
                 <DatePicker
                   selected={bidHtf && new Date(bidHtf)}
                   onChange={(date) => setBidHtf(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={htfReview}
-                  // minDate={htfReview}
                 />
               </span>
             </div>
@@ -559,13 +543,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="ocrd">Organization Count Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${organizationCountReview ? '' : 'hide'} fa-close`} onClick={() => setOrganizationCountReview(null)} /> */}
+                <FA name="times" className={`${bidOrg ? '' : 'hide'} fa-close`} onClick={() => setBidOrg('')} />
                 <DatePicker
                   selected={bidOrg && new Date(bidOrg)}
                   onChange={(date) => setBidOrg(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={organizationCountReview}
-                  // minDate={organizationCountReview}
                 />
               </span>
             </div>
@@ -573,13 +554,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="mds">MDS Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${mdsReview ? '' : 'hide'} fa-close`} onClick={() => setMdsReview(null)} /> */}
+                <FA name="times" className={`${bidMds ? '' : 'hide'} fa-close`} onClick={() => setBidMds('')} />
                 <DatePicker
                   selected={bidMds && new Date(bidMds)}
                   onChange={(date) => bidMds(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={mdsReview}
-                  // minDate={mdsReview}
                 />
               </span>
             </div>
@@ -587,13 +565,10 @@ const AssignmentCycleEdit = ({ match }) => {
               <label htmlFor="abd">Assigned Bidder Date </label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                {/* <FA name="times" className={`${assignedBidder ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidder(null)} /> */}
+                <FA name="times" className={`${assignedBidderDate ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidderDate('')} />
                 <DatePicker
                   selected={assignedBidderDate && new Date(assignedBidderDate)}
                   onChange={(date) => setAssignedBidderDate(date)}
-                  // dateFormat={DATE_FORMAT}
-                  // placeholderText={assignedBidder}
-                  // minDate={assignedBidder}
                 />
               </span>
             </div>
@@ -606,7 +581,7 @@ const AssignmentCycleEdit = ({ match }) => {
         <button onClick={postAC} type="submit">Post Open Positions</button>
         <button onClick={cancel}>Cancel</button>
       </div>
-    </div>
+    </>
   );
 
 
@@ -632,6 +607,7 @@ const AssignmentCycleEdit = ({ match }) => {
       </div>
       {
         getOverlay() ||
+        <div className="ace-wrapper">
           <TabbedCard
             tabs={[{
               text: 'Cycle Information',
@@ -639,6 +615,7 @@ const AssignmentCycleEdit = ({ match }) => {
               content: editMode ? editView() : readView,
             }]}
           />
+        </div>
       }
     </div>
   );

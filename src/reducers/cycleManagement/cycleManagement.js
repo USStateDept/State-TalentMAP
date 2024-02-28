@@ -64,6 +64,47 @@ export function cycleManagementAssignmentCycle(state = {}, action) {
 }
 
 
+// ================  Cycle Management UPDATE cycle  ================
+
+export function cycleManagementAssignmentCycleUpdateSuccess(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_UPDATE_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}
+
+
+// ================  Cycle Management DELETE cycle  ================
+// Do we need?
+
+export function assignmentCycleDeleteDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function assignmentCycleDeleteDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function assignmentCycleDelete(state = [], action) {
+  switch (action.type) {
+    case 'ASSIGNMENT_CYCLE_DELETE_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
+
 // ================ Cycle Positions  ================
 
 
@@ -146,32 +187,6 @@ export function cyclePositionEditSuccess(state = [], action) {
   switch (action.type) {
     case 'CYCLE_POSITION_EDIT_SUCCESS':
       return action.data;
-    default:
-      return state;
-  }
-}
-
-
-export function assignmentCycleDeletehDataErrored(state = false, action) { // typo
-  switch (action.type) {
-    case 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function assignmentCycleDeleteDataLoading(state = false, action) {
-  switch (action.type) {
-    case 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function assignmentCycleDelete(state = [], action) {
-  switch (action.type) {
-    case 'ASSIGNMENT_CYCLE_DELETE_SUCCESS':
-      return action.results;
     default:
       return state;
   }
