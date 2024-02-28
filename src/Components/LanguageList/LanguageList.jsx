@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
+import { joinIfThere } from 'utilities';
 import { NO_LANGUAGES } from '../../Constants/SystemMessages';
 import { LANGUAGES } from '../../Constants/PropTypes';
 
 const LanguageList = ({ languages, propToUse }) => {
   const languageList = (languages && languages.length)
-    ? languages.map((choice, i) => (
-      `${choice[propToUse]}${i < languages.length - 1 ? ', ' : ''}`
-    )) : NO_LANGUAGES;
+    ? languages.map(choice => choice[propToUse]) : NO_LANGUAGES;
+  const sanitizedLangList = joinIfThere(languageList, NO_LANGUAGES);
   return (
     <span>
-      {languageList}
+      {sanitizedLangList}
     </span>
   );
 };

@@ -40,8 +40,7 @@ const AgendaItemLegsForm = props => {
     'Action',
     'Position Title',
     'Position Number',
-    'Location/ Org',
-    'Grade',
+    'Location/Org',
     'Lang',
     'Skills',
     'ETA',
@@ -50,7 +49,7 @@ const AgendaItemLegsForm = props => {
     'TOD',
     'Travel',
     'Vice',
-    'Pay Plan',
+    'PP/Grade',
   ];
 
   useEffect(() => {

@@ -43,15 +43,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr
-        key="Grade"
-      >
-        <th>
-          <dt>
-            Grade
-          </dt>
-        </th>
-      </tr>
-      <tr
         key="Lang"
       >
         <th>
@@ -113,11 +104,11 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr
-        key="Pay Plan"
+        key="PP/Grade"
       >
         <th>
           <dt>
-            Pay Plan
+            PP/Grade
           </dt>
         </th>
       </tr>
