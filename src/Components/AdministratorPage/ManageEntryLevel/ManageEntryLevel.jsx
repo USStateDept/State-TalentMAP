@@ -279,7 +279,8 @@ const ManageEntryLevel = () => {
           }]}
         />
       }
-      {!isLoading &&
+      {elFiltersIsLoading && !isLoading ?
+        <Spinner type="bureau-filters" size="small" /> :
         <div className="usa-width-one-whole position-search--results">
           <div className="usa-grid-full position-list">
             {
