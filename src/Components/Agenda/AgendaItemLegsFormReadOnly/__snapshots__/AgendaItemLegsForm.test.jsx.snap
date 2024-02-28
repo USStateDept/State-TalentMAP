@@ -186,7 +186,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         type="div"
       >
         <div>
-          05/05/2019
+          05/19
         </div>
       </InteractiveElement>
       <InteractiveElement
@@ -212,7 +212,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         type="div"
       >
         <div>
-          07/05/2020
+          07/20
         </div>
       </InteractiveElement>
       <InteractiveElement

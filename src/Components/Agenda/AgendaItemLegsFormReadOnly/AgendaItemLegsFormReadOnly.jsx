@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-import { formatDate, formatLang } from 'utilities';
+import { formatDate, formatLang, formatMonthYearDate } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import Alert from '../../Alert';
 import { formatVice } from '../Constants';
@@ -27,6 +27,15 @@ const AgendaItemLegsFormReadOnly = props => {
     </div>
   );
 
+  const getTed = (a) => {
+    if (!a?.ted) {
+      return DEFAULT_TEXT;
+    } else if (a?.is_separation) {
+      return formatDate(a?.ted);
+    }
+    return formatMonthYearDate(a?.ted);
+  };
+
   const columnData = [
     {
       title: 'Position Title',
@@ -50,15 +59,15 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'ETA',
-      content: (a => <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>),
+      content: (a => <div>{formatMonthYearDate(a?.eta) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
-      content: ((a) => getArrows(a?.is_separation)),
+      content: (a => getArrows(a?.is_separation)),
     },
     {
       title: 'TED',
-      content: (a => <div>{ !a?.ted ? DEFAULT_TEXT : formatDate(a?.ted)}</div>),
+      content: (a => <div>{getTed(a)}</div>),
     },
     {
       title: 'TOD',

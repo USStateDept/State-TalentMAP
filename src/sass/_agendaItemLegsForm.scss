@@ -263,6 +263,10 @@
   height: auto;
 }
 
+.month-year-dropdown-wrapper {
+  display: flex;
+}
+
 .leg-dropdown:hover {
   border: 2px solid $blue-primary;
 }
