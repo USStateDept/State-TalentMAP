@@ -180,12 +180,7 @@ export function entryLevelFiltersFetchData() {
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(entryLevelFiltersFetchDataLoading(true));
-            dispatch(entryLevelFiltersFetchDataErrored(false));
-          });
-        } else {
+        if (err?.message !== 'cancel') {
           batch(() => {
             dispatch(entryLevelFiltersFetchDataSuccess({}));
             dispatch(entryLevelFiltersFetchDataErrored(true));

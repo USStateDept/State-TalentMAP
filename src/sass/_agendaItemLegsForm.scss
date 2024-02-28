@@ -42,7 +42,7 @@
       min-height: 105px;
     }
 
-    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
+    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ];
 
 
     @each $num in $cols-rows {
@@ -261,6 +261,10 @@
   max-width: none;
   padding: 2px 10px 2px 2px;
   height: auto;
+}
+
+.month-year-dropdown-wrapper {
+  display: flex;
 }
 
 .leg-dropdown:hover {

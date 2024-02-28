@@ -17,6 +17,7 @@ import RemarksPill from '../RemarksPill';
 import { dateTernary } from '../Constants';
 import api from '../../../api';
 import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
+import SkillCodeList from '../../SkillCodeList';
 
 const AgendaItemMaintenancePane = (props) => {
   const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
@@ -48,6 +49,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   const defaultText = '';
 
+  const { data: userInfo, error: userInfoError, loading: userInfoLoading } = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/fsbid/panel/reference/dates/');
@@ -55,7 +57,6 @@ const AgendaItemMaintenancePane = (props) => {
   const { asgSepBidResults$, asgSepBidError, asgSepBidLoading } = asgSepBidData;
   const tempAsgSepBids = asgSepBidResults$ || [];
   const asgSepBids = tempAsgSepBids.filter((a) => a !== null);
-
 
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
@@ -105,6 +106,25 @@ const AgendaItemMaintenancePane = (props) => {
     return !(panelDates.some(p => p?.pm_seq_num === agendaItem?.pmi_pm_seq_num));
   };
   const [showLegacyPanelMeetingDate, setShowLegacyPanelMeetingDate] = useState(isLegacyPanelDate());
+
+
+  // ================ User Centric Data ================
+  // Data is parsed differently depending on whether the data comes from agendaItem or userInfo
+  // agendaItem is available during edit and userInfo is fallback used on create for client users
+
+  const isCreate = agendaItem ? Object.keys(agendaItem).length === 0 : true;
+  const userData = isCreate ? userInfo?.data : agendaItem;
+
+  const userLanguages = userData?.languages?.length ? userData.languages.map(
+    (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
+  const userPayPlan = (isCreate ? userData?.pay_plan : userData?.pay_plan_code) || 'None Listed';
+  const userGrade = userData?.grade ?? '';
+  const userSkill = isCreate ? <SkillCodeList skillCodes={userData?.skills} displayCodeFirst /> :
+    (userData?.skills?.join(', ') || 'None Listed');
+  const userCDOFirst = (isCreate ? userData?.cdos[0]?.cdo_first_name : userData?.cdo?.first_name) || '';
+  const userCDOLast = (isCreate ? userData?.cdos[0]?.cdo_last_name : userData?.cdo?.last_name) || '';
+  const userCDO = (userCDOFirst || userCDOLast) ? `${userCDOFirst} ${userCDOLast}` : 'None Listed';
+
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
@@ -196,14 +216,14 @@ const AgendaItemMaintenancePane = (props) => {
 
     if (!aiV || AIvalidationHasErrored) {
       buttonMetadata.classNames = 'ai-validation-errored';
-      buttonMetadata.clickFunction = () => {};
+      buttonMetadata.clickFunction = () => { };
       buttonMetadata.disabled = true;
       buttonMetadata.text = 'Item Not Saved';
     }
 
     if (AIvalidationIsLoading) {
       buttonMetadata.classNames = 'save-ai-btn button-tiny-loading-spinner min-width-155';
-      buttonMetadata.clickFunction = () => {};
+      buttonMetadata.clickFunction = () => { };
       buttonMetadata.disabled = true;
       buttonMetadata.text = 'Validating AI';
       buttonMetadata.children = (<span className="tiny-loading-spinner" />);
@@ -343,7 +363,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   return (
     <div className="ai-maintenance-header">
-      { !unitedLoading &&
+      {!unitedLoading &&
         <>
           <div className="back-save-btns-container">
             <BackButton />
@@ -367,123 +387,132 @@ const AgendaItemMaintenancePane = (props) => {
             </span>
           </div>
           <div className="ai-maintenance-header-dd">
-            {
-              !statusLoading && !statusError &&
-                <div>
-                  <label className="select-label" htmlFor="ai-maintenance-status">Status:</label>
-                  <div className="error-message-wrapper">
-                    <div className="validation-error-message-label validation-error-message width-280">
-                      {AIvalidation?.status?.errorMessage}
-                    </div>
-                    <select
-                      className={`aim-select ${AIvalidation?.status?.valid ? '' : 'validation-error-border'}`}
-                      id="ai-maintenance-status"
-                      onChange={(e) => setStatus(get(e, 'target.value'))}
-                      value={selectedStatus}
-                      disabled={readMode}
-                    >
-                      <option value={''}>
-                        Agenda Item Status
-                      </option>
-                      {
-                        statuses.map(a => (
-                          <option key={a.code} value={a.code}>{a.desc_text}</option>
-                        ))
-                      }
-                    </select>
+            {!statusLoading && !statusError &&
+              <div>
+                <label className="select-label" htmlFor="ai-maintenance-status">Status:</label>
+                <div className="error-message-wrapper">
+                  <div className="validation-error-message-label validation-error-message width-280">
+                    {AIvalidation?.status?.errorMessage}
                   </div>
-                </div>
-            }
-            {
-              !panelCatLoading && !panelCatError &&
-                <div>
-                  <label className="select-label" htmlFor="ai-maintenance-report-category">Report Category:</label>
-                  <div className="error-message-wrapper">
-                    <div className="validation-error-message-label validation-error-message width-280">
-                      {AIvalidation?.reportCategory?.errorMessage}
-                    </div>
-                    <select
-                      className={`aim-select ${AIvalidation?.reportCategory?.valid ? '' : 'validation-error-border'}`}
-                      id="ai-maintenance-category"
-                      onChange={(e) => setPanelCat(get(e, 'target.value'))}
-                      value={selectedPanelCat}
-                      disabled={readMode}
-                    >
-                      <option value={''}>
-                        Meeting Item Category
-                      </option>
-                      {
-                        panelCategories.map(a => (
-                          <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
-                        ))
-                      }
-                    </select>
-                  </div>
-                </div>
-            }
-            {
-              !panelDatesLoading && !panelDatesError &&
-                <div>
-                  <label className="select-label" htmlFor="ai-maintenance-date">Panel Date:</label>
-                  <div className="error-message-wrapper">
-                    <div className="validation-error-message-label validation-error-message width-280">
-                      {AIvalidation?.panelDate?.errorMessage}
-                    </div>
+                  <select
+                    className={`aim-select ${AIvalidation?.status?.valid ? '' : 'validation-error-border'}`}
+                    id="ai-maintenance-status"
+                    onChange={(e) => setStatus(get(e, 'target.value'))}
+                    value={selectedStatus}
+                    disabled={readMode}
+                  >
+                    <option value={''}>
+                      Agenda Item Status
+                    </option>
                     {
-                      showLegacyPanelMeetingDate ?
-                        <div className="read-only-pmd">
-                          <span>{agendaItem?.pmt_code} {formatDate(agendaItem?.pmd_dttm)}</span>
-                          {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
-                        </div>
-                        :
-                        <div>
-                          <select
-                            className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                            id="ai-maintenance-status"
-                            onChange={(e) => setDate(get(e, 'target.value'), true)}
-                            value={selectedPanelMLDate}
-                            disabled={readMode}
-                          >
-                            <option value={''}>ML Dates</option>
-                            {
-                              panelDatesML.map(a => (
-                                <option
-                                  key={get(a, 'pm_seq_num')}
-                                  value={get(a, 'pm_seq_num')}
-                                >
-                                  {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                                </option>
-                              ))
-                            }
-                          </select>
-                          <select
-                            className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
-                            id="ai-maintenance-status"
-                            onChange={(e) => setDate(get(e, 'target.value'), false)}
-                            value={selectedPanelIDDate}
-                            disabled={readMode}
-                          >
-                            <option value={''}>ID Dates</option>
-                            {
-                              panelDatesID.map(a => (
-                                <option
-                                  key={get(a, 'pm_seq_num')}
-                                  value={get(a, 'pm_seq_num')}
-                                >
-                                  {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                                </option>
-                              ))
-                            }
-                          </select>
-                        </div>
+                      statuses.map(a => (
+                        <option key={a.code} value={a.code}>{a.desc_text}</option>
+                      ))
                     }
-                  </div>
+                  </select>
                 </div>
+              </div>
             }
-
-            { !TODLoading && combinedTodDropdown() }
-
+            {!panelCatLoading && !panelCatError &&
+              <div>
+                <label className="select-label" htmlFor="ai-maintenance-report-category">Report Category:</label>
+                <div className="error-message-wrapper">
+                  <div className="validation-error-message-label validation-error-message width-280">
+                    {AIvalidation?.reportCategory?.errorMessage}
+                  </div>
+                  <select
+                    className={`aim-select ${AIvalidation?.reportCategory?.valid ? '' : 'validation-error-border'}`}
+                    id="ai-maintenance-category"
+                    onChange={(e) => setPanelCat(get(e, 'target.value'))}
+                    value={selectedPanelCat}
+                    disabled={readMode}
+                  >
+                    <option value={''}>
+                      Meeting Item Category
+                    </option>
+                    {
+                      panelCategories.map(a => (
+                        <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
+                      ))
+                    }
+                  </select>
+                </div>
+              </div>
+            }
+            {!panelDatesLoading && !panelDatesError &&
+              <div>
+                <label className="select-label" htmlFor="ai-maintenance-date">Panel Date:</label>
+                <div className="error-message-wrapper">
+                  <div className="validation-error-message-label validation-error-message width-280">
+                    {AIvalidation?.panelDate?.errorMessage}
+                  </div>
+                  {showLegacyPanelMeetingDate ?
+                    <div className="read-only-pmd">
+                      <span>{agendaItem?.pmt_code} {formatDate(agendaItem?.pmd_dttm)}</span>
+                      {!readMode && <FA name="times" className="other-tod-icon" onClick={showPanelDatesDropdown} />}
+                    </div> :
+                    <div>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), true)}
+                        value={selectedPanelMLDate}
+                        disabled={readMode}
+                      >
+                        <option value={''}>ML Dates</option>
+                        {panelDatesML.map(a => (
+                          <option
+                            key={get(a, 'pm_seq_num')}
+                            value={get(a, 'pm_seq_num')}
+                          >
+                            {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                          </option>
+                        ))}
+                      </select>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), false)}
+                        value={selectedPanelIDDate}
+                        disabled={readMode}
+                      >
+                        <option value={''}>ID Dates</option>
+                        {panelDatesID.map(a => (
+                          <option
+                            key={get(a, 'pm_seq_num')}
+                            value={get(a, 'pm_seq_num')}
+                          >
+                            {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+            {!TODLoading && combinedTodDropdown()}
           </div>
+          {((isCreate && !userInfoLoading && !userInfoError) || !isCreate) &&
+            <div className="panel-meeting-agendas-user-info mt-20">
+              <div className="item">
+                <span className="label">Languages: </span>
+                <span>{userLanguages}</span>
+              </div>
+              <div className="item">
+                <span className="label">PP/Grade: </span>
+                {userPayPlan} {userGrade}
+              </div>
+              <div className="item">
+                <span className="label">Skill: </span>
+                {userSkill}
+              </div>
+              <div className="item">
+                <span className="label">CDO: </span>
+                {userCDO}
+              </div>
+            </div>
+          }
           <div className="remarks">
             <label htmlFor="remarks">Remarks:</label>
             <div className="remarks-container">
@@ -497,17 +526,15 @@ const AgendaItemMaintenancePane = (props) => {
               >
                 <FA name="plus" />
               </InteractiveElement>
-              {
-                userRemarks.map(remark => (
-                  <RemarksPill
-                    isEditable={!readMode}
-                    remark={remark}
-                    key={remark.seq_num}
-                    updateSelection={updateSelection}
-                    fromAIM
-                  />
-                ))
-              }
+              {userRemarks.map(remark => (
+                <RemarksPill
+                  isEditable={!readMode}
+                  remark={remark}
+                  key={remark.seq_num}
+                  updateSelection={updateSelection}
+                  fromAIM
+                />
+              ))}
             </div>
           </div>
           <div className="add-legs-container">
@@ -516,34 +543,31 @@ const AgendaItemMaintenancePane = (props) => {
                 {AIvalidation?.legs?.allLegs?.errorMessage}
               </div>
             </div>
-            {
-              !asgSepBidLoading && !asgSepBidError &&
-                <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
-                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
-                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
-                  disabled={legLimit || readMode}
-                >
-                  <option value={''}>
-                    Employee Assignments, Separations, and Bids
-                  </option>
-                  <option hidden value={'legLimit'}>
-                    Leg Limit of 10 Reached
-                  </option>
-                  {
-                    asgSepBids.map((a, i) => {
-                      const keyId = i;
-                      return (
-                        <option key={`${a.pos_title}-${keyId}`} value={a.pos_num}>
-                          {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        '{a.status || defaultText}'
-                          in {a.org || defaultText} -&nbsp;
-                          {a.pos_title || defaultText}({a.pos_num || defaultText})
-                        </option>
-                      );
-                    })
-                  }
-                </select>
+            {!asgSepBidLoading && !asgSepBidError &&
+              <select
+                className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
+                onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
+                value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                disabled={legLimit || readMode}
+              >
+                <option value={''}>
+                  Employee Assignments, Separations, and Bids
+                </option>
+                <option hidden value={'legLimit'}>
+                  Leg Limit of 10 Reached
+                </option>
+                {asgSepBids.map((a, i) => {
+                  const keyId = i;
+                  return (
+                    <option key={`${a.pos_title}-${keyId}`} value={a.pos_num}>
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      '{a.status || defaultText}'
+                      in {a.org || defaultText} -&nbsp;
+                      {a.pos_title || defaultText}({a.pos_num || defaultText})
+                    </option>
+                  );
+                })}
+              </select>
             }
             <div className="position-number-container">
               <input
@@ -570,7 +594,7 @@ const AgendaItemMaintenancePane = (props) => {
               <a className="add-fp-link" aria-hidden="true" onClick={onAddFPClick}>Open Frequent Positions Tab</a>
             </div>
             <div>
-              <a className="add-fp-link" aria-hidden="true" onClick={legLimit || readMode ? () => {} : handleAddSeparation}>Add New Separation</a>
+              <a className="add-fp-link" aria-hidden="true" onClick={legLimit || readMode ? () => { } : handleAddSeparation}>Add New Separation</a>
             </div>
           </div>
         </>

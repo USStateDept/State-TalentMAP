@@ -364,7 +364,24 @@
     padding: 20px;
     position: relative;
     background-color: $color-white;
-
+    .filter {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      input[type="text"] {
+        border-right: 0.1rem solid #5b616b;
+        width: 400px;
+      }
+      span {
+        margin-left: -35px;
+      }
+      .close-fa{
+        font-size: initial;
+      }
+      .fa-close {
+        cursor: default;
+      }
+    }
     .dashboard-section-title {
       margin-bottom: 1em;
     }
