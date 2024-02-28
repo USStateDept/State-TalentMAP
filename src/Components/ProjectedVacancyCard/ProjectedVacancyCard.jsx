@@ -126,7 +126,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Bid Season': result?.bid_season_description || 'None Listed' },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       {
-        'Language': <LanguageList
+        'Languages': <LanguageList
           languages={[
             { representation: result?.positon_language1_code },
             { representation: result?.positon_language2_code },
@@ -162,7 +162,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Incumbent TED': result?.incumbent || NO_USER_LISTED },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       {
-        'Language': <LanguageList
+        'Languages': <LanguageList
           languages={[
             { representation: result?.positon_language1_code },
             { representation: result?.positon_language2_code },
