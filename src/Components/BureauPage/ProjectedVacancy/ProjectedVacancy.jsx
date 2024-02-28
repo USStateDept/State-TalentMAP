@@ -64,9 +64,9 @@ const ProjectedVacancy = ({ isAO }) => {
 
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
-  const isLoading = filtersLoading || positionsLoading || languageOffsetsLoading;
+  const resultsLoading = positionsLoading || languageOffsetsLoading;
   const disableSearch = cardsInEditMode?.length > 0;
-  const disableInput = isLoading || disableSearch;
+  const disableInput = filtersLoading || resultsLoading || disableSearch;
 
   const getQuery = () => ({
     limit,
@@ -168,7 +168,7 @@ const ProjectedVacancy = ({ isAO }) => {
     dispatch(projectedVacancyEdit(updatedPvs));
   };
 
-  return (isLoading ?
+  return (filtersLoading ?
     <Spinner type="bureau-filters" size="small" /> :
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
@@ -301,37 +301,40 @@ const ProjectedVacancy = ({ isAO }) => {
           }]}
         />
       }
-      <div className="usa-width-one-whole position-search--results">
-        <div className="proposed-cycle-banner">
-          {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
-          {isAO &&
-            <button
-              className="usa-button-secondary"
-              onClick={addToProposedCycle}
-              disabled={!includedPositions?.length}
-            >
-              Add to Proposed Cycle
-            </button>
-          }
+      {resultsLoading ?
+        <Spinner type="standard-center" size="small" /> :
+        <div className="usa-width-one-whole position-search--results">
+          <div className="proposed-cycle-banner">
+            {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
+            {isAO &&
+              <button
+                className="usa-button-secondary"
+                onClick={addToProposedCycle}
+                disabled={!includedPositions?.length}
+              >
+                Add to Proposed Cycle
+              </button>
+            }
+          </div>
+          <div className="usa-grid-full position-list">
+            {positions?.map(k => (
+              <ProjectedVacancyCard
+                result={k}
+                key={k.future_vacancy_seq_num}
+                updateIncluded={onIncludedUpdate}
+                onEditModeSearch={(editMode, id) =>
+                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
+                }
+                selectOptions={{
+                  languageOffsets,
+                  bidSeasons,
+                  statuses,
+                }}
+              />
+            ))}
+          </div>
         </div>
-        <div className="usa-grid-full position-list">
-          {positions?.map(k => (
-            <ProjectedVacancyCard
-              result={k}
-              key={k.future_vacancy_seq_num}
-              updateIncluded={onIncludedUpdate}
-              onEditModeSearch={(editMode, id) =>
-                onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
-              }
-              selectOptions={{
-                languageOffsets,
-                bidSeasons,
-                statuses,
-              }}
-            />
-          ))}
-        </div>
-      </div>
+      }
       {/* placeholder for when we put in pagination */}
       {disableSearch &&
         <div className="disable-react-paginate-overlay" />
