@@ -152,7 +152,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ],
     textarea: result?.capsule_description || 'No description.',
     metadata: [
-      { 'Position Posted': metadata?.created_date ? formatDateFromStr(metadata?.created_date) : NO_UPDATE_DATE },
+      { 'Position Posted': metadata?.created_date ? formatDate(metadata?.created_date) : NO_UPDATE_DATE },
       { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
     ],
   };
