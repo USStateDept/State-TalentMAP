@@ -77,28 +77,11 @@ export function cycleManagementAssignmentCycleUpdateSuccess(state = false, actio
 
 
 // ================  Cycle Management DELETE cycle  ================
-// Do we need?
 
-export function assignmentCycleDeleteDataErrored(state = false, action) {
-  switch (action.type) {
-    case 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function assignmentCycleDeleteDataLoading(state = false, action) {
-  switch (action.type) {
-    case 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function assignmentCycleDelete(state = [], action) {
+export function cycleManagementDelete(state = [], action) {
   switch (action.type) {
     case 'ASSIGNMENT_CYCLE_DELETE_SUCCESS':
-      return action.results;
+      return action.success;
     default:
       return state;
   }

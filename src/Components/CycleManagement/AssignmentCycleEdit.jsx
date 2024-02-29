@@ -16,13 +16,16 @@ import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import {
   cycleManagementAssignmentCycleFetchData,
+  cycleManagementDeleteCycle,
+  cycleManagementDeleteCycleSuccess,
   cycleManagementPostOpenPositions,
   cycleManagementUpdateCycle,
   cycleManagementUpdateCycleSuccess,
 } from 'actions/cycleManagement';
 import { userHasPermissions } from 'utilities';
+import { history } from '../../store';
 
-const AssignmentCycleEdit = ({ match }) => {
+const AssignmentCycleEdit = ({ isAO, match }) => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector(state => state.userProfile);
@@ -31,6 +34,7 @@ const AssignmentCycleEdit = ({ match }) => {
   const assignmentCycleLoading = useSelector(state => state.cycleManagementAssignmentCycleFetchDataLoading);
   const assignmentCycleError = useSelector(state => state.cycleManagementAssignmentCycleFetchDataErrored);
   const assignmentCycleUpdateSuccess = useSelector(state => state.cycleManagementAssignmentCycleUpdateSuccess);
+  const assignmentCycleDeleteSuccess = useSelector(state => state.cycleManagementDelete);
 
   const [editMode, setEditMode] = useState(false);
   const [cycleName, setCycleName] = useState(assignmentCycle?.cycle_name);
@@ -72,6 +76,13 @@ const AssignmentCycleEdit = ({ match }) => {
       dispatch(cycleManagementAssignmentCycleFetchData(match?.params?.id));
     }
   }, [assignmentCycleUpdateSuccess]);
+
+  useEffect(() => {
+    if (assignmentCycleDeleteSuccess) {
+      dispatch(cycleManagementDeleteCycleSuccess(false));
+      history.push(`/profile/${isAO ? 'ao' : 'bureau'}/cyclemanagement`);
+    }
+  }, [assignmentCycleDeleteSuccess]);
 
   useEffect(() => {
     setCycleName(assignmentCycle?.cycle_name);
@@ -128,8 +139,14 @@ const AssignmentCycleEdit = ({ match }) => {
     dispatch(cycleManagementUpdateCycle(cycleData));
   };
 
-  const postAC = () => {
+  const postOpenPositions = () => {
+    swal.close();
     dispatch(cycleManagementPostOpenPositions(match?.params?.id));
+  };
+
+  const deleteAssignmentCycle = () => {
+    swal.close();
+    dispatch(cycleManagementDeleteCycle(match?.params?.id));
   };
 
   const onCancelRequest = () => {
@@ -172,6 +189,46 @@ const AssignmentCycleEdit = ({ match }) => {
           </div>
           <div className="modal-controls">
             <button onClick={onCancelRequest}>Yes</button>
+            <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const postAC = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'Post Open Positions',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="simple-action-modal">
+          <div className="help-text">
+            <span>{'Do you want to Post the Open Positions for this Assignment Cycle?'}</span>
+          </div>
+          <div className="modal-controls">
+            <button onClick={postOpenPositions}>Yes</button>
+            <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
+  const deleteAC = (e) => {
+    e.preventDefault();
+    swal({
+      title: 'Delete Assignment Cycle',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="simple-action-modal">
+          <div className="help-text">
+            <span>{'Are you sure you want to delete this Assignment Cycle?'}</span>
+          </div>
+          <div className="modal-controls">
+            <button onClick={deleteAssignmentCycle}>Yes</button>
             <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
           </div>
         </div>
@@ -577,7 +634,7 @@ const AssignmentCycleEdit = ({ match }) => {
       </form>
       <div>
         <button onClick={saveAC}>Save and Return</button>
-        {/* <button onClick={deleteAC}>Delete Assignment Cycle</button> */}
+        <button onClick={deleteAC}>Delete Assignment Cycle</button>
         <button onClick={postAC} type="submit">Post Open Positions</button>
         <button onClick={cancel}>Cancel</button>
       </div>
@@ -622,6 +679,7 @@ const AssignmentCycleEdit = ({ match }) => {
 };
 
 AssignmentCycleEdit.propTypes = {
+  isAO: PropTypes.bool,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

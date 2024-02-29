@@ -279,6 +279,7 @@ export function cycleManagementUpdateCycle(data) {
 
 export function cycleManagementPostOpenPositions(id) {
   return (dispatch) => {
+    dispatch(cycleManagementUpdateCycleSuccess(false));
     api()
       .post(`/fsbid/assignment_cycles/post/${id}/`)
       .then(() => {
@@ -299,6 +300,44 @@ export function cycleManagementPostOpenPositions(id) {
       });
   };
 }
+
+
+// ================ Cycle Management DELETE cycle ================
+
+export function cycleManagementDeleteCycleSuccess(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_SUCCESS',
+    success: bool,
+  };
+}
+
+export function cycleManagementDeleteCycle(id) {
+  return (dispatch) => {
+    dispatch(cycleManagementDeleteCycleSuccess(false));
+    api()
+      .post(`/fsbid/assignment_cycles/delete/${id}/`)
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
+          dispatch(cycleManagementDeleteCycleSuccess(true));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(
+              toastError(
+                ASSIGNMENT_CYCLE_DELETE_ERROR,
+                ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE,
+              ),
+            );
+          });
+        }
+      });
+  };
+}
+
 
 // ================ Cycle Positions ================
 
@@ -475,60 +514,5 @@ export function cyclePositionEdit(position, incumbent, status) {
           dispatch(cyclePositionEditIsLoading(false));
         }
       });
-  };
-}
-
-
-export function assignmentCycleDeleteDataErrored(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function assignmentCycleDeleteDataLoading(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function assignmentCycleDeleteDataSuccess(results) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_DELETE_SUCCESS',
-    results,
-  };
-}
-
-export function deleteAssignmentCyclesSelections(id) { // rename.
-  return (dispatch) => {
-    dispatch(assignmentCycleDeleteDataLoading(true));
-    dispatch(assignmentCycleDeleteDataErrored(false));
-    api().delete('/Placeholder/', id)
-      .then(({ res }) => {
-        batch(() => {
-          dispatch(assignmentCycleDeleteDataErrored(false));
-          dispatch(assignmentCycleDeleteDataSuccess(res));
-          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
-            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
-          dispatch(assignmentCycleDeleteDataLoading(false));
-        });
-      },
-      ).catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(assignmentCycleDeleteDataLoading(true));
-            dispatch(assignmentCycleDeleteDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(toastError(ASSIGNMENT_CYCLE_DELETE_ERROR,
-              ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE));
-            dispatch(assignmentCycleDeleteDataErrored(true));
-            dispatch(assignmentCycleDeleteDataLoading(false));
-          });
-        }
-      },
-      );
   };
 }
