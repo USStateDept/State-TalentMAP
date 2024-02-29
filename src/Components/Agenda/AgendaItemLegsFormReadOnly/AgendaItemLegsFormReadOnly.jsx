@@ -38,6 +38,10 @@ const AgendaItemLegsFormReadOnly = props => {
 
   const columnData = [
     {
+      title: 'Action',
+      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
+    },
+    {
       title: 'Position Title',
       content: (a => <div>{a?.pos_title || DEFAULT_TEXT}</div>),
     },
@@ -48,10 +52,6 @@ const AgendaItemLegsFormReadOnly = props => {
     {
       title: 'Location/ Org',
       content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
-    },
-    {
-      title: 'Grade',
-      content: (a => <div>{a?.grade || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Lang',
@@ -78,10 +78,6 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => <div>{a?.tod_long_desc || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Action',
-      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
-    },
-    {
       title: 'Travel',
       content: (a => <div>{a?.travel || DEFAULT_TEXT}</div>),
     },
@@ -90,8 +86,8 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => formatVice(a?.vice)),
     },
     {
-      title: 'Pay Plan',
-      content: (a => <div>{a?.pay_plan || DEFAULT_TEXT}</div>),
+      title: 'PP/Grade',
+      content: (a => <div>{a?.combined_pp_grade || DEFAULT_TEXT}</div>),
     },
   ];
 

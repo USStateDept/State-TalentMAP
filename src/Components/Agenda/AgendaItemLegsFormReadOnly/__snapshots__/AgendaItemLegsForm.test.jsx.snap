@@ -10,6 +10,15 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
     >
       <InteractiveElement
         className="grid-col-1-read-only grid-row-1-read-only"
+        key="Action"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Action
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-1-read-only grid-row-2-read-only"
         key="Position Title"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -18,7 +27,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         Position Title
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-1-read-only grid-row-2-read-only"
+        className="grid-col-1-read-only grid-row-3-read-only"
         key="Position Number"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -27,22 +36,13 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         Position Number
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-1-read-only grid-row-3-read-only"
+        className="grid-col-1-read-only grid-row-4-read-only"
         key="Location/ Org"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
         type="div"
       >
         Location/ Org
-      </InteractiveElement>
-      <InteractiveElement
-        className="grid-col-1-read-only grid-row-4-read-only"
-        key="Grade"
-        onMouseLeave={[Function]}
-        onMouseOver={[Function]}
-        type="div"
-      >
-        Grade
       </InteractiveElement>
       <InteractiveElement
         className="grid-col-1-read-only grid-row-5-read-only"
@@ -98,15 +98,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
       </InteractiveElement>
       <InteractiveElement
         className="grid-col-1-read-only grid-row-11-read-only"
-        key="Action"
-        onMouseLeave={[Function]}
-        onMouseOver={[Function]}
-        type="div"
-      >
-        Action
-      </InteractiveElement>
-      <InteractiveElement
-        className="grid-col-1-read-only grid-row-12-read-only"
         key="Travel"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -115,7 +106,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         Travel
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-1-read-only grid-row-13-read-only"
+        className="grid-col-1-read-only grid-row-12-read-only"
         key="Vice"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -124,16 +115,27 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         Vice
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-1-read-only grid-row-14-read-only"
-        key="Pay Plan"
+        className="grid-col-1-read-only grid-row-13-read-only"
+        key="PP/Grade"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
         type="div"
       >
-        Pay Plan
+        PP/Grade
       </InteractiveElement>
       <InteractiveElement
         className="grid-col-2-read-only grid-row-1-read-only"
+        key="Action"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        <div>
+          Extend
+        </div>
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-2-read-only grid-row-2-read-only"
         key="Position Title"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -144,7 +146,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </div>
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-2-read-only grid-row-2-read-only"
+        className="grid-col-2-read-only grid-row-3-read-only"
         key="Position Number"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -155,7 +157,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </div>
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-2-read-only grid-row-3-read-only"
+        className="grid-col-2-read-only grid-row-4-read-only"
         key="Location/ Org"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -163,17 +165,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
       >
         <div>
           A
-        </div>
-      </InteractiveElement>
-      <InteractiveElement
-        className="grid-col-2-read-only grid-row-4-read-only"
-        key="Grade"
-        onMouseLeave={[Function]}
-        onMouseOver={[Function]}
-        type="div"
-      >
-        <div>
-          00
         </div>
       </InteractiveElement>
       <InteractiveElement
@@ -248,17 +239,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
       </InteractiveElement>
       <InteractiveElement
         className="grid-col-2-read-only grid-row-11-read-only"
-        key="Action"
-        onMouseLeave={[Function]}
-        onMouseOver={[Function]}
-        type="div"
-      >
-        <div>
-          Extend
-        </div>
-      </InteractiveElement>
-      <InteractiveElement
-        className="grid-col-2-read-only grid-row-12-read-only"
         key="Travel"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -269,7 +249,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </div>
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-2-read-only grid-row-13-read-only"
+        className="grid-col-2-read-only grid-row-12-read-only"
         key="Vice"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
@@ -278,8 +258,8 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         -
       </InteractiveElement>
       <InteractiveElement
-        className="grid-col-2-read-only grid-row-14-read-only"
-        key="Pay Plan"
+        className="grid-col-2-read-only grid-row-13-read-only"
+        key="PP/Grade"
         onMouseLeave={[Function]}
         onMouseOver={[Function]}
         type="div"

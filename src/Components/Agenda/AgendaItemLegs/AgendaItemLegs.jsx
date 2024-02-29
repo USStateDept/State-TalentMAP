@@ -76,6 +76,11 @@ const AgendaItemLegs = props => {
 
   const tableData = [
     {
+      title: 'Action',
+      content: (getData('action')),
+      cardView: false,
+    },
+    {
       title: 'Position Title',
       content: (getData('pos_title', formatStr)),
       cardView: false,
@@ -89,11 +94,6 @@ const AgendaItemLegs = props => {
       title: 'Location/Org',
       content: (getData('org', formatStr)),
       cardView: true,
-    },
-    {
-      title: 'Grade',
-      content: (getData('grade')),
-      cardView: false,
     },
     {
       title: 'Lang',
@@ -126,18 +126,13 @@ const AgendaItemLegs = props => {
       cardView: false,
     },
     {
-      title: 'Action',
-      content: (getData('action')),
-      cardView: false,
-    },
-    {
       title: 'Travel',
       content: (getData('travel')),
       cardView: false,
     },
     {
-      title: 'Pay Plan',
-      content: (getData('pay_plan')),
+      title: 'PP/Grade',
+      content: (getData('combined_pp_grade')),
       cardView: false,
     },
   ];

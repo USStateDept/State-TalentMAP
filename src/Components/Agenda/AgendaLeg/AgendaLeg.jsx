@@ -367,6 +367,10 @@ const AgendaLeg = props => {
 
   const columnData = [
     {
+      title: 'Action',
+      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
+    },
+    {
       title: 'Position Title',
       content: (<div>{defaultSepText || get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
@@ -380,10 +384,6 @@ const AgendaLeg = props => {
         getLocation()
         :
         (<div className="read-only">{leg?.org || DEFAULT_TEXT}</div>),
-    },
-    {
-      title: 'Grade',
-      content: (<div>{defaultSepText || leg?.grade || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
@@ -410,10 +410,6 @@ const AgendaLeg = props => {
       content: (isSeparation ? <div className="read-only">{defaultSepText}</div> : getTodDropdown()),
     },
     {
-      title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
-    },
-    {
       title: 'Travel',
       content: (getDropdown(isEf ? 'travel' : 'travel_code', travelFunctions, 'desc_text')),
     },
@@ -422,8 +418,8 @@ const AgendaLeg = props => {
       content: formatVice(leg?.vice),
     },
     {
-      title: 'Pay Plan',
-      content: (<div>{get(leg, 'pay_plan') || defaultSepText || DEFAULT_TEXT}</div>),
+      title: 'PP/Grade',
+      content: (<div>{defaultSepText || get(leg, 'combined_pp_grade') || DEFAULT_TEXT}</div>),
     },
   ];
 

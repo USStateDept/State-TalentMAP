@@ -1098,26 +1098,29 @@ Examples:
 ([null, '  ', ''])                          ->  "None Listed"
 */
 export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = false) => {
-  const sanitizedArray = [];
-  // do not push empties and nulls to sanitizedArray
-  array.forEach(a => {
-    let a$ = a;
-    if (a) {
-      a$ = a.trim();
-    }
-    if (['', null].includes(a$)) {
-      if (orderMatters) {
-        sanitizedArray.push(defaultText);
+  if (Array.isArray(array)) {
+    const sanitizedArray = [];
+    // do not push empties and nulls to sanitizedArray
+    array.forEach(a => {
+      let a$ = a;
+      if (a) {
+        a$ = a.trim();
       }
-    } else {
-      sanitizedArray.push(a$);
+      if (['', null].includes(a$)) {
+        if (orderMatters) {
+          sanitizedArray.push(defaultText);
+        }
+      } else {
+        sanitizedArray.push(a$);
+      }
+    });
+    // if all are defaultText, return one defaultText
+    if (sanitizedArray.every((b) => b === defaultText)) {
+      return defaultText;
     }
-  });
-  // if all are defaultText, return one defaultText
-  if (sanitizedArray.every((b) => b === defaultText)) {
-    return defaultText;
+    return sanitizedArray.join(', ') || defaultText;
   }
-  return sanitizedArray.join(', ') || defaultText;
+  return defaultText;
 };
 
 // Search Tags: common.js, helper file, helper functions, common helper file, common file

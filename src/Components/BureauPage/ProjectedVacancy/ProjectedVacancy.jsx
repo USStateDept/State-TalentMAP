@@ -5,8 +5,8 @@ import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import { get, sortBy } from 'lodash';
 import {
-  projectedVacancyAddToProposedCycle, projectedVacancyFetchData,
-  projectedVacancyFilters, projectedVacancyLanguageOffsets, saveProjectedVacancySelections,
+  projectedVacancyEdit, projectedVacancyFetchData, projectedVacancyFilters,
+  projectedVacancyLangOffsetOptions, saveProjectedVacancySelections,
 } from 'actions/projectedVacancy';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
@@ -23,8 +23,9 @@ const ProjectedVacancy = ({ isAO }) => {
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const filters = useSelector(state => state.projectedVacancyFilters) ?? [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
-  const languageOffsets = useSelector(state => state.projectedVacancyLanguageOffsets) ?? [];
-  const languageOffsetsLoading = useSelector(state => state.projectedVacancyLanguageOffsetsLoading);
+  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsetOptions) ?? [];
+  const languageOffsetsLoading =
+    useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
   const positions = positionsData?.length ? positionsData : [];
@@ -48,24 +49,24 @@ const ProjectedVacancy = ({ isAO }) => {
     useState(userSelections?.selectedBidSeasons || []);
 
   useEffect(() => {
-    if (positions) {
-      setIncludedPositions(positions?.map(k => k.id));
+    if (positions.length) {
+      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
     }
   }, [positions]);
 
-  const bureaus = sortBy(filters?.bureauFilters || [], [o => o.description]);
-  const grades = sortBy(filters?.gradeFilters || [], [o => o.code]);
-  const skills = sortBy(filters?.skillFilters || [], [o => o.description]);
-  const languages = sortBy(filters?.languageFilters || [], [o => o.description]);
-  const bidSeasons = sortBy(filters?.bidSeasonFilters || [], [o => o.description]);
-  const organizations = sortBy(filters?.organizationFilters || [], [o => o.description]);
-  const statuses = sortBy(filters?.futureVacancyStatusFilters || [], [o => o.description]);
+  const bureaus = sortBy(filters?.bureaus || [], [o => o.description]);
+  const grades = sortBy(filters?.grades || [], [o => o.code]);
+  const skills = sortBy(filters?.skills || [], [o => o.description]);
+  const languages = sortBy(filters?.languages || [], [o => o.description]);
+  const bidSeasons = sortBy(filters?.bid_seasons || [], [o => o.description]);
+  const organizations = sortBy(filters?.organizations || [], [o => o.description]);
+  const statuses = sortBy(filters?.statuses || [], [o => o.description]);
 
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
-  const isLoading = filtersLoading || positionsLoading || languageOffsetsLoading;
+  const resultsLoading = positionsLoading || languageOffsetsLoading;
   const disableSearch = cardsInEditMode?.length > 0;
-  const disableInput = isLoading || disableSearch;
+  const disableInput = filtersLoading || resultsLoading || disableSearch;
 
   const getQuery = () => ({
     limit,
@@ -100,7 +101,7 @@ const ProjectedVacancy = ({ isAO }) => {
   useEffect(() => {
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(projectedVacancyFilters());
-    dispatch(projectedVacancyLanguageOffsets());
+    dispatch(projectedVacancyLangOffsetOptions());
   }, []);
 
   const fetchAndSet = () => {
@@ -152,10 +153,22 @@ const ProjectedVacancy = ({ isAO }) => {
   };
 
   const addToProposedCycle = () => {
-    dispatch(projectedVacancyAddToProposedCycle());
+    const updatedPvs = positions?.map(p => {
+      if (includedPositions.find(o => o === p.future_vacancy_seq_num)) {
+        return {
+          ...p,
+          future_vacancy_exclude_import_indicator: 'N',
+        };
+      }
+      return {
+        ...p,
+        future_vacancy_exclude_import_indicator: 'Y',
+      };
+    });
+    dispatch(projectedVacancyEdit(updatedPvs));
   };
 
-  return (isLoading ?
+  return (filtersLoading ?
     <Spinner type="bureau-filters" size="small" /> :
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
@@ -288,38 +301,40 @@ const ProjectedVacancy = ({ isAO }) => {
           }]}
         />
       }
-      <div className="usa-width-one-whole position-search--results">
-        <div className="proposed-cycle-banner">
-          {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
-          {isAO &&
-            <button
-              className="usa-button-secondary"
-              onClick={addToProposedCycle}
-              disabled={!includedPositions?.length}
-            >
-              Add to Proposed Cycle
-            </button>
-          }
+      {resultsLoading ?
+        <Spinner type="standard-center" size="small" /> :
+        <div className="usa-width-one-whole position-search--results">
+          <div className="proposed-cycle-banner">
+            {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
+            {isAO &&
+              <button
+                className="usa-button-secondary"
+                onClick={addToProposedCycle}
+                disabled={!includedPositions?.length}
+              >
+                Add to Proposed Cycle
+              </button>
+            }
+          </div>
+          <div className="usa-grid-full position-list">
+            {positions?.map(k => (
+              <ProjectedVacancyCard
+                result={k}
+                key={k.future_vacancy_seq_num}
+                updateIncluded={onIncludedUpdate}
+                onEditModeSearch={(editMode, id) =>
+                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
+                }
+                selectOptions={{
+                  languageOffsets,
+                  bidSeasons,
+                  statuses,
+                }}
+              />
+            ))}
+          </div>
         </div>
-        <div className="usa-grid-full position-list">
-          {positions?.map(k => (
-            <ProjectedVacancyCard
-              result={k}
-              key={k.id}
-              id={k.id}
-              updateIncluded={onIncludedUpdate}
-              onEditModeSearch={(editMode, id) =>
-                onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
-              }
-              selectOptions={{
-                languageOffsets,
-                bidSeasons,
-                statuses,
-              }}
-            />
-          ))}
-        </div>
-      </div>
+      }
       {/* placeholder for when we put in pagination */}
       {disableSearch &&
         <div className="disable-react-paginate-overlay" />
