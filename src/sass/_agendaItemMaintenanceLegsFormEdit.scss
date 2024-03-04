@@ -9,21 +9,19 @@
     grid-template-columns: 90px repeat(16, auto);
     align-items: center;
 
-    @each $row-num in map-values($lrg-height-config-aim-legs-form-edit) {
+    @each $row-num in map-values($sm-height-config-aim-legs-form-edit) {
       .grid-row-#{$row-num} {
-        min-height: 160px;
+        min-height: 60px;
       }
     }
-
     @each $row-num in map-values($md-height-config-aim-legs-form-edit) {
       .grid-row-#{$row-num} {
         min-height: 85px;
       }
     }
-
-    @each $row-num in map-values($sm-height-config-aim-legs-form-edit) {
+    @each $row-num in map-values($lg-height-config-aim-legs-form-edit) {
       .grid-row-#{$row-num} {
-        min-height: 60px;
+        min-height: 160px;
       }
     }
 

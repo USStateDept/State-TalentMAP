@@ -292,6 +292,7 @@ $panelStatuses: (
 //**
 //* Agenda Item Maintenance Legs
 //*
+
 // this should match legHeaderData in AIMLegsFormEdit.jsx
 // if Arrow's position changes, update onHover$ in AgendaLeg.jsx to match
 // remember 1 is reserved for the x col to remove legs
@@ -311,8 +312,7 @@ $md-height-config-aim-legs-form-edit: (
   "Travel": 12,
   "Vice": 13,
 );
-
-$lrg-height-config-aim-legs-form-edit: (
+$lg-height-config-aim-legs-form-edit: (
   "Skills": 7,
 );
 
@@ -334,9 +334,10 @@ $md-height-config-aim-legs-form-read: (
   "TOD": 10,
   "Vice": 12
 );
-$lrg-height-config-aim-legs-form-read: (
+$lg-height-config-aim-legs-form-read: (
   "Skills": 6,
 );
+
 //**
 //* resolution widths for .ai-legs
 //*
