@@ -9,6 +9,33 @@
     grid-template-columns: 90px repeat(16, auto);
     align-items: center;
 
+    // generic col styling
+    // $col-count = 2(Label col and EF col) + leg limit
+    $col-count: 12;
+    @for $num from 1 through $col-count {
+      .grid-col-#{$num}  {
+        grid-column: $num;
+        @if $num == 1 {
+          font-weight: bold;
+        }
+        @if $num != 1 {
+          border-left: 1px solid $color-gray-lighter;
+          min-width: 150px;
+        }
+      }
+    }
+
+    // generic row styling
+    // $row-count should be max num in [am, md, lrg]-config-aim-legs-form-edit 3 variables
+    $row-count: 14;
+    @for $num from 1 through $row-count {
+      .grid-row-#{$num} {
+        grid-row: $num;
+        padding: 10px;
+      }
+    }
+
+    // config styling
     @each $row-num in map-values($sm-height-config-aim-legs-form-edit) {
       .grid-row-#{$row-num} {
         min-height: 60px;
@@ -18,31 +45,16 @@
       .grid-row-#{$row-num} {
         min-height: 85px;
       }
+      .grid-col-1.grid-row-#{$row-num} {
+        padding-top: 30px;
+      }
     }
     @each $row-num in map-values($lg-height-config-aim-legs-form-edit) {
       .grid-row-#{$row-num} {
         min-height: 160px;
       }
-    }
-
-    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ];
-
-    @each $num in $cols-rows {
-      .grid-col-#{$num}  {
-        grid-column: $num;
-        @if $num == 1 {
-          font-weight: bold;
-          border: none!important;
-          padding: 5px!important;
-        }
-        @if $num != 1 {
-          border-left: 1px solid $color-gray-lighter;
-          min-width: 150px;
-        }
-      }
-      .grid-row-#{$num} {
-        grid-row: $num;
-        padding: 10px;
+      .grid-col-1.grid-row-#{$row-num} {
+        padding-top: 60px;
       }
     }
 
@@ -209,9 +221,7 @@
 
 }
 
-
-// for both Read and Edit of Form
-.aim-form-arrow {
+.aim-form-arrow-edit {
   color: $bg-gray-dark-2;
   font-size: small;
   margin-inline: 40%;

@@ -22,7 +22,7 @@ const AIMLegsFormRead = props => {
   };
 
   const getArrows = (hide = false) => (
-    <div className={`${hide ? 'hide' : ''} aim-form-arrow`}>
+    <div className={`${hide ? 'hide' : ''} aim-form-arrow-read`}>
       <FA name="arrow-down" />
     </div>
   );

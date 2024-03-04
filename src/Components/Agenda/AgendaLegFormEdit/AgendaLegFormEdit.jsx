@@ -308,7 +308,7 @@ const AgendaLegFormEdit = props => {
   );
 
   const getArrows = () => (
-    <div className="aim-form-arrow">
+    <div className="aim-form-arrow-edit">
       {
         !isSeparation &&
         <FA name="arrow-down" />

@@ -1,20 +1,20 @@
-// Label col + EF col + leg limit
-$col-count: 12;
 // generic col styling
+// $col-count = 2(Label col and EF col) + leg limit
+$col-count: 12;
 @for $num from 1 through $col-count {
   .grid-col-#{$num}-read-only  {
     grid-column: $num;
     border-left: 1px solid $color-gray-lighter;
     @if $num == 1 {
-      font-weight: bold;
       border: none!important;
+      font-weight: bold;
     }
   }
 }
 
-// should match max num in [am, md, lrg]-config-aim-legs-form-read 3 variables
-$row-count: 13;
 // generic row styling
+// $row-count should be max num in [am, md, lrg]-config-aim-legs-form-read 3 variables
+$row-count: 13;
 @for $num from 1 through $row-count {
   .grid-row-#{$num}-read-only {
     grid-row: $num;
@@ -22,6 +22,7 @@ $row-count: 13;
   }
 }
 
+// config styling
 @each $row-num in map-values($sm-height-config-aim-legs-form-read) {
   .grid-row-#{$row-num}-read-only {
     min-height: 40px;
@@ -36,4 +37,10 @@ $row-count: 13;
   .grid-row-#{$row-num}-read-only {
     min-height: 155px;
   }
+}
+
+.aim-form-arrow-read {
+  color: $bg-gray-dark-2;
+  font-size: small;
+  margin-left: 20px;
 }
