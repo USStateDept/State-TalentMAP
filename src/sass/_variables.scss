@@ -292,43 +292,46 @@ $panelStatuses: (
 //**
 //* Agenda Item Maintenance Legs
 //*
-// might have to update onHover$ in AgendaLeg.jsx
+// this should match legHeaderData in AIMLegsFormEdit.jsx
+// if Arrow's position changes, update onHover$ in AgendaLeg.jsx to match
 $sm-height-config-aim-legs-form-edit: (
   "Position Title": 3,
-  "Org": 5,
+  "Location/Org": 5,
+  "Arrow": 9,
   "TED": 10,
-  "Pay Plan": 14
+  "PP/Grade": 14
 );
 $md-height-config-aim-legs-form-edit: (
   "Action": 2,
   "Position Number": 4,
   "Language": 6,
   "ETA": 8,
-  "VICE": 13,
   "TOD": 11,
   "Travel": 12,
+  "Vice": 13,
 );
 
 $lrg-height-config-aim-legs-form-edit: (
   "Skills": 7,
 );
 
-// might have to update onHover in AgendaItemLegsFormReadOnly.jsx
+// this should match columnData in AIMLegsFormRead.jsx
+// if Arrow's position changes, update onHover in AIMLegsFormRead.jsx to match
 $sm-height-config-aim-legs-form-read: (
   "Action": 1,
   "ETA": 7,
   "Arrow": 8,
   "TED": 9,
   "Travel": 11,
-  "Pay Plan": 13,
+  "PP/Grade": 13,
 );
 $md-height-config-aim-legs-form-read: (
   "Position Title": 2,
   "Position Number": 3,
-  "Org": 4,
+  "Location/Org": 4,
   "Language": 5,
   "TOD": 10,
-  "VICE": 12
+  "Vice": 12
 );
 $lrg-height-config-aim-legs-form-read: (
   "Skills": 6,
