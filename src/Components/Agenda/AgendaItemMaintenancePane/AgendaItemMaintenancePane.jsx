@@ -6,7 +6,7 @@ import { filter, find, get, includes, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
-import TodModal from 'Components/Agenda/AgendaLeg/TodModal';
+import TodModal from 'Components/Agenda/AgendaLegFormEdit/TodModal';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
