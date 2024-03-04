@@ -7,7 +7,7 @@ import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import Alert from '../../Alert';
 import { formatVice } from '../Constants';
 
-const AgendaItemLegsFormReadOnly = props => {
+const AIMLegsFormRead = props => {
   const { legs } = props;
 
   const showOverlay = !legs.length;
@@ -142,12 +142,12 @@ const AgendaItemLegsFormReadOnly = props => {
   );
 };
 
-AgendaItemLegsFormReadOnly.propTypes = {
+AIMLegsFormRead.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-AgendaItemLegsFormReadOnly.defaultProps = {
+AIMLegsFormRead.defaultProps = {
   legs: [],
 };
 
-export default AgendaItemLegsFormReadOnly;
+export default AIMLegsFormRead;

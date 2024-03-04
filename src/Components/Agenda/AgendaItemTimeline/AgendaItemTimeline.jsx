@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import { useDidMountEffect, usePrevious } from 'hooks';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AIMLegsFormEdit from '../AIMLegsFormEdit';
-import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
+import AIMLegsFormRead from '../AIMLegsFormRead';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   asgSepBid, efPos, agendaItemLegs, fullAgendaItemLegs, readMode, AIvalidation, isNewSeparation,
@@ -159,7 +159,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   return (
     !unitedLoading && (
       readMode ?
-        <AgendaItemLegsFormReadOnly
+        <AIMLegsFormRead
           legs={fullAgendaItemLegs}
         /> :
         <AIMLegsFormEdit
