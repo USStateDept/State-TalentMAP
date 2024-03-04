@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
-import AgendaLeg from '../AgendaLeg';
+import AgendaLegFormEdit from '../AgendaLegFormEdit';
 import Alert from '../../Alert';
 
 const AIMLegsFormEdit = props => {
@@ -99,7 +99,7 @@ const AIMLegsFormEdit = props => {
               }
               {
                 hasEf &&
-                <AgendaLeg
+                <AgendaLegFormEdit
                   leg={efPos}
                   legNum={2}
                   TODs={TODs}
@@ -117,7 +117,7 @@ const AIMLegsFormEdit = props => {
                 legs.map((leg, i) => {
                   const keyId = i;
                   return (
-                    <AgendaLeg
+                    <AgendaLegFormEdit
                       AIvalidation={AIvalidation}
                       leg={leg}
                       key={`${leg.ail_seq_num}-${keyId}`}
