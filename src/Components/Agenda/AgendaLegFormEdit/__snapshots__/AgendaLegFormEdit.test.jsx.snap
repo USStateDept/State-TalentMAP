@@ -135,7 +135,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div
-      className="arrow"
+      className="aim-form-arrow-edit"
     >
       <FontAwesome
         name="arrow-down"
