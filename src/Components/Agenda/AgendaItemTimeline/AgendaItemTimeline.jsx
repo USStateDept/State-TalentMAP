@@ -5,7 +5,7 @@ import { get, isEmpty, isEqual } from 'lodash';
 import shortid from 'shortid';
 import { useDidMountEffect, usePrevious } from 'hooks';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
-import AgendaItemLegsForm from '../AgendaItemLegsForm';
+import AIMLegsFormEdit from '../AIMLegsFormEdit';
 import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
@@ -162,7 +162,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         <AgendaItemLegsFormReadOnly
           legs={fullAgendaItemLegs}
         /> :
-        <AgendaItemLegsForm
+        <AIMLegsFormEdit
           AIvalidation={AIvalidation}
           efPos={efPos}
           legs={legs}

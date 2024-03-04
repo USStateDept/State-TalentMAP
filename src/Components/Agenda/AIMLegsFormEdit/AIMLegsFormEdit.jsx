@@ -6,7 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import AgendaLeg from '../AgendaLeg';
 import Alert from '../../Alert';
 
-const AgendaItemLegsForm = props => {
+const AIMLegsFormEdit = props => {
   const {
     efPos,
     legs,
@@ -143,7 +143,7 @@ const AgendaItemLegsForm = props => {
   );
 };
 
-AgendaItemLegsForm.propTypes = {
+AIMLegsFormEdit.propTypes = {
   efPos: PropTypes.shape({}),
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
@@ -161,7 +161,7 @@ AgendaItemLegsForm.propTypes = {
   }).isRequired,
 };
 
-AgendaItemLegsForm.defaultProps = {
+AIMLegsFormEdit.defaultProps = {
   efPos: {},
   legs: [],
   setLegsContainerExpanded: EMPTY_FUNCTION,
@@ -179,4 +179,4 @@ AgendaItemLegsForm.defaultProps = {
   },
 };
 
-export default AgendaItemLegsForm;
+export default AIMLegsFormEdit;
