@@ -294,6 +294,7 @@ $panelStatuses: (
 //*
 // this should match legHeaderData in AIMLegsFormEdit.jsx
 // if Arrow's position changes, update onHover$ in AgendaLeg.jsx to match
+// remember 1 is reserved for the x col to remove legs
 $sm-height-config-aim-legs-form-edit: (
   "Position Title": 3,
   "Location/Org": 5,
