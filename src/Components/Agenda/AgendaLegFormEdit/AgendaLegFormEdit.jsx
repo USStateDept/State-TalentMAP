@@ -14,7 +14,7 @@ import TodModal from './TodModal';
 import MonthYearDropdown from './MonthYearDropdown';
 import { formatVice } from '../Constants';
 
-const AgendaLeg = props => {
+const AgendaLegFormEdit = props => {
   const {
     AIvalidation,
     isEf, // check if leg is first leg (effective leg)
@@ -308,7 +308,7 @@ const AgendaLeg = props => {
   );
 
   const getArrows = () => (
-    <div className="arrow">
+    <div className="aim-form-arrow-edit">
       {
         !isSeparation &&
         <FA name="arrow-down" />
@@ -451,7 +451,7 @@ const AgendaLeg = props => {
   );
 };
 
-AgendaLeg.propTypes = {
+AgendaLegFormEdit.propTypes = {
   AIvalidation: AI_VALIDATION,
   isEf: PropTypes.bool,
   leg: PropTypes.shape({
@@ -485,7 +485,7 @@ AgendaLeg.propTypes = {
   rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-AgendaLeg.defaultProps = {
+AgendaLegFormEdit.defaultProps = {
   AIvalidation: {},
   isEf: false,
   leg: {},
@@ -495,4 +495,4 @@ AgendaLeg.defaultProps = {
   rowNum: null,
 };
 
-export default AgendaLeg;
+export default AgendaLegFormEdit;
