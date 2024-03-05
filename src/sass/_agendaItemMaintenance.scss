@@ -66,6 +66,11 @@
       }
     }
   }
+  .rpv-core__viewer {
+    div div {
+      overflow: unset !important;
+    }
+  }
 }
 
 .remarks-glossary-container {
