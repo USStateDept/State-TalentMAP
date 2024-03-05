@@ -313,17 +313,14 @@ const AgendaLeg = props => {
         <div>
           <select
             className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.valid ? '' : 'validation-error-border'}`}
-            value={get(leg, 'action_code') || 'E'}
+            value={leg?.action_code}
             onChange={(e) => updateDropdown('action_code', e.target.value)}
             disabled={disabled}
           >
-            <option key={null} value={''}>
-              Select Action
-            </option>
             {
               actionOptions.map((action) => {
                 const { code, abbr_desc_text } = action;
-                return <option key={code} value={abbr_desc_text}>{abbr_desc_text}</option>;
+                return <option key={code} value={code}>{abbr_desc_text}</option>;
               })
             }
           </select>
@@ -520,6 +517,7 @@ AgendaLeg.propTypes = {
     grade: PropTypes.string,
     languages: PropTypes.shape([]),
     custom_skills_description: PropTypes.string,
+    action_code: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
