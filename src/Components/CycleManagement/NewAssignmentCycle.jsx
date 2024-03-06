@@ -137,7 +137,7 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="exclusivePosition">Exclusive Positions</label>
+          <label htmlFor="exclusivePosition">Exclusive Position</label>
           <span className="bs-validation-container">
             <CheckBox
               className="exclusivePosition-new"
