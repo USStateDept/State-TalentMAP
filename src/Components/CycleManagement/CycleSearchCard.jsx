@@ -16,7 +16,7 @@ const CycleSearchCard = (props) => {
     isAO,
   } = props;
 
-  const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/assginmentcycle/${id}`;
+  const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/assignmentcycle/${id}`;
   const cycleLinkPositions = `/profile/${isAO ? 'ao' : 'bureau'}/cyclepositionsearch/${id}`;
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
