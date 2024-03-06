@@ -302,7 +302,7 @@ const AgendaLeg = props => {
   const getActionDropdown = () => {
     const actionOptions = getLegActionTypes();
     if (isEf) {
-      return <div className="read-only">{leg.tod_long_desc || 'None listed'}</div>;
+      return <div className="read-only">{leg.action_code || 'None listed'}</div>;
     }
 
     return (
