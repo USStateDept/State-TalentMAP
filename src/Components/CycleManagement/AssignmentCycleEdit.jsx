@@ -296,7 +296,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">6 Month Language Dates</label>
-          <span>{sixMonthLang?.[0]} - {sixMonthLang?.[0]}</span>
+          <span>{sixMonthLang?.[0]} - {sixMonthLang?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">12 Month Language Dates</label>
