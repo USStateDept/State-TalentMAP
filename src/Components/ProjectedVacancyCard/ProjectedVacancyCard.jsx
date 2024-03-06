@@ -65,7 +65,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
       differential_rate: result?.bidding_tool_differential_rate_number,
-      post_bidding_considerations_url: '',
+      post_bidding_considerations_url: result?.obc_url,
     },
   };
 
