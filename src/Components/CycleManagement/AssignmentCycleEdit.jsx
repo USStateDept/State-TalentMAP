@@ -291,7 +291,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
           <span>{cycleStatus?.label}</span>
         </div>
         <div className="ac-sections">
-          <label htmlFor="assignmentCycle">Cycle Boundry Dates</label>
+          <label htmlFor="assignmentCycle">Cycle Boundary Dates</label>
           <span>{cycleDates?.[0]} - {cycleDates?.[1]}</span>
         </div>
         <div className="ac-sections">
