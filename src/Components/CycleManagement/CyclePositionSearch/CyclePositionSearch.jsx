@@ -4,23 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
-import { useDataLoader, usePrevious } from 'hooks';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import InteractiveElement from 'Components/InteractiveElement';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Spinner from 'Components/Spinner';
 import CyclePositionCard from 'Components/CyclePositionCard';
 import Alert from 'Components/Alert';
-import PaginationWrapper from 'Components/PaginationWrapper';
-import TotalResults from 'Components/TotalResults';
-import SelectForm from 'Components/SelectForm';
-import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { formatDate, onEditModeSearch } from 'utilities';
-import { filtersFetchData } from 'actions/filters/filters';
-import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
-import api from '../../../api';
+import { formatDate, onEditModeSearch, renderSelectionList } from 'utilities';
+import {
+  cycleManagementAssignmentCycleFetchData,
+  cyclePositionSearchFetchData,
+  cyclePositionsFiltersFetchData,
+  saveCyclePositionSearchSelections,
+} from 'actions/cycleManagement';
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
@@ -30,135 +26,83 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
   const cycleId = match?.params?.id ?? false;
 
-  const cycleManagementResults = useSelector(state => state.cycleManagement);
-  const loadedCycle = cycleManagementResults?.results?.[0] ?? {};
-  const genericFilters = useSelector(state => state.filters);
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
+  const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
+  const loadedCycle = assignmentCycle ?? {};
+
+  const cyclePosFilters = useSelector(state => state.cyclePositionsFilters);
+  const cyclePosFiltersLoading = useSelector(state => state.cyclePositionsFiltersLoading);
+
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
-  const cycleStatus = loadedCycle?.cycle_status || '';
-  const cycleStartDate = formatDate(loadedCycle?.cycle_begin_date, 'M/D/YYYY');
-  const cycleEndDate = formatDate(loadedCycle?.cycle_end_date, 'M/D/YYYY');
+  const cycleStatus = loadedCycle?.cycle_status?.label || '';
+  const cycleStartDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.begin_date, 'M/D/YYYY');
+  const cycleEndDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.end_date, 'M/D/YYYY');
 
-  // TODO: does this falsely assume that orgs are already in redux?
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = orgs?.data?.sort(o => o.name) ?? [];
 
-  const [showMore, setShowMore] = useState(false);
-  const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState([]);
-  const [selectedOrganizations, setSelectedOrganizations] = useState([]);
-  const [selectedGrades, setSelectedGrades] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
+  const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [clearFilters, setClearFilters] = useState(false);
-  const [ordering, setOrdering] =
-    useState(userSelections?.ordering || BUREAU_POSITION_SORT.options[0].value);
+
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const disableSearch = cardsInEditMode.length > 0;
-  const disableInput = cyclePositionsLoading || disableSearch;
 
-  const genericFilters$ = genericFilters?.filters || [];
-  const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
-  const bureauOptions = bureaus?.data?.length ? [...new Set(bureaus.data)].sort(b => b.name) : [];
-  const grades = genericFilters$.find(f => f?.item?.description === 'grade');
-  const gradeOptions = grades?.data?.length ? [...new Set(grades.data)].sort(b => b.name) : [];
-  const skills = genericFilters$.find(f => f?.item?.description === 'skill');
-  const skillOptions = skills?.data?.length ? [...new Set(skills.data)].sort(b => b.name) : [];
-  const sorts = BUREAU_POSITION_SORT;
+  // Filter Options
+  const bureauOptions = cyclePosFilters?.bureauFilters || [];
+  const orgOptions = cyclePosFilters?.orgFilters || [];
+  const gradeOptions = cyclePosFilters?.gradeFilters || [];
+  const skillOptions = cyclePosFilters?.skillsFilters || [];
 
-  const [page, setPage] = useState(userSelections?.page || 1);
-  const [limit, setLimit] = useState(userSelections?.limit || 10);
-  const prevPage = usePrevious(page);
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
   useEffect(() => {
-    dispatch(cycleManagementFetchData(cycleId));
-    dispatch(filtersFetchData(genericFilters));
+    dispatch(cycleManagementAssignmentCycleFetchData(cycleId));
+    dispatch(cyclePositionsFiltersFetchData());
   }, []);
 
-  const getQuery = () => ({
-    'cps-bureaus': selectedCurrentBureaus.map(bureauObject => (bureauObject?.code)),
-    'cps-orgs': selectedOrganizations.map(orgObject => (orgObject?.code)),
-    'cps-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'cps-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    ordering,
-    limit,
-    page,
-  });
 
   const resetFilters = () => {
-    setSelectedCurrentBureaus([]);
-    setSelectedOrganizations([]);
+    setSelectedBureaus([]);
+    setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
     setClearFilters(false);
   };
 
   const getCurrentInputs = () => ({
-    selectedCurrentBureaus,
-    selectedOrganizations,
-    selectedGrade: selectedGrades,
-    selectedSkills,
-    ordering,
-    limit,
-    page,
-  });
-
-  const fetchAndSet = (resetPage = false) => {
-    const filters = [
-      selectedCurrentBureaus,
-      selectedOrganizations,
-      selectedGrades,
-      selectedSkills,
-    ];
-    if (filters.flat().length === 0) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    if (resetPage) {
-      setPage(1);
-    }
-    dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
-    dispatch(cyclePositionSearchFetchData(getQuery()));
-  };
-
-  useEffect(() => {
-    if (prevPage) {
-      fetchAndSet(true);
-    }
-  }, [
-    selectedCurrentBureaus,
-    selectedOrganizations,
+    cycleId,
+    selectedBureaus,
+    selectedOrgs,
     selectedGrades,
     selectedSkills,
-    ordering,
-    limit,
-  ]);
+  });
+
+
+  const noFiltersSelected = [
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+  ].flat().length === 0;
 
   useEffect(() => {
-    fetchAndSet(false);
+    dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
+    if (noFiltersSelected) {
+      setClearFilters(false);
+    } else {
+      dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
+      setClearFilters(true);
+    }
   }, [
-    page,
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
   ]);
 
-  const renderSelectionList = ({ items, selected, ...rest }) => {
-    let queryProp = 'description';
-    if (items?.[0]?.custom_description) queryProp = 'custom_description';
-    else if (items?.[0]?.long_description) queryProp = 'long_description';
-    else if (items?.[0]?.name) queryProp = 'name';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
-  };
 
   // Overlay for error, info, and loading state
   const noResults = cyclePositions?.results?.length === 0;
@@ -166,6 +110,8 @@ const CyclePositionSearch = ({ isAO, match }) => {
     let overlay;
     if (cyclePositionsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    } else if (noFiltersSelected) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least one distinct filter to search.' }]} />;
     } else if (cyclePositionsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -186,17 +132,17 @@ const CyclePositionSearch = ({ isAO, match }) => {
   };
 
   return (
-    orgsLoading || genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
+    cyclePosFiltersLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
         <div className="cycle-management-page position-search">
           <div className="position-search--header">
             <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
-            {showMore &&
-              <div className="expanded-content pt-20">
-                <div className="filterby-container">
-                  <div className="filterby-label">Filter by:</div>
-                  <div className="filterby-clear">
-                    {clearFilters &&
+
+            <div className="expanded-content pt-20">
+              <div className="filterby-container">
+                <div className="filterby-label">Filter by:</div>
+                <div className="filterby-clear">
+                  {clearFilters &&
                     <button
                       className="unstyled-button"
                       onClick={resetFilters}
@@ -205,70 +151,65 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       <FA name="times" />
                     Clear Filters
                     </button>
-                    }
-                  </div>
-                </div>
-                <div className="position-search--filters--cm-pos">
-                  <div className="filter-div">
-                    <div className="label">Bureau:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Bureau(s)"
-                      value={selectedCurrentBureaus}
-                      options={bureauOptions}
-                      onChange={setSelectedCurrentBureaus}
-                      valueKey="code"
-                      labelKey="long_description"
-                      disabled={disableSearch}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Organization:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Organization(s)"
-                      options={organizationOptions}
-                      valueKey="code"
-                      labelKey="name"
-                      onChange={setSelectedOrganizations}
-                      value={selectedOrganizations}
-                      disabled={disableSearch}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Grade:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Grade(s)"
-                      options={gradeOptions}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      onChange={setSelectedGrades}
-                      value={selectedGrades}
-                      disabled={disableSearch}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Skills:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Skill(s)"
-                      options={skillOptions}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      onChange={setSelectedSkills}
-                      value={selectedSkills}
-                      disabled={disableSearch}
-                    />
-                  </div>
+                  }
                 </div>
               </div>
-            }
-            <div className="toggle-more-container">
-              <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
-                <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-              </InteractiveElement>
+              <div className="position-search--filters--cm-pos">
+                <div className="filter-div">
+                  <div className="label">Bureau:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Bureau(s)"
+                    value={selectedBureaus}
+                    options={bureauOptions}
+                    onChange={setSelectedBureaus}
+                    valueKey="description"
+                    labelKey="description"
+                    disabled={disableSearch}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Organization:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Organization(s)"
+                    options={orgOptions}
+                    valueKey="code"
+                    labelKey="description"
+                    onChange={setSelectedOrgs}
+                    value={selectedOrgs}
+                    disabled={disableSearch}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Grade:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Grade(s)"
+                    options={gradeOptions}
+                    valueKey="code"
+                    labelKey="description"
+                    onChange={setSelectedGrades}
+                    value={selectedGrades}
+                    disabled={disableSearch}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Skills:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Skill(s)"
+                    options={skillOptions}
+                    valueKey="code"
+                    labelKey="description"
+                    onChange={setSelectedSkills}
+                    value={selectedSkills}
+                    disabled={disableSearch}
+                  />
+                </div>
+              </div>
             </div>
+
           </div>
           {
             disableSearch &&
@@ -303,37 +244,8 @@ const CyclePositionSearch = ({ isAO, match }) => {
             {
               getOverlay() ||
             <>
-              <div className="usa-grid-full results-dropdown">
-                <div className="cps-results">
-                  <TotalResults
-                    total={cyclePositions.count}
-                    pageNumber={page}
-                    pageSize={limit}
-                    suffix="Results"
-                    isHidden={cyclePositionsLoading}
-                  />
-                  <div className="cm-results-dropdown cm-results">
-                    <SelectForm
-                      id="position-manager-num-results"
-                      options={sorts.options}
-                      label="Sort by:"
-                      defaultSort={ordering}
-                      onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={disableInput}
-                    />
-                    <SelectForm
-                      id="position-manager-num-results"
-                      options={pageSizes.options}
-                      label="Results:"
-                      defaultSort={limit}
-                      onSelectOption={value => setLimit(value.target.value)}
-                      disabled={disableInput}
-                    />
-                  </div>
-                </div>
-              </div>
               <div className="cps-lower-section">
-                {cyclePositions?.results?.map(data =>
+                {cyclePositions?.map(data =>
                   (
                     <CyclePositionCard
                       data={data}
@@ -343,19 +255,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       isAO
                     />
                   ))}
-              </div>
-              <div className="usa-grid-full react-paginate bureau-pagination-controls">
-                {
-                  disableSearch &&
-                    <div className="disable-react-paginate-overlay" />
-                }
-                <PaginationWrapper
-                  pageSize={limit}
-                  onPageChange={p => setPage(p.page)}
-                  forcePage={page}
-                  totalResults={cyclePositions.count}
-                  className={`${disableSearch ? 'disable-react-paginate' : ''}`}
-                />
               </div>
             </>
             }

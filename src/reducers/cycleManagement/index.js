@@ -18,6 +18,9 @@ import {
   cyclePositionSearchFetchDataErrored,
   cyclePositionSearchFetchDataLoading,
   cyclePositionSearchSelections,
+  cyclePositionsFilters,
+  cyclePositionsFiltersHasErrored,
+  cyclePositionsFiltersIsLoading,
 
 
 } from './cycleManagement';
@@ -42,4 +45,7 @@ export default {
   cyclePositionSearchFetchDataErrored,
   cyclePositionSearchFetchDataLoading,
   cyclePositionSearchSelections,
+  cyclePositionsFiltersHasErrored,
+  cyclePositionsFiltersIsLoading,
+  cyclePositionsFilters,
 };
