@@ -113,6 +113,16 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     // TODO: Toggle edit mode off when all 3 edits are successful
   };
 
+  const displayTedEmp = (ted, employee) => {
+    if (!ted) {
+      if (!employee) {
+        return NO_TOUR_END_DATE;
+      }
+      return employee;
+    }
+    return `${formatDate(ted)} ${employee}`;
+  };
+
   /* eslint-disable quote-props */
   const sections = {
     subheading: [
@@ -121,8 +131,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Position Title': result?.position_title || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
-      { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
+      { 'Assignee TED': displayTedEmp(result?.assignee_tour_end_date, result?.assignee) },
+      { 'Incumbent TED': displayTedEmp(result?.incumbent_tour_end_date, result?.incumbent) },
       { 'Bid Season': result?.bid_season_description || DEFAULT_TEXT },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       {
