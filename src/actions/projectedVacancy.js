@@ -15,7 +15,6 @@ let cancelPVList;
 let cancelPVLangOffsetOptions;
 let cancelPVFilters;
 let cancelPVLangOffsets;
-let cancelPVMetadata;
 
 // ================ GET LIST ================
 
