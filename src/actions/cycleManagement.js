@@ -175,11 +175,18 @@ export function saveCycleManagementSelections(queryObject) {
 
 // ================ Cycle Management CREATE cycle ================
 
+let cancelCycleManagementCreate;
+
 export function cycleManagementCreateCycle(data) {
   return (dispatch) => {
+    if (cancelCycleManagementCreate) {
+      cancelCycleManagementCreate('cancel');
+    }
     api()
       .post('/fsbid/assignment_cycles/create/', {
         data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementCreate = c; }),
       })
       .then(() => {
         batch(() => {
@@ -189,14 +196,18 @@ export function cycleManagementCreateCycle(data) {
           dispatch(cycleManagementFetchData());
         });
       })
-      .catch(() => {
-        dispatch(toastError(ASSIGNMENT_CYCLE_CREATE_ERROR, ASSIGNMENT_CYCLE_CREATE_ERROR_TITLE));
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(ASSIGNMENT_CYCLE_CREATE_ERROR, ASSIGNMENT_CYCLE_CREATE_ERROR_TITLE));
+        }
       });
   };
 }
 
 
 // ================  Cycle Management GET single cycle  ================
+
+let cancelCycleManagementGetCycle;
 
 export function cycleManagementAssignmentCycleFetchDataErrored(bool) {
   return {
@@ -223,11 +234,16 @@ export function cycleManagementAssignmentCycleFetchDataSuccess(results) {
 // eslint-disable-next-line no-unused-vars
 export function cycleManagementAssignmentCycleFetchData(id) {
   return (dispatch) => {
+    if (cancelCycleManagementGetCycle) {
+      cancelCycleManagementGetCycle('cancel');
+    }
     batch(() => {
       dispatch(cycleManagementAssignmentCycleFetchDataLoading(true));
       dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
     });
-    api().post(`/fsbid/assignment_cycles/${id}/`)
+    api().get(`/fsbid/assignment_cycles/${id}/`, {
+      cancelToken: new CancelToken((c) => { cancelCycleManagementGetCycle = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(cycleManagementAssignmentCycleFetchDataSuccess(data));
@@ -250,6 +266,8 @@ export function cycleManagementAssignmentCycleFetchData(id) {
 
 // ================  Cycle Management UPDATE cycle  ================
 
+let cancelCycleManagementUpdate;
+
 export function cycleManagementUpdateCycleSuccess(bool) {
   return {
     type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_UPDATE_SUCCESS',
@@ -259,9 +277,14 @@ export function cycleManagementUpdateCycleSuccess(bool) {
 
 export function cycleManagementUpdateCycle(data) {
   return (dispatch) => {
+    if (cancelCycleManagementUpdate) {
+      cancelCycleManagementUpdate('cancel');
+    }
     api()
       .post('/fsbid/assignment_cycles/update/', {
         data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementUpdate = c; }),
       })
       .then(() => {
         batch(() => {
@@ -271,17 +294,29 @@ export function cycleManagementUpdateCycle(data) {
           dispatch(cycleManagementUpdateCycleSuccess(true));
         });
       })
-      .catch(() => {
-        dispatch(toastError(ASSIGNMENT_CYCLE_EDIT_ERROR, ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE));
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(ASSIGNMENT_CYCLE_EDIT_ERROR, ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE));
+        }
       });
   };
 }
 
+
+// ================ Cycle Management Post Open Positions ================
+
+let cancelCycleManagementPostPositions;
+
 export function cycleManagementPostOpenPositions(id) {
   return (dispatch) => {
+    if (cancelCycleManagementPostPositions) {
+      cancelCycleManagementPostPositions('cancel');
+    }
     dispatch(cycleManagementUpdateCycleSuccess(false));
     api()
-      .post(`/fsbid/assignment_cycles/post/${id}/`)
+      .get(`/fsbid/assignment_cycles/post/${id}/`, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementPostPositions = c; }),
+      })
       .then(() => {
         batch(() => {
           dispatch(toastSuccess(
@@ -290,19 +325,23 @@ export function cycleManagementPostOpenPositions(id) {
           dispatch(cycleManagementUpdateCycleSuccess(true));
         });
       })
-      .catch(() => {
-        dispatch(
-          toastError(
-            ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR,
-            ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE,
-          ),
-        );
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(
+            toastError(
+              ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR,
+              ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE,
+            ),
+          );
+        }
       });
   };
 }
 
 
 // ================ Cycle Management DELETE cycle ================
+
+let cancelCycleManagementDelete;
 
 export function cycleManagementDeleteCycleSuccess(bool) {
   return {
@@ -311,11 +350,18 @@ export function cycleManagementDeleteCycleSuccess(bool) {
   };
 }
 
-export function cycleManagementDeleteCycle(id) {
+export function cycleManagementDeleteCycle(data) {
   return (dispatch) => {
+    if (cancelCycleManagementDelete) {
+      cancelCycleManagementDelete('cancel');
+    }
     dispatch(cycleManagementDeleteCycleSuccess(false));
     api()
-      .post(`/fsbid/assignment_cycles/delete/${id}/`)
+      .post('/fsbid/assignment_cycles/delete/', {
+        data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementDelete = c; }),
+      })
       .then(() => {
         batch(() => {
           dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,

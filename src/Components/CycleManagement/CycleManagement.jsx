@@ -156,11 +156,11 @@ const CycleManagement = (props) => {
   };
 
   return (
-    cycleManagementDataLoading ? <Spinner type="bureau-filters" size="small" /> :
+    getOverlay() ||
       (
         <div className="cycle-management-page position-search">
           <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Cycle Management" icon="cogs" className="xl-icon" />
+            <ProfileSectionTitle title="Cycle Search" icon="cogs" className="xl-icon" />
             <div className="filterby-container" >
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
@@ -213,7 +213,6 @@ const CycleManagement = (props) => {
 
           </div>
           {
-            getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="bs-results">

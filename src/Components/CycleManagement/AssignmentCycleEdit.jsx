@@ -13,6 +13,7 @@ import Spinner from 'Components/Spinner';
 import CheckBox from 'Components/CheckBox';
 import Alert from 'Components/Alert/Alert';
 import TabbedCard from 'Components/TabbedCard';
+import BackButton from 'Components/BackButton';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import {
   cycleManagementAssignmentCycleFetchData,
@@ -30,40 +31,40 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
 
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
-  const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
+  const assignmentCycleData = useSelector(state => state.cycleManagementAssignmentCycle);
   const assignmentCycleLoading = useSelector(state => state.cycleManagementAssignmentCycleFetchDataLoading);
   const assignmentCycleError = useSelector(state => state.cycleManagementAssignmentCycleFetchDataErrored);
   const assignmentCycleUpdateSuccess = useSelector(state => state.cycleManagementAssignmentCycleUpdateSuccess);
   const assignmentCycleDeleteSuccess = useSelector(state => state.cycleManagementDelete);
 
   const [editMode, setEditMode] = useState(false);
-  const [cycleName, setCycleName] = useState(assignmentCycle?.cycle_name);
-  const [cycleCategory, setCycleCategory] = useState(assignmentCycle?.cycle_category);
-  const [cycleStatus, setCycleStatus] = useState(assignmentCycle?.cycle_status);
-  const [exclusivePosition, setExclusivePosition] = useState(assignmentCycle?.exclusive_position);
-  const [postViewable, setPostViewable] = useState(assignmentCycle?.post_viewable);
+  const [assignmentCycle, setCycleName] = useState(assignmentCycleData?.cycle_name);
+  const [cycleCategory, setCycleCategory] = useState(assignmentCycleData?.cycle_category);
+  const [cycleStatus, setCycleStatus] = useState(assignmentCycleData?.cycle_status);
+  const [exclusivePosition, setExclusivePosition] = useState(assignmentCycleData?.exclusive_position);
+  const [postViewable, setPostViewable] = useState(assignmentCycleData?.post_viewable);
 
-  const [cycleDates, setCycleDates] = useState([assignmentCycle?.dates_mapping?.CYCLE?.begin_date, assignmentCycle?.dates_mapping?.CYCLE?.end_date]);
-  const [sixMonthLang, setSixMonthLang] = useState([assignmentCycle?.dates_mapping?.['6MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['6MOLANG']?.end_date]);
-  const [twelveMonthLang, setTwelveMonthLang] = useState([assignmentCycle?.dates_mapping?.['12MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['12MOLANG']?.end_date]);
-  const [twentyFourMonthLang, setTwentyFourMonthLang] = useState([assignmentCycle?.dates_mapping?.['24MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['24MOLANG']?.end_date]);
+  const [cycleBoundries, setCycleBoundries] = useState([assignmentCycleData?.dates_mapping?.CYCLE?.begin_date, assignmentCycleData?.dates_mapping?.CYCLE?.end_date]);
+  const [sixMonthLanguage, setSixMonthLanguage] = useState([assignmentCycleData?.dates_mapping?.['6MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['6MOLANG']?.end_date]);
+  const [twelveMonthLanguage, setTwelveMonthLanguage] = useState([assignmentCycleData?.dates_mapping?.['12MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['12MOLANG']?.end_date]);
+  const [twentyFourMonthLanguage, setTwentyFourMonthLanguage] = useState([assignmentCycleData?.dates_mapping?.['24MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['24MOLANG']?.end_date]);
 
-  const [bidAudit, setBidAudit] = useState(assignmentCycle?.dates_mapping?.BIDAUDIT?.begin_date);
-  const [bidBook, setBidBook] = useState(assignmentCycle?.dates_mapping?.BIDBOOK?.begin_date);
-  const [bidCount, setBidCount] = useState(assignmentCycle?.dates_mapping?.BIDCOUNT?.begin_date);
-  const [bidDue, setBidDue] = useState(assignmentCycle?.dates_mapping?.BIDDUE?.begin_date);
-  const [bidHtf, setBidHtf] = useState(assignmentCycle?.dates_mapping?.BIDHTF?.begin_date);
-  const [bidMds, setBidMds] = useState(assignmentCycle?.dates_mapping?.BIDMDS?.begin_date);
-  const [bidOrg, setBidOrg] = useState(assignmentCycle?.dates_mapping?.BIDORG?.begin_date);
-  const [bidStart, setBidStart] = useState(assignmentCycle?.dates_mapping?.BIDSTART?.begin_date);
-  const [burBid, setBurBid] = useState(assignmentCycle?.dates_mapping?.BURBID?.begin_date);
-  const [burEarly, setBurEarly] = useState(assignmentCycle?.dates_mapping?.BUREARLY?.begin_date);
-  const [burPos, setBurPos] = useState(assignmentCycle?.dates_mapping?.BURPOS?.begin_date);
-  const [burPrebd, setBurPrebd] = useState(assignmentCycle?.dates_mapping?.BURPREBD?.begin_date);
-  const [assignedBidderDate, setAssignedBidderDate] = useState(assignmentCycle?.dates_mapping?.PANLASG?.begin_date);
+  const [bidAudit, setBidAudit] = useState(assignmentCycleData?.dates_mapping?.BIDAUDIT?.begin_date);
+  const [bidBookReview, setBidBook] = useState(assignmentCycleData?.dates_mapping?.BIDBOOK?.begin_date);
+  const [bidCountReview, setBidCount] = useState(assignmentCycleData?.dates_mapping?.BIDCOUNT?.begin_date);
+  const [bidDue, setBidDue] = useState(assignmentCycleData?.dates_mapping?.BIDDUE?.begin_date);
+  const [htfReview, setBidHtf] = useState(assignmentCycleData?.dates_mapping?.BIDHTF?.begin_date);
+  const [mdsReview, setBidMds] = useState(assignmentCycleData?.dates_mapping?.BIDMDS?.begin_date);
+  const [organizationCountReview, setBidOrg] = useState(assignmentCycleData?.dates_mapping?.BIDORG?.begin_date);
+  const [biddingStart, setBidStart] = useState(assignmentCycleData?.dates_mapping?.BIDSTART?.begin_date);
+  const [bureauBidReview, setBurBid] = useState(assignmentCycleData?.dates_mapping?.BURBID?.begin_date);
+  const [bureauEarlySeasonBidReview, setBurEarly] = useState(assignmentCycleData?.dates_mapping?.BUREARLY?.begin_date);
+  const [bureauPositionReview, setBurPos] = useState(assignmentCycleData?.dates_mapping?.BURPOS?.begin_date);
+  const [bureauPreSeasonBidReview, setBurPrebd] = useState(assignmentCycleData?.dates_mapping?.BURPREBD?.begin_date);
+  const [assignedBidder, setAssignedBidderDate] = useState(assignmentCycleData?.dates_mapping?.PANLASG?.begin_date);
 
-  const cycleCategories = assignmentCycle?.cycle_category_reference || [];
-  const cycleStatuses = assignmentCycle?.cycle_status_reference || [];
+  const cycleCategories = assignmentCycleData?.cycle_category_reference || [];
+  const cycleStatuses = assignmentCycleData?.cycle_status_reference || [];
 
   useEffect(() => {
     dispatch(cycleManagementAssignmentCycleFetchData(match?.params?.id));
@@ -85,61 +86,79 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
   }, [assignmentCycleDeleteSuccess]);
 
   useEffect(() => {
-    setCycleName(assignmentCycle?.cycle_name);
-    setCycleCategory(assignmentCycle?.cycle_category);
-    setCycleStatus(assignmentCycle?.cycle_status);
-    setExclusivePosition(assignmentCycle?.exclusive_position);
-    setPostViewable(assignmentCycle?.post_viewable);
-    setCycleDates([assignmentCycle?.dates_mapping?.CYCLE?.begin_date, assignmentCycle?.dates_mapping?.CYCLE?.end_date]);
-    setSixMonthLang([assignmentCycle?.dates_mapping?.['6MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['6MOLANG']?.end_date]);
-    setTwelveMonthLang([assignmentCycle?.dates_mapping?.['12MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['12MOLANG']?.end_date]);
-    setTwentyFourMonthLang([assignmentCycle?.dates_mapping?.['24MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['24MOLANG']?.end_date]);
-    setBidAudit(assignmentCycle?.dates_mapping?.BIDAUDIT?.begin_date);
-    setBidBook(assignmentCycle?.dates_mapping?.BIDBOOK?.begin_date);
-    setBidCount(assignmentCycle?.dates_mapping?.BIDCOUNT?.begin_date);
-    setBidDue(assignmentCycle?.dates_mapping?.BIDDUE?.begin_date);
-    setBidHtf(assignmentCycle?.dates_mapping?.BIDHTF?.begin_date);
-    setBidMds(assignmentCycle?.dates_mapping?.BIDMDS?.begin_date);
-    setBidOrg(assignmentCycle?.dates_mapping?.BIDORG?.begin_date);
-    setBidStart(assignmentCycle?.dates_mapping?.BIDSTART?.begin_date);
-    setBurBid(assignmentCycle?.dates_mapping?.BURBID?.begin_date);
-    setBurEarly(assignmentCycle?.dates_mapping?.BUREARLY?.begin_date);
-    setBurPos(assignmentCycle?.dates_mapping?.BURPOS?.begin_date);
-    setBurPrebd(assignmentCycle?.dates_mapping?.BURPREBD?.begin_date);
-    setAssignedBidderDate(assignmentCycle?.dates_mapping?.PANLASG?.begin_date);
-  }, [assignmentCycleLoading]); // but why?
+    setCycleName(assignmentCycleData?.cycle_name);
+    setCycleCategory(assignmentCycleData?.cycle_category);
+    setCycleStatus(assignmentCycleData?.cycle_status);
+    setExclusivePosition(assignmentCycleData?.exclusive_position);
+    setPostViewable(assignmentCycleData?.post_viewable);
+    setCycleBoundries([assignmentCycleData?.dates_mapping?.CYCLE?.begin_date, assignmentCycleData?.dates_mapping?.CYCLE?.end_date]);
+    setSixMonthLanguage([assignmentCycleData?.dates_mapping?.['6MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['6MOLANG']?.end_date]);
+    setTwelveMonthLanguage([assignmentCycleData?.dates_mapping?.['12MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['12MOLANG']?.end_date]);
+    setTwentyFourMonthLanguage([assignmentCycleData?.dates_mapping?.['24MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['24MOLANG']?.end_date]);
+    setBidAudit(assignmentCycleData?.dates_mapping?.BIDAUDIT?.begin_date);
+    setBidBook(assignmentCycleData?.dates_mapping?.BIDBOOK?.begin_date);
+    setBidCount(assignmentCycleData?.dates_mapping?.BIDCOUNT?.begin_date);
+    setBidDue(assignmentCycleData?.dates_mapping?.BIDDUE?.begin_date);
+    setBidHtf(assignmentCycleData?.dates_mapping?.BIDHTF?.begin_date);
+    setBidMds(assignmentCycleData?.dates_mapping?.BIDMDS?.begin_date);
+    setBidOrg(assignmentCycleData?.dates_mapping?.BIDORG?.begin_date);
+    setBidStart(assignmentCycleData?.dates_mapping?.BIDSTART?.begin_date);
+    setBurBid(assignmentCycleData?.dates_mapping?.BURBID?.begin_date);
+    setBurEarly(assignmentCycleData?.dates_mapping?.BUREARLY?.begin_date);
+    setBurPos(assignmentCycleData?.dates_mapping?.BURPOS?.begin_date);
+    setBurPrebd(assignmentCycleData?.dates_mapping?.BURPREBD?.begin_date);
+    setAssignedBidderDate(assignmentCycleData?.dates_mapping?.PANLASG?.begin_date);
+  }, [assignmentCycleLoading]);
 
+  const disableSave = assignmentCycle?.length
+    && cycleBoundries
+    && sixMonthLanguage
+    && twelveMonthLanguage
+    && twentyFourMonthLanguage
+    && bidAudit
+    && bidBookReview
+    && bidCountReview
+    && bidDue
+    && htfReview
+    && mdsReview
+    && organizationCountReview
+    && biddingStart
+    && bureauBidReview
+    && bureauEarlySeasonBidReview
+    && bureauPositionReview
+    && bureauPreSeasonBidReview
+    && assignedBidder;
 
   const saveAC = (e) => {
     e.preventDefault();
     const cycleData = {
       cycleId: match?.params?.id,
-      assignmentCycle: cycleName,
-      cycleCategory: cycleCategory?.value,
-      cycleStatus: cycleStatus?.value,
+      assignmentCycle,
+      cycleCategory,
+      cycleStatus,
       exclusivePosition,
       postViewable,
-      cycleBoundries: cycleDates,
-      sixMonthLanguage: sixMonthLang,
-      twelveMonthLanguage: twelveMonthLang,
-      twentyFourMonthLanguage: twentyFourMonthLang,
+      cycleBoundries,
+      sixMonthLanguage,
+      twelveMonthLanguage,
+      twentyFourMonthLanguage,
       bidAudit,
-      bidBookReview: bidBook,
-      bidCountReview: bidCount,
+      bidBookReview,
+      bidCountReview,
       bidDue,
-      htfReview: bidHtf,
-      mdsReview: bidMds,
-      organizationCountReview: bidOrg,
-      biddingStart: bidStart,
-      bureauBidReview: burBid,
-      bureauEarlySeasonBidReview: burEarly,
-      bureauPositionReview: burPos,
-      bureauPreSeasonBidReview: burPrebd,
-      assignedBidder: assignedBidderDate,
-      stampDate: assignmentCycle?.last_updated,
-      stampId: assignmentCycle?.last_updated_id,
-      stampStrings: assignmentCycle?.update_timestamps,
-      stampIdStrings: assignmentCycle?.id_timestamps,
+      htfReview,
+      mdsReview,
+      organizationCountReview,
+      biddingStart,
+      bureauBidReview,
+      bureauEarlySeasonBidReview,
+      bureauPositionReview,
+      bureauPreSeasonBidReview,
+      assignedBidder,
+      stampDate: assignmentCycleData?.last_updated,
+      stampId: assignmentCycleData?.last_updated_id,
+      stampStrings: assignmentCycleData?.update_timestamps,
+      stampIdStrings: assignmentCycleData?.id_timestamps,
     };
     dispatch(cycleManagementUpdateCycle(cycleData));
   };
@@ -151,33 +170,38 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
 
   const deleteAssignmentCycle = () => {
     swal.close();
-    dispatch(cycleManagementDeleteCycle(match?.params?.id));
+    const cycleDeleteData = {
+      cycleId: match?.params?.id,
+      stampDate: assignmentCycleData?.last_updated,
+      stampId: assignmentCycleData?.last_updated_id,
+    };
+    dispatch(cycleManagementDeleteCycle(cycleDeleteData));
   };
 
   const onCancelRequest = () => {
     swal.close();
-    setCycleName(assignmentCycle?.cycle_name);
-    setCycleCategory(assignmentCycle?.cycle_category);
-    setCycleStatus(assignmentCycle?.cycle_status);
-    setExclusivePosition(assignmentCycle?.exclusive_position);
-    setPostViewable(assignmentCycle?.post_viewable);
-    setCycleDates([assignmentCycle?.dates_mapping?.CYCLE?.begin_date, assignmentCycle?.dates_mapping?.CYCLE?.end_date]);
-    setSixMonthLang([assignmentCycle?.dates_mapping?.['6MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['6MOLANG']?.end_date]);
-    setTwelveMonthLang([assignmentCycle?.dates_mapping?.['12MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['12MOLANG']?.end_date]);
-    setTwentyFourMonthLang([assignmentCycle?.dates_mapping?.['24MOLANG']?.begin_date, assignmentCycle?.dates_mapping?.['24MOLANG']?.end_date]);
-    setBidAudit(assignmentCycle?.dates_mapping?.BIDAUDIT?.begin_date);
-    setBidBook(assignmentCycle?.dates_mapping?.BIDBOOK?.begin_date);
-    setBidCount(assignmentCycle?.dates_mapping?.BIDCOUNT?.begin_date);
-    setBidDue(assignmentCycle?.dates_mapping?.BIDDUE?.begin_date);
-    setBidHtf(assignmentCycle?.dates_mapping?.BIDHTF?.begin_date);
-    setBidMds(assignmentCycle?.dates_mapping?.BIDMDS?.begin_date);
-    setBidOrg(assignmentCycle?.dates_mapping?.BIDORG?.begin_date);
-    setBidStart(assignmentCycle?.dates_mapping?.BIDSTART?.begin_date);
-    setBurBid(assignmentCycle?.dates_mapping?.BURBID?.begin_date);
-    setBurEarly(assignmentCycle?.dates_mapping?.BUREARLY?.begin_date);
-    setBurPos(assignmentCycle?.dates_mapping?.BURPOS?.begin_date);
-    setBurPrebd(assignmentCycle?.dates_mapping?.BURPREBD?.begin_date);
-    setAssignedBidderDate(assignmentCycle?.dates_mapping?.PANLASG?.begin_date);
+    setCycleName(assignmentCycleData?.cycle_name);
+    setCycleCategory(assignmentCycleData?.cycle_category);
+    setCycleStatus(assignmentCycleData?.cycle_status);
+    setExclusivePosition(assignmentCycleData?.exclusive_position);
+    setPostViewable(assignmentCycleData?.post_viewable);
+    setCycleBoundries([assignmentCycleData?.dates_mapping?.CYCLE?.begin_date, assignmentCycleData?.dates_mapping?.CYCLE?.end_date]);
+    setSixMonthLanguage([assignmentCycleData?.dates_mapping?.['6MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['6MOLANG']?.end_date]);
+    setTwelveMonthLanguage([assignmentCycleData?.dates_mapping?.['12MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['12MOLANG']?.end_date]);
+    setTwentyFourMonthLanguage([assignmentCycleData?.dates_mapping?.['24MOLANG']?.begin_date, assignmentCycleData?.dates_mapping?.['24MOLANG']?.end_date]);
+    setBidAudit(assignmentCycleData?.dates_mapping?.BIDAUDIT?.begin_date);
+    setBidBook(assignmentCycleData?.dates_mapping?.BIDBOOK?.begin_date);
+    setBidCount(assignmentCycleData?.dates_mapping?.BIDCOUNT?.begin_date);
+    setBidDue(assignmentCycleData?.dates_mapping?.BIDDUE?.begin_date);
+    setBidHtf(assignmentCycleData?.dates_mapping?.BIDHTF?.begin_date);
+    setBidMds(assignmentCycleData?.dates_mapping?.BIDMDS?.begin_date);
+    setBidOrg(assignmentCycleData?.dates_mapping?.BIDORG?.begin_date);
+    setBidStart(assignmentCycleData?.dates_mapping?.BIDSTART?.begin_date);
+    setBurBid(assignmentCycleData?.dates_mapping?.BURBID?.begin_date);
+    setBurEarly(assignmentCycleData?.dates_mapping?.BUREARLY?.begin_date);
+    setBurPos(assignmentCycleData?.dates_mapping?.BURPOS?.begin_date);
+    setBurPrebd(assignmentCycleData?.dates_mapping?.BURPREBD?.begin_date);
+    setAssignedBidderDate(assignmentCycleData?.dates_mapping?.PANLASG?.begin_date);
     setEditMode(false);
   };
 
@@ -211,6 +235,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
         <div className="simple-action-modal">
           <div className="help-text">
             <span>{'Do you want to Post the Open Positions for this Assignment Cycle?'}</span>
+            <div>
+              <span>{'The Cycle must be Open in order to do so.'}</span>
+            </div>
           </div>
           <div className="modal-controls">
             <button onClick={postOpenPositions}>Yes</button>
@@ -245,7 +272,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
   const readView = (
     <>
       <div className="ace-heading">
-        <span>Assignment Cycle: {cycleName}</span>
+        <span>Assignment Cycle: {assignmentCycle}</span>
         <span>
           {isSuperUser &&
             <Link
@@ -267,57 +294,61 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
       <div className="assignment-cycle-form">
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Cycle Category</label>
-          <span>{cycleCategory?.label}</span>
+          <span>
+            { cycleCategories?.find(x => x?.value === cycleCategory)?.label || 'None Listed' }
+          </span>
         </div>
         <div className="ac-sections">
-          <label htmlFor="exclusivePosition">Exclusive Position</label>
-          <span className="bs-validation-container">
+          <label htmlFor="assignmentCycle">Cycle Status</label>
+          <span>
+            { cycleStatuses?.find(x => x?.value === cycleStatus)?.label || 'None Listed' }
+          </span>
+        </div>
+
+        <div className="ac-sections">
+          <span className="ac-validation-container">
             <CheckBox
               id="exclusivePosition"
               name="exclusivePosition"
               value={exclusivePosition === 'Y'}
               overrideLifecycle
             />
+            <label htmlFor="exclusivePosition">Exclusive Position</label>
           </span>
-        </div>
-        <div className="ac-sections">
-          <label htmlFor="postViewable">Post Viewable</label>
-          <span className="bs-validation-container">
+          <span className="ac-validation-container">
             <CheckBox
               id="postViewable"
               name="postViewable"
               value={postViewable === 'Y'}
               overrideLifecycle
             />
+            <label htmlFor="postViewable">Post Viewable</label>
           </span>
         </div>
-        <div className="ac-sections">
-          <label htmlFor="assignmentCycle">Cycle Status</label>
-          <span>{cycleStatus?.label}</span>
-        </div>
+
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Cycle Boundary Dates</label>
-          <span>{cycleDates?.[0]} - {cycleDates?.[1]}</span>
+          <span>{cycleBoundries?.[0]} - {cycleBoundries?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">6 Month Language Dates</label>
-          <span>{sixMonthLang?.[0]} - {sixMonthLang?.[1]}</span>
+          <span>{sixMonthLanguage?.[0]} - {sixMonthLanguage?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">12 Month Language Dates</label>
-          <span>{twelveMonthLang?.[0]} - {twelveMonthLang?.[1]}</span>
+          <span>{twelveMonthLanguage?.[0]} - {twelveMonthLanguage?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">24 Month Language Dates</label>
-          <span>{twentyFourMonthLang?.[0]} - {twentyFourMonthLang?.[1]}</span>
+          <span>{twentyFourMonthLanguage?.[0]} - {twentyFourMonthLanguage?.[1]}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bureau Position Review Date</label>
-          <span>{burPos}</span>
+          <span>{bureauPositionReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bidding Start Date</label>
-          <span>{bidStart}</span>
+          <span>{biddingStart}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bid Due Date</label>
@@ -325,15 +356,15 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bureau Pre-Season Bid Review Date</label>
-          <span>{burPrebd}</span>
+          <span>{bureauPreSeasonBidReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bureau Early Season Bid Review Date</label>
-          <span>{burEarly}</span>
+          <span>{bureauEarlySeasonBidReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bureau Bid Review Date</label>
-          <span>{burBid}</span>
+          <span>{bureauBidReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bid Audit Date</label>
@@ -341,27 +372,27 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bid Book Review Date</label>
-          <span>{bidBook}</span>
+          <span>{bidBookReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Bid Count Review Date</label>
-          <span>{bidCount}</span>
+          <span>{bidCountReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">HTF Review Date</label>
-          <span>{bidHtf}</span>
+          <span>{htfReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Organization Count Review Date</label>
-          <span>{bidOrg}</span>
+          <span>{organizationCountReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">MDS Review Date</label>
-          <span>{bidMds}</span>
+          <span>{mdsReview}</span>
         </div>
         <div className="ac-sections">
           <label htmlFor="assignmentCycle">Assigned Bidder Date</label>
-          <span>{assignedBidderDate}</span>
+          <span>{assignedBidder}</span>
         </div>
       </div>
     </>
@@ -378,30 +409,8 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               maxlength="255"
               name="description"
               placeholder="Please provide a description of the assignment cycle."
-              defaultValue={cycleName}
+              defaultValue={assignmentCycle}
               onChange={(e) => setCycleName(e.target.value)}
-            />
-          </span>
-        </div>
-        <div className="ac-sections">
-          <label htmlFor="exclusoivePositions">Exclusive Position</label>
-          <span className="bs-validation-container">
-            <CheckBox
-              id="exclusivePosition"
-              name="exclusivePosition"
-              value={exclusivePosition === 'Y'}
-              onChange={e => setExclusivePosition(e ? 'Y' : 'N')}
-            />
-          </span>
-        </div>
-        <div className="ac-sections">
-          <label htmlFor="postViewable">Post Viewable</label>
-          <span className="bs-validation-container">
-            <CheckBox
-              id="postViewable"
-              name="postViewable"
-              value={postViewable === 'Y'}
-              onChange={e => setPostViewable(e ? 'Y' : 'N')}
             />
           </span>
         </div>
@@ -441,6 +450,28 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
             </select>
           </span>
         </div>
+
+        <div className="ac-sections">
+          <span className="ac-validation-container">
+            <CheckBox
+              id="exclusivePosition"
+              name="exclusivePosition"
+              value={exclusivePosition === 'Y'}
+              onCheckBoxClick={e => setExclusivePosition(e ? 'Y' : 'N')}
+            />
+            <label htmlFor="exclusoivePositions">Exclusive Position</label>
+          </span>
+          <span className="ac-validation-container">
+            <CheckBox
+              id="postViewable"
+              name="postViewable"
+              value={postViewable === 'Y'}
+              onCheckBoxClick={e => setPostViewable(e ? 'Y' : 'N')}
+            />
+            <label htmlFor="postViewable">Post Viewable</label>
+          </span>
+        </div>
+
         {
           <>
             <div className="ac-sections">
@@ -448,8 +479,8 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
-                  onChange={setCycleDates}
-                  value={cycleDates}
+                  onChange={setCycleBoundries}
+                  value={cycleBoundries}
                   maxDetail="month"
                   calendarIcon={null}
                 />
@@ -460,8 +491,8 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
-                  onChange={setSixMonthLang}
-                  value={sixMonthLang}
+                  onChange={setSixMonthLanguage}
+                  value={sixMonthLanguage}
                   maxDetail="month"
                   calendarIcon={null}
                 />
@@ -472,8 +503,8 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
-                  onChange={setTwelveMonthLang}
-                  value={twelveMonthLang}
+                  onChange={setTwelveMonthLanguage}
+                  value={twelveMonthLanguage}
                   maxDetail="month"
                   calendarIcon={null}
                 />
@@ -484,8 +515,8 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
-                  onChange={setTwentyFourMonthLang}
-                  value={twentyFourMonthLang}
+                  onChange={setTwentyFourMonthLanguage}
+                  value={twentyFourMonthLanguage}
                   maxDetail="month"
                   calendarIcon={null}
                 />
@@ -495,9 +526,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="brrd">Bureau Position Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${burPos ? '' : 'hide'} fa-close`} onClick={() => setBurPos('')} />
+                <FA name="times" className={`${bureauPositionReview ? '' : 'hide'} fa-close`} onClick={() => setBurPos('')} />
                 <DatePicker
-                  selected={burPos && new Date(burPos)}
+                  selected={bureauPositionReview && new Date(bureauPositionReview)}
                   onChange={(date) => setBurPos(date)}
                 />
               </span>
@@ -506,9 +537,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="bdd">Bidding Start Date </label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidStart ? '' : 'hide'} fa-close`} onClick={() => setBidStart('')} />
+                <FA name="times" className={`${biddingStart ? '' : 'hide'} fa-close`} onClick={() => setBidStart('')} />
                 <DatePicker
-                  selected={bidStart && new Date(bidStart)}
+                  selected={biddingStart && new Date(biddingStart)}
                   onChange={(date) => setBidStart(date)}
                 />
               </span>
@@ -528,9 +559,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="bpsbrd">Bureau Pre-Season Bid Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${burPrebd ? '' : 'hide'} fa-close`} onClick={() => setBurPrebd('')} />
+                <FA name="times" className={`${bureauPreSeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBurPrebd('')} />
                 <DatePicker
-                  selected={burPrebd && new Date(burPrebd)}
+                  selected={bureauPreSeasonBidReview && new Date(bureauPreSeasonBidReview)}
                   onChange={(date) => setBurPrebd(date)}
                 />
               </span>
@@ -539,9 +570,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="besbrd">Bureau Early Season Bid Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${burEarly ? '' : 'hide'} fa-close`} onClick={() => setBurEarly('')} />
+                <FA name="times" className={`${bureauEarlySeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBurEarly('')} />
                 <DatePicker
-                  selected={burEarly && new Date(burEarly)}
+                  selected={bureauEarlySeasonBidReview && new Date(bureauEarlySeasonBidReview)}
                   onChange={(date) => setBurEarly(date)}
                 />
               </span>
@@ -550,9 +581,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="bbrd">Bureau Bid Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${burBid ? '' : 'hide'} fa-close`} onClick={() => setBurBid('')} />
+                <FA name="times" className={`${bureauBidReview ? '' : 'hide'} fa-close`} onClick={() => setBurBid('')} />
                 <DatePicker
-                  selected={burBid && new Date(burBid)}
+                  selected={bureauBidReview && new Date(bureauBidReview)}
                   onChange={(date) => setBurBid(date)}
                 />
               </span>
@@ -572,9 +603,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="bbrd">Bid Book Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidBook ? '' : 'hide'} fa-close`} onClick={() => setBidBook('')} />
+                <FA name="times" className={`${bidBookReview ? '' : 'hide'} fa-close`} onClick={() => setBidBook('')} />
                 <DatePicker
-                  selected={bidBook && new Date(bidBook)}
+                  selected={bidBookReview && new Date(bidBookReview)}
                   onChange={(date) => setBidBook(date)}
                 />
               </span>
@@ -583,9 +614,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="bcrd">Bid Count Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidCount ? '' : 'hide'} fa-close`} onClick={() => setBidCount('')} />
+                <FA name="times" className={`${bidCountReview ? '' : 'hide'} fa-close`} onClick={() => setBidCount('')} />
                 <DatePicker
-                  selected={bidCount && new Date(bidCount)}
+                  selected={bidCountReview && new Date(bidCountReview)}
                   onChange={(date) => setBidCount(date)}
                 />
               </span>
@@ -594,9 +625,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="htf">HTF Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidHtf ? '' : 'hide'} fa-close`} onClick={() => setBidHtf('')} />
+                <FA name="times" className={`${htfReview ? '' : 'hide'} fa-close`} onClick={() => setBidHtf('')} />
                 <DatePicker
-                  selected={bidHtf && new Date(bidHtf)}
+                  selected={htfReview && new Date(htfReview)}
                   onChange={(date) => setBidHtf(date)}
                 />
               </span>
@@ -605,9 +636,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="ocrd">Organization Count Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidOrg ? '' : 'hide'} fa-close`} onClick={() => setBidOrg('')} />
+                <FA name="times" className={`${organizationCountReview ? '' : 'hide'} fa-close`} onClick={() => setBidOrg('')} />
                 <DatePicker
-                  selected={bidOrg && new Date(bidOrg)}
+                  selected={organizationCountReview && new Date(organizationCountReview)}
                   onChange={(date) => setBidOrg(date)}
                 />
               </span>
@@ -616,10 +647,10 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="mds">MDS Review Date</label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${bidMds ? '' : 'hide'} fa-close`} onClick={() => setBidMds('')} />
+                <FA name="times" className={`${mdsReview ? '' : 'hide'} fa-close`} onClick={() => setBidMds('')} />
                 <DatePicker
-                  selected={bidMds && new Date(bidMds)}
-                  onChange={(date) => bidMds(date)}
+                  selected={mdsReview && new Date(mdsReview)}
+                  onChange={(date) => setBidMds(date)}
                 />
               </span>
             </div>
@@ -627,9 +658,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               <label htmlFor="abd">Assigned Bidder Date </label>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${assignedBidderDate ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidderDate('')} />
+                <FA name="times" className={`${assignedBidder ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidderDate('')} />
                 <DatePicker
-                  selected={assignedBidderDate && new Date(assignedBidderDate)}
+                  selected={assignedBidder && new Date(assignedBidder)}
                   onChange={(date) => setAssignedBidderDate(date)}
                 />
               </span>
@@ -638,7 +669,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
         }
       </form>
       <div>
-        <button onClick={saveAC}>Save and Return</button>
+        <button onClick={saveAC} disabled={!disableSave}>Save and Return</button>
         <button onClick={deleteAC}>Delete Assignment Cycle</button>
         <button onClick={postAC} type="submit">Post Open Positions</button>
         <button onClick={cancel}>Cancel</button>
@@ -663,8 +694,9 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
   return (
     <div className="cycle-management-page position-search">
       <div className="position-search--header">
+        <BackButton />
         <div className="expanded-content pt-20">
-          <ProfileSectionTitle title="Cycle Search" icon="cogs" className="xl-icon" />
+          <ProfileSectionTitle title="Cycle Management" icon="cogs" className="xl-icon" />
         </div>
       </div>
       {

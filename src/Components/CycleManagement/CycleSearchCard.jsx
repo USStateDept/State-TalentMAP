@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { Column, Row } from 'Components/Layout';
-import { formatDate, userHasPermissions } from 'utilities';
+import { formatDate } from 'utilities';
 
 const CycleSearchCard = (props) => {
   const {
@@ -18,18 +17,15 @@ const CycleSearchCard = (props) => {
 
   const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/assignmentcycle/${id}`;
   const cycleLinkPositions = `/profile/${isAO ? 'ao' : 'bureau'}/cyclepositionsearch/${id}`;
-  const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   return (
     <Row fluid className="cycle-search-card box-shadow-standard">
       <Row fluid className="cyc-card--row">
         <Column columns={3}>
-          {isSuperUser // only Admin?
-            ? <Link to={cycleLink}>
+          {
+            <Link to={cycleLink}>
               <div>{ name }</div>
             </Link>
-            : <div>{ name }</div>
           }
         </Column>
         <Column columns={12} className="cyc-card--middle-cols">
