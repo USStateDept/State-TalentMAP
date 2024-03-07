@@ -31,6 +31,8 @@ const CycleManagement = (props) => {
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
+  console.log(userSelections);
+
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
@@ -156,7 +158,7 @@ const CycleManagement = (props) => {
   };
 
   return (
-    getOverlay() ||
+    cycleManagementDataLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
         <div className="cycle-management-page position-search">
           <div className="usa-grid-full position-search--header">
@@ -213,6 +215,7 @@ const CycleManagement = (props) => {
 
           </div>
           {
+            getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="bs-results">
