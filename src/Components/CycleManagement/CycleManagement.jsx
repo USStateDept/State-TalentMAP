@@ -31,8 +31,6 @@ const CycleManagement = (props) => {
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
-  console.log(userSelections);
-
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
