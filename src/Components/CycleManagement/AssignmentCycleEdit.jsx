@@ -113,9 +113,10 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
   const saveAC = (e) => {
     e.preventDefault();
     const cycleData = {
+      cycleId: match?.params?.id,
       assignmentCycle: cycleName,
-      cycleCategory,
-      cycleStatus,
+      cycleCategory: cycleCategory?.value,
+      cycleStatus: cycleStatus?.value,
       exclusivePosition,
       postViewable,
       cycleBoundries: cycleDates,
@@ -135,6 +136,10 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
       bureauPositionReview: burPos,
       bureauPreSeasonBidReview: burPrebd,
       assignedBidder: assignedBidderDate,
+      stampDate: assignmentCycle?.last_updated,
+      stampId: assignmentCycle?.last_updated_id,
+      stampStrings: assignmentCycle?.update_timestamps,
+      stampIdStrings: assignmentCycle?.id_timestamps,
     };
     dispatch(cycleManagementUpdateCycle(cycleData));
   };
