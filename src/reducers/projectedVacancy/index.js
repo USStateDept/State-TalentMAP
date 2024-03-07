@@ -20,9 +20,6 @@ import {
   projectedVacancyLangOffsets,
   projectedVacancyLangOffsetsErrored,
   projectedVacancyLangOffsetsLoading,
-  projectedVacancyMetadata,
-  projectedVacancyMetadataErrored,
-  projectedVacancyMetadataLoading,
   projectedVacancySelections,
 } from './projectedVacancy';
 
@@ -48,8 +45,5 @@ export default {
   projectedVacancyLangOffsets,
   projectedVacancyLangOffsetsErrored,
   projectedVacancyLangOffsetsLoading,
-  projectedVacancyMetadata,
-  projectedVacancyMetadataErrored,
-  projectedVacancyMetadataLoading,
   projectedVacancySelections,
 };

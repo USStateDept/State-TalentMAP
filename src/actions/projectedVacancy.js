@@ -360,58 +360,6 @@ export function projectedVacancyEditCapsuleDesc(query) {
   };
 }
 
-// ================ GET METADATA ================
-
-export function projectedVacancyMetadataErrored(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_METADATA_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function projectedVacancyMetadataLoading(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_METADATA_LOADING',
-    isLoading: bool,
-  };
-}
-export function projectedVacancyMetadataSuccess(results) {
-  return {
-    type: 'PROJECTED_VACANCY_METADATA_SUCCESS',
-    results,
-  };
-}
-export function projectedVacancyMetadata(query = {}) {
-  return (dispatch) => {
-    if (cancelPVMetadata) { cancelPVMetadata('cancel'); }
-    batch(() => {
-      dispatch(projectedVacancyMetadataLoading(true));
-      dispatch(projectedVacancyMetadataErrored(false));
-    });
-    const q = convertQueryToString(query);
-    const endpoint = '/fsbid/admin/projected_vacancies/metadata/';
-    const ep = `${endpoint}?${q}`;
-    api().get(ep, {
-      cancelToken: new CancelToken((c) => { cancelPVMetadata = c; }),
-    })
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(projectedVacancyMetadataSuccess(data));
-          dispatch(projectedVacancyMetadataErrored(false));
-          dispatch(projectedVacancyMetadataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          batch(() => {
-            dispatch(projectedVacancyMetadataSuccess({}));
-            dispatch(projectedVacancyMetadataErrored(true));
-            dispatch(projectedVacancyMetadataLoading(false));
-          });
-        }
-      });
-  };
-}
-
 // ================ GET LANGUAGE OFFSET DATA ================
 
 export function projectedVacancyLangOffsetsErrored(bool) {

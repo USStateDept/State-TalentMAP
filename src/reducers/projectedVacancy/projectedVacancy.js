@@ -171,33 +171,6 @@ export function projectedVacancyEditCapsuleDesc(state = {}, action) {
   }
 }
 
-// ================ GET METADATA ================
-
-export function projectedVacancyMetadataErrored(state = false, action) {
-  switch (action.type) {
-    case 'PROJECTED_VACANCY_METADATA_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function projectedVacancyMetadataLoading(state = false, action) {
-  switch (action.type) {
-    case 'PROJECTED_VACANCY_METADATA_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function projectedVacancyMetadata(state = {}, action) {
-  switch (action.type) {
-    case 'PROJECTED_VACANCY_METADATA_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
-
 // ================ GET LANGUAGE OFFSETS ================
 
 export function projectedVacancyLangOffsetsErrored(state = false, action) {
