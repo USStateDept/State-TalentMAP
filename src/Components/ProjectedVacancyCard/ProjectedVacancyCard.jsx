@@ -20,7 +20,7 @@ import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import {
   projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets,
-  projectedVacancyLangOffsets, projectedVacancyMetadata,
+  projectedVacancyLangOffsets,
 } from '../../actions/projectedVacancy';
 
 // eslint-disable-next-line
@@ -29,7 +29,6 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
 
   const id = result?.future_vacancy_seq_num || undefined;
 
-  const metadata = useSelector(state => state.projectedVacancyMetadata);
   const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets);
 
   const bidSeasons = selectOptions?.bidSeasons?.length ? selectOptions.bidSeasons : [];
@@ -40,7 +39,6 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ? selectOptions.languageOffsets.winter_language_offsets : [];
 
   useEffect(() => {
-    dispatch(projectedVacancyMetadata({ future_vacancy_seq_num: result?.future_vacancy_seq_num }));
     dispatch(projectedVacancyLangOffsets({ position_seq_num: result?.position_seq_num }));
   }, []);
 
@@ -59,8 +57,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     useState(languageOffsets?.language_offset_winter || '');
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
-  const updateUser = metadata?.updated_user;
-  const updateDate = formatDate(metadata?.updated_date);
+  const updateUser = result?.updated_user;
+  const updateDate = formatDate(result?.updated_date);
   const differentials = {
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
@@ -94,10 +92,6 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       bid_season_code: season,
       future_vacancy_status_code: status,
       future_vacancy_override_tour_end_date: overrideTED,
-      creator_id: metadata?.creator_id,
-      created_date: metadata?.created_date,
-      updater_id: metadata?.updater_id,
-      updated_date: metadata?.updated_date,
     }]));
     dispatch(projectedVacancyEditLangOffsets({
       position_seq_num: result?.position_seq_num,
@@ -107,8 +101,8 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     dispatch(projectedVacancyEditCapsuleDesc({
       position_seq_num: result?.position_seq_num,
       capsule_description: textArea,
-      updater_id: metadata?.updater_id,
-      updated_date: metadata?.updated_date,
+      updater_id: result?.updater_id,
+      updated_date: result?.updated_date,
     }));
     // TODO: Toggle edit mode off when all 3 edits are successful
   };
@@ -162,7 +156,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ],
     textarea: result?.capsule_description || 'No description.',
     metadata: [
-      { 'Position Posted': formatDate(metadata?.created_date) || NO_UPDATE_DATE },
+      { 'Position Posted': formatDate(result?.created_date) || NO_UPDATE_DATE },
       { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
     ],
   };
