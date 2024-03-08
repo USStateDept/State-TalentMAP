@@ -256,6 +256,15 @@
   }
 }
 
+.ace-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.ace-wrapper {
+  padding-inline: 15px
+}
+
 .assignment-cycle-form {
   width: 100%;
   height: 100%;
@@ -277,6 +286,10 @@
     }
     .larger-date-picker {
       width: 300px;
+    }
+    .ac-validation-container {
+      display: flex;
+      flex-direction: row;
     }
   }
   .bs-validation-container {
