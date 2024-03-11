@@ -93,6 +93,10 @@ const ProjectedVacancy = ({ isAO }) => {
     selectedBidSeasons,
   });
 
+  const submitEdit = (editData) => {
+    dispatch(projectedVacancyEdit(getQuery(), editData));
+  };
+
   useEffect(() => {
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(projectedVacancyFilters());
@@ -332,6 +336,7 @@ const ProjectedVacancy = ({ isAO }) => {
                 onEditModeSearch={(editMode, id) =>
                   onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
                 }
+                onSubmit={editData => submitEdit(editData)}
                 selectOptions={{
                   languageOffsets: languageOffsetOptions,
                   bidSeasons,

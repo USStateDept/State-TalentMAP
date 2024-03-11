@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
 import PropTypes from 'prop-types';
 import { useDidMountEffect } from 'hooks';
-import { projectedVacancyEdit } from 'actions/projectedVacancy';
 import { formatDate, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
@@ -18,13 +16,9 @@ import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import {
-  projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets,
-} from '../../actions/projectedVacancy';
 
 // eslint-disable-next-line
-const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditModeSearch, selectOptions }) => {
-  const dispatch = useDispatch();
+const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditModeSearch, onSubmit, selectOptions }) => {
 
   const id = result?.future_vacancy_seq_num || undefined;
 
@@ -78,26 +72,28 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     }
   }, [editMode]);
 
-  const onSubmit = () => {
-    dispatch(projectedVacancyEdit([{
-      ...result,
-      future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
-      bid_season_code: season,
-      future_vacancy_status_code: status,
-      future_vacancy_override_tour_end_date: overrideTED,
-    }]));
-    dispatch(projectedVacancyEditLangOffsets({
-      position_seq_num: result?.position_seq_num,
-      language_offset_summer: langOffsetSummer || null,
-      language_offset_winter: langOffsetWinter || null,
-    }));
-    dispatch(projectedVacancyEditCapsuleDesc({
-      position_seq_num: result?.position_seq_num,
-      capsule_description: textArea,
-      updater_id: result?.updater_id,
-      updated_date: result?.updated_date,
-    }));
-    // TODO: Toggle edit mode off when all 3 edits are successful
+  const onSubmitForm = () => {
+    const editData = {
+      projected_vacancy: {
+        ...result,
+        future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
+        bid_season_code: season,
+        future_vacancy_status_code: status,
+        future_vacancy_override_tour_end_date: overrideTED,
+      },
+      language_offsets: {
+        position_seq_num: result?.position_seq_num,
+        language_offset_summer: langOffsetSummer || null,
+        language_offset_winter: langOffsetWinter || null,
+      },
+      capsule_description: {
+        position_seq_num: result?.position_seq_num,
+        capsule_description: textArea,
+        updater_id: result?.updater_id,
+        updated_date: result?.updated_date,
+      },
+    };
+    onSubmit(editData);
   };
 
   const displayTedEmp = (ted, employee) => {
@@ -264,7 +260,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       </div>
     </div>,
     cancelText: 'Are you sure you want to discard all changes made to this Projected Vacancy position?',
-    handleSubmit: onSubmit,
+    handleSubmit: onSubmitForm,
     handleCancel: () => { },
     handleEdit: {
       editMode,
@@ -307,6 +303,7 @@ ProjectedVacancyCard.propTypes = {
   }).isRequired,
   updateIncluded: PropTypes.func,
   onEditModeSearch: PropTypes.func,
+  onSubmit: PropTypes.func,
   selectOptions: PropTypes.shape({
     languageOffsets: PropTypes.shape({
       summer_language_offsets: PropTypes.arrayOf(PropTypes.shape({})),
@@ -320,6 +317,7 @@ ProjectedVacancyCard.propTypes = {
 ProjectedVacancyCard.defaultProps = {
   updateIncluded: EMPTY_FUNCTION,
   onEditModeSearch: EMPTY_FUNCTION,
+  onSubmit: EMPTY_FUNCTION,
   selectOptions: {
     languageOffsets: [],
     bidSeasons: [],
