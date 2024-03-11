@@ -1,7 +1,10 @@
 import { batch } from 'react-redux';
-import { formatDate } from 'utilities';
 import { CancelToken } from 'axios';
 import {
+  ASSIGNMENT_CYCLE_CREATE_ERROR,
+  ASSIGNMENT_CYCLE_CREATE_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_CREATE_SUCCESS,
+  ASSIGNMENT_CYCLE_CREATE_SUCCESS_TITLE,
   ASSIGNMENT_CYCLE_DELETE_ERROR,
   ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE,
   ASSIGNMENT_CYCLE_DELETE_SUCCESS,
@@ -10,10 +13,10 @@ import {
   ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE,
   ASSIGNMENT_CYCLE_EDIT_SUCCESS,
   ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
-  ASSIGNMENT_CYCLE_POST_ERROR,
-  ASSIGNMENT_CYCLE_POST_ERROR_TITLE,
-  ASSIGNMENT_CYCLE_POST_SUCCESS,
-  ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE,
+  ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR,
+  ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS,
+  ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE,
   EDIT_CYCLE_POSITION_ERROR,
   EDIT_CYCLE_POSITION_ERROR_TITLE,
   EDIT_CYCLE_POSITION_SUCCESS,
@@ -25,7 +28,6 @@ import {
 } from 'Constants/SystemMessages';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
-// import { convertQueryToString } from 'utilities';
 
 const dummyData = [
   {
@@ -70,27 +72,6 @@ const dummyData = [
   },
 ];
 
-const dummyAssignmentCycleInfo = {
-  assignmentCycle: 'This is a dummy assignment cycle, data can be replaced with backend data',
-  cycleCategory: 'Summer',
-  cycleStatus: 'Winter',
-  cycleBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
-  sixMonthBoundary: [formatDate('1976-11-11T21:12:12.854000Z'), formatDate('2022-31-17T21:12:12.854000Z')],
-  twelveMonthBoundary: [formatDate('2005-10-25T21:12:12.854000Z'), formatDate('2018-31-14T21:12:12.854000Z')],
-  twentyFourMonthBoundary: [formatDate('2003-10-22T21:12:12.854000Z'), formatDate('2014-31-22T21:12:12.854000Z')],
-  bureaPositionReview: new Date('Tue May 25 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bidDueDate: new Date('Tue Aug 07 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bureauPreSeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bureauEarlySeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bureauBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bidAudit: new Date('Tue Sep 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bidBookReview: new Date('Tue Oct 11 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  bidCountReview: new Date('Tue Jan 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  htfReview: new Date('Tue Dec 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  organizationCountReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  mdsReview: new Date('Tue Aug 14 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-  assignedBidder: new Date('Tue Feb 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
-};
 
 // eslint-disable-next-line no-loops/no-loops
 for (let index = 2022; index > 1975; index -= 1) {
@@ -110,15 +91,6 @@ for (let index = 2022; index > 1975; index -= 1) {
     cycle_post_view: 'Y',
   });
 }
-const dummyDataToReturn = (query) => new Promise((resolve) => {
-  const { limit } = query;
-  resolve({
-    results: dummyData.slice(0, limit),
-    count: dummyData.length,
-    next: null,
-    previous: null,
-  });
-});
 
 const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
   const { limit } = query;
@@ -131,7 +103,7 @@ const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
 });
 
 
-// ================ Cycle Management GET ================
+// ================ Cycle Management GET cycles ================
 
 let cancelCycleManagementFetch;
 
@@ -187,6 +159,8 @@ export function cycleManagementFetchData() {
   };
 }
 
+// ================ Cycle Management Filters ================
+
 export function cycleManagementSelectionsSaveSuccess(result) {
   return {
     type: 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS',
@@ -201,35 +175,40 @@ export function saveCycleManagementSelections(queryObject) {
 
 // ================ Cycle Management CREATE cycle ================
 
-export function cycleManagementCreateCycleSuccess(bool) {
-  return {
-    type: 'CYCLE_MANAGEMENT_CREATE_CYCLE_SUCCESS',
-    success: bool,
-  };
-}
+let cancelCycleManagementCreate;
 
 export function cycleManagementCreateCycle(data) {
   return (dispatch) => {
+    if (cancelCycleManagementCreate) {
+      cancelCycleManagementCreate('cancel');
+    }
     api()
       .post('/fsbid/assignment_cycles/create/', {
         data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementCreate = c; }),
       })
       .then(() => {
         batch(() => {
           dispatch(toastSuccess(
-            ASSIGNMENT_CYCLE_POST_SUCCESS, ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE,
+            ASSIGNMENT_CYCLE_CREATE_SUCCESS, ASSIGNMENT_CYCLE_CREATE_SUCCESS_TITLE,
           ));
           dispatch(cycleManagementFetchData());
         });
       })
-      .catch(() => {
-        dispatch(toastError(ASSIGNMENT_CYCLE_POST_ERROR, ASSIGNMENT_CYCLE_POST_ERROR_TITLE));
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(ASSIGNMENT_CYCLE_CREATE_ERROR, ASSIGNMENT_CYCLE_CREATE_ERROR_TITLE));
+        }
       });
   };
 }
 
 
-// ================    ================
+// ================  Cycle Management GET single cycle  ================
+
+let cancelCycleManagementGetCycle;
+
 export function cycleManagementAssignmentCycleFetchDataErrored(bool) {
   return {
     type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED',
@@ -253,32 +232,30 @@ export function cycleManagementAssignmentCycleFetchDataSuccess(results) {
 
 
 // eslint-disable-next-line no-unused-vars
-export function cycleManagementAssignmentCycleFetchData() {
+export function cycleManagementAssignmentCycleFetchData(id) {
   return (dispatch) => {
+    if (cancelCycleManagementGetCycle) {
+      cancelCycleManagementGetCycle('cancel');
+    }
     batch(() => {
       dispatch(cycleManagementAssignmentCycleFetchDataLoading(true));
       dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
     });
-    api().post('/placeholder/endpoint')
-      .then(() => {
+    api().get(`/fsbid/assignment_cycles/${id}/`, {
+      cancelToken: new CancelToken((c) => { cancelCycleManagementGetCycle = c; }),
+    })
+      .then(({ data }) => {
         batch(() => {
-          dispatch(cycleManagementAssignmentCycleFetchDataSuccess(dummyAssignmentCycleInfo));
+          dispatch(cycleManagementAssignmentCycleFetchDataSuccess(data));
           dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
           dispatch(cycleManagementAssignmentCycleFetchDataLoading(false));
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
+        if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(cycleManagementAssignmentCycleFetchDataLoading(true));
-            dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(
-              cycleManagementAssignmentCycleFetchDataSuccess(dummyAssignmentCycleInfo),
-            );
-            dispatch(cycleManagementAssignmentCycleFetchDataErrored(false));
+            dispatch(cycleManagementAssignmentCycleFetchDataSuccess({}));
+            dispatch(cycleManagementAssignmentCycleFetchDataErrored(true));
             dispatch(cycleManagementAssignmentCycleFetchDataLoading(false));
           });
         }
@@ -286,6 +263,129 @@ export function cycleManagementAssignmentCycleFetchData() {
   };
 }
 
+
+// ================  Cycle Management UPDATE cycle  ================
+
+let cancelCycleManagementUpdate;
+
+export function cycleManagementUpdateCycleSuccess(bool) {
+  return {
+    type: 'CYCLE_MANAGEMENT_ASSIGNMENT_CYCLE_UPDATE_SUCCESS',
+    success: bool,
+  };
+}
+
+export function cycleManagementUpdateCycle(data) {
+  return (dispatch) => {
+    if (cancelCycleManagementUpdate) {
+      cancelCycleManagementUpdate('cancel');
+    }
+    api()
+      .post('/fsbid/assignment_cycles/update/', {
+        data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementUpdate = c; }),
+      })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(
+            ASSIGNMENT_CYCLE_EDIT_SUCCESS, ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
+          ));
+          dispatch(cycleManagementUpdateCycleSuccess(true));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(ASSIGNMENT_CYCLE_EDIT_ERROR, ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE));
+        }
+      });
+  };
+}
+
+
+// ================ Cycle Management Post Open Positions ================
+
+let cancelCycleManagementPostPositions;
+
+export function cycleManagementPostOpenPositions(id) {
+  return (dispatch) => {
+    if (cancelCycleManagementPostPositions) {
+      cancelCycleManagementPostPositions('cancel');
+    }
+    dispatch(cycleManagementUpdateCycleSuccess(false));
+    api()
+      .get(`/fsbid/assignment_cycles/post/${id}/`, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementPostPositions = c; }),
+      })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(
+            ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS, ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE,
+          ));
+          dispatch(cycleManagementUpdateCycleSuccess(true));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(
+            toastError(
+              ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR,
+              ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE,
+            ),
+          );
+        }
+      });
+  };
+}
+
+
+// ================ Cycle Management DELETE cycle ================
+
+let cancelCycleManagementDelete;
+
+export function cycleManagementDeleteCycleSuccess(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_SUCCESS',
+    success: bool,
+  };
+}
+
+export function cycleManagementDeleteCycle(data) {
+  return (dispatch) => {
+    if (cancelCycleManagementDelete) {
+      cancelCycleManagementDelete('cancel');
+    }
+    dispatch(cycleManagementDeleteCycleSuccess(false));
+    api()
+      .post('/fsbid/assignment_cycles/delete/', {
+        data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementDelete = c; }),
+      })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
+          dispatch(cycleManagementDeleteCycleSuccess(true));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(
+              toastError(
+                ASSIGNMENT_CYCLE_DELETE_ERROR,
+                ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE,
+              ),
+            );
+          });
+        }
+      });
+  };
+}
+
+
+// ================ Cycle Positions ================
 
 export function cyclePositionSearchFetchDataErrored(bool) {
   return {
@@ -461,212 +561,4 @@ export function cyclePositionEdit(position, incumbent, status) {
         }
       });
   };
-}
-
-export function assignmentCycleFetchDataErrored(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function assignmentCycleFetchDataLoading(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function assignmentCycleFetchDataSuccess(results) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_FETCH_SUCCESS',
-    results,
-  };
-}
-
-
-export function assignmentCyclePostDataErrored(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_POST_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function assignmentCyclePostDataLoading(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_POST_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function assignmentCyclePostDataSuccess(results) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_POST_SUCCESS',
-    results,
-  };
-}
-
-export function assignmentCycleDeleteDataErrored(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function assignmentCycleDeleteDataLoading(bool) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function assignmentCycleDeleteDataSuccess(results) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_DELETE_SUCCESS',
-    results,
-  };
-}
-
-
-export function assignmentCycleFetchData(query = {}) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(assignmentCycleFetchDataLoading(true));
-      dispatch(assignmentCycleFetchDataErrored(false));
-    });
-    // const q = convertQueryToString(query);
-    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
-    // api().get(endpoint)
-    dispatch(assignmentCycleFetchDataLoading(true));
-    dummyDataToReturn(query)
-      .then((data) => {
-        batch(() => {
-          dispatch(assignmentCycleFetchDataSuccess(data));
-          dispatch(assignmentCycleFetchDataErrored(false));
-          dispatch(assignmentCycleFetchDataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(assignmentCycleFetchDataLoading(true));
-            dispatch(assignmentCycleFetchDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(assignmentCycleFetchDataSuccess(dummyDataToReturn));
-            dispatch(assignmentCycleFetchDataErrored(false));
-            dispatch(assignmentCycleFetchDataLoading(false));
-          });
-        }
-      });
-  };
-}
-
-export function saveAssignmentCyclesSelections(data) {
-  return (dispatch) => {
-    dispatch(assignmentCyclePostDataLoading(true));
-    dispatch(assignmentCyclePostDataErrored(false));
-    api().post('/Placeholder/', data)
-      .then(({ res }) => {
-        batch(() => {
-          dispatch(assignmentCyclePostDataErrored(false));
-          dispatch(assignmentCyclePostDataSuccess(res));
-          dispatch(toastSuccess(ASSIGNMENT_CYCLE_EDIT_SUCCESS,
-            ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE));
-          dispatch(assignmentCyclePostDataLoading(false));
-        });
-      }).catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(assignmentCyclePostDataLoading(true));
-            dispatch(assignmentCyclePostDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(toastError(ASSIGNMENT_CYCLE_EDIT_ERROR,
-              ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE));
-            dispatch(assignmentCyclePostDataErrored(true));
-            dispatch(assignmentCyclePostDataLoading(false));
-          });
-        }
-      });
-  };
-}
-
-export function deleteAssignmentCyclesSelections(id) {
-  return (dispatch) => {
-    dispatch(assignmentCycleDeleteDataLoading(true));
-    dispatch(assignmentCycleDeleteDataErrored(false));
-    api().delete('/Placeholder/', id)
-      .then(({ res }) => {
-        batch(() => {
-          dispatch(assignmentCycleDeleteDataErrored(false));
-          dispatch(assignmentCycleDeleteDataSuccess(res));
-          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
-            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
-          dispatch(assignmentCycleDeleteDataLoading(false));
-        });
-      },
-      ).catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(assignmentCycleDeleteDataLoading(true));
-            dispatch(assignmentCycleDeleteDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(toastError(ASSIGNMENT_CYCLE_DELETE_ERROR,
-              ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE));
-            dispatch(assignmentCycleDeleteDataErrored(true));
-            dispatch(assignmentCycleDeleteDataLoading(false));
-          });
-        }
-      },
-      );
-  };
-}
-
-export function postAssignmentCyclesSelections(position) {
-  return (dispatch) => {
-    dispatch(assignmentCyclePostDataLoading(true));
-    dispatch(assignmentCyclePostDataErrored(false));
-    api().delete('/Placeholder/', position)
-      .then(({ res }) => {
-        batch(() => {
-          dispatch(assignmentCyclePostDataErrored(false));
-          dispatch(assignmentCyclePostDataSuccess(res));
-          dispatch(toastSuccess(ASSIGNMENT_CYCLE_POST_SUCCESS,
-            ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE));
-          dispatch(assignmentCyclePostDataLoading(false));
-        });
-      },
-      ).catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(assignmentCyclePostDataLoading(true));
-            dispatch(assignmentCyclePostDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(toastError(ASSIGNMENT_CYCLE_POST_ERROR,
-              ASSIGNMENT_CYCLE_POST_ERROR_TITLE));
-            dispatch(assignmentCyclePostDataErrored(true));
-            dispatch(assignmentCyclePostDataLoading(false));
-          });
-        }
-      },
-      );
-  };
-}
-
-export function assignmentCycleSelectionsSaveSuccess(result) {
-  return {
-    type: 'ASSIGNMENT_CYCLE_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-
-export function saveAssignmentCycleSelections(queryObject) {
-  return (dispatch) => dispatch(assignmentCycleSelectionsSaveSuccess(queryObject));
 }
