@@ -183,12 +183,11 @@ const AgendaLegFormEdit = props => {
     });
   };
 
-  const getDropdown = (key, data, text) => {
+  const getDropdown = (key, data, text, placeholder = 'Keep Unselected') => {
     const noValidationRequired = [].includes(key);
 
     if (isEf) {
-      const efDefaultText = 'None listed';
-      return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
+      return <div className="read-only">{get(leg, key) || 'None listed'}</div>;
     }
 
     return (
@@ -204,7 +203,7 @@ const AgendaLegFormEdit = props => {
             disabled={disabled}
           >
             <option key={null} value={''}>
-              Keep Unselected
+              {placeholder}
             </option>
             {
               data.map((a, i) => {
@@ -368,7 +367,8 @@ const AgendaLegFormEdit = props => {
   const columnData = [
     {
       title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
+      content: (isEf ? <div className="read-only">{leg?.action || 'None listed'}</div>
+        : getDropdown('action_code', getLegActionTypes(), 'abbr_desc_text')),
     },
     {
       title: 'Position Title',
@@ -412,7 +412,7 @@ const AgendaLegFormEdit = props => {
     {
       title: 'Travel',
       content: (isEf ? <div className="read-only">{leg?.travel_desc}</div>
-        : getDropdown('travel_code', travelFunctions, 'desc_text')),
+        : getDropdown('travel_code', travelFunctions, 'desc_text', 'No Travel')),
     },
     {
       title: 'Vice',
@@ -462,6 +462,8 @@ AgendaLegFormEdit.propTypes = {
     tod: PropTypes.string,
     tod_months: PropTypes.number,
     tod_is_dropdown: PropTypes.bool,
+    action: PropTypes.string,
+    action_code: PropTypes.string,
     travel_code: PropTypes.string,
     travel_desc: PropTypes.string,
     vice: PropTypes.shape({}),
