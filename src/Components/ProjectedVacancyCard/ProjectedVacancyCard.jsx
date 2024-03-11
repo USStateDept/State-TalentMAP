@@ -10,8 +10,8 @@ import { projectedVacancyEdit } from 'actions/projectedVacancy';
 import { formatDate, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  DEFAULT_TEXT, NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
+  DEFAULT_TEXT, NO_BUREAU, NO_GRADE, NO_LANGUAGES, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE,
+  NO_POST, NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
 import TabbedCard from 'Components/TabbedCard';
@@ -110,6 +110,16 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     return `${formatDate(ted)} ${employee}`;
   };
 
+  const displayLangs = () => {
+    let displayText = '';
+    const langs = result?.position_language_profficiency_description?.split(';');
+    langs.forEach((lang, i) => {
+      const codeAttr = `position_language_${i + 1}_code`;
+      displayText += lang.replace(' ', ` (${result[codeAttr]}) `);
+    });
+    return displayText || NO_LANGUAGES;
+  };
+
   /* eslint-disable quote-props */
   const sections = {
     subheading: [
@@ -122,15 +132,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       { 'Incumbent TED': displayTedEmp(result?.incumbent_tour_end_date, result?.incumbent) },
       { 'Bid Season': result?.bid_season_description || DEFAULT_TEXT },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
-      {
-        'Languages': <LanguageList
-          languages={[
-            { representation: result?.positon_language1_code },
-            { representation: result?.positon_language2_code },
-          ]}
-          propToUse="representation"
-        />,
-      },
+      { 'Languages': displayLangs() },
     ],
     bodySecondary: [
       { 'Bureau': result?.bureau_short_description || NO_BUREAU },
