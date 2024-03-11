@@ -330,7 +330,7 @@ const ProjectedVacancy = ({ isAO }) => {
                 result={k}
                 languageOffsets={
                   (languageOffsets?.length &&
-                    languageOffsets?.find(o => o.position_number === k.position_number)
+                    languageOffsets?.find(o => o?.position_number === k?.position_number)
                   ) || {}
                 }
                 key={k.future_vacancy_seq_num}
