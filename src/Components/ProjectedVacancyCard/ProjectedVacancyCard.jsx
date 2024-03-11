@@ -146,7 +146,6 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Organization': result?.organization || NO_ORG },
       { 'TED': result?.future_vacancy_override_tour_end_date || NO_TOUR_END_DATE },
       { 'Incumbent': result?.incumbent || NO_USER_LISTED },
-      { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
       { 'Language Offset Summer': summerLanguageOffsets?.find(o => o.code === langOffsetSummer)?.description || DEFAULT_TEXT },
       { 'Language Offset Winter': winterLanguageOffsets?.find(o => o.code === langOffsetWinter)?.description || DEFAULT_TEXT },
       { 'Skill': result?.position_skill_code || NO_SKILL },
