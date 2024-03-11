@@ -21,15 +21,15 @@ const ProjectedVacancy = ({ isAO }) => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.projectedVacancySelections);
-  const filters = useSelector(state => state.projectedVacancyFilters) ?? [];
+  const filters = useSelector(state => state.projectedVacancyFilters) || [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
-  const languageOffsetOptions = useSelector(state => state.projectedVacancyLangOffsetOptions) ?? [];
+  const languageOffsetOptions = useSelector(state => state.projectedVacancyLangOffsetOptions) || [];
   const languageOffsetOptionsLoading =
     useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
   const positions = positionsData?.length ? positionsData : [];
-  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets);
+  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets) || [];
 
   const [includedPositions, setIncludedPositions] = useState([]);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -329,7 +329,9 @@ const ProjectedVacancy = ({ isAO }) => {
               <ProjectedVacancyCard
                 result={k}
                 languageOffsets={
-                  languageOffsets?.find(o => o.position_number === k.position_number) || {}
+                  (languageOffsets?.length &&
+                    languageOffsets?.find(o => o.position_number === k.position_number)
+                  ) || {}
                 }
                 key={k.future_vacancy_seq_num}
                 updateIncluded={onIncludedUpdate}
