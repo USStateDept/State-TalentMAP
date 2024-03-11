@@ -298,8 +298,8 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
 ProjectedVacancyCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   languageOffsets: PropTypes.shape({
-    language_offset_summer: PropTypes.string(),
-    language_offset_winter: PropTypes.string(),
+    language_offset_summer: PropTypes.string,
+    language_offset_winter: PropTypes.string,
   }),
   updateIncluded: PropTypes.func,
   onEditModeSearch: PropTypes.func,
