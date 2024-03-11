@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { get, sortBy } from 'lodash';
 import {
   projectedVacancyEdit, projectedVacancyFetchData, projectedVacancyFilters,
-  projectedVacancyLangOffsetOptions, saveProjectedVacancySelections,
+  projectedVacancyLangOffsetOptions, projectedVacancyLangOffsets, saveProjectedVacancySelections,
 } from 'actions/projectedVacancy';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
@@ -23,12 +23,13 @@ const ProjectedVacancy = ({ isAO }) => {
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const filters = useSelector(state => state.projectedVacancyFilters) ?? [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
-  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsetOptions) ?? [];
-  const languageOffsetsLoading =
+  const languageOffsetOptions = useSelector(state => state.projectedVacancyLangOffsetOptions) ?? [];
+  const languageOffsetOptionsLoading =
     useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
   const positions = positionsData?.length ? positionsData : [];
+  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets);
 
   const [includedPositions, setIncludedPositions] = useState([]);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -48,12 +49,6 @@ const ProjectedVacancy = ({ isAO }) => {
   const [selectedBidSeasons, setSelectedBidSeasons] =
     useState(userSelections?.selectedBidSeasons || []);
 
-  useEffect(() => {
-    if (positions.length) {
-      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
-    }
-  }, [positions]);
-
   const bureaus = sortBy(filters?.bureaus || [], [o => o.description]);
   const grades = sortBy(filters?.grades || [], [o => o.code]);
   const skills = sortBy(filters?.skills || [], [o => o.description]);
@@ -64,7 +59,7 @@ const ProjectedVacancy = ({ isAO }) => {
 
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
-  const resultsLoading = positionsLoading || languageOffsetsLoading;
+  const resultsLoading = positionsLoading || languageOffsetOptionsLoading;
   const disableSearch = cardsInEditMode?.length > 0;
   const disableInput = filtersLoading || resultsLoading || disableSearch;
 
@@ -103,6 +98,15 @@ const ProjectedVacancy = ({ isAO }) => {
     dispatch(projectedVacancyFilters());
     dispatch(projectedVacancyLangOffsetOptions());
   }, []);
+
+  useEffect(() => {
+    if (positions.length) {
+      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
+    }
+    dispatch(projectedVacancyLangOffsets({
+      position_numbers: positions?.map(o => o.position_number) || [],
+    }));
+  }, [positions]);
 
   const fetchAndSet = () => {
     const f = [
@@ -320,13 +324,16 @@ const ProjectedVacancy = ({ isAO }) => {
             {positions?.map(k => (
               <ProjectedVacancyCard
                 result={k}
+                languageOffsets={
+                  languageOffsets?.find(o => o.position_number === k.position_number) || {}
+                }
                 key={k.future_vacancy_seq_num}
                 updateIncluded={onIncludedUpdate}
                 onEditModeSearch={(editMode, id) =>
                   onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
                 }
                 selectOptions={{
-                  languageOffsets,
+                  languageOffsets: languageOffsetOptions,
                   bidSeasons,
                   statuses,
                 }}

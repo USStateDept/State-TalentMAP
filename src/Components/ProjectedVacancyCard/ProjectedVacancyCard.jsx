@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
 import DatePicker from 'react-datepicker';
@@ -20,16 +20,13 @@ import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import {
   projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets,
-  projectedVacancyLangOffsets,
 } from '../../actions/projectedVacancy';
 
 // eslint-disable-next-line
-const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
+const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditModeSearch, selectOptions }) => {
   const dispatch = useDispatch();
 
   const id = result?.future_vacancy_seq_num || undefined;
-
-  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets);
 
   const bidSeasons = selectOptions?.bidSeasons?.length ? selectOptions.bidSeasons : [];
   const statuses = selectOptions?.statuses?.length ? selectOptions.statuses : [];
@@ -37,10 +34,6 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ? selectOptions.languageOffsets.summer_language_offsets : [];
   const winterLanguageOffsets = selectOptions?.languageOffsets?.winter_language_offsets?.length
     ? selectOptions.languageOffsets.winter_language_offsets : [];
-
-  useEffect(() => {
-    dispatch(projectedVacancyLangOffsets({ position_seq_num: result?.position_seq_num }));
-  }, []);
 
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
@@ -306,6 +299,10 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
 
 ProjectedVacancyCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
+  languageOffsets: PropTypes.shape({
+    language_offset_summer: PropTypes.string(),
+    language_offset_winter: PropTypes.string(),
+  }).isRequired,
   updateIncluded: PropTypes.func,
   onEditModeSearch: PropTypes.func,
   selectOptions: PropTypes.shape({
