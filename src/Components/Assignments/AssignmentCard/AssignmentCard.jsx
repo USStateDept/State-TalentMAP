@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 // import datefns from 'date-fns';
 import { getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
@@ -59,8 +60,8 @@ const AssignmentCard = (props) => {
       { 'Status': getResult(data, 'ASGS_CODE') || NO_STATUS },
       { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
       { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
-      { 'ETA': getResult(data, 'ASGD_ETA_DATE') || NO_VALUE },
-      { 'DIP': getResult(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
+      { 'ETA': get(data, 'ASGD_ETA_DATE') || NO_VALUE },
+      { 'DIP': get(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
       { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_VALUE },
       { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_VALUE },
       { 'TED': getResult(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
