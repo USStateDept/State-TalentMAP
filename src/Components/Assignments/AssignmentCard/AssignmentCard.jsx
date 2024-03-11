@@ -161,7 +161,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-statuses">Status</label>
             <select
               id="assignment-statuses"
-              defaultValue={status}
+              value={status}
               onChange={(e) => setStatus(e?.target.value)}
             >
               {statusOptions?.map(s => (
@@ -175,7 +175,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-actions">Action</label>
             <select
               id="assignment-actions"
-              defaultValue={action}
+              value={action}
               onChange={(e) => setAction(e?.target.value)}
             >
               {actionOptions?.map(a => (
@@ -219,7 +219,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-tod">Tour of Duty</label>
             <select
               id="assignment-tod"
-              defaultValue={tod}
+              value={tod}
               onChange={(e) => setTOD(e?.target.value)}
             >
               {todOptions?.map(t => (
@@ -233,7 +233,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-travel">Travel</label>
             <select
               id="assignment-travel"
-              defaultValue={travel}
+              value={travel}
               onChange={(e) => setTravel(e?.target.value)}
             >
               {travelOptions?.map(t => (
@@ -247,7 +247,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-funding">Alt Funding</label>
             <select
               id="assignment-funding"
-              defaultValue={funding}
+              value={funding}
               onChange={(e) => setFunding(e?.target.value)}
             >
               {fundingOptions?.map(f => (
@@ -262,7 +262,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-adj">Adj</label>
             <input
               id="assignment-adj"
-              defaultValue={adj}
+              value={adj}
               onChange={(e) => setAdj(e?.target.value)}
             />
           </div>
@@ -310,7 +310,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-waiver">Waiver</label>
             <select
               id="assignment-waiver"
-              defaultValue={waiver}
+              value={waiver}
               onChange={(e) => setWaiver(e?.target.value)}
             >
               {waiverOptions?.map(w => (
@@ -324,7 +324,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-sent">Sent</label>
             <input
               id="assignment-sent"
-              defaultValue={sent}
+              value={sent}
               onChange={(e) => setSent(e?.target.value)}
             />
           </div>
