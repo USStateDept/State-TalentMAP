@@ -200,64 +200,72 @@ export function projectedVacancyEdit(query, data, onSuccess) {
     }
 
     // Edit Projected Vacancy Primary Object
-    api().put('/fsbid/admin/projected_vacancies/edit/', data?.projected_vacancy, {
-      cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
-    })
-      .then(() => {
-        dispatch(toastSuccess(
-          UPDATE_PROJECTED_VACANCY_SUCCESS,
-          UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
-        ));
+    if (data?.projected_vacancy) {
+      api().put('/fsbid/admin/projected_vacancies/edit/', data.projected_vacancy, {
+        cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
       })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          dispatch(toastError(
-            UPDATE_PROJECTED_VACANCY_ERROR,
-            UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+        .then(() => {
+          dispatch(toastSuccess(
+            UPDATE_PROJECTED_VACANCY_SUCCESS,
+            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
           ));
-        }
-      });
+        })
+        .catch((err) => {
+          if (err?.message !== 'cancel') {
+            dispatch(toastError(
+              UPDATE_PROJECTED_VACANCY_ERROR,
+              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+            ));
+          }
+        });
+    }
 
     // Edit Projected Vacancy Language Offsets
-    api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', data?.language_offsets, {
-      cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
-    })
-      .then(() => {
-        dispatch(toastSuccess(
-          UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS,
-          UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE,
-        ));
+    if (data?.language_offsets) {
+      api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', data.language_offsets, {
+        cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
       })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          dispatch(toastError(
-            UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR,
-            UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE,
+        .then(() => {
+          dispatch(toastSuccess(
+            UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS,
+            UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE,
           ));
-        }
-      });
+        })
+        .catch((err) => {
+          if (err?.message !== 'cancel') {
+            dispatch(toastError(
+              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR,
+              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE,
+            ));
+          }
+        });
+    }
 
     // Edit Projected Vacancy Capsule Description
-    api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', data?.capsule_description, {
-      cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
-    })
-      .then(() => {
-        dispatch(toastSuccess(
-          UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS,
-          UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE,
-        ));
+    if (data?.capsule_description) {
+      api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', data.capsule_description, {
+        cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
       })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          dispatch(toastError(
-            UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR,
-            UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE,
+        .then(() => {
+          dispatch(toastSuccess(
+            UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS,
+            UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE,
           ));
-        }
-      });
+        })
+        .catch((err) => {
+          if (err?.message !== 'cancel') {
+            dispatch(toastError(
+              UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR,
+              UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE,
+            ));
+          }
+        });
+    }
 
     // TODO: Add conditional to only perform the following logic when all 3 calls were successful
-    onSuccess();
+    if (onSuccess) {
+      onSuccess();
+    }
     dispatch(projectedVacancyFetchData(query));
   };
 }

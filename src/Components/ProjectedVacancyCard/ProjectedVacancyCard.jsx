@@ -74,13 +74,13 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
 
   const onSubmitForm = () => {
     const editData = {
-      projected_vacancy: {
+      projected_vacancy: [{
         ...result,
         future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
         bid_season_code: season,
         future_vacancy_status_code: status,
         future_vacancy_override_tour_end_date: overrideTED,
-      },
+      }],
       language_offsets: {
         position_seq_num: result?.position_seq_num,
         language_offset_summer: langOffsetSummer || null,

@@ -173,7 +173,8 @@ const ProjectedVacancy = ({ isAO }) => {
         future_vacancy_exclude_import_indicator: 'Y',
       };
     });
-    dispatch(projectedVacancyEdit(updatedPvs));
+    const editData = { projected_vacancy: updatedPvs };
+    dispatch(projectedVacancyEdit(getQuery(), editData));
   };
 
   return (filtersLoading ?
