@@ -300,7 +300,7 @@ ProjectedVacancyCard.propTypes = {
   languageOffsets: PropTypes.shape({
     language_offset_summer: PropTypes.string(),
     language_offset_winter: PropTypes.string(),
-  }).isRequired,
+  }),
   updateIncluded: PropTypes.func,
   onEditModeSearch: PropTypes.func,
   onSubmit: PropTypes.func,
@@ -315,6 +315,10 @@ ProjectedVacancyCard.propTypes = {
 };
 
 ProjectedVacancyCard.defaultProps = {
+  languageOffsets: {
+    language_offset_summer: null,
+    language_offset_winter: null,
+  },
   updateIncluded: EMPTY_FUNCTION,
   onEditModeSearch: EMPTY_FUNCTION,
   onSubmit: EMPTY_FUNCTION,
