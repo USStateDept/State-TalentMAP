@@ -110,8 +110,13 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     let displayText = '';
     const langs = result?.position_language_proficiency_description?.split(';');
     langs.forEach((lang, i) => {
-      const codeAttr = `position_language_${i + 1}_code`;
-      displayText += lang.replace(' ', ` (${result[codeAttr]}) `);
+      const langCodeAttr = `position_language_${i + 1}_code`;
+      const langCode = result?.[langCodeAttr] || undefined;
+      if (langCode) {
+        displayText += lang.replace(' ', ` (${langCode}) `);
+      } else {
+        displayText += lang;
+      }
     });
     return displayText || NO_LANGUAGES;
   };
