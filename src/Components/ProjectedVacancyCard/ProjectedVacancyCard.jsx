@@ -108,7 +108,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
 
   const displayLangs = () => {
     let displayText = '';
-    const langs = result?.position_language_profficiency_description?.split(';');
+    const langs = result?.position_language_proficiency_description?.split(';');
     langs.forEach((lang, i) => {
       const codeAttr = `position_language_${i + 1}_code`;
       displayText += lang.replace(' ', ` (${result[codeAttr]}) `);
@@ -158,8 +158,8 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       {
         'Languages': <LanguageList
           languages={[
-            { representation: result?.positon_language1_code },
-            { representation: result?.positon_language2_code },
+            { representation: result?.position_language_1_code },
+            { representation: result?.position_language_2_code },
           ]}
           propToUse="representation"
         />,
