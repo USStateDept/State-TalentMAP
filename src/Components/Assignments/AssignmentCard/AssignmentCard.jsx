@@ -61,7 +61,7 @@ const AssignmentCard = (props) => {
       { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
       { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
       { 'ETA': get(data, 'ASGD_ETA_DATE') || NO_VALUE },
-      { 'DIP': get(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
+      { 'DIP': getResult(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
       { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_VALUE },
       { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_VALUE },
       { 'TED': get(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
