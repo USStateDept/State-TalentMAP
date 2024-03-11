@@ -186,10 +186,6 @@ const AgendaLegFormEdit = props => {
   const getDropdown = (key, data, text, placeholder = 'Keep Unselected') => {
     const noValidationRequired = [].includes(key);
 
-    if (isEf) {
-      return <div className="read-only">{get(leg, key) || 'None listed'}</div>;
-    }
-
     return (
       <div className={noValidationRequired ? '' : 'error-message-wrapper'}>
         <div className={noValidationRequired ? '' : 'validation-error-message-label validation-error-message'}>
