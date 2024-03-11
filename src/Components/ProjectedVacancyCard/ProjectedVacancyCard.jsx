@@ -9,11 +9,10 @@ import { formatDate, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   DEFAULT_TEXT, NO_BUREAU, NO_GRADE, NO_LANGUAGES, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE,
-  NO_POST, NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
+  NO_POST, NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE,
 } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
@@ -140,8 +139,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       { 'Location': result?.location_description || NO_POST },
       { 'Status': result?.future_vacancy_status_description || NO_STATUS },
       { 'Organization': result?.organization_short_description || NO_ORG },
-      { 'TED': result?.future_vacancy_override_tour_end_date || NO_TOUR_END_DATE },
-      { 'Incumbent': result?.incumbent || NO_USER_LISTED },
+      { 'TED': formatDate(result?.future_vacancy_override_tour_end_date) || NO_TOUR_END_DATE },
       { 'Language Offset Summer': summerLanguageOffsets?.find(o => o.code === langOffsetSummer)?.description || DEFAULT_TEXT },
       { 'Language Offset Winter': winterLanguageOffsets?.find(o => o.code === langOffsetWinter)?.description || DEFAULT_TEXT },
       { 'Skill': result?.position_skill_code || NO_SKILL },
@@ -157,22 +155,13 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
   };
   const form = {
     staticBody: [
-      { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
-      { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
+      { 'Assignee TED': displayTedEmp(result?.assignee_tour_end_date, result?.assignee) },
+      { 'Incumbent TED': displayTedEmp(result?.incumbent_tour_end_date, result?.incumbent) },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
-      {
-        'Languages': <LanguageList
-          languages={[
-            { representation: result?.position_language_1_code },
-            { representation: result?.position_language_2_code },
-          ]}
-          propToUse="representation"
-        />,
-      },
+      { 'Languages': displayLangs() },
       { 'Bureau': result?.bureau_short_description || NO_BUREAU },
       { 'Location': result?.location_description || NO_POST },
       { 'Organization': result?.organization_short_description || NO_ORG },
-      { 'Incumbent': result?.incumbent || NO_USER_LISTED },
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
       { 'Pay Plan': result?.position_pay_plan_code || NO_GRADE },
