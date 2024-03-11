@@ -106,10 +106,10 @@ const ProjectedVacancy = ({ isAO }) => {
   useEffect(() => {
     if (positions.length) {
       setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
+      dispatch(projectedVacancyLangOffsets({
+        position_numbers: positions?.map(o => o.position_number) || [],
+      }));
     }
-    dispatch(projectedVacancyLangOffsets({
-      position_numbers: positions?.map(o => o.position_number) || [],
-    }));
   }, [positions]);
 
   const fetchAndSet = () => {
