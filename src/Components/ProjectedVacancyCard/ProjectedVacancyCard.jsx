@@ -93,7 +93,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
         updated_date: result?.updated_date,
       },
     };
-    onSubmit(editData);
+    onSubmit(editData, setEditMode(false));
   };
 
   const displayTedEmp = (ted, employee) => {

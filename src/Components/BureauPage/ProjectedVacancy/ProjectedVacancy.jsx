@@ -93,8 +93,8 @@ const ProjectedVacancy = ({ isAO }) => {
     selectedBidSeasons,
   });
 
-  const submitEdit = (editData) => {
-    dispatch(projectedVacancyEdit(getQuery(), editData));
+  const submitEdit = (editData, onSuccess) => {
+    dispatch(projectedVacancyEdit(getQuery(), editData, onSuccess));
   };
 
   useEffect(() => {

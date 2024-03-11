@@ -191,9 +191,9 @@ export function projectedVacancyLangOffsetOptions() {
   };
 }
 
-// ================ EDIT ================
+// ================ EDIT PROJECTED VACANCY ================
 
-export function projectedVacancyEdit(query, data) {
+export function projectedVacancyEdit(query, data, onSuccess) {
   return (dispatch) => {
     if (cancelPVEdit) {
       cancelPVEdit('cancel');
@@ -256,6 +256,7 @@ export function projectedVacancyEdit(query, data) {
         }
       });
 
+    onSuccess();
     dispatch(projectedVacancyFetchData(query));
   };
 }
