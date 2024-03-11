@@ -64,7 +64,7 @@ const AssignmentCard = (props) => {
       { 'DIP': get(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
       { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_VALUE },
       { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_VALUE },
-      { 'TED': getResult(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
+      { 'TED': get(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
     ],
     bodySecondary: [
       { 'Grade': getResult(data, 'GRD_CD') || NO_GRADE },
