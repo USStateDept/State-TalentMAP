@@ -15,6 +15,7 @@ import {
 import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
 import { get } from 'lodash';
+import Q from 'q';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
@@ -199,74 +200,84 @@ export function projectedVacancyEdit(query, data, onSuccess) {
       cancelPVEdit('cancel');
     }
 
+    const queryProms = [];
+
     // Edit Projected Vacancy Primary Object
     if (data?.projected_vacancy) {
-      api().put('/fsbid/admin/projected_vacancies/edit/', data.projected_vacancy, {
-        cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
-      })
-        .then(() => {
-          dispatch(toastSuccess(
-            UPDATE_PROJECTED_VACANCY_SUCCESS,
-            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
-          ));
+      const editBody = () =>
+        api().put('/fsbid/admin/projected_vacancies/edit/', data.projected_vacancy, {
+          cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
         })
-        .catch((err) => {
-          if (err?.message !== 'cancel') {
-            dispatch(toastError(
-              UPDATE_PROJECTED_VACANCY_ERROR,
-              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+          .then(() => {
+            dispatch(toastSuccess(
+              UPDATE_PROJECTED_VACANCY_SUCCESS,
+              UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
             ));
-          }
-        });
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                UPDATE_PROJECTED_VACANCY_ERROR,
+                UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+              ));
+            }
+          });
+      queryProms.push(editBody());
     }
 
     // Edit Projected Vacancy Language Offsets
     if (data?.language_offsets) {
-      api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', data.language_offsets, {
-        cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
-      })
-        .then(() => {
-          dispatch(toastSuccess(
-            UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS,
-            UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE,
-          ));
+      const editLangOffsets = () =>
+        api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', data.language_offsets, {
+          cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
         })
-        .catch((err) => {
-          if (err?.message !== 'cancel') {
-            dispatch(toastError(
-              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR,
-              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE,
+          .then(() => {
+            dispatch(toastSuccess(
+              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS,
+              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE,
             ));
-          }
-        });
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR,
+                UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE,
+              ));
+            }
+          });
+      queryProms.push(editLangOffsets());
     }
 
     // Edit Projected Vacancy Capsule Description
     if (data?.capsule_description) {
-      api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', data.capsule_description, {
-        cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
-      })
-        .then(() => {
-          dispatch(toastSuccess(
-            UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS,
-            UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE,
-          ));
+      const editDesc = () =>
+        api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', data.capsule_description, {
+          cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
         })
-        .catch((err) => {
-          if (err?.message !== 'cancel') {
-            dispatch(toastError(
-              UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR,
-              UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE,
+          .then(() => {
+            dispatch(toastSuccess(
+              UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS,
+              UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE,
             ));
-          }
-        });
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR,
+                UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE,
+              ));
+            }
+          });
+      queryProms.push(editDesc());
     }
 
-    // TODO: Add conditional to only perform the following logic when all 3 calls were successful
-    if (onSuccess) {
-      onSuccess();
-    }
-    dispatch(projectedVacancyFetchData(query));
+    Q.allSettled(queryProms)
+      .then(() => {
+        if (onSuccess) {
+          onSuccess();
+        }
+        dispatch(projectedVacancyFetchData(query));
+      });
   };
 }
 
