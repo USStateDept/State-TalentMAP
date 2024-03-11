@@ -68,7 +68,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
               <td>{formattedETA}</td>
               <td>{formattedTED}</td>
               <td>{leg.tod_short_desc}</td>
-              <td>{leg.travel}</td>
+              <td>{leg.travel_desc}</td>
               <td>{vice}</td>
               <td>{leg.combined_pp_grade}</td>
             </tr>

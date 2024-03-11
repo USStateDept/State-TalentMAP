@@ -184,7 +184,7 @@ const AgendaLegFormEdit = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    const noValidationRequired = ['travel_code', 'travel'].includes(key);
+    const noValidationRequired = [].includes(key);
 
     if (isEf) {
       const efDefaultText = 'None listed';
@@ -411,7 +411,8 @@ const AgendaLegFormEdit = props => {
     },
     {
       title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travel_code', travelFunctions, 'desc_text')),
+      content: (isEf ? <div className="read-only">{leg?.travel_desc}</div>
+        : getDropdown('travel_code', travelFunctions, 'desc_text')),
     },
     {
       title: 'Vice',
@@ -461,6 +462,8 @@ AgendaLegFormEdit.propTypes = {
     tod: PropTypes.string,
     tod_months: PropTypes.number,
     tod_is_dropdown: PropTypes.bool,
+    travel_code: PropTypes.string,
+    travel_desc: PropTypes.string,
     vice: PropTypes.shape({}),
     ted: PropTypes.string,
     eta: PropTypes.string,
