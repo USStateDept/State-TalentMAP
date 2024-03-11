@@ -79,7 +79,7 @@ const AIMLegsFormRead = props => {
     },
     {
       title: 'Travel',
-      content: (a => <div>{a?.travel || DEFAULT_TEXT}</div>),
+      content: (a => <div>{a?.travel_desc || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Vice',
