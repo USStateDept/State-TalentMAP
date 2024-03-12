@@ -127,7 +127,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'Travel',
-      content: (getData('travel')),
+      content: (getData('travel_desc')),
       cardView: false,
     },
     {

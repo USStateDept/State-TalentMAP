@@ -34,15 +34,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
           className="leg-dropdown validation-error-border"
           disabled={false}
           onChange={[Function]}
-          value=""
-        >
-          <option
-            key="null"
-            value=""
-          >
-            Keep Unselected
-          </option>
-        </select>
+        />
       </div>
     </div>
   </InteractiveElement>
@@ -184,14 +176,14 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div
-      className=""
+      className="error-message-wrapper"
     >
       <div
-        className=""
+        className="validation-error-message-label validation-error-message"
       />
       <div>
         <select
-          className="leg-dropdown "
+          className="leg-dropdown validation-error-border"
           disabled={false}
           onChange={[Function]}
           value=""
@@ -200,7 +192,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
             key="null"
             value=""
           >
-            Keep Unselected
+            No Travel
           </option>
           <option
             key="undefined-0"

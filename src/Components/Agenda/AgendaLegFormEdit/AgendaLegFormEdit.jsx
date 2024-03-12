@@ -183,13 +183,8 @@ const AgendaLegFormEdit = props => {
     });
   };
 
-  const getDropdown = (key, data, text) => {
-    const noValidationRequired = ['travel_code', 'travel'].includes(key);
-
-    if (isEf) {
-      const efDefaultText = 'None listed';
-      return <div className="read-only">{get(leg, key) || efDefaultText}</div>;
-    }
+  const getDropdown = (key, data, text, placeholder = 'Keep Unselected') => {
+    const noValidationRequired = [].includes(key);
 
     return (
       <div className={noValidationRequired ? '' : 'error-message-wrapper'}>
@@ -204,7 +199,7 @@ const AgendaLegFormEdit = props => {
             disabled={disabled}
           >
             <option key={null} value={''}>
-              Keep Unselected
+              {placeholder}
             </option>
             {
               data.map((a, i) => {
@@ -265,6 +260,36 @@ const AgendaLegFormEdit = props => {
                 const { code, long_description } = tod;
                 const todKey = `${code}-${i}`; // custom tods will have the same code as other
                 return <option key={todKey} value={code}>{long_description}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
+    );
+  };
+
+  const getActionDropdown = () => {
+    const actionOptions = getLegActionTypes();
+    if (isEf) {
+      return <div className="read-only">{leg.action_code || 'None listed'}</div>;
+    }
+
+    return (
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.valid ? '' : 'validation-error-border'}`}
+            value={leg?.action_code}
+            onChange={(e) => updateDropdown('action_code', e.target.value)}
+            disabled={disabled}
+          >
+            {
+              actionOptions.map((action) => {
+                const { code, abbr_desc_text } = action;
+                return <option key={code} value={code}>{abbr_desc_text}</option>;
               })
             }
           </select>
@@ -368,7 +393,7 @@ const AgendaLegFormEdit = props => {
   const columnData = [
     {
       title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'action_code', getLegActionTypes(), 'abbr_desc_text')),
+      content: (isEf ? getDropdown('action', getLegActionTypes(), 'abbr_desc_text') : getActionDropdown()),
     },
     {
       title: 'Position Title',
@@ -411,7 +436,8 @@ const AgendaLegFormEdit = props => {
     },
     {
       title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travel_code', travelFunctions, 'desc_text')),
+      content: (isEf ? <div className="read-only">{leg?.travel_desc}</div>
+        : getDropdown('travel_code', travelFunctions, 'desc_text', 'No Travel')),
     },
     {
       title: 'Vice',
@@ -461,6 +487,10 @@ AgendaLegFormEdit.propTypes = {
     tod: PropTypes.string,
     tod_months: PropTypes.number,
     tod_is_dropdown: PropTypes.bool,
+    action: PropTypes.string,
+    action_code: PropTypes.string,
+    travel_code: PropTypes.string,
+    travel_desc: PropTypes.string,
     vice: PropTypes.shape({}),
     ted: PropTypes.string,
     eta: PropTypes.string,
