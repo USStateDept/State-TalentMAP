@@ -101,11 +101,10 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const [empProfileError, setEmpProfileError] = useState(false);
   useEffect(() => {
     // Prevent repeated calls while the data is attempting to be fetched
-    if (!empProfileLoading) {
-      const hruId = employee?.employeeData?.user_info?.hru_id;
+    if (employee?.employeeDataLoading && !empProfileLoading) {
+      const hruId = employee?.employeeData?.user_info?.hru_id.toString();
       setEmpProfileLoading(true);
-      if (hruId && !url) {
-        console.log('hit');
+      if (!url) {
         api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
           { responseType: 'arraybuffer' },
         ).then(response => {
@@ -118,9 +117,6 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
           setEmpProfileError(true);
           setEmpProfileLoading(false);
         });
-      } else {
-        setEmpProfileError(true);
-        setEmpProfileLoading(false);
       }
     }
   }, [employee]);
