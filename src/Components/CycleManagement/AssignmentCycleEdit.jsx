@@ -419,7 +419,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
           <span className="bs-validation-container">
             <select
               id="cycleCategory"
-              defaultValue={cycleCategory.value}
+              defaultValue={cycleCategory}
               onChange={(e) => setCycleCategory(e.target.value)}
               value={cycleCategory.value}
             >
@@ -437,7 +437,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
           <span className="bs-validation-container">
             <select
               id="cycleStatus"
-              defaultValue={cycleStatus.value}
+              defaultValue={cycleStatus}
               onChange={(e) => setCycleStatus(e.target.value)}
               value={cycleStatus.value}
             >
