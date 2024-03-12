@@ -100,13 +100,15 @@ const ManageEntryLevel = () => {
       overseas,
       domestic,
     ];
-    if (filters.flat().length === 0) {
+    // Don't reload positions if there are no user selected filters AND
+    // OD/Domestic is false
+    if (filters.flat().length === 2 && !filters.flat().includes(true)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
+      dispatch(entryLevelFetchData(getQuery()));
+      dispatch(saveEntryLevelSelections(getCurrentInputs()));
     }
-    dispatch(entryLevelFetchData(getQuery()));
-    dispatch(saveEntryLevelSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
@@ -146,7 +148,7 @@ const ManageEntryLevel = () => {
                   <button
                     className="unstyled-button"
                     onClick={resetFilters}
-                    disabled={disableSearch}
+                    // disabled={disableSearch}
                   >
                     <FA name="times" />
                     Clear Filters
