@@ -35,32 +35,45 @@
       }
     }
   }
-  .asg-dropdown, .aim-select, .aim-select-small, .add-pos-num-input {
+
+  .asg-dropdown,
+  .aim-select,
+  .aim-select-small,
+  .add-pos-num-input {
     color: $color-gray;
     cursor: not-allowed;
   }
 
   .ai-research-pane {
-    .frequent-positions-table, .remarks-glossary-container {
+
+    .frequent-positions-table,
+    .remarks-glossary-container {
       .filter {
         display: inline-flex;
         align-items: baseline;
         justify-content: flex-start;
+
         input[type="text"] {
           border-right: 0.1rem solid #5b616b;
           width: 400px;
         }
+
         span {
           margin-left: -35px;
         }
-        .close-fa{
+
+        .close-fa {
           font-size: initial;
         }
+
         .fa-close {
           cursor: default;
         }
       }
-      .fa, .fa-disabled, .fa-disabled:hover {
+
+      .fa,
+      .fa-disabled,
+      .fa-disabled:hover {
         color: $color-gray;
         cursor: not-allowed;
       }
@@ -69,8 +82,10 @@
 }
 
 .remarks-glossary-container {
-  .fa-disabled, .fa-disabled:hover {
-    color: $color-gray!important;
+
+  .fa-disabled,
+  .fa-disabled:hover {
+    color: $color-gray !important;
     cursor: not-allowed;
   }
 }
@@ -78,10 +93,12 @@
 .ai-maintenance-container {
   margin: 10px;
   padding-bottom: 15px;
+
   // at 1600 we auto stack, so smaller screen styles should go there
   @media screen and (min-width: 1600px) {
     width: 99%;
   }
+
   @media screen and (min-width: 4000px) {
     width: 99.5%;
   }
@@ -140,6 +157,7 @@
         display: inline-block;
       }
     }
+
     .add-legs-container {
       display: flex;
       flex-wrap: wrap;
@@ -152,6 +170,7 @@
         text-align: center;
         font-weight: bold;
       }
+
       select {
         border: 1px solid $bg-gray-dark-2;
         border-radius: 3px;
@@ -160,21 +179,29 @@
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
       }
+
       .asg-dropdown {
         width: 351px;
       }
+
       .asg-disabled {
         background-color: $color-gray-lighter;
         border: 1px solid $color-gray-light;
         color: $color-black;
       }
+
       .asg-animation {
         animation: asgAnimation 2s;
       }
 
       @keyframes asgAnimation {
-        0%   {background-color: $primary-alt-light;}
-        100% {background-color: $primary-alt-lightest;}
+        0% {
+          background-color: $primary-alt-light;
+        }
+
+        100% {
+          background-color: $primary-alt-lightest;
+        }
       }
 
       .position-number-container {
@@ -189,14 +216,17 @@
           width: 351px;
           font-size: 13px;
         }
+
         .input-default {
           background-color: $color-white;
           border: 1px solid $bg-gray-dark-2;
         }
+
         .input-error {
           background-color: $color-red-lightest;
           border: 1px solid $color-red;
         }
+
         .input-disabled {
           background-color: $color-gray-lighter;
           border: 1px solid $color-gray-light;
@@ -208,25 +238,32 @@
           position: relative;
           top: 1px
         }
+
         .add-pos-num-icon:hover {
           color: $primary-blue-darkest;
         }
+
         .icon-disabled {
           color: $color-gray;
+
           .fa {
             cursor: not-allowed;
           }
         }
+
         .icon-disabled:hover {
           color: $color-gray;
         }
+
         label {
           display: flex;
         }
+
         .fa {
           padding-left: 0px;
         }
       }
+
       .add-fp-link {
         cursor: pointer;
         margin-top: 5px;
@@ -257,9 +294,11 @@
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
       }
+
       .aim-select {
         width: 280px;
       }
+
       .aim-select-small {
         width: 140px;
       }
@@ -278,6 +317,7 @@
       position: absolute;
       top: 40%;
     }
+
     @media screen and (min-width: 4000px) {
       .ai-maintenance-header label {
         margin: 10px;
@@ -306,10 +346,12 @@
     align-content: flex-end;
     flex-wrap: wrap;
     font-size: 12px;
+
     .aim-timestamp {
       display: flex;
       justify-content: space-around;
     }
+
     .date {
       padding-left: 2px;
       font-size: 10px;
@@ -329,7 +371,8 @@
     display: inline-block;
     width: 2%;
   }
-  .expand-arrow > div {
+
+  .expand-arrow>div {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -354,7 +397,7 @@
       border-radius: 5px;
     }
 
-    .bid-content-container > div:last-child > div {
+    .bid-content-container>div:last-child>div {
       display: inline;
     }
   }
@@ -363,24 +406,30 @@
     padding: 20px;
     position: relative;
     background-color: $color-white;
+
     .filter {
       display: inline-flex;
       align-items: baseline;
       justify-content: flex-start;
+
       input[type="text"] {
         border-right: 0.1rem solid #5b616b;
         width: 400px;
       }
+
       span {
         margin-left: -35px;
       }
-      .close-fa{
+
+      .close-fa {
         font-size: initial;
       }
+
       .fa-close {
         cursor: default;
       }
     }
+
     .dashboard-section-title {
       margin-bottom: 1em;
     }
@@ -399,10 +448,17 @@
     .tm-spinner {
       margin-top: 100px;
     }
+
+    .rpv-core__viewer {
+      div div {
+        overflow: unset !important;
+      }
+    }
   }
 
   .data-point-container {
     margin-bottom: 10px;
+
     .data-point-title {
       color: $color-black;
       font-size: 1.6rem;
@@ -410,7 +466,7 @@
     }
   }
 
-  .language-details > span {
+  .language-details>span {
     border-left: 1px solid $bg-gray-medium-1;
     float: inherit;
     margin-left: 10px;
@@ -455,54 +511,60 @@
       display: flex;
     }
 
-    tr > *:nth-child(1) {
+    tr>*:nth-child(1) {
       flex: 1
     }
 
-    tr > *:nth-child(2) {
+    tr>*:nth-child(2) {
       flex: 6
     }
 
-    tr > *:nth-child(3) {
+    tr>*:nth-child(3) {
       flex: 6
     }
 
-    tr > *:nth-child(4) {
+    tr>*:nth-child(4) {
       flex: 12
     }
 
     .gsa-locations {
-      thead > tr {
+      thead>tr {
         th:first-of-type {
           position: relative;
+
           .fa {
             font-size: 1.4em;
             left: 30%;
             position: relative;
           }
         }
+
         .fa-globe {
           color: $color-white;
         }
       }
 
-      tr > *:nth-child(1), *:nth-child(6) {
+      tr>*:nth-child(1),
+      *:nth-child(6) {
         flex: 1
       }
 
-      tr > *:nth-child(2), *:nth-child(3), *:nth-child(4), *:nth-child(5) {
+      tr>*:nth-child(2),
+      *:nth-child(3),
+      *:nth-child(4),
+      *:nth-child(5) {
         flex: 4;
       }
 
     }
 
-    tbody > tr {
+    tbody>tr {
       border: 2px solid $bg-gray-dark-1;
       border-top: 0px;
     }
 
-    tbody > tr {
-      > td:first-of-type {
+    tbody>tr {
+      >td:first-of-type {
         position: relative;
 
         .fa {
@@ -510,16 +572,18 @@
           left: 30%;
           position: relative;
         }
+
         .fa-enabled {
           color: $color-blue-hover;
         }
+
         .fa-enabled:hover {
           color: $primary-blue-darkest;
         }
       }
     }
 
-    tbody > tr:nth-child(even) {
+    tbody>tr:nth-child(even) {
       $bg: $bg-gray-medium-2;
       background-color: $bg;
 
@@ -528,7 +592,7 @@
       }
     }
 
-    tbody > tr:nth-child(odd) {
+    tbody>tr:nth-child(odd) {
       $bg: $color-white;
       background-color: $bg;
 
@@ -590,16 +654,16 @@
     font-size: 13px;
   }
 
-  li > * {
+  li>* {
     display: inline;
   }
 
-  li:nth-child(even){
+  li:nth-child(even) {
     $bg: $bg-gray-medium-2;
     background-color: $bg;
   }
 
-  li:nth-child(odd){
+  li:nth-child(odd) {
     $bg: $color-white;
     background-color: $bg;
   }
@@ -635,7 +699,8 @@
         display: inline;
       }
 
-      input, .react-datepicker__input-container {
+      input,
+      .react-datepicker__input-container {
         height: 10px;
         display: inline-block;
         font-size: 13px;
@@ -655,8 +720,9 @@
 }
 
 // ---- start: styling for validation errors ----
-.ai-validation-errored, .ai-validation-errored:hover {
-  background-color: $color-white!important;
+.ai-validation-errored,
+.ai-validation-errored:hover {
+  background-color: $color-white !important;
   border: 2px solid $secondary-dark;
   border-radius: 5px;
   color: $secondary-dark;
@@ -680,6 +746,7 @@
     border-right: 2px solid transparent;
   }
 }
+
 .ail-form-ted {
   .validation-error-border:hover {
     border-top: none;
@@ -695,13 +762,15 @@
 }
 
 .error-message-wrapper {
-  display: block!important;
+  display: block !important;
+
   .validation-error-message-label {
     text-align: right;
-    display: block!important;
+    display: block !important;
     height: 15px;
   }
 }
+
 // ---- end: styling for validation errors ----
 
 .aim-combined-tod {
@@ -718,30 +787,37 @@
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
+
     button {
       margin: 0;
     }
+
     .filter {
       display: inline-flex;
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: flex-start;
       width: 250px;
+
       label {
         margin-right: 5px;
       }
+
       input[type="search"] {
         border-right: 0.1rem solid #5b616b;
         width: 240px;
       }
+
       span {
         margin-left: -25px;
       }
+
       .fa-close {
         cursor: default;
       }
     }
   }
+
   .active-globe {
     text-shadow: 0px 0px 12px $color-blue-neon;
   }
