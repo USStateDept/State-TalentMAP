@@ -268,6 +268,36 @@ const AgendaLegFormEdit = props => {
     );
   };
 
+  const getActionDropdown = () => {
+    const actionOptions = getLegActionTypes();
+    if (isEf) {
+      return <div className="read-only">{leg.action_code || 'None listed'}</div>;
+    }
+
+    return (
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.valid ? '' : 'validation-error-border'}`}
+            value={leg?.action_code}
+            onChange={(e) => updateDropdown('action_code', e.target.value)}
+            disabled={disabled}
+          >
+            {
+              actionOptions.map((action) => {
+                const { code, abbr_desc_text } = action;
+                return <option key={code} value={code}>{abbr_desc_text}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
+    );
+  };
+
   const onAddLocationClick = () => {
     setActiveAIL(leg?.ail_seq_num);
     setLegsContainerExpanded(false);
@@ -363,8 +393,7 @@ const AgendaLegFormEdit = props => {
   const columnData = [
     {
       title: 'Action',
-      content: (isEf ? <div className="read-only">{leg?.action || 'None listed'}</div>
-        : getDropdown('action_code', getLegActionTypes(), 'abbr_desc_text')),
+      content: (isEf ? getDropdown('action', getLegActionTypes(), 'abbr_desc_text') : getActionDropdown()),
     },
     {
       title: 'Position Title',
