@@ -109,7 +109,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
   const displayLangs = () => {
     let displayText = '';
     const langs = result?.position_language_proficiency_description?.split(';');
-    langs.forEach((lang, i) => {
+    langs?.forEach((lang, i) => {
       const langCodeAttr = `position_language_${i + 1}_code`;
       const langCode = result?.[langCodeAttr] || undefined;
       if (langCode) {
