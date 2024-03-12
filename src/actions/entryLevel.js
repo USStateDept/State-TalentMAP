@@ -8,6 +8,7 @@ import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
+import { convertQueryToString } from '../utilities';
 
 let cancelELdata;
 // let cancelELedit;
@@ -100,14 +101,17 @@ export function entryLevelFetchDataSuccess(results) {
   };
 }
 
-export function entryLevelFetchData() {
+export function entryLevelFetchData(query = {}) {
   return (dispatch) => {
     if (cancelELdata) { cancelELdata('cancel'); }
     batch(() => {
       dispatch(entryLevelFetchDataLoading(true));
       dispatch(entryLevelFetchDataErrored(false));
     });
-    api().get('/fsbid/positions/el_positions/', {
+    const q = convertQueryToString(query);
+    const endpoint = '/fsbid/positions/el_positions/';
+    const ep = `${endpoint}?${q}`;
+    api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelELdata = c; }),
     })
       .then(({ data }) => {
