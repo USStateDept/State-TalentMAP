@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
-import { entryLevelFetchData, entryLevelFiltersFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
+import { entryLevelFetchData, entryLevelFiltersFetchData } from 'actions/entryLevel';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -70,17 +70,18 @@ const ManageEntryLevel = () => {
     setClearFilters(false);
   };
 
-  const getCurrentInputs = () => ({
-    selectedTps,
-    selectedBureaus,
-    selectedOrgs,
-    selectedGrade: selectedGrades,
-    selectedSkills,
-    selectedJobs,
-    selectedLanguage: selectedLanguages,
-    overseas,
-    domestic,
-  });
+  // Commented out until work on saving functionality resumes
+  // const getCurrentInputs = () => ({
+  //   selectedTps,
+  //   selectedBureaus,
+  //   selectedOrgs,
+  //   selectedGrade: selectedGrades,
+  //   selectedSkills,
+  //   selectedJobs,
+  //   selectedLanguage: selectedLanguages,
+  //   overseas,
+  //   domestic,
+  // });
 
   useEffect(() => {
     dispatch(entryLevelFiltersFetchData());
@@ -105,7 +106,6 @@ const ManageEntryLevel = () => {
     } else {
       setClearFilters(true);
       dispatch(entryLevelFetchData(getQuery()));
-      dispatch(saveEntryLevelSelections(getCurrentInputs()));
     }
   };
 
@@ -146,7 +146,6 @@ const ManageEntryLevel = () => {
                   <button
                     className="unstyled-button"
                     onClick={resetFilters}
-                    // disabled={disableSearch}
                   >
                     <FA name="times" />
                     Clear Filters
@@ -287,7 +286,6 @@ const ManageEntryLevel = () => {
               elPositionsList?.map((pos, i) => (
                 <EntryLevelCard
                   id={i}
-                  // key={i}
                   result={pos}
                   appendAdditionalFieldsToBodyPrimary={false}
                   onEditModeSearch={(editMode, id) =>
