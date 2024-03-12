@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 // import datefns from 'date-fns';
 import { getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
@@ -59,11 +60,11 @@ const AssignmentCard = (props) => {
       { 'Status': getResult(data, 'ASGS_CODE') || NO_STATUS },
       { 'Bureau': getResult(data, 'ORGS_SHORT_DESC') || NO_BUREAU },
       { 'Location': getResult(data, 'POS_LOCATION_CODE') || NO_POST },
-      { 'ETA': getResult(data, 'ASGD_ETA_DATE') || NO_VALUE },
+      { 'ETA': get(data, 'ASGD_ETA_DATE') || NO_VALUE },
       { 'DIP': getResult(data, 'DIPLOMATIC_TITLE') || NO_POSITION_TITLE },
       { 'Memo Sent': getResult(data, 'MEMO_LAST_SENT_DATE') || NO_VALUE },
       { 'Note Sent': getResult(data, 'NOTE_LAST_SENT_DATE') || NO_VALUE },
-      { 'TED': getResult(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
+      { 'TED': get(data, 'ASGD_ETD_TED_DATE') || NO_TOUR_END_DATE },
     ],
     bodySecondary: [
       { 'Grade': getResult(data, 'GRD_CD') || NO_GRADE },
@@ -160,7 +161,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-statuses">Status</label>
             <select
               id="assignment-statuses"
-              defaultValue={status}
+              value={status}
               onChange={(e) => setStatus(e?.target.value)}
             >
               {statusOptions?.map(s => (
@@ -174,7 +175,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-actions">Action</label>
             <select
               id="assignment-actions"
-              defaultValue={action}
+              value={action}
               onChange={(e) => setAction(e?.target.value)}
             >
               {actionOptions?.map(a => (
@@ -218,7 +219,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-tod">Tour of Duty</label>
             <select
               id="assignment-tod"
-              defaultValue={tod}
+              value={tod}
               onChange={(e) => setTOD(e?.target.value)}
             >
               {todOptions?.map(t => (
@@ -232,7 +233,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-travel">Travel</label>
             <select
               id="assignment-travel"
-              defaultValue={travel}
+              value={travel}
               onChange={(e) => setTravel(e?.target.value)}
             >
               {travelOptions?.map(t => (
@@ -246,7 +247,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-funding">Alt Funding</label>
             <select
               id="assignment-funding"
-              defaultValue={funding}
+              value={funding}
               onChange={(e) => setFunding(e?.target.value)}
             >
               {fundingOptions?.map(f => (
@@ -261,7 +262,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-adj">Adj</label>
             <input
               id="assignment-adj"
-              defaultValue={adj}
+              value={adj}
               onChange={(e) => setAdj(e?.target.value)}
             />
           </div>
@@ -309,7 +310,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-waiver">Waiver</label>
             <select
               id="assignment-waiver"
-              defaultValue={waiver}
+              value={waiver}
               onChange={(e) => setWaiver(e?.target.value)}
             >
               {waiverOptions?.map(w => (
@@ -323,7 +324,7 @@ const AssignmentCard = (props) => {
             <label htmlFor="assignment-sent">Sent</label>
             <input
               id="assignment-sent"
-              defaultValue={sent}
+              value={sent}
               onChange={(e) => setSent(e?.target.value)}
             />
           </div>
