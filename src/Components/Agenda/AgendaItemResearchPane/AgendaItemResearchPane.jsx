@@ -101,7 +101,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const [empProfileError, setEmpProfileError] = useState(false);
   useEffect(() => {
     // Prevent repeated calls while the data is attempting to be fetched
-    if (employee?.employeeDataLoading && !empProfileLoading) {
+    if (employee?.employeeDataLoading || !empProfileLoading) {
       const hruId = employee?.employeeData?.user_info?.hru_id.toString();
       setEmpProfileLoading(true);
       if (!url) {
