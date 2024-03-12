@@ -186,7 +186,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         if (empProfileError) {
           return errorAlert;
         }
-        if (empProfileLoading) {
+        if (employee?.employeeDataLoading || empProfileLoading) {
           return <Spinner type="employee-profile-preview" size="small" />;
         }
         return (
