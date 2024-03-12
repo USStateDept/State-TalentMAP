@@ -101,7 +101,9 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const [empProfileError, setEmpProfileError] = useState(false);
   useEffect(() => {
     const hruId = employee?.employeeData?.user_info?.hru_id;
-    if (hruId && !url && !empProfileLoading) {
+    if (!hruId) {
+      setEmpProfileError(true);
+    } else if (!url && !empProfileLoading) {
       setEmpProfileLoading(true);
       api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
         { responseType: 'arraybuffer' },
