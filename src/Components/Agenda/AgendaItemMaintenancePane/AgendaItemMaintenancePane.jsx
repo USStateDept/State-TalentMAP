@@ -110,7 +110,8 @@ const AgendaItemMaintenancePane = (props) => {
 
   // ================ User Centric Data ================
   // Data is parsed differently depending on whether the data comes from agendaItem or employeeData
-  // agendaItem is available during edit and employeeData is fallback used on create for client users
+  // agendaItem is available during edit and employeeData is fallback used
+  // on create for client users
 
   const { employeeData, employeeDataError, employeeDataLoading } = employee;
 
