@@ -682,7 +682,7 @@ AgendaItemMaintenancePane.defaultProps = {
   },
   AIvalidationIsLoading: false,
   AIvalidationHasErrored: false,
-  employee: undefined,
+  employee: {},
 };
 
 export default AgendaItemMaintenancePane;
