@@ -262,7 +262,7 @@ AgendaItemResearchPane.defaultProps = {
   clientLoading: false,
   clientError: false,
   activeAIL: '',
-  employee: undefined,
+  employee: {},
 };
 
 export default AgendaItemResearchPane;
