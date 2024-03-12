@@ -18,36 +18,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </div>
   <InteractiveElement
     className="grid-col-3 grid-row-2"
-    key="Action"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="error-message-wrapper"
-    >
-      <div
-        className="validation-error-message-label validation-error-message"
-      />
-      <div>
-        <select
-          className="leg-dropdown validation-error-border"
-          disabled={false}
-          onChange={[Function]}
-          value=""
-        >
-          <option
-            key="null"
-            value=""
-          >
-            Keep Unselected
-          </option>
-        </select>
-      </div>
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-3"
     key="Position Title"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -58,7 +28,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-4"
+    className="grid-col-3 grid-row-3"
     key="Position Number"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -69,7 +39,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-5"
+    className="grid-col-3 grid-row-4"
     key="Location/Org"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -82,7 +52,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-6"
+    className="grid-col-3 grid-row-5"
     key="Languages"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -93,7 +63,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-7"
+    className="grid-col-3 grid-row-6"
     key="Skills"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -104,7 +74,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-8"
+    className="grid-col-3 grid-row-7"
     key="ETA"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -128,7 +98,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-9"
+    className="grid-col-3 grid-row-8"
     key=""
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -143,7 +113,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-10"
+    className="grid-col-3 grid-row-9"
     key="TED"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -156,7 +126,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-11"
+    className="grid-col-3 grid-row-10"
     key="TOD"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -172,6 +142,28 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
           className="other-tod-icon"
           name="times"
           onClick={[Function]}
+        />
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-11"
+    key="Action"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="error-message-wrapper"
+    >
+      <div
+        className="validation-error-message-label validation-error-message"
+      />
+      <div>
+        <select
+          className="leg-dropdown validation-error-border"
+          disabled={false}
+          onChange={[Function]}
         />
       </div>
     </div>
