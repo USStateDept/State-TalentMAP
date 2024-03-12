@@ -53,7 +53,7 @@ const ManageEntryLevel = () => {
     'el-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'el-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'el-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'el-jobs': selectedJobs.map(jobObject => (jobObject?.id)),
+    'el-jobs': selectedJobs.map(jobObject => (jobObject?.code)),
     'el-language': selectedLanguages.map(langObject => (langObject?.code)),
   });
 
