@@ -2,12 +2,12 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-import { formatDate, formatLang } from 'utilities';
+import { formatDate, formatLang, formatMonthYearDate } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import Alert from '../../Alert';
 import { formatVice } from '../Constants';
 
-const AgendaItemLegsFormReadOnly = props => {
+const AIMLegsFormRead = props => {
   const { legs } = props;
 
   const showOverlay = !legs.length;
@@ -22,12 +22,25 @@ const AgendaItemLegsFormReadOnly = props => {
   };
 
   const getArrows = (hide = false) => (
-    <div className={`${hide ? 'hide' : ''} arrow`}>
+    <div className={`${hide ? 'hide' : ''} aim-form-arrow-read`}>
       <FA name="arrow-down" />
     </div>
   );
 
+  const getTed = (a) => {
+    if (!a?.ted) {
+      return DEFAULT_TEXT;
+    } else if (a?.is_separation) {
+      return formatDate(a?.ted);
+    }
+    return formatMonthYearDate(a?.ted);
+  };
+
   const columnData = [
+    {
+      title: 'Action',
+      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
+    },
     {
       title: 'Position Title',
       content: (a => <div>{a?.pos_title || DEFAULT_TEXT}</div>),
@@ -37,12 +50,8 @@ const AgendaItemLegsFormReadOnly = props => {
       content: (a => <div>{a?.pos_num || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Org',
+      title: 'Location/ Org',
       content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
-    },
-    {
-      title: 'Grade',
-      content: (a => <div>{a?.grade || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Lang',
@@ -54,35 +63,31 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'ETA',
-      content: (a => <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>),
+      content: (a => <div>{formatMonthYearDate(a?.eta) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
-      content: ((a) => getArrows(a?.is_separation)),
+      content: (a => getArrows(a?.is_separation)),
     },
     {
       title: 'TED',
-      content: (a => <div>{ !a?.ted ? DEFAULT_TEXT : formatDate(a?.ted)}</div>),
+      content: (a => <div>{getTed(a)}</div>),
     },
     {
       title: 'TOD',
       content: (a => <div>{a?.tod_long_desc || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Action',
-      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
-    },
-    {
       title: 'Travel',
-      content: (a => <div>{a?.travel || DEFAULT_TEXT}</div>),
+      content: (a => <div>{a?.travel_desc || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Vice',
       content: (a => formatVice(a?.vice)),
     },
     {
-      title: 'Pay Plan',
-      content: (a => <div>{a?.pay_plan || DEFAULT_TEXT}</div>),
+      title: 'PP/Grade',
+      content: (a => <div>{a?.combined_pp_grade || DEFAULT_TEXT}</div>),
     },
   ];
 
@@ -137,12 +142,12 @@ const AgendaItemLegsFormReadOnly = props => {
   );
 };
 
-AgendaItemLegsFormReadOnly.propTypes = {
+AIMLegsFormRead.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-AgendaItemLegsFormReadOnly.defaultProps = {
+AIMLegsFormRead.defaultProps = {
   legs: [],
 };
 
-export default AgendaItemLegsFormReadOnly;
+export default AIMLegsFormRead;

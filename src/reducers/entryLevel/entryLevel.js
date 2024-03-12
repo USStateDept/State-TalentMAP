@@ -39,7 +39,7 @@ export function entryLevelFetchDataLoading(state = false, action) {
       return state;
   }
 }
-export function entryLevel(state = {}, action) {
+export function entryLevelPositions(state = [], action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_FETCH_SUCCESS':
       return action.results;

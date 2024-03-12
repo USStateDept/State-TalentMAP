@@ -42,6 +42,24 @@
 
   .ai-research-pane {
     .frequent-positions-table, .remarks-glossary-container {
+      .filter {
+        display: inline-flex;
+        align-items: baseline;
+        justify-content: flex-start;
+        input[type="text"] {
+          border-right: 0.1rem solid #5b616b;
+          width: 400px;
+        }
+        span {
+          margin-left: -35px;
+        }
+        .close-fa{
+          font-size: initial;
+        }
+        .fa-close {
+          cursor: default;
+        }
+      }
       .fa, .fa-disabled, .fa-disabled:hover {
         color: $color-gray;
         cursor: not-allowed;
@@ -201,7 +219,6 @@
         }
         .icon-disabled:hover {
           color: $color-gray;
-          cursor: not-allowed;
         }
         label {
           display: flex;
@@ -346,7 +363,24 @@
     padding: 20px;
     position: relative;
     background-color: $color-white;
-
+    .filter {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      input[type="text"] {
+        border-right: 0.1rem solid #5b616b;
+        width: 400px;
+      }
+      span {
+        margin-left: -35px;
+      }
+      .close-fa{
+        font-size: initial;
+      }
+      .fa-close {
+        cursor: default;
+      }
+    }
     .dashboard-section-title {
       margin-bottom: 1em;
     }
@@ -677,4 +711,38 @@
 
 .aim-combined-tod-other-text {
   justify-content: center;
+}
+
+.search-locations-container {
+  .search-locations-filters {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    button {
+      margin: 0;
+    }
+    .filter {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: flex-start;
+      width: 250px;
+      label {
+        margin-right: 5px;
+      }
+      input[type="search"] {
+        border-right: 0.1rem solid #5b616b;
+        width: 240px;
+      }
+      span {
+        margin-left: -25px;
+      }
+      .fa-close {
+        cursor: default;
+      }
+    }
+  }
+  .active-globe {
+    text-shadow: 0px 0px 12px $color-blue-neon;
+  }
 }

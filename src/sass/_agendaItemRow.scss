@@ -46,6 +46,9 @@
       }
     }
 
+    // used in the following places:
+    // Agenda Item History
+    // Panel Agenda Items
     .ai-legs {
       max-width: 60vw;
       min-height: 300px;
@@ -86,6 +89,11 @@
             background-color: $color-gray-lightest;
           }
 
+        }
+        .ai-legs-arrow {
+          color: $bg-gray-dark-2;
+          font-size: small;
+          padding-left: 25px;
         }
         // exclude arrow row
         tr:hover:nth-child(8) {

@@ -51,15 +51,23 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     rInserts.forEach((a) => {
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
+
       if (rTextI > -1) {
         let remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
         remarkInsertValue = remarkInsertValue[0] === '{' ? '' : remarkInsertValue;
+
+        // {text}, {text1}, {text2} -> text
+        // {#}, {cable#} -> number, cablenumber
+        // date -> MM/DD/YYYY
+        const rInsertionTextSanitized = rInsertionText.replace(/[{}\d]/g, '')
+          .replace(/#/g, 'number')
+          .replace(/date/g, 'MM/DD/YYYY');
 
         rText.splice(rTextI, 1, <TextInput
           value={remarkInsertValue}
           changeText={v => setTextInput(a?.rirmrkseqnum, a?.riseqnum, v)}
           customContainerClass="remark-input"
-          placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
+          placeholder={rInsertionTextSanitized}
           id="remarks-custom-input"
           key={a.riseqnum}
           inputProps={{ autoComplete: 'off' }}
@@ -73,10 +81,19 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   };
 
   const remarkStatus = (r) => {
-    const disabled = isReadOnly;
-    const selected = find(userSelections, { seq_num: r.seq_num });
+    // disable if any insertions are empty
+    const rInserts = r?.remark_inserts || [];
+    const someAreEmpty = rInserts.some((a) => {
+      const remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
+      const remarkInsertValueTrimmed = remarkInsertValue.trim();
+      return (remarkInsertValueTrimmed[0] === '{' || remarkInsertValueTrimmed === '');
+    });
 
-    return { selected, disabled };
+    const selected = find(userSelections, { seq_num: r.seq_num });
+    const allDisabled = isReadOnly;
+    const inputDisabled = isReadOnly || (someAreEmpty && !selected);
+
+    return { selected, allDisabled, inputDisabled };
   };
 
   const [remarks$, setRemarks$] = useState(remarks);
@@ -117,16 +134,19 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
-      <TextInput
-        changeText={e => { search(e); setTerm(e); }}
-        value={term}
-        labelSrOnly
-        placeholder="Search for Remarks"
-        id="remarks-search"
-        inputProps={{
-          autoComplete: 'off',
-        }}
-      />
+      <div className="filter">
+        <TextInput
+          changeText={e => { search(e); setTerm(e); }}
+          value={term}
+          labelSrOnly
+          placeholder="Search for Remarks"
+          id="remarks-search"
+          inputProps={{
+            autoComplete: 'off',
+          }}
+        />
+        <FA className="close-fa" name={term && 'close'} onClick={() => setTerm('')} />
+      </div>
       <div className="remarks-glossary-container">
         <div className="usa-grid-full remarks-categories-container">
           {remarkCategories$.map(a => (
@@ -145,14 +165,14 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
                   const rStatus = remarkStatus(r);
                   return (<li key={r.seq_num}>
                     <InteractiveElement
-                      onClick={() => rStatus?.disabled ? {} : updateSelection(r, textInputs)}
+                      onClick={() => rStatus?.inputDisabled ? {} : updateSelection(r, textInputs)}
                     >
                       <FA
                         name={`${rStatus?.selected ? 'minus-circle' : 'plus-circle'}`}
-                        className={`${rStatus?.disabled ? 'fa-disabled' : ''}`}
+                        className={`${rStatus?.inputDisabled ? 'fa-disabled' : ''}`}
                       />
                     </InteractiveElement>
-                    {renderText(r, rStatus?.disabled || rStatus?.selected)}
+                    {renderText(r, rStatus?.allDisabled || rStatus?.selected)}
                   </li>);
                 })}
               </ul>

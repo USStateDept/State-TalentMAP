@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
-import AgendaLeg from '../AgendaLeg';
+import AgendaLegFormEdit from '../AgendaLegFormEdit';
 import Alert from '../../Alert';
 
-const AgendaItemLegsForm = props => {
+const AIMLegsFormEdit = props => {
   const {
     efPos,
     legs,
@@ -37,20 +37,19 @@ const AgendaItemLegsForm = props => {
   };
 
   const legHeaderData = [
+    'Action',
     'Position Title',
     'Position Number',
-    'Org',
-    'Grade',
+    'Location/ Org',
     'Lang',
     'Skills',
     'ETA',
     '',
     'TED',
     'TOD',
-    'Action',
     'Travel',
     'Vice',
-    'Pay Plan',
+    'PP/Grade',
   ];
 
   useEffect(() => {
@@ -100,7 +99,7 @@ const AgendaItemLegsForm = props => {
               }
               {
                 hasEf &&
-                <AgendaLeg
+                <AgendaLegFormEdit
                   leg={efPos}
                   legNum={2}
                   TODs={TODs}
@@ -118,7 +117,7 @@ const AgendaItemLegsForm = props => {
                 legs.map((leg, i) => {
                   const keyId = i;
                   return (
-                    <AgendaLeg
+                    <AgendaLegFormEdit
                       AIvalidation={AIvalidation}
                       leg={leg}
                       key={`${leg.ail_seq_num}-${keyId}`}
@@ -144,7 +143,7 @@ const AgendaItemLegsForm = props => {
   );
 };
 
-AgendaItemLegsForm.propTypes = {
+AIMLegsFormEdit.propTypes = {
   efPos: PropTypes.shape({}),
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
@@ -162,7 +161,7 @@ AgendaItemLegsForm.propTypes = {
   }).isRequired,
 };
 
-AgendaItemLegsForm.defaultProps = {
+AIMLegsFormEdit.defaultProps = {
   efPos: {},
   legs: [],
   setLegsContainerExpanded: EMPTY_FUNCTION,
@@ -180,4 +179,4 @@ AgendaItemLegsForm.defaultProps = {
   },
 };
 
-export default AgendaItemLegsForm;
+export default AIMLegsFormEdit;

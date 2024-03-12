@@ -18,6 +18,36 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </div>
   <InteractiveElement
     className="grid-col-3 grid-row-2"
+    key="Action"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="error-message-wrapper"
+    >
+      <div
+        className="validation-error-message-label validation-error-message"
+      />
+      <div>
+        <select
+          className="leg-dropdown validation-error-border"
+          disabled={false}
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            key="null"
+            value=""
+          >
+            Keep Unselected
+          </option>
+        </select>
+      </div>
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-3"
     key="Position Title"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -28,7 +58,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-3"
+    className="grid-col-3 grid-row-4"
     key="Position Number"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -39,8 +69,8 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-4"
-    key="Org"
+    className="grid-col-3 grid-row-5"
+    key="Location/Org"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -49,17 +79,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       className="read-only"
     >
       A
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-5"
-    key="Grade"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div>
-      00
     </div>
   </InteractiveElement>
   <InteractiveElement
@@ -100,10 +119,10 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       <div
         className="validation-error-border"
       >
-        05/05/2019
-        <FontAwesome
-          name="calendar"
-          onClick={[Function]}
+        <MonthYearDropdown
+          date="2019-05-05T00:00:00.000Z"
+          dropdownType="eta"
+          updateDropdown={[Function]}
         />
       </div>
     </div>
@@ -116,7 +135,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div
-      className="arrow"
+      className="aim-form-arrow-edit"
     >
       <FontAwesome
         name="arrow-down"
@@ -133,7 +152,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     <div
       className="read-only"
     >
-      07/05/2020
+      07/20
     </div>
   </InteractiveElement>
   <InteractiveElement
@@ -159,36 +178,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-12"
-    key="Action"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-    type="div"
-  >
-    <div
-      className="error-message-wrapper"
-    >
-      <div
-        className="validation-error-message-label validation-error-message"
-      />
-      <div>
-        <select
-          className="leg-dropdown validation-error-border"
-          disabled={false}
-          onChange={[Function]}
-          value=""
-        >
-          <option
-            key="null"
-            value=""
-          >
-            Keep Unselected
-          </option>
-        </select>
-      </div>
-    </div>
-  </InteractiveElement>
-  <InteractiveElement
-    className="grid-col-3 grid-row-13"
     key="Travel"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -211,7 +200,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
             key="null"
             value=""
           >
-            Keep Unselected
+            No Travel
           </option>
           <option
             key="undefined-0"
@@ -224,7 +213,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     </div>
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-14"
+    className="grid-col-3 grid-row-13"
     key="Vice"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -233,8 +222,8 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     -
   </InteractiveElement>
   <InteractiveElement
-    className="grid-col-3 grid-row-15"
-    key="Pay Plan"
+    className="grid-col-3 grid-row-14"
+    key="PP/Grade"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"

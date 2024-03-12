@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { formatLang, shortenString } from 'utilities';
-import { format, isDate } from 'date-fns-v2';
+import { formatLang, formatMonthYearDate, shortenString } from 'utilities';
 import shortid from 'shortid';
 import FA from 'react-fontawesome';
 import { useDispatch } from 'react-redux';
@@ -22,14 +21,8 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
     false,
     { autoClose: false, draggable: false, closeOnClick: false }));
 
-  const formatDate = (d) => {
-    if (d) {
-      return !isNaN(new Date(d)) && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : d;
-    }
-    return '';
-  };
   const formatCurrentDate = (currentDate) => {
-    if (currentDate) return `(${formatDate(currentDate, 'MM/YYYY')})`;
+    if (currentDate) return `(${formatMonthYearDate(currentDate)})`;
     return '';
   };
   const formatStr = (d) => shortenString(d, 50);
@@ -61,8 +54,8 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
         const language = Array.isArray(leg.languages) ? formatLang(leg.languages) : '-';
         const vice = leg.vice ? formatVice(leg.vice) : '-';
         const formattedSkillTitle = `(${leg.skill_code}) ${formatStr(leg.pos_title)}`;
-        const formattedETA = formatDate(leg.eta);
-        const formattedTED = formatDate(leg.ted);
+        const formattedETA = formatMonthYearDate(leg.eta);
+        const formattedTED = formatMonthYearDate(leg.ted);
         const formattedORG = formatStr(leg.org);
         return (
           <tbody>
@@ -71,14 +64,13 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
               <td>{formattedORG}</td>
               <td>{leg.pos_num}</td>
               <td>{formattedSkillTitle}</td>
-              <td>{leg.grade}</td>
               <td>{language}</td>
               <td>{formattedETA}</td>
               <td>{formattedTED}</td>
               <td>{leg.tod_short_desc}</td>
-              <td>{leg.travel}</td>
+              <td>{leg.travel_desc}</td>
               <td>{vice}</td>
-              <td>{leg.pay_plan}</td>
+              <td>{leg.combined_pp_grade}</td>
             </tr>
           </tbody>
         );
@@ -153,17 +145,16 @@ const PrintPanelMeetingAgendas = ({ panelMeetingData, closePrintView, agendas })
                       <thead>
                         <tr>
                           <th>Action</th>
-                          <th>Org</th>
+                          <th>Location/Org</th>
                           <th>Position Number</th>
                           <th>Skill/Title</th>
-                          <th>Grade</th>
                           <th>Lang</th>
                           <th>ETA</th>
                           <th>TED</th>
                           <th>TOD</th>
                           <th>Travel</th>
                           <th>Vice</th>
-                          <th>Pay Plan</th>
+                          <th>PP/Grade</th>
                         </tr>
                       </thead>
                       { printableAgendaTable(agenda) }
