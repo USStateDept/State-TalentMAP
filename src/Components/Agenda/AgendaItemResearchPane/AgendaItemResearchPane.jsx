@@ -100,23 +100,28 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const [empProfileLoading, setEmpProfileLoading] = useState(false);
   const [empProfileError, setEmpProfileError] = useState(false);
   useEffect(() => {
-    const hruId = employee?.employeeData?.user_info?.hru_id;
-    if (!hruId) {
-      setEmpProfileError(true);
-    } else if (!url && !empProfileLoading) {
+    // Prevent repeated calls while the data is attempting to be fetched
+    if (!empProfileLoading) {
+      const hruId = employee?.employeeData?.user_info?.hru_id;
       setEmpProfileLoading(true);
-      api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
-        { responseType: 'arraybuffer' },
-      ).then(response => {
-        setEmpProfileError(false);
-        const blob = new Blob([response?.data], { type: 'application/pdf' });
-        const bloburl = window.URL.createObjectURL(blob);
-        setUrl(bloburl);
-        setEmpProfileLoading(false);
-      }).catch(() => {
+      if (hruId && !url) {
+        console.log('hit');
+        api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
+          { responseType: 'arraybuffer' },
+        ).then(response => {
+          setEmpProfileError(false);
+          const blob = new Blob([response?.data], { type: 'application/pdf' });
+          const bloburl = window.URL.createObjectURL(blob);
+          setUrl(bloburl);
+          setEmpProfileLoading(false);
+        }).catch(() => {
+          setEmpProfileError(true);
+          setEmpProfileLoading(false);
+        });
+      } else {
         setEmpProfileError(true);
         setEmpProfileLoading(false);
-      });
+      }
     }
   }, [employee]);
 
