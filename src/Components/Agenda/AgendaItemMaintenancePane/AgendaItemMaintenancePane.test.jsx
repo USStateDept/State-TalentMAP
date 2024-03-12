@@ -24,6 +24,19 @@ describe('AgendaItemMaintenancePane Component', () => {
       },
     ],
     unitedLoading: false,
+    employee: {
+      employeeData: {
+        user_info: {
+          hru_id: 1
+        },
+        cdos: [{
+          cdo_first_name: 'Test',
+          cdo_last_name: 'Test',
+        }]
+      },
+      employeeDataError: false,
+      employeeDataLoading: false,
+    }
   };
 
   it('is defined', () => {
