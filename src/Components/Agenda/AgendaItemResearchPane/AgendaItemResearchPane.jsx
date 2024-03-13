@@ -177,8 +177,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
       case EMP:
         if (
-          (!employeeDataLoading && employeeDataError) ||
-          (!empProfileLoading && empProfileError)
+          (!employeeDataLoading && (employeeDataError || !hruId)) ||
+          (!empProfileLoading && (empProfileError || !hruId))
         ) {
           return errorAlert;
         }
