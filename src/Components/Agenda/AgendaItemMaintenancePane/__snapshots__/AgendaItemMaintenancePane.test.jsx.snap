@@ -34,6 +34,23 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
     AIvalidationIsLoading={false}
     addToSelection={[Function]}
     asgSepBidData={Object {}}
+    employee={
+      Object {
+        "employeeData": Object {
+          "cdos": Array [
+            Object {
+              "cdo_first_name": "Test",
+              "cdo_last_name": "Test",
+            },
+          ],
+          "user_info": Object {
+            "hru_id": 1,
+          },
+        },
+        "employeeDataError": false,
+        "employeeDataLoading": false,
+      }
+    }
     legCount={0}
     onAddRemarksClick={[Function]}
     perdet="2"

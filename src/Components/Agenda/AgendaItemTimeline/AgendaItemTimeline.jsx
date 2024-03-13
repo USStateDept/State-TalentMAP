@@ -62,7 +62,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           tod_short_desc: null,
           tod_is_dropdown: true,
           grade: get(pos_results, 'grade'),
-          action_code: null,
+          action_code: 'E', // Default action to 'Reassign'
           travel_code: null,
           pay_plan: get(pos_results, 'pay_plan'),
         });
@@ -93,7 +93,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: true,
         grade: get(asgSepBid, 'grade'),
-        action_code: null,
+        action_code: 'E', // Defaut action to 'Reassign'
         travel_code: null,
         pay_plan: null,
       });
@@ -124,7 +124,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         tod_short_desc: null,
         tod_is_dropdown: false,
         grade: null,
-        action_code: null,
+        action_code: 'M', // Default action to 'Separation'
         travel_code: 'Separation from the Service',
         is_separation: true,
       });

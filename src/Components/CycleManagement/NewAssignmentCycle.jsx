@@ -15,8 +15,8 @@ const NewAssignmentCycle = (props) => {
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
   const [cycleStatus, setCycleStatus] = useState('');
-  const [exclusivePosition, setExclusivePosition] = useState(false);
-  const [postViewable, setPostViewable] = useState(false);
+  const [exclusivePosition, setExclusivePosition] = useState('N');
+  const [postViewable, setPostViewable] = useState('N');
   const [cycleBoundries, setCycleBoundries] = useState(null);
   const [sixMonthLanguage, setSixMonthLanguage] = useState(null);
   const [twelveMonthLanguage, setTwelveMonthLanguage] = useState(null);
@@ -164,8 +164,8 @@ const NewAssignmentCycle = (props) => {
               className="exclusivePosition-new"
               id="exclusivePosition-new"
               name="exclusivePosition-new"
-              checked={exclusivePosition}
-              onChange={() => setExclusivePosition(e => !e)}
+              value={exclusivePosition === 'Y'}
+              onCheckBoxClick={e => setExclusivePosition(e ? 'Y' : 'N')}
             />
           </span>
         </div>
@@ -176,8 +176,8 @@ const NewAssignmentCycle = (props) => {
               className="postViewable-new"
               id="postViewable-new"
               name="postViewable-new"
-              checked={postViewable}
-              onChange={() => setPostViewable(e => !e)}
+              value={postViewable === 'Y'}
+              onCheckBoxClick={e => setPostViewable(e ? 'Y' : 'N')}
             />
           </span>
         </div>
