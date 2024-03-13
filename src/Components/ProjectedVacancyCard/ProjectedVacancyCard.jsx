@@ -1,36 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
 import PropTypes from 'prop-types';
 import { useDidMountEffect } from 'hooks';
-import { projectedVacancyEdit } from 'actions/projectedVacancy';
 import { formatDate, getDifferentials } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  DEFAULT_TEXT, NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
+  DEFAULT_TEXT, NO_BUREAU, NO_GRADE, NO_LANGUAGES, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE,
+  NO_POST, NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE,
 } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import {
-  projectedVacancyEditCapsuleDesc, projectedVacancyEditLangOffsets,
-  projectedVacancyLangOffsets, projectedVacancyMetadata,
-} from '../../actions/projectedVacancy';
 
 // eslint-disable-next-line
-const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, selectOptions }) => {
-  const dispatch = useDispatch();
+const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditModeSearch, onSubmit, selectOptions }) => {
 
   const id = result?.future_vacancy_seq_num || undefined;
-
-  const metadata = useSelector(state => state.projectedVacancyMetadata);
-  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets);
 
   const bidSeasons = selectOptions?.bidSeasons?.length ? selectOptions.bidSeasons : [];
   const statuses = selectOptions?.statuses?.length ? selectOptions.statuses : [];
@@ -39,33 +28,31 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   const winterLanguageOffsets = selectOptions?.languageOffsets?.winter_language_offsets?.length
     ? selectOptions.languageOffsets.winter_language_offsets : [];
 
-  useEffect(() => {
-    dispatch(projectedVacancyMetadata({ future_vacancy_seq_num: result?.future_vacancy_seq_num }));
-    dispatch(projectedVacancyLangOffsets({ position_seq_num: result?.position_seq_num }));
-  }, []);
-
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
     datePickerRef.current.setOpen(true);
   };
 
-  const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator);
+  const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator === 'Y');
   const [season, setSeason] = useState(result?.bid_season_code);
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
-  const [overrideTED, setOverrideTED] = useState(result?.future_vacancy_override_tour_end_date);
+  const [overrideTED, setOverrideTED] =
+    useState(
+      result?.future_vacancy_override_tour_end_date ?
+        new Date(result.future_vacancy_override_tour_end_date) :
+        null,
+    );
   const [langOffsetSummer, setLangOffsetSummer] =
     useState(languageOffsets?.language_offset_summer || '');
   const [langOffsetWinter, setLangOffsetWinter] =
     useState(languageOffsets?.language_offset_winter || '');
-  const [textArea, setTextArea] = useState(result?.capsule_description);
+  const [textArea, setTextArea] = useState(result?.capsule_description || '');
 
-  const updateUser = metadata?.updated_user;
-  const updateDate = formatDate(metadata?.updated_date);
   const differentials = {
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
       differential_rate: result?.bidding_tool_differential_rate_number,
-      post_bidding_considerations_url: '',
+      post_bidding_considerations_url: result?.obc_url,
     },
   };
 
@@ -77,40 +64,69 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
   useEffect(() => {
     onEditModeSearch(editMode, id);
     if (editMode) {
-      setIncluded(result?.future_vacancy_exclude_import_indicator);
+      setIncluded(result?.future_vacancy_exclude_import_indicator === 'Y');
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
-      setOverrideTED(result?.future_vacancy_override_tour_end_date);
+      setOverrideTED(
+        result?.future_vacancy_override_tour_end_date ?
+          new Date(result.future_vacancy_override_tour_end_date) :
+          null,
+      );
       setLangOffsetSummer(languageOffsets?.language_offset_summer || '');
       setLangOffsetWinter(languageOffsets?.language_offset_winter || '');
-      setTextArea(result?.capsule_description);
+      setTextArea(result?.capsule_description || '');
     }
   }, [editMode]);
 
-  const onSubmit = () => {
-    dispatch(projectedVacancyEdit([{
-      ...result,
-      future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
-      bid_season_code: season,
-      future_vacancy_status_code: status,
-      future_vacancy_override_tour_end_date: overrideTED,
-      creator_id: metadata?.creator_id,
-      created_date: metadata?.created_date,
-      updater_id: metadata?.updater_id,
-      updated_date: metadata?.updated_date,
-    }]));
-    dispatch(projectedVacancyEditLangOffsets({
-      position_seq_num: result?.position_seq_num,
-      language_offset_summer: langOffsetSummer || null,
-      language_offset_winter: langOffsetWinter || null,
-    }));
-    dispatch(projectedVacancyEditCapsuleDesc({
-      position_seq_num: result?.position_seq_num,
-      capsule_description: textArea,
-      updater_id: metadata?.updater_id,
-      updated_date: metadata?.updated_date,
-    }));
-    // TODO: Toggle edit mode off when all 3 edits are successful
+  const onSubmitForm = () => {
+    const editData = {
+      projected_vacancy: [{
+        ...result,
+        future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
+        bid_season_code: season,
+        future_vacancy_status_code: status,
+        future_vacancy_override_tour_end_date: overrideTED,
+      }],
+      language_offsets: {
+        position_seq_num: result?.position_seq_num,
+        language_offset_summer: langOffsetSummer || null,
+        language_offset_winter: langOffsetWinter || null,
+      },
+      capsule_description: {
+        position_seq_num: result?.position_seq_num,
+        capsule_description: textArea,
+        updater_id: result?.updater_id,
+        updated_date: result?.updated_date,
+      },
+    };
+    onSubmit(editData, setEditMode(false));
+  };
+
+  const displayTedEmp = (ted, employee) => {
+    if (!ted) {
+      if (!employee) {
+        return NO_TOUR_END_DATE;
+      }
+      return employee;
+    }
+    return `${formatDate(ted)} ${employee}`;
+  };
+
+  const displayLangs = () => {
+    let displayText = '';
+    const langs = result?.position_language_proficiency_description?.split(';');
+    if (langs && langs.length) {
+      langs.forEach((lang, i) => {
+        const langCodeAttr = `position_language_${i + 1}_code`;
+        const langCode = result?.[langCodeAttr] || undefined;
+        if (langCode) {
+          displayText += lang.replace(' ', ` (${langCode}) `);
+        } else {
+          displayText += lang;
+        }
+      });
+    }
+    return displayText || NO_LANGUAGES;
   };
 
   /* eslint-disable quote-props */
@@ -121,28 +137,18 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       { 'Position Title': result?.position_title || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
-      { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
+      { 'Assignee TED': displayTedEmp(result?.assignee_tour_end_date, result?.assignee) },
+      { 'Incumbent TED': displayTedEmp(result?.incumbent_tour_end_date, result?.incumbent) },
       { 'Bid Season': result?.bid_season_description || DEFAULT_TEXT },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
-      {
-        'Languages': <LanguageList
-          languages={[
-            { representation: result?.positon_language1_code },
-            { representation: result?.positon_language2_code },
-          ]}
-          propToUse="representation"
-        />,
-      },
+      { 'Languages': displayLangs() },
     ],
     bodySecondary: [
       { 'Bureau': result?.bureau_short_description || NO_BUREAU },
       { 'Location': result?.location_description || NO_POST },
       { 'Status': result?.future_vacancy_status_description || NO_STATUS },
-      { 'Organization': result?.organization || NO_ORG },
-      { 'TED': result?.future_vacancy_override_tour_end_date || NO_TOUR_END_DATE },
-      { 'Incumbent': result?.incumbent || NO_USER_LISTED },
-      { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
+      { 'Organization': result?.organization_short_description || NO_ORG },
+      { 'TED': formatDate(result?.future_vacancy_override_tour_end_date) || NO_TOUR_END_DATE },
       { 'Language Offset Summer': summerLanguageOffsets?.find(o => o.code === langOffsetSummer)?.description || DEFAULT_TEXT },
       { 'Language Offset Winter': winterLanguageOffsets?.find(o => o.code === langOffsetWinter)?.description || DEFAULT_TEXT },
       { 'Skill': result?.position_skill_code || NO_SKILL },
@@ -152,28 +158,19 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
     ],
     textarea: result?.capsule_description || 'No description.',
     metadata: [
-      { 'Position Posted': formatDate(metadata?.created_date) || NO_UPDATE_DATE },
-      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+      { 'Position Posted': formatDate(result?.created_date) || NO_UPDATE_DATE },
+      { 'Last Updated': formatDate(result?.updated_date) || NO_UPDATE_DATE },
     ],
   };
   const form = {
     staticBody: [
-      { 'Assignee TED': formatDate(result?.assignee_tour_end_date) || NO_TOUR_END_DATE },
-      { 'Incumbent': result?.incumbent || NO_TOUR_END_DATE },
+      { 'Assignee TED': displayTedEmp(result?.assignee_tour_end_date, result?.assignee) },
+      { 'Incumbent TED': displayTedEmp(result?.incumbent_tour_end_date, result?.incumbent) },
       { 'Tour of Duty': result?.tour_of_duty_description || NO_TOUR_OF_DUTY },
-      {
-        'Languages': <LanguageList
-          languages={[
-            { representation: result?.positon_language1_code },
-            { representation: result?.positon_language2_code },
-          ]}
-          propToUse="representation"
-        />,
-      },
+      { 'Languages': displayLangs() },
       { 'Bureau': result?.bureau_short_description || NO_BUREAU },
       { 'Location': result?.location_description || NO_POST },
-      { 'Organization': result?.organization || NO_ORG },
-      { 'Incumbent': result?.incumbent || NO_USER_LISTED },
+      { 'Organization': result?.organization_short_description || NO_ORG },
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
       { 'Pay Plan': result?.position_pay_plan_code || NO_GRADE },
@@ -188,7 +185,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             defaultValue={season}
             onChange={(e) => setSeason(e.target.value)}
           >
-            {bidSeasons.map(b => (
+            {bidSeasons?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -200,7 +197,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             defaultValue={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            {statuses.map(b => (
+            {statuses?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -226,7 +223,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             value={langOffsetSummer}
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
-            {summerLanguageOffsets.map(b => (
+            {summerLanguageOffsets?.map(b => (
               <option key={b.code || 'null'} value={b.code || ''}>{b.description || DEFAULT_TEXT}</option>
             ))}
           </select>
@@ -238,7 +235,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
             value={langOffsetWinter}
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
-            {winterLanguageOffsets.map(b => (
+            {winterLanguageOffsets?.map(b => (
               <option key={b.code || 'null'} value={b.code || ''}>{b.description || DEFAULT_TEXT}</option>
             ))}
           </select>
@@ -266,7 +263,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
       </div>
     </div>,
     cancelText: 'Are you sure you want to discard all changes made to this Projected Vacancy position?',
-    handleSubmit: onSubmit,
+    handleSubmit: onSubmitForm,
     handleCancel: () => { },
     handleEdit: {
       editMode,
@@ -303,8 +300,13 @@ const ProjectedVacancyCard = ({ result, updateIncluded, onEditModeSearch, select
 
 ProjectedVacancyCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
+  languageOffsets: PropTypes.shape({
+    language_offset_summer: PropTypes.string,
+    language_offset_winter: PropTypes.string,
+  }),
   updateIncluded: PropTypes.func,
   onEditModeSearch: PropTypes.func,
+  onSubmit: PropTypes.func,
   selectOptions: PropTypes.shape({
     languageOffsets: PropTypes.shape({
       summer_language_offsets: PropTypes.arrayOf(PropTypes.shape({})),
@@ -316,8 +318,13 @@ ProjectedVacancyCard.propTypes = {
 };
 
 ProjectedVacancyCard.defaultProps = {
+  languageOffsets: {
+    language_offset_summer: null,
+    language_offset_winter: null,
+  },
   updateIncluded: EMPTY_FUNCTION,
   onEditModeSearch: EMPTY_FUNCTION,
+  onSubmit: EMPTY_FUNCTION,
   selectOptions: {
     languageOffsets: [],
     bidSeasons: [],
