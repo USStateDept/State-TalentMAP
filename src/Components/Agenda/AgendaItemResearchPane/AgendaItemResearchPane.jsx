@@ -97,30 +97,22 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   // Handles Employee Profile Preview
   const [url, setUrl] = useState(undefined);
-  const [empProfileLoading, setEmpProfileLoading] = useState(false);
-  const [empProfileError, setEmpProfileError] = useState(false);
   const { employeeData, employeeDataError, employeeDataLoading } = employee;
+  const hruId = employeeData?.user_info?.hru_id;
+  const { data: empProfileData, error: empProfileError, loading: empProfileLoading } =
+    useDataLoader(
+      api().get,
+      `/fsbid/employee/${hruId?.toString()}/employee_profile_report/?redacted_report=false`,
+      true,
+      { responseType: 'arraybuffer' },
+    );
   useEffect(() => {
-    // Prevent repeated calls while the data is attempting to be fetched
-    if (employeeData && (!employeeDataLoading || !empProfileLoading)) {
-      const hruId = employeeData?.user_info?.hru_id;
-      if (hruId && !url) {
-        setEmpProfileLoading(true);
-        api().get(`/fsbid/employee/${hruId.toString()}/employee_profile_report/?redacted_report=false`,
-          { responseType: 'arraybuffer' },
-        ).then(response => {
-          setEmpProfileError(false);
-          const blob = new Blob([response?.data], { type: 'application/pdf' });
-          const bloburl = window.URL.createObjectURL(blob);
-          setUrl(bloburl);
-          setEmpProfileLoading(false);
-        }).catch(() => {
-          setEmpProfileError(true);
-          setEmpProfileLoading(false);
-        });
-      }
+    if (empProfileData?.data) {
+      const blob = new Blob([empProfileData.data], { type: 'application/pdf' });
+      const bloburl = window.URL.createObjectURL(blob);
+      setUrl(bloburl);
     }
-  }, [employee]);
+  }, [empProfileData]);
 
 
   const loadingSpinner = (<Spinner type="homepage-position-results" size="small" />);
@@ -184,7 +176,10 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         />);
 
       case EMP:
-        if (employeeDataError || empProfileError) {
+        if (
+          (!employeeDataLoading && employeeDataError) ||
+          (!empProfileLoading && empProfileError)
+        ) {
           return errorAlert;
         }
         if (employeeDataLoading || empProfileLoading) {
