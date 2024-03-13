@@ -164,6 +164,7 @@ const ManageEntryLevel = () => {
                   <button
                     className="unstyled-button"
                     onClick={resetFilters}
+                    disabled={disableSearch}
                   >
                     <FA name="times" />
                     Clear Filters
