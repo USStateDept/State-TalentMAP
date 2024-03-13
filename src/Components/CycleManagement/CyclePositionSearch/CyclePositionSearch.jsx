@@ -37,7 +37,8 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
-  const cycleStatus = loadedCycle?.cycle_status?.label || '';
+  const cycleStatus = (loadedCycle?.cycle_status && loadedCycle?.cycle_status_reference)
+    ? loadedCycle?.cycle_status_reference?.find(x => x?.value === loadedCycle?.cycle_status)?.label : 'Not Listed';
   const cycleStartDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.begin_date, 'M/D/YYYY');
   const cycleEndDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.end_date, 'M/D/YYYY');
 
