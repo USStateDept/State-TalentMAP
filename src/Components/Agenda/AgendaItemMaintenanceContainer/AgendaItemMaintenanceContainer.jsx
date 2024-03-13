@@ -343,7 +343,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 legCount={legs.length}
                 readMode={readMode}
                 employee={{
-                  employeeData: employeeData$,
+                  employeeData,
                   employeeDataError,
                   employeeDataLoading,
                 }}
