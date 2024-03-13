@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import PropTypes from 'prop-types';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get, includes } from 'lodash';
@@ -202,80 +203,57 @@ const AgendaLegFormEdit = props => {
     });
   };
 
-  const getTravel = () => {
-    if (isEf) {
-      return (<div className="read-only">{leg?.travel_desc}</div>);
+  const getDropdown = (type) => {
+    // Attribute and constants to handle Travel dropdown
+    let showLegacy = showLegacyTravel;
+    let setShowLegacy = setShowLegacyTravelToFalse;
+    let refArray = travelFunctions;
+    let codeAttr = 'travel_code';
+    let descAttr = 'travel_desc';
+    let nullText = 'No Travel';
+    // Attribute and constants to handle Action dropdown
+    if (type === 'action') {
+      showLegacy = showLegacyAction;
+      setShowLegacy = setShowLegacyActionToFalse;
+      refArray = getLegActionTypes();
+      codeAttr = 'action_code';
+      descAttr = 'action';
+      nullText = 'Keep Unselected';
     }
 
-    return (
-      showLegacyTravel ?
-        <div>
-          {leg?.travel_desc}
-          <FA name="times" className="" onClick={() => setShowLegacyTravelToFalse('travel_code')} />
-        </div>
-        :
-        <div className="error-message-wrapper">
-          <div className="validation-error-message-label validation-error-message">
-            {legValidation?.travel_code?.errorMessage}
-          </div>
-          <div>
-            <select
-              className={`leg-dropdown ${legValidation?.travel_code?.valid ? '' : 'validation-error-border'}`}
-              value={leg?.travel_code || ''}
-              onChange={(e) => updateDropdown('travel_code', e.target.value)}
-              disabled={disabled}
-            >
-              <option key={null} value={''}>
-                No Travel
-              </option>
-              {
-                travelFunctions.map((a, i) => {
-                  const keyId = `${a?.code}-${i}`;
-                  return <option key={keyId} value={a?.code}>{a?.desc_text}</option>;
-                })
-              }
-            </select>
-          </div>
-        </div>
-    );
-  };
-  const getAction = () => {
     if (isEf) {
-      return (<div className="read-only">{leg?.action || 'None listed'}</div>);
+      return (<div className="read-only">{leg?.[descAttr] || 'None listed'}</div>);
     }
 
-    return (
-      showLegacyAction ?
+    return (showLegacy ?
+      <div>
+        {leg?.[descAttr]}
+        <FA name="times" className="" onClick={() => setShowLegacy(codeAttr)} />
+      </div> :
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {legValidation?.[codeAttr]?.errorMessage}
+        </div>
         <div>
-          {leg?.action}
-          <FA name="times" className="" onClick={() => setShowLegacyActionToFalse('action_code')} />
+          <select
+            className={`leg-dropdown ${legValidation?.[codeAttr]?.valid ? '' : 'validation-error-border'}`}
+            value={leg?.[codeAttr] || ''}
+            onChange={(e) => updateDropdown(codeAttr, e.target.value)}
+            disabled={disabled}
+          >
+            <option key={null} value={''}>
+              {nullText}
+            </option>
+            {refArray.map((a, i) => {
+              const keyId = `${a?.code}-${i}`;
+              return <option key={keyId} value={a?.code}>{a?.desc_text}</option>;
+            })}
+          </select>
         </div>
-        :
-        <div className="error-message-wrapper">
-          <div className="validation-error-message-label validation-error-message">
-            {legValidation?.action_code?.errorMessage}
-          </div>
-          <div>
-            <select
-              className={`leg-dropdown ${legValidation?.action_code?.valid ? '' : 'validation-error-border'}`}
-              value={leg?.action_code || ''}
-              onChange={(e) => updateDropdown('action_code', e.target.value)}
-              disabled={disabled}
-            >
-              <option key={null} value={''}>
-                Keep Unselected
-              </option>
-              {
-                getLegActionTypes().map((a, i) => {
-                  const keyId = `${a?.code}-${i}`;
-                  return <option key={keyId} value={a?.code}>{a?.abbr_desc_text}</option>;
-                })
-              }
-            </select>
-          </div>
-        </div>
+      </div>
     );
   };
+
 
   const closeOtherTod = () => {
     updateLeg(leg?.ail_seq_num, {
@@ -427,7 +405,7 @@ const AgendaLegFormEdit = props => {
   const columnData = [
     {
       title: 'Action',
-      content: (getAction()),
+      content: (getDropdown('action')),
     },
     {
       title: 'Position Title',
@@ -470,7 +448,7 @@ const AgendaLegFormEdit = props => {
     },
     {
       title: 'Travel',
-      content: (getTravel()),
+      content: (getDropdown()),
     },
     {
       title: 'Vice',
