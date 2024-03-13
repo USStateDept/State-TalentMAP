@@ -156,8 +156,10 @@ const ProjectedVacancy = ({ isAO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(projectedVacancyFetchData(getQuery()));
-    dispatch(saveProjectedVacancySelections(getCurrentInputs()));
+    if (filterSelectionValid()) {
+      dispatch(projectedVacancyFetchData(getQuery()));
+      dispatch(saveProjectedVacancySelections(getCurrentInputs()));
+    }
   };
 
   useEffect(() => {
