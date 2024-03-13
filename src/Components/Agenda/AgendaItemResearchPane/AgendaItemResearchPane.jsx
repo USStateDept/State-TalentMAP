@@ -97,29 +97,22 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   // Handles Employee Profile Preview
   const [url, setUrl] = useState(undefined);
-  const [empProfileLoading, setEmpProfileLoading] = useState(false);
-  const [empProfileError, setEmpProfileError] = useState(false);
+  const { employeeData, employeeDataError, employeeDataLoading } = employee;
+  const hruId = employeeData?.user_info?.hru_id;
+  const { data: empProfileData, error: empProfileError, loading: empProfileLoading } =
+    useDataLoader(
+      api().get,
+      `/fsbid/employee/${hruId?.toString()}/employee_profile_report/?redacted_report=false`,
+      (!employeeDataLoading && employeeData && hruId),
+      { responseType: 'arraybuffer' },
+    );
   useEffect(() => {
-    // Prevent repeated calls while the data is attempting to be fetched
-    if (employee?.employeeDataLoading || !empProfileLoading) {
-      const hruId = employee?.employeeData?.user_info?.hru_id.toString();
-      setEmpProfileLoading(true);
-      if (!url) {
-        api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
-          { responseType: 'arraybuffer' },
-        ).then(response => {
-          setEmpProfileError(false);
-          const blob = new Blob([response?.data], { type: 'application/pdf' });
-          const bloburl = window.URL.createObjectURL(blob);
-          setUrl(bloburl);
-          setEmpProfileLoading(false);
-        }).catch(() => {
-          setEmpProfileError(true);
-          setEmpProfileLoading(false);
-        });
-      }
+    if (empProfileData?.data) {
+      const blob = new Blob([empProfileData.data], { type: 'application/pdf' });
+      const bloburl = window.URL.createObjectURL(blob);
+      setUrl(bloburl);
     }
-  }, [employee]);
+  }, [empProfileData]);
 
 
   const loadingSpinner = (<Spinner type="homepage-position-results" size="small" />);
@@ -183,10 +176,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         />);
 
       case EMP:
-        if (empProfileError) {
+        if (
+          (!employeeDataLoading && (employeeDataError || !hruId)) ||
+          (!empProfileLoading && (empProfileError || !hruId))
+        ) {
           return errorAlert;
         }
-        if (employee?.employeeDataLoading || empProfileLoading) {
+        if (employeeDataLoading || empProfileLoading) {
           return <Spinner type="employee-profile-preview" size="small" />;
         }
         return (
