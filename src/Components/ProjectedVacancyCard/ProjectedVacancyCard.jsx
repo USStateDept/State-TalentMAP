@@ -44,8 +44,6 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     useState(languageOffsets?.language_offset_winter || '');
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
-  const updateUser = result?.updater_id;
-  const updateDate = formatDate(result?.updated_date);
   const differentials = {
     post: {
       danger_pay: result?.bidding_tool_danger_rate_number,
@@ -151,7 +149,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     textarea: result?.capsule_description || 'No description.',
     metadata: [
       { 'Position Posted': formatDate(result?.created_date) || NO_UPDATE_DATE },
-      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+      { 'Last Updated': formatDate(result?.updated_date) || NO_UPDATE_DATE },
     ],
   };
   const form = {
