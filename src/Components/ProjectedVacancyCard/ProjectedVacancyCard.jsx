@@ -85,7 +85,8 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
         future_vacancy_exclude_import_indicator: !included ? 'Y' : 'N',
         bid_season_code: season,
         future_vacancy_status_code: status,
-        future_vacancy_override_tour_end_date: overrideTED,
+        future_vacancy_override_tour_end_date: overrideTED ?
+          overrideTED.toISOString().substring(0, 10) : null,
       }],
       language_offsets: {
         position_seq_num: result?.position_seq_num,
