@@ -103,7 +103,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
     useDataLoader(
       api().get,
       `/fsbid/employee/${hruId?.toString()}/employee_profile_report/?redacted_report=false`,
-      true,
+      (!employeeDataLoading && employeeData && hruId),
       { responseType: 'arraybuffer' },
     );
   useEffect(() => {
