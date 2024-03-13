@@ -123,7 +123,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
       >
         PP/Grade
       </InteractiveElement>
-      <AgendaLeg
+      <AgendaLegFormEdit
         AIvalidation={Object {}}
         TODs={Array []}
         isEf={false}

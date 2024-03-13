@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import AgendaLeg from './AgendaLeg';
+import AgendaLegFormEdit from './AgendaLegFormEdit';
 
 const props = {
   leg: {
@@ -33,12 +33,12 @@ const props = {
 
 describe('AgendaLeg Component', () => {
   it('is defined', () => {
-    const wrapper = shallow(<AgendaLeg {...props} />);
+    const wrapper = shallow(<AgendaLegFormEdit {...props} />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<AgendaLeg {...props} />);
+    const wrapper = shallow(<AgendaLegFormEdit {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

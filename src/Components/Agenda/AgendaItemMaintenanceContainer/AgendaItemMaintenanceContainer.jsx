@@ -283,6 +283,11 @@ const AgendaItemMaintenanceContainer = (props) => {
                           AIvalidation={AIvalidation}
                           AIvalidationIsLoading={AIvalidationIsLoading}
                           AIvalidationHasErrored={AIvalidationHasErrored}
+                          employee={{
+                            employeeData: employeeData$,
+                            employeeDataError,
+                            employeeDataLoading,
+                          }}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -337,6 +342,11 @@ const AgendaItemMaintenanceContainer = (props) => {
                 userSelections={userRemarks}
                 legCount={legs.length}
                 readMode={readMode}
+                employee={{
+                  employeeData: employeeData$,
+                  employeeDataError,
+                  employeeDataLoading,
+                }}
               />
             </div>
           </div>

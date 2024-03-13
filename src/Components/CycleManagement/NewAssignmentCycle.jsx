@@ -15,8 +15,8 @@ const NewAssignmentCycle = (props) => {
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
   const [cycleStatus, setCycleStatus] = useState('');
-  const [exclusivePosition, setExclusivePosition] = useState(false);
-  const [postViewable, setPostViewable] = useState(false);
+  const [exclusivePosition, setExclusivePosition] = useState('N');
+  const [postViewable, setPostViewable] = useState('N');
   const [cycleBoundries, setCycleBoundries] = useState(null);
   const [sixMonthLanguage, setSixMonthLanguage] = useState(null);
   const [twelveMonthLanguage, setTwelveMonthLanguage] = useState(null);
@@ -47,6 +47,27 @@ const NewAssignmentCycle = (props) => {
     { value: 'M', label: 'M(Merged)' },
     { value: 'P', label: 'P(Proposed)' },
   ];
+
+  const disableSave = assignmentCycle?.length
+    && cycleBoundries
+    && sixMonthLanguage
+    && twelveMonthLanguage
+    && twentyFourMonthLanguage
+    && bidAudit
+    && bidBookReview
+    && bidCountReview
+    && bidDue
+    && htfReview
+    && mdsReview
+    && organizationCountReview
+    && biddingStart
+    && bureauBidReview
+    && bureauEarlySeasonBidReview
+    && bureauPositionReview
+    && bureauPreSeasonBidReview
+    && assignedBidder
+    && cycleStatus
+    && cycleCategory;
 
   const saveAC = (e) => {
     e.preventDefault();
@@ -85,9 +106,9 @@ const NewAssignmentCycle = (props) => {
   return (
     <div>
       <form className="assignment-cycle-form">
-        <div><div className="error-color pr-10">*</div>Required fields</div>
+        <div><div className="error-color pr-10">*</div>All Fileds Required</div>
         <div>
-          <label htmlFor="status"><div className="error-color">*</div>Assignment Cycle</label>
+          <label htmlFor="status">Assignment Cycle</label>
           <span className="bs-validation-container">
             <TextareaAutosize
               maxlength="100"
@@ -101,7 +122,7 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="season"><div className="error-color">*</div>Cycle Category</label>
+          <label htmlFor="season">Cycle Category</label>
           <span className="bs-validation-container">
             <select
               id="cycleCategory"
@@ -119,7 +140,7 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="season"><div className="error-color">*</div>Cycle Status</label>
+          <label htmlFor="season">Cycle Status</label>
           <span className="bs-validation-container">
             <select
               id="cycleStatus"
@@ -137,14 +158,14 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="exclusivePosition">Exclusive Positions</label>
+          <label htmlFor="exclusivePosition">Exclusive Position</label>
           <span className="bs-validation-container">
             <CheckBox
               className="exclusivePosition-new"
               id="exclusivePosition-new"
               name="exclusivePosition-new"
-              checked={exclusivePosition}
-              onChange={() => setExclusivePosition(e => !e)}
+              value={exclusivePosition === 'Y'}
+              onCheckBoxClick={e => setExclusivePosition(e ? 'Y' : 'N')}
             />
           </span>
         </div>
@@ -155,13 +176,13 @@ const NewAssignmentCycle = (props) => {
               className="postViewable-new"
               id="postViewable-new"
               name="postViewable-new"
-              checked={postViewable}
-              onChange={() => setPostViewable(e => !e)}
+              value={postViewable === 'Y'}
+              onCheckBoxClick={e => setPostViewable(e ? 'Y' : 'N')}
             />
           </span>
         </div>
         <div>
-          <dt><div className="error-color">*</div>Cycle Boundary Dates</dt>
+          <dt>Cycle Boundary Dates</dt>
           <span className="date-picker-validation-container-new larger-date-picker">
             <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
             <DateRangePicker
@@ -395,7 +416,7 @@ const NewAssignmentCycle = (props) => {
           </span>
         </div>
         <div className="ac-buttons">
-          <button onClick={saveAC}>Save</button>
+          <button onClick={saveAC} disabled={!disableSave}>Save</button>
           <button onClick={cancelAC}>Cancel</button>
         </div>
       </form>

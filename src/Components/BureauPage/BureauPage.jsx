@@ -21,7 +21,7 @@ const BureauPage = () => {
       <Switch>
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
         <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement isAO={false} />} />
-        <Route path="/profile/bureau/assginmentcycle/:id" render={() => <AssignmentCycleEdit isAO={false} />} />
+        <Route path="/profile/bureau/assignmentcycle/:id" render={() => <AssignmentCycleEdit isAO={false} />} />
         <Route path="/profile/bureau/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
         <Route path="/profile/bureau/managepostaccess" render={() => <ManagePostAccess />} />
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />

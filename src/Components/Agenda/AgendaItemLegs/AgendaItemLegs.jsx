@@ -41,7 +41,7 @@ const AgendaItemLegs = props => {
         legs$.map((leg, index) => {
           const keyId = index;
           return (
-            <td className={`${leg?.is_separation ? 'hide' : ''} arrow`} key={`${keyId}-${leg.id}`}>
+            <td className={`${leg?.is_separation ? 'hide' : ''} ai-legs-arrow`} key={`${keyId}-${leg.id}`}>
               <FA name="arrow-down" />
             </td>);
         })
@@ -127,7 +127,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'Travel',
-      content: (getData('travel')),
+      content: (getData('travel_desc')),
       cardView: false,
     },
     {

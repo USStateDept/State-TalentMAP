@@ -6,7 +6,7 @@ import { filter, find, get, includes, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
-import TodModal from 'Components/Agenda/AgendaLeg/TodModal';
+import TodModal from 'Components/Agenda/AgendaLegFormEdit/TodModal';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -45,11 +45,11 @@ const AgendaItemMaintenancePane = (props) => {
     AIvalidationIsLoading,
     AIvalidationHasErrored,
     setIsNewSeparation,
+    employee,
   } = props;
 
   const defaultText = '';
 
-  const { data: userInfo, error: userInfoError, loading: userInfoLoading } = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/fsbid/panel/reference/dates/');
@@ -109,11 +109,14 @@ const AgendaItemMaintenancePane = (props) => {
 
 
   // ================ User Centric Data ================
-  // Data is parsed differently depending on whether the data comes from agendaItem or userInfo
-  // agendaItem is available during edit and userInfo is fallback used on create for client users
+  // Data is parsed differently depending on whether the data comes from agendaItem or employeeData
+  // agendaItem is available during edit and employeeData is fallback used
+  // on create for client users
+
+  const { employeeData, employeeDataError, employeeDataLoading } = employee;
 
   const isCreate = agendaItem ? Object.keys(agendaItem).length === 0 : true;
-  const userData = isCreate ? userInfo?.data : agendaItem;
+  const userData = isCreate ? employeeData : agendaItem;
 
   const userLanguages = userData?.languages?.length ? userData.languages.map(
     (l) => `${l.custom_description} (${formatDate(l.test_date, 'MM/YYYY')})`).join(', ') : 'None Listed';
@@ -493,7 +496,7 @@ const AgendaItemMaintenancePane = (props) => {
             }
             {!TODLoading && combinedTodDropdown()}
           </div>
-          {((isCreate && !userInfoLoading && !userInfoError) || !isCreate) &&
+          {((isCreate && !employeeDataLoading && !employeeDataError) || !isCreate) &&
             <div className="panel-meeting-agendas-user-info mt-20">
               <div className="item">
                 <span className="label">Languages: </span>
@@ -647,6 +650,15 @@ AgendaItemMaintenancePane.propTypes = {
   AIvalidation: AI_VALIDATION,
   AIvalidationIsLoading: PropTypes.bool,
   AIvalidationHasErrored: PropTypes.bool,
+  employee: PropTypes.shape({
+    employeeData: PropTypes.shape({
+      user_info: PropTypes.shape({
+        hru_id: PropTypes.number,
+      }),
+    }),
+    employeeDataError: PropTypes.bool,
+    employeeDataLoading: PropTypes.bool,
+  }),
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -671,6 +683,7 @@ AgendaItemMaintenancePane.defaultProps = {
   },
   AIvalidationIsLoading: false,
   AIvalidationHasErrored: false,
+  employee: {},
 };
 
 export default AgendaItemMaintenancePane;

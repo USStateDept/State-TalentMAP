@@ -78,7 +78,7 @@ export function cycleManagementAssignmentCycleUpdateSuccess(state = false, actio
 
 // ================  Cycle Management DELETE cycle  ================
 
-export function cycleManagementDelete(state = [], action) {
+export function cycleManagementDelete(state = false, action) {
   switch (action.type) {
     case 'ASSIGNMENT_CYCLE_DELETE_SUCCESS':
       return action.success;
