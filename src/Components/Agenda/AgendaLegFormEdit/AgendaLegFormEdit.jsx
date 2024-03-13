@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import PropTypes from 'prop-types';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get, includes } from 'lodash';
@@ -38,10 +37,7 @@ const AgendaLegFormEdit = props => {
   const legValidation = AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num];
   const disabled = isEf;
 
-
-  const getLegActionTypes = () => (
-    legActionTypes.filter(lat => lat.is_separation === isSeparation)
-  );
+  const getLegActionTypes = legActionTypes.filter(lat => lat.is_separation === isSeparation);
 
   const isLegacyValue = (val, data) => {
     if (['', null, undefined].includes(val)) return false;
@@ -49,7 +45,7 @@ const AgendaLegFormEdit = props => {
   };
 
   const [showLegacyAction, setShowLegacyAction] = useState(
-    isLegacyValue(leg?.action_code, getLegActionTypes()));
+    isLegacyValue(leg?.action_code, getLegActionTypes));
   const [showLegacyTravel, setShowLegacyTravel] = useState(
     isLegacyValue(leg?.travel_code, travelFunctions));
 
@@ -215,7 +211,7 @@ const AgendaLegFormEdit = props => {
     if (type === 'action') {
       showLegacy = showLegacyAction;
       setShowLegacy = setShowLegacyActionToFalse;
-      refArray = getLegActionTypes();
+      refArray = getLegActionTypes;
       codeAttr = 'action_code';
       descAttr = 'action';
       nullText = 'Keep Unselected';
