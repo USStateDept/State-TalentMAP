@@ -99,10 +99,11 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const [url, setUrl] = useState(undefined);
   const [empProfileLoading, setEmpProfileLoading] = useState(false);
   const [empProfileError, setEmpProfileError] = useState(false);
+  const { employeeData, employeeDataError, employeeDataLoading } = employee;
   useEffect(() => {
     // Prevent repeated calls while the data is attempting to be fetched
-    if (employee?.employeeDataLoading || !empProfileLoading) {
-      const hruId = employee?.employeeData?.user_info?.hru_id.toString();
+    if (employeeData && (!employeeDataLoading || !empProfileLoading)) {
+      const hruId = employeeData?.user_info?.hru_id.toString();
       setEmpProfileLoading(true);
       if (!url) {
         api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
@@ -183,10 +184,10 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         />);
 
       case EMP:
-        if (empProfileError) {
+        if (employeeDataError || empProfileError) {
           return errorAlert;
         }
-        if (employee?.employeeDataLoading || empProfileLoading) {
+        if (employeeDataLoading || empProfileLoading) {
           return <Spinner type="employee-profile-preview" size="small" />;
         }
         return (
