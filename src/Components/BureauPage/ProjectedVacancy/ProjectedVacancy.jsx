@@ -99,7 +99,7 @@ const ProjectedVacancy = ({ isAO }) => {
     if (positions.length) {
       setIncludedPositions(
         positions?.filter(
-          p => p.future_vacancy_exclude_import_indicator === 'Y',
+          p => p.future_vacancy_exclude_import_indicator === 'N',
         )?.map(
           k => k.future_vacancy_seq_num,
         ),
@@ -161,7 +161,7 @@ const ProjectedVacancy = ({ isAO }) => {
     positions.forEach(p => {
       const include = includedPositions.find(o => o === p.future_vacancy_seq_num);
       const currentValue = p.future_vacancy_exclude_import_indicator;
-      const needsUpdate = (currentValue === 'Y' && !include) || (currentValue === 'N' && include);
+      const needsUpdate = (currentValue === 'Y' && include) || (currentValue === 'N' && !include);
       if (needsUpdate) {
         updatedPvs.push({
           ...p,
