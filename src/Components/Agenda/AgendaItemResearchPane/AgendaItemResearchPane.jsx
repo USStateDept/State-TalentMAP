@@ -103,10 +103,10 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   useEffect(() => {
     // Prevent repeated calls while the data is attempting to be fetched
     if (employeeData && (!employeeDataLoading || !empProfileLoading)) {
-      const hruId = employeeData?.user_info?.hru_id.toString();
-      setEmpProfileLoading(true);
-      if (!url) {
-        api().get(`/fsbid/employee/${hruId}/employee_profile_report/?redacted_report=false`,
+      const hruId = employeeData?.user_info?.hru_id;
+      if (hruId && !url) {
+        setEmpProfileLoading(true);
+        api().get(`/fsbid/employee/${hruId.toString()}/employee_profile_report/?redacted_report=false`,
           { responseType: 'arraybuffer' },
         ).then(response => {
           setEmpProfileError(false);
