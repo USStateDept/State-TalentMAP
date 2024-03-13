@@ -44,7 +44,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     useState(languageOffsets?.language_offset_winter || '');
   const [textArea, setTextArea] = useState(result?.capsule_description);
 
-  const updateUser = result?.updated_user;
+  const updateUser = result?.updater_id;
   const updateDate = formatDate(result?.updated_date);
   const differentials = {
     post: {
