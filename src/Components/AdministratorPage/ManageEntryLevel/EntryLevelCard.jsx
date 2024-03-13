@@ -130,7 +130,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     handleEdit: {
       editMode,
       setEditMode,
-      disableEdit: true,
+      // disableEdit: true,
     },
     /* eslint-enable quote-props */
   };
