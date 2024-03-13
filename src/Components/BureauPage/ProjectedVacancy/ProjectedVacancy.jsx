@@ -97,7 +97,13 @@ const ProjectedVacancy = ({ isAO }) => {
 
   useEffect(() => {
     if (positions.length) {
-      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
+      setIncludedPositions(
+        positions?.filter(
+          p => p.future_vacancy_exclude_import_indicator === 'Y',
+        )?.map(
+          k => k.future_vacancy_seq_num,
+        ),
+      );
       dispatch(projectedVacancyLangOffsets({
         position_numbers: positions?.map(o => o.position_number) || [],
       }));
@@ -151,17 +157,17 @@ const ProjectedVacancy = ({ isAO }) => {
   };
 
   const addToProposedCycle = () => {
-    const updatedPvs = positions?.map(p => {
-      if (includedPositions.find(o => o === p.future_vacancy_seq_num)) {
-        return {
+    const updatedPvs = [];
+    positions.forEach(p => {
+      const include = includedPositions.find(o => o === p.future_vacancy_seq_num);
+      const currentValue = p.future_vacancy_exclude_import_indicator;
+      const needsUpdate = (currentValue === 'Y' && !include) || (currentValue === 'N' && include);
+      if (needsUpdate) {
+        updatedPvs.push({
           ...p,
-          future_vacancy_exclude_import_indicator: 'N',
-        };
+          future_vacancy_exclude_import_indicator: include ? 'Y' : 'N',
+        });
       }
-      return {
-        ...p,
-        future_vacancy_exclude_import_indicator: 'Y',
-      };
     });
     const editData = { projected_vacancy: updatedPvs };
     dispatch(projectedVacancyEdit(getQuery(), editData));
