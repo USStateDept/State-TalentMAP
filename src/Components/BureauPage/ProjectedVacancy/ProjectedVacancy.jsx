@@ -85,6 +85,38 @@ const ProjectedVacancy = ({ isAO }) => {
     selectedBidSeasons,
   });
 
+  const filterSelectionValid = () => {
+    // valid if: at least two distinct filters
+    const fils = [
+      selectedBureaus,
+      selectedOrganizations,
+      selectedGrades,
+      selectedLanguages,
+      selectedSkills,
+      selectedBidSeasons,
+    ];
+    const a = [];
+    fils.forEach(f => { if (f.length) { a.push(true); } });
+    return a.length > 1;
+  };
+
+  const getOverlay = () => {
+    let overlay;
+    if (resultsLoading) {
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
+      // } else if (dataHasErrored || filtersHasErrored) {
+      //   overlay = <Alert type="error" title="Error displaying Publishable Positions"
+      // messages={[{ body: 'Please try again.' }]} />;
+    } else if (!filterSelectionValid()) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search or search by Position Number.' }]} />;
+    } else if (!positionsData?.length) {
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
+  };
+
   const submitEdit = (editData, onSuccess) => {
     dispatch(projectedVacancyEdit(getQuery(), editData, onSuccess));
   };
@@ -288,8 +320,7 @@ const ProjectedVacancy = ({ isAO }) => {
           }]}
         />
       }
-      {resultsLoading ?
-        <Spinner type="standard-center" size="small" /> :
+      {getOverlay() ||
         <div className="usa-width-one-whole position-search--results mt-20">
           <div className="proposed-cycle-banner">
             {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
