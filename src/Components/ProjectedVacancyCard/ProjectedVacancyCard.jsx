@@ -33,7 +33,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     datePickerRef.current.setOpen(true);
   };
 
-  const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator);
+  const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator === 'Y');
   const [season, setSeason] = useState(result?.bid_season_code);
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
   const [overrideTED, setOverrideTED] =
@@ -64,7 +64,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
   useEffect(() => {
     onEditModeSearch(editMode, id);
     if (editMode) {
-      setIncluded(result?.future_vacancy_exclude_import_indicator);
+      setIncluded(result?.future_vacancy_exclude_import_indicator === 'Y');
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
       setOverrideTED(
