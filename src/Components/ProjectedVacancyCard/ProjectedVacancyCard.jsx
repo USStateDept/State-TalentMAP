@@ -37,12 +37,16 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
   const [season, setSeason] = useState(result?.bid_season_code);
   const [status, setStatus] = useState(result?.future_vacancy_status_description);
   const [overrideTED, setOverrideTED] =
-    useState(new Date(result?.future_vacancy_override_tour_end_date));
+    useState(
+      result?.future_vacancy_override_tour_end_date ?
+        new Date(result.future_vacancy_override_tour_end_date) :
+        null
+    );
   const [langOffsetSummer, setLangOffsetSummer] =
     useState(languageOffsets?.language_offset_summer || '');
   const [langOffsetWinter, setLangOffsetWinter] =
     useState(languageOffsets?.language_offset_winter || '');
-  const [textArea, setTextArea] = useState(result?.capsule_description);
+  const [textArea, setTextArea] = useState(result?.capsule_description || '');
 
   const differentials = {
     post: {
@@ -63,10 +67,14 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       setIncluded(result?.future_vacancy_exclude_import_indicator);
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
-      setOverrideTED(new Date(result?.future_vacancy_override_tour_end_date));
+      setOverrideTED(
+        result?.future_vacancy_override_tour_end_date ?
+          new Date(result.future_vacancy_override_tour_end_date) :
+          null
+      );
       setLangOffsetSummer(languageOffsets?.language_offset_summer || '');
       setLangOffsetWinter(languageOffsets?.language_offset_winter || '');
-      setTextArea(result?.capsule_description);
+      setTextArea(result?.capsule_description || '');
     }
   }, [editMode]);
 
