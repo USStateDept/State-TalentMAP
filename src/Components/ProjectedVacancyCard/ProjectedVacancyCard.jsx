@@ -40,7 +40,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     useState(
       result?.future_vacancy_override_tour_end_date ?
         new Date(result.future_vacancy_override_tour_end_date) :
-        null
+        null,
     );
   const [langOffsetSummer, setLangOffsetSummer] =
     useState(languageOffsets?.language_offset_summer || '');
@@ -70,7 +70,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       setOverrideTED(
         result?.future_vacancy_override_tour_end_date ?
           new Date(result.future_vacancy_override_tour_end_date) :
-          null
+          null,
       );
       setLangOffsetSummer(languageOffsets?.language_offset_summer || '');
       setLangOffsetWinter(languageOffsets?.language_offset_winter || '');
@@ -115,15 +115,17 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
   const displayLangs = () => {
     let displayText = '';
     const langs = result?.position_language_proficiency_description?.split(';');
-    langs?.forEach((lang, i) => {
-      const langCodeAttr = `position_language_${i + 1}_code`;
-      const langCode = result?.[langCodeAttr] || undefined;
-      if (langCode) {
-        displayText += lang.replace(' ', ` (${langCode}) `);
-      } else {
-        displayText += lang;
-      }
-    });
+    if (langs && langs.length) {
+      langs.forEach((lang, i) => {
+        const langCodeAttr = `position_language_${i + 1}_code`;
+        const langCode = result?.[langCodeAttr] || undefined;
+        if (langCode) {
+          displayText += lang.replace(' ', ` (${langCode}) `);
+        } else {
+          displayText += lang;
+        }
+      });
+    }
     return displayText || NO_LANGUAGES;
   };
 
@@ -183,7 +185,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
             defaultValue={season}
             onChange={(e) => setSeason(e.target.value)}
           >
-            {bidSeasons.map(b => (
+            {bidSeasons?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -195,7 +197,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
             defaultValue={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            {statuses.map(b => (
+            {statuses?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -221,7 +223,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
             value={langOffsetSummer}
             onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
-            {summerLanguageOffsets.map(b => (
+            {summerLanguageOffsets?.map(b => (
               <option key={b.code || 'null'} value={b.code || ''}>{b.description || DEFAULT_TEXT}</option>
             ))}
           </select>
@@ -233,7 +235,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
             value={langOffsetWinter}
             onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
-            {winterLanguageOffsets.map(b => (
+            {winterLanguageOffsets?.map(b => (
               <option key={b.code || 'null'} value={b.code || ''}>{b.description || DEFAULT_TEXT}</option>
             ))}
           </select>
