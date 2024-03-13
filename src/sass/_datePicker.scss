@@ -46,7 +46,8 @@
 $date-picker-width: 300px;
 
 .date-wrapper-react {
-
+  padding-left: 10px;
+  
   .fa-calendar-o,
   .fa-calendar {
     color: $blue-primary;
@@ -143,7 +144,7 @@ $date-picker-width: 300px;
     border: 1px solid $bg-gray-dark-2;
   }
   .react-datepicker-popper {
-    z-index: 2;
+    z-index: 10;
   }
   .react-datepicker__close-icon {
     padding: 0px;
