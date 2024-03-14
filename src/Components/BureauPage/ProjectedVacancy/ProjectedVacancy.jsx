@@ -21,11 +21,15 @@ const ProjectedVacancy = ({ isAO }) => {
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const filters = useSelector(state => state.projectedVacancyFilters) || [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
+  const filtersErrored = useSelector(state => state.projectedVacancyFiltersErrored);
   const languageOffsetOptions = useSelector(state => state.projectedVacancyLangOffsetOptions) || [];
   const languageOffsetOptionsLoading =
     useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
+  const languageOffsetOptionsErrored =
+    useSelector(state => state.projectedVacancyLangOffsetOptionsErrored);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
+  const positionsErrored = useSelector(state => state.projectedVacancyFetchDataErrored);
   const positions = positionsData?.length ? positionsData : [];
   const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets) || [];
 
@@ -104,13 +108,12 @@ const ProjectedVacancy = ({ isAO }) => {
     let overlay;
     if (resultsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
-      // } else if (dataHasErrored || filtersHasErrored) {
-      //   overlay = <Alert type="error" title="Error displaying Publishable Positions"
-      // messages={[{ body: 'Please try again.' }]} />;
+    } else if (filtersErrored || languageOffsetOptionsErrored || positionsErrored) {
+      overlay = <Alert type="error" title="Error displaying Projected Vacancies" messages={[{ body: 'Please try again.' }]} />;
     } else if (!filterSelectionValid()) {
-      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search or search by Position Number.' }]} />;
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search.' }]} />;
     } else if (!positionsData?.length) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'No projected vacancies for filter inputs.' }]} />;
     } else {
       return false;
     }
@@ -322,7 +325,7 @@ const ProjectedVacancy = ({ isAO }) => {
           customClassName="mb-10"
           messages={[{
             body: 'Discard or save your edits before searching. ' +
-              'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              'Filters are disabled if any cards are in Edit Mode.',
           }]}
         />
       }
