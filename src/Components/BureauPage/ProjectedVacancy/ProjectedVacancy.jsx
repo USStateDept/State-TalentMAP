@@ -67,7 +67,7 @@ const ProjectedVacancy = ({ isAO }) => {
 
   const getQuery = () => ({
     bureaus: selectedBureaus?.map(o => o?.code),
-    organizations: selectedOrganizations?.map(o => o?.code),
+    organizations: selectedOrganizations?.map(o => o?.short_description),
     bidSeasons: selectedBidSeasons?.map(o => o?.code),
     languages: selectedLanguages?.map(o => o?.code),
     grades: selectedGrades?.map(o => o?.code),
@@ -274,7 +274,7 @@ const ProjectedVacancy = ({ isAO }) => {
                 value={selectedOrganizations}
                 options={organizations}
                 onChange={setSelectedOrganizations}
-                valueKey="code"
+                valueKey="short_description"
                 labelKey="description"
                 disabled={disableInput}
               />
