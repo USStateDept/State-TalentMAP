@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
-import { get, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import {
   projectedVacancyEdit, projectedVacancyFetchData, projectedVacancyFilters,
-  projectedVacancyLangOffsetOptions, saveProjectedVacancySelections,
+  projectedVacancyLangOffsetOptions, projectedVacancyLangOffsets, saveProjectedVacancySelections,
 } from 'actions/projectedVacancy';
-import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
-import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
@@ -21,20 +19,19 @@ const ProjectedVacancy = ({ isAO }) => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.projectedVacancySelections);
-  const filters = useSelector(state => state.projectedVacancyFilters) ?? [];
+  const filters = useSelector(state => state.projectedVacancyFilters) || [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
-  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsetOptions) ?? [];
-  const languageOffsetsLoading =
+  const languageOffsetOptions = useSelector(state => state.projectedVacancyLangOffsetOptions) || [];
+  const languageOffsetOptionsLoading =
     useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
   const positions = positionsData?.length ? positionsData : [];
+  const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets) || [];
 
   const [includedPositions, setIncludedPositions] = useState([]);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections?.selectedBureaus || []);
   const [selectedOrganizations, setSelectedOrganizations] =
@@ -48,12 +45,6 @@ const ProjectedVacancy = ({ isAO }) => {
   const [selectedBidSeasons, setSelectedBidSeasons] =
     useState(userSelections?.selectedBidSeasons || []);
 
-  useEffect(() => {
-    if (positions.length) {
-      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
-    }
-  }, [positions]);
-
   const bureaus = sortBy(filters?.bureaus || [], [o => o.description]);
   const grades = sortBy(filters?.grades || [], [o => o.code]);
   const skills = sortBy(filters?.skills || [], [o => o.description]);
@@ -62,15 +53,11 @@ const ProjectedVacancy = ({ isAO }) => {
   const organizations = sortBy(filters?.organizations || [], [o => o.description]);
   const statuses = sortBy(filters?.statuses || [], [o => o.description]);
 
-  const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
-  const sorts = PUBLISHABLE_POSITIONS_SORT;
-  const resultsLoading = positionsLoading || languageOffsetsLoading;
+  const resultsLoading = positionsLoading || languageOffsetOptionsLoading;
   const disableSearch = cardsInEditMode?.length > 0;
   const disableInput = filtersLoading || resultsLoading || disableSearch;
 
   const getQuery = () => ({
-    limit,
-    ordering,
     bureaus: selectedBureaus?.map(o => o?.code),
     organizations: selectedOrganizations?.map(o => o?.code),
     bidSeasons: selectedBidSeasons?.map(o => o?.code),
@@ -98,11 +85,24 @@ const ProjectedVacancy = ({ isAO }) => {
     selectedBidSeasons,
   });
 
+  const submitEdit = (editData, onSuccess) => {
+    dispatch(projectedVacancyEdit(getQuery(), editData, onSuccess));
+  };
+
   useEffect(() => {
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(projectedVacancyFilters());
     dispatch(projectedVacancyLangOffsetOptions());
   }, []);
+
+  useEffect(() => {
+    if (positions.length) {
+      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
+      dispatch(projectedVacancyLangOffsets({
+        position_numbers: positions?.map(o => o.position_number) || [],
+      }));
+    }
+  }, [positions]);
 
   const fetchAndSet = () => {
     const f = [
@@ -125,8 +125,6 @@ const ProjectedVacancy = ({ isAO }) => {
   useEffect(() => {
     fetchAndSet();
   }, [
-    limit,
-    ordering,
     selectedBureaus,
     selectedOrganizations,
     selectedGrades,
@@ -165,7 +163,8 @@ const ProjectedVacancy = ({ isAO }) => {
         future_vacancy_exclude_import_indicator: 'Y',
       };
     });
-    dispatch(projectedVacancyEdit(updatedPvs));
+    const editData = { projected_vacancy: updatedPvs };
+    dispatch(projectedVacancyEdit(getQuery(), editData));
   };
 
   return (filtersLoading ?
@@ -271,25 +270,7 @@ const ProjectedVacancy = ({ isAO }) => {
           </div>
         </div>
       </div>
-      <div className="position-search-controls--results padding-top results-dropdown">
-        <SelectForm
-          id="projected-vacancy-sort-results"
-          options={sorts.options}
-          label="Sort by:"
-          defaultSort={ordering}
-          onSelectOption={value => setOrdering(value.target.value)}
-          disabled={disableSearch}
-        />
-        <SelectForm
-          id="projected-vacancy-num-results"
-          options={pageSizes.options}
-          label="Results:"
-          defaultSort={limit}
-          onSelectOption={value => setLimit(value.target.value)}
-          disabled={disableSearch}
-        />
-        <ScrollUpButton />
-      </div>
+      <ScrollUpButton />
       {disableSearch &&
         <Alert
           type="warning"
@@ -303,7 +284,7 @@ const ProjectedVacancy = ({ isAO }) => {
       }
       {resultsLoading ?
         <Spinner type="standard-center" size="small" /> :
-        <div className="usa-width-one-whole position-search--results">
+        <div className="usa-width-one-whole position-search--results mt-20">
           <div className="proposed-cycle-banner">
             {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
             {isAO &&
@@ -320,13 +301,19 @@ const ProjectedVacancy = ({ isAO }) => {
             {positions?.map(k => (
               <ProjectedVacancyCard
                 result={k}
+                languageOffsets={
+                  (languageOffsets?.length &&
+                    languageOffsets?.find(o => o?.position_number === k?.position_number)
+                  ) || {}
+                }
                 key={k.future_vacancy_seq_num}
                 updateIncluded={onIncludedUpdate}
                 onEditModeSearch={(editMode, id) =>
                   onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
                 }
+                onSubmit={editData => submitEdit(editData)}
                 selectOptions={{
-                  languageOffsets,
+                  languageOffsets: languageOffsetOptions,
                   bidSeasons,
                   statuses,
                 }}
@@ -334,10 +321,6 @@ const ProjectedVacancy = ({ isAO }) => {
             ))}
           </div>
         </div>
-      }
-      {/* placeholder for when we put in pagination */}
-      {disableSearch &&
-        <div className="disable-react-paginate-overlay" />
       }
     </div>
   );

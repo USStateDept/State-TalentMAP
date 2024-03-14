@@ -190,10 +190,20 @@ export const UPDATE_PUBLISHABLE_POSITION_SUCCESS = 'This Publishable Position ha
 export const UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE = 'Publishable Position Error';
 export const UPDATE_PUBLISHABLE_POSITION_ERROR = 'There was an issue attempting to save this Publishable Position. Please try again.';
 
-export const UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE = 'Projected Vacancy Position Saved';
-export const UPDATE_PROJECTED_VACANCY_SUCCESS = 'This Projected Vacancy Position has been successfully saved.';
-export const UPDATE_PROJECTED_VACANCY_ERROR_TITLE = 'Projected Vacancy Position Error';
-export const UPDATE_PROJECTED_VACANCY_ERROR = 'There was an issue attempting to save this Projected Vacancy Position. Please try again.';
+export const UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE = 'Projected Vacancy Body Saved';
+export const UPDATE_PROJECTED_VACANCY_SUCCESS = 'This Projected Vacancy Body has been successfully saved.';
+export const UPDATE_PROJECTED_VACANCY_ERROR_TITLE = 'Projected Vacancy Body Error';
+export const UPDATE_PROJECTED_VACANCY_ERROR = 'There was an issue attempting to save this Projected Vacancy Body. Please try again.';
+
+export const UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE = 'Projected Vacancy Language Offsets Saved';
+export const UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS = 'This Projected Vacancy Language Offsets has been successfully saved.';
+export const UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE = 'Projected Vacancy Language Offsets Error';
+export const UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR = 'There was an issue attempting to save this Projected Vacancy Language Offsets. Please try again.';
+
+export const UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE = 'Projected Vacancy Position Details Saved';
+export const UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS = 'This Projected Vacancy Position Details has been successfully saved.';
+export const UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE = 'Projected Vacancy Position Details Error';
+export const UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR = 'There was an issue attempting to save this Projected Vacancy Position Details. Please try again.';
 
 export const ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE = 'Successfully Added to Proposed Cycle';
 export const ADD_TO_PROPOSED_CYCLE_SUCCESS = 'Positions have been successfully added to the proposed cycle.';
