@@ -60,6 +60,8 @@ const ProjectedVacancy = ({ isAO }) => {
   const statuses = sortBy(filters?.statuses || [], [o => o.description]);
 
   const resultsLoading = positionsLoading || languageOffsetsLoading || languageOffsetOptionsLoading;
+  const resultsErrored =
+    filtersErrored || languageOffsetOptionsErrored || positionsErrored || languageOffsetsErrored;
   const disableSearch = cardsInEditMode?.length > 0;
   const disableInput = filtersLoading || resultsLoading || disableSearch;
 
@@ -110,7 +112,7 @@ const ProjectedVacancy = ({ isAO }) => {
     let overlay;
     if (resultsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
-    } else if (filtersErrored || languageOffsetOptionsErrored || positionsErrored || languageOffsetsErrored) {
+    } else if (resultsErrored) {
       overlay = <Alert type="error" title="Error displaying Projected Vacancies" messages={[{ body: 'Please try again.' }]} />;
     } else if (!filterSelectionValid()) {
       overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search.' }]} />;
