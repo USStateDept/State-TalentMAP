@@ -32,6 +32,8 @@ const ProjectedVacancy = ({ isAO }) => {
   const positionsErrored = useSelector(state => state.projectedVacancyFetchDataErrored);
   const positions = positionsData?.length ? positionsData : [];
   const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets) || [];
+  const languageOffsetsLoading = useSelector(state => state.projectedVacancyLangOffsetsLoading);
+  const languageOffsetsErrored = useSelector(state => state.projectedVacancyLangOffsetsErrored);
 
   const [includedPositions, setIncludedPositions] = useState([]);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -57,7 +59,7 @@ const ProjectedVacancy = ({ isAO }) => {
   const organizations = sortBy(filters?.organizations || [], [o => o.description]);
   const statuses = sortBy(filters?.statuses || [], [o => o.description]);
 
-  const resultsLoading = positionsLoading || languageOffsetOptionsLoading;
+  const resultsLoading = positionsLoading || languageOffsetsLoading || languageOffsetOptionsLoading;
   const disableSearch = cardsInEditMode?.length > 0;
   const disableInput = filtersLoading || resultsLoading || disableSearch;
 
@@ -108,7 +110,7 @@ const ProjectedVacancy = ({ isAO }) => {
     let overlay;
     if (resultsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
-    } else if (filtersErrored || languageOffsetOptionsErrored || positionsErrored) {
+    } else if (filtersErrored || languageOffsetOptionsErrored || positionsErrored || languageOffsetsErrored) {
       overlay = <Alert type="error" title="Error displaying Projected Vacancies" messages={[{ body: 'Please try again.' }]} />;
     } else if (!filterSelectionValid()) {
       overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search.' }]} />;
