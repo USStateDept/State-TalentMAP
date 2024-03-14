@@ -33,9 +33,9 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     datePickerRef.current.setOpen(true);
   };
 
-  const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator === 'Y');
+  const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator === 'N');
   const [season, setSeason] = useState(result?.bid_season_code);
-  const [status, setStatus] = useState(result?.future_vacancy_status_description);
+  const [status, setStatus] = useState(result?.future_vacancy_status_code);
   const [overrideTED, setOverrideTED] =
     useState(
       result?.future_vacancy_override_tour_end_date ?
@@ -64,7 +64,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
   useEffect(() => {
     onEditModeSearch(editMode, id);
     if (editMode) {
-      setIncluded(result?.future_vacancy_exclude_import_indicator === 'Y');
+      setIncluded(result?.future_vacancy_exclude_import_indicator === 'N');
       setSeason(result?.bid_season_code);
       setStatus(result?.future_vacancy_status_code);
       setOverrideTED(
@@ -82,10 +82,11 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
     const editData = {
       projected_vacancy: [{
         ...result,
-        future_vacancy_exclude_import_indicator: included ? 'Y' : 'N',
+        future_vacancy_exclude_import_indicator: !included ? 'Y' : 'N',
         bid_season_code: season,
         future_vacancy_status_code: status,
-        future_vacancy_override_tour_end_date: overrideTED,
+        future_vacancy_override_tour_end_date: overrideTED ?
+          overrideTED.toISOString().substring(0, 10) : null,
       }],
       language_offsets: {
         position_seq_num: result?.position_seq_num,
@@ -149,8 +150,14 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       { 'Status': result?.future_vacancy_status_description || NO_STATUS },
       { 'Organization': result?.organization_short_description || NO_ORG },
       { 'TED': formatDate(result?.future_vacancy_override_tour_end_date) || NO_TOUR_END_DATE },
-      { 'Language Offset Summer': summerLanguageOffsets?.find(o => o.code === langOffsetSummer)?.description || DEFAULT_TEXT },
-      { 'Language Offset Winter': winterLanguageOffsets?.find(o => o.code === langOffsetWinter)?.description || DEFAULT_TEXT },
+      {
+        'Language Offset Summer': summerLanguageOffsets?.find(o =>
+          o.code === languageOffsets?.language_offset_summer)?.description || DEFAULT_TEXT,
+      },
+      {
+        'Language Offset Winter': winterLanguageOffsets?.find(o =>
+          o.code === languageOffsets?.language_offset_winter)?.description || DEFAULT_TEXT,
+      },
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
       { 'Pay Plan': result?.position_pay_plan_code || NO_GRADE },

@@ -21,13 +21,19 @@ const ProjectedVacancy = ({ isAO }) => {
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const filters = useSelector(state => state.projectedVacancyFilters) || [];
   const filtersLoading = useSelector(state => state.projectedVacancyFiltersLoading);
+  const filtersErrored = useSelector(state => state.projectedVacancyFiltersErrored);
   const languageOffsetOptions = useSelector(state => state.projectedVacancyLangOffsetOptions) || [];
   const languageOffsetOptionsLoading =
     useSelector(state => state.projectedVacancyLangOffsetOptionsLoading);
+  const languageOffsetOptionsErrored =
+    useSelector(state => state.projectedVacancyLangOffsetOptionsErrored);
   const positionsData = useSelector(state => state.projectedVacancy);
   const positionsLoading = useSelector(state => state.projectedVacancyFetchDataLoading);
+  const positionsErrored = useSelector(state => state.projectedVacancyFetchDataErrored);
   const positions = positionsData?.length ? positionsData : [];
   const languageOffsets = useSelector(state => state.projectedVacancyLangOffsets) || [];
+  const languageOffsetsLoading = useSelector(state => state.projectedVacancyLangOffsetsLoading);
+  const languageOffsetsErrored = useSelector(state => state.projectedVacancyLangOffsetsErrored);
 
   const [includedPositions, setIncludedPositions] = useState([]);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -53,13 +59,15 @@ const ProjectedVacancy = ({ isAO }) => {
   const organizations = sortBy(filters?.organizations || [], [o => o.description]);
   const statuses = sortBy(filters?.statuses || [], [o => o.description]);
 
-  const resultsLoading = positionsLoading || languageOffsetOptionsLoading;
+  const resultsLoading = positionsLoading || languageOffsetsLoading || languageOffsetOptionsLoading;
+  const resultsErrored =
+    filtersErrored || languageOffsetOptionsErrored || positionsErrored || languageOffsetsErrored;
   const disableSearch = cardsInEditMode?.length > 0;
   const disableInput = filtersLoading || resultsLoading || disableSearch;
 
   const getQuery = () => ({
     bureaus: selectedBureaus?.map(o => o?.code),
-    organizations: selectedOrganizations?.map(o => o?.code),
+    organizations: selectedOrganizations?.map(o => o?.short_description),
     bidSeasons: selectedBidSeasons?.map(o => o?.code),
     languages: selectedLanguages?.map(o => o?.code),
     grades: selectedGrades?.map(o => o?.code),
@@ -85,6 +93,37 @@ const ProjectedVacancy = ({ isAO }) => {
     selectedBidSeasons,
   });
 
+  const filterSelectionValid = () => {
+    // valid if: at least two distinct filters
+    const fils = [
+      selectedBureaus,
+      selectedOrganizations,
+      selectedGrades,
+      selectedLanguages,
+      selectedSkills,
+      selectedBidSeasons,
+    ];
+    const a = [];
+    fils.forEach(f => { if (f.length) { a.push(true); } });
+    return a.length > 1;
+  };
+
+  const getOverlay = () => {
+    let overlay;
+    if (resultsLoading) {
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
+    } else if (resultsErrored) {
+      overlay = <Alert type="error" title="Error displaying Projected Vacancies" messages={[{ body: 'Please try again.' }]} />;
+    } else if (!filterSelectionValid()) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search.' }]} />;
+    } else if (!positionsData?.length) {
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'No projected vacancies for filter inputs.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
+  };
+
   const submitEdit = (editData, onSuccess) => {
     dispatch(projectedVacancyEdit(getQuery(), editData, onSuccess));
   };
@@ -97,9 +136,17 @@ const ProjectedVacancy = ({ isAO }) => {
 
   useEffect(() => {
     if (positions.length) {
-      setIncludedPositions(positions?.map(k => k.future_vacancy_seq_num));
+      setIncludedPositions(
+        positions?.filter(
+          p => p.future_vacancy_exclude_import_indicator === 'N',
+        )?.map(
+          k => k.future_vacancy_seq_num,
+        ),
+      );
+      const posNums = positions?.map(o => o.position_number);
+      const uniqPosNums = [...new Set(posNums)];
       dispatch(projectedVacancyLangOffsets({
-        position_numbers: positions?.map(o => o.position_number) || [],
+        position_numbers: uniqPosNums || [],
       }));
     }
   }, [positions]);
@@ -118,8 +165,10 @@ const ProjectedVacancy = ({ isAO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(projectedVacancyFetchData(getQuery()));
-    dispatch(saveProjectedVacancySelections(getCurrentInputs()));
+    if (filterSelectionValid()) {
+      dispatch(projectedVacancyFetchData(getQuery()));
+      dispatch(saveProjectedVacancySelections(getCurrentInputs()));
+    }
   };
 
   useEffect(() => {
@@ -151,17 +200,19 @@ const ProjectedVacancy = ({ isAO }) => {
   };
 
   const addToProposedCycle = () => {
-    const updatedPvs = positions?.map(p => {
-      if (includedPositions.find(o => o === p.future_vacancy_seq_num)) {
-        return {
+    const updatedPvs = [];
+    positions.forEach(p => {
+      const include = includedPositions.find(o => o === p.future_vacancy_seq_num);
+      const currentValue = p.future_vacancy_exclude_import_indicator;
+      const needsUpdate = (currentValue === 'Y' && include) || (currentValue === 'N' && !include);
+      if (needsUpdate) {
+        updatedPvs.push({
           ...p,
-          future_vacancy_exclude_import_indicator: 'N',
-        };
+          future_vacancy_override_tour_end_date: p.future_vacancy_override_tour_end_date ?
+            p.future_vacancy_override_tour_end_date.toISOString().substring(0, 10) : null,
+          future_vacancy_exclude_import_indicator: include ? 'Y' : 'N',
+        });
       }
-      return {
-        ...p,
-        future_vacancy_exclude_import_indicator: 'Y',
-      };
     });
     const editData = { projected_vacancy: updatedPvs };
     dispatch(projectedVacancyEdit(getQuery(), editData));
@@ -223,7 +274,7 @@ const ProjectedVacancy = ({ isAO }) => {
                 value={selectedOrganizations}
                 options={organizations}
                 onChange={setSelectedOrganizations}
-                valueKey="code"
+                valueKey="short_description"
                 labelKey="description"
                 disabled={disableInput}
               />
@@ -278,12 +329,11 @@ const ProjectedVacancy = ({ isAO }) => {
           customClassName="mb-10"
           messages={[{
             body: 'Discard or save your edits before searching. ' +
-              'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              'Filters are disabled if any cards are in Edit Mode.',
           }]}
         />
       }
-      {resultsLoading ?
-        <Spinner type="standard-center" size="small" /> :
+      {getOverlay() ||
         <div className="usa-width-one-whole position-search--results mt-20">
           <div className="proposed-cycle-banner">
             {includedPositions?.length} {includedPositions?.length === 1 ? 'Position' : 'Positions'} Selected
