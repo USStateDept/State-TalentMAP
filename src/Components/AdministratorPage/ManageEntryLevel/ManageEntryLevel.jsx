@@ -105,6 +105,7 @@ const ManageEntryLevel = () => {
     ];
     if (filters.flat().length === 2 && !filters.flat().includes(true)) {
       setClearFilters(false);
+      setHasSelectedFilter(false);
     } else {
       setClearFilters(true);
       setHasSelectedFilter(true);
