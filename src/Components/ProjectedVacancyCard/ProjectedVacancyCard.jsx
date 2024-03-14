@@ -152,11 +152,11 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
       { 'TED': formatDate(result?.future_vacancy_override_tour_end_date) || NO_TOUR_END_DATE },
       {
         'Language Offset Summer': summerLanguageOffsets?.find(o =>
-          o.code === languageOffsets?.language_offset_summer)?.description || DEFAULT_TEXT
+          o.code === languageOffsets?.language_offset_summer)?.description || DEFAULT_TEXT,
       },
       {
         'Language Offset Winter': winterLanguageOffsets?.find(o =>
-          o.code === languageOffsets?.language_offset_winter)?.description || DEFAULT_TEXT
+          o.code === languageOffsets?.language_offset_winter)?.description || DEFAULT_TEXT,
       },
       { 'Skill': result?.position_skill_code || NO_SKILL },
       { 'Grade': result?.position_grade_code || NO_GRADE },
