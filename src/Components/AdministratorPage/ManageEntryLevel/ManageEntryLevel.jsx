@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
-import { entryLevelFetchData, entryLevelFiltersFetchData } from 'actions/entryLevel';
+import { entryLevelFetchData, entryLevelFiltersFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -74,18 +74,17 @@ const ManageEntryLevel = () => {
     setClearFilters(false);
   };
 
-  // Commented out until work on saving functionality resumes
-  // const getCurrentInputs = () => ({
-  //   selectedTps,
-  //   selectedBureaus,
-  //   selectedOrgs,
-  //   selectedGrade: selectedGrades,
-  //   selectedSkills,
-  //   selectedJobs,
-  //   selectedLanguage: selectedLanguages,
-  //   overseas,
-  //   domestic,
-  // });
+  const getCurrentInputs = () => ({
+    selectedTps,
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrade: selectedGrades,
+    selectedSkills,
+    selectedJobs,
+    selectedLanguage: selectedLanguages,
+    overseas,
+    domestic,
+  });
 
   useEffect(() => {
     dispatch(entryLevelFiltersFetchData());
@@ -110,6 +109,7 @@ const ManageEntryLevel = () => {
       setHasSelectedFilter(true);
     }
     dispatch(entryLevelFetchData(getQuery()));
+    dispatch(saveEntryLevelSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
