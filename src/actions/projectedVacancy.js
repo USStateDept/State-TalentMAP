@@ -1,12 +1,21 @@
 import {
+  UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR,
+  UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE,
+  UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS,
+  UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE,
   UPDATE_PROJECTED_VACANCY_ERROR,
   UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+  UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR,
+  UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE,
+  UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS,
+  UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE,
   UPDATE_PROJECTED_VACANCY_SUCCESS,
   UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
 import { get } from 'lodash';
+import Q from 'q';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
@@ -15,7 +24,7 @@ let cancelPVList;
 let cancelPVLangOffsetOptions;
 let cancelPVFilters;
 let cancelPVLangOffsets;
-let cancelPVMetadata;
+let cancelPVEdit;
 
 // ================ GET LIST ================
 
@@ -183,231 +192,91 @@ export function projectedVacancyLangOffsetOptions() {
   };
 }
 
-// ================ EDIT ================
+// ================ EDIT PROJECTED VACANCY ================
 
-export function projectedVacancyEditErrored(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function projectedVacancyEditLoading(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_LOADING',
-    isLoading: bool,
-  };
-}
-export function projectedVacancyEditSuccess(results) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_SUCCESS',
-    results,
-  };
-}
-export function projectedVacancyEdit(query) {
+export function projectedVacancyEdit(query, data, onSuccess) {
   return (dispatch) => {
-    batch(() => {
-      dispatch(projectedVacancyEditLoading(true));
-      dispatch(projectedVacancyEditErrored(false));
-    });
+    if (cancelPVEdit) {
+      cancelPVEdit('cancel');
+    }
 
-    api().put('/fsbid/admin/projected_vacancies/edit/', query)
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(projectedVacancyEditErrored(false));
-          dispatch(projectedVacancyEditSuccess(data));
-          dispatch(toastSuccess(
-            UPDATE_PROJECTED_VACANCY_SUCCESS,
-            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
-          ));
-          dispatch(projectedVacancyEditLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(projectedVacancyEditLoading(true));
-            dispatch(projectedVacancyEditErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(projectedVacancyEditErrored(true));
-            dispatch(toastError(
-              UPDATE_PROJECTED_VACANCY_ERROR,
-              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+    const queryProms = [];
+
+    // Edit Projected Vacancy Primary Object
+    if (data?.projected_vacancy) {
+      const editBody = () =>
+        api().put('/fsbid/admin/projected_vacancies/edit/', data.projected_vacancy, {
+          cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
+        })
+          .then(() => {
+            dispatch(toastSuccess(
+              UPDATE_PROJECTED_VACANCY_SUCCESS,
+              UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
             ));
-            dispatch(projectedVacancyEditLoading(false));
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                UPDATE_PROJECTED_VACANCY_ERROR,
+                UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+              ));
+            }
           });
-        }
-      });
-  };
-}
+      queryProms.push(editBody());
+    }
 
-// ================ EDIT LANGUAGE OFFSETS ================
-
-export function projectedVacancyEditLangOffsetsErrored(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function projectedVacancyEditLangOffsetsLoading(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_LOADING',
-    isLoading: bool,
-  };
-}
-export function projectedVacancyEditLangOffsetsSuccess(results) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_LANG_OFFSETS_SUCCESS',
-    results,
-  };
-}
-export function projectedVacancyEditLangOffsets(query) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(projectedVacancyEditLangOffsetsLoading(true));
-      dispatch(projectedVacancyEditLangOffsetsErrored(false));
-    });
-
-    api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', query)
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(projectedVacancyEditLangOffsetsErrored(false));
-          dispatch(projectedVacancyEditLangOffsetsSuccess(data));
-          dispatch(toastSuccess(
-            UPDATE_PROJECTED_VACANCY_SUCCESS,
-            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
-          ));
-          dispatch(projectedVacancyEditLangOffsetsLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(projectedVacancyEditLangOffsetsLoading(true));
-            dispatch(projectedVacancyEditLangOffsetsErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(projectedVacancyEditLangOffsetsErrored(true));
-            dispatch(toastError(
-              UPDATE_PROJECTED_VACANCY_ERROR,
-              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+    // Edit Projected Vacancy Language Offsets
+    if (data?.language_offsets) {
+      const editLangOffsets = () =>
+        api().put('/fsbid/admin/projected_vacancies/edit_language_offsets/', data.language_offsets, {
+          cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
+        })
+          .then(() => {
+            dispatch(toastSuccess(
+              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS,
+              UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_SUCCESS_TITLE,
             ));
-            dispatch(projectedVacancyEditLangOffsetsLoading(false));
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR,
+                UPDATE_PROJECTED_VACANCY_LANGUAGE_OFFSETS_ERROR_TITLE,
+              ));
+            }
           });
-        }
-      });
-  };
-}
+      queryProms.push(editLangOffsets());
+    }
 
-// ================ EDIT CAPSULE DESCRIPTION ================
-
-export function projectedVacancyEditCapsuleDescErrored(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function projectedVacancyEditCapsuleDescLoading(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_LOADING',
-    isLoading: bool,
-  };
-}
-export function projectedVacancyEditCapsuleDescSuccess(results) {
-  return {
-    type: 'PROJECTED_VACANCY_EDIT_CAPSULE_DESC_SUCCESS',
-    results,
-  };
-}
-export function projectedVacancyEditCapsuleDesc(query) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(projectedVacancyEditCapsuleDescLoading(true));
-      dispatch(projectedVacancyEditCapsuleDescErrored(false));
-    });
-
-    api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', query)
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(projectedVacancyEditCapsuleDescErrored(false));
-          dispatch(projectedVacancyEditCapsuleDescSuccess(data));
-          dispatch(toastSuccess(
-            UPDATE_PROJECTED_VACANCY_SUCCESS,
-            UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
-          ));
-          dispatch(projectedVacancyEditCapsuleDescLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(projectedVacancyEditCapsuleDescLoading(true));
-            dispatch(projectedVacancyEditCapsuleDescErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(projectedVacancyEditCapsuleDescErrored(true));
-            dispatch(toastError(
-              UPDATE_PROJECTED_VACANCY_ERROR,
-              UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
+    // Edit Projected Vacancy Capsule Description
+    if (data?.capsule_description) {
+      const editDesc = () =>
+        api().put('/fsbid/admin/projected_vacancies/edit_capsule_description/', data.capsule_description, {
+          cancelToken: new CancelToken((c) => { cancelPVEdit = c; }),
+        })
+          .then(() => {
+            dispatch(toastSuccess(
+              UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS,
+              UPDATE_PROJECTED_VACANCY_DESCRIPTION_SUCCESS_TITLE,
             ));
-            dispatch(projectedVacancyEditCapsuleDescLoading(false));
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR,
+                UPDATE_PROJECTED_VACANCY_DESCRIPTION_ERROR_TITLE,
+              ));
+            }
           });
-        }
-      });
-  };
-}
+      queryProms.push(editDesc());
+    }
 
-// ================ GET METADATA ================
-
-export function projectedVacancyMetadataErrored(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_METADATA_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function projectedVacancyMetadataLoading(bool) {
-  return {
-    type: 'PROJECTED_VACANCY_METADATA_LOADING',
-    isLoading: bool,
-  };
-}
-export function projectedVacancyMetadataSuccess(results) {
-  return {
-    type: 'PROJECTED_VACANCY_METADATA_SUCCESS',
-    results,
-  };
-}
-export function projectedVacancyMetadata(query = {}) {
-  return (dispatch) => {
-    if (cancelPVMetadata) { cancelPVMetadata('cancel'); }
-    batch(() => {
-      dispatch(projectedVacancyMetadataLoading(true));
-      dispatch(projectedVacancyMetadataErrored(false));
-    });
-    const q = convertQueryToString(query);
-    const endpoint = '/fsbid/admin/projected_vacancies/metadata/';
-    const ep = `${endpoint}?${q}`;
-    api().get(ep, {
-      cancelToken: new CancelToken((c) => { cancelPVMetadata = c; }),
-    })
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(projectedVacancyMetadataSuccess(data));
-          dispatch(projectedVacancyMetadataErrored(false));
-          dispatch(projectedVacancyMetadataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          batch(() => {
-            dispatch(projectedVacancyMetadataSuccess({}));
-            dispatch(projectedVacancyMetadataErrored(true));
-            dispatch(projectedVacancyMetadataLoading(false));
-          });
+    Q.allSettled(queryProms)
+      .then(() => {
+        if (onSuccess) {
+          onSuccess();
         }
+        dispatch(projectedVacancyFetchData(query));
       });
   };
 }

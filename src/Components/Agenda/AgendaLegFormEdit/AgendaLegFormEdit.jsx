@@ -217,6 +217,8 @@ const AgendaLegFormEdit = props => {
       nullText = 'Keep Unselected';
     }
 
+    const noValidationRequired = ['travel_code'].includes(codeAttr);
+
     if (isEf) {
       return (<div className="read-only">{leg?.[descAttr] || 'None listed'}</div>);
     }
@@ -226,13 +228,13 @@ const AgendaLegFormEdit = props => {
         {leg?.[descAttr]}
         <FA name="times" className="" onClick={() => setShowLegacy(codeAttr)} />
       </div> :
-      <div className="error-message-wrapper">
-        <div className="validation-error-message-label validation-error-message">
+      <div className={noValidationRequired ? '' : 'error-message-wrapper'}>
+        <div className={noValidationRequired ? '' : 'validation-error-message-label validation-error-message'}>
           {legValidation?.[codeAttr]?.errorMessage}
         </div>
         <div>
           <select
-            className={`leg-dropdown ${legValidation?.[codeAttr]?.valid ? '' : 'validation-error-border'}`}
+            className={`leg-dropdown ${(legValidation?.[codeAttr]?.valid || noValidationRequired) ? '' : 'validation-error-border'}`}
             value={leg?.[codeAttr] || ''}
             onChange={(e) => updateDropdown(codeAttr, e.target.value)}
             disabled={disabled}
