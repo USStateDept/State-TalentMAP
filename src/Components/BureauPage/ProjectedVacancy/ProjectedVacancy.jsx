@@ -136,8 +136,10 @@ const ProjectedVacancy = ({ isAO }) => {
           k => k.future_vacancy_seq_num,
         ),
       );
+      const posNums = positions?.map(o => o.position_number);
+      const uniqPosNums = [...new Set(posNums)];
       dispatch(projectedVacancyLangOffsets({
-        position_numbers: positions?.map(o => o.position_number) || [],
+        position_numbers: uniqPosNums || [],
       }));
     }
   }, [positions]);
