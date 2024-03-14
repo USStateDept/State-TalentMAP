@@ -57,6 +57,8 @@ const ManageEntryLevel = () => {
     'el-skills': selectedSkills.map(skillObject => (skillObject?.code)),
     'el-jobs': selectedJobs.map(jobObject => (jobObject?.code)),
     'el-language': selectedLanguages.map(langObject => (langObject?.code)),
+    'el-overseas': overseas,
+    'el-domestic': domestic,
   });
 
   const resetFilters = () => {
@@ -101,15 +103,13 @@ const ManageEntryLevel = () => {
       overseas,
       domestic,
     ];
-    // Don't reload positions if there are no user selected filters AND
-    // OD/Domestic is false
     if (filters.flat().length === 2 && !filters.flat().includes(true)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
       setHasSelectedFilter(true);
-      dispatch(entryLevelFetchData(getQuery()));
     }
+    dispatch(entryLevelFetchData(getQuery()));
   };
 
   useEffect(() => {
@@ -269,7 +269,7 @@ const ManageEntryLevel = () => {
                   id="overseas"
                   label="Overseas"
                   value={overseas}
-                  onChange={setOverseas}
+                  onCheckBoxClick={e => setOverseas(e)}
                   disabled={disableInput}
                 />
               </div>
@@ -278,7 +278,7 @@ const ManageEntryLevel = () => {
                   id="domestic"
                   label="Domestic"
                   value={domestic}
-                  onChange={setDomestic}
+                  onCheckBoxClick={e => setDomestic(e)}
                   disabled={disableInput}
                 />
               </div>
