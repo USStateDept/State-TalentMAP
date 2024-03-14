@@ -109,8 +109,8 @@ const ManageEntryLevel = () => {
     } else {
       setClearFilters(true);
       setHasSelectedFilter(true);
+      dispatch(entryLevelFetchData(getQuery()));
     }
-    dispatch(entryLevelFetchData(getQuery()));
     dispatch(saveEntryLevelSelections(getCurrentInputs()));
   };
 
@@ -269,19 +269,19 @@ const ManageEntryLevel = () => {
               <div className="filter-div">
                 <CheckBox
                   id="overseas"
-                  label="Overseas"
+                  label="Overseas Only"
                   value={overseas}
                   onCheckBoxClick={e => setOverseas(e)}
-                  disabled={disableInput}
+                  disabled={disableInput || domestic}
                 />
               </div>
               <div className="filter-div">
                 <CheckBox
                   id="domestic"
-                  label="Domestic"
+                  label="Domestic Only"
                   value={domestic}
                   onCheckBoxClick={e => setDomestic(e)}
-                  disabled={disableInput}
+                  disabled={disableInput || overseas}
                 />
               </div>
             </div>
