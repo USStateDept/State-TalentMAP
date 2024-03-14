@@ -35,7 +35,7 @@ const ProjectedVacancyCard = ({ result, languageOffsets, updateIncluded, onEditM
 
   const [included, setIncluded] = useState(result?.future_vacancy_exclude_import_indicator === 'N');
   const [season, setSeason] = useState(result?.bid_season_code);
-  const [status, setStatus] = useState(result?.future_vacancy_status_description);
+  const [status, setStatus] = useState(result?.future_vacancy_status_code);
   const [overrideTED, setOverrideTED] =
     useState(
       result?.future_vacancy_override_tour_end_date ?
