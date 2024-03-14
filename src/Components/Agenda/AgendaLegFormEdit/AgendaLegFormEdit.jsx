@@ -292,8 +292,8 @@ const AgendaLegFormEdit = props => {
             onChange={(e) => updateDropdown('tod', e.target.value)}
             disabled={disabled}
           >
-            <option key={null} value={''}>
-              Keep Unselected
+            <option key={null} disabled value={''}>
+              Select TOD
             </option>
             {
               TODs.map((tod, i) => {
