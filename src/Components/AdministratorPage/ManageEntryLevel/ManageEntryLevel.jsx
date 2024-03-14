@@ -88,6 +88,7 @@ const ManageEntryLevel = () => {
 
   useEffect(() => {
     dispatch(entryLevelFiltersFetchData());
+    dispatch(saveEntryLevelSelections(getCurrentInputs()));
   }, []);
 
   const fetchAndSet = () => {
