@@ -12,7 +12,7 @@ import { Definition } from '../DefinitionList';
 
 const PositionExpandableContent = ({
   sections, form, appendAdditionalFieldsToBodyPrimary, tempHideEdit,
-  showLoadingAnimation, onShowMore, isCondensed }) => {
+  showLoadingAnimation, onShowMore, isCondensed, saveText }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -163,7 +163,7 @@ const PositionExpandableContent = ({
               {form.inputBody}
               <div className="position-form--actions">
                 <button onClick={showCancelModal}>Cancel</button>
-                <button onClick={form.handleSubmit}>Save Position</button>
+                <button onClick={form.handleSubmit}>{saveText}</button>
               </div>
             </div>
             }
@@ -199,6 +199,7 @@ PositionExpandableContent.propTypes = {
     textarea: PropTypes.string,
     metadata: PropTypes.arrayOf(PropTypes.shape({})),
   }),
+  saveText: PropTypes.string,
   form: PropTypes.shape({
     staticBody: PropTypes.arrayOf(PropTypes.shape({})),
     inputBody: PropTypes.element,
@@ -221,6 +222,7 @@ PositionExpandableContent.propTypes = {
 PositionExpandableContent.defaultProps = {
   form: undefined,
   sections: undefined,
+  saveText: 'Save Position',
   appendAdditionalFieldsToBodyPrimary: true,
   showLoadingAnimation: false,
   tempHideEdit: false,

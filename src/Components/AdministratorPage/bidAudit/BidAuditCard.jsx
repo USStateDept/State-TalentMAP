@@ -413,6 +413,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
             <PositionExpandableContent
               sections={bidAuditSections}
               form={bidAuditForm}
+              saveText="Save Audit Cycle"
             />
           </div>
         ),
@@ -426,6 +427,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
               sections={atGradesSections}
               form={atGradesForm}
               tempHideEdit
+              saveText="Save At Grade"
             />
           </div>
         ),
@@ -439,6 +441,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
               sections={inCategoriesSections}
               form={inCategoriesForm}
               tempHideEdit
+              saveText="Save In Category"
             />
           </div>
         ),
