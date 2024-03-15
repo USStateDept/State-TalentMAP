@@ -7,7 +7,7 @@ import Calendar from 'react-calendar';
 import { formatDate, formatLang, formatMonthYearDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { add } from 'date-fns-v2';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { GSA as LocationsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 import TodModal from './TodModal';
@@ -35,8 +35,19 @@ const AgendaLegFormEdit = props => {
   const isSeparation = leg?.is_separation || false;
   const defaultSepText = isSeparation ? '-' : false;
   const legValidation = AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num];
-
   const disabled = isEf;
+
+  const getLegActionTypes = legActionTypes.filter(lat => lat.is_separation === isSeparation);
+
+  const isLegacyValue = (val, data) => {
+    if (['', null, undefined].includes(val)) return false;
+    return !data.some(a => a.code === val);
+  };
+
+  const [showLegacyAction, setShowLegacyAction] = useState(
+    isLegacyValue(leg?.action_code, getLegActionTypes));
+  const [showLegacyTravel, setShowLegacyTravel] = useState(
+    isLegacyValue(leg?.travel_code, travelFunctions));
 
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
@@ -54,10 +65,6 @@ const AgendaLegFormEdit = props => {
     e.preventDefault();
     swal.close();
   };
-
-  const getLegActionTypes = () => (
-    legActionTypes.filter(lat => lat.is_separation === isSeparation)
-  );
 
   const submitCustomTod = (todArray, customTodMonths) => {
     const ted = add(new Date(leg?.eta), { months: customTodMonths });
@@ -147,6 +154,15 @@ const AgendaLegFormEdit = props => {
     updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
   };
 
+  const setShowLegacyActionToFalse = (key) => {
+    setShowLegacyAction(false);
+    updateDropdown(key, '');
+  };
+  const setShowLegacyTravelToFalse = (key) => {
+    setShowLegacyTravel(false);
+    updateDropdown(key, '');
+  };
+
   useEffect(() => {
     if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'),
@@ -183,35 +199,59 @@ const AgendaLegFormEdit = props => {
     });
   };
 
-  const getDropdown = (key, data, text, placeholder = 'Keep Unselected') => {
-    const noValidationRequired = [].includes(key);
+  const getDropdown = (type) => {
+    // Attribute and constants to handle Travel dropdown
+    let showLegacy = showLegacyTravel;
+    let setShowLegacy = setShowLegacyTravelToFalse;
+    let refArray = travelFunctions;
+    let codeAttr = 'travel_code';
+    let descAttr = 'travel_desc';
+    let nullText = 'No Travel';
+    // Attribute and constants to handle Action dropdown
+    if (type === 'action') {
+      showLegacy = showLegacyAction;
+      setShowLegacy = setShowLegacyActionToFalse;
+      refArray = getLegActionTypes;
+      codeAttr = 'action_code';
+      descAttr = 'action';
+      nullText = 'Keep Unselected';
+    }
 
-    return (
+    const noValidationRequired = ['travel_code'].includes(codeAttr);
+
+    if (isEf) {
+      return (<div className="read-only">{leg?.[descAttr] || 'None listed'}</div>);
+    }
+
+    return (showLegacy ?
+      <div>
+        {leg?.[descAttr]}
+        <FA name="times" className="" onClick={() => setShowLegacy(codeAttr)} />
+      </div> :
       <div className={noValidationRequired ? '' : 'error-message-wrapper'}>
         <div className={noValidationRequired ? '' : 'validation-error-message-label validation-error-message'}>
-          {legValidation?.[key]?.errorMessage}
+          {legValidation?.[codeAttr]?.errorMessage}
         </div>
         <div>
           <select
-            className={`leg-dropdown ${(legValidation?.[key]?.valid || noValidationRequired) ? '' : 'validation-error-border'}`}
-            value={get(leg, key) || ''}
-            onChange={(e) => updateDropdown(key, e.target.value)}
+            className={`leg-dropdown ${(legValidation?.[codeAttr]?.valid || noValidationRequired) ? '' : 'validation-error-border'}`}
+            value={leg?.[codeAttr] || ''}
+            onChange={(e) => updateDropdown(codeAttr, e.target.value)}
             disabled={disabled}
           >
             <option key={null} value={''}>
-              {placeholder}
+              {nullText}
             </option>
-            {
-              data.map((a, i) => {
-                const keyId = `${a?.code}-${i}`;
-                return <option key={keyId} value={a?.code}>{a?.[text]}</option>;
-              })
-            }
+            {refArray.map((a, i) => {
+              const keyId = `${a?.code}-${i}`;
+              return <option key={keyId} value={a?.code}>{a?.desc_text}</option>;
+            })}
           </select>
         </div>
       </div>
     );
   };
+
 
   const closeOtherTod = () => {
     updateLeg(leg?.ail_seq_num, {
@@ -252,44 +292,14 @@ const AgendaLegFormEdit = props => {
             onChange={(e) => updateDropdown('tod', e.target.value)}
             disabled={disabled}
           >
-            <option key={null} value={''}>
-              Keep Unselected
+            <option key={null} disabled value={''}>
+              Select TOD
             </option>
             {
               TODs.map((tod, i) => {
                 const { code, long_description } = tod;
                 const todKey = `${code}-${i}`; // custom tods will have the same code as other
                 return <option key={todKey} value={code}>{long_description}</option>;
-              })
-            }
-          </select>
-        </div>
-      </div>
-    );
-  };
-
-  const getActionDropdown = () => {
-    const actionOptions = getLegActionTypes();
-    if (isEf) {
-      return <div className="read-only">{leg.action_code || 'None listed'}</div>;
-    }
-
-    return (
-      <div className="error-message-wrapper">
-        <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.errorMessage}
-        </div>
-        <div>
-          <select
-            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.action_code?.valid ? '' : 'validation-error-border'}`}
-            value={leg?.action_code}
-            onChange={(e) => updateDropdown('action_code', e.target.value)}
-            disabled={disabled}
-          >
-            {
-              actionOptions.map((action) => {
-                const { code, abbr_desc_text } = action;
-                return <option key={code} value={code}>{abbr_desc_text}</option>;
               })
             }
           </select>
@@ -393,7 +403,7 @@ const AgendaLegFormEdit = props => {
   const columnData = [
     {
       title: 'Action',
-      content: (isEf ? getDropdown('action', getLegActionTypes(), 'abbr_desc_text') : getActionDropdown()),
+      content: (getDropdown('action')),
     },
     {
       title: 'Position Title',
@@ -436,8 +446,7 @@ const AgendaLegFormEdit = props => {
     },
     {
       title: 'Travel',
-      content: (isEf ? <div className="read-only">{leg?.travel_desc}</div>
-        : getDropdown('travel_code', travelFunctions, 'desc_text', 'No Travel')),
+      content: (getDropdown()),
     },
     {
       title: 'Vice',

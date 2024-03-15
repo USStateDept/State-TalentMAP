@@ -18,6 +18,7 @@ const ManageEntryLevel = () => {
 
   const elPositionsList = useSelector(state => state.entryLevelPositions);
   const elPositionsIsLoading = useSelector(state => state.entryLevelFetchDataLoading);
+  const elPositionsHasErrored = useSelector(state => state.entryLevelFetchDataErrored);
   const elFiltersIsLoading = useSelector(state => state.entryLevelFiltersFetchDataLoading);
 
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -33,6 +34,7 @@ const ManageEntryLevel = () => {
   const [overseas, setOverseas] = useState(userSelections?.overseas || false);
   const [domestic, setDomestic] = useState(userSelections?.domestic || false);
   const [clearFilters, setClearFilters] = useState(false);
+  const [hasSelectedFilter, setHasSelectedFilter] = useState(false);
 
   const elFiltersList = useSelector(state => state.entryLevelFilters);
   const tpFilters = elFiltersList?.tpFilters;
@@ -53,8 +55,10 @@ const ManageEntryLevel = () => {
     'el-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'el-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'el-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'el-jobs': selectedJobs.map(jobObject => (jobObject?.id)),
+    'el-jobs': selectedJobs.map(jobObject => (jobObject?.code)),
     'el-language': selectedLanguages.map(langObject => (langObject?.code)),
+    'el-overseas': overseas,
+    'el-domestic': domestic,
   });
 
   const resetFilters = () => {
@@ -83,9 +87,8 @@ const ManageEntryLevel = () => {
   });
 
   useEffect(() => {
-    // dispatch(saveEntryLevelSelections(getCurrentInputs()));
     dispatch(entryLevelFiltersFetchData());
-    dispatch(entryLevelFetchData());
+    dispatch(saveEntryLevelSelections(getCurrentInputs()));
   }, []);
 
   const fetchAndSet = () => {
@@ -100,12 +103,14 @@ const ManageEntryLevel = () => {
       overseas,
       domestic,
     ];
-    if (filters.flat().length === 0) {
+    if (filters.flat().length === 2 && !filters.flat().includes(true)) {
       setClearFilters(false);
+      setHasSelectedFilter(false);
     } else {
       setClearFilters(true);
+      setHasSelectedFilter(true);
+      dispatch(entryLevelFetchData(getQuery()));
     }
-    dispatch(entryLevelFetchData(getQuery()));
     dispatch(saveEntryLevelSelections(getCurrentInputs()));
   };
 
@@ -130,6 +135,21 @@ const ManageEntryLevel = () => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
+  };
+
+  const noResults = elPositionsList?.length === 0;
+  const getOverlay = () => {
+    let overlay;
+    if (!hasSelectedFilter) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 1 filter to search.' }]} />;
+    } else if (elPositionsHasErrored) {
+      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
+    } else if (noResults) {
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
   };
 
   return (
@@ -208,7 +228,7 @@ const ManageEntryLevel = () => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Skills:</div>
+                <div className="label">Skill Code:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Skill(s)"
@@ -234,7 +254,7 @@ const ManageEntryLevel = () => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Language:</div>
+                <div className="label">Languages:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Language(s)"
@@ -249,19 +269,19 @@ const ManageEntryLevel = () => {
               <div className="filter-div">
                 <CheckBox
                   id="overseas"
-                  label="Overseas"
+                  label="Overseas Only"
                   value={overseas}
-                  onChange={setOverseas}
-                  disabled={disableInput}
+                  onCheckBoxClick={e => setOverseas(e)}
+                  disabled={disableInput || domestic}
                 />
               </div>
               <div className="filter-div">
                 <CheckBox
                   id="domestic"
-                  label="Domestic"
+                  label="Domestic Only"
                   value={domestic}
-                  onChange={setDomestic}
-                  disabled={disableInput}
+                  onCheckBoxClick={e => setDomestic(e)}
+                  disabled={disableInput || overseas}
                 />
               </div>
             </div>
@@ -279,15 +299,15 @@ const ManageEntryLevel = () => {
           }]}
         />
       }
-      {elFiltersIsLoading && !isLoading ?
-        <Spinner type="tm-spinner-manage-el-positions" size="small" /> :
+      {elPositionsIsLoading ?
+        <Spinner type="manage-el-positions" size="small" /> :
         <div className="usa-width-one-whole position-search--results">
+          {getOverlay() ||
           <div className="usa-grid-full position-list">
             {
               elPositionsList?.map((pos, i) => (
                 <EntryLevelCard
                   id={i}
-                  // key={i}
                   result={pos}
                   appendAdditionalFieldsToBodyPrimary={false}
                   onEditModeSearch={(editMode, id) =>
@@ -296,6 +316,7 @@ const ManageEntryLevel = () => {
                 />
               ))}
           </div>
+          }
         </div>
       }
       {disableSearch &&

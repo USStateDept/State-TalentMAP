@@ -61,7 +61,7 @@ export const dataReducer = (state, action) => {
   }
 };
 
-export const useDataLoader = (getData, url, execute = true) => {
+export const useDataLoader = (getData, url, execute = true, config) => {
   const [nonce, setNonce] = useState(Date.now());
   const [state, dispatch] = useReducer(dataReducer, {
     data: null,
@@ -73,7 +73,7 @@ export const useDataLoader = (getData, url, execute = true) => {
     let cancel = false;
     if (execute) {
       dispatch({ type: 'get' });
-      getData(url)
+      getData(url, config)
         .then(data => {
           // eslint-disable-next-line no-unused-expressions
           !cancel && dispatch({ type: 'success', payload: { data } });
