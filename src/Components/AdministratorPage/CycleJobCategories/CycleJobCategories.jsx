@@ -33,7 +33,7 @@ const CycleJobCategories = () => {
   }, [selectedCycle]);
 
   useEffect(() => {
-    if (cycleCategories && cycleCategories.length) {
+    if (cycleCategories?.length) {
       setSelectedCycle(cycleCategories?.[0]?.code);
     }
   }, [cycleCategories]);
