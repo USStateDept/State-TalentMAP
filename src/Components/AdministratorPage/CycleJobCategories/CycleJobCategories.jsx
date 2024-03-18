@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
 import TabbedCard from '../../TabbedCard/TabbedCard';
 import CheckBox from '../../CheckBox/CheckBox';
 import { cycleCategories as cycleCategoriesList, cycleJobCategories, cycleJobCategoriesEdit } from '../../../actions/cycleJobCategories';
-import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem/ListItem';
 import { checkFlag } from '../../../flags';
 
 const useJobCategories = () => checkFlag('flags.job_categories');
@@ -31,18 +29,18 @@ const CycleJobCategories = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(cycleJobCategories({ cycle_category_code: selectedCycle?.code }));
+    dispatch(cycleJobCategories({ cycle_category_code: selectedCycle }));
   }, [selectedCycle]);
 
   useEffect(() => {
     if (cycleCategories && cycleCategories.length) {
-      setSelectedCycle(cycleCategories?.[0]);
+      setSelectedCycle(cycleCategories?.[0]?.code);
     }
   }, [cycleCategories]);
 
   useEffect(() => {
     if (jobCategories && jobCategories.length) {
-      setSelectedJobCategories(jobCategories.filter(j => j.selected).map(j => j.id));
+      setSelectedJobCategories(jobCategories.filter(j => j.included).map(j => j.code));
     }
   }, [jobCategories]);
 
@@ -58,13 +56,13 @@ const CycleJobCategories = () => {
   };
 
   const handleSelectJob = (job) => {
-    if (selectedJobCategories.find(o => o === job.id)) {
-      const newSelection = selectedJobCategories.filter(o => o !== job.id);
+    if (selectedJobCategories.find(o => o === job.code)) {
+      const newSelection = selectedJobCategories.filter(o => o !== job.code);
       setSelectedJobCategories(newSelection);
     } else {
       setSelectedJobCategories([
         ...selectedJobCategories,
-        job.id,
+        job.code,
       ]);
     }
   };
@@ -73,7 +71,7 @@ const CycleJobCategories = () => {
     if (allSelected) {
       setSelectedJobCategories([]);
     } else {
-      setSelectedJobCategories(jobCategories?.map(j => j.id));
+      setSelectedJobCategories(jobCategories?.map(j => j.code));
     }
   };
 
@@ -91,7 +89,7 @@ const CycleJobCategories = () => {
             <button
               onClick={() => {
                 setSelectedJobCategories(
-                  jobCategories?.filter(j => j.selected).map(j => j.id),
+                  jobCategories?.filter(j => j.included).map(j => j.id),
                 );
                 swal.close();
               }}
@@ -109,20 +107,6 @@ const CycleJobCategories = () => {
     dispatch(cycleJobCategoriesEdit(selectedJobCategories));
   };
 
-  const renderSelectionList = ({ items, selected, ...rest }) => {
-    const queryProp = 'description';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
-  };
-
-
   return ((cycleCategoriesIsLoading || jobCategoriesIsLoading) ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="cycle-job-category">
@@ -136,17 +120,16 @@ const CycleJobCategories = () => {
         </span>
         <div className="filter-div">
           <div className="label">Cycle Category</div>
-          <Picky
+          <select
+            id="cycle-category"
             placeholder="Select a Cycle Category"
-            value={selectedCycle}
-            options={cycleCategories.length ? cycleCategories : []}
-            onChange={setSelectedCycle}
-            includeFilter
-            dropdownHeight={255}
-            renderList={renderSelectionList}
-            valueKey="code"
-            labelKey="description"
-          />
+            defaultValue={selectedCycle}
+            onChange={(e) => setSelectedCycle(e.target.value)}
+          >
+            {cycleCategories?.map(b => (
+              <option key={b.code} value={b.code}>{b.description}</option>
+            ))}
+          </select>
         </div>
       </div>
       <TabbedCard
