@@ -8,6 +8,9 @@ import {
   cycleJobCategoriesEditLoading,
   cycleJobCategoriesErrored,
   cycleJobCategoriesLoading,
+  cycleJobCategoriesStatuses,
+  cycleJobCategoriesStatusesErrored,
+  cycleJobCategoriesStatusesLoading,
 } from './cycleJobCategories';
 
 export default {
@@ -20,4 +23,7 @@ export default {
   cycleJobCategoriesEditLoading,
   cycleJobCategoriesErrored,
   cycleJobCategoriesLoading,
+  cycleJobCategoriesStatuses,
+  cycleJobCategoriesStatusesErrored,
+  cycleJobCategoriesStatusesLoading,
 };

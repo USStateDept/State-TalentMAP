@@ -52,6 +52,33 @@ export function cycleJobCategoriesLoading(state = false, action) {
   }
 }
 
+// =================== CYCLE JOB CATEGORIES STATUSES ===================
+
+export function cycleJobCategoriesStatuses(state = {}, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_STATUSES_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+export function cycleJobCategoriesStatusesErrored(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_STATUSES_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cycleJobCategoriesStatusesLoading(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_STATUSES_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
 // =================== CYCLE JOB CATEGORIES EDIT ===================
 
 export function cycleJobCategoriesEdit(state = {}, action) {
