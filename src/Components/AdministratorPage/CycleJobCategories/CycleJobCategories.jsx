@@ -8,7 +8,7 @@ import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
 import TabbedCard from '../../TabbedCard/TabbedCard';
 import CheckBox from '../../CheckBox/CheckBox';
-import { cycleJobCategoriesData, cycleJobCategoriesEdit, cycleJobCategoriesFilters } from '../../../actions/cycleJobCategories';
+import { cycleCategories as cycleCategoriesList, cycleJobCategories, cycleJobCategoriesEdit } from '../../../actions/cycleJobCategories';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem/ListItem';
 import { checkFlag } from '../../../flags';
 
@@ -17,26 +17,26 @@ const useJobCategories = () => checkFlag('flags.job_categories');
 const CycleJobCategories = () => {
   const dispatch = useDispatch();
 
-  const cycleCategories = useSelector(state => state.cycleJobCategoriesFilters) || [];
-  const cycleCategoriesIsLoading = useSelector(state => state.cycleJobCategoriesFiltersLoading);
-  const jobCategories = useSelector(state => state.cycleJobCategoriesData) || [];
-  const jobCategoriesIsLoading = useSelector(state => state.cycleJobCategoriesDataLoading);
+  const cycleCategories = useSelector(state => state.cycleCategories) || [];
+  const cycleCategoriesIsLoading = useSelector(state => state.cycleCategoriesLoading);
+  const jobCategories = useSelector(state => state.cycleJobCategories) || [];
+  const jobCategoriesIsLoading = useSelector(state => state.cycleJobCategoriesLoading);
 
   const [selectedCycle, setSelectedCycle] = useState([]);
   const [selectedJobCategories, setSelectedJobCategories] = useState([]);
   const [jobCategorySearch, setJobCategorySearch] = useState('');
 
   useEffect(() => {
-    dispatch(cycleJobCategoriesFilters());
+    dispatch(cycleCategoriesList());
   }, []);
 
   useEffect(() => {
-    dispatch(cycleJobCategoriesData(selectedCycle.id));
+    dispatch(cycleJobCategories({ cycle_category_code: selectedCycle?.code }));
   }, [selectedCycle]);
 
   useEffect(() => {
     if (cycleCategories && cycleCategories.length) {
-      setSelectedCycle(cycleCategories[0]);
+      setSelectedCycle(cycleCategories?.[0]);
     }
   }, [cycleCategories]);
 
@@ -144,7 +144,7 @@ const CycleJobCategories = () => {
             includeFilter
             dropdownHeight={255}
             renderList={renderSelectionList}
-            valueKey="id"
+            valueKey="code"
             labelKey="description"
           />
         </div>
@@ -157,7 +157,7 @@ const CycleJobCategories = () => {
             <div className="job-category-table">
               <div className="category-type">
                 <span>Category Type:</span>
-                <span>{selectedCycle.description ?? 'No Cycle Category Selected'}</span>
+                <span>{selectedCycle?.description ?? 'No Cycle Category Selected'}</span>
               </div>
               {selectedCycle && <>
                 <input
