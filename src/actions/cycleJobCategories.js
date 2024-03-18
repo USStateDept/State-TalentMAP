@@ -4,27 +4,135 @@ import {
   UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS,
   UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
+import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
+import { convertQueryToString } from '../utilities';
+
+let cancelCycleCategories;
+let cancelCycleJobCategories;
+// let cancelEditCycleJobCategories;
+
+// =================== CYCLE CATEGORIES LIST ===================
+
+export function cycleCategoriesErrored(bool) {
+  return {
+    type: 'CYCLE_CATEGORIES_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function cycleCategoriesLoading(bool) {
+  return {
+    type: 'CYCLE_CATEGORIES_LOADING',
+    isLoading: bool,
+  };
+}
+export function cycleCategoriesSuccess(results) {
+  return {
+    type: 'CYCLE_CATEGORIES_SUCCESS',
+    results,
+  };
+}
+export function cycleCategories() {
+  return (dispatch) => {
+    if (cancelCycleCategories) { cancelCycleCategories('cancel'); }
+    batch(() => {
+      dispatch(cycleCategoriesLoading(true));
+      dispatch(cycleCategoriesErrored(false));
+    });
+    api().get('/fsbid/cycle_job_categories/', {
+      cancelToken: new CancelToken((c) => { cancelCycleCategories = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(cycleCategoriesSuccess(data));
+          dispatch(cycleCategoriesErrored(false));
+          dispatch(cycleCategoriesLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(cycleCategoriesSuccess({}));
+            dispatch(cycleCategoriesErrored(true));
+            dispatch(cycleCategoriesLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// =================== CYCLE JOB CATEGORIES LIST ===================
+
+export function cycleJobCategoriesErrored(bool) {
+  return {
+    type: 'CYCLE_JOB_CATEGORIES_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function cycleJobCategoriesLoading(bool) {
+  return {
+    type: 'CYCLE_JOB_CATEGORIES_LOADING',
+    isLoading: bool,
+  };
+}
+export function cycleJobCategoriesSuccess(results) {
+  return {
+    type: 'CYCLE_JOB_CATEGORIES_SUCCESS',
+    results,
+  };
+}
+export function cycleJobCategories(query) {
+  return (dispatch) => {
+    if (cancelCycleJobCategories) { cancelCycleJobCategories('cancel'); }
+    batch(() => {
+      dispatch(cycleJobCategoriesLoading(true));
+      dispatch(cycleJobCategoriesErrored(false));
+    });
+    const q = convertQueryToString(query);
+    const endpoint = '/fsbid/cycle_job_categories/job_categories/';
+    const ep = `${endpoint}?${q}`;
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => { cancelCycleJobCategories = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(cycleJobCategoriesSuccess(data));
+          dispatch(cycleJobCategoriesErrored(false));
+          dispatch(cycleJobCategoriesLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(cycleJobCategoriesSuccess({}));
+            dispatch(cycleJobCategoriesErrored(true));
+            dispatch(cycleJobCategoriesLoading(false));
+          });
+        }
+      });
+  };
+}
+
 
 // =================== CYCLE JOB CATEGORIES EDIT ===================
 
 export function cycleJobCategoriesEditErrored(bool) {
   return {
-    type: 'CYCLE_JOB_CATEGORIES_EDIT_HAS_ERRORED',
+    type: 'CYCLE_JOB_CATEGORIES_EDIT_ERRORED',
     hasErrored: bool,
   };
 }
 export function cycleJobCategoriesEditLoading(bool) {
   return {
-    type: 'CYCLE_JOB_CATEGORIES_EDIT_IS_LOADING',
+    type: 'CYCLE_JOB_CATEGORIES_EDIT_LOADING',
     isLoading: bool,
   };
 }
 export function cycleJobCategoriesEditSuccess(results) {
   return {
-    type: 'CYCLE_JOB_CATEGORIES_DATA_SUCCESS',
+    type: 'CYCLE_JOB_CATEGORIES_SUCCESS',
     results,
   };
 }
@@ -74,103 +182,5 @@ export function cycleJobCategoriesEdit(data) {
           });
         }
       });
-  };
-}
-
-// =================== CYCLE JOB CATEGORIES DATA ===================
-
-export function cycleJobCategoriesDataErrored(bool) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_DATA_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function cycleJobCategoriesDataLoading(bool) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_DATA_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function cycleJobCategoriesDataSuccess(results) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_DATA_SUCCESS',
-    results,
-  };
-}
-export function cycleJobCategoriesData() {
-  const dummyCategories = [{
-    id: 1,
-    description: 'Construction Engineers',
-    active: true,
-    selected: false,
-  }, {
-    id: 2,
-    description: 'Consular',
-    active: false,
-    selected: false,
-  }, {
-    id: 3,
-    description: 'DCM-PO',
-    active: false,
-    selected: true,
-  }, {
-    id: 4,
-    description: 'Diplomatic Courier',
-    active: true,
-    selected: false,
-  }, {
-    id: 5,
-    description: 'Economic',
-    active: true,
-    selected: false,
-  }];
-
-  return (dispatch) => {
-    dispatch(cycleJobCategoriesDataSuccess([]));
-    dispatch(cycleJobCategoriesDataLoading(true));
-    batch(() => {
-      dispatch(cycleJobCategoriesDataSuccess(dummyCategories));
-      dispatch(cycleJobCategoriesDataErrored(false));
-      dispatch(cycleJobCategoriesDataLoading(false));
-    });
-  };
-}
-
-// =================== CYCLE JOB CATEGORIES FILTERS ===================
-
-export function cycleJobCategoriesFiltersErrored(bool) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_FILTERS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function cycleJobCategoriesFiltersLoading(bool) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_FILTERS_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function cycleJobCategoriesFiltersSuccess(results) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_FILTERS_SUCCESS',
-    results,
-  };
-}
-export function cycleJobCategoriesFilters() {
-  const dummyCategories = [{
-    id: 1,
-    description: '(A) A100 Class',
-  }, {
-    id: 2,
-    description: '(B) B100 Class',
-  }];
-
-  return (dispatch) => {
-    dispatch(cycleJobCategoriesFiltersSuccess([]));
-    dispatch(cycleJobCategoriesFiltersLoading(true));
-    batch(() => {
-      dispatch(cycleJobCategoriesFiltersSuccess(dummyCategories));
-      dispatch(cycleJobCategoriesFiltersLoading(false));
-    });
   };
 }
