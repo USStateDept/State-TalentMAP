@@ -12,6 +12,7 @@ import { convertQueryToString } from '../utilities';
 
 let cancelCycleCategories;
 let cancelCycleJobCategories;
+let cancelCycleJobCategoriesStatuses;
 // let cancelEditCycleJobCategories;
 
 // =================== CYCLE CATEGORIES LIST ===================
@@ -115,6 +116,54 @@ export function cycleJobCategories(query) {
   };
 }
 
+// =================== CYCLE JOB CATEGORIES STATUSES LIST ===================
+
+export function cycleJobCategoriesStatusesErrored(bool) {
+  return {
+    type: 'CYCLE_JOB_CATEGORIES_STATUSES_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function cycleJobCategoriesStatusesLoading(bool) {
+  return {
+    type: 'CYCLE_JOB_CATEGORIES_STATUSES_LOADING',
+    isLoading: bool,
+  };
+}
+export function cycleJobCategoriesStatusesSuccess(results) {
+  return {
+    type: 'CYCLE_JOB_CATEGORIES_STATUSES_SUCCESS',
+    results,
+  };
+}
+export function cycleJobCategoriesStatuses() {
+  return (dispatch) => {
+    if (cancelCycleJobCategoriesStatuses) { cancelCycleJobCategoriesStatuses('cancel'); }
+    batch(() => {
+      dispatch(cycleJobCategoriesStatusesLoading(true));
+      dispatch(cycleJobCategoriesStatusesErrored(false));
+    });
+    api().get('/fsbid/cycle_job_categories/statuses/', {
+      cancelToken: new CancelToken((c) => { cancelCycleJobCategoriesStatuses = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(cycleJobCategoriesStatusesSuccess(data));
+          dispatch(cycleJobCategoriesStatusesErrored(false));
+          dispatch(cycleJobCategoriesStatusesLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(cycleJobCategoriesStatusesSuccess({}));
+            dispatch(cycleJobCategoriesStatusesErrored(true));
+            dispatch(cycleJobCategoriesStatusesLoading(false));
+          });
+        }
+      });
+  };
+}
 
 // =================== CYCLE JOB CATEGORIES EDIT ===================
 
