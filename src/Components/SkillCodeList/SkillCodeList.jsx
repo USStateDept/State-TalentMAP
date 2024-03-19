@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { USER_SKILL_CODE_ARRAY } from '../../Constants/PropTypes';
 import { NO_USER_SKILL_CODE } from '../../Constants/SystemMessages';
 
-// skillCodes = [{ code: 'string', description: 'string',}]
+// skillCodes = [{ code: 'string', description: 'string'}]
 const SkillCodeList = ({ skillCodes, displayCodeFirst }) => {
   let skillCodeList = [];
   skillCodes.forEach((skill) => {
