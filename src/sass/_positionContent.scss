@@ -424,7 +424,8 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    span:first-of-type {
+    .label-span {
+      color: lime;
       font-weight: 500;
       padding-right: 5px;
     }
