@@ -7,7 +7,7 @@ import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
 import TabbedCard from '../../TabbedCard/TabbedCard';
 import CheckBox from '../../CheckBox/CheckBox';
-import { cycleCategories as cycleCategoriesList, cycleJobCategories, cycleJobCategoriesEdit } from '../../../actions/cycleJobCategories';
+import { cycleCategories as cycleCategoriesList, cycleJobCategories, cycleJobCategoriesEdit, cycleJobCategoriesStatuses } from '../../../actions/cycleJobCategories';
 import { checkFlag } from '../../../flags';
 
 const useJobCategories = () => checkFlag('flags.job_categories');
@@ -29,6 +29,7 @@ const CycleJobCategories = () => {
 
   useEffect(() => {
     dispatch(cycleCategoriesList());
+    dispatch(cycleJobCategoriesStatuses());
   }, []);
 
   useEffect(() => {
