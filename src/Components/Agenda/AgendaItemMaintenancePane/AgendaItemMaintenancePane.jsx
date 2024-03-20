@@ -124,8 +124,8 @@ const AgendaItemMaintenancePane = (props) => {
   const userGrade = userData?.grade ?? '';
   const userSkill = isCreate ? <SkillCodeList skillCodes={userData?.skills} displayCodeFirst /> :
     (userData?.skills?.join(', ') || 'None Listed');
-  const userCDOFirst = (isCreate ? userData?.cdos[0]?.cdo_first_name : userData?.cdo?.first_name) || '';
-  const userCDOLast = (isCreate ? userData?.cdos[0]?.cdo_last_name : userData?.cdo?.last_name) || '';
+  const userCDOFirst = (isCreate ? userData?.cdos?.[0]?.cdo_first_name : userData?.cdo?.first_name) || '';
+  const userCDOLast = (isCreate ? userData?.cdos?.[0]?.cdo_last_name : userData?.cdo?.last_name) || '';
   const userCDO = (userCDOFirst || userCDOLast) ? `${userCDOFirst} ${userCDOLast}` : 'None Listed';
 
 
