@@ -143,7 +143,7 @@ export function cycleJobCategoriesStatuses() {
       dispatch(cycleJobCategoriesStatusesLoading(true));
       dispatch(cycleJobCategoriesStatusesErrored(false));
     });
-    api().get('/fsbid/cycle_job_categories/statuses/', {
+    api().get('/fsbid/cycle_job_categories/status/', {
       cancelToken: new CancelToken((c) => { cancelCycleJobCategoriesStatuses = c; }),
     })
       .then(({ data }) => {
