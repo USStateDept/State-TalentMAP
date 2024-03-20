@@ -36,8 +36,8 @@ const CycleJobCategories = () => {
   }, [selectedCycle]);
 
   useEffect(() => {
-    if (cycleCategories?.length) {
-      setSelectedCycle(cycleCategories?.[0]?.code);
+    if (cycleCategories?.length && cycleCategories?.[0]) {
+      setSelectedCycle(cycleCategories[0]?.code);
     }
   }, [cycleCategories]);
 
@@ -129,7 +129,7 @@ const CycleJobCategories = () => {
             defaultValue={selectedCycle}
             onChange={(e) => setSelectedCycle(e.target.value)}
           >
-            {cycleCategories?.map(b => (
+            {cycleCategories?.length && cycleCategories?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
           </select>
@@ -192,7 +192,11 @@ const CycleJobCategories = () => {
                           />
                         </td>
                         <td>{job.description}</td>
-                        <td>{jobCategoriesStatuses?.find(s => s.code === job.code)?.status || 'Inactive'}</td>
+                        <td>
+                          {(jobCategoriesStatuses?.length &&
+                            jobCategoriesStatuses?.find(s => s.code === job.code)?.status) || 'Inactive'
+                          }
+                        </td>
                       </tr>
                     ))}
                   </tbody>
