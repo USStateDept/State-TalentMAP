@@ -23,7 +23,7 @@ const CycleJobCategories = () => {
   const jobCategoriesStatusesIsLoading =
     useSelector(state => state.cycleJobCategoriesStatusesLoading);
 
-  const [selectedCycle, setSelectedCycle] = useState([]);
+  const [selectedCycle, setSelectedCycle] = useState(undefined);
   const [selectedJobCategories, setSelectedJobCategories] = useState([]);
   const [jobCategorySearch, setJobCategorySearch] = useState('');
 
@@ -33,12 +33,14 @@ const CycleJobCategories = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(cycleJobCategories({ cycle_category_code: selectedCycle }));
+    if (selectedCycle) {
+      dispatch(cycleJobCategories({ cycle_category_code: selectedCycle?.code }));
+    }
   }, [selectedCycle]);
 
   useEffect(() => {
     if (cycleCategories?.length) {
-      setSelectedCycle(cycleCategories?.[0]?.code);
+      setSelectedCycle(cycleCategories?.[0]);
     }
   }, [cycleCategories]);
 
@@ -128,7 +130,9 @@ const CycleJobCategories = () => {
             id="cycle-category"
             placeholder="Select a Cycle Category"
             defaultValue={selectedCycle}
-            onChange={(e) => setSelectedCycle(e.target.value)}
+            onChange={(e) =>
+              setSelectedCycle(cycleCategories?.find(c => c.code === e.target.value))
+            }
           >
             {cycleCategories?.length && cycleCategories?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
