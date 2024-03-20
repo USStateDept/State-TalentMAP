@@ -1,5 +1,6 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
+import { convertQueryToString } from 'utilities';
 import {
   ASSIGNMENT_CYCLE_CREATE_ERROR,
   ASSIGNMENT_CYCLE_CREATE_ERROR_TITLE,
@@ -399,9 +400,8 @@ export function cyclePositionSearchFetchData(query = {}) {
       dispatch(cyclePositionSearchFetchDataLoading(true));
       dispatch(cyclePositionSearchFetchDataErrored(false));
     });
-    api().post('/fsbid/assignment_cycles/positions/', {
-      query,
-    }, {
+    const q = convertQueryToString(query);
+    api().get(`/fsbid/assignment_cycles/positions/?${q}`, {
       cancelToken: new CancelToken((c) => { cancelCPfetch = c; }),
     })
       .then(({ data }) => {

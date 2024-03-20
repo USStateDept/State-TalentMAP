@@ -43,7 +43,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const cycleStartDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.begin_date, 'M/D/YYYY');
   const cycleEndDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.end_date, 'M/D/YYYY');
 
-
+  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatuses || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
@@ -53,6 +53,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const disableSearch = cardsInEditMode.length > 0;
 
   // Filter Options
+  const statusOptions = cyclePosFilters?.statusFilters || [];
   const orgOptions = cyclePosFilters?.orgFilters || [];
   const gradeOptions = cyclePosFilters?.gradeFilters || [];
   const skillOptions = cyclePosFilters?.skillsFilters || [];
@@ -65,6 +66,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
 
   const resetFilters = () => {
+    setSelectedStatuses([]);
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
@@ -73,13 +75,15 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
   const getCurrentInputs = () => ({
     cycleId,
-    selectedOrgs,
-    selectedGrades,
-    selectedSkills,
+    statuses: selectedStatuses.map(f => (f?.code)),
+    orgs: selectedOrgs.map(f => (f?.code)),
+    grades: selectedGrades.map(f => (f?.code)),
+    skills: selectedSkills.map(f => (f?.code)),
   });
 
 
   const noFiltersSelected = [
+    selectedStatuses,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
@@ -87,13 +91,14 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
   useEffect(() => {
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
-    dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
     if (noFiltersSelected) {
       setClearFilters(false);
     } else {
+      dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
       setClearFilters(true);
     }
   }, [
+    selectedStatuses,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
@@ -106,6 +111,8 @@ const CyclePositionSearch = ({ isAO, match }) => {
     let overlay;
     if (cyclePositionsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    } else if (noFiltersSelected) {
+      overlay = <Alert type="info" title="Select Filter" messages={[{ body: 'Please select at least one distinct filter to search.' }]} />;
     } else if (cyclePositionsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -150,6 +157,19 @@ const CyclePositionSearch = ({ isAO, match }) => {
                 </div>
               </div>
               <div className="position-search--filters--cm-pos">
+                <div className="filter-div">
+                  <div className="label">Status:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Status(es)"
+                    value={selectedStatuses}
+                    options={statusOptions}
+                    onChange={setSelectedStatuses}
+                    valueKey="description"
+                    labelKey="description"
+                    disabled={disableSearch}
+                  />
+                </div>
                 <div className="filter-div">
                   <div className="label">Organization:</div>
                   <Picky
