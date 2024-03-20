@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Column, Row } from 'Components/Layout';
 import { formatDate } from 'utilities';
+import { checkFlag } from 'flags';
+
+const useCycleManagementPositions = () => checkFlag('flags.cycle_management_positions');
 
 const CycleSearchCard = (props) => {
   const {
@@ -14,6 +17,7 @@ const CycleSearchCard = (props) => {
     post_view,
     isAO,
   } = props;
+  const showCycleManagementPositions = useCycleManagementPositions();
 
   const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/assignmentcycle/${id}`;
   const cycleLinkPositions = `/profile/${isAO ? 'ao' : 'bureau'}/cyclepositionsearch/${id}`;
@@ -46,11 +50,14 @@ const CycleSearchCard = (props) => {
           </Column>
         </Column>
         <Column columns={3} className="cyc-card--link-col">
-          <span>
-            <Link to={cycleLinkPositions}>
+          {
+            showCycleManagementPositions &&
+            <span>
+              <Link to={cycleLinkPositions}>
                 View Cycle Positions
-            </Link>
-          </span>
+              </Link>
+            </span>
+          }
         </Column>
       </Row>
     </Row>
