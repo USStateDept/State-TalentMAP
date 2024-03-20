@@ -5,7 +5,7 @@ import { getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE,
+  NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE,
   NO_SKILL, NO_STATUS,
 } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
@@ -17,8 +17,9 @@ import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const dispatch = useDispatch();
   const description$ = data?.description?.content || 'No description.';
-  const updateDate = data?.formatted_last_updated || '--/--/----';
-  const skillWithDesc = (getResult(data, 'skill_code') && getResult(data, 'skill_desc')) ? `${getResult(data, 'skill_code')} ${getResult(data, 'skill_desc')}` : false;
+  const postedDate = data?.posted_date_formatted || '--/--/----';
+  const skillWithDesc = (data?.skill_code && data?.skill_desc) ? `${data?.skill_desc} (${data?.skill_code})` : false;
+  const orgWithCode = (data?.org_code && data?.org_desc) ? `${data?.org_desc} (${data?.org_code})` : false;
 
 
   // =============== View Mode ===============
@@ -26,27 +27,26 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const sections = {
     /* eslint-disable quote-props */
     subheading: [
-      { 'Position Number': getResult(data, 'position_number', NO_POSITION_NUMBER) },
-      { 'Skill': skillWithDesc || getResult(data, 'skill_code') || getResult(data, 'skill_desc') || NO_SKILL },
-      { 'Position Title': getResult(data, 'title') || NO_POSITION_TITLE },
+      { 'Position Number': data?.position_number || NO_POSITION_NUMBER },
+      { 'Skill': skillWithDesc || data?.skill_code || data?.skill_desc || NO_SKILL },
+      { 'Position Title': data?.title || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Org/Code': getResult(data, 'org_code') || NO_ORG },
-      { 'Bureau': getResult(data, 'bureau') || NO_BUREAU },
-      { 'Grade': getResult(data, 'grade') || NO_GRADE },
-      { 'Status': getResult(data, 'status') || NO_STATUS },
-      { 'Language': getResult(data, 'languages') || 'None Listed' },
+      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || NO_ORG },
+      { 'Grade': data?.grade || NO_GRADE },
+      { 'Status': data?.status || NO_STATUS },
+      { 'Language': data?.languages || 'None Listed' },
     ],
     bodySecondary: [
-      { 'Bid Cycle': getResult(data, 'bid_cycle', 'None Listed') },
-      { 'Job Category': getResult(data, 'job_category') || 'None Listed' },
-      { 'Pay Plan': getResult(data, 'pay_plan', 'None Listed') },
-      { 'Incumbent': getResult(data, 'incumbent_name') || NO_DATE },
-      { 'TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
+      { 'Bid Cycle': data?.bid_cycle || 'None Listed' },
+      { 'Job Category': data?.job_category || 'None Listed' },
+      { 'Pay Plan': data?.pay_plan || 'None Listed' },
+      { 'Incumbent': data?.incumbent_name || 'None Listed' },
+      { 'TED': getResult(data, 'ted', NO_TOUR_END_DATE) },
     ],
     textarea: description$,
     metadata: [
-      { 'Last Updated': updateDate },
+      { 'Date Posted': postedDate },
     ],
     /* eslint-enable quote-props */
   };
@@ -100,20 +100,18 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   const [editMode, setEditMode] = useState(false);
   useEffect(() => {
-    // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, data?.id);
   }, [editMode]);
 
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Org/Code': getResult(data, 'org_code') || NO_ORG },
-      { 'Bureau': getResult(data, 'bureau') || NO_BUREAU },
-      { 'Grade': getResult(data, 'grade') || NO_GRADE },
-      { 'Status': getResult(data, 'status') || NO_STATUS },
-      { 'Language': getResult(data, 'languages') || 'None Listed' },
-      { 'Bid Cycle': getResult(data, 'bid_cycle', 'None Listed') },
-      { 'Pay Plan': getResult(data, 'pay_plan', 'None Listed') },
+      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || NO_ORG },
+      { 'Grade': data?.grade || NO_GRADE },
+      { 'Status': data?.status || NO_STATUS },
+      { 'Language': data?.languages || 'None Listed' },
+      { 'Bid Cycle': data?.bid_cycle || 'None Listed' },
+      { 'Pay Plan': data?.pay_plan || 'None Listed' },
     ],
     inputBody:
       <div className="position-form">

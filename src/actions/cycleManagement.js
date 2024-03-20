@@ -158,7 +158,6 @@ export function cycleManagementAssignmentCycleFetchDataSuccess(results) {
 }
 
 
-// eslint-disable-next-line no-unused-vars
 export function cycleManagementAssignmentCycleFetchData(id) {
   return (dispatch) => {
     if (cancelCycleManagementGetCycle) {
@@ -318,47 +317,38 @@ export function cycleManagementDeleteCycle(data) {
 
 let cancelCPfiltersData;
 
-export function cyclePositionsFiltersErrored(bool) {
-  return {
-    type: 'CYCLE_POSITIONS_FILTERS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function cyclePositionsFiltersLoading(bool) {
+export function cyclePositionFiltersLoading(bool) {
   return {
     type: 'CYCLE_POSITIONS_FILTERS_IS_LOADING',
     isLoading: bool,
   };
 }
-export function cyclePositionsFiltersSuccess(results) {
+export function cyclePositionFiltersSuccess(results) {
   return {
     type: 'CYCLE_POSITIONS_FILTERS_SUCCESS',
     results,
   };
 }
-export function cyclePositionsFiltersFetchData() {
+export function cyclePositionFiltersFetchData() {
   return (dispatch) => {
-    if (cancelCPfiltersData) { cancelCPfiltersData('cancel'); dispatch(cyclePositionsFiltersLoading(true)); }
+    if (cancelCPfiltersData) { cancelCPfiltersData('cancel'); dispatch(cyclePositionFiltersLoading(true)); }
     batch(() => {
-      dispatch(cyclePositionsFiltersLoading(true));
-      dispatch(cyclePositionsFiltersErrored(false));
+      dispatch(cyclePositionFiltersLoading(true));
     });
     api().get('/fsbid/assignment_cycles/positions/filters/', {
       cancelToken: new CancelToken((c) => { cancelCPfiltersData = c; }),
     })
       .then(({ data }) => {
         batch(() => {
-          dispatch(cyclePositionsFiltersSuccess(data));
-          dispatch(cyclePositionsFiltersErrored(false));
-          dispatch(cyclePositionsFiltersLoading(false));
+          dispatch(cyclePositionFiltersSuccess(data));
+          dispatch(cyclePositionFiltersLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(cyclePositionsFiltersSuccess({}));
-            dispatch(cyclePositionsFiltersErrored(true));
-            dispatch(cyclePositionsFiltersLoading(false));
+            dispatch(cyclePositionFiltersSuccess({}));
+            dispatch(cyclePositionFiltersLoading(false));
           });
         }
       });
@@ -410,8 +400,9 @@ export function cyclePositionSearchFetchData(query = {}) {
       dispatch(cyclePositionSearchFetchDataErrored(false));
     });
     api().post('/fsbid/assignment_cycles/positions/', {
-      cancelToken: new CancelToken((c) => { cancelCPfetch = c; }),
       query,
+    }, {
+      cancelToken: new CancelToken((c) => { cancelCPfetch = c; }),
     })
       .then(({ data }) => {
         batch(() => {
@@ -423,7 +414,7 @@ export function cyclePositionSearchFetchData(query = {}) {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(cyclePositionSearchFetchDataSuccess({}));
+            dispatch(cyclePositionSearchFetchDataSuccess([]));
             dispatch(cyclePositionSearchFetchDataErrored(true));
             dispatch(cyclePositionSearchFetchDataLoading(false));
           });

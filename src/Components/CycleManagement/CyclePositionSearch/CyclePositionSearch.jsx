@@ -10,11 +10,12 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import Spinner from 'Components/Spinner';
 import CyclePositionCard from 'Components/CyclePositionCard';
 import Alert from 'Components/Alert';
+import BackButton from 'Components/BackButton';
 import { formatDate, onEditModeSearch, renderSelectionList } from 'utilities';
 import {
   cycleManagementAssignmentCycleFetchData,
+  cyclePositionFiltersFetchData,
   cyclePositionSearchFetchData,
-  cyclePositionsFiltersFetchData,
   saveCyclePositionSearchSelections,
 } from 'actions/cycleManagement';
 
@@ -30,7 +31,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const loadedCycle = assignmentCycle ?? {};
 
   const cyclePosFilters = useSelector(state => state.cyclePositionsFilters);
-  const cyclePosFiltersLoading = useSelector(state => state.cyclePositionsFiltersLoading);
+  const cyclePosFiltersLoading = useSelector(state => state.cyclePositionFiltersIsLoading);
 
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
@@ -43,7 +44,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const cycleEndDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.end_date, 'M/D/YYYY');
 
 
-  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
@@ -53,7 +53,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const disableSearch = cardsInEditMode.length > 0;
 
   // Filter Options
-  const bureauOptions = cyclePosFilters?.bureauFilters || [];
   const orgOptions = cyclePosFilters?.orgFilters || [];
   const gradeOptions = cyclePosFilters?.gradeFilters || [];
   const skillOptions = cyclePosFilters?.skillsFilters || [];
@@ -61,12 +60,11 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
   useEffect(() => {
     dispatch(cycleManagementAssignmentCycleFetchData(cycleId));
-    dispatch(cyclePositionsFiltersFetchData());
+    dispatch(cyclePositionFiltersFetchData());
   }, []);
 
 
   const resetFilters = () => {
-    setSelectedBureaus([]);
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
@@ -75,7 +73,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
   const getCurrentInputs = () => ({
     cycleId,
-    selectedBureaus,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
@@ -83,7 +80,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
 
   const noFiltersSelected = [
-    selectedBureaus,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
@@ -91,14 +87,13 @@ const CyclePositionSearch = ({ isAO, match }) => {
 
   useEffect(() => {
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
+    dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
     if (noFiltersSelected) {
       setClearFilters(false);
     } else {
-      dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
       setClearFilters(true);
     }
   }, [
-    selectedBureaus,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
@@ -111,8 +106,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
     let overlay;
     if (cyclePositionsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (noFiltersSelected) {
-      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least one distinct filter to search.' }]} />;
     } else if (cyclePositionsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -137,6 +130,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
       (
         <div className="cycle-management-page position-search">
           <div className="position-search--header">
+            <BackButton />
             <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
 
             <div className="expanded-content pt-20">
@@ -156,19 +150,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
                 </div>
               </div>
               <div className="position-search--filters--cm-pos">
-                <div className="filter-div">
-                  <div className="label">Bureau:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Bureau(s)"
-                    value={selectedBureaus}
-                    options={bureauOptions}
-                    onChange={setSelectedBureaus}
-                    valueKey="description"
-                    labelKey="description"
-                    disabled={disableSearch}
-                  />
-                </div>
                 <div className="filter-div">
                   <div className="label">Organization:</div>
                   <Picky
