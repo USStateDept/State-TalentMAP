@@ -19,6 +19,9 @@ const CycleJobCategories = () => {
   const cycleCategoriesIsLoading = useSelector(state => state.cycleCategoriesLoading);
   const jobCategories = useSelector(state => state.cycleJobCategories) || [];
   const jobCategoriesIsLoading = useSelector(state => state.cycleJobCategoriesLoading);
+  const jobCategoriesStatuses = useSelector(state => state.cycleJobCategoriesStatuses) || [];
+  const jobCategoriesStatusesIsLoading =
+    useSelector(state => state.cycleJobCategoriesStatusesLoading);
 
   const [selectedCycle, setSelectedCycle] = useState([]);
   const [selectedJobCategories, setSelectedJobCategories] = useState([]);
@@ -39,17 +42,17 @@ const CycleJobCategories = () => {
   }, [cycleCategories]);
 
   useEffect(() => {
-    if (jobCategories && jobCategories.length) {
-      setSelectedJobCategories(jobCategories.filter(j => j.included).map(j => j.code));
+    if (jobCategories?.length) {
+      setSelectedJobCategories(jobCategories?.filter(j => j.included).map(j => j.code));
     }
   }, [jobCategories]);
 
   const getDisplayedJobCategories = () => {
-    if (jobCategories.length > 0) {
+    if (jobCategories?.length > 0) {
       if (jobCategorySearch === '') {
         return jobCategories;
       }
-      return jobCategories.filter(j =>
+      return jobCategories?.filter(j =>
         j.description.toLowerCase().includes(jobCategorySearch.toLowerCase()));
     }
     return [];
@@ -107,7 +110,7 @@ const CycleJobCategories = () => {
     dispatch(cycleJobCategoriesEdit(selectedJobCategories));
   };
 
-  return ((cycleCategoriesIsLoading || jobCategoriesIsLoading) ?
+  return ((cycleCategoriesIsLoading || jobCategoriesIsLoading || jobCategoriesStatusesIsLoading) ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="cycle-job-category">
       <div className="cycle-job-category__header position-search--filters--cjc">
@@ -180,16 +183,16 @@ const CycleJobCategories = () => {
                   </thead>
                   <tbody>
                     {getDisplayedJobCategories().map(job => (
-                      <tr key={job.id}>
+                      <tr key={job.code}>
                         <td>
                           <CheckBox
-                            id={`selected-${job.id}`}
-                            value={selectedJobCategories.find(o => o === job.id) !== undefined}
+                            id={`selected-${job.code}`}
+                            value={selectedJobCategories.find(o => o === job.code) !== undefined}
                             onCheckBoxClick={() => handleSelectJob(job)}
                           />
                         </td>
                         <td>{job.description}</td>
-                        <td>{job.active ? 'Active' : 'Inactive'}</td>
+                        <td>{jobCategoriesStatuses?.find(s => s.code === job.code)?.status || 'Inactive'}</td>
                       </tr>
                     ))}
                   </tbody>
