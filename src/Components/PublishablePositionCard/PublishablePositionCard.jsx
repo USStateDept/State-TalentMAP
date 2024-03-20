@@ -15,7 +15,8 @@ import { checkFlag } from '../../flags';
 import PositionClassification from './PositionClassification/PositionClassification';
 
 
-const PP_FLAG = checkFlag('flags.publishable_positions');
+const PP_CLASSIFICATIONS_FLAG = () => checkFlag('flags.publishable_positions_classifications');
+const PP_FLAG = () => checkFlag('flags.publishable_positions');
 const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const hardcodedFilters = {
@@ -263,7 +264,7 @@ const PublishablePositionCard = ({
           showLoadingAnimation={additionalCallsLoading}
           onShowMore={(e) => onShowMorePP(e)}
         />,
-      }, PP_FLAG ?
+      }, PP_CLASSIFICATIONS_FLAG ?
         {
           text: 'Position Classification',
           value: 'CLASSIFICATION',
