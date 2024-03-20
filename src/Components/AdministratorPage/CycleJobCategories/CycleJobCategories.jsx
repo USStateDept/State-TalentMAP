@@ -36,14 +36,14 @@ const CycleJobCategories = () => {
   }, [selectedCycle]);
 
   useEffect(() => {
-    if (cycleCategories?.length && cycleCategories?.[0]) {
-      setSelectedCycle(cycleCategories[0]?.code);
+    if (cycleCategories?.length) {
+      setSelectedCycle(cycleCategories?.[0]?.code);
     }
   }, [cycleCategories]);
 
   useEffect(() => {
     if (jobCategories?.length) {
-      setSelectedJobCategories(jobCategories?.filter(j => j.included).map(j => j.code));
+      setSelectedJobCategories(jobCategories?.filter(j => j.included === '1').map(j => j.code));
     }
   }, [jobCategories]);
 
