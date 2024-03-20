@@ -278,7 +278,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <Link to="#" onClick={onNewAtGrades}>Edit</Link> },
+      { '': <span><FA name="pencil" /><Link to="#" onClick={onNewAtGrades}>Edit</Link></span> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={atGrades} onEditChange={onEditChange} /> },
@@ -357,7 +357,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <Link to="#" onClick={onNewInCateogries}>Edit</Link> },
+      { '': <span><FA name="pencil" /><Link to="#" onClick={onNewInCateogries}>Edit</Link></span> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={inCategories} onEditChange={onEditChange} /> },
