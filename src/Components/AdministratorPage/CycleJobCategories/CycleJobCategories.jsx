@@ -110,7 +110,33 @@ const CycleJobCategories = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(cycleJobCategoriesEdit(selectedJobCategories));
+    let included = '';
+    let codes = '';
+    let updatedDates = '';
+    let updaterIds = '';
+
+    jobCategories.forEach(s => {
+      const separator = included === '' ? '' : ',';
+      const includedRef = selectedJobCategories?.find(j => j === s.code) ? '1' : '0';
+      // Only add to edit request if included field was changed
+      if (includedRef !== s.included) {
+        included = included.concat(separator, includedRef);
+        codes = codes.concat(separator, s.code);
+        updatedDates = updatedDates.concat(separator, s.updated_date ?? '');
+        updaterIds = updaterIds.concat(separator, s.updater_id !== 0 ? s.updater_id : '');
+      }
+    });
+
+    dispatch(cycleJobCategoriesEdit(
+      { cycle_category_code: selectedCycle?.code },
+      {
+        cycle_category_code: selectedCycle?.code,
+        included,
+        job_category_codes: codes,
+        updater_ids: updaterIds,
+        updated_dates: updatedDates,
+      },
+    ));
   };
 
   return ((cycleCategoriesIsLoading || jobCategoriesIsLoading || jobCategoriesStatusesIsLoading) ?
