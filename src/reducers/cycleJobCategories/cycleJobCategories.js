@@ -78,3 +78,14 @@ export function cycleJobCategoriesStatusesLoading(state = false, action) {
       return state;
   }
 }
+
+// =================== CYCLE JOB CATEGORIES EDIT ===================
+
+export function cycleJobCategoriesEdit(state = {}, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_EDIT_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
