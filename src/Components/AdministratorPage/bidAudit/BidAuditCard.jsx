@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
@@ -277,7 +278,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <button className="toggle-edit-mode edit-position" onClick={onNewAtGrades}><FA name="pencil" /><div>Edit</div></button> },
+      { '': <Link to="#" onClick={onNewAtGrades}>Add New At Grade</Link> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={atGrades} onEditChange={onEditChange} /> },
@@ -356,7 +357,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <button className="toggle-edit-mode edit-position" onClick={onNewInCateogries}><FA name="pencil" /><div>Edit</div></button> },
+      { '': <Link to="#" onClick={onNewInCateogries}>Add New In Category</Link> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={inCategories} onEditChange={onEditChange} /> },
@@ -425,7 +426,6 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
             <PositionExpandableContent
               sections={atGradesSections}
               form={atGradesForm}
-              tempHideEdit
               saveText="Save At Grade"
             />
           </div>
@@ -439,7 +439,6 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
             <PositionExpandableContent
               sections={inCategoriesSections}
               form={inCategoriesForm}
-              tempHideEdit
               saveText="Save In Category"
             />
           </div>
