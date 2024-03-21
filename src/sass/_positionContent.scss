@@ -42,6 +42,15 @@
     &.no-space {
       justify-content: flex-start !important;
     }
+    .line-separated-fields {
+      .edit-position {
+        position: absolute;
+        right: 0;
+        span {
+          margin: 0px;
+        }
+      }
+    }
   }
 
   .title-link {
@@ -424,11 +433,12 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    .span-label {
+    span:first-of-type {
       font-weight: 500;
       padding-right: 5px;
     }
-    .span-label, .span-text {
+
+    span {
       font-size: 15px;
     }
 
