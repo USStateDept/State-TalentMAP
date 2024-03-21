@@ -23,6 +23,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
       .filter-div {
+        font-size: 15px;
         width: 400px;
       }
     }

@@ -18,7 +18,7 @@ const BidAuditSections = ({ onEditChange, rows }) => {
       />
       {rows.map((row) => (
         <div key={row?.header}>
-          <h5 className="bid-audit-headers">{row?.header}</h5>
+          <dt className="bid-audit-headers">{row?.header}</dt>
           <div className="bid-audit-card-rows">
             {row?.row3data &&
             <div className="bid-audit-contents-container">
