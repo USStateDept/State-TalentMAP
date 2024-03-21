@@ -424,12 +424,11 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    span:first-of-type {
+    .span-label {
       font-weight: 500;
       padding-right: 5px;
     }
-
-    span {
+    .span-label, .span-text {
       font-size: 15px;
     }
 
