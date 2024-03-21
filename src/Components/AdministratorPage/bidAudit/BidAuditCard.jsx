@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { get } from 'lodash';
-import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -278,7 +277,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <span><FA name="pencil" /><Link to="#" onClick={onNewAtGrades}>Edit</Link></span> },
+      { '': <button className="toggle-edit-mode" onClick={onNewAtGrades}><FA name="pencil" /><div>Edit</div></button> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={atGrades} onEditChange={onEditChange} /> },
@@ -357,7 +356,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       { 'Audit Number': result.id || NO_BUREAU },
       { 'Description': result.description || NO_SKILL },
       { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
-      { '': <span><FA name="pencil" /><Link to="#" onClick={onNewInCateogries}>Edit</Link></span> },
+      { '': <button className="toggle-edit-mode" onClick={onNewInCateogries}><FA name="pencil" /><div>Edit</div></button> },
     ],
     bodyPrimary: [
       { '': <BidAuditSections rows={inCategories} onEditChange={onEditChange} /> },
