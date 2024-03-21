@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getDifferentials, getPostName, getResult } from 'utilities';
+import { getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
+  NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE,
+  NO_SKILL, NO_STATUS,
 } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import swal from '@sweetalert/with-react';
 import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
@@ -17,42 +16,37 @@ import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
 const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const dispatch = useDispatch();
-  const pos = data?.position || data;
-  const description$ = pos?.description?.content || 'No description.';
-  const updateUser = getResult(pos, 'description.last_editing_user');
-  const updateDate = getResult(pos, 'description.date_updated');
+  const description$ = data?.description?.content || 'No description.';
+  const postedDate = data?.posted_date_formatted || '--/--/----';
+  const skillWithDesc = (data?.skill_code && data?.skill_desc) ? `${data?.skill_desc} (${data?.skill_code})` : false;
+  const orgWithCode = (data?.org_code && data?.org_desc) ? `${data?.org_desc} (${data?.org_code})` : false;
+
 
   // =============== View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
     subheading: [
-      { 'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER) },
-      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
-      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+      { 'Position Number': data?.position_number || NO_POSITION_NUMBER },
+      { 'Skill': skillWithDesc || data?.skill_code || data?.skill_desc || NO_SKILL },
+      { 'Position Title': data?.title || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Location': getPostName(pos?.post) || NO_POST },
-      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Status': getResult(pos, 'status') || NO_STATUS },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || NO_ORG },
+      { 'Grade': data?.grade || NO_GRADE },
+      { 'Status': data?.status || NO_STATUS },
+      { 'Language': data?.languages || 'None Listed' },
     ],
     bodySecondary: [
-      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
-      { 'Cycle Position': '---' },
-      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
-      { 'Incumbent TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
-      { 'Incumbent Status': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
-      { 'Pay Plan': '---' },
-      { 'TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
-      { 'Post Differential | Danger Pay': getDifferentials(pos) },
-      { 'Assignee TED': getResult(data, 'ted') || NO_DATE },
+      { 'Bid Cycle': data?.bid_cycle || 'None Listed' },
+      { 'Job Category': data?.job_category || 'None Listed' },
+      { 'Pay Plan': data?.pay_plan || 'None Listed' },
+      { 'Incumbent': data?.incumbent_name || 'None Listed' },
+      { 'TED': getResult(data, 'ted', NO_TOUR_END_DATE) },
     ],
     textarea: description$,
     metadata: [
-      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+      { 'Date Posted': postedDate },
     ],
     /* eslint-enable quote-props */
   };
@@ -106,25 +100,18 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   const [editMode, setEditMode] = useState(false);
   useEffect(() => {
-    // TODO: during integration, replace 7 with unique card identifier
-    onEditModeSearch(editMode, pos?.id);
+    onEditModeSearch(editMode, data?.id);
   }, [editMode]);
 
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Location': getPostName(pos?.post) || NO_POST },
-      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Status': getResult(pos, 'status') || NO_STATUS },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
-      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
-      { 'Cycle Position': '---' },
-      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
-      { 'Pay Plan': '---' },
-      { 'Post Differential | Danger Pay': getDifferentials(pos) },
-      { 'Assignee TED': getResult(data, 'ted') || NO_DATE },
+      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || NO_ORG },
+      { 'Grade': data?.grade || NO_GRADE },
+      { 'Status': data?.status || NO_STATUS },
+      { 'Language': data?.languages || 'None Listed' },
+      { 'Bid Cycle': data?.bid_cycle || 'None Listed' },
+      { 'Pay Plan': data?.pay_plan || 'None Listed' },
     ],
     inputBody:
       <div className="position-form">
@@ -166,6 +153,7 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
         </div>
       </div>,
     handleSubmit: () => dispatch(cyclePositionEdit(data, incumbent, status)),
+    handleCancel: () => { },
     handleEdit: {
       editMode,
       setEditMode,
