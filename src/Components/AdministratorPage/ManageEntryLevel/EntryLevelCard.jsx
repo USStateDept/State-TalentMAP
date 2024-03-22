@@ -12,9 +12,13 @@ import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import PropTypes from 'prop-types';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
+import { checkFlag } from 'flags';
 import { entryLevelEdit } from '../../../actions/entryLevel';
 
+const useManageEntryLevelEdit = () => checkFlag('flags.manage_entry_level_edit');
+
 const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
+  const showManageEntryLevelEdit = useManageEntryLevelEdit();
   const dispatch = useDispatch();
 
   const pos = result;
@@ -30,7 +34,6 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
 
   const [editMode, setEditMode] = useState(false);
   useEffect(() => {
-    // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, id);
   }, [editMode]);
 
@@ -125,6 +128,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
       </div>
     ),
     cancelText: 'Are you sure you want to discard all changes made to this position?',
+    // TODO: during integration, replace 5 with unique card identifier
     handleSubmit: () => dispatch(entryLevelEdit(5, {})),
     handleCancel: () => onCancelForm(),
     handleEdit: {
@@ -146,6 +150,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
               sections={sections}
               form={form}
               isCondensed
+              tempHideEdit={!showManageEntryLevelEdit}
             />
           </div>
         ),

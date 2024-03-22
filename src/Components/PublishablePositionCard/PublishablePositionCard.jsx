@@ -15,7 +15,8 @@ import { checkFlag } from '../../flags';
 import PositionClassification from './PositionClassification/PositionClassification';
 
 
-const PP_FLAG = checkFlag('flags.publishable_positions');
+const PP_CLASSIFICATIONS_FLAG = () => checkFlag('flags.publishable_positions_classifications');
+const PP_FLAG = () => checkFlag('flags.publishable_positions_additional');
 const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const hardcodedFilters = {
@@ -46,7 +47,7 @@ const PublishablePositionCard = ({
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
     ],
-    bodySecondary: PP_FLAG ?
+    bodySecondary: PP_FLAG() ?
       [
         { 'Bid Cycle': data?.status || DEFAULT_TEXT },
         { 'TED': data?.status || DEFAULT_TEXT },
@@ -123,7 +124,7 @@ const PublishablePositionCard = ({
     ],
     inputBody: (
       <div className="position-form">
-        {PP_FLAG &&
+        {PP_FLAG() &&
           <div className="spaced-row">
             <div className="dropdown-container">
               <div className="position-form--input">
@@ -196,7 +197,7 @@ const PublishablePositionCard = ({
             </div>
           </Row>
         </div>
-        {PP_FLAG &&
+        {PP_FLAG() &&
           <>
             <div className="content-divider" />
             <div className="position-form--heading">
@@ -263,7 +264,7 @@ const PublishablePositionCard = ({
           showLoadingAnimation={additionalCallsLoading}
           onShowMore={(e) => onShowMorePP(e)}
         />,
-      }, PP_FLAG ?
+      }, PP_CLASSIFICATIONS_FLAG() ?
         {
           text: 'Position Classification',
           value: 'CLASSIFICATION',

@@ -29,7 +29,7 @@ const OrgStatsCard = (props) => {
     <Row fluid className="tabbed-card box-shadow-standard">
       <div className="position-content">
         <Row fluid className="position-content--section position-content--subheader no-space">
-          <span className="title-link">
+          <span className="pr-10 font-bold">
             {getResult(props, 'title')}
           </span>
           <div className="line-separated-fields">
