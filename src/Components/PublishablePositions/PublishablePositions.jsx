@@ -247,7 +247,7 @@ const PublishablePositions = ({ viewType }) => {
                 disabled={editMode}
               />
             </div>
-            { PP_FLAG ?
+            { PP_FLAG() ?
               <div className="filter-div">
                 <div className="label">Bid Cycle:</div>
                 <Picky

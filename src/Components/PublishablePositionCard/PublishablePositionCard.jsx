@@ -47,7 +47,7 @@ const PublishablePositionCard = ({
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
     ],
-    bodySecondary: PP_FLAG ?
+    bodySecondary: PP_FLAG() ?
       [
         { 'Bid Cycle': data?.status || DEFAULT_TEXT },
         { 'TED': data?.status || DEFAULT_TEXT },
@@ -124,7 +124,7 @@ const PublishablePositionCard = ({
     ],
     inputBody: (
       <div className="position-form">
-        {PP_FLAG &&
+        {PP_FLAG() &&
           <div className="spaced-row">
             <div className="dropdown-container">
               <div className="position-form--input">
@@ -197,7 +197,7 @@ const PublishablePositionCard = ({
             </div>
           </Row>
         </div>
-        {PP_FLAG &&
+        {PP_FLAG() &&
           <>
             <div className="content-divider" />
             <div className="position-form--heading">
@@ -264,7 +264,7 @@ const PublishablePositionCard = ({
           showLoadingAnimation={additionalCallsLoading}
           onShowMore={(e) => onShowMorePP(e)}
         />,
-      }, PP_CLASSIFICATIONS_FLAG ?
+      }, PP_CLASSIFICATIONS_FLAG() ?
         {
           text: 'Position Classification',
           value: 'CLASSIFICATION',
