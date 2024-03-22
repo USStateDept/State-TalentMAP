@@ -19,7 +19,7 @@ import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 import { checkFlag } from '../../flags';
 
-const PP_FLAG = checkFlag('flags.publishable_positions');
+const PP_FLAG = () => checkFlag('flags.publishable_positions_additional');
 
 // may need to be used for permissioning
 // eslint-disable-next-line no-unused-vars

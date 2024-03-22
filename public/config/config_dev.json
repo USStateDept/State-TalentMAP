@@ -36,7 +36,7 @@
     "persona_auth": true,
     "post_handshake": false,
     "projected_vacancy": true,
-    "publishable_positions": true,
+    "publishable_positions_additional": true,
     "publishable_positions_classifications": true,
     "register_checklist": true,
     "search_post_access": true,

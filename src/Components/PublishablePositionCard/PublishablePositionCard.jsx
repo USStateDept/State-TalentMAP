@@ -16,7 +16,7 @@ import PositionClassification from './PositionClassification/PositionClassificat
 
 
 const PP_CLASSIFICATIONS_FLAG = () => checkFlag('flags.publishable_positions_classifications');
-const PP_FLAG = () => checkFlag('flags.publishable_positions');
+const PP_FLAG = () => checkFlag('flags.publishable_positions_additional');
 const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 const hardcodedFilters = {
