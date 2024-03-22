@@ -12,7 +12,7 @@ import { Definition } from '../DefinitionList';
 
 const PositionExpandableContent = ({
   sections, form, appendAdditionalFieldsToBodyPrimary, tempHideEdit,
-  showLoadingAnimation, onShowMore, isCondensed }) => {
+  showLoadingAnimation, onShowMore, isCondensed, saveText }) => {
   const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode, disableEdit } = handleEdit;
 
@@ -71,8 +71,8 @@ const PositionExpandableContent = ({
             <span>{form.cancelText || 'Are you sure you want to discard all changes made to this position?'}</span>
           </div>
           <div className="modal-controls">
-            <button onClick={onCancel}>Submit</button>
-            <button className="usa-button-secondary" onClick={() => swal.close()}>Cancel</button>
+            <button onClick={onCancel}>Yes</button>
+            <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
           </div>
         </div>
       ),
@@ -101,7 +101,7 @@ const PositionExpandableContent = ({
                     const key = Object.keys(item)[0];
                     return (
                       <div key={`subheading-${key}`}>
-                        <span className="span-label">{key}:</span>
+                        <span className="span-label">{key && `${key} :`}</span>
                         <span className="span-text">{item[key]}</span>
                       </div>
                     );
@@ -163,7 +163,7 @@ const PositionExpandableContent = ({
               {form.inputBody}
               <div className="position-form--actions">
                 <button onClick={showCancelModal}>Cancel</button>
-                <button onClick={form.handleSubmit}>Save Position</button>
+                <button onClick={form.handleSubmit}>{saveText}</button>
               </div>
             </div>
             }
@@ -199,6 +199,7 @@ PositionExpandableContent.propTypes = {
     textarea: PropTypes.string,
     metadata: PropTypes.arrayOf(PropTypes.shape({})),
   }),
+  saveText: PropTypes.string,
   form: PropTypes.shape({
     staticBody: PropTypes.arrayOf(PropTypes.shape({})),
     inputBody: PropTypes.element,
@@ -221,6 +222,7 @@ PositionExpandableContent.propTypes = {
 PositionExpandableContent.defaultProps = {
   form: undefined,
   sections: undefined,
+  saveText: 'Save Position',
   appendAdditionalFieldsToBodyPrimary: true,
   showLoadingAnimation: false,
   tempHideEdit: false,
