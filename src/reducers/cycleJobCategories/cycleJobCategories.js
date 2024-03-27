@@ -1,14 +1,3 @@
-// =================== CYCLE CATEGORY SELECTION ===================
-
-export function cycleCategorySelection(state = '', action) {
-  switch (action.type) {
-    case 'CYCLE_CATEGORY_SELECTION_SUCCESS':
-      return action.result;
-    default:
-      return state;
-  }
-}
-
 // =================== CYCLE CATEGORIES ===================
 
 export function cycleCategories(state = [], action) {

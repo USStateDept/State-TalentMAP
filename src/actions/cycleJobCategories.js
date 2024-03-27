@@ -15,18 +15,6 @@ let cancelCycleJobCategories;
 let cancelCycleJobCategoriesStatuses;
 // let cancelEditCycleJobCategories;
 
-// =================== CYCLE CATEGORY SELECTION ===================
-
-export function cycleCategorySelectionSuccess(result) {
-  return {
-    type: 'CYCLE_CATEGORY_SELECTION_SUCCESS',
-    result,
-  };
-}
-export function cycleCategorySelection(data) {
-  return (dispatch) => dispatch(cycleCategorySelectionSuccess(data));
-}
-
 // =================== CYCLE CATEGORIES ===================
 
 export function cycleCategoriesErrored(bool) {
