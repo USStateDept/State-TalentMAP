@@ -15,7 +15,19 @@ let cancelCycleJobCategories;
 let cancelCycleJobCategoriesStatuses;
 // let cancelEditCycleJobCategories;
 
-// =================== CYCLE CATEGORIES LIST ===================
+// =================== CYCLE CATEGORY SELECTION ===================
+
+export function cycleCategorySelectionSuccess(result) {
+  return {
+    type: 'CYCLE_CATEGORY_SELECTION_SUCCESS',
+    result,
+  };
+}
+export function cycleCategorySelection(data) {
+  return (dispatch) => dispatch(cycleCategorySelectionSuccess(data));
+}
+
+// =================== CYCLE CATEGORIES ===================
 
 export function cycleCategoriesErrored(bool) {
   return {
@@ -64,7 +76,7 @@ export function cycleCategories() {
   };
 }
 
-// =================== CYCLE JOB CATEGORIES LIST ===================
+// =================== CYCLE JOB CATEGORIES ===================
 
 export function cycleJobCategoriesErrored(bool) {
   return {
@@ -116,7 +128,7 @@ export function cycleJobCategories(query) {
   };
 }
 
-// =================== CYCLE JOB CATEGORIES STATUSES LIST ===================
+// =================== CYCLE JOB CATEGORIES STATUSES ===================
 
 export function cycleJobCategoriesStatusesErrored(bool) {
   return {
@@ -143,7 +155,7 @@ export function cycleJobCategoriesStatuses() {
       dispatch(cycleJobCategoriesStatusesLoading(true));
       dispatch(cycleJobCategoriesStatusesErrored(false));
     });
-    api().get('/fsbid/cycle_job_categories/job_categories/status/', {
+    api().get('/fsbid/cycle_job_categories/job_categories/statuses/', {
       cancelToken: new CancelToken((c) => { cancelCycleJobCategoriesStatuses = c; }),
     })
       .then(({ data }) => {
