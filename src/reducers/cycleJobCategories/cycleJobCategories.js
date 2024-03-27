@@ -1,24 +1,78 @@
-// =================== CYCLE JOB CATEGORIES DATA ===================
+// =================== CYCLE CATEGORIES ===================
 
-export function cycleJobCategoriesData(state = {}, action) {
+export function cycleCategories(state = [], action) {
   switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_DATA_SUCCESS':
+    case 'CYCLE_CATEGORIES_SUCCESS':
       return action.results;
     default:
       return state;
   }
 }
-export function cycleJobCategoriesDataErrored(state = false, action) {
+export function cycleCategoriesErrored(state = false, action) {
   switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_DATA_HAS_ERRORED':
+    case 'CYCLE_CATEGORIES_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function cycleJobCategoriesDataLoading(state = false, action) {
+export function cycleCategoriesLoading(state = false, action) {
   switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_DATA_IS_LOADING':
+    case 'CYCLE_CATEGORIES_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+// =================== CYCLE JOB CATEGORIES ===================
+
+export function cycleJobCategories(state = [], action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+export function cycleJobCategoriesErrored(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cycleJobCategoriesLoading(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+// =================== CYCLE JOB CATEGORIES STATUSES ===================
+
+export function cycleJobCategoriesStatuses(state = [], action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_STATUSES_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+export function cycleJobCategoriesStatusesErrored(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_STATUSES_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cycleJobCategoriesStatusesLoading(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_JOB_CATEGORIES_STATUSES_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -37,7 +91,7 @@ export function cycleJobCategoriesEdit(state = {}, action) {
 }
 export function cycleJobCategoriesEditErrored(state = false, action) {
   switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_EDIT_HAS_ERRORED':
+    case 'CYCLE_JOB_CATEGORIES_EDIT_ERRORED':
       return action.hasErrored;
     default:
       return state;
@@ -45,34 +99,7 @@ export function cycleJobCategoriesEditErrored(state = false, action) {
 }
 export function cycleJobCategoriesEditLoading(state = false, action) {
   switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_EDIT_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-
-// =================== CYCLE JOB CATEGORIES FILTERS ===================
-
-export function cycleJobCategoriesFilters(state = {}, action) {
-  switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_FILTERS_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
-export function cycleJobCategoriesFiltersErrored(state = false, action) {
-  switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_FILTERS_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function cycleJobCategoriesFiltersLoading(state = false, action) {
-  switch (action.type) {
-    case 'CYCLE_JOB_CATEGORIES_FILTERS_IS_LOADING':
+    case 'CYCLE_JOB_CATEGORIES_EDIT_LOADING':
       return action.isLoading;
     default:
       return state;
