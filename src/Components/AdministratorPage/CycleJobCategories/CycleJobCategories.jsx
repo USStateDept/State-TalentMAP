@@ -8,7 +8,7 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard/TabbedCard';
 import CheckBox from 'Components/CheckBox/CheckBox';
 import {
-  cycleCategories as cycleCategoriesList, cycleCategorySelection, cycleJobCategories,
+  cycleCategories as cycleCategoriesList, cycleJobCategories,
   cycleJobCategoriesEdit, cycleJobCategoriesStatuses,
 } from 'actions/cycleJobCategories';
 import { checkFlag } from 'flags';
@@ -18,7 +18,7 @@ const useJobCategories = () => checkFlag('flags.job_categories');
 const CycleJobCategories = () => {
   const dispatch = useDispatch();
 
-  const selectedCycle = useSelector(state => state.cycleCategorySelection);
+  const [selectedCycle, setSelectedCycle] = useState('');
   const cycleCategories = useSelector(state => state.cycleCategories) || [];
   const cycleCategoriesIsLoading = useSelector(state => state.cycleCategoriesLoading);
   const jobCategories = useSelector(state => state.cycleJobCategories) || [];
@@ -129,10 +129,10 @@ const CycleJobCategories = () => {
           <div className="label">Cycle Category</div>
           <select
             id="cycle-category"
-            value={selectedCycle?.code}
-            onChange={(e) => dispatch(
-              cycleCategorySelection(cycleCategories?.find(c => c.code === e.target.value)),
-            )}
+            value={selectedCycle?.code || ''}
+            onChange={(e) =>
+              setSelectedCycle(cycleCategories?.find(c => c.code === e.target.value))
+            }
           >
             <option value="" disabled>Select a Cycle Category</option>
             {cycleCategories?.length && cycleCategories?.map(b => (
