@@ -250,18 +250,22 @@ const CycleManagement = (props) => {
             <>
               <div className="usa-grid-full results-dropdown controls-container">
 
-                {isSuperUser &&
-                  <div className="cm-heading">
-                    <Link
-                      onClick={(e) => {
-                        e.preventDefault();
-                        createNewAssignmentCycle();
-                      }}
-                      to="#"
-                    >
-                      Cycle Date Classifications
-                    </Link>
-                    <div className="cm-new-merge">
+                <div className="cm-heading">
+                  <div className="cm-classifications">
+                    {isSuperUser &&
+                      <Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          createNewAssignmentCycle();
+                        }}
+                        to="#"
+                      >
+                        Cycle Date Classifications
+                      </Link>
+                    }
+                  </div>
+                  <div className="cm-new-merge">
+                    {isSuperUser &&
                       <Link
                         onClick={(e) => {
                           e.preventDefault();
@@ -272,6 +276,8 @@ const CycleManagement = (props) => {
                         <FA className="fa-solid fa-plus" />
                         Add New Assignment Cycle
                       </Link>
+                    }
+                    {isSuperUser &&
                       <Link
                         onClick={(e) => {
                           e.preventDefault();
@@ -282,9 +288,9 @@ const CycleManagement = (props) => {
                         <FA className="fa-solid fa-plus" />
                         Merge Assignment Cycles
                       </Link>
-                    </div>
+                    }
                   </div>
-                }
+                </div>
 
               </div>
               <div className="cm-lower-section">
