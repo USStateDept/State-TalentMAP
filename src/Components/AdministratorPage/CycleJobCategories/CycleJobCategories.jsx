@@ -74,7 +74,7 @@ const CycleJobCategories = () => {
     const resultCategories = getDisplayedJobCategories().map(j => j.code);
     const allSelected = selectedJobCategories.every(j => resultCategories.includes(j));
     if (allSelected) {
-      const newSelected = selectedJobCategories.filter(j => resultCategories.includes(j));
+      const newSelected = selectedJobCategories.filter(j => !resultCategories.includes(j));
       setSelectedJobCategories(newSelected);
     } else {
       const newSelected = selectedJobCategories?.concat(resultCategories);
