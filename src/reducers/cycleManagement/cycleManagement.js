@@ -88,6 +88,18 @@ export function cycleManagementDelete(state = false, action) {
 }
 
 
+// ================  Cycle Management MERGE cycle  ================
+
+export function cycleManagementMerge(state = false, action) {
+  switch (action.type) {
+    case 'ASSIGNMENT_CYCLE_MERGE_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}
+
+
 // ================ Cycle Positions  ================
 
 

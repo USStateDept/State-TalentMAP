@@ -96,6 +96,21 @@
 
 // ============= Cycle Management =============
 .cycle-management-page {
+  .cm-heading {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+  .cm-new-merge {
+    display: flex;
+    flex-direction: column;
+
+    .fa {
+      padding-right: 5px;
+    }
+  }
+
   .results-dropdown {
     display: flex;
     justify-content: flex-end;

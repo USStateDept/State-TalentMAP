@@ -13,11 +13,15 @@ import TMDatePicker from 'Components/TMDatePicker';
 import {
   cycleManagementCreateCycle,
   cycleManagementFetchData,
+  cycleManagementMergeCycle,
+  cycleManagementMergeCycleSuccess,
   saveCycleManagementSelections,
 } from 'actions/cycleManagement';
 import { renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 import NewAssignmentCycle from './NewAssignmentCycle';
+import MergeAssignmentCycles from './MergeAssignmentCycles';
+import { history } from '../../store';
 
 const CycleManagement = (props) => {
   const dispatch = useDispatch();
@@ -29,12 +33,14 @@ const CycleManagement = (props) => {
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
+  const cycleManagementMergeSuccess = useSelector(state => state.cycleManagementMerge);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
   const [selectedDate, setSelectedDate] = useState(userSelections?.selectedDate || null);
+  const [mergeTargetCycle, setMergeTargetCycle] = useState('');
   const [cycleManagementData$, setCycleManagementData$] = useState(cycleManagementData);
   const [clearFilters, setClearFilters] = useState(false);
   const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
@@ -99,6 +105,14 @@ const CycleManagement = (props) => {
     }
   }, [cycleManagementDataLoading]);
 
+  useEffect(() => {
+    if (cycleManagementMergeSuccess) {
+      swal.close();
+      dispatch(cycleManagementMergeCycleSuccess(false));
+      history.push(`/profile/${isAO ? 'ao' : 'bureau'}/assignmentcycle/${mergeTargetCycle}`);
+    }
+  }, [cycleManagementMergeSuccess]);
+
   const uniqueStatuses = () => {
     const statuses = cycleManagementData.map(cycles => cycles.status);
     const uniq = [...new Set(statuses)];
@@ -117,6 +131,11 @@ const CycleManagement = (props) => {
     dispatch(cycleManagementCreateCycle(data));
   };
 
+  const onMergeSave = (data) => {
+    setMergeTargetCycle(data.targetCycle);
+    dispatch(cycleManagementMergeCycle(data));
+  };
+
   const createNewAssignmentCycle = () => {
     swal({
       title: 'New Assignment Cycle',
@@ -125,6 +144,20 @@ const CycleManagement = (props) => {
       content: (
         <NewAssignmentCycle
           onSave={onSave}
+        />
+      ),
+    });
+  };
+
+  const mergeCycles = () => {
+    swal({
+      title: 'Merge Assignment Cycles',
+      className: 'modal-700',
+      button: false,
+      content: (
+        <MergeAssignmentCycles
+          onSave={onMergeSave}
+          cycles={cycleManagementData}
         />
       ),
     });
@@ -216,22 +249,43 @@ const CycleManagement = (props) => {
             getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
-                <div className="bs-results">
-                  <Link
-                    onClick={(e) => {
-                      e.preventDefault();
-                      createNewAssignmentCycle();
-                    }}
-                    to="#"
-                  >
-                    {isSuperUser &&
-                      <span>
+
+                {isSuperUser &&
+                  <div className="cm-heading">
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        createNewAssignmentCycle();
+                      }}
+                      to="#"
+                    >
+                      Cycle Date Classifications
+                    </Link>
+                    <div className="cm-new-merge">
+                      <Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          createNewAssignmentCycle();
+                        }}
+                        to="#"
+                      >
                         <FA className="fa-solid fa-plus" />
-                        {' Add New Assignment Cycle'}
-                      </span>
-                    }
-                  </Link>
-                </div>
+                        Add New Assignment Cycle
+                      </Link>
+                      <Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          mergeCycles();
+                        }}
+                        to="#"
+                      >
+                        <FA className="fa-solid fa-plus" />
+                        Merge Assignment Cycles
+                      </Link>
+                    </div>
+                  </div>
+                }
+
               </div>
               <div className="cm-lower-section">
                 {cycleManagementData$?.map(data => (
