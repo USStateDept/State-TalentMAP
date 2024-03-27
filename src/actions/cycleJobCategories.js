@@ -67,7 +67,7 @@ export function cycleCategories() {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(cycleCategoriesSuccess({}));
+            dispatch(cycleCategoriesSuccess([]));
             dispatch(cycleCategoriesErrored(true));
             dispatch(cycleCategoriesLoading(false));
           });
@@ -119,7 +119,7 @@ export function cycleJobCategories(query) {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(cycleJobCategoriesSuccess({}));
+            dispatch(cycleJobCategoriesSuccess([]));
             dispatch(cycleJobCategoriesErrored(true));
             dispatch(cycleJobCategoriesLoading(false));
           });
@@ -168,7 +168,7 @@ export function cycleJobCategoriesStatuses() {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(cycleJobCategoriesStatusesSuccess({}));
+            dispatch(cycleJobCategoriesStatusesSuccess([]));
             dispatch(cycleJobCategoriesStatusesErrored(true));
             dispatch(cycleJobCategoriesStatusesLoading(false));
           });
