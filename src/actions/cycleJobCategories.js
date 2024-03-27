@@ -13,7 +13,7 @@ import { convertQueryToString } from '../utilities';
 let cancelCycleCategories;
 let cancelCycleJobCategories;
 let cancelCycleJobCategoriesStatuses;
-// let cancelEditCycleJobCategories;
+let cancelEditCycleJobCategories;
 
 // =================== CYCLE CATEGORIES ===================
 
@@ -167,68 +167,28 @@ export function cycleJobCategoriesStatuses() {
 
 // =================== CYCLE JOB CATEGORIES EDIT ===================
 
-export function cycleJobCategoriesEditErrored(bool) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_EDIT_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function cycleJobCategoriesEditLoading(bool) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_EDIT_LOADING',
-    isLoading: bool,
-  };
-}
-export function cycleJobCategoriesEditSuccess(results) {
-  return {
-    type: 'CYCLE_JOB_CATEGORIES_SUCCESS',
-    results,
-  };
-}
-export function cycleJobCategoriesEdit(data) {
+export function cycleJobCategoriesEdit(query, data) {
   return (dispatch) => {
-    batch(() => {
-      dispatch(cycleJobCategoriesEditLoading(true));
-      dispatch(cycleJobCategoriesEditErrored(false));
-    });
-
-    api().patch('/cycle-job-categories-ep/', data)
+    if (cancelEditCycleJobCategories) {
+      cancelEditCycleJobCategories('cancel');
+    }
+    api().put('/fsbid/cycle_job_categories/job_categories/edit/', data, {
+      cancelToken: new CancelToken((c) => { cancelEditCycleJobCategories = c; }),
+    })
       .then(() => {
         const toastTitle = UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS_TITLE;
         const toastMessage = UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS;
         batch(() => {
-          dispatch(cycleJobCategoriesEditErrored(false));
-          dispatch(cycleJobCategoriesEditSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(cycleJobCategoriesEditSuccess());
-          dispatch(cycleJobCategoriesEditLoading(false));
+          dispatch(cycleJobCategories(query));
+          dispatch(cycleJobCategoriesStatuses());
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(cycleJobCategoriesEditLoading(true));
-            dispatch(cycleJobCategoriesEditErrored(false));
-          });
-        } else {
-          // Start: temp toast logic
-          // temp to randomly show toast error or success
-          // when set up, just keep the error toast here
-          const randInt = Math.floor(Math.random() * 2);
-          if (randInt) {
-            const toastTitle = UPDATE_CYCLE_JOB_CATEGORIES_ERROR_TITLE;
-            const toastMessage = UPDATE_CYCLE_JOB_CATEGORIES_ERROR;
-            dispatch(toastError(toastMessage, toastTitle));
-          } else {
-            const toastTitle = UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS_TITLE;
-            const toastMessage = UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS;
-            dispatch(toastSuccess(toastMessage, toastTitle));
-          }
-          // End: temp toast logic
-          batch(() => {
-            dispatch(cycleJobCategoriesEditErrored(true));
-            dispatch(cycleJobCategoriesEditLoading(false));
-          });
+        if (err?.message !== 'cancel') {
+          const toastTitle = UPDATE_CYCLE_JOB_CATEGORIES_ERROR_TITLE;
+          const toastMessage = UPDATE_CYCLE_JOB_CATEGORIES_ERROR;
+          dispatch(toastError(toastMessage, toastTitle));
         }
       });
   };
