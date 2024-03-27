@@ -72,9 +72,9 @@ const CycleJobCategories = () => {
   const handleSelectAllJobs = () => {
     // Only handle the job categories displayed in the search result
     const resultCategories = getDisplayedJobCategories().map(j => j.code);
-    const allSelected = selectedJobCategories.every(j => resultCategories.includes(j));
-    if (allSelected) {
-      const newSelected = selectedJobCategories.filter(j => !resultCategories.includes(j));
+    const allSelected = selectedJobCategories.filter(j => resultCategories.includes(j));
+    if (allSelected?.length === resultCategories?.length) {
+      const newSelected = selectedJobCategories.filter(j => !(resultCategories.includes(j)));
       setSelectedJobCategories(newSelected);
     } else {
       const newSelected = selectedJobCategories?.concat(resultCategories);
