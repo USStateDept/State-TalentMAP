@@ -14,6 +14,10 @@ import {
   ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE,
   ASSIGNMENT_CYCLE_EDIT_SUCCESS,
   ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
+  ASSIGNMENT_CYCLE_MERGE_ERROR,
+  ASSIGNMENT_CYCLE_MERGE_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_MERGE_SUCCESS,
+  ASSIGNMENT_CYCLE_MERGE_SUCCESS_TITLE,
   ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR,
   ASSIGNMENT_CYCLE_POST_POSITIONS_ERROR_TITLE,
   ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS,
@@ -303,6 +307,52 @@ export function cycleManagementDeleteCycle(data) {
               toastError(
                 ASSIGNMENT_CYCLE_DELETE_ERROR,
                 ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE,
+              ),
+            );
+          });
+        }
+      });
+  };
+}
+
+
+// ================ Cycle Management MERGE cycle ================
+
+let cancelCycleManagementMerge;
+
+export function cycleManagementMergeCycleSuccess(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_MERGE_SUCCESS',
+    success: bool,
+  };
+}
+
+export function cycleManagementMergeCycle(data) {
+  return (dispatch) => {
+    if (cancelCycleManagementMerge) {
+      cancelCycleManagementMerge('cancel');
+    }
+    dispatch(cycleManagementMergeCycleSuccess(false));
+    api()
+      .post('/fsbid/assignment_cycles/merge/', {
+        data,
+      }, {
+        cancelToken: new CancelToken((c) => { cancelCycleManagementMerge = c; }),
+      })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_MERGE_SUCCESS,
+            ASSIGNMENT_CYCLE_MERGE_SUCCESS_TITLE));
+          dispatch(cycleManagementMergeCycleSuccess(true));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(
+              toastError(
+                ASSIGNMENT_CYCLE_MERGE_ERROR,
+                ASSIGNMENT_CYCLE_MERGE_ERROR_TITLE,
               ),
             );
           });

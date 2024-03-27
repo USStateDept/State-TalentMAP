@@ -5,16 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
-import TabbedCard from '../../TabbedCard/TabbedCard';
-import CheckBox from '../../CheckBox/CheckBox';
-import { cycleCategories as cycleCategoriesList, cycleJobCategories, cycleJobCategoriesEdit, cycleJobCategoriesStatuses } from '../../../actions/cycleJobCategories';
-import { checkFlag } from '../../../flags';
+import TabbedCard from 'Components/TabbedCard/TabbedCard';
+import CheckBox from 'Components/CheckBox/CheckBox';
+import {
+  cycleCategories as cycleCategoriesList, cycleJobCategories,
+  cycleJobCategoriesEdit, cycleJobCategoriesStatuses,
+} from 'actions/cycleJobCategories';
+import { checkFlag } from 'flags';
 
 const useJobCategories = () => checkFlag('flags.job_categories');
 
 const CycleJobCategories = () => {
   const dispatch = useDispatch();
 
+  const [selectedCycle, setSelectedCycle] = useState('');
   const cycleCategories = useSelector(state => state.cycleCategories) || [];
   const cycleCategoriesIsLoading = useSelector(state => state.cycleCategoriesLoading);
   const jobCategories = useSelector(state => state.cycleJobCategories) || [];
@@ -23,7 +27,6 @@ const CycleJobCategories = () => {
   const jobCategoriesStatusesIsLoading =
     useSelector(state => state.cycleJobCategoriesStatusesLoading);
 
-  const [selectedCycle, setSelectedCycle] = useState(undefined);
   const [selectedJobCategories, setSelectedJobCategories] = useState([]);
   const [jobCategorySearch, setJobCategorySearch] = useState('');
 
@@ -33,16 +36,10 @@ const CycleJobCategories = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedCycle) {
+    if (selectedCycle && selectedCycle !== '') {
       dispatch(cycleJobCategories({ cycle_category_code: selectedCycle?.code }));
     }
   }, [selectedCycle]);
-
-  useEffect(() => {
-    if (cycleCategories?.length) {
-      setSelectedCycle(cycleCategories?.[0]);
-    }
-  }, [cycleCategories]);
 
   useEffect(() => {
     if (jobCategories?.length) {
@@ -62,8 +59,8 @@ const CycleJobCategories = () => {
   };
 
   const handleSelectJob = (job) => {
-    if (selectedJobCategories.find(o => o === job.code)) {
-      const newSelection = selectedJobCategories.filter(o => o !== job.code);
+    if (selectedJobCategories?.find(o => o === job.code)) {
+      const newSelection = selectedJobCategories?.filter(o => o !== job.code);
       setSelectedJobCategories(newSelection);
     } else {
       setSelectedJobCategories([
@@ -73,11 +70,15 @@ const CycleJobCategories = () => {
     }
   };
   const handleSelectAllJobs = () => {
-    const allSelected = jobCategories?.length === selectedJobCategories?.length;
-    if (allSelected) {
-      setSelectedJobCategories([]);
+    // Only handle the job categories displayed in the search result
+    const resultCategories = getDisplayedJobCategories().map(j => j.code);
+    const allSelected = selectedJobCategories.filter(j => resultCategories.includes(j));
+    if (allSelected?.length === resultCategories?.length) {
+      const newSelected = selectedJobCategories.filter(j => !(resultCategories.includes(j)));
+      setSelectedJobCategories(newSelected);
     } else {
-      setSelectedJobCategories(jobCategories?.map(j => j.code));
+      const newSelected = selectedJobCategories?.concat(resultCategories);
+      setSelectedJobCategories([...new Set(newSelected)]);
     }
   };
 
@@ -95,7 +96,7 @@ const CycleJobCategories = () => {
             <button
               onClick={() => {
                 setSelectedJobCategories(
-                  jobCategories?.filter(j => j.included).map(j => j.id),
+                  jobCategories?.filter(j => j.included === '1').map(j => j.code),
                 );
                 swal.close();
               }}
@@ -154,12 +155,12 @@ const CycleJobCategories = () => {
           <div className="label">Cycle Category</div>
           <select
             id="cycle-category"
-            placeholder="Select a Cycle Category"
-            defaultValue={selectedCycle}
+            value={selectedCycle?.code || ''}
             onChange={(e) =>
               setSelectedCycle(cycleCategories?.find(c => c.code === e.target.value))
             }
           >
+            <option value="" disabled>Select a Cycle Category</option>
             {cycleCategories?.length && cycleCategories?.map(b => (
               <option key={b.code} value={b.code}>{b.description}</option>
             ))}
@@ -218,7 +219,7 @@ const CycleJobCategories = () => {
                         <td>
                           <CheckBox
                             id={`selected-${job.code}`}
-                            value={selectedJobCategories.find(o => o === job.code) !== undefined}
+                            value={selectedJobCategories?.find(o => o === job.code) !== undefined}
                             onCheckBoxClick={() => handleSelectJob(job)}
                           />
                         </td>

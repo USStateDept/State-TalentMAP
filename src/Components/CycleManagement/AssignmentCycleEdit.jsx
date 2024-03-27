@@ -69,6 +69,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
 
   const cycleClosed = assignmentCycleData?.cycle_status === 'C';
   const cycleMerged = assignmentCycleData?.cycle_status === 'M';
+  const cycleActive = assignmentCycleData?.cycle_status === 'A';
   const disableFields = cycleClosed || cycleMerged;
 
   useEffect(() => {
@@ -240,9 +241,6 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
         <div className="simple-action-modal">
           <div className="help-text">
             <span>{'Do you want to Post the Open Positions for this Assignment Cycle?'}</span>
-            <div>
-              <span>{'The Cycle must be Open in order to do so.'}</span>
-            </div>
           </div>
           <div className="modal-controls">
             <button onClick={postOpenPositions}>Yes</button>
@@ -279,7 +277,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
       <div className="ace-heading">
         <span>Assignment Cycle: {assignmentCycle}</span>
         <span>
-          {isSuperUser &&
+          {(isSuperUser && !cycleClosed) &&
             <Link
               to="#"
               onClick={(e) => {
@@ -445,7 +443,6 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
               id="cycleStatus"
               onChange={(e) => setCycleStatus(e.target.value)}
               value={cycleStatus}
-              disabled={disableFields}
             >
               {cycleStatuses.length === 0 ?
                 <option value="">None Listed</option> : cycleStatuses.map((option) => (
@@ -696,7 +693,7 @@ const AssignmentCycleEdit = ({ isAO, match }) => {
       <div>
         <button onClick={saveAC} disabled={!disableSave || !!disableFields}>Save and Return</button>
         <button onClick={deleteAC} disabled={disableFields}>Delete Assignment Cycle</button>
-        <button onClick={postAC} type="submit" disabled={cycleStatus !== 'A'}>Post Open Positions</button>
+        <button onClick={postAC} type="submit" disabled={!cycleActive}>Post Open Positions</button>
         <button onClick={cancel}>Cancel</button>
       </div>
     </>

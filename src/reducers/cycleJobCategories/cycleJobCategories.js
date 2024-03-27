@@ -1,6 +1,6 @@
 // =================== CYCLE CATEGORIES ===================
 
-export function cycleCategories(state = {}, action) {
+export function cycleCategories(state = [], action) {
   switch (action.type) {
     case 'CYCLE_CATEGORIES_SUCCESS':
       return action.results;
@@ -27,7 +27,7 @@ export function cycleCategoriesLoading(state = false, action) {
 
 // =================== CYCLE JOB CATEGORIES ===================
 
-export function cycleJobCategories(state = {}, action) {
+export function cycleJobCategories(state = [], action) {
   switch (action.type) {
     case 'CYCLE_JOB_CATEGORIES_SUCCESS':
       return action.results;
@@ -54,7 +54,7 @@ export function cycleJobCategoriesLoading(state = false, action) {
 
 // =================== CYCLE JOB CATEGORIES STATUSES ===================
 
-export function cycleJobCategoriesStatuses(state = {}, action) {
+export function cycleJobCategoriesStatuses(state = [], action) {
   switch (action.type) {
     case 'CYCLE_JOB_CATEGORIES_STATUSES_SUCCESS':
       return action.results;

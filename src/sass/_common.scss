@@ -41,6 +41,7 @@
 .width-300 { width: 300px; }
 .width-350 { width: 350px; }
 .width-700 { width: 700px; }
+.width-100-percent { width: 100%; }
 
 
 .display-flex { display: flex; }
@@ -237,4 +238,8 @@ $values in $filters-sizing-config {
 
 .error-color {
   color: $secondary-dark;
+}
+
+.font-bold {
+  font-weight: bold;
 }
