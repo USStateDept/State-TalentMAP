@@ -250,21 +250,8 @@ const CycleManagement = (props) => {
             <>
               <div className="usa-grid-full results-dropdown controls-container">
 
-                <div className="cm-heading">
-                  <Link
-                    onClick={(e) => {
-                      e.preventDefault();
-                      createNewAssignmentCycle();
-                    }}
-                    to="#"
-                  >
-                    {isSuperUser &&
-                      <span>
-                        {'Cycle Date Classifications'}
-                      </span>
-                    }
-                  </Link>
-                  <div className="cm-new-merge">
+                {isSuperUser &&
+                  <div className="cm-heading">
                     <Link
                       onClick={(e) => {
                         e.preventDefault();
@@ -272,31 +259,33 @@ const CycleManagement = (props) => {
                       }}
                       to="#"
                     >
-                      {isSuperUser &&
-                        <span>
-                          <FA className="fa-solid fa-plus" />
-                          {' Add New Assignment Cycle'}
-                        </span>
-                      }
+                      Cycle Date Classifications
                     </Link>
-
-                    <Link
-                      onClick={(e) => {
-                        e.preventDefault();
-                        mergeCycles();
-                      }}
-                      to="#"
-                    >
-                      {isSuperUser &&
-                        <span>
-                          <FA className="fa-solid fa-plus" />
-                          {' Merge Assignment Cycles'}
-                        </span>
-                      }
-                    </Link>
+                    <div className="cm-new-merge">
+                      <Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          createNewAssignmentCycle();
+                        }}
+                        to="#"
+                      >
+                        <FA className="fa-solid fa-plus" />
+                        Add New Assignment Cycle
+                      </Link>
+                      <Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          mergeCycles();
+                        }}
+                        to="#"
+                      >
+                        <FA className="fa-solid fa-plus" />
+                        Merge Assignment Cycles
+                      </Link>
+                    </div>
                   </div>
+                }
 
-                </div>
               </div>
               <div className="cm-lower-section">
                 {cycleManagementData$?.map(data => (

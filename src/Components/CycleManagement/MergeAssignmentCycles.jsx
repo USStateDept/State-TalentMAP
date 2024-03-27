@@ -6,8 +6,12 @@ const MergeAssignmentCycles = ({ cycles, onSave }) => {
   const [sourceCycle, setSourceCycle] = useState('');
   const [targetCycle, setTargetCycle] = useState('');
 
-  const cancel = () => swal.close();
-  const disableSave = sourceCycle && targetCycle;
+  const disableSave = !sourceCycle || !targetCycle;
+
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
 
   const mergeCycles = (e) => {
     e.preventDefault();
@@ -19,14 +23,14 @@ const MergeAssignmentCycles = ({ cycles, onSave }) => {
       <form className="assignment-cycle-form" >
         <div>
           <label htmlFor="season">Source Cycle</label>
-          <span className="bs-validation-container">
+          <span className="width-100-percent">
             <select
               id="sourceCycle"
               defaultValue=""
               onChange={(e) => setSourceCycle(e.target.value)}
               value={sourceCycle}
             >
-              <option value="" />
+              <option value="" disabled>Select a cycle...</option>
               {cycles.map((cycle) => (
                 cycle.status === 'Merge' &&
                     <option key={cycle.id} value={cycle.id}>
@@ -45,7 +49,7 @@ const MergeAssignmentCycles = ({ cycles, onSave }) => {
               onChange={(e) => setTargetCycle(e.target.value)}
               value={targetCycle}
             >
-              <option value="" />
+              <option value="" disabled>Select a cycle...</option>
               {cycles.map((cycle) => (
                 cycle.status === 'Active' &&
                     <option key={cycle.id} value={cycle.id}>
@@ -56,7 +60,7 @@ const MergeAssignmentCycles = ({ cycles, onSave }) => {
           </span>
         </div>
         <div className="ac-buttons">
-          <button onClick={mergeCycles} disabled={!disableSave}>Merge Cycles</button>
+          <button onClick={mergeCycles} disabled={disableSave}>Merge Cycles</button>
           <button onClick={cancel}>Cancel</button>
         </div>
       </form>

@@ -105,6 +105,10 @@
   .cm-new-merge {
     display: flex;
     flex-direction: column;
+
+    .fa {
+      padding-right: 5px;
+    }
   }
 
   .results-dropdown {

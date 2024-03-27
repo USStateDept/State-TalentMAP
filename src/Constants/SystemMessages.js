@@ -329,7 +329,7 @@ export const ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE = 'Assignment Cycle Delete Erro
 export const ASSIGNMENT_CYCLE_DELETE_ERROR = 'There was an issue attempting to delete this Assignment Cycle. Please try again.';
 
 export const ASSIGNMENT_CYCLE_MERGE_SUCCESS_TITLE = 'Assignment Cycles Merged';
-export const ASSIGNMENT_CYCLE_MERGE_SUCCESS = 'Cycles merged successfully - please rename the newly merged Cycle';
+export const ASSIGNMENT_CYCLE_MERGE_SUCCESS = 'Assignment Cycles have been merged successfully. Please rename the newly merged Cycle.';
 export const ASSIGNMENT_CYCLE_MERGE_ERROR_TITLE = 'Assignment Cycle Merge Error';
 export const ASSIGNMENT_CYCLE_MERGE_ERROR = 'There was an issue attempting to merge these Assignment Cycles. Please try again.';
 
