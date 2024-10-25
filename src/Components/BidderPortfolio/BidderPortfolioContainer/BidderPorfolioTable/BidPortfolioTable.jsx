@@ -4,7 +4,8 @@ import { difference } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { formatDate } from 'utilities';
-import { setCDOIncludeExclude, updateClassifications } from 'actions/classifications';
+import { updateClassifications } from 'actions/classifications';
+import { setCDOIncludeExclude } from 'actions/bidderPortfolio';
 import CheckBox from '../../../CheckBox';
 
 const BidPortfolioTable = ({ results, setEditClassification }) => {
