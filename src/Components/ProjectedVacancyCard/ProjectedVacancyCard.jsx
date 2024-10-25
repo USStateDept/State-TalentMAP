@@ -157,23 +157,14 @@ const ProjectedVacancyCard = (props) => {
       { 'Tour of Duty': result?.assigneeAssignment[0]?.toddesctext || NO_TOUR_OF_DUTY },
       { 'Languages': displayLangs() },
       { 'Included': result?.fvexclimportind === 'Y' ? 'Yes' : 'No' },
-    ],
-    bodySecondary: [
       { 'Bureau': result?.posbureaushortdesc || NO_BUREAU },
       { 'Location': result?.poslocationcode || NO_POST },
       { 'Status': result?.fvsdescrtxt || NO_STATUS },
       { 'Organization': result?.posorgshortdesc || NO_ORG },
       { 'TED': formatDate(result?.fvoverrideteddate) || NO_TOUR_END_DATE },
-      // {
-      //   'Language Offset Summer': summerLanguageOffsets?.find(o =>
-      //     o.code === languageOffsets?.language_offset_summer)?.description || DEFAULT_TEXT,
-      // },
-      // {
-      //   'Language Offset Winter': winterLanguageOffsets?.find(o =>
-      //     o.code === languageOffsets?.language_offset_winter)?.description || DEFAULT_TEXT,
-      // },
       { 'PP/Grade': result?.combinedppgrade },
-      // { 'Post Differential | Danger Pay': getDifferentials(differentials) },
+    ],
+    bodySecondary: [
     ],
     textarea: result?.fvcommenttxt || 'No description.',
     metadata: [
