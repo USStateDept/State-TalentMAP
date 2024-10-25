@@ -19,6 +19,7 @@ import { bidderPortfolioExtraDetailsFetchData,
   setIsCusp,
   setIsEligible,
   setPanelDateID,
+  workListTypeSuccess,
 } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
 import ResultsPillContainer from '../../ResultsPillContainer/ResultsPillContainer';
@@ -114,6 +115,7 @@ class BidControls extends Component {
       panelClient: (q === 'panel_clients' && this.state.hasSeasons),
     });
     this.props.setEditClassifications(q === 'classification');
+    this.props.setWLType(q);
     this.props.isCusp(q === 'cusp_bidders');
     this.props.isEligible(q === 'eligible_bidders');
     if (value === 'skip') {
@@ -174,6 +176,7 @@ class BidControls extends Component {
     const { resetKeyword } = this.props;
     resetKeyword();
     this.props.bidderPortfolioFetchDataSuccess({ results: [], count: 0 });
+    this.props.setWLType('');
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
@@ -354,6 +357,7 @@ BidControls.propTypes = {
   bidderPortfolioFetchDataSuccess: PropTypes.func.isRequired,
   setCDOD30: PropTypes.func.isRequired,
   setEditClassifications: PropTypes.func.isRequired,
+  setWLType: PropTypes.func.isRequired,
   isCusp: PropTypes.func.isRequired,
   isEligible: PropTypes.func.isRequired,
   setPanelDateID: PropTypes.func.isRequired,
@@ -388,6 +392,7 @@ export const mapDispatchToProps = dispatch => ({
   isCusp: (bool) => dispatch(setIsCusp(bool)),
   isEligible: (bool) => dispatch(setIsEligible(bool)),
   setPanelDateID: (id) => dispatch(setPanelDateID(id)),
+  setWLType: (wlCode) => dispatch(workListTypeSuccess(wlCode)),
   getClientDatePerdets: async query => {
     await dispatch(getClientDatePerdets(query));
     dispatch(bidderPortfolioExtraDetailsFetchData());

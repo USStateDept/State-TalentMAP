@@ -5,7 +5,7 @@ import { CancelToken } from 'axios';
 import { toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
-import { BIDDER_PORTFOLIO_UPDATE_ERROR, BIDDER_PORTFOLIO_UPDATE_SUCCESS } from '../Constants/SystemMessages';
+import { BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR, BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS, BIDDER_PORTFOLIO_UPDATE_ERROR, BIDDER_PORTFOLIO_UPDATE_SUCCESS } from '../Constants/SystemMessages';
 import api from '../api';
 import { toastError } from './toast';
 
@@ -220,6 +220,34 @@ export function setIsEligible(bool) {
   return {
     type: 'BIDDER_PORTFOLIO_IS_ELIGIBLE',
     isEligible: bool,
+  };
+}
+
+export function includeExcludeCDOIsLoading(bool) {
+  return {
+    type: 'INCLUDE_EXCLUDE_CDO_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function includeExcludeCDOHasErrored(bool) {
+  return {
+    type: 'INCLUDE_EXCLUDE_CDO_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function includeExcludeCDOSuccess(results) {
+  return {
+    type: 'INCLUDE_EXCLUDE_CDO_SUCCESS',
+    results,
+  };
+}
+
+export function workListTypeSuccess(wlCode) {
+  return {
+    type: 'WORK_LIST_TYPE_SUCCESS',
+    wlCode,
   };
 }
 
@@ -461,8 +489,8 @@ export function getClientPerdets(query = {}) {
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
           dispatch(bidderPortfolioFetchDataSuccess({ results: [], count: '0' }));
-          // dispatch(bidderPortfolioHasErrored(false));
-          // dispatch(bidderPortfolioIsLoading(false));
+          dispatch(bidderPortfolioHasErrored(false));
+          dispatch(bidderPortfolioIsLoading(false));
           return;
         }
 
@@ -691,6 +719,29 @@ export function saveBidderPortfolioSelections(data = {}) {
         dispatch(toastError(BIDDER_PORTFOLIO_UPDATE_ERROR));
         dispatch(bidderPortfolioSaveSeasonsHasErrored(true));
         dispatch(bidderPortfolioSaveSeasonsIsLoading(false));
+      });
+  };
+}
+
+export function setCDOIncludeExclude(data = {}) {
+  return (dispatch) => {
+    dispatch(includeExcludeCDOIsLoading(true));
+    dispatch(includeExcludeCDOHasErrored(false));
+
+    const endpoint = '/fsbid/client/cdo_include_exlude/';
+    api().post(endpoint, data)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(includeExcludeCDOHasErrored(false));
+          dispatch(includeExcludeCDOSuccess(res));
+          dispatch(toastSuccess(BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS));
+          dispatch(includeExcludeCDOIsLoading(false));
+        });
+      })
+      .catch(() => {
+        dispatch(toastError(BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR));
+        dispatch(includeExcludeCDOHasErrored(true));
+        dispatch(includeExcludeCDOIsLoading(false));
       });
   };
 }

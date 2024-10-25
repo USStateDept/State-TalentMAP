@@ -42,6 +42,15 @@ export function panelDateID(state = '', action) {
   }
 }
 
+export function workListType(state = '', action) {
+  switch (action.type) {
+    case 'WORK_LIST_TYPE_SUCCESS':
+      return action.wlCode;
+    default:
+      return state;
+  }
+}
+
 export function setEditClassification(state = false, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_EDIT_CLASSIFICATION':
@@ -246,6 +255,33 @@ export function panelClientFetchDataLoading(state = false, action) {
   switch (action.type) {
     case 'PANEL_CLIENT_FETCH_DATA_LOADING':
       return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function includeExcludeCDOIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'INCLUDE_EXCLUDE_CDO_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function includeExcludeCDOHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'INCLUDE_EXCLUDE_CDO_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function includeExcludeCDO(state = {}, action) {
+  switch (action.type) {
+    case 'INCLUDE_EXCLUDE_CDO_SUCCESS':
+      return action.data;
     default:
       return state;
   }

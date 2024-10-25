@@ -4,7 +4,7 @@ import { difference } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { formatDate } from 'utilities';
-import { updateClassifications } from 'actions/classifications';
+import { setCDOIncludeExclude, updateClassifications } from 'actions/classifications';
 import CheckBox from '../../../CheckBox';
 
 const BidPortfolioTable = ({ results, setEditClassification }) => {
@@ -16,7 +16,14 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const selectedSeasons = useSelector(state => state.bidderPortfolioSelectedSeasons);
+  const wlType = useSelector(state => state.workListType);
   const isIncExcEnabled = selectedSeasons.length === 0;
+  const todaysDate = () => {
+    const date = new Date();
+    const formattedDate = date.toLocaleDateString('en-US');
+
+    return formattedDate;
+  };
 
   const mapObjectToRow = (obj) => ({
     Employee: obj?.shortened_name,
@@ -61,6 +68,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     SCD: formatDate(obj?.EMP_SERVICE_DT),
     classifications: obj?.classifications,
     perdetSeqNumber: obj?.perdet_seq_number,
+    hruID: obj?.hru_id,
     SendDOSEmail: true,
     IncExc: false,
     SendAltEmail: true,
@@ -75,8 +83,20 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     }
   }, [results]);
 
-  const IncExc = () => {
+  const IncExc = (e) => {
     // will update this later but this will update the include/exclude status of the person
+    const query = {
+      WL_CODE: wlType,
+      HRU_ID: e.data.hruID,
+      PER_SEQ_NUM: e.data.perdetSeqNumber,
+      Inc_Exc: e.data.IncExc,
+      Bid_Season: selectedSeasons,
+      BSCE_Update_Id: 0,
+      BSCE_Update_date: todaysDate(),
+      BSCE_ID: 0 || null,
+    };
+
+    dispatch(setCDOIncludeExclude(query));
   };
 
   const setClassifications = (e) => {
