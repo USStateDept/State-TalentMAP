@@ -113,7 +113,7 @@ class BidControls extends Component {
       panelClient: (q === 'panel_clients' && this.state.hasSeasons),
     });
     this.props.setEditClassifications(q === 'classification');
-    this.props.setWLType(q);
+    this.props.setWLType(q || '');
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
     } else {
