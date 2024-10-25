@@ -87,13 +87,14 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   }, [results]);
 
   const IncExc = (e) => {
+    console.log('e', e);
     const hruId = userProfile?.user_info?.hru_id;
     // will update this later but this will update the include/exclude status of the person
     const query = {
       WL_CODE: wlType,
       HRU_ID: hruId,
-      PER_SEQ_NUM: e.data.perdetSeqNumber,
-      Inc_Exc: e.data.IncExc,
+      PER_SEQ_NUM: e?.data?.perdetSeqNumber,
+      Inc_Exc: true,
       Bid_Season: selectedSeasons,
       BSCE_Update_Id: 0,
       BSCE_Update_date: todaysDate(),
