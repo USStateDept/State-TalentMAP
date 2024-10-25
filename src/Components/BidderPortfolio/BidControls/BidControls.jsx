@@ -119,6 +119,7 @@ class BidControls extends Component {
     } else {
       this.props.queryParamUpdate({ hasHandshake: q });
     }
+    console.log('workListType', this.props.workListType);
   };
 
   onUnassignedChange = q => {
@@ -357,11 +358,11 @@ BidControls.propTypes = {
   setPanelDateID: PropTypes.func.isRequired,
   getClientDatePerdets: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
-  workListType: PropTypes.string,
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
   panelClientFetchData: PropTypes.arrayOf(PropTypes.shape({})),
+  workListType: PropTypes.string,
   updatePagination: PropTypes.func,
 };
 
