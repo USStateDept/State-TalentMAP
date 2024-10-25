@@ -17,6 +17,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const selectedSeasons = useSelector(state => state.bidderPortfolioSelectedSeasons);
+  const userProfile = useSelector(state => state.userProfile);
+  console.log('userProfile', userProfile);
   const wlType = useSelector(state => state.workListType);
   const isIncExcEnabled = selectedSeasons.length === 0;
   const todaysDate = () => {
@@ -85,10 +87,11 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   }, [results]);
 
   const IncExc = (e) => {
+    const hruId = userProfile?.user_info?.hru_id;
     // will update this later but this will update the include/exclude status of the person
     const query = {
       WL_CODE: wlType,
-      HRU_ID: e.data.hruID,
+      HRU_ID: hruId,
       PER_SEQ_NUM: e.data.perdetSeqNumber,
       Inc_Exc: e.data.IncExc,
       Bid_Season: selectedSeasons,
@@ -96,7 +99,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       BSCE_Update_date: todaysDate(),
       BSCE_ID: 0 || null,
     };
-
+    console.log('query', query);
     dispatch(setCDOIncludeExclude(query));
   };
 

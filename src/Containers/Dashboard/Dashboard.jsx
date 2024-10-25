@@ -34,7 +34,7 @@ class DashboardContainer extends Component {
       userClassificationsIsLoading, userClassifications } = this.props;
     const allFavorites = (favoritePositions.favorites || [])
       .concat(favoritePositions.favoritesPV || []);
-
+    console.log('User Profile:', userProfile);
     return (
       <ProfileDashboard
         userProfile={userProfile}
