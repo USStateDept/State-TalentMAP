@@ -123,6 +123,7 @@ class BidControls extends Component {
     } else {
       this.props.queryParamUpdate({ hasHandshake: q });
     }
+    console.log('workListType', this.props.workListType);
   };
 
   onUnassignedChange = q => {
@@ -363,6 +364,7 @@ BidControls.propTypes = {
   setPanelDateID: PropTypes.func.isRequired,
   getClientDatePerdets: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
+  workListType: PropTypes.string,
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
@@ -373,6 +375,7 @@ BidControls.propTypes = {
 BidControls.defaultProps = {
   selection: [],
   unassignedSelection: [],
+  workListType: '',
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
   updatePagination: EMPTY_FUNCTION,
   panelClientFetchData: [],
@@ -382,6 +385,7 @@ const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
   unassignedSelection: state.bidderPortfolioSelectedUnassigned,
   panelClientFetchData: state.panelClientFetchData,
+  workListType: state.workListType,
 });
 
 export const mapDispatchToProps = dispatch => ({
