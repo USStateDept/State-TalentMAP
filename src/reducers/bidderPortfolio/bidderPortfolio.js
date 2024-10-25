@@ -60,24 +60,6 @@ export function setEditClassification(state = false, action) {
   }
 }
 
-export function setIsCusp(state = false, action) {
-  switch (action.type) {
-    case 'BIDDER_PORTFOLIO_IS_CUSP':
-      return action.isCusp;
-    default:
-      return state;
-  }
-}
-
-export function setIsEligible(state = false, action) {
-  switch (action.type) {
-    case 'BIDDER_PORTFOLIO_IS_ELIGIBLE':
-      return action.isEligible;
-    default:
-      return state;
-  }
-}
-
 export function bidderPortfolioSeasons(state = [], action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_SEASONS_SUCCESS':

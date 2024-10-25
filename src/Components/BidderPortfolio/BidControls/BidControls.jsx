@@ -16,8 +16,6 @@ import { bidderPortfolioExtraDetailsFetchData,
   getClientDatePerdets,
   setEditClassification,
   setIsCDOD30,
-  setIsCusp,
-  setIsEligible,
   setPanelDateID,
   workListTypeSuccess,
 } from 'actions/bidderPortfolio';
@@ -116,14 +114,11 @@ class BidControls extends Component {
     });
     this.props.setEditClassifications(q === 'classification');
     this.props.setWLType(q);
-    this.props.isCusp(q === 'cusp_bidders');
-    this.props.isEligible(q === 'eligible_bidders');
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
     } else {
       this.props.queryParamUpdate({ hasHandshake: q });
     }
-    console.log('workListType', this.props.workListType);
   };
 
   onUnassignedChange = q => {
@@ -359,8 +354,6 @@ BidControls.propTypes = {
   setCDOD30: PropTypes.func.isRequired,
   setEditClassifications: PropTypes.func.isRequired,
   setWLType: PropTypes.func.isRequired,
-  isCusp: PropTypes.func.isRequired,
-  isEligible: PropTypes.func.isRequired,
   setPanelDateID: PropTypes.func.isRequired,
   getClientDatePerdets: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
@@ -393,8 +386,6 @@ export const mapDispatchToProps = dispatch => ({
   setCDOD30: (bool) => dispatch(setIsCDOD30(bool)),
   bidderPortfolioFetchDataSuccess: (results) => dispatch(bidderPortfolioFetchDataSuccess(results)),
   setEditClassifications: (bool) => dispatch(setEditClassification(bool)),
-  isCusp: (bool) => dispatch(setIsCusp(bool)),
-  isEligible: (bool) => dispatch(setIsEligible(bool)),
   setPanelDateID: (id) => dispatch(setPanelDateID(id)),
   setWLType: (wlCode) => dispatch(workListTypeSuccess(wlCode)),
   getClientDatePerdets: async query => {

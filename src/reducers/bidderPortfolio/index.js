@@ -7,7 +7,7 @@ import { bidderPortfolio, bidderPortfolioCDOs, bidderPortfolioCDOsHasErrored,
   bidderPortfolioSelectedCDO, bidderPortfolioSelectedCDOsToSearchBy, bidderPortfolioSelectedSeasons,
   bidderPortfolioSelectedUnassigned, bidderPortfolioSelections, includeExcludeCDO, includeExcludeCDOHasErrored, includeExcludeCDOIsLoading, isCDOD30, lastBidderPortfolio,
   lastBidderPortfolioHasErrored, lastBidderPortfolioIsLoading, panelClientFetchData, panelClientFetchDataHasErrored,
-  panelClientFetchDataLoading, panelDateID, setEditClassification, setIsCusp, setIsEligible, workListType } from './bidderPortfolio';
+  panelClientFetchDataLoading, panelDateID, setEditClassification, workListType } from './bidderPortfolio';
 
 export default { bidderPortfolioSelectedSeasons,
   bidderPortfolioSeasons,
@@ -39,8 +39,6 @@ export default { bidderPortfolioSelectedSeasons,
   bidderPortfolioPagination,
   isCDOD30,
   setEditClassification,
-  setIsCusp,
-  setIsEligible,
   panelClientFetchDataLoading,
   panelClientFetchDataHasErrored,
   panelClientFetchData,
