@@ -36,7 +36,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     R: obj?.classifications.includes(205) ? 'R' : '',
     PR: obj?.classifications.includes(211) ? 'PR' : '',
     T: obj?.classifications.includes(185) ? 'T' : '',
-    LocationOrg: `${obj?.pos_location} / ${obj?.current_assignment.position.organization}`,
+    LocationOrg: `${obj?.pos_location} / ${obj?.current_assignment?.position?.organization || 'None listed'}`,
     Code: obj?.role_code,
     Position: obj?.position,
     ETA: formatDate(obj?.current_assignment.asgd_eta_date),
