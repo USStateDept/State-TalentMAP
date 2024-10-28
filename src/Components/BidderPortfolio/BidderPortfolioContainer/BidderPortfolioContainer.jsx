@@ -38,7 +38,7 @@ class BidderPortfolioContainer extends Component {
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(item1?.perdet_seq_number));
         return matchingItem ? { ...item1, ...matchingItem } : null;
       }).filter(item => item !== null);
-
+      console.log(combinedArray);
       return combinedArray;
     };
 

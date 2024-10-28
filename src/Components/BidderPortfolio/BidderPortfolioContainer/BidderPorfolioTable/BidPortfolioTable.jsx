@@ -18,7 +18,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
   const selectedSeasons = useSelector(state => state.bidderPortfolioSelectedSeasons);
   const userProfile = useSelector(state => state.userProfile);
-  console.log('userProfile', userProfile);
   const wlType = useSelector(state => state.workListType);
   const isIncExcEnabled = selectedSeasons.length === 0;
   const todaysDate = () => {
