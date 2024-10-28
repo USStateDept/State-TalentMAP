@@ -72,7 +72,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     perdetSeqNumber: obj?.perdet_seq_number,
     hruID: obj?.hru_id,
     SendDOSEmail: true,
-    IncExc: false,
+    IncExcDisabled: false,
+    IncExcChecked: false,
     SendAltEmail: true,
   });
 
@@ -129,7 +130,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     // will complete this later, but this will add the person to the CC recipient list
   };
 
-  const IncExcCheckboxComponent = () => <CheckBox onCheckBoxClick={IncExc} disabled={isIncExcEnabled} />;
+  const IncExcCheckboxComponent = (e) => <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isIncExcEnabled} />;
   const TandemCheckboxComponent = (e) => <CheckBox value={e?.data?.classifications.includes(e.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={e?.data?.T === ''} />;
   const DOSEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={DOSEmail} disabled={e?.data?.DOSEmail === undefined} />;
   const AltEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={AltEmail} disabled={e?.data?.AltEmail === undefined} />;
@@ -139,7 +140,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     <CheckBox value={e?.data?.classifications.includes(e.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={false} /> : <span>{e?.data?.classifications.includes(e.customParam2) ? e.customParam1 : ''}</span>;
 
   const [columnDefs] = useState([
-    { field: 'IncExc', pinned: 'left', lockPosition: 'left', headerName: 'Inc/Exc', cellDataType: 'boolean', cellRenderer: IncExcCheckboxComponent },
+    { field: 'IncExcChecked', pinned: 'left', lockPosition: 'left', headerName: 'Inc/Exc', cellDataType: 'boolean', cellRenderer: IncExcCheckboxComponent },
     { field: 'Employee', pinned: 'left', lockPosition: 'left', headerName: 'Employee', headerToolTip: 'Employee Name' },
     { field: 'Skill', headerName: 'Skill', headerToolTip: 'Skill Code' },
     { field: 'PPGrade', headerName: 'PP/Grade', headerToolTip: 'Pay Plan/Grade' },
