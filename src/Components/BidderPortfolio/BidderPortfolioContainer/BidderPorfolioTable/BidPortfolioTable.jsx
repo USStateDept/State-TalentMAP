@@ -71,6 +71,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     SCD: formatDate(obj?.EMP_SERVICE_DT),
     classifications: obj?.classifications,
     perdetSeqNumber: obj?.perdet_seq_number,
+    workLists: obj?.workLists,
     hruID: obj?.hru_id,
     SendDOSEmail: false,
     IncExc: false,
