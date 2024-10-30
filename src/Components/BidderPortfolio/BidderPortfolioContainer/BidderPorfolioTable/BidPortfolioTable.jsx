@@ -71,10 +71,10 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     classifications: obj?.classifications,
     perdetSeqNumber: obj?.perdet_seq_number,
     hruID: obj?.hru_id,
-    SendDOSEmail: true,
-    IncExcDisabled: false,
-    IncExcChecked: false,
-    SendAltEmail: true,
+    IncExcDisabledandChecked: obj?.workLists,
+    SendDOSEmail: false,
+    IncExc: false,
+    SendAltEmail: false,
   });
 
   const [rows, setRows] = useState([]);
@@ -86,21 +86,40 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     }
   }, [results]);
 
+  function convertBidderTypeQuery(type) {
+    const typeMapping = {
+      noBids: 'NB',
+      noPanel: 'NP',
+      handshake: 'HS',
+      eligible_bidders: 'EB',
+      cusp_bidders: 'CU',
+      languages: 'LA',
+      separations: 'SB',
+      classification: 'BC',
+      panel_clients: 'PC',
+    };
+
+    return typeMapping[type] || null;
+  }
+
   const IncExc = (e) => {
-    console.log('e', e);
+    const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
-    // will update this later but this will update the include/exclude status of the person
+    const currentWorkListData = e?.data?.IncExcDisabledandChecked.find(item => item.bswwlcode === workListCode) || null;
+
+    console.log('currentWorkListData', currentWorkListData);
     const query = {
-      WL_CODE: wlType,
+      WL_CODE: workListCode,
       HRU_ID: hruId,
       PER_SEQ_NUM: e?.data?.perdetSeqNumber,
       Inc_Exc: true,
       Bid_Season: selectedSeasons,
       BSCE_Update_Id: 0,
       BSCE_Update_date: todaysDate(),
-      BSCE_ID: 0 || null,
+      BSCE_ID: currentWorkListData?.bsceid || null,
     };
     console.log('query', query);
+    console.log('e', e);
     dispatch(setCDOIncludeExclude(query));
   };
 
@@ -140,7 +159,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     <CheckBox value={e?.data?.classifications.includes(e.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={false} /> : <span>{e?.data?.classifications.includes(e.customParam2) ? e.customParam1 : ''}</span>;
 
   const [columnDefs] = useState([
-    { field: 'IncExcChecked', pinned: 'left', lockPosition: 'left', headerName: 'Inc/Exc', cellDataType: 'boolean', cellRenderer: IncExcCheckboxComponent },
+    { field: 'Inc/Exc', pinned: 'left', lockPosition: 'left', headerName: 'Inc/Exc', cellDataType: 'boolean', cellRenderer: IncExcCheckboxComponent },
     { field: 'Employee', pinned: 'left', lockPosition: 'left', headerName: 'Employee', headerToolTip: 'Employee Name' },
     { field: 'Skill', headerName: 'Skill', headerToolTip: 'Skill Code' },
     { field: 'PPGrade', headerName: 'PP/Grade', headerToolTip: 'Pay Plan/Grade' },
