@@ -99,7 +99,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       panel_clients: 'PC',
     };
 
-    return typeMapping[type] || null;
+    return typeMapping[type] || '';
   }
 
   const IncExc = (e) => {
