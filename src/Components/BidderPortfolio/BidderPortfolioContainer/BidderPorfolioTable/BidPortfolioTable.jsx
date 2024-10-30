@@ -151,7 +151,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
   const IncExcCheckboxComponent = (e) => {
     const workListCode = convertBidderTypeQuery(wlType);
-    const currentWorkListData = e?.data?.IncExcDisabledandChecked.find(item => item.bswwlcode === workListCode) || null;
+    const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
     return (
       <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isSeasonSelected || currentWorkListData.disabled !== 'N'} />
     );
