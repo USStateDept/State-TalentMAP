@@ -411,7 +411,8 @@ const PanelMeetingAgendas = (props) => {
                     onSelectOption={e => setLimit(e.target.value)}
                     disabled={agendasIsLoading}
                   />
-                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }                </div>
+                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }
+                </div>
               </div>
               {
                 agendasIsLoading ? <Spinner type="bureau-results" size="medium" /> :
