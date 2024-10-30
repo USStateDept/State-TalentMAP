@@ -105,7 +105,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   const IncExc = (e) => {
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
-    const currentWorkListData = e?.data?.IncExcDisabledandChecked.find(item => item.bswwlcode === workListCode) || null;
+    const currentWorkListData = e?.data?.IncExcDisabledandChecked.find(item => item?.bswwlcode === workListCode) || null;
 
     console.log('currentWorkListData', currentWorkListData);
     const query = {
@@ -153,10 +153,10 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     const workListCode = convertBidderTypeQuery(wlType);
     const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
     return (
-      <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isSeasonSelected || currentWorkListData.disabled !== 'N'} />
+      <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isSeasonSelected || currentWorkListData?.disabled !== 'N'} />
     );
   };
-  const TandemCheckboxComponent = (e) => <CheckBox value={e?.data?.classifications.includes(e.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={e?.data?.T === ''} />;
+  const TandemCheckboxComponent = (e) => <CheckBox value={e?.data?.classifications.includes(e?.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={e?.data?.T === ''} />;
   const DOSEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={DOSEmail} disabled={e?.data?.DOSEmail === undefined} />;
   const AltEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={AltEmail} disabled={e?.data?.AltEmail === undefined} />;
   const PRClassificationCheckboxComponent = (e) => setEditClassification ?
