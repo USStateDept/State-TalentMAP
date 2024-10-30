@@ -112,8 +112,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     console.log('currentWorkListData', currentWorkListData);
     const query = {
       WL_CODE: wlType,
-      HRU_ID: e?.data?.hru_id,
-      PER_SEQ_NUM: e?.data?.perdet_seq_number,
+      HRU_ID: e?.data?.hruID,
+      PER_SEQ_NUM: e?.data?.perdetSeqNumber,
       Inc_Exc: true,
       Bid_Season: selectedSeasons,
       BSCE_Update_Id: hruId,
