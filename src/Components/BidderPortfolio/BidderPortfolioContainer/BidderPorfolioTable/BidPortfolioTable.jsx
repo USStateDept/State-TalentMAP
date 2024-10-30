@@ -54,7 +54,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     SkillCode2: obj?.skills[1]?.code || 'None listed',
     SkillCode3: obj?.skills[2]?.code || 'None listed',
     DOSEmail: obj?.cdos[0]?.cdo_email,
-    AltEmail: obj?.cdos[0]?.cdo_alt_email,
+    AltEmail: obj?.alt_email,
     FSEOD: formatDate(obj?.EMP_FS_EOD_DT),
     LastPromotion: formatDate(obj?.EMP_LAST_PROMOTION_DT),
     SeparationDate: formatDate(obj?.SEP_PEND_DATE),
@@ -71,7 +71,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     classifications: obj?.classifications,
     perdetSeqNumber: obj?.perdet_seq_number,
     hruID: obj?.hru_id,
-    IncExcDisabledandChecked: obj?.workLists,
     SendDOSEmail: false,
     IncExc: false,
     SendAltEmail: false,
@@ -106,13 +105,13 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     console.log('e', e);
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
-    const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
+    const currentWorkListData = e?.data?.workLists?.find(item => item?.bswwlcode === workListCode) || null;
 
     console.log('currentWorkListData', currentWorkListData);
     const query = {
       WL_CODE: wlType,
-      HRU_ID: e?.data?.hruID,
-      PER_SEQ_NUM: e?.data?.perdetSeqNumber,
+      HRU_ID: e?.data?.hru_id,
+      PER_SEQ_NUM: e?.data?.perdet_seq_number,
       Inc_Exc: true,
       Bid_Season: selectedSeasons,
       BSCE_Update_Id: hruId,
