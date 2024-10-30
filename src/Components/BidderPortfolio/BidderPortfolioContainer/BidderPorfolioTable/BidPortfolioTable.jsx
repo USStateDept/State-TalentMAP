@@ -149,10 +149,14 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     // will complete this later, but this will add the person to the CC recipient list
   };
 
-  const IncExcCheckboxComponent = (e) =>
-    // const workListCode = convertBidderTypeQuery(wlType);
-    // const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
-    <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isSeasonSelected} />;
+  const IncExcCheckboxComponent = (e) => {
+    const workListCode = convertBidderTypeQuery(wlType);
+    const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
+    console.log('currentWorkListData', currentWorkListData);
+    return (
+      <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isSeasonSelected} />
+    );
+  };
 
   const TandemCheckboxComponent = (e) => <CheckBox value={e?.data?.classifications.includes(e?.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={e?.data?.T === ''} />;
   const DOSEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={DOSEmail} disabled={e?.data?.DOSEmail === undefined} />;
