@@ -18,6 +18,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
   const selectedSeasons = useSelector(state => state.bidderPortfolioSelectedSeasons);
   const userProfile = useSelector(state => state.userProfile);
+  console.log('userProfile', userProfile);
   const wlType = useSelector(state => state.workListType);
   const isSeasonSelected = selectedSeasons.length === 0;
   const todaysDate = () => {
@@ -123,21 +124,21 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const setClassifications = (e) => {
-    const pushClass = [...e.data.classifications];
-    if (!pushClass.includes(e.customParam2)) {
-      pushClass.push(e.customParam2);
+    const pushClass = [...e?.data?.classifications];
+    if (!pushClass.includes(e?.customParam2)) {
+      pushClass.push(e?.customParam2);
     } else {
-      const index = pushClass.indexOf(e.customParam2);
+      const index = pushClass.indexOf(e?.customParam2);
       if (index > -1) {
         pushClass.splice(index, 1);
       }
     }
 
     const updateDiff = {
-      insert: difference(pushClass, e.data.classifications),
-      delete: difference(e.data.classifications, pushClass),
+      insert: difference(pushClass, e?.data?.classifications),
+      delete: difference(e?.data?.classifications, pushClass),
     };
-    dispatch(updateClassifications(updateDiff, e.data.perdetSeqNumber));
+    dispatch(updateClassifications(updateDiff, e?.data?.perdetSeqNumber));
   };
 
   const DOSEmail = () => {
@@ -161,9 +162,9 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   const DOSEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={DOSEmail} disabled={e?.data?.DOSEmail === undefined} />;
   const AltEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={AltEmail} disabled={e?.data?.AltEmail === undefined} />;
   const PRClassificationCheckboxComponent = (e) => setEditClassification ?
-    <CheckBox value={e?.data?.classifications.includes(e.customParam2)} disabled /> : <span>{e?.data?.classifications.includes(e.customParam2) ? e.customParam1 : ''}</span>;
+    <CheckBox value={e?.data?.classifications.includes(e?.customParam2)} disabled /> : <span>{e?.data?.classifications.includes(e?.customParam2) ? e?.customParam1 : ''}</span>;
   const ClassificationCheckboxComponent = (e) => setEditClassification ?
-    <CheckBox value={e?.data?.classifications.includes(e.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={false} /> : <span>{e?.data?.classifications.includes(e.customParam2) ? e.customParam1 : ''}</span>;
+    <CheckBox value={e?.data?.classifications.includes(e?.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={false} /> : <span>{e?.data?.classifications.includes(e?.customParam2) ? e?.customParam1 : ''}</span>;
 
   const [columnDefs] = useState([
     { field: 'Inc/Exc', pinned: 'left', lockPosition: 'left', headerName: 'Inc/Exc', cellDataType: 'boolean', cellRenderer: IncExcCheckboxComponent },
