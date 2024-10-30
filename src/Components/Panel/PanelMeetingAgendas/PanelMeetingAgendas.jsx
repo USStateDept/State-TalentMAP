@@ -137,7 +137,7 @@ const PanelMeetingAgendas = (props) => {
     page,
   });
 
-  const fetchAndSet = () => {
+  const fetchAndSet = (resetPage = false) => {
     const filters = [
       selectedOrgs,
       selectedCategories,
@@ -153,6 +153,9 @@ const PanelMeetingAgendas = (props) => {
     } else {
       setClearFilters(true);
     }
+    if (resetPage) {
+      setPage(1);
+    }
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
     dispatch(panelMeetingAgendasFetchData(getQuery()));
   };
@@ -163,7 +166,7 @@ const PanelMeetingAgendas = (props) => {
   }, []);
 
   useEffect(() => {
-    fetchAndSet();
+    fetchAndSet(true);
   }, [
     selectedOrgs,
     selectedCategories,
@@ -175,8 +178,11 @@ const PanelMeetingAgendas = (props) => {
     selectedSkills,
     textSearch,
     limit,
-    page,
   ]);
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [page]);
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -263,7 +269,7 @@ const PanelMeetingAgendas = (props) => {
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
-              placeHolder="Search for Agenda using Position, Name, or Official Item #"
+              placeHolder="Search for Agenda using Position Name, Position Title, or Employee Name"
               noButton
             />
             <div className="filterby-container">
@@ -405,7 +411,8 @@ const PanelMeetingAgendas = (props) => {
                     onSelectOption={e => setLimit(e.target.value)}
                     disabled={agendasIsLoading}
                   />
-                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }                </div>
+                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }
+                </div>
               </div>
               {
                 agendasIsLoading ? <Spinner type="bureau-results" size="medium" /> :
