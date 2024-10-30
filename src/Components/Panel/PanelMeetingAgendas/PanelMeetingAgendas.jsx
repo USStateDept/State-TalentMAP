@@ -269,7 +269,7 @@ const PanelMeetingAgendas = (props) => {
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
-              placeHolder="Search for Agenda using Position, Name, or Official Item #"
+              placeHolder="Search for Agenda using Position Name, Position Title, or Employee Name"
               noButton
             />
             <div className="filterby-container">
