@@ -269,7 +269,7 @@ const PanelMeetingAgendas = (props) => {
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
-              placeHolder="Search for Agenda using Position, Name, or Official Item #"
+              placeHolder="Search for Agenda using Position Name, Position Title, or Employee Name"
               noButton
             />
             <div className="filterby-container">
@@ -411,7 +411,8 @@ const PanelMeetingAgendas = (props) => {
                     onSelectOption={e => setLimit(e.target.value)}
                     disabled={agendasIsLoading}
                   />
-                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }                </div>
+                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }
+                </div>
               </div>
               {
                 agendasIsLoading ? <Spinner type="bureau-results" size="medium" /> :
