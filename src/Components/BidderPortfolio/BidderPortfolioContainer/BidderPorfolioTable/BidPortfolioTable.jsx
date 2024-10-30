@@ -103,9 +103,10 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   }
 
   const IncExc = (e) => {
+    console.log('e', e);
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
-    const currentWorkListData = e?.data?.IncExcDisabledandChecked.find(item => item?.bswwlcode === workListCode) || null;
+    const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
 
     console.log('currentWorkListData', currentWorkListData);
     const query = {
@@ -119,7 +120,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       BSCE_ID: currentWorkListData?.bsceid || null,
     };
     console.log('query', query);
-    console.log('e', e);
     dispatch(setCDOIncludeExclude(query));
   };
 
