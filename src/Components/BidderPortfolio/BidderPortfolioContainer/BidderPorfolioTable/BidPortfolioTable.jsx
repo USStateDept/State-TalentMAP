@@ -152,11 +152,11 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const IncExcCheckboxComponent = (e) => {
-    const workListCode = convertBidderTypeQuery(wlType);
-    const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
-    console.log('currentWorkListData', currentWorkListData);
+    const isDisabled = isSeasonSelected || e?.data?.workLists?.some(obj => obj.bsceincludeexcludeind === 'E') || convertBidderTypeQuery(wlType) === 'HS' || convertBidderTypeQuery(wlType) === 'LA' || convertBidderTypeQuery(wlType) === 'BC' || convertBidderTypeQuery(wlType) === 'PC' || convertBidderTypeQuery(wlType) !== 'SB';
+    console.log('isDisabled', isDisabled);
+
     return (
-      <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isSeasonSelected} />
+      <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} />
     );
   };
 
