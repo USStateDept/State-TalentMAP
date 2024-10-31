@@ -103,8 +103,9 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     return typeMapping[type] || '';
   }
 
-  const IncExc = (e) => {
+  const IncExc = ({ event, e }) => {
     console.log('e', e);
+    console.log('event', event);
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
     const currentWorkListData = e?.data?.workLists?.find(item => item?.bswwlcode === workListCode) || null;
@@ -114,7 +115,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       WL_CODE: wlType,
       HRU_ID: e?.data?.hruID,
       PER_SEQ_NUM: e?.data?.perdetSeqNumber,
-      Inc_Exc: true,
+      Inc_Exc: event,
       Bid_Season: selectedSeasons,
       BSCE_Update_Id: hruId,
       BSCE_Update_date: todaysDate(),
@@ -155,7 +156,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     const currentWorkListData = e?.data?.IncExcDisabledandChecked?.find(item => item?.bswwlcode === workListCode) || null;
     console.log('currentWorkListData', currentWorkListData);
     return (
-      <CheckBox onCheckBoxClick={() => IncExc(e)} disabled={isSeasonSelected} />
+      <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isSeasonSelected} />
     );
   };
 
