@@ -18,7 +18,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
   const selectedSeasons = useSelector(state => state.bidderPortfolioSelectedSeasons);
   const userProfile = useSelector(state => state.userProfile);
-  console.log('userProfile', userProfile);
   const wlType = useSelector(state => state.workListType);
   const isSeasonSelected = selectedSeasons.length === 0;
   const todaysDate = () => {
@@ -104,13 +103,10 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   }
 
   const IncExc = ({ event, e }) => {
-    console.log('e', e);
-    console.log('event', event);
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
     const currentWorkListData = e?.data?.workLists?.find(item => item?.bswwlcode === workListCode) || null;
 
-    console.log('currentWorkListData', currentWorkListData);
     const query = {
       WL_CODE: wlType,
       HRU_ID: e?.data?.hruID,
@@ -162,9 +158,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
         isEligibleDisabled;
 
     const isChecked = e?.data?.workLists?.some(obj => obj.bsceid);
-    console.log('isDisabled', isDisabled);
-    console.log('isChecked', isChecked);
-    console.log('isEligibleDisabled', isEligibleDisabled);
     return (
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={isChecked} />
     );
