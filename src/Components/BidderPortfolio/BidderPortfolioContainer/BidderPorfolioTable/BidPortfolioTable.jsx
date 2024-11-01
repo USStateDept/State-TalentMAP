@@ -110,11 +110,11 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     const currentWorkListData = e?.data?.workLists?.find(item => item?.bswwlcode === workListCode) || null;
 
     const query = {
-      WL_CODE: wlType,
+      WL_CODE: wlType === '' ? 'clients' : wlType,
       HRU_ID: e?.data?.hruID,
       PER_SEQ_NUM: e?.data?.perdetSeqNumber,
       Inc_Exc: event,
-      Bid_Season: selectedSeasons,
+      Bid_Season: selectedSeasons[0],
       BSCE_Update_Id: hruId,
       BSCE_Update_date: todaysDate(),
       BSCE_ID: currentWorkListData?.bsceid || null,
