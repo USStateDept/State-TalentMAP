@@ -150,8 +150,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const IncExcCheckboxComponent = (e) => {
-    const isEligibleDisabled = (wlType === 'eligible_bidders' && e?.data?.workLists?.some(obj => obj.ebdisabled === 'Y'));
-    const isDisabled = isSeasonSelected || e?.data?.workLists?.some(obj => obj.bsceincludeexcludeind === 'E') ||
+    const isEligibleDisabled = (wlType === 'eligible_bidders' && e?.data?.workLists?.some(obj => obj?.ebdisabled === 'Y'));
+    const isDisabled = isSeasonSelected || e?.data?.workLists?.some(obj => obj?.bsceincludeexcludeind === 'E') ||
     convertBidderTypeQuery(wlType) === 'HS' ||
      convertBidderTypeQuery(wlType) === 'LA' ||
       convertBidderTypeQuery(wlType) === 'BC' ||
@@ -159,7 +159,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
         convertBidderTypeQuery(wlType) === 'SB' ||
         isEligibleDisabled;
 
-    const isChecked = e?.data?.workLists?.some(obj => obj.bsceid);
+    const isChecked = e?.data?.workLists?.some(obj => obj?.bsceid);
     return (
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={isChecked} />
     );
