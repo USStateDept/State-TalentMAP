@@ -103,6 +103,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   }
 
   const IncExc = ({ event, e }) => {
+    console.log('IncExc', e);
+    console.log('event', event);
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
     const currentWorkListData = e?.data?.workLists?.find(item => item?.bswwlcode === workListCode) || null;
