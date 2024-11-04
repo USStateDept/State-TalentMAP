@@ -159,7 +159,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
         convertBidderTypeQuery(wlType) === 'SB' ||
         isEligibleDisabled;
 
-    const isChecked = e?.data?.workLists?.some(obj => obj?.bsceid !== null);
+    const isChecked = e?.data?.workLists?.some(obj => obj?.bsceid !== null) || false;
     console.log('isChecked', isChecked);
     console.log('isDisabled', isDisabled);
     console.log('isEligibleDisabled', isEligibleDisabled);
