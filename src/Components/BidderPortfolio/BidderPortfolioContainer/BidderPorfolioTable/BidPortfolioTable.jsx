@@ -150,6 +150,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const IncExcCheckboxComponent = (e) => {
+    console.log('e', e);
     const isEligibleDisabled = (convertBidderTypeQuery(wlType) === 'EB' && e?.data?.workLists?.some(obj => obj?.ebdisabled === 'Y'));
     const isDisabled = isSeasonSelected || e?.data?.workLists?.some(obj => obj?.bsceincludeexcludeind === 'E') ||
     convertBidderTypeQuery(wlType) === 'HS' ||
