@@ -33,8 +33,8 @@ class BidderPortfolioContainer extends Component {
     const showEdit$ = !hideControls && showCDOD30;
     const showExpand = !hideControls;
 
-    const getExtraClientData = () => {
-      const combinedArray = bidderPortfolio?.results?.map(item1 => {
+    const getExtraClientData = async () => {
+      const combinedArray = await bidderPortfolio?.results?.map(item1 => {
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(item1?.perdet_seq_number));
         return matchingItem ? { ...item1, ...matchingItem } : null;
       }).filter(item => item !== null);
