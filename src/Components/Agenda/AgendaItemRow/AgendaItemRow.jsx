@@ -21,7 +21,6 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
-
   const userName = agenda?.full_name ?? '';
   const userSkill = agenda?.skills?.join(', ') || 'None Listed';
   const userLanguages = agenda?.languages?.length ? agenda.languages.map(
@@ -55,7 +54,7 @@ const AgendaItemRow = props => {
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
             <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
-              {isPanelMeetingView && agenda?.pmi_official_item_num}
+              {isPanelMeetingView && agenda.pmi_official_item_num ? agenda.pmi_official_item_num : '-'}
             </div>
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
@@ -114,12 +113,13 @@ const AgendaItemRow = props => {
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
-              {
-                remarks.map(remark => (
-                  <RemarksPill key={remark.text} remark={remark} />
-                ))
-              }
-              {agenda?.ahtCode &&
+              <div className="remarks-pill-container">
+                {
+                  remarks.map(remark => (
+                    <RemarksPill key={`${perdet$}-${remark.air_remark_text}`} remark={remark} />
+                  ))
+                }
+                {agenda?.ahtCode &&
                 <RemarksPill
                   key="hold-remark"
                   remark={{
@@ -130,7 +130,8 @@ const AgendaItemRow = props => {
                     `,
                   }}
                 />
-              }
+                }
+              </div>
             </div>
             <div className="ai-updater-creator">
               <div className="wrapper">
@@ -153,6 +154,7 @@ const AgendaItemRow = props => {
   );
 };
 
+// @TODO: Double check all propTypes compared to Dev1
 AgendaItemRow.propTypes = {
   isCreate: PropTypes.bool,
   agenda: PropTypes.shape({
@@ -166,6 +168,7 @@ AgendaItemRow.propTypes = {
     ahtDescText: PropTypes.string,
     aihHoldNum: PropTypes.number,
     aihHoldComment: PropTypes.string,
+    // @TODO: Possibly need to fix this
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
@@ -174,6 +177,7 @@ AgendaItemRow.propTypes = {
         short_desc_text: PropTypes.string,
         text: PropTypes.string,
         active_ind: PropTypes.string,
+        air_remark_text: PropTypes.string,
         type: null,
       }),
     ),
@@ -193,7 +197,7 @@ AgendaItemRow.propTypes = {
         grade: PropTypes.string,
         action: PropTypes.string,
         travel: PropTypes.string,
-        languages: POS_LANGUAGES,
+        languages: PropTypes.oneOfType([POS_LANGUAGES, PropTypes.string]),
         pay_plan: PropTypes.string,
       }),
     ),
@@ -209,20 +213,16 @@ AgendaItemRow.propTypes = {
         custom_description: PropTypes.string,
       }),
     ),
-    cdo: PropTypes.arrayOf(
-      PropTypes.shape({
-        first_name: PropTypes.string,
-        last_name: PropTypes.string,
-      }),
-    ),
+    cdo: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+    }),
     pay_plan_code: PropTypes.string,
     grade: PropTypes.string,
     combined_pp_grade: PropTypes.string,
-    org: PropTypes.arrayOf(
-      PropTypes.shape({
-        org_descr: PropTypes.string,
-      }),
-    ),
+    org: PropTypes.shape({
+      org_descr: PropTypes.string,
+    }),
     full_name: PropTypes.string,
     update_date: PropTypes.string,
     modifier_name: PropTypes.number,
@@ -247,7 +247,7 @@ AgendaItemRow.propTypes = {
     }),
   }),
   isCDO: PropTypes.bool,
-  perdet: PropTypes.string,
+  perdet: PropTypes.number,
   isPanelMeetingView: PropTypes.bool,
 };
 

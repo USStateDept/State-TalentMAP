@@ -1,5 +1,5 @@
 import { batch } from 'react-redux';
-import { get } from 'lodash';
+import { get, sortBy } from 'lodash';
 import { CancelToken } from 'axios';
 import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
 import Q from 'q';
@@ -103,6 +103,7 @@ export function panelMeetingsFiltersFetchData() {
       // '/fsbid/panel/reference/dates/',
       '/fsbid/panel/reference/statuses/',
       '/fsbid/panel/reference/types/',
+      'fsbid/agenda/remarks/',
     ];
     const queryProms = EPs.map(url =>
       api().get(url)
@@ -115,6 +116,7 @@ export function panelMeetingsFiltersFetchData() {
           panelDates: [], */
           panelStatuses: [],
           panelTypes: [],
+          panelRemarks: [],
         };
 
         let errCount = 0;
@@ -129,6 +131,9 @@ export function panelMeetingsFiltersFetchData() {
             refFilters[refFiltersKeys[i]] = get(p, 'value.data.results') || [];
           }
         });
+
+        // sort remarks by short_desc_text
+        refFilters.panelRemarks = sortBy(refFilters.panelRemarks, [(r) => r.short_desc_text]);
 
         // if more than half of the calls fail, then fail filters
         if (errCount > Math.floor(EPs.length / 2)) {

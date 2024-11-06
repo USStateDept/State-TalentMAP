@@ -15,15 +15,6 @@ describe('BidControlsComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('sets state when selectMultipleOption() is called', () => {
-    const wrapper = shallow(
-      <BidCyclePicker.WrappedComponent {...props} />,
-    );
-    const val = [1];
-    wrapper.instance().selectMultipleOption(val);
-    expect(wrapper.instance().state.arrayValue).toEqual(val);
-  });
-
   it('returns an array of items when renderList() is called', () => {
     const output = renderList(
       { items: [

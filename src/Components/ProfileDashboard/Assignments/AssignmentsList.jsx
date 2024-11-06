@@ -11,7 +11,8 @@ import AssignmentsListResultsCard from './AssignmentsListResultsCard';
 
 const useMaintainAssignments = () => checkFlag('flags.maintain_assignment');
 
-const AssignmentList = ({ id, showMaintainAssignmentLink }) => {
+const AssignmentList = (props) => {
+  const { id, showMaintainAssignmentLink, viewType } = props;
   // if ID is passed down will render that user's Assignments
   // no ID will return the logged in user's Assignments
   const showMaintainAssignments = useMaintainAssignments();
@@ -58,7 +59,7 @@ const AssignmentList = ({ id, showMaintainAssignmentLink }) => {
           {
             showMaintainAssignmentLink && showMaintainAssignments &&
               <div className="section-padded-inner-container small-link-container view-more-link-centered">
-                <Link to={`/profile/ao/${id}/assignmentsseparations`}>Maintain Assignments</Link>
+                <Link to={`/profile/${viewType}/${id}/assignmentsseparations`}>Maintain Assignments</Link>
               </div>
           }
         </div>
@@ -69,11 +70,13 @@ const AssignmentList = ({ id, showMaintainAssignmentLink }) => {
 AssignmentList.propTypes = {
   id: PropTypes.string,
   showMaintainAssignmentLink: PropTypes.bool,
+  viewType: PropTypes.string,
 };
 
 AssignmentList.defaultProps = {
   id: null,
   showMaintainAssignmentLink: false,
+  viewType: 'ao',
 };
 
 export default AssignmentList;

@@ -1,13 +1,18 @@
 .remarks-container {
   display: flex;
-  flex-wrap: wrap;
-  margin: 15px;
+  align-items: start;
 
   .remarks-text {
     float: left;
-    font-size: 1.1em;
     margin-right: .7rem;
-    margin-top: 3px;
+    margin-top: .5em;
+  }
+  
+  .remarks-pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .5em;
+    flex: 1 1 auto; // Allow it to grow and take up available space
   }
 
   .remarks-pill {
@@ -18,6 +23,15 @@
     font-size: 12px;
     margin: 0 10px 5px 0;
     padding: 6px;
+  }
+
+  .expand-button {
+    background-color: $blue-primary;
+    color: $color-white;
+    float: right;
+    font-weight: normal;
+    margin: .5em;
+    padding: .2em;
   }
 
   .fa-times {

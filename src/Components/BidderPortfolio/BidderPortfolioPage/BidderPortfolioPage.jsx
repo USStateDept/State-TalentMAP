@@ -48,10 +48,10 @@ class BidderPortfolioPage extends Component {
 
   render() {
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, pageNumber,
+    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading, updatePagination, viewType,
-      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
+      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering, isCDOD30, setEditClassification } = this.props;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
@@ -99,6 +99,7 @@ class BidderPortfolioPage extends Component {
                 getKeyword={this.state.q}
                 resetKeyword={this.resetRefKeyword}
                 updatePagination={updatePagination}
+                userProfile={bidderPortfolio}
               />
             </div>
           }
@@ -122,12 +123,15 @@ class BidderPortfolioPage extends Component {
                 <ErrorBoundary>
                   <BidderPortfolioContainer
                     bidderPortfolio={bidderPortfolio}
+                    bidderPortfolioExtraData={bidderPortfolioExtraData}
                     pageSize={pageSize}
                     queryParamUpdate={queryParamUpdate}
                     pageNumber={pageNumber}
                     showListView={isListView}
                     showEdit={showEdit}
                     classifications={classifications}
+                    isCDOD30={isCDOD30}
+                    setEditClassification={setEditClassification}
                     isLoading={bidderPortfolioIsLoading}
                     cdosLength={cdosLength}
                     hideControls={hideControls}
@@ -146,6 +150,7 @@ class BidderPortfolioPage extends Component {
 
 BidderPortfolioPage.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
+  bidderPortfolioExtraData: BIDDER_LIST.isRequired,
   bidderPortfolioIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioHasErrored: PropTypes.bool.isRequired,
   pageSize: PropTypes.number.isRequired,
@@ -157,6 +162,8 @@ BidderPortfolioPage.propTypes = {
   cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
+  isCDOD30: PropTypes.bool.isRequired,
+  setEditClassification: PropTypes.bool.isRequired,
   updatePagination: PropTypes.func,
   viewType: PropTypes.string,
 };

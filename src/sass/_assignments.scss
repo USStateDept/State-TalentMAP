@@ -43,10 +43,8 @@
           a {
             text-decoration: none;
           }
-        }
 
-        &.disabled {
-          .create-new-button {
+          &.disabled {
             pointer-events: none;
 
             a {

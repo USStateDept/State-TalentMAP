@@ -104,7 +104,7 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: true,
           showAssignmentHistory: true,
-          showMaintainAssignmentLink: false,
+          showMaintainAssignmentLink: true,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,

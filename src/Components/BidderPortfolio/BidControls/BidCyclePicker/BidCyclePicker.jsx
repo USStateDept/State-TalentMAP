@@ -103,8 +103,9 @@ class BidCyclePicker extends Component {
   };
 
   selectMultipleOption(value) {
-    const { updatePagination, pageSize } = this.props;
-    const value$ = every(value, isObject) ? flatMap(value, a => a.description) : value;
+    const { isMultiple, updatePagination, pageSize } = this.props;
+    const currentValue = isMultiple ? value : [value];
+    const value$ = every(currentValue, isObject) ? flatMap(currentValue, a => a.description) : currentValue;
     this.setState({ arrayValue: value$ }, () => this.setSeasons());
     updatePagination({ pageNumber: 1, pageSize });
   }
@@ -120,8 +121,8 @@ class BidCyclePicker extends Component {
           options={seasons}
           onChange={this.selectMultipleOption}
           numberDisplayed={1}
-          multiple
           dropdownHeight={225}
+          multiple={this.props.isMultiple}
           renderList={renderList}
           disabled={isLoading}
           includeSelectAll
@@ -135,6 +136,7 @@ BidCyclePicker.propTypes = {
   seasons: PropTypes.arrayOf(PropTypes.shape({})),
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  isMultiple: PropTypes.bool,
   fetchSeasons: PropTypes.func.isRequired,
   setSeasons: PropTypes.func.isRequired,
   setSeasonsCb: PropTypes.func,
@@ -148,6 +150,7 @@ BidCyclePicker.defaultProps = {
   seasons: [],
   isLoading: false,
   hasErrored: false,
+  isMultiple: false,
   setSeasonsCb: EMPTY_FUNCTION,
   setClick: EMPTY_FUNCTION,
   selectedSeasons: [],

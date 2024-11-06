@@ -47,6 +47,7 @@ describe('BidControlsComponent', () => {
       <BidControls.WrappedComponent
         queryParamUpdate={spy}
         biddersNumerator={5}
+        setEditClassifications={() => {}}
         biddersDenominator={10}
         isLoading={false}
         viewType="card"
@@ -65,6 +66,7 @@ describe('BidControlsComponent', () => {
         queryParamUpdate={spy}
         biddersNumerator={5}
         biddersDenominator={10}
+        setEditClassifications={() => {}}
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}

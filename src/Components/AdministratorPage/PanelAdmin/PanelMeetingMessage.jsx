@@ -11,7 +11,7 @@ const PanelMeetingMessage = ({ id, isCreate }) => {
             Go to edit panel
           </Link>
           , or
-          <Link to={`/profile/ao/panelmeetingagendas/${id}/`}>
+          <Link to={`/profile/administrator/panel/${id}`}>
             Go to panel details
           </Link>
           .

@@ -1,6 +1,5 @@
 .notification-card {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   padding: 0px;
 
   .notification-card__header {
@@ -13,9 +12,36 @@
       font-size: 18px;
       padding-bottom: 10px;
     }
+
+    .notification-card__header-subtitle:last-of-type {
+      margin-bottom: -15px;
+    }
+  }
+
+  .notification-card__header-subtitle {
+    font-weight: 600;
+    padding: 15px 0 5px;
+  }
+
+  .notification-card__rebuild {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    padding: 30px 0px;
+
+    button {
+      padding: 0;
+      margin: 0 5px;
+      font-weight: 500;
+    }
   }
 
   .notification-card__sub-section {
+    display: flex;
+    flex-direction: column;
+
     .sub-header {
       font-weight: 500;
       font-size: 20px;
@@ -77,6 +103,7 @@
   .memo-input-container {
     position: relative;
     margin-top: -30px;
+
     .position-content--description {
       margin-top: 20px;
     }
@@ -100,5 +127,89 @@
 
   label {
     margin: 0px;
+  }
+}
+
+.routing-sub-section {
+  margin: 10px 0px 10px 0px;
+  padding: 20px 10px 10px 10px;
+  background-color: $bg-gray-dark-4;
+  position: relative;
+
+  label {
+    margin-top: 0px;
+  }
+
+  .routing-delete-button {
+    color: $secondary-dark;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+.gal-lookup {
+  .gal-lookup__input {
+    >div {
+      display: flex;
+      flex-direction: row;
+    }
+
+    button {
+      margin-left: 10px;
+    }
+  }
+
+  .gal-label {
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .recipients {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0px 25px;
+
+    .recipients-list {
+      width: 50%;
+
+      &:first-of-type {
+        margin-right: 15px;
+      }
+
+      &:last-of-type {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .gal-result {
+    margin-top: 10px;
+    border: 0.1rem solid #5b616b;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .gal-result__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 11.9px;
+    font-size: 17px;
+    border-bottom: 0.1rem solid #5b616b;
+
+    &:last-of-type {
+      border: none;
+    }
+
+    &.clickable:hover {
+      background-color: $color-gray-lightest;
+      cursor: pointer;
+    }
+
+    .delete-button {
+      color: $secondary-dark;
+    }
   }
 }

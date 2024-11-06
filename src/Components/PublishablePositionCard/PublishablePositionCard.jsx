@@ -70,12 +70,11 @@ const PublishablePositionCard = ({
     textarea: data?.positionDetails || 'No description.',
     metadata: [
       { 'Capsule Last Updated': data?.positionDetailsLastUpdated },
-      { 'Position Last Updated': data?.positionLastUpdated },
     ],
     /* eslint-enable quote-props */
   };
   if (DETO_RWA_FLAG()) {
-    sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.deto_rwa ? 'Eligible' : 'Not Eligible' });
+    sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.availTeleworkPos ? 'Eligible' : 'Not Eligible' });
   }
 
   // =============== Overview: Edit Mode ===============
@@ -107,6 +106,7 @@ const PublishablePositionCard = ({
 
   const onSubmitForm = () => {
     const exclInd = exclude ? 'Y' : 'N';
+    const currTimestamp = new Date().toISOString();
     const editData = {
       aptSeqNum: data?.aptSeqNum,
       posSeqNum: data?.posSeqNum,
@@ -120,7 +120,9 @@ const PublishablePositionCard = ({
       lastUpdated: data?.ORIGpositionLastUpdated?.replace(/T/g, ' '),
 
       positionDetails: textArea,
-      positionDetailsLastUpdated: data?.ORIGpositionDetailsLastUpdated?.replace(/T/g, ' '),
+      positionDetailsLastUpdated: textArea === data?.positionDetails ?
+        data?.ORIGpositionDetailsLastUpdated?.replace(/T/g, ' ') :
+        currTimestamp.replace(/T/g, ' ').substring(0, currTimestamp.length - 5),
     };
     onSubmit(editData);
   };

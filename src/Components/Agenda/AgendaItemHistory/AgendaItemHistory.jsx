@@ -171,7 +171,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemCard
                         isCreate
                         isCDO={isCDO}
-                        perdet={perdet}
+                        perdet={Number(perdet)}
                       />
                   }
                   {
@@ -194,7 +194,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemRow
                         isCreate
                         isCDO={isCDO}
-                        perdet={perdet}
+                        perdet={Number(perdet)}
                       />
                   }
                   {

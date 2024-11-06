@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
+import { Tooltip } from 'react-tippy';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
@@ -89,11 +90,27 @@ const BidAuditCard = ({ data, onEditModeSearch }) => {
     });
   };
 
+  const onShowAuditData = () => {
+    history.push(`/profile/administrator/bidaudit/data/${cycle_id}/${audit_id}/`);
+  };
+
   const showRunBidAudit = () => (
     <div className="ba-run-audit">
-      <a role="button" tabIndex={0} onClick={onRunBidAudit}>
-        Run Audit
-      </a>
+      <Tooltip title="Run Bid Audit">
+        <a role="button" tabIndex={0} onClick={onRunBidAudit}>
+          Run Audit
+        </a>
+      </Tooltip>
+    </div>
+  );
+
+  const showAuditData = () => (
+    <div className="ba-run-audit">
+      <Tooltip title="View Audit Data">
+        <a role="button" tabIndex={0} onClick={onShowAuditData}>
+          {audit_date}
+        </a>
+      </Tooltip>
     </div>
   );
 
@@ -109,7 +126,7 @@ const BidAuditCard = ({ data, onEditModeSearch }) => {
       { 'Audit Number': audit_id || NO_VALUE },
       { 'Description': audit_desc || NO_VALUE },
       { 'Positions Posted By': posted_by_date || NO_VALUE },
-      { 'Audit Date': audit_date || showRunBidAudit() },
+      { 'Audit Date': audit_date ? showAuditData() : showRunBidAudit() },
     ],
     /* eslint-enable quote-props */
     /* eslint-enable no-dupe-keys */

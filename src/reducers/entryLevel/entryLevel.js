@@ -1,3 +1,4 @@
+// ======= Entry Level: Edit Position =======
 export function entryLevelEditErrored(state = false, action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_EDIT_HAS_ERRORED':
@@ -17,12 +18,13 @@ export function entryLevelEditLoading(state = false, action) {
 export function entryLevelEdit(state = {}, action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_EDIT_SUCCESS':
-      return action.results;
+      return action.success;
     default:
       return state;
   }
 }
 
+// ======= Entry Level: Get Positions =======
 export function entryLevelFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_FETCH_HAS_ERRORED':
@@ -39,15 +41,23 @@ export function entryLevelFetchDataLoading(state = false, action) {
       return state;
   }
 }
-export function entryLevelPositions(state = [], action) {
+const initialState = {
+  count: 0,
+  results: [],
+};
+export function entryLevelPositions(state = initialState, action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_FETCH_SUCCESS':
-      return action.results;
+      return {
+        count: action.data.count,
+        results: action.data.results,
+      };
     default:
       return state;
   }
 }
 
+// ======= Entry Level: User Filter Selections =======
 export function entryLevelSelections(state = {}, action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_SELECTIONS_SAVE_SUCCESS':
@@ -57,6 +67,7 @@ export function entryLevelSelections(state = {}, action) {
   }
 }
 
+// ======= Entry Level: Filters =======
 export function entryLevelFiltersFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'ENTRY_LEVEL_FILTERS_FETCH_HAS_ERRORED':

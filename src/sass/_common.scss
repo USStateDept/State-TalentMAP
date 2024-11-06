@@ -133,6 +133,12 @@ $values in $filters-sizing-config {
   color: $primary-blue;
   cursor: pointer;
   text-decoration: none;
+  background-color: transparent;
+
+  &:hover {
+    color: $primary-blue;
+    background-color: transparent;
+  }
 
   span {
     padding-right: 5px;

@@ -44,6 +44,12 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
     />
     <withRouter(NavLink)
       hidden={true}
+      iconName="street-view"
+      key="Entry Level"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={true}
       iconName="building"
       key="Post"
       search=""
@@ -98,6 +104,12 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
       hidden={true}
       iconName="street-view"
       key="CDO"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="street-view"
+      key="Entry Level"
       search=""
     />
     <withRouter(NavLink)

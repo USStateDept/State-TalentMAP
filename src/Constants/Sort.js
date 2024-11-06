@@ -101,23 +101,26 @@ BID_PORTFOLIO_SORTS.defaultSort = BID_PORTFOLIO_SORTS.options[0].value;
 
 export const BID_PORTFOLIO_FILTERS = {
   options: [
-    { value: '', text: 'All' },
-    { value: 'true', text: 'Handshake' },
-    { value: 'false', text: 'No Handshake' },
-    { value: 'unassigned_filters', text: 'Unassigned Filters' },
+    { value: '', text: 'Clients' },
+    { value: 'handshake', text: 'Handshake' },
+    { value: 'unassigned_filters', text: 'Unassigned Bidders' },
   ],
 };
 
 BID_PORTFOLIO_FILTERS.defaultSort = BID_PORTFOLIO_FILTERS.options[0].value;
 const showCDOD30 = checkFlag('flags.CDOD30');
 if (showCDOD30) {
-  BID_PORTFOLIO_FILTERS.options.push({ value: 'eligible_bidders', text: 'Eligible Bidders' },
-    { value: 'cusp_bidders', text: 'Cusp Bidders' });
+  BID_PORTFOLIO_FILTERS.options.push(
+    { value: 'eligible_bidders', text: 'Eligible Bidders' },
+    { value: 'cusp_bidders', text: 'Cusp Bidders' },
+    { value: 'separations', text: 'Separations' },
+    { value: 'languages', text: 'Languages' },
+    { value: 'classification', text: 'Classification' },
+    { value: 'panel_clients', text: 'Panel Clients' });
 }
 
 export const UNASSIGNED_BIDDERS_FILTERS = {
   options: [
-    { value: 'noHandshake', text: 'No Handshake' },
     { value: 'noPanel', text: 'No Panel' },
     { value: 'noBids', text: 'Has Not Placed Bids' },
   ],

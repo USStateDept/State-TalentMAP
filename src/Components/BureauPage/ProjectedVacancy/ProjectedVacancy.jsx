@@ -49,7 +49,6 @@ const ProjectedVacancy = ({ viewType }) => {
   const positions = positionsData?.results?.length ? positionsData?.results : [];
   const prevPage = usePrevious(page);
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
-  const count = positions?.length;
 
   const [importedPositions, setImportedPositions] = useState([]);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -70,17 +69,6 @@ const ProjectedVacancy = ({ viewType }) => {
   const [selectedCycle, setSelectedCycle] =
     useState(userSelections?.selectedCycle || null);
 
-  const getBureauFilters = () => {
-    const originalBureaus = sortBy(filters?.bureaus || [], [o => o.short_description]);
-    // if (originalBureaus && isBureauView) {
-    //   const bureauPermissionsGroups = Object.groupBy(bureauPermissions, ({ short_description }) => short_description);
-    //   const userBureauDescPermissions = Object.keys(bureauPermissionsGroups);
-    //   // filter out if user does not have that bureau permission
-    //   return originalBureaus.filter((a) => userBureauDescPermissions.includes(a?.short_description));
-    // }
-    return originalBureaus;
-  };
-
   const filterSelectionValid = () => {
     // valid if:
     // not Bureau user
@@ -97,6 +85,7 @@ const ProjectedVacancy = ({ viewType }) => {
   const bidSeasons = sortBy(filters?.bid_seasons || [], [o => o.description]);
   const organizations = sortBy(filters?.organizations || [], [o => o.description]);
   const statuses = sortBy(filters?.statuses || [], [o => o.description]);
+  const bureaus = sortBy(bureauPermissions || [], [(b) => b.long_description]);
 
   const resultsLoading = positionsLoading;
   const resultsErrored = filtersErrored || positionsErrored;
@@ -169,10 +158,6 @@ const ProjectedVacancy = ({ viewType }) => {
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(projectedVacancyFilters());
   }, []);
-
-  useEffect(() => {
-    getBureauFilters();
-  }, [filters, bureauPermissions]);
 
   useEffect(() => {
     if (positions.length) {
@@ -312,10 +297,10 @@ const ProjectedVacancy = ({ viewType }) => {
                 {...pickyProps}
                 placeholder="Select Bureau(s)"
                 value={selectedBureaus}
-                options={getBureauFilters()}
+                options={bureaus}
                 onChange={setSelectedBureaus}
                 valueKey="code"
-                labelKey="description"
+                labelKey="short_description"
                 disabled={disableInput}
               />
             </div>
@@ -404,7 +389,7 @@ const ProjectedVacancy = ({ viewType }) => {
       {getOverlay() || <>
         <div className="viewing-results-and-dropdown--fullscreen padding-top results-dropdown">
           <TotalResults
-            total={count}
+            total={positionsData?.count}
             pageNumber={page}
             pageSize={limit}
             suffix="Results"
@@ -476,7 +461,7 @@ const ProjectedVacancy = ({ viewType }) => {
               pageSize={limit}
               onPageChange={(p) => setPage(p.page)}
               forcePage={page}
-              totalResults={count}
+              totalResults={positionsData?.count}
             />
           </div>
         </div>

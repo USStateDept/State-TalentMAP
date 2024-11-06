@@ -33,20 +33,20 @@ export function panelMeetingAgendasExport(pmseqnum = '') {
     });
 }
 
-export function panelMeetingAgendasFetchData(query = {}, id) {
+export function panelMeetingAgendasFetchData(query = {}) {
   return (dispatch) => {
     batch(() => {
       dispatch(panelMeetingAgendasFetchDataLoading(true));
       dispatch(panelMeetingAgendasFetchDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = `/fsbid/panel/${id}/agendas/`;
+    const endpoint = '/fsbid/agenda/agenda_items/';
     const ep = `${endpoint}?${q}`;
     dispatch(panelMeetingAgendasFetchDataLoading(true));
     api().get(ep)
       .then(({ data }) => {
         batch(() => {
-          dispatch(panelMeetingAgendasFetchDataSuccess(data.results));
+          dispatch(panelMeetingAgendasFetchDataSuccess(data));
           dispatch(panelMeetingAgendasFetchDataErrored(false));
           dispatch(panelMeetingAgendasFetchDataLoading(false));
         });

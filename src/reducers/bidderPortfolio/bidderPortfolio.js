@@ -24,9 +24,44 @@ export function bidderPortfolioSeasonsIsLoading(state = false, action) {
       return state;
   }
 }
+export function isCDOD30(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_CDO_IS_CDOD30':
+      return action.isCDOD30;
+    default:
+      return state;
+  }
+}
+
+export function panelDateID(state = '', action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_PANEL_DATE':
+      return action.panelDateID;
+    default:
+      return state;
+  }
+}
+
+export function setEditClassification(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_EDIT_CLASSIFICATION':
+      return action.editClassification;
+    default:
+      return state;
+  }
+}
+
 export function bidderPortfolioSeasons(state = [], action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_SEASONS_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+export function unassignedbidderType(state = [], action) {
+  switch (action.type) {
+    case 'UNASSIGNED_BIDDER_TYPE_SUCCESS':
       return action.results;
     default:
       return state;
@@ -64,7 +99,14 @@ export function bidderPortfolio(state = { results: [] }, action) {
       return state;
   }
 }
-
+export function bidderPortfolioExtraData(state = { results: [] }, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_EXTRA_DETAILS_FETCH_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
 export function lastBidderPortfolioHasErrored(state = false, action) {
   switch (action.type) {
     case 'LAST_BIDDER_PORTFOLIO_HAS_ERRORED':
@@ -181,6 +223,34 @@ export function bidderPortfolioSelectedCDOsToSearchBy(state = [], action) {
       return state;
   }
 }
+
+export function panelClientFetchDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_CLIENT_FETCH_DATA_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function panelClientFetchDataHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_CLIENT_FETCH_DATA_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function panelClientFetchData(state = [], action) {
+  switch (action.type) {
+    case 'PANEL_CLIENT_FETCH_DATA_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 
 export function bidderPortfolioLastQuery(state = '/fsbid/client/', action, endpoint = '/fsbid/client/') {
   switch (action.type) {

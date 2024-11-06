@@ -1,3 +1,6 @@
+// AG-Grid
+@import '~ag-grid-community/styles/ag-grid.css';
+@import '~ag-grid-community/styles/ag-theme-quartz.css';
 // Font Awesome
 @import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
@@ -140,3 +143,4 @@
 @import 'biddingTool';
 @import 'notificationCard';
 @import 'assignments';
+@import 'entryLevelPage';

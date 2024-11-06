@@ -24,7 +24,6 @@ const Separation = (props) => {
     perdet,
     data,
     isNew,
-    setNewAsgSep,
     toggleModal,
     setDisableOtherEdits,
     disableOtherEdits,
@@ -178,7 +177,6 @@ const Separation = (props) => {
         onUpdateSuccess, // Refetch Details on Success
       ));
     }
-    setNewAsgSep('default');
   };
 
   const form = {
@@ -358,7 +356,6 @@ const Separation = (props) => {
 Separation.propTypes = {
   data: POSITION_DETAILS.isRequired,
   isNew: PropTypes.bool,
-  setNewAsgSep: PropTypes.func,
   toggleModal: PropTypes.func,
   perdet: PropTypes.string,
   setDisableOtherEdits: PropTypes.func,
@@ -369,7 +366,6 @@ Separation.propTypes = {
 Separation.defaultProps = {
   data: {},
   isNew: false,
-  setNewAsgSep: EMPTY_FUNCTION,
   toggleModal: EMPTY_FUNCTION,
   perdet: '',
   setDisableOtherEdits: EMPTY_FUNCTION,

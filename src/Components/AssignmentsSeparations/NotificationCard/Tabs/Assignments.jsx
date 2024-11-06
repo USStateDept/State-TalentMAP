@@ -1,65 +1,40 @@
-import { useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import FA from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import InputActions from '../Common/InputActions';
 
-const orderedAssignments = [{
-  id: 1,
-  value: 'EF LM/OPS/TMP (123456/D1234567) Contract Assistant',
-}, {
-  id: 2,
-  value: 'EF LM/OPS/TMP (123456/D1234567) Contract Assistant',
-}, {
-  id: 3,
-  value: 'EF LM/OPS/TMP (123456/D1234567) Contract Assistant',
-}];
+const Assignments = (props) => {
+  const { getCableValue, modCableValue, handleDefaultClear, assignments, setAssignments } = props;
 
-const Assignments = () => {
-  const [previewText, setPreviewText] = useState('');
-  const [combinedTod, setCombinedTod] = useState('');
-
-  // Have to get the assignments array into correct format for DnD
-  const orderedAssignmentsDnd = orderedAssignments.map((a) => ({
-    id: `item-${a.id}`,
+  const draggableAssignments = assignments.map((a) => ({
+    id: a.NMAS_SEQ_NUM.toString(),
     content:
       <div className="ordered-assignment">
-        <span>{a.value}</span>
+        <span>{a.POS_TITLE_TXT}</span>
         <FA name="fa-regular fa-arrows" />
       </div>,
   }));
 
-  // TODO: create a state 'ordered array' of assignments to send to BE
-  // which will be updated in this function (probably going to be a LOT of code)
-  // see PositionManagerBidders for reference
-  const onDragEnd = result => {
-    // eslint-disable-next-line no-unused-vars
-    const { destination } = result;
-    // dropped outside the list
-    // if (!destination) {
-    // }
-  };
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
 
-  const getListStyle = () => ({
-    maxHeight: 1000,
-    overflowY: 'scroll',
-  });
+    if (!destination) {
+      return;
+    }
 
-  const getItemStyle = (isDragging, draggableStyle) => {
-    const height = isDragging ? '130px' : '';
-    const overflowY = isDragging ? 'hidden' : '';
-    return {
-    // some basic styles to make the items look a bit nicer
-      userSelect: 'none',
+    if (destination.index === source.index) {
+      return;
+    }
 
-      height,
-      overflowY,
+    const newList = Array.from(assignments);
+    const [removed] = newList.splice(source.index, 1);
+    newList.splice(destination.index, 0, removed);
 
-      // styles we need to apply on draggables
-      ...draggableStyle,
-    };
+    setAssignments(newList);
   };
 
   return (
@@ -72,9 +47,8 @@ const Assignments = () => {
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                style={getListStyle()}
               >
-                {orderedAssignmentsDnd.map((o, index) => (
+                {draggableAssignments.map((o, index) => (
                   <Draggable key={o.id} draggableId={o.id} index={index}>
                     {(provided$, snapshot$) => (
                       <div
@@ -82,10 +56,12 @@ const Assignments = () => {
                         ref={provided$.innerRef}
                         {...provided$.draggableProps}
                         {...provided$.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot$.isDragging,
-                          provided$.draggableProps.style,
-                        )}
+                        style={{
+                          userSelect: 'none',
+                          height: snapshot$.isDragging ? '130px' : '',
+                          overflowY: snapshot$.isDragging ? 'hidden' : '',
+                          ...provided$.draggableProps.style,
+                        }}
                       >
                         {o.content}
                       </div>
@@ -94,31 +70,36 @@ const Assignments = () => {
                 ))}
                 {provided.placeholder}
               </div>
-            )
-            }
+            )}
           </Droppable>
         </DragDropContext>
       </div>
       <div className="content-divider" />
       <div className="input-container">
-        <InputActions />
+        <InputActions
+          keys={['ASSIGNMENTS', 'COMBINED TOD']}
+          getCableValue={getCableValue}
+          handleDefaultClear={handleDefaultClear}
+        />
         <Row fluid className="position-content--description">
           <span className="definition-title">Preview Text</span>
-          <Linkify properties={{ target: '_blank' }}>
-            <TextareaAutosize
-              maxRows={4}
-              minRows={4}
-              maxlength="500"
-              name="preview-text"
-              placeholder="No Description"
-              defaultValue={previewText}
-              onChange={(e) => setPreviewText(e.target.value)}
-              className="enabled-input"
-              draggable={false}
-            />
-          </Linkify>
+          <Tooltip title="Save changes to generate new preview text.">
+            <Linkify properties={{ target: '_blank' }}>
+              <TextareaAutosize
+                maxRows={8}
+                minRows={4}
+                maxLength="500"
+                name="preview-text"
+                placeholder="No Description"
+                value={getCableValue('ASSIGNMENTS')}
+                className="disabled-input"
+                draggable={false}
+                disabled
+              />
+            </Linkify>
+          </Tooltip>
           <div className="word-count">
-            {previewText?.length} / 500
+            {getCableValue('ASSIGNMENTS')?.length} / 500
           </div>
         </Row>
         <Row fluid className="position-content--description">
@@ -127,26 +108,34 @@ const Assignments = () => {
             <TextareaAutosize
               maxRows={4}
               minRows={4}
-              maxlength="500"
+              maxLength="500"
               name="combined-tod"
               placeholder="No Description"
-              defaultValue={combinedTod}
-              onChange={(e) => setCombinedTod(e.target.value)}
-              className="enabled-input"
+              value={getCableValue('COMBINED TOD')}
+              onChange={(e) => modCableValue('COMBINED TOD', e.target.value)}
               draggable={false}
             />
           </Linkify>
           <div className="word-count">
-            {combinedTod?.length} / 500
+            {getCableValue('COMBINED TOD')?.length} / 500
           </div>
         </Row>
-        <div className="position-form--actions">
-          <button onClick={() => { }}>Back</button>
-          <button onClick={() => { }}>Next</button>
-        </div>
       </div>
     </div>
   );
+};
+
+Assignments.propTypes = {
+  getCableValue: PropTypes.func.isRequired,
+  modCableValue: PropTypes.func.isRequired,
+  handleDefaultClear: PropTypes.func.isRequired,
+  assignments: PropTypes.arrayOf(PropTypes.shape({})),
+  setAssignments: PropTypes.func.isRequired,
+};
+
+Assignments.defaultProps = {
+  assignments: undefined,
+  setAssignments: undefined,
 };
 
 export default Assignments;

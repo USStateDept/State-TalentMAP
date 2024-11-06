@@ -5,12 +5,17 @@
     position: absolute;
     top: -80px;
     right: 0px;
-    z-index: 1;
     display: flex;
     flex-direction: row;
+    z-index: 2;
 
     .tm-checkbox:first-of-type {
       padding-right: 10px;
+    }
+
+    &.account-margin {
+      top: -15px;
+      right: 5px;
     }
   }
 }
@@ -370,6 +375,7 @@
 
   .position-form--label-input-container-flex {
     display: flex;
+    padding: 10px 0px;
 
     select,
     input {

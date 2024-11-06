@@ -6,20 +6,21 @@ import NavTabs from '../NavTabs/NavTabs';
 const TabbedCard = ({ tabs, className }) => {
   const tabRef = useRef();
 
-  const [activeTab, setActiveTab] = useState(tabs?.[0]?.value || '');
+  const existingTabs = tabs.filter(t => t);
+
+  const [activeTab, setActiveTab] = useState(existingTabs?.[0]?.value || '');
   return (
     <Row fluid className={`tabbed-card box-shadow-standard ${className}`}>
       <Row fluid className="tabbed-card--header">
         <NavTabs
-          tabs={tabs}
+          tabs={existingTabs}
           ref={tabRef}
           value={activeTab}
           passNavValue={setActiveTab}
           styleVariant="lightBorderBottom"
         />
       </Row>
-      {/* eslint-disable eqeqeq */}
-      {tabs.find(tab => activeTab == tab.value).content}
+      {existingTabs?.find(tab => activeTab === tab.value)?.content}
     </Row>
   );
 };

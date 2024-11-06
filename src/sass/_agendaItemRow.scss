@@ -3,7 +3,7 @@
     background-color: $color-white;
     border-radius: 10px;
     box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
-    margin: 20px 15px;
+    margin: 12px;
     padding: 15px;
     position: relative;
 
@@ -53,11 +53,11 @@
       max-width: 60vw;
       min-height: 300px;
       overflow-x: auto;
-      padding-top: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       @each $res, $vw in $ai-legs-width-config {
         @media screen and (min-width: $res) {
           max-width: $vw;
+          font-size: 1.3rem;
         }
       }
 
@@ -160,6 +160,12 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
+  }
+  .ai-empty-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 10px 0;
+    margin: 0 15px 0 20px;
   }
 }
 

@@ -6,6 +6,8 @@ import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHis
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
+import AssignmentsSeparations from 'Components/AssignmentsSeparations';
+import AssignmentNotification from '../AssignmentsSeparations/AssignmentNotification/AssignmentNotification';
 import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const CdoPage = () => (
@@ -19,6 +21,10 @@ const CdoPage = () => (
       <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
       <Route path="/profile/cdo/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isCDO />} />
+      <Route path="/profile/cdo/:id/assignmentsseparations/notification/:noteMemoID" render={(props) => <AssignmentNotification {...props} />} />
+      <Route path="/profile/cdo/:id/assignmentsseparations/memo/:noteMemoID" render={(props) => <AssignmentNotification {...props} />} />
+      <Route path="/profile/cdo/:id/assignmentsseparations" render={(props) => <AssignmentsSeparations {...props} />} />
+      <Route path="/profile/cdo/panelmeetingagendas" render={(props) => <PanelMeetingAgendas {...props} isCDO />} />
       <Route path="/profile/cdo/biddingtool/:id" render={() => <BiddingTool />} />
       <Route path="/profile/cdo/biddingtool/" render={() => <BiddingTool />} />
     </Switch>

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { AxiosResponse } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileExcel } from '@fortawesome/free-solid-svg-icons';
 // @ts-ignore
@@ -9,17 +8,14 @@ import { downloadFromResponse } from 'utilities';
 // @ts-ignore
 import api from '../../../api';
 
-export type Props = {
-};
-
-const GlossaryExport: React.FC<Props> = () => {
+const GlossaryExport = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onClick = (): void => {
+  const onClick = () => {
     if (!isLoading) {
       setIsLoading(true);
       api().get('/glossary/export/')
-        .then((res: AxiosResponse) => downloadFromResponse(res, 'TalentMAP-Glossary.csv'))
+        .then((res) => downloadFromResponse(res, 'TalentMAP-Glossary.csv'))
         .finally(() => setIsLoading(false));
     }
   };

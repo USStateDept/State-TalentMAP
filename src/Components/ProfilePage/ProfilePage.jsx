@@ -13,6 +13,7 @@ import Ao from 'Containers/Ao';
 import Bureau from 'Containers/Bureau';
 import Cdo from 'Containers/Cdo';
 import Post from 'Containers/Post';
+import EntryLevel from 'Containers/EntryLevel';
 import PanelAdministrator from 'Containers/PanelAdministrator';
 import GLOSSARY_EDITOR_PERM from 'Constants/Permissions';
 import { USER_PROFILE } from 'Constants/PropTypes';
@@ -51,6 +52,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/ao" component={Ao} />
           <Route path="/profile/cdo" component={Cdo} />
           <Route path="/profile/post" component={Post} />
+          <Route path="/profile/entrylevel" component={EntryLevel} />
           <Route path="/profile/panel_admin" component={PanelAdministrator} />
           <Route path="/profile/bidtracker" component={BidTracker} />
           <Route path="/profile/biddingtool/:id" render={() => <BiddingTool />} />

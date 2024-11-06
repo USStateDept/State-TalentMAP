@@ -81,9 +81,9 @@ const ProjectedVacancyCard = (props) => {
     setStatus(result?.fvscode);
     setTextArea(result?.fvcommenttxt || '');
     setOverrideTED(
-        result?.fvoverrideteddate ?
-          new Date(result.fvoverrideteddate) :
-          null,
+      result?.fvoverrideteddate ?
+        new Date(result.fvoverrideteddate) :
+        null,
     );
   }, [editMode]);
 
@@ -96,12 +96,12 @@ const ProjectedVacancyCard = (props) => {
   const onSubmitForm = () => {
     const editData = {
       ...result,
-      future_vacancy_exclude_import_indicator: included,
-      future_vacancy_bid_season_code: season,
-      future_vacancy_status_code: status,
-      future_vacancy_override_tour_end_date: overrideTED ?
+      fvexclimportind: included,
+      fvbsnid: season,
+      fvfvscode: status,
+      fvoverrideteddate: overrideTED ?
         overrideTED.toISOString().substring(0, 10) : null,
-      future_vacancy_comment_text: textArea,
+      fvcommenttxt: textArea,
     };
     onSubmit(editData, setEditMode(false));
   };
@@ -157,28 +157,18 @@ const ProjectedVacancyCard = (props) => {
       { 'Tour of Duty': result?.assigneeAssignment[0]?.toddesctext || NO_TOUR_OF_DUTY },
       { 'Languages': displayLangs() },
       { 'Included': result?.fvexclimportind === 'Y' ? 'Yes' : 'No' },
-    ],
-    bodySecondary: [
       { 'Bureau': result?.posbureaushortdesc || NO_BUREAU },
       { 'Location': result?.poslocationcode || NO_POST },
       { 'Status': result?.fvsdescrtxt || NO_STATUS },
       { 'Organization': result?.posorgshortdesc || NO_ORG },
       { 'TED': formatDate(result?.fvoverrideteddate) || NO_TOUR_END_DATE },
-      // {
-      //   'Language Offset Summer': summerLanguageOffsets?.find(o =>
-      //     o.code === languageOffsets?.language_offset_summer)?.description || DEFAULT_TEXT,
-      // },
-      // {
-      //   'Language Offset Winter': winterLanguageOffsets?.find(o =>
-      //     o.code === languageOffsets?.language_offset_winter)?.description || DEFAULT_TEXT,
-      // },
       { 'PP/Grade': result?.combinedppgrade },
-      // { 'Post Differential | Danger Pay': getDifferentials(differentials) },
+    ],
+    bodySecondary: [
     ],
     textarea: result?.fvcommenttxt || 'No description.',
     metadata: [
-      { 'Position Posted': formatDate(result?.fvcreatedate) || NO_UPDATE_DATE },
-      { 'Last Updated': formatDate(result?.fvscreatedate) || NO_UPDATE_DATE },
+      { 'Last Updated': formatDate(result?.fvupdatedate) || NO_UPDATE_DATE },
     ],
   };
   const form = {

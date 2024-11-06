@@ -47,11 +47,12 @@ class CDOAutoSuggest extends Component {
   }
 
   selectMultipleOption(value, fromPills) {
-    const { updatePagination, pageSize } = this.props;
+    const { isMultiple, updatePagination, pageSize } = this.props;
+    const currentSelection = isMultiple ? value : [value].flat();
     if (isEmpty(value) && fromPills && !isEmpty(this.props.currentCDO)) {
       this.props.setCDOsToSearchBy([this.props.currentCDO]);
     } else {
-      this.props.setCDOsToSearchBy(value);
+      this.props.setCDOsToSearchBy(currentSelection);
       updatePagination({ pageNumber: 1, pageSize });
     }
   }
@@ -68,13 +69,13 @@ class CDOAutoSuggest extends Component {
             options={suggestions}
             onChange={this.selectMultipleOption}
             numberDisplayed={2}
-            multiple
+            multiple={this.props.isMultiple}
             includeFilter
             dropdownHeight={255}
             renderList={renderList}
             valueKey="id"
             labelKey="name"
-            includeSelectAll
+            includeSelectAll={this.props.isMultiple}
 
             // TODO - Once React 16 is integrated, upgrade to react-picky >=5.2.0 to use this prop
             // filterTermProcessor={trim} // import trim from lodash
@@ -93,6 +94,7 @@ CDOAutoSuggest.propTypes = {
   cdoPills: PropTypes.arrayOf(PropTypes.shape({})),
   currentCDO: PropTypes.shape({}),
   updatePagination: PropTypes.func,
+  isMultiple: PropTypes.bool,
   pageSize: PropTypes.number,
 };
 
@@ -100,6 +102,7 @@ CDOAutoSuggest.defaultProps = {
   cdos: [],
   isLoading: false,
   hasErrored: false,
+  isMultiple: false,
   selection: [],
   setCDOsToSearchBy: EMPTY_FUNCTION,
   cdoPills: [],

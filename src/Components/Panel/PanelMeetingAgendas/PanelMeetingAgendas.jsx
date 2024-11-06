@@ -1,104 +1,77 @@
 import PropTypes from 'prop-types';
-import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import InteractiveElement from 'Components/InteractiveElement';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
+import { format } from 'date-fns-v2';
+import { panelMeetingAgendasFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { filtersFetchData } from 'actions/filters/filters';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { panelMeetingAgendasExport, panelMeetingAgendasFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
-import { panelMeetingsFetchData } from 'actions/panelMeetings';
-import { useDataLoader } from 'hooks';
-import { filtersFetchData } from 'actions/filters/filters';
-import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
+import TotalResults from 'Components/TotalResults';
+import ScrollUpButton from 'Components/ScrollUpButton';
+import BackButton from 'Components/BackButton';
+import PaginationWrapper from 'Components/PaginationWrapper';
+import SelectForm from 'Components/SelectForm';
+import { PANEL_MEETING } from 'Constants/PropTypes';
+import { PANEL_MEETINGS_PAGE_SIZES } from 'Constants/Sort';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
+import { useDataLoader } from 'hooks';
+import Picky from 'react-picky';
+import FA from 'react-fontawesome';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
-import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
-import { meetingCategoryMap } from 'Components/Panel/Constants';
-import ExportButton from 'Components/ExportButton';
 import PrintPanelMeetingAgendas from './PrintPanelMeetingAgendas';
+import { meetingCategoryMap } from '../Constants';
 import api from '../../../api';
-import ScrollUpButton from '../../ScrollUpButton';
-import BackButton from '../../BackButton';
-
-const fuseOptions = {
-  shouldSort: false,
-  findAllMatches: true,
-  tokenize: true,
-  useExtendedSearch: true,
-  includeScore: false,
-  threshold: 0.25,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: [
-    'status_short',
-    'pmi_mic_code',
-    'remarks.seq_num',
-    'assignment.pos_num',
-    'assignment.pos_title',
-    'legs.action',
-    'legs.languages.code',
-    'legs.grade',
-    'legs.pos_num',
-    'legs.pos_title',
-    'legs.org',
-    'creators.last_name',
-    'creators.first_name',
-    'updaters.last_name',
-    'updaters.first_name',
-    'languages.lang_code',
-    'cdo.first_name',
-    'cdo.last_name',
-    'full_name',
-    'skills',
-    'grade',
-    'pmi_official_item_num',
-  ],
-};
 
 const PanelMeetingAgendas = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const { isAO, isCDO } = props;
+  const { isCDO, location } = props;
 
-  const pmSeqNum = get(props, 'match.params.pmID');
-  const panelMeetingData = useSelector(state => state.panelMeetings);
-  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
-  const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
+  const panelMeetings = location.state?.panelMeetings || [];
+  const pmSeqNums = sortBy(panelMeetings.map(pm => pm.pmi_pm_seq_num), (n) => n);
 
-  const agendasCategorized = {
-    Review: [],
-    'Off Panel': [],
-    Discuss: [],
-    Separations: [],
-    Express: [],
-    'Volunteer Cable': [],
-    Addendum: [],
-    'Addendum(Volunteer Cable)': [],
-    'Position Challenge': [],
-    'Employee Challenge': [],
-  };
+  const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+  const agendas$ = useSelector(state => state.panelMeetingAgendas);
+  const count = get(agendas$, 'count', 0);
+  const agendas = get(agendas$, 'results', []);
+  const agendasByPanelMeeting = panelMeetings.map((pm) => {
+    // Filter agendas by panel meeting sequence number
+    const filteredAgendas = agendas.filter((agenda) => agenda.pmi_pm_seq_num === pm.pmi_pm_seq_num);
+
+    // Initialize an empty object with keys from meetingCategoryMap
+    const categorizedAgendas = Object.keys(meetingCategoryMap).reduce((acc, key) => {
+      acc[meetingCategoryMap[key]] = [];
+      return acc;
+    }, {});
+
+    // Iterate over filteredAgendas and categorize them
+    filteredAgendas.forEach((agenda) => {
+      const category = meetingCategoryMap[agenda.pmi_mic_code];
+      if (category) {
+        categorizedAgendas[category].push(agenda);
+      }
+    });
+
+    return {
+      ...pm,
+      agendas: categorizedAgendas,
+    };
+  });
+  const isAllCategoriesEmpty = (agenda) => Object.values(agenda).every(category => category.length === 0);
 
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  // TODO: Re-enable skill and bureau picky once implemented
+  const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
+  const [page, setPage] = useState(get(userSelections, 'page') || 1);
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-
-  const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
-  const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
-  const agendas = useSelector(state => state.panelMeetingAgendas);
-  const [agendas$, setAgendas$] = useState(agendas);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
@@ -121,8 +94,6 @@ const PanelMeetingAgendas = (props) => {
     includes([orgsLoading, remarksLoading, statusLoading,
       actionLoading, categoryLoading], true);
 
-  const [showPanelMeetingInfo, setShowPanelMeetingInfo] = useState(false);
-  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
   const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
   const [selectedGrades, setSelectedGrades] = useState(get(userSelections, 'selectedGrades') || []);
@@ -133,78 +104,26 @@ const PanelMeetingAgendas = (props) => {
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
   const [clearFilters, setClearFilters] = useState(false);
-  const [exportIsLoading, setExportIsLoading] = useState(false);
   const [printView, setPrintView] = useState(false);
 
-  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
-
-  const fuse$ = new Fuse(agendas, fuseOptions);
-
-  const prepareFuseQuery = () => {
-    const fuseQuery = [];
-
-    const statuses$ = selectedStatuses.map(({ abbr_desc_text }) => (
-      { status_short: abbr_desc_text }
-    ));
-    const categories$ = selectedCategories.map(({ mic_code }) => (
-      { pmi_mic_code: mic_code }
-    ));
-    const remarks$ = selectedRemarks.map(({ seq_num }) => (
-      { 'remarks.seq_num': seq_num.toString() }
-    ));
-    const actions$ = selectedActions.map(({ abbr_desc_text }) => (
-      { 'legs.action': abbr_desc_text }
-    ));
-    const languages$ = selectedLanguages.flatMap(({ code }) => ([
-      { 'legs.languages.code': code },
-      { 'languages.lang_code': code },
-    ]));
-    const grades$ = selectedGrades.flatMap(({ code }) => ([
-      { 'legs.grade': code },
-      { grade: code },
-    ]));
-    const orgs$ = selectedOrgs.flatMap(({ name }) => ([
-      { 'legs.org': `=${name}` },
-    ]));
-    const skills$ = selectedSkills.map(({ code }) => (
-      { skills: code }
-    ));
-    if (orgs$.length) { fuseQuery.push({ $or: orgs$ }); }
-    if (grades$.length) { fuseQuery.push({ $or: grades$ }); }
-    if (languages$.length) { fuseQuery.push({ $or: languages$ }); }
-    if (actions$.length) { fuseQuery.push({ $or: actions$ }); }
-    if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
-    if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
-    if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
-    if (skills$.length) { fuseQuery.push({ $or: skills$ }); }
-    if (textSearch) {
-      const t = textSearch;
-      // See Fuse extended search docs
-      const freeTextLookups = [
-        { 'assignment.pos_num': `^${t}` },
-        { 'assignment.pos_title': t },
-        { 'legs.pos_num': `^${t}` },
-        { 'legs.pos_title': t },
-        { 'creators.last_name': t },
-        { 'creators.first_name': t },
-        { 'updaters.last_name': t },
-        { 'updaters.first_name': t },
-        { 'cdo.first_name': t },
-        { 'cdo.last_name': t },
-        { full_name: t },
-        { pmi_official_item_num: `^${t}` },
-      ];
-      fuseQuery.push({ $or: freeTextLookups });
-    }
-    return fuseQuery;
-  };
-
-  const search = () => setAgendas$(fuse$.search({
-    $and: prepareFuseQuery(),
-  }).map(({ item }) => item));
+  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading;
+  const getQuery = () => ({
+    page,
+    limit,
+    ordering: ['-panel_date', 'agenda_id'],
+    pmipmseqnum: pmSeqNums,
+    orgs: selectedOrgs.map(orgObject => orgObject.code),
+    categories: selectedCategories.map(categoryObject => categoryObject.mic_code),
+    grades: selectedGrades.map(gradeObject => gradeObject.code),
+    actions: selectedActions.map(actionObject => actionObject.code),
+    statuses: selectedStatuses.map(statusObject => statusObject.code),
+    languages: selectedLanguages.map(languageObject => languageObject.code),
+    remarks: selectedRemarks.map(remarkObject => remarkObject.seq_num),
+    skills: selectedSkills.map(skillObject => skillObject.code),
+    freetext: textSearch,
+  });
 
   const getCurrentInputs = () => ({
-    selectedBureaus,
     selectedOrgs,
     selectedCategories,
     selectedGrades,
@@ -214,11 +133,12 @@ const PanelMeetingAgendas = (props) => {
     selectedRemarks,
     selectedSkills,
     textSearch,
+    limit,
+    page,
   });
 
-  const fetchAndSet = () => {
+  const fetchAndSet = (resetPage = false) => {
     const filters = [
-      selectedBureaus,
       selectedOrgs,
       selectedCategories,
       selectedGrades,
@@ -230,28 +150,24 @@ const PanelMeetingAgendas = (props) => {
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
       setClearFilters(false);
-      setAgendas$(agendas);
     } else {
       setClearFilters(true);
-      search();
+    }
+    if (resetPage) {
+      setPage(1);
     }
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
+    dispatch(panelMeetingAgendasFetchData(getQuery()));
   };
 
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
+    dispatch(panelMeetingAgendasFetchData(getQuery()));
     dispatch(filtersFetchData(genericFilters));
-    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
   }, []);
 
   useEffect(() => {
-    fetchAndSet();
-  }, [agendas]);
-
-  useEffect(() => {
-    fetchAndSet();
+    fetchAndSet(true);
   }, [
-    selectedBureaus,
     selectedOrgs,
     selectedCategories,
     selectedGrades,
@@ -261,20 +177,18 @@ const PanelMeetingAgendas = (props) => {
     selectedRemarks,
     selectedSkills,
     textSearch,
+    limit,
   ]);
 
-  function categorizeAgendas() {
-    agendas$.forEach(a => {
-      agendasCategorized[meetingCategoryMap[get(a, 'pmi_mic_code')]].push(a);
-    });
-    return agendasCategorized;
-  }
+  useEffect(() => {
+    fetchAndSet();
+  }, [page]);
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
-    // only Remarks needs to use 'text'
-    if (has(items[0], 'text')) {
-      codeOrText = 'text';
+    // only Remarks needs to use 'short_desc_text'
+    if (has(items[0], 'seq_num')) {
+      codeOrText = 'short_desc_text';
     }
     // only Item Actions/Statuses need to use 'desc_text'
     if (has(items[0], 'desc_text')) {
@@ -290,12 +204,11 @@ const PanelMeetingAgendas = (props) => {
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
-    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    else if (codeOrText === 'text') queryProp = 'text';
+    else if (has(items[0], 'name')) queryProp = 'name';
+    else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
     else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
-    else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    else if (has(items[0], 'name')) queryProp = 'name';
+    else if (codeOrText === 'short_desc_text') queryProp = 'short_desc_text';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
@@ -317,7 +230,6 @@ const PanelMeetingAgendas = (props) => {
   };
 
   const resetFilters = () => {
-    setSelectedBureaus([]);
     setSelectedOrgs([]);
     setSelectedCategories([]);
     setSelectedGrades([]);
@@ -331,28 +243,14 @@ const PanelMeetingAgendas = (props) => {
     setClearFilters(false);
   };
 
-  const exportPanelMeetingAgendas = () => {
-    if (!exportIsLoading) {
-      setExportIsLoading(true);
-      panelMeetingAgendasExport(pmSeqNum)
-        .then(() => {
-          setExportIsLoading(false);
-        })
-        .catch(() => {
-          setExportIsLoading(false);
-        });
-    }
-  };
-
   const getOverlay = () => {
     let overlay;
     if (isLoading) overlay = <Spinner type="bureau-filters" size="small" />;
     if (printView) {
       overlay = (
         <PrintPanelMeetingAgendas
-          panelMeetingData={panelMeetingData}
           closePrintView={() => setPrintView(false)}
-          agendas={agendas$}
+          panelMeetingsWithAgendas={agendasByPanelMeeting}
         />
       );
     }
@@ -371,7 +269,7 @@ const PanelMeetingAgendas = (props) => {
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
-              placeHolder="Search for Agenda using Position, Name, or Official Item #"
+              placeHolder="Search for Agenda using Position Name, Position Title, or Employee Name"
               noButton
             />
             <div className="filterby-container">
@@ -387,20 +285,7 @@ const PanelMeetingAgendas = (props) => {
             </div>
             <div className="usa-width-one-whole position-search--filters--panel-m-agendas">
               <div className="filter-div">
-                <div className="label">Bureau:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Bureau(s)"
-                  value={selectedBureaus}
-                  options={bureausOptions}
-                  onChange={setSelectedBureaus}
-                  valueKey="code"
-                  labelKey="long_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Organization:</div>
+                <div className="label">Location/Org:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Organization(s)"
@@ -507,55 +392,86 @@ const PanelMeetingAgendas = (props) => {
           </div>
           <ScrollUpButton />
           {
-            <div className="panel-meeting-agendas-rows-container">
-              <InteractiveElement title="Toggle Panel Information" onClick={() => setShowPanelMeetingInfo(!showPanelMeetingInfo)}>
-                <div className={`mt-30 mbl-20 ml-20 collapsible-container ${showPanelMeetingInfo ? 'collapsible-container-expanded' : ''}`}>
-                  <div className={`collapsible-title ${showPanelMeetingInfo ? 'collapsible-title-expanded' : ''}`}>
-                    Panel Meeting Information
-                  </div>
-                  {
-                    !panelMeetingsIsLoading && !panelMeetingsHasErrored &&
-                     <div className={`collapsible-section ${showPanelMeetingInfo ? 'showCollapse' : 'hideCollapse'}`}>
-                       <PanelMeetingTracker panelMeeting={get(panelMeetingData, 'results.[0]')} />
-                     </div>
-                  }
+            <div className="panel-meeting-agendas-container">
+              <div className="total-results results-dropdown">
+                <TotalResults
+                  total={count}
+                  pageNumber={page}
+                  pageSize={limit}
+                  suffix="Results"
+                  isHidden={agendasIsLoading}
+                />
+                <div className="panel-results-controls">
+                  <SelectForm
+                    id="panel-limit"
+                    className="panel-select"
+                    options={PANEL_MEETINGS_PAGE_SIZES.options}
+                    label="Results:"
+                    defaultSort={limit}
+                    onSelectOption={e => setLimit(e.target.value)}
+                    disabled={agendasIsLoading}
+                  />
+                  { <button onClick={() => setPrintView(true)} disabled={agendasIsLoading}>Print View</button> }
                 </div>
-              </InteractiveElement>
-              <div className="total-results">
-                <div>
-                  {/* eslint-disable-next-line max-len */}
-                  Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
-                </div>
-                { <button onClick={() => setPrintView(true)}>Print View</button> }
-                {
-                  false &&
-                  <div className="export-button-container">
-                    <ExportButton
-                      onClick={exportPanelMeetingAgendas}
-                      isLoading={exportIsLoading}
-                      disabled
-                    />
-                  </div>
-                }
               </div>
               {
-                Object.keys(categorizeAgendas()).map(header => (
+                agendasIsLoading ? <Spinner type="bureau-results" size="medium" /> :
                   <>
-                    <div className="pma-category-header">{header}</div>
-                    <div className="agenda-item-row-container">
-                      {
-                        agendasCategorized[header].map(result => (
-                          <AgendaItemRow
-                            agenda={result}
-                            key={result.id}
-                            isCDO={isCDO}
-                            isPanelMeetingView
-                          />
-                        ))
-                      }
+                    {
+                      agendasByPanelMeeting.map((pm) => {
+                        // Find panel meeting date
+                        const panelMeetingDate = pm.panelMeetingDates.find(pmd => pmd.mdt_code === 'MEET') || DEFAULT_TEXT;
+                        return (
+                          <div className="pma-pm-container" key={pm.pmi_pm_seq_num}>
+                            <div className="pm-header">
+                              {get(pm, 'pmt_code')} {panelMeetingDate !== DEFAULT_TEXT ? format(new Date(panelMeetingDate.pmd_dttm), 'MM/dd/yy') : ''} - {get(pm, 'pms_desc_text')}
+                            </div>
+                            {
+                              isAllCategoriesEmpty(pm.agendas) ? (
+                                <div className="pm-empty-row">No agendas</div>
+                              ) : (
+                                <div className="pm-agendas-container">
+                                  {
+                                    Object.keys(pm.agendas).map((category) => (
+                                      <div key={category} className="category-container">
+                                        <div className="category-header">
+                                          {category}
+                                        </div>
+                                        <div className="agenda-item-row-container">
+                                          {
+                                            pm.agendas[category].length > 0 ? (
+                                              pm.agendas[category].map(agenda => (
+                                                <AgendaItemRow
+                                                  agenda={agenda}
+                                                  key={agenda.id}
+                                                  isCDO={isCDO}
+                                                  isPanelMeetingView
+                                                />
+                                              ))
+                                            ) : (
+                                              <div className="ai-empty-row">(No Agendas)</div>
+                                            )
+                                          }
+                                        </div>
+                                      </div>
+                                    ))
+                                  }
+                                </div>
+                              )
+                            }
+                          </div>
+                        );
+                      })
+                    }
+                    <div className="usa-grid-full react-paginate">
+                      <PaginationWrapper
+                        pageSize={limit}
+                        onPageChange={p => setPage(p.page)}
+                        forcePage={page}
+                        totalResults={count}
+                      />
                     </div>
                   </>
-                ))
               }
             </div>
           }
@@ -566,12 +482,15 @@ const PanelMeetingAgendas = (props) => {
 
 PanelMeetingAgendas.propTypes = {
   isCDO: PropTypes.bool,
-  isAO: PropTypes.bool,
-};
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    state: PropTypes.shape({
+      panelMeetings: PropTypes.arrayOf(PANEL_MEETING),
+    }),
+  }).isRequired };
 
 PanelMeetingAgendas.defaultProps = {
   isCDO: false,
-  isAO: false,
 };
 
 export default withRouter(PanelMeetingAgendas);

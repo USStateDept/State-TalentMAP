@@ -73,6 +73,7 @@ const ProfileDashboard = ({
                         <Assignments
                           id={perdet}
                           showMaintainAssignmentLink={showMaintainAssignmentLink}
+                          viewType={userRole}
                         />
                       </BoxShadow>
                     }

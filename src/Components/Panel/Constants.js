@@ -7,7 +7,7 @@ export const meetingCategoryMap = {
   X: 'Express',
   V: 'Volunteer Cable',
   A: 'Addendum',
-  C: 'Addendum(Volunteer Cable)',
+  C: 'Addendum (Volunteer Cable)',
   P: 'Position Challenge',
   E: 'Employee Challenge',
 };

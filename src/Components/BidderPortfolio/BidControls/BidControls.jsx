@@ -10,7 +10,8 @@ import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { bidderPortfolioSetUnassigned } from 'actions/bidderPortfolio';
+import { bidderPortfolioExtraDetailsFetchData, bidderPortfolioFetchDataSuccess, bidderPortfolioSetUnassigned, getClientDatePerdets, setEditClassification, setIsCDOD30, setPanelDateID } from 'actions/bidderPortfolio';
+import ToggleButton from 'Components/ToggleButton';
 import ResultsPillContainer from '../../ResultsPillContainer/ResultsPillContainer';
 import SelectForm from '../../SelectForm';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
@@ -36,8 +37,11 @@ class BidControls extends Component {
       bidSeasons: [],
       filterBy: {},
       unassignedFilter: false,
+      panelClient: false,
+      panelClientDate: '',
       unassignedBidders: [],
       pills: [],
+      isCDOD30: false,
     };
   }
 
@@ -96,7 +100,11 @@ class BidControls extends Component {
     this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
     this.generatePills);
-    this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
+    this.setState({
+      unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons),
+      panelClient: (q === 'panel_clients' && this.state.hasSeasons),
+    });
+    this.props.setEditClassifications(q === 'classification');
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
     } else {
@@ -105,16 +113,21 @@ class BidControls extends Component {
   };
 
   onUnassignedChange = q => {
-    this.setState({ unassignedBidders: q }, this.generatePills);
+    this.setState({ unassignedBidders: [q] }, this.generatePills);
     this.props.queryParamUpdate({});
-    this.props.setUnassigned(q);
+    this.props.setUnassigned([q]);
   };
 
   onSortChange = q => {
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
-
+  onCDOToggleChange = () => {
+    const { isCDOD30 } = this.state;
+    this.setState({ isCDOD30: !isCDOD30 });
+    this.props.setCDOD30(!isCDOD30);
+    this.resetAllFilters();
+  };
   updateQueryLimit = q => {
     const { updatePagination } = this.props;
     updatePagination({ pageNumber: 1, pageSize: q.target.value });
@@ -149,11 +162,13 @@ class BidControls extends Component {
   resetAllFilters = () => {
     const { resetKeyword } = this.props;
     resetKeyword();
+    this.props.bidderPortfolioFetchDataSuccess({ results: [], count: 0 });
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
-    this.setState({ unassignedBidders: [] });
+    this.setState({ unassignedBidders: [], unassignedFilter: false, panelClient: false });
     this.props.queryParamUpdate({ value: 'skip' });
+    this.props.setPanelDateID('');
   };
 
   pillClick = (dropdownID, pillID) => {
@@ -180,8 +195,8 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize, getKeyword, updatePagination } = this.props;
-    const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
+      defaultOrdering, pageSize, getKeyword, updatePagination, panelClientFetchData } = this.props;
+    const { panelClient, isCDOD30, panelClientDate, hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayUnassignedFilter = useUnassignedFilter();
     const showClear = !!pills.length || getKeyword;
@@ -189,6 +204,19 @@ class BidControls extends Component {
     if (!displayUnassignedFilter) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
+
+    const onPanelDateIDChange = (e) => {
+      if (e.target.value !== '') {
+        this.setState({ panelClientDate: e.target.value }, this.generatePills);
+        // this.props.queryParamUpdate({ panelClientID: e.target.value });
+        this.props.setPanelDateID(e.target.value);
+        this.props.getClientDatePerdets({
+          hru_id__in: proxyCdos[0].hru_id, // will always be one
+          panel_clients: true,
+          cdo_pm_seq_num: e.target.value,
+        });
+      }
+    };
 
     return (
       <div className="usa-grid-full portfolio-controls">
@@ -199,6 +227,7 @@ class BidControls extends Component {
               cdoPills={proxyCdos}
               updatePagination={updatePagination}
               pageSize={pageSize}
+              isMultiple={!isCDOD30}
             />
           </div>
           <div className="portfolio-sort-container-contents small-screen-stack">
@@ -213,8 +242,10 @@ class BidControls extends Component {
               setSeasonsCb={(b, value) => this.onSeasonChange(b, value)}
               setClick={(a) => { this.updateMultiSelect = a; }}
               updatePagination={updatePagination}
+              isMultiple={!isCDOD30}
             />
-            {
+            { isCDOD30 &&
+            <>
               <PreferenceWrapper
                 onSelect={(q) => this.onFilterChange(q.target.value)}
                 keyRef={BID_PORTFOLIO_FILTERS_TYPE}
@@ -227,24 +258,41 @@ class BidControls extends Component {
                   disabled={!hasSeasons}
                 />
               </PreferenceWrapper>
+              { unassignedFilter &&
+              <div className={`unassigned-bidder-picker-container usa-form ${!unassignedFilter ? 'unassigned-disabled' : ''}`}>
+                <div className="label">Unassigned Filters:</div>
+                <Picky
+                  placeholder="Select Criteria"
+                  value={unassignedBidders}
+                  options={UNASSIGNED_BIDDERS_FILTERS.options}
+                  onChange={this.onUnassignedChange}
+                  numberDisplayed={2}
+                  dropdownHeight={255}
+                  // multiple //commented out to prevent multiple selections
+                  renderList={renderList}
+                  valueKey="value"
+                  labelKey="text"
+                  includeSelectAll
+                  disabled={!unassignedFilter}
+                />
+              </div>
+              }
+            </>
             }
-            { displayUnassignedFilter &&
-            <div className={`unassigned-bidder-picker-container usa-form ${!unassignedFilter ? 'unassigned-disabled' : ''}`}>
-              <div className="label">Unassigned Bidders:</div>
-              <Picky
-                placeholder="Select Criteria"
-                value={unassignedBidders}
-                options={UNASSIGNED_BIDDERS_FILTERS.options}
-                onChange={this.onUnassignedChange}
-                numberDisplayed={2}
-                multiple
-                dropdownHeight={255}
-                renderList={renderList}
-                valueKey="value"
-                labelKey="text"
-                includeSelectAll
-                disabled={!unassignedFilter}
-              />
+            { panelClient &&
+            <div className={`unassigned-bidder-picker-container usa-form ${!panelClient ? 'unassigned-disabled' : ''}`}>
+              <div className="label">Panel Client Date:</div>
+              <select
+                value={panelClientDate}
+                onChange={onPanelDateIDChange}
+              >
+                <option value="" />
+                {
+                  panelClientFetchData.map((d) => (
+                    <option key={d.PM_SEQ_NUM} value={d.PM_SEQ_NUM}>{d.MEETING_DESC}</option>
+                  ))
+                }
+              </select>
             </div>
             }
             <PreferenceWrapper
@@ -262,6 +310,14 @@ class BidControls extends Component {
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
+          <div className="jc-toggle-container">
+            <ToggleButton
+              labelTextRight={!isCDOD30 ? 'Toggle CDO D3.0 View' : 'Toggle Client Search View'}
+              onChange={this.onCDOToggleChange}
+              checked={isCDOD30}
+              onColor="#0071BC"
+            />
+          </div>
         </div>
         <div className="usa-width-one-whole portfolio-filter-pills-container">
           { showClear && <ResetFilters resetFilters={this.resetAllFilters} /> }
@@ -284,10 +340,16 @@ BidControls.propTypes = {
   defaultOrdering: PropTypes.string.isRequired,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
+  bidderPortfolioFetchDataSuccess: PropTypes.func.isRequired,
+  setCDOD30: PropTypes.func.isRequired,
+  setEditClassifications: PropTypes.func.isRequired,
+  setPanelDateID: PropTypes.func.isRequired,
+  getClientDatePerdets: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
+  panelClientFetchData: PropTypes.arrayOf(PropTypes.shape({})),
   updatePagination: PropTypes.func,
 };
 
@@ -296,15 +358,25 @@ BidControls.defaultProps = {
   unassignedSelection: [],
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
   updatePagination: EMPTY_FUNCTION,
+  panelClientFetchData: [],
 };
 
 const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
   unassignedSelection: state.bidderPortfolioSelectedUnassigned,
+  panelClientFetchData: state.panelClientFetchData,
 });
 
 export const mapDispatchToProps = dispatch => ({
   setUnassigned: (arr = []) => dispatch(bidderPortfolioSetUnassigned(arr)),
+  setCDOD30: (bool) => dispatch(setIsCDOD30(bool)),
+  bidderPortfolioFetchDataSuccess: (results) => dispatch(bidderPortfolioFetchDataSuccess(results)),
+  setEditClassifications: (bool) => dispatch(setEditClassification(bool)),
+  setPanelDateID: (id) => dispatch(setPanelDateID(id)),
+  getClientDatePerdets: async query => {
+    await dispatch(getClientDatePerdets(query));
+    dispatch(bidderPortfolioExtraDetailsFetchData());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BidControls);

@@ -435,8 +435,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     toggleMenuSection: true,
     expandedSection: true,
     roles: [
-      'ao_user',
       'superuser',
+      'ao_user',
     ],
     children: [
       {
@@ -453,7 +453,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
       checkFlag('flags.agenda_search') ?
         {
-          text: 'Employee Agendas',
+          text: 'Employees and Panel Agendas',
           route: '/profile/ao/employeeagendas',
           icon: 'sticky-note',
           roles: [
@@ -544,7 +544,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
       checkFlag('flags.agenda_search') ?
         {
-          text: 'Employee Agendas',
+          text: 'Employees and Panel Agendas',
           route: '/profile/cdo/employeeagendas',
           icon: 'sticky-note',
           roles: [
@@ -572,6 +572,29 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
+    ],
+  },
+  {
+    text: 'Entry Level',
+    icon: 'street-view',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'el_cdo',
+      'fsbid_admin',
+    ],
+    children: [
+      {
+        text: 'Maintain Entry Level Positions',
+        route: '/profile/entrylevel/maintainpositions',
+        icon: ' fa-keyboard-o',
+        roles: [
+          'superuser',
+          'el_cdo',
+          'fsbid_admin',
+        ],
+      },
     ],
   },
 ].filter(x => x));

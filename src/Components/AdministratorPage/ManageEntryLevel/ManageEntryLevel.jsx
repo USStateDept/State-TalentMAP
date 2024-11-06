@@ -16,7 +16,7 @@ const ManageEntryLevel = () => {
 
   const userSelections = useSelector(state => state.entryLevelSelections);
 
-  const elPositionsList = useSelector(state => state.entryLevelPositions);
+  const elPositionsList = useSelector(state => state.entryLevelPositions.results);
   const elPositionsIsLoading = useSelector(state => state.entryLevelFetchDataLoading);
   const elPositionsHasErrored = useSelector(state => state.entryLevelFetchDataErrored);
   const elFiltersIsLoading = useSelector(state => state.entryLevelFiltersFetchDataLoading);
@@ -26,11 +26,11 @@ const ManageEntryLevel = () => {
   const [selectedTps, setSelectedTps] = useState(userSelections?.selectedTps || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedJobs, setSelectedJobs] = useState(userSelections?.selectedJobs || []);
   const [selectedLanguages, setSelectedLanguages] =
-    useState(userSelections?.selectedLanguage || []);
+    useState(userSelections?.selectedLanguages || []);
   const [overseas, setOverseas] = useState(userSelections?.overseas || false);
   const [domestic, setDomestic] = useState(userSelections?.domestic || false);
   const [clearFilters, setClearFilters] = useState(false);
@@ -78,10 +78,10 @@ const ManageEntryLevel = () => {
     selectedTps,
     selectedBureaus,
     selectedOrgs,
-    selectedGrade: selectedGrades,
+    selectedGrades,
     selectedSkills,
     selectedJobs,
-    selectedLanguage: selectedLanguages,
+    selectedLanguages,
     overseas,
     domestic,
   });

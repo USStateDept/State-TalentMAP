@@ -1,4 +1,5 @@
 import { CancelToken } from 'axios';
+import { convertQueryToString } from 'utilities';
 import {
   CREATE_BID_AUDIT_CATEGORY_ERROR,
   CREATE_BID_AUDIT_CATEGORY_ERROR_TITLE,
@@ -12,10 +13,6 @@ import {
   CREATE_BID_AUDIT_GRADE_SUCCESS_TITLE,
   CREATE_BID_AUDIT_SUCCESS,
   CREATE_BID_AUDIT_SUCCESS_TITLE,
-  DELETE_BID_AUDIT_ERROR,
-  DELETE_BID_AUDIT_ERROR_TITLE,
-  DELETE_BID_AUDIT_SUCCESS,
-  DELETE_BID_AUDIT_SUCCESS_TITLE,
   DELETE_IN_CATEGORY_AT_GRADE_ERROR,
   DELETE_IN_CATEGORY_AT_GRADE_ERROR_TITLE,
   DELETE_IN_CATEGORY_AT_GRADE_SUCCESS,
@@ -36,6 +33,10 @@ import {
   UPDATE_BID_COUNT_ERROR_TITLE,
   UPDATE_BID_COUNT_SUCCESS,
   UPDATE_BID_COUNT_SUCCESS_TITLE,
+  UPDATE_HTF_ERROR,
+  UPDATE_HTF_ERROR_TITLE,
+  UPDATE_HTF_SUCCESS,
+  UPDATE_HTF_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import { batch } from 'react-redux';
 import api from '../api';
@@ -504,147 +505,198 @@ export function bidAuditDeleteAuditGradeOrCategory(data, type, onSuccess) {
   };
 }
 
-// ----------------------------------------------------------------------
-// ================ FUNCTIONS BELOW ARE CURRENTLY UNUSED ================
-// ----------------------------------------------------------------------
 
+// ================ Bid Audit: Get Audit Data ================
 
-// ================ Bid Audit: Get Audit ================
+let cancelBidAuditGetAuditData;
 
-export function bidAuditErrored(bool) {
+export function bidAuditGetAuditFetchDataErrored(bool) {
   return {
-    type: 'BID_AUDIT_HAS_ERRORED',
+    type: 'BID_AUDIT_GET_AUDIT_FETCH_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-export function bidAuditLoading(bool) {
+export function bidAuditGetAuditFetchDataLoading(bool) {
   return {
-    type: 'BID_AUDIT_EDIT_IS_LOADING',
+    type: 'BID_AUDIT_GET_AUDIT_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
-export function bidAuditSuccess(results) {
+export function bidAuditGetAuditFetchDataSuccess(results) {
   return {
-    type: 'BID_AUDIT_SUCCESS',
+    type: 'BID_AUDIT_GET_AUDIT_FETCH_SUCCESS',
     results,
   };
 }
 
-
-// ================ Bid Audit: Delete ================
-
-export function bidAuditDeleteLoading(bool) {
-  return {
-    type: 'BID_AUDIT_DELETE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-
-// ================ TBD? ================
-
-export function savebidAuditSelections(data) {
+export function bidAuditGetAuditFetchData(query = {}) {
   return (dispatch) => {
-    dispatch(bidAuditLoading(true));
-    dispatch(bidAuditErrored(false));
-    api().post('/Placeholder/', data)
-      .then(({ res }) => {
-        batch(() => {
-          dispatch(bidAuditErrored(false));
-          dispatch(bidAuditSuccess(res));
-          dispatch(toastSuccess(UPDATE_BID_AUDIT_SUCCESS,
-            UPDATE_BID_AUDIT_SUCCESS_TITLE));
-          dispatch(bidAuditLoading(false));
-        });
-      }).catch(() => {
-        batch(() => {
-          dispatch(toastError(UPDATE_BID_AUDIT_ERROR,
-            UPDATE_BID_AUDIT_ERROR_TITLE));
-          dispatch(bidAuditErrored(true));
-          dispatch(bidAuditLoading(false));
-        });
-      });
-  };
-}
-
-// ================ Bid Audit: Delete ================
-
-export function bidAuditDeleteDataErrored(bool) {
-  return {
-    type: 'BID_AUDIT_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidAuditDeleteDataSuccess(results) {
-  return {
-    type: 'BID_AUDIT_DELETE_SUCCESS',
-    results,
-  };
-}
-export function deleteBidAudit(id) {
-  return (dispatch) => {
-    dispatch(bidAuditDeleteLoading(true));
-    api().delete(`/Placeholder/${id}/}`)
-      .then(() => {
-        dispatch(bidAuditDeleteLoading(false));
-        dispatch(bidAuditDeleteDataErrored(false));
-        dispatch(bidAuditDeleteDataSuccess('Successfully deleted the selected search.'));
-        dispatch(toastSuccess(
-          DELETE_BID_AUDIT_SUCCESS,
-          DELETE_BID_AUDIT_SUCCESS_TITLE,
-        ));
-      })
-      .catch(() => {
-        dispatch(toastError(
-          DELETE_BID_AUDIT_ERROR,
-          DELETE_BID_AUDIT_ERROR_TITLE,
-        ));
-        dispatch(bidAuditDeleteLoading(false));
-        dispatch(bidAuditDeleteDataSuccess(false));
-      });
-  };
-}
-
-
-// ================ Bid Audit: User Filter Selections ================
-
-export function bidAuditSelectionsSaveSuccess(result) {
-  return {
-    type: 'BID_AUDIT_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-export function saveBidAuditSelections(queryObject) {
-  return (dispatch) => dispatch(bidAuditSelectionsSaveSuccess(queryObject));
-}
-
-
-// ================ Bid Audit: Filters ================
-
-export function bidAuditFiltersFetchDataErrored(bool) {
-  return {
-    type: 'BID_AUDIT_FILTERS_FETCH_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidAuditFiltersFetchDataLoading(bool) {
-  return {
-    type: 'BID_AUDIT_FILTERS_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidAuditFiltersFetchDataSuccess(results) {
-  return {
-    type: 'BID_AUDIT_FILTERS_FETCH_SUCCESS',
-    results,
-  };
-}
-export function bidAuditFiltersFetchData() {
-  return (dispatch) => {
+    if (cancelBidAuditGetAuditData) {
+      cancelBidAuditGetAuditData('cancel');
+    }
     batch(() => {
-      dispatch(bidAuditFiltersFetchDataSuccess({}));
-      dispatch(bidAuditFiltersFetchDataLoading(false));
+      dispatch(bidAuditGetAuditFetchDataLoading(true));
+      dispatch(bidAuditGetAuditFetchDataErrored(false));
     });
+    const q = convertQueryToString(query);
+    api()
+      .get(`/fsbid/bid_audit/data/?${q}`, {
+        cancelToken: new CancelToken((c) => { cancelBidAuditGetAuditData = c; }),
+      })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bidAuditGetAuditFetchDataSuccess(data));
+          dispatch(bidAuditGetAuditFetchDataErrored(false));
+          dispatch(bidAuditGetAuditFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(bidAuditGetAuditFetchDataSuccess([]));
+            dispatch(bidAuditGetAuditFetchDataErrored(true));
+            dispatch(bidAuditGetAuditFetchDataLoading(false));
+          });
+        }
+      });
   };
 }
 
+// ================ Bid Audit: Get Postion HTF Data ================
+
+let cancelBidAuditGetHTFData;
+
+export function bidAuditHTFFetchModalDataErrored(bool) {
+  return {
+    type: 'BID_AUDIT_HTF_FETCH_MODAL_DATA_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bidAuditHTFFetchModalDataLoading(bool) {
+  return {
+    type: 'BID_AUDIT_HTF_FETCH_MODAL_DATA_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bidAuditHTFFetchModalDataSuccess(results) {
+  return {
+    type: 'BID_AUDIT_HTF_FETCH_MODAL_DATA_SUCCESS',
+    results,
+  };
+}
+export function bidAuditHTFFetchModalData(cyclePositionId) {
+  return (dispatch) => {
+    if (cancelBidAuditGetHTFData) {
+      cancelBidAuditGetHTFData('cancel');
+    }
+    batch(() => {
+      dispatch(bidAuditHTFFetchModalDataLoading(true));
+      dispatch(bidAuditHTFFetchModalDataErrored(false));
+    });
+    api()
+      .get(`/fsbid/bid_audit/htf/${cyclePositionId}/`, {
+        cancelToken: new CancelToken((c) => { cancelBidAuditGetHTFData = c; }),
+      })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bidAuditHTFFetchModalDataSuccess(data));
+          dispatch(bidAuditHTFFetchModalDataErrored(false));
+          dispatch(bidAuditHTFFetchModalDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(bidAuditHTFFetchModalDataSuccess({}));
+            dispatch(bidAuditHTFFetchModalDataErrored(true));
+            dispatch(bidAuditHTFFetchModalDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+// ================ Bid Audit: Update HTF ================
+
+let cancelUpdateHTF;
+
+export function bidAuditUpdateHTF(data, onSuccess) {
+  return (dispatch) => {
+    if (cancelUpdateHTF) {
+      cancelUpdateHTF('cancel');
+    }
+    api()
+      .post(`/fsbid/bid_audit/htf/${data.id}/`, data, {
+        cancelToken: new CancelToken((c) => { cancelUpdateHTF = c; }),
+      })
+      .then(() => {
+        batch(() => {
+          dispatch(toastSuccess(
+            UPDATE_HTF_SUCCESS, UPDATE_HTF_SUCCESS_TITLE,
+          ));
+          if (onSuccess) onSuccess();
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(UPDATE_HTF_ERROR, UPDATE_HTF_ERROR_TITLE));
+        }
+      });
+  };
+}
+
+// ================ Bid Audit: Get MDS Data ================
+
+let cancelBidAuditGetMDSData;
+
+export function bidAuditGetMDSFetchDataErrored(bool) {
+  return {
+    type: 'BID_AUDIT_GET_MDS_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bidAuditGetMDSFetchDataLoading(bool) {
+  return {
+    type: 'BID_AUDIT_GET_MDS_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bidAuditGetMDSFetchDataSuccess(results) {
+  return {
+    type: 'BID_AUDIT_GET_MDS_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function bidAuditGetMDSFetchData(query = {}) {
+  return (dispatch) => {
+    if (cancelBidAuditGetMDSData) {
+      cancelBidAuditGetMDSData('cancel');
+    }
+    batch(() => {
+      dispatch(bidAuditGetMDSFetchDataLoading(true));
+      dispatch(bidAuditGetMDSFetchDataErrored(false));
+    });
+    const q = convertQueryToString(query);
+    api()
+      .get(`/fsbid/bid_audit/mds/?${q}`, {
+        cancelToken: new CancelToken((c) => { cancelBidAuditGetMDSData = c; }),
+      })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bidAuditGetMDSFetchDataSuccess(data));
+          dispatch(bidAuditGetMDSFetchDataErrored(false));
+          dispatch(bidAuditGetMDSFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(bidAuditGetMDSFetchDataSuccess([]));
+            dispatch(bidAuditGetMDSFetchDataErrored(true));
+            dispatch(bidAuditGetMDSFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}

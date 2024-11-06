@@ -259,3 +259,154 @@ $bid-audit-input-width: 460px;
     height: 44px;
   }
 }
+
+.bid-data-heading {
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  background-color: $bg-blue-dark-1;
+  color: $color-white;
+  margin: 20px 30px 20px 20px;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  span {
+    align-self: center;
+  }
+}
+
+.bid-data-shuffle {
+  text-decoration: none;
+  cursor: pointer;
+}
+.bid-data-shuffle:hover {
+  color: $blue-primary-light;
+}
+.bid-data-shuffle-disabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.bid-data--results {
+  padding: 0 35px 20px;
+  .bid-data-scroll-container {
+    overflow: auto;
+    height: 900px;
+    }
+  .bid-data-custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    th {
+      color: $color-white;
+      background-color: $tertiary-cool-blue;
+      // Position sticky not supported on ie11
+      // Position sticky has partial support on browsers (Must target th; not thead)
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      border: none;
+      &:nth-child(10) {
+        min-width: 130px;
+      }
+    }
+    tr {
+      height: 50px;
+    }
+    tbody {
+      td {
+        border: none;
+        border-bottom: 1px solid $bg-gray-dark-3;
+      }
+    }
+    .position-row {
+      // Position sticky not supported on ie11
+      // Position sticky has partial support on browsers (Must target th; not thead)
+      position: -webkit-sticky;
+      position: sticky;
+      top: 55px;
+      td {
+        font-weight: bold;
+        background-color: $bg-blue-dark-1;
+        color: $color-white;
+        &:nth-child(4) {
+          min-width: 250px;
+        }
+      }
+    }
+  }
+}
+
+.ba-data-htf {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ba-data-htf:hover {
+  color: $blue-primary-light;
+}
+
+.ba-htf-help-text {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 20px 0;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.ba-data-form--actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ba-table-tab {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.ba-table-tab-active {
+  border-bottom: 3px solid $primary-blue;
+  color: $primary-blue;
+}
+
+.ba-navTabs {
+  display: flex;
+  border-bottom: 2px solid $bg-gray-dark-3;
+  .ba-tab {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  >div:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
+.ba-mds-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  th {
+    color: $color-white;
+    background-color: $tertiary-cool-blue;
+    border: none;
+    padding: 8px;
+    height: 50px;
+    text-align: left;
+    font-weight: bold;
+    // Position sticky not supported on ie11
+    // Position sticky has partial support on browsers (Must target th; not thead)
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  td {
+    border: none;
+    border-bottom: 1px solid $bg-gray-dark-3;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+}

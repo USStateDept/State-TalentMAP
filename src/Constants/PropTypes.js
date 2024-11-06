@@ -782,7 +782,7 @@ export const PANEL_MEETING_DATES = PropTypes.shape({
 });
 
 export const PANEL_MEETING = PropTypes.shape({
-  pm_seq_num: PropTypes.number,
+  pmi_pm_seq_num: PropTypes.number,
   pm_virtual: PropTypes.string,
   pm_create_id: PropTypes.number,
   pm_create_date: PropTypes.string,

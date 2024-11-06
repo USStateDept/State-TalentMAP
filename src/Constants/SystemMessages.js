@@ -265,6 +265,11 @@ export const BIDDER_PORTFOLIO_ADD_SUCCESS = 'Bidder Portfolio has been added.';
 export const BIDDER_PORTFOLIO_ADD_ERROR_TITLE = 'Bidder Portfolio Add Error';
 export const BIDDER_PORTFOLIO_ADD_ERROR = 'There was an issue attempting to add this Bidder Portfolio. Please try again.';
 
+export const BIDDER_PORTFOLIO_UPDATE_SUCCESS_TITLE = 'Bidder Portfolio Updated';
+export const BIDDER_PORTFOLIO_UPDATE_SUCCESS = 'Bidder Portfolio has been updated.';
+export const BIDDER_PORTFOLIO_UPDATE_ERROR_TITLE = 'Bidder Portfolio Update Error';
+export const BIDDER_PORTFOLIO_UPDATE_ERROR = 'There was an issue attempting to update this Bidder Portfolio. Please try again.';
+
 export const BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE = 'Bureau Exceptions Added';
 export const BUREAU_EXCEPTIONS_ADD_SUCCESS = 'Bureau Exceptions have been added.';
 export const BUREAU_EXCEPTIONS_ADD_ERROR_TITLE = 'Adding Bureau Exceptions Error';
@@ -310,11 +315,6 @@ export const CREATE_BID_AUDIT_GRADE_SUCCESS = 'New At-Grade has been successfull
 export const CREATE_BID_AUDIT_GRADE_ERROR_TITLE = 'At-Grade Creation Error';
 export const CREATE_BID_AUDIT_GRADE_ERROR = 'There was an issue attempting to add this At-Grade. Please try again.';
 
-export const DELETE_BID_AUDIT_SUCCESS_TITLE = 'Bid Audit Deleted';
-export const DELETE_BID_AUDIT_SUCCESS = 'This Bid Audit has been successfully deleted.';
-export const DELETE_BID_AUDIT_ERROR_TITLE = 'Bid Audit Error';
-export const DELETE_BID_AUDIT_ERROR = 'There was an issue attempting to delete this Bid Audit. Please try again.';
-
 export const DELETE_IN_CATEGORY_AT_GRADE_SUCCESS_TITLE = 'Deleted';
 export const DELETE_IN_CATEGORY_AT_GRADE_SUCCESS = 'This relationship has been successfully deleted.';
 export const DELETE_IN_CATEGORY_AT_GRADE_ERROR_TITLE = 'Delete Error';
@@ -329,6 +329,11 @@ export const UPDATE_BID_COUNT_SUCCESS_TITLE = 'Bid Counts Updated';
 export const UPDATE_BID_COUNT_SUCCESS = 'The Dynamic Audit has run successfully.';
 export const UPDATE_BID_COUNT_ERROR_TITLE = 'Bid Counts Not Updated';
 export const UPDATE_BID_COUNT_ERROR = 'There was an issue attempting to run this Dynamic Bid Audit. Please try again.';
+
+export const UPDATE_HTF_SUCCESS_TITLE = 'Position Updated';
+export const UPDATE_HTF_SUCCESS = 'This Position has been updated successfully.';
+export const UPDATE_HTF_ERROR_TITLE = 'Position Not Updated';
+export const UPDATE_HTF_ERROR = 'There was an issue attempting to update this Postion. Please try again.';
 
 export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edits Successfully Saved';
 export const JOB_CATEGORIES_EDIT_SUCCESS = 'Your edits to the selected Job Category have been saved';
@@ -412,3 +417,58 @@ export const CREATE_ALT_SEPARATION_SUCCESS_TITLE = 'Separation Created';
 export const CREATE_ALT_SEPARATION_SUCCESS = 'This Separation has been successfully created.';
 export const CREATE_ALT_SEPARATION_ERROR_TITLE = 'Separation Creation Error';
 export const CREATE_ALT_SEPARATION_ERROR = 'There was an issue attempting to create this Separation. Please try again.';
+
+export const GET_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Error';
+export const GET_NOTIFICATION_ERROR = 'There was an issue attempting to create this Assignment Notification. Please try again.';
+
+export const UPDATE_NOTIFICATION_SUCCESS_TITLE = 'Assignment Notification Saved';
+export const UPDATE_NOTIFICATION_SUCCESS = 'This Assignment Notification has been successfully saved.';
+export const UPDATE_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Error';
+export const UPDATE_NOTIFICATION_ERROR = 'There was an issue attempting to save this Assignment Notification. Please try again.';
+
+export const REBUILD_NOTIFICATION_SUCCESS_TITLE = 'Assignment Notification Rebuilt';
+export const REBUILD_NOTIFICATION_SUCCESS = 'This Assignment Notification has been successfully rebuilt.';
+export const REBUILD_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Rebuild Error';
+export const REBUILD_NOTIFICATION_ERROR = 'There was an issue attempting to rebuild this Assignment Notification. Please try again.';
+
+export const SEND_NOTIFICATION_SUCCESS_TITLE = 'Assignment Notification Sent';
+export const SEND_NOTIFICATION_SUCCESS = 'This Assignment Notification has been successfully sent.';
+export const SEND_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Send Error';
+export const SEND_NOTIFICATION_ERROR = 'There was an issue attempting to send this Assignment Notification. Please try again.';
+
+export const GET_MEMO_ERROR_TITLE = 'Assignment Memo Error';
+export const GET_MEMO_ERROR = 'There was an issue attempting to create this Assignment Memo. Please try again.';
+
+export const UPDATE_MEMO_SUCCESS_TITLE = 'Assignment Memo Saved';
+export const UPDATE_MEMO_SUCCESS = 'This Assignment Memo has been successfully saved.';
+export const UPDATE_MEMO_ERROR_TITLE = 'Assignment Memo Error';
+export const UPDATE_MEMO_ERROR = 'There was an issue attempting to save this Assignment Memo. Please try again.';
+
+export const REBUILD_MEMO_SUCCESS_TITLE = 'Assignment Memo Rebuilt';
+export const REBUILD_MEMO_SUCCESS = 'This Assignment Memo has been successfully rebuilt.';
+export const REBUILD_MEMO_ERROR_TITLE = 'Assignment Memo Rebuild Error';
+export const REBUILD_MEMO_ERROR = 'There was an issue attempting to rebuild this Assignment Memo. Please try again.';
+
+export const SEND_MEMO_SUCCESS_TITLE = 'Assignment Memo Sent';
+export const SEND_MEMO_SUCCESS = 'This Assignment Memo has been successfully sent.';
+export const SEND_MEMO_ERROR_TITLE = 'Assignment Memo Send Error';
+export const SEND_MEMO_ERROR = 'There was an issue attempting to send this Assignment Memo. Please try again.';
+
+export const GET_GAL_ERROR_TITLE = 'GAL Lookup Error';
+export const GET_GAL_ERROR = 'There was an issue attempting this GAL Lookup. Please try again.';
+
+export const GET_OPS_WSDL_ERROR_TITLE = 'OPS WSDL Error';
+export const GET_OPS_WSDL_ERROR = 'There was an issue attempting to retrieve the OPS WSDL. Please try again.';
+
+export const GET_OPS_DATA_ERROR_TITLE = 'OPS Log Data Error';
+export const GET_OPS_DATA_ERROR = 'There was an issue attempting to retrieve OPS Log Data. Please try again.';
+
+export const INSERT_OPS_LOG_SUCCESS_TITLE = 'OPS Log Created';
+export const INSERT_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully created.';
+export const INSERT_OPS_LOG_ERROR_TITLE = 'Create OPS Log Error';
+export const INSERT_OPS_LOG_ERROR = 'There was an issue attempting to create this TM1 OPS Log. Please try again.';
+
+export const UPDATE_OPS_LOG_SUCCESS_TITLE = 'OPS Log Updated';
+export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully updated.';
+export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
+export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';

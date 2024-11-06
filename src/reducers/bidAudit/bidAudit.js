@@ -98,120 +98,81 @@ export function bidAuditSecondFetchModalData(state = {}, action) {
   }
 }
 
+// ================ Bid Audit: Get Audit Data ================
 
-// ----------------------------------------------------------------------
-// ================ FUNCTIONS BELOW ARE CURRENTLY UNUSED ================
-// ----------------------------------------------------------------------
-
-// ================ Bid Audit: Get Audit ================
-
-export function bidAuditErrored(state = false, action) {
+export function bidAuditGetAuditFetchDataErrored(state = false, action) {
   switch (action.type) {
-    case 'BID_AUDIT_HAS_ERRORED':
+    case 'BID_AUDIT_GET_AUDIT_FETCH_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function bidAuditLoading(state = false, action) {
+export function bidAuditGetAuditFetchDataLoading(state = false, action) {
   switch (action.type) {
-    case 'BID_AUDIT_EDIT_IS_LOADING':
+    case 'BID_AUDIT_GET_AUDIT_FETCH_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
-
-
-// ================ Bid Audit: Edit ================
-
-export function bidAuditEdit(state = {}, action) {
+export function bidAuditGetAuditFetchDataSuccess(state = {}, action) {
   switch (action.type) {
-    case 'BID_AUDIT_SUCCESS':
+    case 'BID_AUDIT_GET_AUDIT_FETCH_SUCCESS':
       return action.results;
     default:
       return state;
   }
 }
 
+// ================ Bid Audit: Get Postion HTF Data ================
 
-// ================ Bid Audit: Delete ================
-
-export function bidAuditDeleteLoading(state = false, action) {
+export function bidAuditHTFFetchModalDataErrored(state = false, action) {
   switch (action.type) {
-    case 'BID_AUDIT_DELETE_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function bidAuditDeleteDataSuccess(state = false, action) {
-  switch (action.type) {
-    case 'BID_AUDIT_DELETE_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
-
-
-// ================ Bid Audit: Get Card ================
-
-export function bidAuditCard(state = {}, action) {
-  switch (action.type) {
-    case 'BID_AUDIT_CARD_FETCH_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
-
-
-// ================ Bid Audit: Get Category Card ================
-
-export function bidAuditCategoryCard(state = {}, action) {
-  switch (action.type) {
-    case 'BID_AUDIT_CARD_CAT_FETCH_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
-
-
-// ================ Bid Audit: User Filter Selections ================
-
-export function bidAuditSelections(state = {}, action) {
-  switch (action.type) {
-    case 'BID_AUDIT_SELECTIONS_SAVE_SUCCESS':
-      return action.result;
-    default:
-      return state;
-  }
-}
-
-
-// ================ Bid Audit: Filters ================
-
-export function bidAuditFiltersFetchDataErrored(state = false, action) {
-  switch (action.type) {
-    case 'BID_AUDIT_FILTERS_FETCH_HAS_ERRORED':
+    case 'BID_AUDIT_HTF_FETCH_MODAL_DATA_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function bidAuditFiltersFetchDataLoading(state = false, action) {
+export function bidAuditHTFFetchModalDataLoading(state = false, action) {
   switch (action.type) {
-    case 'BID_AUDIT_FILTERS_FETCH_IS_LOADING':
+    case 'BID_AUDIT_HTF_FETCH_MODAL_DATA_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
-export function bidAuditFilters(state = {}, action) {
+export function bidAuditHTFFetchModalData(state = {}, action) {
   switch (action.type) {
-    case 'BID_AUDIT_FILTERS_FETCH_SUCCESS':
+    case 'BID_AUDIT_HTF_FETCH_MODAL_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
+// ================ Bid Audit: Get MDS Data ================
+
+export function bidAuditGetMDSFetchDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'BID_AUDIT_GET_MDS_FETCH_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bidAuditGetMDSFetchDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'BID_AUDIT_GET_MDS_FETCH_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bidAuditGetMDSFetchDataSuccess(state = {}, action) {
+  switch (action.type) {
+    case 'BID_AUDIT_GET_MDS_FETCH_SUCCESS':
       return action.results;
     default:
       return state;

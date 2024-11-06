@@ -26,7 +26,6 @@ const Assignment = (props) => {
     perdet,
     data,
     isNew,
-    setNewAsgSep,
     toggleModal,
     setDisableOtherEdits,
     disableOtherEdits,
@@ -229,7 +228,6 @@ const Assignment = (props) => {
         onUpdateSuccess,
       ));
     }
-    setNewAsgSep('default');
   };
 
   const form = {
@@ -506,7 +504,7 @@ const Assignment = (props) => {
         <PositionExpandableContent
           sections={sections}
           form={form}
-          saveText={isNew ? 'Create Assignment' : 'Save Assigment'}
+          saveText={isNew ? 'Create Assignment' : 'Save Assignment'}
         />
       }
     </div>
@@ -516,10 +514,9 @@ const Assignment = (props) => {
 Assignment.propTypes = {
   data: POSITION_DETAILS.isRequired,
   isNew: PropTypes.bool,
-  cycle: PropTypes.shape({
-    cycle_name: PropTypes.string,
-  }).isRequired,
-  setNewAsgSep: PropTypes.func,
+  // cycle: PropTypes.shape({
+  //   cycle_name: PropTypes.string,
+  // }).isRequired,
   toggleModal: PropTypes.func,
   perdet: PropTypes.string,
   setDisableOtherEdits: PropTypes.func,
@@ -530,7 +527,6 @@ Assignment.propTypes = {
 Assignment.defaultProps = {
   data: {},
   isNew: false,
-  setNewAsgSep: EMPTY_FUNCTION,
   toggleModal: EMPTY_FUNCTION,
   perdet: '',
   setDisableOtherEdits: EMPTY_FUNCTION,

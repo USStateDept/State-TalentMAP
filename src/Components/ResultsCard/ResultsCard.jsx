@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull } from 'lodash';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
-import { checkFlag } from 'flags';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -12,7 +11,7 @@ import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BoxShadow from '../BoxShadow';
-import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsCritNeed, IsHardToFill, RWADetoRibbon, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import BidListButton from '../../Containers/BidListButton';
@@ -27,8 +26,6 @@ import {
   NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
-
-const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 class ResultsCard extends Component {
   getInnerId = () => {
@@ -119,12 +116,11 @@ class ResultsCard extends Component {
       };
     }
 
-    if (DETO_RWA_FLAG()) {
-      sections[1] = {
-        ...sections[1],
-        'RWA/DETO Eligible': pos?.deto_rwa ? 'Eligible' : 'Not Eligible',
-      };
-    }
+    const isAvailTeleworkPos = pos?.avail_telework_pos === 'Y';
+    sections[1] = {
+      ...sections[1],
+      'RWA/DETO Eligible': isAvailTeleworkPos ? 'Eligible' : 'Not Eligible',
+    };
 
     options.favorite = {
       compareArray: [],
@@ -267,6 +263,12 @@ class ResultsCard extends Component {
                     }
                     {
                       get(result, 'isHardToFill', false) && <IsHardToFill isWideResults className={ribbonClass} />
+                    }
+                    {
+                      get(result, 'isCritNeed', false) && <IsCritNeed isWideResults className={ribbonClass} />
+                    }
+                    {
+                      isAvailTeleworkPos && <RWADetoRibbon isWideResults className={ribbonClass} />
                     }
                     {
                       // conditional rendering occurs inside the container

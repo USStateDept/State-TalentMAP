@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "13.0.2",
+  "version": "14.0.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.17.9",
@@ -14,6 +14,8 @@
     "@react-pdf-viewer/default-layout": "^2.11.0",
     "@sweetalert/with-react": "^0.1.1",
     "@wojtekmaj/react-daterange-picker": "^3.4.0",
+    "ag-grid-community": "~31.1.0",
+    "ag-grid-react": "~31.1.0",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.7.3",
     "babel-plugin-lodash": "^3.3.4",
@@ -41,6 +43,7 @@
     "immutable": "^3.8.2",
     "jsoneditor": "^9.7.4",
     "jsoneditor-react": "^3.1.2",
+    "jspdf": "^2.5.2",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "lodash-webpack-plugin": "^0.11.6",
@@ -104,11 +107,12 @@
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
     "use-query-params": "^1.2.3",
-    "uswds": "~1.6.12"
+    "uswds": "~1.6.12",
+    "uuid": "9.0.0"
   },
-    "resolutions": {
-      "**/**/type-fest": "0.21.3",
-      "enzyme/cheerio": "1.0.0-rc.12"
+  "resolutions": {
+    "**/**/type-fest": "0.21.3",
+    "enzyme/cheerio": "1.0.0-rc.12"
   },
   "@comment devDependencies": [
     "dart-sass 1.33.0 introduces a breaking change to division. This causes uswds compilation to fail. https://github.com/sass/dart-sass/releases/tag/1.33.0",
@@ -224,6 +228,8 @@
     "build": "node scripts/build.js",
     "test": "node --expose-gc scripts/test.js --env=jsdom --no-cache --coverage --maxWorkers=3 --logHeapUsage",
     "test:local": "node --expose-gc scripts/test.js --env=jsdom --cache --coverage -u --logHeapUsage",
+    "clean": "yarn cache clean && rm -rf node_modules && rm yarn.lock && yarn install",
+    "install:pure": "yarn install --pure-lockfile",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",

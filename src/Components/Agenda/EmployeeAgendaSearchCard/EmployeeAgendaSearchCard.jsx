@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { get, isNil } from 'lodash';
+import { get } from 'lodash';
 import { checkFlag } from 'flags';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
@@ -45,18 +45,17 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
   const agendaID = get(agenda, 'agendaID');
   const agendaIDExist = !!agendaID;
 
-  // handles error where some employees have no Profile
-  const employeeHasCDO = !isNil(get(person, 'cdo'));
+
   const currentPost = (currentCity || currentCountry || currentOrg) ? `${currentCity} ${currentCountry} ${currentOrg}` : FALLBACK;
   const hsPost = (hsCity || hsCountry || hsOrg) ? `${hsCity} ${hsCountry} ${hsOrg}` : FALLBACK;
 
   let profileLink;
   switch (viewType) {
     case 'ao':
-      profileLink = employeeHasCDO ? <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link> : bidder;
+      profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
       break;
     case 'cdo':
-      profileLink = isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+      profileLink = isCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
       break;
     default:
       profileLink = bidder;

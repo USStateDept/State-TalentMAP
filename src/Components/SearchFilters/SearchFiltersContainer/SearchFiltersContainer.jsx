@@ -61,6 +61,7 @@ class SearchFiltersContainer extends Component {
         ordering: 'ted',
         cps_codes: null,
         htf_indicator: null,
+        cn_indicator: null,
       };
     }
     this.props.queryParamUpdate(config);
@@ -133,21 +134,21 @@ class SearchFiltersContainer extends Component {
 
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
-      'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus', 'handshake', 'hardToFill'];
+      'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus', 'handshake', 'hardToFill', 'criticalNeed'];
 
 
     const multiSelectFilterNamesTandemCommon = ['post', 'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus'];
     const multiSelectFilterNamesTandem1 = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language', 'handshake',
-      'hardToFill'];
+      'hardToFill', 'criticalNeed'];
     const multiSelectFilterNamesTandem2 = ['bidSeason-tandem', 'bidCycle-tandem', 'skill-tandem', 'grade-tandem',
-      'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem', 'hardToFill-tandem'];
+      'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem', 'hardToFill-tandem', 'criticalNeed-tandem'];
 
     const blackList = []; // don't create accordions for these
 
     if (DETO_RWA_FLAG()) {
       multiSelectFilterNames.push('detoRwa');
-      multiSelectFilterNamesTandem1.push('detoRwa');
-      multiSelectFilterNamesTandem2.push('detoRwa-tandem');
+      // multiSelectFilterNamesTandem1.push('detoRwa-tandem'); //TODO: Pending fix of endpoints noted in TM-6521
+      // multiSelectFilterNamesTandem2.push('detoRwa-tandem'); //TODO: Pending fix of endpoints noted in TM-6521
     }
 
     // START TOGGLE FILTERS

@@ -17,6 +17,7 @@ import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
 import BidAudit from './bidAudit/BidAudit';
 import BidAuditCategory from './bidAudit/BidAuditCategory';
 import BidAuditGrade from './bidAudit/BidAuditGrade';
+import BidAuditData from './bidAudit/BidAuditData';
 import CycleJobCategories from './CycleJobCategories/CycleJobCategories';
 import ManageEntryLevel from './ManageEntryLevel/ManageEntryLevel';
 import JobCategories from './JobCategories/JobCategories';
@@ -74,6 +75,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/managebidseasons" render={() => <ManageBidSeasons />} />
         <Route path="/profile/administrator/bidaudit/category/:cycleId/:auditId" render={() => <BidAuditCategory />} />
         <Route path="/profile/administrator/bidaudit/grade/:cycleId/:auditId" render={() => <BidAuditGrade />} />
+        <Route path="/profile/administrator/bidaudit/data/:cycleId/:auditId" render={() => <BidAuditData />} />
         <Route path="/profile/administrator/bidaudit/" render={() => <BidAudit />} />
         <Route path="/profile/administrator/panel/:pmSeqNum" render={() => <PanelAdmin />} />
         <Route path="/profile/administrator/panel/" render={() => <PanelAdmin />} />

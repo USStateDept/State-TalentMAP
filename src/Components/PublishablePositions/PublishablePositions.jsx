@@ -49,36 +49,7 @@ const PublishablePositions = ({ viewType }) => {
 
   const isBureauView = viewType === 'bureau';
   const isPostView = viewType === 'post';
-  // const bureauPermissions = useSelector(state => state.userProfile?.bureau_permissions);
-  // const orgPermissions = useSelector(state => state.userProfile?.org_permissions);
-
-  // const getBureauFilters = () => {
-  //   const originalBureaus = filters?.bureauFilters;
-  //   if (originalBureaus && isBureauView) {
-  //     if (bureauPermissions) {
-  //       const bureauPermissionsGroups = Object.groupBy(bureauPermissions, ({ short_description }) => short_description);
-  //       const userBureauDescPermissions = Object.keys(bureauPermissionsGroups);
-  //       // filter out if user does not have that bureau permission
-  //       return originalBureaus.filter((a) => userBureauDescPermissions.includes(a?.description));
-  //     }
-  //     return [];
-  //   }
-  //   return originalBureaus;
-  // };
-
-  // const getOrgFilters = () => {
-  //   const originalOrgs = filters?.orgFilters;
-  //   if (originalOrgs && isPostView) {
-  //     if (orgPermissions) {
-  //       const orgPermissionsGroups = Object.groupBy(orgPermissions, ({ code }) => code);
-  //       const userOrgCodePermissions = Object.keys(orgPermissionsGroups);
-  //       // filter out if user does not have that org permission
-  //       return originalOrgs.filter((a) => userOrgCodePermissions.includes(a?.code));
-  //     }
-  //     return [];
-  //   }
-  //   return originalOrgs;
-  // };
+  const bureauPermissions = useSelector(state => state.userProfile?.bureau_permissions);
 
   const [tempsearchPosNum, tempsetSearchPosNum] = useState(userSelections?.searchPosNum || '');
   const [searchPosNum, setSearchPosNum] = useState(userSelections?.searchPosNum || '');
@@ -100,16 +71,14 @@ const PublishablePositions = ({ viewType }) => {
   const prevPage = usePrevious(page);
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
-  const count = data$?.length || 0;
 
   const statuses = filters?.statusFilters;
-  const bureaus = filters?.bureauFilters;
   const orgs = filters?.orgFilters;
   const grades = filters?.gradeFilters;
   const skills = filters?.skillsFilters;
   const cycles = filters?.cycleFilters;
+  const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
-  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
   const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
   const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
@@ -120,7 +89,7 @@ const PublishablePositions = ({ viewType }) => {
     page,
     posNum: searchPosNum,
     statuses: selectedStatuses.map(f => (f?.code)),
-    bureaus: selectedBureaus.map(f => (f?.description)),
+    bureaus: selectedBureaus.map(f => (f?.short_description)),
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
     skills: selectedSkills.map(f => (f?.code)),
@@ -349,8 +318,8 @@ const PublishablePositions = ({ viewType }) => {
                 value={selectedBureaus}
                 options={bureauOptions}
                 onChange={setSelectedBureaus}
-                valueKey="description"
-                labelKey="description"
+                valueKey="code"
+                labelKey="short_description"
                 disabled={editMode}
               />
             </div>
@@ -408,7 +377,7 @@ const PublishablePositions = ({ viewType }) => {
           </div>
           <div className="viewing-results-and-dropdown--fullscreen padding-top results-dropdown">
             <TotalResults
-              total={count}
+              total={data?.count}
               pageNumber={page}
               pageSize={limit}
               suffix="Results"
@@ -461,7 +430,7 @@ const PublishablePositions = ({ viewType }) => {
                 pageSize={limit}
                 onPageChange={p => setPage(p.page)}
                 forcePage={page}
-                totalResults={count}
+                totalResults={data?.count}
               />
             </div>
           </div>

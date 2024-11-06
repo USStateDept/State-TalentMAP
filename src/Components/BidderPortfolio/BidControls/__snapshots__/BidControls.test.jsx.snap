@@ -22,6 +22,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       </div>
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
+        isMultiple={true}
         pageSize={10}
         updatePagination={[Function]}
       />
@@ -66,91 +67,11 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
         transformValue={[Function]}
       />
       <Connect(BidCyclePicker)
+        isMultiple={true}
         setClick={[Function]}
         setSeasonsCb={[Function]}
         updatePagination={[Function]}
       />
-      <Connect(PreferenceWrapper)
-        keyRef="BID_PORTFOLIO_FILTERS"
-        onSelect={[Function]}
-      >
-        <SelectForm
-          className="select-offset select-black"
-          defaultSort=""
-          disabled={false}
-          emptyOptionText="- Select -"
-          id="portfolio-filter"
-          includeFirstEmptyOption={false}
-          label="Filter By:"
-          labelSrOnly={false}
-          onSelectOption={[Function]}
-          options={
-            Array [
-              Object {
-                "text": "All",
-                "value": "",
-              },
-              Object {
-                "text": "Handshake",
-                "value": "true",
-              },
-              Object {
-                "text": "No Handshake",
-                "value": "false",
-              },
-              Object {
-                "text": "Unassigned Filters",
-                "value": "unassigned_filters",
-              },
-            ]
-          }
-          transformValue={[Function]}
-        />
-      </Connect(PreferenceWrapper)>
-      <div
-        className="unassigned-bidder-picker-container usa-form unassigned-disabled"
-      >
-        <div
-          className="label"
-        >
-          Unassigned Bidders:
-        </div>
-        <r
-          disabled={true}
-          dropdownHeight={255}
-          filterDebounce={150}
-          id="picky"
-          includeSelectAll={true}
-          keepOpen={true}
-          labelKey="text"
-          multiple={true}
-          numberDisplayed={2}
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "text": "No Handshake",
-                "value": "noHandshake",
-              },
-              Object {
-                "text": "No Panel",
-                "value": "noPanel",
-              },
-              Object {
-                "text": "Has Not Placed Bids",
-                "value": "noBids",
-              },
-            ]
-          }
-          placeholder="Select Criteria"
-          renderList={[Function]}
-          selectAllMode="default"
-          selectAllText="Select all"
-          tabIndex={0}
-          value={Array []}
-          valueKey="value"
-        />
-      </div>
       <Connect(PreferenceWrapper)
         keyRef="BID_PORTFOLIO_SORTS"
         onSelect={[Function]}
@@ -197,6 +118,29 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       initial="card"
       onClick={[Function]}
     />
+    <div
+      className="jc-toggle-container"
+    >
+      <ToggleButton
+        activeBoxShadow=""
+        boxShadow=""
+        checked={false}
+        checkedIcon={false}
+        height={20}
+        labelSameLine={true}
+        labelText=""
+        labelTextLeft=""
+        labelTextRight="Toggle CDO D3.0 View"
+        labelToLeft={true}
+        offColor="#888888"
+        offHandleColor="#ffffff"
+        onChange={[Function]}
+        onColor="#0071BC"
+        onHandleColor="#ffffff"
+        uncheckedIcon={false}
+        width={40}
+      />
+    </div>
   </div>
   <div
     className="usa-width-one-whole portfolio-filter-pills-container"
@@ -232,6 +176,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       </div>
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
+        isMultiple={true}
         pageSize={10}
         updatePagination={[Function]}
       />
@@ -276,91 +221,11 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
         transformValue={[Function]}
       />
       <Connect(BidCyclePicker)
+        isMultiple={true}
         setClick={[Function]}
         setSeasonsCb={[Function]}
         updatePagination={[Function]}
       />
-      <Connect(PreferenceWrapper)
-        keyRef="BID_PORTFOLIO_FILTERS"
-        onSelect={[Function]}
-      >
-        <SelectForm
-          className="select-offset select-black"
-          defaultSort=""
-          disabled={false}
-          emptyOptionText="- Select -"
-          id="portfolio-filter"
-          includeFirstEmptyOption={false}
-          label="Filter By:"
-          labelSrOnly={false}
-          onSelectOption={[Function]}
-          options={
-            Array [
-              Object {
-                "text": "All",
-                "value": "",
-              },
-              Object {
-                "text": "Handshake",
-                "value": "true",
-              },
-              Object {
-                "text": "No Handshake",
-                "value": "false",
-              },
-              Object {
-                "text": "Unassigned Filters",
-                "value": "unassigned_filters",
-              },
-            ]
-          }
-          transformValue={[Function]}
-        />
-      </Connect(PreferenceWrapper)>
-      <div
-        className="unassigned-bidder-picker-container usa-form unassigned-disabled"
-      >
-        <div
-          className="label"
-        >
-          Unassigned Bidders:
-        </div>
-        <r
-          disabled={true}
-          dropdownHeight={255}
-          filterDebounce={150}
-          id="picky"
-          includeSelectAll={true}
-          keepOpen={true}
-          labelKey="text"
-          multiple={true}
-          numberDisplayed={2}
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "text": "No Handshake",
-                "value": "noHandshake",
-              },
-              Object {
-                "text": "No Panel",
-                "value": "noPanel",
-              },
-              Object {
-                "text": "Has Not Placed Bids",
-                "value": "noBids",
-              },
-            ]
-          }
-          placeholder="Select Criteria"
-          renderList={[Function]}
-          selectAllMode="default"
-          selectAllText="Select all"
-          tabIndex={0}
-          value={Array []}
-          valueKey="value"
-        />
-      </div>
       <Connect(PreferenceWrapper)
         keyRef="BID_PORTFOLIO_SORTS"
         onSelect={[Function]}
@@ -407,6 +272,29 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       initial="card"
       onClick={[Function]}
     />
+    <div
+      className="jc-toggle-container"
+    >
+      <ToggleButton
+        activeBoxShadow=""
+        boxShadow=""
+        checked={false}
+        checkedIcon={false}
+        height={20}
+        labelSameLine={true}
+        labelText=""
+        labelTextLeft=""
+        labelTextRight="Toggle CDO D3.0 View"
+        labelToLeft={true}
+        offColor="#888888"
+        offHandleColor="#ffffff"
+        onChange={[Function]}
+        onColor="#0071BC"
+        onHandleColor="#ffffff"
+        uncheckedIcon={false}
+        width={40}
+      />
+    </div>
   </div>
   <div
     className="usa-width-one-whole portfolio-filter-pills-container"
