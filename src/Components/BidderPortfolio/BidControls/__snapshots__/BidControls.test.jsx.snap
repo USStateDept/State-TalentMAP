@@ -118,29 +118,6 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       initial="card"
       onClick={[Function]}
     />
-    <div
-      className="jc-toggle-container"
-    >
-      <ToggleButton
-        activeBoxShadow=""
-        boxShadow=""
-        checked={false}
-        checkedIcon={false}
-        height={20}
-        labelSameLine={true}
-        labelText=""
-        labelTextLeft=""
-        labelTextRight="Toggle CDO D3.0 View"
-        labelToLeft={true}
-        offColor="#888888"
-        offHandleColor="#ffffff"
-        onChange={[Function]}
-        onColor="#0071BC"
-        onHandleColor="#ffffff"
-        uncheckedIcon={false}
-        width={40}
-      />
-    </div>
   </div>
   <div
     className="usa-width-one-whole portfolio-filter-pills-container"
@@ -272,29 +249,6 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       initial="card"
       onClick={[Function]}
     />
-    <div
-      className="jc-toggle-container"
-    >
-      <ToggleButton
-        activeBoxShadow=""
-        boxShadow=""
-        checked={false}
-        checkedIcon={false}
-        height={20}
-        labelSameLine={true}
-        labelText=""
-        labelTextLeft=""
-        labelTextRight="Toggle CDO D3.0 View"
-        labelToLeft={true}
-        offColor="#888888"
-        offHandleColor="#ffffff"
-        onChange={[Function]}
-        onColor="#0071BC"
-        onHandleColor="#ffffff"
-        uncheckedIcon={false}
-        width={40}
-      />
-    </div>
   </div>
   <div
     className="usa-width-one-whole portfolio-filter-pills-container"
