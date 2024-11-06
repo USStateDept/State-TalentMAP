@@ -472,3 +472,10 @@ export const UPDATE_OPS_LOG_SUCCESS_TITLE = 'OPS Log Updated';
 export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully updated.';
 export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
 export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';
+
+export const EXPORT_DATA_LOADING_TITLE = 'Exporting Data...';
+export const EXPORT_DATA_LOADING = 'Export may take a while, please wait while we process. \n Export is capped at first 500 results.';
+export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
+export const EXPORT_DATA_SUCCESS = 'Data has been successfully exported.';
+export const EXPORT_DATA_ERROR_TITLE = 'Data Export Error';
+export const EXPORT_DATA_ERROR = 'There was an issue attempting to export this data. Please try again.';

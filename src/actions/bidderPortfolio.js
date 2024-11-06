@@ -2,12 +2,11 @@ import { batch } from 'react-redux';
 import { stringify } from 'query-string';
 import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
-import { toastSuccess } from 'actions/toast';
+import { toastError, toastInfo, toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
-import { BIDDER_PORTFOLIO_UPDATE_ERROR, BIDDER_PORTFOLIO_UPDATE_SUCCESS } from '../Constants/SystemMessages';
+import { BIDDER_PORTFOLIO_UPDATE_ERROR, BIDDER_PORTFOLIO_UPDATE_SUCCESS, EXPORT_DATA_ERROR, EXPORT_DATA_ERROR_TITLE, EXPORT_DATA_LOADING, EXPORT_DATA_LOADING_TITLE, EXPORT_DATA_SUCCESS, EXPORT_DATA_SUCCESS_TITLE } from '../Constants/SystemMessages';
 import api from '../api';
-import { toastError } from './toast';
 
 let cancelCDOs;
 let cancelPortfolio;
@@ -535,11 +534,19 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
 // pass in a normal client endpoint and add export path
 export function downloadClientData(q = '') {
   const q$ = replace(q, '/client/', '/client/export/');
-  return api()
-    .get(q$)
-    .then((response) => {
-      downloadFromResponse(response, 'TalentMap_client_export');
+  return (dispatch) => {
+    batch(() => {
+      dispatch(toastInfo(EXPORT_DATA_LOADING), EXPORT_DATA_LOADING_TITLE);
     });
+    api()
+      .get(q$)
+      .then((response) => {
+        dispatch(toastSuccess(EXPORT_DATA_SUCCESS, EXPORT_DATA_SUCCESS_TITLE));
+        downloadFromResponse(response, 'TalentMap_client_export');
+      }).catch(() => {
+        dispatch(toastError(EXPORT_DATA_ERROR, EXPORT_DATA_ERROR_TITLE));
+      });
+  };
 }
 
 export function bidderPortfolioCDOsFetchData() {
