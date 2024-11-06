@@ -152,8 +152,9 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   const IncExcCheckboxComponent = (e) => {
     console.log('e', e);
     const isEligibleDisabled = (convertBidderTypeQuery(wlType) === 'EB') && (e?.data?.workLists?.some(obj => obj?.ebdisabled === 'Y') || false);
+    const isEBdisabled = Array.isArray(e?.data?.workLists) && (e?.data?.workLists?.some(obj => obj?.ebdisabled === 'Y') || false);
     const isBSCEExcluded = Array.isArray(e?.data?.workLists) && (e?.data?.workLists?.some(obj => obj?.bsceincludeexcludeind === 'E') || false);
-    const isDisabled = isSeasonSelected || isBSCEExcluded ||
+    const isDisabled = isSeasonSelected || isBSCEExcluded || isEBdisabled ||
     convertBidderTypeQuery(wlType) === 'HS' ||
      convertBidderTypeQuery(wlType) === 'LA' ||
       convertBidderTypeQuery(wlType) === 'BC' ||
