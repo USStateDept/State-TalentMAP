@@ -505,9 +505,16 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
+          // filter null results
+          const data$ = data;
+          data$.results = data$.results.filter(obj => obj !== null);
+          data$.count = data$.results.length;
+          if (data$.count !== data.count) {
+            console.warn('Check logs for bad employee data');
+          }
           batch(() => {
-            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-            dispatch(bidderPortfolioFetchDataSuccess(data));
+            dispatch(bidderPortfolioLastQuery(query$$, data$.count, endpoint));
+            dispatch(bidderPortfolioFetchDataSuccess(data$));
             if (!isCDO) {
               dispatch(bidderPortfolioHasErrored(false));
               dispatch(bidderPortfolioIsLoading(false));
