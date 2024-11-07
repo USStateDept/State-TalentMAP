@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { stringify } from 'query-string';
-import { find, get, isArray, join, omit, replace } from 'lodash';
+import { find, get, isArray, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
