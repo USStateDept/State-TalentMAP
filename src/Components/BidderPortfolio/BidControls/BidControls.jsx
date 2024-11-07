@@ -20,6 +20,7 @@ import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
 
 const useUnassignedFilter = () => checkFlag('flags.unassigned_filters');
+const showCDOD30 = checkFlag('flags.CDOD30');
 
 export function renderList({ items, selected, ...rest }) {
   const getIsSelected = item => !!selected.find(f => f.value === item.value);
@@ -310,14 +311,16 @@ class BidControls extends Component {
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
-          <div className="jc-toggle-container">
-            <ToggleButton
-              labelTextRight={!isCDOD30 ? 'Toggle CDO D3.0 View' : 'Toggle Client Search View'}
-              onChange={this.onCDOToggleChange}
-              checked={isCDOD30}
-              onColor="#0071BC"
-            />
-          </div>
+          { showCDOD30 &&
+            <div className="jc-toggle-container">
+              <ToggleButton
+                labelTextRight={!isCDOD30 ? 'Toggle CDO D3.0 View' : 'Toggle Client Search View'}
+                onChange={this.onCDOToggleChange}
+                checked={isCDOD30}
+                onColor="#0071BC"
+              />
+            </div>
+          }
         </div>
         <div className="usa-width-one-whole portfolio-filter-pills-container">
           { showClear && <ResetFilters resetFilters={this.resetAllFilters} /> }
