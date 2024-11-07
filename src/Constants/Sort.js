@@ -1,5 +1,5 @@
 import { filter } from 'lodash';
-import { checkFlag } from 'flags';
+// import { checkFlag } from 'flags';
 
 // BEGIN: KEEP THESE CONSTANTS TOGETHER IN THIS ORDER
 const POSITION_SEARCH_SORTS$ = {
@@ -108,7 +108,9 @@ export const BID_PORTFOLIO_FILTERS = {
 };
 
 BID_PORTFOLIO_FILTERS.defaultSort = BID_PORTFOLIO_FILTERS.options[0].value;
-const showCDOD30 = checkFlag('flags.CDOD30');
+// const showCDOD30 = checkFlag('flags.CDOD30');
+const showCDOD30 = true;
+
 if (showCDOD30) {
   BID_PORTFOLIO_FILTERS.options.push(
     { value: 'eligible_bidders', text: 'Eligible Bidders' },
