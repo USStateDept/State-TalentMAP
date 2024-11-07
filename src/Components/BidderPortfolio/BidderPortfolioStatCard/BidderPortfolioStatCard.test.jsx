@@ -19,8 +19,8 @@ describe('BidderPortfolioStatCard', () => {
         <BidderPortfolioStatCard
           {...props}
         />
-      </Provider>, 
-      );
+      </Provider>,
+    );
     expect(wrapper).toBeDefined();
   });
 
@@ -30,7 +30,7 @@ describe('BidderPortfolioStatCard', () => {
         <BidderPortfolioStatCard
           {...props}
         />
-      </Provider>, 
+      </Provider>,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
