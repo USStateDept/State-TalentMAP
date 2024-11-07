@@ -17,6 +17,7 @@ export const generatePDF = (getPreviewText, filename, memo) => {
 
   // eslint-disable-next-line new-cap
   const pdf = new jsPDF('p', 'pt', 'a4');
+  let encodedPdf = null;
   pdf.html(content, {
     callback: (doc) => {
       if (memo) {
@@ -36,11 +37,13 @@ export const generatePDF = (getPreviewText, filename, memo) => {
         );
         doc.restoreGraphicsState();
       }
-      doc.save(filename);
+      encodedPdf = pdf.output('datauristring');
+      // doc.save(filename); // TEMPORARY: Saves PDF locally for testing purposes
     },
     margin: [36, 36, 36, 36],
     autoPaging: 'text',
   });
+  return encodedPdf;
 };
 
 /**

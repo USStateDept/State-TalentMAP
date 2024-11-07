@@ -472,3 +472,8 @@ export const UPDATE_OPS_LOG_SUCCESS_TITLE = 'OPS Log Updated';
 export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully updated.';
 export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
 export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';
+
+export const SEND_TO_EOPF_SUCCESS_TITLE = 'TM1 Sent to EOPF';
+export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF.';
+export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';
+export const SEND_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 to EOPF. Please try again.';
