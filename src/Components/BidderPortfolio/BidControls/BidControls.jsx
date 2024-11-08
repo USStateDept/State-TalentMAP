@@ -221,7 +221,7 @@ class BidControls extends Component {
         // this.props.queryParamUpdate({ panelClientID: e.target.value });
         this.props.setPanelDateID(e.target.value);
         this.props.getClientDatePerdets({
-          hru_id__in: proxyCdos[0].hru_id, // will always be one
+          hru_id: proxyCdos[0].hru_id, // will always be one
           panel_clients: true,
           cdo_pm_seq_num: e.target.value,
         });

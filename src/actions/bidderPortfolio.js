@@ -273,7 +273,7 @@ export function bidderPortfolioExtraDetailsFetchData(query = {}) {
 
     let query$ = { ...query };
     if (ids.length) {
-      query$.hru_id__in = ids.join();
+      query$.hru_id = ids.join();
     }
     if (seasons.length) {
       query$.bid_seasons = seasons.join(',');
@@ -362,7 +362,7 @@ export function getClientDatePerdets(query = {}) {
       let query$ = { ...query };
 
       if (ids.length) {
-        query$.hru_id__in = ids.join();
+        query$.hru_id = ids.join();
       }
 
       if (seasons.length) {
@@ -434,7 +434,7 @@ export function getClientPerdets(query = {}) {
       let query$ = { ...query };
 
       if (ids.length) {
-        query$.hru_id__in = ids.join();
+        query$.hru_id = ids.join();
       }
       if (seasons.length) {
         query$.bid_seasons = seasons.join(',');
@@ -516,7 +516,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     // const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     let query$ = { ...query };
     if (ids.length) {
-      query$.hru_id__in = ids.join();
+      query$.hru_id = ids.join();
     }
     // if (isArray(seasons) && seasons.length) {
     //   query$.bid_seasons = join(seasons, ',');
