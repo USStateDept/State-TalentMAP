@@ -103,8 +103,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   }
 
   const IncExc = ({ event, e }) => {
-    console.log('IncExc', e);
-    console.log('event', event);
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
     const currentWorkListData = e?.data?.workLists?.find(item => item?.bswwlcode === workListCode) || null;
@@ -119,7 +117,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       BSCE_Update_date: todaysDate(),
       BSCE_ID: currentWorkListData?.bsceid || null,
     };
-    console.log('query', query);
+
     dispatch(setCDOIncludeExclude(query));
   };
 
@@ -150,7 +148,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   };
 
   const IncExcCheckboxComponent = (e) => {
-    console.log('e', e);
     const isEligibleDisabled = (convertBidderTypeQuery(wlType) === 'EB') && ((Array.isArray(e?.data?.workLists) && e.data.workLists.some(obj => obj?.ebdisabled === 'Y')) || false);
     const isEBdisabled = Array.isArray(e?.data?.workLists) && (e?.data?.workLists?.some(obj => obj?.ebdisabled === 'Y') || false);
     const isBSCEExcluded = Array.isArray(e?.data?.workLists) && (e?.data?.workLists?.some(obj => obj?.bsceincludeexcludeind === 'E') || false);
@@ -162,12 +159,11 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
         convertBidderTypeQuery(wlType) === 'SB' ||
         isEligibleDisabled;
 
-    const isChecked = Array.isArray(e?.data?.workLists) && (e.data.workLists.some(obj => obj?.bsceid !== null) || false);
-    console.log('isChecked', isChecked);
-    console.log('isDisabled', isDisabled);
-    console.log('isEligibleDisabled', isEligibleDisabled);
+    const isCLChecked = Array.isArray(e?.data?.workLists) && e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && obj?.bsceid !== null);
+    const isCUChecked = (convertBidderTypeQuery(wlType) === 'CU') && Array.isArray(e?.data?.workLists) && e.data.workLists.some(obj => obj?.bswwlcode === 'CU' && obj?.bsceid !== null);
+    const combinedChecked = isCLChecked || isCUChecked;
     return (
-      <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={isChecked} />
+      <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={combinedChecked} />
     );
   };
 

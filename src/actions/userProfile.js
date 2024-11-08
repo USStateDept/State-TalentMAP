@@ -25,7 +25,6 @@ export function userProfileIsLoading(bool) {
 }
 
 export function userProfileFetchDataSuccess(userProfile) {
-  console.log('userProfile', userProfile);
   return {
     type: 'USER_PROFILE_FETCH_DATA_SUCCESS',
     userProfile,
