@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { toastError, toastInfo, toastSuccess } from 'actions/toast';
+import { EXPORT_DATA_ERROR, EXPORT_DATA_ERROR_TITLE, EXPORT_DATA_LOADING, EXPORT_DATA_LOADING_TITLE, EXPORT_DATA_SUCCESS, EXPORT_DATA_SUCCESS_TITLE } from 'Constants/SystemMessages';
 // import { get, mapValues } from 'lodash';
 // import { CSVLink } from '../../CSV';
 import { downloadClientData } from '../../../actions/bidderPortfolio';
@@ -53,17 +55,21 @@ export class ExportLink extends Component {
   // }
 
   onClick = () => {
+    const dispatch = useDispatch();
     const { bidderPortfolioLastQuery } = this.props;
     const { isLoading } = this.state;
     if (!isLoading) {
       // reset the state to support multiple clicks
       this.setState({ isLoading: true });
+      dispatch(toastInfo(EXPORT_DATA_LOADING, EXPORT_DATA_LOADING_TITLE));
       downloadClientData(bidderPortfolioLastQuery)
         .then(() => {
           this.setState({ isLoading: false });
+          dispatch(toastSuccess(EXPORT_DATA_SUCCESS, EXPORT_DATA_SUCCESS_TITLE));
         })
         .catch(() => {
           this.setState({ isLoading: false });
+          dispatch(toastError(EXPORT_DATA_ERROR, EXPORT_DATA_ERROR_TITLE));
         });
     }
   };
