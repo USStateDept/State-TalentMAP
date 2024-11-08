@@ -545,7 +545,7 @@ export function downloadClientData(q = '') {
     batch(() => {
       dispatch(toastInfo(EXPORT_DATA_LOADING), EXPORT_DATA_LOADING_TITLE);
     });
-    api()
+    return api()
       .get(q$)
       .then((response) => {
         dispatch(toastSuccess(EXPORT_DATA_SUCCESS, EXPORT_DATA_SUCCESS_TITLE));
