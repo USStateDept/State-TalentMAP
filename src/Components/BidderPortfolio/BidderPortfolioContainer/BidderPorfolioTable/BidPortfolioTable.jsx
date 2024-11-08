@@ -157,15 +157,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
           (e?.data?.workLists && typeof e.data.workLists === 'object' && e.data.workLists.ebdisabled === 'Y')
       ));
 
-    const isEBdisabled = Array.isArray(e?.data?.workLists)
-      ? e.data.workLists.some(obj => obj?.ebdisabled === 'Y')
-      : (typeof e?.data?.workLists === 'object' && e.data.workLists?.ebdisabled === 'Y');
-
-    const isBSCEExcluded = Array.isArray(e?.data?.workLists)
-      ? e.data.workLists.some(obj => obj?.bsceincludeexcludeind === 'E')
-      : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bsceincludeexcludeind === 'E');
-
-    const isDisabled = isSeasonSelected || isBSCEExcluded || isEBdisabled ||
+    const isDisabled = isSeasonSelected ||
     convertBidderTypeQuery(wlType) === 'HS' ||
      convertBidderTypeQuery(wlType) === 'LA' ||
       convertBidderTypeQuery(wlType) === 'BC' ||
@@ -189,7 +181,13 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
           ? e.data.workLists.some(obj => obj?.bswwlcode === 'EB' && obj?.bsceid !== null)
           : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'EB' && e.data.workLists?.bsceid !== null));
 
-    const combinedChecked = isCLChecked || isCUChecked || isEBChecked;
+    const isBSCEExcluded =
+    ((convertBidderTypeQuery(wlType) === 'EB') &&
+    (Array.isArray(e?.data?.workLists)
+      ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && obj?.bsceincludeexcludeind === 'E')
+      : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && e.data.workLists?.bsceincludeexcludeind === 'E')));
+
+    const combinedChecked = isCLChecked || isCUChecked || isEBChecked || isBSCEExcluded;
     return (
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={combinedChecked} />
     );
