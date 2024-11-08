@@ -717,16 +717,14 @@ export function saveBidderPortfolioSelections(data = {}) {
 
 export function setCDOIncludeExclude(data = {}) {
   return (dispatch) => {
-    dispatch(includeExcludeCDOIsLoading(true));
-    dispatch(includeExcludeCDOHasErrored(false));
-
     const endpoint = '/fsbid/client/cdo_include_exlude/';
     api().post(endpoint, data)
       .then(({ res }) => {
         batch(() => {
-          dispatch(includeExcludeCDOHasErrored(false));
+          console.log('res', res);
           dispatch(includeExcludeCDOSuccess(res));
           dispatch(toastSuccess(BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS));
+          dispatch(includeExcludeCDOHasErrored(false));
           dispatch(includeExcludeCDOIsLoading(false));
         });
       })
