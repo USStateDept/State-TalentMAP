@@ -263,7 +263,7 @@ export function includeExcludeCDOHasErrored(state = false, action) {
 export function includeExcludeCDO(state = {}, action) {
   switch (action.type) {
     case 'INCLUDE_EXCLUDE_CDO_SUCCESS':
-      return action.data;
+      return action.results;
     default:
       return state;
   }
