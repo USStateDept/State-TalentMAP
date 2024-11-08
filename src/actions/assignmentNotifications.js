@@ -27,6 +27,10 @@ import {
   SEND_MEMO_ERROR, SEND_MEMO_ERROR_TITLE, SEND_MEMO_SUCCESS, SEND_MEMO_SUCCESS_TITLE,
   SEND_NOTIFICATION_ERROR, SEND_NOTIFICATION_ERROR_TITLE,
   SEND_NOTIFICATION_SUCCESS, SEND_NOTIFICATION_SUCCESS_TITLE,
+  SEND_TO_EOPF_ERROR,
+  SEND_TO_EOPF_ERROR_TITLE,
+  SEND_TO_EOPF_SUCCESS,
+  SEND_TO_EOPF_SUCCESS_TITLE,
   UPDATE_MEMO_ERROR, UPDATE_MEMO_ERROR_TITLE, UPDATE_MEMO_SUCCESS, UPDATE_MEMO_SUCCESS_TITLE,
   UPDATE_OPS_LOG_ERROR,
   UPDATE_OPS_LOG_ERROR_TITLE,
@@ -668,6 +672,38 @@ export function createOpsLog(data, onSuccess) {
           dispatch(toastError(
             INSERT_OPS_LOG_ERROR,
             INSERT_OPS_LOG_ERROR_TITLE,
+          ));
+        }
+      });
+  };
+}
+
+// ================ SEND TO EOPF ================
+
+let cancelSendToEopf;
+export function sendToEopf(data, onSuccess) {
+  return (dispatch) => {
+    if (cancelSendToEopf) {
+      cancelSendToEopf('cancel');
+    }
+    api()
+      .post('/fsbid/notification/eopf/', data, {
+        cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
+      })
+      .then(() => {
+        dispatch(toastSuccess(
+          SEND_TO_EOPF_SUCCESS,
+          SEND_TO_EOPF_SUCCESS_TITLE,
+        ));
+        if (onSuccess) {
+          onSuccess();
+        }
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(
+            SEND_TO_EOPF_ERROR,
+            SEND_TO_EOPF_ERROR_TITLE,
           ));
         }
       });

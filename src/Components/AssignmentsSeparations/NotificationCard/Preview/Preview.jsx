@@ -14,7 +14,7 @@ import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
 import { generateHTML, generatePDF, generateSoapXML, generateXML } from '../Common/Utilities';
-import { createOpsLog, getOpsData, getOpsWsdl } from '../../../../actions/assignmentNotifications';
+import { createOpsLog, getOpsData, getOpsWsdl, sendToEopf } from '../../../../actions/assignmentNotifications';
 
 const useNotificationSend = () => checkFlag('flags.assignment_notification_send');
 const useMemoSend = () => checkFlag('flags.assignment_memo_send');
@@ -28,6 +28,7 @@ const Preview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
+    assignments,
   } = props;
 
   const dispatch = useDispatch();
@@ -122,14 +123,23 @@ const Preview = (props) => {
       I_NOTE_TYPE: type,
     }, fetchData, memo));
 
-    // ------------ Handle PDF ------------ // Synchronous
+    // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      generatePDF(getPreviewText, filename, memo); // TEMPORARY: Saves PDF locally for testing purposes
-      dispatch(sendNotification({
-        PV_NM_SEQ_NUM_I: nmSeqNum,
-        PV_FILE_NAME_I: filename,
-        PV_NOTE_TYPE_I: type,
+      const pdf = generatePDF(getPreviewText, filename, memo);
+      dispatch(sendToEopf({
+        PDF: pdf,
+        FILENAME: filename,
+        ASSIGNMENTS: [{
+          DOCUMENT_TYPE: `Assignment ${memo ? 'Memo' : 'Cable'}`,
+          POSITION_NUMBER: assignments, // TODO: Ask EOPF team to accept array of assignments?
+          LOCATION: pdf,
+          POSITION_TITLE: pdf,
+          ETA: pdf,
+          TED: pdf,
+          TRAVEL_FUNCTION: pdf,
+          DATE_SENT: cable?.O_LAST_SENT_DATE,
+        }],
       }, null, memo));
     }
 
@@ -343,6 +353,9 @@ Preview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
+  assignments: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ).isRequired,
 };
 
 Preview.defaultProps = {

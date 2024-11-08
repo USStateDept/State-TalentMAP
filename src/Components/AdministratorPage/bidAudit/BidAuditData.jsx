@@ -139,7 +139,6 @@ const BidAuditData = (props) => {
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
 
   // ======================================================================================= Filters
@@ -295,6 +294,7 @@ const BidAuditData = (props) => {
             <div className="ba-label">Grade:</div>
             <Picky
               {...pickyProps}
+              includeSelectAll
               placeholder="Select Grade"
               options={gradeOptions}
               valueKey="code"
@@ -307,6 +307,7 @@ const BidAuditData = (props) => {
             <div className="ba-label">Skill:</div>
             <Picky
               {...pickyProps}
+              includeSelectAll
               placeholder="Select Skill"
               options={skillOptions.map(x => ({
                 code: x.code,

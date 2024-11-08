@@ -473,6 +473,11 @@ export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully up
 export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
 export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';
 
+export const SEND_TO_EOPF_SUCCESS_TITLE = 'TM1 Sent to EOPF';
+export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF.';
+export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';
+export const SEND_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 to EOPF. Please try again.';
+
 export const EXPORT_DATA_LOADING_TITLE = 'Exporting Data...';
 export const EXPORT_DATA_LOADING = 'Export may take a while, please wait while we process. \n Export is capped at first 500 results.';
 export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
