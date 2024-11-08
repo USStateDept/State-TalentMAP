@@ -147,6 +147,10 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     // will complete this later, but this will add the person to the CC recipient list
   };
 
+
+  /* THIS SECTION IS FOR THE CONDITIONS OF THE CHECKBOXES */
+  /* THIS SECTION IS A WORK IN PROGRESS, NEED TO CONTINUE FIGURING OUT CONDITIONS WITH WEB SERVICES */
+
   const IncExcCheckboxComponent = (e) => {
     const isEligibleDisabled = (
       convertBidderTypeQuery(wlType) === 'EB' &&
@@ -192,6 +196,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={combinedChecked} />
     );
   };
+
+  /* THIS IS THE END OF THE SECTION FOR CONDITIONS OF THE CHECKBOXES */
 
   const TandemCheckboxComponent = (e) => <CheckBox value={e?.data?.classifications.includes(e?.customParam2)} onCheckBoxClick={() => setClassifications(e)} disabled={e?.data?.T === ''} />;
   const DOSEmailCheckboxComponent = (e) => <CheckBox onCheckBoxClick={DOSEmail} disabled={e?.data?.DOSEmail === undefined} />;
