@@ -383,6 +383,7 @@ export function getClientDatePerdets(query = {}) {
       const cancelToken = new CancelToken(c => { cancelUnnassignedBidders = c; });
 
       if (ids.length) {
+        query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, query$, { cancelToken });
         const { data } = response;
         const newQuery = { ...query$, perdet_seq_num: data.map(String) };
