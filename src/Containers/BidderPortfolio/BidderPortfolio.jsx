@@ -76,8 +76,6 @@ class BidderPortfolio extends Component {
     const filters = ['handshake', 'eligible_bidders', 'cusp_bidders',
       'separations', 'languages'];
 
-    if (query.hasHandshake === '') ;
-
     if (query.hasHandshake === 'panel_clients' || query.hasHandshake === 'unassigned_filters') return;
 
     if (noBids || noPanel || filters.includes(query.hasHandshake)) {
@@ -134,7 +132,7 @@ class BidderPortfolio extends Component {
   }
 
   render() {
-    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
+    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       updatePagination, bidderPortfolioPagination, viewType,
@@ -148,6 +146,7 @@ class BidderPortfolio extends Component {
         <BidderPortfolioPage
           bidderPortfolio={bidderPortfolio}
           bidderPortfolioExtraData={bidderPortfolioExtraData}
+          bidderPortfolioFilteredSeasonDataSuccess={bidderPortfolioFilteredSeasonDataSuccess}
           bidderPortfolioIsLoading={isLoading}
           bidderPortfolioHasErrored={bidderPortfolioHasErrored}
           pageSize={bidderPortfolioPagination.pageSize || 10}
@@ -175,6 +174,7 @@ class BidderPortfolio extends Component {
 BidderPortfolio.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
+  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   bidderPortfolioIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolio: PropTypes.func.isRequired,
@@ -210,6 +210,7 @@ BidderPortfolio.propTypes = {
 BidderPortfolio.defaultProps = {
   bidderPortfolio: { results: [] },
   bidderPortfolioExtraData: { results: [] },
+  bidderPortfolioFilteredSeasonDataSuccess: { results: [] },
   bidderPortfolioIsLoading: false,
   bidderPortfolioHasErrored: false,
   fetchBidderPortfolio: EMPTY_FUNCTION,
@@ -242,6 +243,7 @@ BidderPortfolio.defaultProps = {
 const mapStateToProps = state => ({
   bidderPortfolio: state.bidderPortfolio,
   bidderPortfolioExtraData: state.bidderPortfolioExtraData,
+  bidderPortfolioFilteredSeasonDataSuccess: state.bidderPortfolioFilteredSeasonDataSuccess,
   bidderPortfolioIsLoading: state.bidderPortfolioIsLoading,
   bidderPortfolioHasErrored: state.bidderPortfolioHasErrored,
   bidderPortfolioCounts: state.bidderPortfolioCounts,
@@ -269,6 +271,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: async query => dispatch(bidderPortfolioFetchData(query)),
   fetchBidderPortfolioCDO: async query => {
     await dispatch(bidderPortfolioFetchData(query, true));
+    dispatch(bidderPortfolioFetchData(query, true, true));
     dispatch(bidderPortfolioExtraDetailsFetchData());
   },
   fetchUnassignedBidderTypes: async query => {

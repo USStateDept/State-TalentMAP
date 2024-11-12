@@ -32,6 +32,14 @@ export function isCDOD30(state = false, action) {
       return state;
   }
 }
+export function isClient(state = true, action) {
+  switch (action.type) {
+    case 'IS_CLIENT':
+      return action.isClient;
+    default:
+      return state;
+  }
+}
 
 export function panelDateID(state = '', action) {
   switch (action.type) {
@@ -103,6 +111,14 @@ export function bidderPortfolioIsLoading(state = false, action) {
 export function bidderPortfolio(state = { results: [] }, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_FETCH_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioFilteredSeasonDataSuccess(state = { results: [] }, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_FETCH_FILTERED_SEASON_DATA_SUCCESS':
       return action.results;
     default:
       return state;

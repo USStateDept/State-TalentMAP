@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { stringify } from 'query-string';
-import { find, get, isArray, omit, replace } from 'lodash';
+import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
@@ -68,6 +68,12 @@ export function bidderPortfolioIsLoading(bool) {
 export function bidderPortfolioFetchDataSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
+export function bidderPortfolioFilteredSeasonDataSuccess(results) {
+  return {
+    type: 'BIDDER_PORTFOLIO_FETCH_FILTERED_SEASON_DATA_SUCCESS',
     results,
   };
 }
@@ -232,6 +238,18 @@ export function includeExcludeCDOSuccess(results) {
   };
 }
 
+export function isClient(bool) {
+  return {
+    type: 'IS_CLIENT',
+    isClient: bool,
+  };
+}
+export function isSeasons(bool) {
+  return {
+    type: 'IS_SEASONS',
+    isSeasons: bool,
+  };
+}
 export function workListTypeSuccess(wlCode) {
   return {
     type: 'WORK_LIST_TYPE_SUCCESS',
@@ -503,7 +521,7 @@ export function getClientPerdets(query = {}) {
 }
 
 
-export function bidderPortfolioFetchData(query = {}, isCDO = false) {
+export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeasons = false) {
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));
@@ -511,16 +529,15 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     const state = getState();
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
-    // the season isnt needed for this fetch
-    // it causes the request to filter incorrectly
-    // const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+
+    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    // if (isArray(seasons) && seasons.length) {
-    //   query$.bid_seasons = join(seasons, ',');
-    // }
+    if (isArray(seasons) && seasons.length && isSeasons) {
+      query$.bid_seasons = join(seasons, ',');
+    }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
     }
@@ -539,8 +556,13 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
       })
         .then(({ data }) => {
           batch(() => {
-            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-            dispatch(bidderPortfolioFetchDataSuccess(data));
+            if (!isSeasons) {
+              dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+              dispatch(bidderPortfolioFetchDataSuccess(data));
+            } else {
+              dispatch(bidderPortfolioFilteredSeasonDataSuccess(data));
+            }
+
             if (!isCDO) {
               dispatch(bidderPortfolioHasErrored(false));
               dispatch(bidderPortfolioIsLoading(false));
