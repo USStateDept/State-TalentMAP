@@ -23,7 +23,7 @@ class PositionManagerDetails extends Component {
       isLoading: false,
       hasLoaded: false,
       id: get(props, 'match.params.id'),
-      ordering: 'bidder_grade',
+      ordering: 'bidder_name',
       filters: {},
     };
   }
