@@ -522,6 +522,8 @@ export function getClientPerdets(query = {}) {
 
 
 export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeason = false) {
+  console.log('isCDO', isCDO);
+  console.log('isSeason', isSeason);
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));
