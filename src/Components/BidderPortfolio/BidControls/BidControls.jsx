@@ -85,7 +85,7 @@ class BidControls extends Component {
   onSeasonChange = (seasons, value) => {
     console.log('seasons', seasons);
     console.log('value', value);
-    this.props.isSeasons(!!seasons.length);
+    this.props.isSeasons(seasons.length !== 0);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
@@ -357,6 +357,7 @@ BidControls.propTypes = {
   defaultOrdering: PropTypes.string.isRequired,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
+  isSeasons: PropTypes.func.isRequired,
   bidderPortfolioFetchDataSuccess: PropTypes.func.isRequired,
   setCDOD30: PropTypes.func.isRequired,
   setEditClassifications: PropTypes.func.isRequired,
