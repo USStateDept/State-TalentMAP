@@ -556,9 +556,10 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeason = f
       })
         .then(({ data }) => {
           batch(() => {
-            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-            dispatch(bidderPortfolioFetchDataSuccess(data));
-            if (isSeason) {
+            if (!isSeason) {
+              dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+              dispatch(bidderPortfolioFetchDataSuccess(data));
+            } else {
               dispatch(bidderPortfolioFilteredSeasonDataSuccess(data));
             }
 

@@ -87,7 +87,7 @@ class BidderPortfolio extends Component {
     }
 
     if (!noBids && !noPanel && !filters.includes(query.hasHandshake) && query.hasHandshake !== 'panel_clients' && this.props.isCDOD30) {
-      this.props.fetchBidderPortfolioCDO(query);
+      this.props.fetchBidderPortfolioCDO(query, this.props.isCDOD30, this.props.selectedSeasons.length !== 0);
     }
   }
 
@@ -269,9 +269,9 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: async query => dispatch(bidderPortfolioFetchData(query)),
-  fetchBidderPortfolioCDO: async query => {
-    await dispatch(bidderPortfolioFetchData(query, true));
-    dispatch(bidderPortfolioFetchData(query, true, true));
+  fetchBidderPortfolioCDO: async (query, cdo, season) => {
+    await dispatch(bidderPortfolioFetchData(query, cdo));
+    dispatch(bidderPortfolioFetchData(query, cdo, season));
     dispatch(bidderPortfolioExtraDetailsFetchData());
   },
   fetchUnassignedBidderTypes: async query => {
