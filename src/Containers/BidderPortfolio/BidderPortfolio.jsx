@@ -87,7 +87,7 @@ class BidderPortfolio extends Component {
     }
 
     if (!noBids && !noPanel && !filters.includes(query.hasHandshake) && query.hasHandshake !== 'panel_clients' && this.props.isCDOD30) {
-      this.props.fetchBidderPortfolioCDO(query, this.props.isCDOD30, this.props.selectedSeasons.length !== 0);
+      this.props.fetchBidderPortfolioCDO(query, this.props.isCDOD30, this.props.isSeason);
     }
   }
 
@@ -185,6 +185,7 @@ BidderPortfolio.propTypes = {
   bidderPortfolioCountsHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   isCDOD30: PropTypes.bool,
+  isSeason: PropTypes.bool,
   setEditClassification: PropTypes.bool,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
   selectedSeasons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])), // eslint-disable-line
@@ -225,6 +226,7 @@ BidderPortfolio.defaultProps = {
   fetchClassifications: EMPTY_FUNCTION,
   fetchPanelDates: EMPTY_FUNCTION,
   isCDOD30: false,
+  isSeason: false,
   setEditClassification: false,
   cdos: [],
   selectedSeasons: [],
@@ -264,6 +266,7 @@ const mapStateToProps = state => ({
   availableBiddersIdsLoading: state.availableBiddersIdsLoading,
   bidderPortfolioPagination: state.bidderPortfolioPagination,
   isCDOD30: state.isCDOD30,
+  isSeason: state.isSeasons,
   setEditClassification: state.setEditClassification,
 });
 

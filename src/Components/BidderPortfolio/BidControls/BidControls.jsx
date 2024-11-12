@@ -14,6 +14,7 @@ import { bidderPortfolioExtraDetailsFetchData,
   bidderPortfolioFetchDataSuccess,
   bidderPortfolioSetUnassigned,
   getClientDatePerdets,
+  isSeasons,
   setEditClassification,
   setIsCDOD30,
   setPanelDateID,
@@ -82,6 +83,9 @@ class BidControls extends Component {
   }
 
   onSeasonChange = (seasons, value) => {
+    console.log('seasons', seasons);
+    console.log('value', value);
+    this.props.isSeasons(!!seasons.length);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
@@ -383,6 +387,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
+  isSeasons: (bool) => dispatch(isSeasons(bool)),
   setUnassigned: (arr = []) => dispatch(bidderPortfolioSetUnassigned(arr)),
   setCDOD30: (bool) => dispatch(setIsCDOD30(bool)),
   bidderPortfolioFetchDataSuccess: (results) => dispatch(bidderPortfolioFetchDataSuccess(results)),
