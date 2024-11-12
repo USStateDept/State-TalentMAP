@@ -40,7 +40,14 @@ export function isClient(state = true, action) {
       return state;
   }
 }
-
+export function isSeasons(state = false, action) {
+  switch (action.type) {
+    case 'IS_SEASONS':
+      return action.isSeasons;
+    default:
+      return state;
+  }
+}
 export function panelDateID(state = '', action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_PANEL_DATE':
