@@ -521,7 +521,7 @@ export function getClientPerdets(query = {}) {
 }
 
 
-export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeasons = false) {
+export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeason = false) {
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));
@@ -535,7 +535,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeasons = 
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    if (isArray(seasons) && seasons.length && isSeasons) {
+    if (isArray(seasons) && seasons.length && isSeason) {
       query$.bid_seasons = join(seasons, ',');
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
@@ -556,7 +556,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeasons = 
       })
         .then(({ data }) => {
           batch(() => {
-            if (!isSeasons) {
+            if (!isSeason) {
               dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
               dispatch(bidderPortfolioFetchDataSuccess(data));
             } else {
