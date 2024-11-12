@@ -43,8 +43,8 @@ class BidderPortfolioContainer extends Component {
     };
 
     const getFilteredList = () => {
-      console.log(bidderPortfolioFilteredSeasonDataSuccess);
-      console.log(bidderPortfolio);
+      console.log('bidderSeasons', bidderPortfolioFilteredSeasonDataSuccess);
+      console.log('bidderPortfolio', bidderPortfolio?.results);
       console.log(bidderPortfolioFilteredSeasonDataSuccess?.length);
       console.log(bidderPortfolio?.length);
       return bidderPortfolioFilteredSeasonDataSuccess;
