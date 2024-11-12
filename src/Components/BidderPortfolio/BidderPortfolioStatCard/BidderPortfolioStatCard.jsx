@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tippy';
@@ -8,8 +7,6 @@ import { checkFlag } from 'flags';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate, getBidderPortfolioUrl } from 'utilities';
-import ToggleButton from 'Components/ToggleButton';
-
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
@@ -25,35 +22,14 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
-  const bidderType = 'eligible';
+  const bidderType = 'eligible'; // @TODO: implement api call to get this value
   const email = get(userProfile, 'cdos')[0]?.cdo_email;
   const alternativeEmail = get(userProfile, 'alt_email');
   const comments = get(userProfile, 'comments') || 'None listed';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
-  const [currentBidderType, setCurrentBidderType] = useState(bidderType);
-  const [included, setIncluded] = useState(bidderType === 'cusp');
 
-  const cusp = included;
-  const eligible = !included;
-  const showToggle = bidderType !== null;
-
-  useEffect(() => {
-    if (currentBidderType === 'eligible') {
-      setIncluded(false);
-    }
-    if (currentBidderType === 'cusp') {
-      setIncluded(true);
-    }
-  }, [currentBidderType]);
-
-  const onToggleChange = () => {
-    if (currentBidderType === 'cusp') {
-      setCurrentBidderType('eligible');
-    }
-    if (currentBidderType === 'eligible') {
-      setCurrentBidderType('cusp');
-    }
-  };
+  const cusp = bidderType === 'cusp';
+  const eligible = bidderType === 'eligible';
 
   const showSearch = !showEdit;
 
@@ -86,23 +62,12 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
         <div className="bidder-compact-card-head">
-          {
-            showToggle && showCDOD30 &&
-            <div>
-              <ToggleButton
-                labelTextRight={!included ? 'Excluded' : 'Included'}
-                checked={included}
-                onChange={onToggleChange}
-                onColor="#0071BC"
-              />
-              <div className="stat-card-data-point bidder-compact-card-head">
-                <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
-              </div>
-            </div>
-          }
+          <div className="stat-card-data-point bidder-compact-card-head">
+            <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
+          </div>
         </div>
         {
-          showToggle && showCDOD30 &&
+          showCDOD30 &&
           <div className="bidder-portfolio-ribbon-container">
             <div className="ribbon-container-condensed-min">
               {ribbons}
