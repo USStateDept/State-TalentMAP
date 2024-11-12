@@ -231,10 +231,10 @@ export function includeExcludeCDOHasErrored(bool) {
   };
 }
 
-export function includeExcludeCDOSuccess(results) {
+export function includeExcludeCDOSuccess(bool) {
   return {
     type: 'INCLUDE_EXCLUDE_CDO_SUCCESS',
-    results,
+    success: bool,
   };
 }
 
@@ -741,10 +741,9 @@ export function setCDOIncludeExclude(data = {}) {
   return (dispatch) => {
     const endpoint = '/fsbid/client/cdo_include_exlude/';
     api().post(endpoint, data)
-      .then(({ res }) => {
+      .then(() => {
         batch(() => {
-          console.log('res', res);
-          dispatch(includeExcludeCDOSuccess(res));
+          dispatch(includeExcludeCDOSuccess(true));
           dispatch(toastSuccess(BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS));
           dispatch(includeExcludeCDOHasErrored(false));
           dispatch(includeExcludeCDOIsLoading(false));

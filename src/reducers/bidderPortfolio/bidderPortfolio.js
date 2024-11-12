@@ -276,10 +276,10 @@ export function includeExcludeCDOHasErrored(state = false, action) {
   }
 }
 
-export function includeExcludeCDO(state = {}, action) {
+export function includeExcludeCDO(state = false, action) {
   switch (action.type) {
     case 'INCLUDE_EXCLUDE_CDO_SUCCESS':
-      return action.results;
+      return action.success;
     default:
       return state;
   }
