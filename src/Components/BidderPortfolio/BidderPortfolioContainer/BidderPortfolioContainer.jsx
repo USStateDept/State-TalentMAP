@@ -42,16 +42,16 @@ class BidderPortfolioContainer extends Component {
       return combinedArray;
     };
 
-    // const getFilteredList = () => {
-    //   const combinedData = bidderPortfolioFilteredSeasonDataSuccess?.results?.map((item1) => {
-    //     console.log(item1);
-    //     return item1;
-    //   });
-    //   return combinedData;
-    // };
-
-    console.log(bidderPortfolioFilteredSeasonDataSuccess.results.length !== 0 ? bidderPortfolioFilteredSeasonDataSuccess?.results : []);
-
+    const filterWorkLists = (firstArr, secondArr) => (
+      firstArr.map(obj => {
+        const match = secondArr.some(secondObj => secondObj.id === obj.id && secondObj.hru_id === obj.hru_id);
+        return {
+          ...obj,
+          workLists: match ? obj.workLists : {},
+        };
+      })
+    );
+    console.log('filterWorkLists', filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results));
 
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>

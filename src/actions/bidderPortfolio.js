@@ -89,12 +89,6 @@ export function bidderPortfolioSeasonSearchFetchDataSuccess(results) {
     results,
   };
 }
-export function bidderPortfolioFilteredSeasonDataSuccess(results) {
-  return {
-    type: 'BIDDER_PORTFOLIO_FETCH_FILTERED_SEASON_DATA_SUCCESS',
-    results,
-  };
-}
 export function bidderPortfolioExtraDetailsFetchDataSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_EXTRA_DETAILS_FETCH_DATA_SUCCESS',

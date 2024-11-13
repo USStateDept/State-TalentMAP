@@ -123,14 +123,6 @@ export function bidderPortfolio(state = { results: [] }, action) {
       return state;
   }
 }
-export function bidderPortfolioFilteredSeasonDataSuccess(state = { results: [] }, action) {
-  switch (action.type) {
-    case 'BIDDER_PORTFOLIO_FETCH_FILTERED_SEASON_DATA_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
 export function bidderPortfolioExtraData(state = { results: [] }, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_EXTRA_DETAILS_FETCH_DATA_SUCCESS':
