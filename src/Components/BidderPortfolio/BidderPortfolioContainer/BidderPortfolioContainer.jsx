@@ -43,14 +43,14 @@ class BidderPortfolioContainer extends Component {
     };
 
     const getFilteredList = () => {
-      console.log('bidderSeasons', bidderPortfolioFilteredSeasonDataSuccess?.results);
-      console.log('bidderPortfolio', bidderPortfolio?.results);
-      console.log(bidderPortfolioFilteredSeasonDataSuccess?.results.length);
-      console.log(bidderPortfolio?.results?.length);
-      return bidderPortfolioFilteredSeasonDataSuccess;
+      const combinedData = bidderPortfolioFilteredSeasonDataSuccess?.results?.map((item1) => {
+        console.log(item1);
+        return item1;
+      });
+      return combinedData;
     };
 
-    console.log(getFilteredList());
+    console.log(bidderPortfolioFilteredSeasonDataSuccess.results.length !== 0 ? getFilteredList() : []);
 
 
     return (
