@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { filter, get } from 'lodash';
 import { checkFlag } from 'flags';
 import { scrollToId } from 'utilities';
 import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -53,10 +53,11 @@ class BidderPortfolioContainer extends Component {
     );
 
     const swapTables = () => {
-      if (isClient && isSeason) {
-        return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
-      }
-
+      // if (isClient && isSeason) {
+      //   console.log('isClient && isSeason');
+      //   return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
+      // }
+      console.log('getClientData()', filterWorkLists(getClientData(), bidderPortfolioExtraData));
       return getClientData();
     };
 
