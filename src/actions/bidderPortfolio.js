@@ -71,6 +71,24 @@ export function bidderPortfolioFetchDataSuccess(results) {
     results,
   };
 }
+export function bidderPortfolioSeasonSearchHasErrored(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bidderPortfolioSeasonSearchIsLoading(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bidderPortfolioSeasonSearchFetchDataSuccess(results) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
 export function bidderPortfolioFilteredSeasonDataSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_FETCH_FILTERED_SEASON_DATA_SUCCESS',
@@ -521,7 +539,67 @@ export function getClientPerdets(query = {}) {
 }
 
 
-export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeason = false) {
+export function bidderPortfolioFetchData(query = {}, isCDO = false) {
+  return (dispatch, getState) => {
+    if (cancelPortfolio) { cancelPortfolio('cancel'); }
+    dispatch(bidderPortfolioIsLoading(true));
+    dispatch(bidderPortfolioHasErrored(false));
+    const state = getState();
+    const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
+    const ids = cdos.map(m => m.hru_id).filter(f => f);
+
+    // const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+    let query$ = { ...query };
+    if (ids.length) {
+      query$.hru_id = ids.join();
+    }
+    // if (isArray(seasons) && seasons.length && isSeasons) {
+    //   query$.bid_seasons = join(seasons, ',');
+    // }
+    if (!query$.bid_seasons || !query$.bid_seasons.length) {
+      query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
+    }
+
+    if (!query$.ordering) {
+      query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
+    }
+    const query$$ = stringify(query$);
+    const endpoint = '/fsbid/client/';
+    const q = `${endpoint}?${query$$}`;
+    if (ids.length) {
+      api().get(q, {
+        cancelToken: new CancelToken((c) => {
+          cancelPortfolio = c;
+        }),
+      })
+        .then(({ data }) => {
+          batch(() => {
+            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+            dispatch(bidderPortfolioFetchDataSuccess(data));
+            if (!isCDO) {
+              dispatch(bidderPortfolioHasErrored(false));
+              dispatch(bidderPortfolioIsLoading(false));
+            }
+          });
+        })
+        .catch((m) => {
+          if (get(m, 'message') === 'cancel') {
+            batch(() => {
+              dispatch(bidderPortfolioHasErrored(false));
+              dispatch(bidderPortfolioIsLoading(true));
+            });
+          } else {
+            batch(() => {
+              dispatch(bidderPortfolioHasErrored(true));
+              dispatch(bidderPortfolioIsLoading(false));
+            });
+          }
+        });
+    }
+  };
+}
+
+export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) {
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));
@@ -535,7 +613,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeason = f
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    if (isArray(seasons) && seasons.length && isSeason) {
+    if (isArray(seasons) && seasons.length) {
       query$.bid_seasons = join(seasons, ',');
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
@@ -556,34 +634,23 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false, isSeason = f
       })
         .then(({ data }) => {
           batch(() => {
-            if (!isSeason) {
-              console.log('Made to 1st batch');
-              dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-              dispatch(bidderPortfolioFetchDataSuccess(data));
-            }
-
-            if (isSeason) {
-              console.log('Made it to 2nd batch');
-              console.log('data', data);
-              dispatch(bidderPortfolioFilteredSeasonDataSuccess(data));
-            }
-
+            dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
             if (!isCDO) {
-              dispatch(bidderPortfolioHasErrored(false));
-              dispatch(bidderPortfolioIsLoading(false));
+              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
+              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
             }
           });
         })
         .catch((m) => {
           if (get(m, 'message') === 'cancel') {
             batch(() => {
-              dispatch(bidderPortfolioHasErrored(false));
-              dispatch(bidderPortfolioIsLoading(true));
+              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
+              dispatch(bidderPortfolioSeasonSearchIsLoading(true));
             });
           } else {
             batch(() => {
-              dispatch(bidderPortfolioHasErrored(true));
-              dispatch(bidderPortfolioIsLoading(false));
+              dispatch(bidderPortfolioSeasonSearchHasErrored(true));
+              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
             });
           }
         });

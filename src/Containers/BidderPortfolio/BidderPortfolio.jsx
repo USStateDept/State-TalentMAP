@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fetchClassifications } from 'actions/classifications';
 import { BID_PORTFOLIO_FILTERS_TYPE, BID_PORTFOLIO_SORTS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
-import { bidderPortfolioCDOsFetchData, bidderPortfolioExtraDetailsFetchData, bidderPortfolioFetchData, getClientPerdets, panelClientFetchData, saveBidderPortfolioPagination } from 'actions/bidderPortfolio';
+import { bidderPortfolioCDOsFetchData, bidderPortfolioExtraDetailsFetchData, bidderPortfolioFetchData, bidderPortfolioSingleSeasonFetchData, getClientPerdets, panelClientFetchData, saveBidderPortfolioPagination } from 'actions/bidderPortfolio';
 import { availableBiddersIds } from 'actions/availableBidders';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from 'Constants/EndpointParams';
@@ -245,7 +245,7 @@ BidderPortfolio.defaultProps = {
 const mapStateToProps = state => ({
   bidderPortfolio: state.bidderPortfolio,
   bidderPortfolioExtraData: state.bidderPortfolioExtraData,
-  bidderPortfolioFilteredSeasonDataSuccess: state.bidderPortfolioFilteredSeasonDataSuccess,
+  bidderPortfolioFilteredSeasonDataSuccess: state.bidderPortfolioSeasonSearchFetchDataSuccess,
   bidderPortfolioIsLoading: state.bidderPortfolioIsLoading,
   bidderPortfolioHasErrored: state.bidderPortfolioHasErrored,
   bidderPortfolioCounts: state.bidderPortfolioCounts,
@@ -273,9 +273,10 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: async query => dispatch(bidderPortfolioFetchData(query)),
   fetchBidderPortfolioCDO: async (query, cdo, season) => {
-    console.log('Calling fetchBidderPortfolioCDO');
     await dispatch(bidderPortfolioFetchData(query, cdo, false));
-    dispatch(bidderPortfolioFetchData(query, cdo, season));
+    if (season) {
+      dispatch(bidderPortfolioSingleSeasonFetchData(query, cdo, season));
+    }
     dispatch(bidderPortfolioExtraDetailsFetchData());
   },
   fetchUnassignedBidderTypes: async query => {

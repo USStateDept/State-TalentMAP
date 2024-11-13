@@ -163,7 +163,30 @@ export function lastBidderPortfolio(state = { results: [] }, action) {
       return state;
   }
 }
-
+export function bidderPortfolioSeasonSearchHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASON_SEARCH_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasonSearchIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASON_SEARCH_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasonSearchFetchDataSuccess(state = { results: [] }, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASON_SEARCH_FETCH_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
 export function bidderPortfolioCountsHasErrored(state = false, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_COUNTS_HAS_ERRORED':
