@@ -273,6 +273,7 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: async query => dispatch(bidderPortfolioFetchData(query)),
   fetchBidderPortfolioCDO: async (query, cdo, season) => {
+    console.log('Calling fetchBidderPortfolioCDO');
     await dispatch(bidderPortfolioFetchData(query, cdo, false));
     dispatch(bidderPortfolioFetchData(query, cdo, season));
     dispatch(bidderPortfolioExtraDetailsFetchData());
