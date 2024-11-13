@@ -164,6 +164,8 @@ class BidderPortfolio extends Component {
           updatePagination={updatePagination}
           viewType={viewType}
           isCDOD30={this.props.isCDOD30}
+          isSeason={this.props.isSeason}
+          isClient={this.props.isClient}
           setEditClassification={this.props.setEditClassification}
         />
       </div>
@@ -186,6 +188,7 @@ BidderPortfolio.propTypes = {
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   isCDOD30: PropTypes.bool,
   isSeason: PropTypes.bool,
+  isClient: PropTypes.bool,
   setEditClassification: PropTypes.bool,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
   selectedSeasons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])), // eslint-disable-line
@@ -227,6 +230,7 @@ BidderPortfolio.defaultProps = {
   fetchPanelDates: EMPTY_FUNCTION,
   isCDOD30: false,
   isSeason: false,
+  isClient: true,
   setEditClassification: false,
   cdos: [],
   selectedSeasons: [],

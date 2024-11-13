@@ -24,7 +24,7 @@ class BidderPortfolioContainer extends Component {
 
   render() {
     const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, pageSize, showListView, isLoading, viewType,
-      cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, setEditClassification } = this.props;
+      cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
 
     const showCDOD30 = checkFlag('flags.CDOD30');
 
@@ -51,13 +51,20 @@ class BidderPortfolioContainer extends Component {
         };
       })
     );
-    console.log('filterWorkLists', filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results));
+
+    const swapTables = () => {
+      if (isClient && isSeason) {
+        return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
+      }
+
+      return getClientData();
+    };
 
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {!showNoCdosAlert && !hasErrored && isCDOD30 && !noResults &&
           <div className="usa-grid-full bidder-portfolio-listing">
-            <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? getClientData() : []} setEditClassification={setEditClassification} />
+            <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? swapTables() : []} setEditClassification={setEditClassification} />
           </div>
         }
         {
@@ -130,6 +137,8 @@ BidderPortfolioContainer.propTypes = {
   hideControls: PropTypes.bool,
   hasErrored: PropTypes.bool,
   isCDOD30: PropTypes.bool,
+  isClient: PropTypes.bool,
+  isSeason: PropTypes.bool,
   setEditClassification: PropTypes.bool,
   updatePagination: PropTypes.func,
   viewType: PropTypes.string,
@@ -143,6 +152,8 @@ BidderPortfolioContainer.defaultProps = {
   hideControls: false,
   hasErrored: false,
   isCDOD30: false,
+  isSeason: false,
+  isClient: true,
   setEditClassification: false,
   updatePagination: EMPTY_FUNCTION,
   viewType: '',

@@ -14,6 +14,7 @@ import { bidderPortfolioExtraDetailsFetchData,
   bidderPortfolioFetchDataSuccess,
   bidderPortfolioSetUnassigned,
   getClientDatePerdets,
+  isClient,
   isSeasons,
   setEditClassification,
   setIsCDOD30,
@@ -116,6 +117,7 @@ class BidControls extends Component {
       panelClient: (q === 'panel_clients' && this.state.hasSeasons),
     });
     this.props.setEditClassifications(q === 'classification');
+    this.props.isClient(q === '');
     this.props.setWLType(q || '');
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
@@ -359,6 +361,7 @@ BidControls.propTypes = {
   bidderPortfolioFetchDataSuccess: PropTypes.func.isRequired,
   setCDOD30: PropTypes.func.isRequired,
   setEditClassifications: PropTypes.func.isRequired,
+  isClient: PropTypes.func.isRequired,
   setWLType: PropTypes.func.isRequired,
   setPanelDateID: PropTypes.func.isRequired,
   getClientDatePerdets: PropTypes.func.isRequired,
@@ -387,6 +390,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   isSeasons: (bool) => dispatch(isSeasons(bool)),
+  isClient: (bool) => dispatch(isClient(bool)),
   setUnassigned: (arr = []) => dispatch(bidderPortfolioSetUnassigned(arr)),
   setCDOD30: (bool) => dispatch(setIsCDOD30(bool)),
   bidderPortfolioFetchDataSuccess: (results) => dispatch(bidderPortfolioFetchDataSuccess(results)),

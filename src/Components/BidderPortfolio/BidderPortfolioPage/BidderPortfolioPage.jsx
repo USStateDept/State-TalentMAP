@@ -51,7 +51,7 @@ class BidderPortfolioPage extends Component {
     const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading, updatePagination, viewType,
-      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering, isCDOD30, setEditClassification } = this.props;
+      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
@@ -132,6 +132,8 @@ class BidderPortfolioPage extends Component {
                     showEdit={showEdit}
                     classifications={classifications}
                     isCDOD30={isCDOD30}
+                    isSeason={isSeason}
+                    isClient={isClient}
                     setEditClassification={setEditClassification}
                     isLoading={bidderPortfolioIsLoading}
                     cdosLength={cdosLength}
@@ -165,6 +167,8 @@ BidderPortfolioPage.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   isCDOD30: PropTypes.bool.isRequired,
+  isClient: PropTypes.bool.isRequired,
+  isSeason: PropTypes.bool.isRequired,
   setEditClassification: PropTypes.bool.isRequired,
   updatePagination: PropTypes.func,
   viewType: PropTypes.string,
