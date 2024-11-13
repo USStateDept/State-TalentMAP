@@ -596,7 +596,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
 export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) {
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
-    dispatch(bidderPortfolioIsLoading(true));
+    dispatch(bidderPortfolioSeasonSearchHasErrored(true));
     dispatch(bidderPortfolioHasErrored(false));
     const state = getState();
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);

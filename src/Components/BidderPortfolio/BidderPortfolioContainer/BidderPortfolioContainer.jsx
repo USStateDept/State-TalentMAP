@@ -23,8 +23,8 @@ class BidderPortfolioContainer extends Component {
   };
 
   render() {
-    const { bidderPortfolio, bidderPortfolioExtraData, pageSize, showListView, isLoading, viewType,
-      cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, setEditClassification } = this.props;
+    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, pageSize, showListView, isLoading, viewType,
+      cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
 
     const showCDOD30 = checkFlag('flags.CDOD30');
 
@@ -42,8 +42,21 @@ class BidderPortfolioContainer extends Component {
       return combinedArray;
     };
 
+    const filterWorkLists = (firstArr, secondArr) => (
+      firstArr.map(obj => {
+        const match = secondArr.some(secondObj => secondObj.id === obj.id && secondObj.hru_id === obj.hru_id);
+        return {
+          ...obj,
+          workLists: match ? obj.workLists : {},
+        };
+      })
+    );
 
     const swapTables = () => {
+      if (isClient && isSeason) {
+        console.log('isClient && isSeason');
+        return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
+      }
       console.log('getClientData()');
       return getClientData();
     };
@@ -114,6 +127,7 @@ class BidderPortfolioContainer extends Component {
 BidderPortfolioContainer.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
+  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   pageSize: PropTypes.number.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
@@ -124,6 +138,8 @@ BidderPortfolioContainer.propTypes = {
   hideControls: PropTypes.bool,
   hasErrored: PropTypes.bool,
   isCDOD30: PropTypes.bool,
+  isClient: PropTypes.bool,
+  isSeason: PropTypes.bool,
   setEditClassification: PropTypes.bool,
   updatePagination: PropTypes.func,
   viewType: PropTypes.string,
