@@ -270,7 +270,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       >
         <AgGridReact
           getRowNodeId={(data) => data.perdetSeqNumber}
-          suppressScrollOnNewData
           rowData={rows}
           columnDefs={columnDefs}
           onColumnPinned={onColumnPinned}
