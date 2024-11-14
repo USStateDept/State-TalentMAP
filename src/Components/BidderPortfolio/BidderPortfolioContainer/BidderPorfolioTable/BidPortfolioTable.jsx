@@ -152,6 +152,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   /* THIS SECTION IS A WORK IN PROGRESS, NEED TO CONTINUE FIGURING OUT CONDITIONS WITH WEB SERVICES */
 
   const IncExcCheckboxComponent = (e) => {
+    console.log('e', e);
     const isEligibleDisabled = (
       convertBidderTypeQuery(wlType) === 'EB' &&
       (
@@ -192,6 +193,10 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && e.data.workLists?.bsceincludeexcludeind === 'E')));
 
     const combinedChecked = isCLChecked || isCUChecked || isEBChecked || isBSCEExcluded;
+    console.log('isCLChecked', isCLChecked);
+    console.log('isCUChecked', isCUChecked);
+    console.log('isEBChecked', isEBChecked);
+    console.log('isBSCEExcluded', isBSCEExcluded);
     return (
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={combinedChecked} />
     );
