@@ -9,6 +9,7 @@ import { setCDOIncludeExclude } from 'actions/bidderPortfolio';
 import CheckBox from '../../../CheckBox';
 
 const BidPortfolioTable = ({ results, setEditClassification }) => {
+  console.log('results', results);
   const dispatch = useDispatch();
   const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
   const rowSelection = {
