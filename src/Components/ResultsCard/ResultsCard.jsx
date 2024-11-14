@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull } from 'lodash';
+import { checkFlag } from 'flags';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
@@ -20,12 +21,13 @@ import {
   getBidStatisticsObject, getBidStatsToUse, getDifferentials, getPostName, getPostNameText,
   getResult, propOrDefault, renderBidCount, renderBidCountMobile, shortenString,
 } from '../../utilities';
-
 import { FAVORITE_POSITIONS_ARRAY, POSITION_DETAILS } from '../../Constants/PropTypes';
 import {
   NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
+
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
 
 class ResultsCard extends Component {
   getInnerId = () => {
@@ -117,10 +119,12 @@ class ResultsCard extends Component {
     }
 
     const isAvailTeleworkPos = pos?.avail_telework_pos === 'Y';
-    sections[1] = {
-      ...sections[1],
-      'RWA/DETO Eligible': isAvailTeleworkPos ? 'Eligible' : 'Not Eligible',
-    };
+    if (DETO_RWA_FLAG()) {
+      sections[1] = {
+        ...sections[1],
+        'RWA/DETO Eligible': isAvailTeleworkPos ? 'Eligible' : 'Not Eligible',
+      };
+    }
 
     options.favorite = {
       compareArray: [],
@@ -268,7 +272,7 @@ class ResultsCard extends Component {
                       get(result, 'isCritNeed', false) && <IsCritNeed isWideResults className={ribbonClass} />
                     }
                     {
-                      isAvailTeleworkPos && <RWADetoRibbon isWideResults className={ribbonClass} />
+                      DETO_RWA_FLAG() && isAvailTeleworkPos && <RWADetoRibbon isWideResults className={ribbonClass} />
                     }
                     {
                       // conditional rendering occurs inside the container
