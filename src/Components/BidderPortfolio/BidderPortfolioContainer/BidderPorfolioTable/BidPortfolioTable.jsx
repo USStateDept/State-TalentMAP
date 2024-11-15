@@ -177,27 +177,31 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
     const combinedChecked = isCLChecked || isCUChecked || isEBChecked;
 
-    /* THIS IS THE DISABLED CONDITION FOR THE CHECKBOXES */
-
-    // const isBSCEExcluded =
-    // ((convertBidderTypeQuery(wlType) === 'EB') &&
-    // (Array.isArray(e?.data?.workLists)
-    //   ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && obj?.bsceincludeexcludeind === 'E')
-    //   : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && e.data.workLists?.bsceincludeexcludeind === 'E')));
 
     console.log('isCLChecked', isCLChecked);
     console.log('isCUChecked', isCUChecked);
     console.log('isEBChecked', isEBChecked);
 
+    /* THIS IS THE DISABLED CONDITION FOR THE CHECKBOXES */
 
-    const isEligibleDisabled = (
-      convertBidderTypeQuery(wlType) === 'EB' &&
-      (
-        // Check if workLists is an array and has at least one object with ebdisabled === 'Y'
-        (Array.isArray(e?.data?.workLists) && e.data.workLists.some(obj => obj?.ebdisabled === 'Y')) ||
-        // Check if workLists is a single object with ebdisabled === 'Y'
-          (e?.data?.workLists && typeof e.data.workLists === 'object' && e.data.workLists.ebdisabled === 'Y')
-      ));
+    // This one disbles the checkbox in client with seasons if eligible Bidder tab is checked
+    const isClientEligbibleBiddersDisabled =
+    (convertBidderTypeQuery(wlType) === 'CL') &&
+    Array.isArray(e?.data?.workLists)
+      ? e.data.workLists.some(obj => obj?.bswwlcode === 'EB' && obj?.bsceid !== undefined)
+      : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'EB' && (e.data.workLists?.bsceid !== undefined));
+
+    const isEligibleBidderForClientDisabled =
+    (convertBidderTypeQuery(wlType) === 'EB') &&
+    Array.isArray(e?.data?.workLists)
+      ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && obj?.ebdisabled === 'Y')
+      : (typeof e?.data?.workLists === 'object' && e?.data?.workLists?.bswwlcode === 'CL' && (e.data.workLists?.ebdisabled === 'Y'));
+
+    const isEligibleBidderForCuspDisabled =
+    (convertBidderTypeQuery(wlType) === 'EB') &&
+    Array.isArray(e?.data?.workLists)
+      ? e.data.workLists.some(obj => obj?.bswwlcode === 'CU' && obj?.ebdisabled === 'Y')
+      : (typeof e?.data?.workLists === 'object' && e?.data?.workLists?.bswwlcode === 'CU' && (e.data.workLists?.ebdisabled === 'Y'));
 
     const isDisabled = isSeasonSelected ||
     convertBidderTypeQuery(wlType) === 'HS' ||
@@ -205,9 +209,11 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       convertBidderTypeQuery(wlType) === 'BC' ||
        convertBidderTypeQuery(wlType) === 'PC' ||
         convertBidderTypeQuery(wlType) === 'SB' ||
-        isEligibleDisabled;
+        isClientEligbibleBiddersDisabled ||
+        isEligibleBidderForClientDisabled ||
+        isEligibleBidderForCuspDisabled;
 
-    console.log('e', e);
+
     return (
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={combinedChecked} />
     );
