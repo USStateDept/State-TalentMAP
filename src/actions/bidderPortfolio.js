@@ -568,6 +568,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
+          console.log('BPFD', data);
           batch(() => {
             dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
             dispatch(bidderPortfolioFetchDataSuccess(data));
@@ -629,6 +630,7 @@ export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) 
         }),
       })
         .then(({ data }) => {
+          console.log('BPSFD', data);
           batch(() => {
             dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
             if (!isCDO) {
