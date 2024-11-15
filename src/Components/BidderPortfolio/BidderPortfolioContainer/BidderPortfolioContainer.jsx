@@ -46,6 +46,8 @@ class BidderPortfolioContainer extends Component {
       firstArr.map(obj => {
         const match = secondArr.some(secondObj => secondObj.perdet_seq_number === obj.perdet_seq_number);
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(obj?.perdet_seq_number));
+        console.log('matchingItem', matchingItem);
+        console.log('match', match);
         return {
           ...obj,
           workLists: match ? obj.workLists : null,
