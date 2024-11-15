@@ -60,10 +60,10 @@ export function noteCableFetchDataSuccess(results) {
     results,
   };
 }
-export function noteCableAssignmentsRef(data) {
+export function noteCableAssignmentsRef(assignmentsRef) {
   return {
     type: 'NOTE_CABLE_ASSIGNMENTS_REFERENCE',
-    data,
+    assignmentsRef,
   };
 }
 let cancelNoteCable;
@@ -692,7 +692,6 @@ export function createOpsLog(data, onSuccess) {
 let cancelSendToEopf;
 export function sendToEopf(data, onSuccess) {
   return (dispatch) => {
-    console.log(data);
     if (cancelSendToEopf) {
       cancelSendToEopf('cancel');
     }
