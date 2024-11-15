@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getGal, sendNotification } from 'actions/assignmentNotifications';
@@ -146,6 +147,7 @@ const Preview = (props) => {
         });
       }
       dispatch(sendToEopf({
+        transactionid: uuidv4(),
         perseqnum: nmSeqNum,
         documenttype: `Assignment ${memo ? 'Memo' : 'Cable'}`,
         pdffilename: filename,
@@ -356,6 +358,8 @@ const Preview = (props) => {
 Preview.propTypes = {
   note: PropTypes.shape({
     NM_SEQ_NUM: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    NM_NOTIFICATION_IND: PropTypes.string,
+    NM_CREATE_ID: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   cable: PropTypes.shape({
     O_LAST_SENT_DATE: PropTypes.string,
