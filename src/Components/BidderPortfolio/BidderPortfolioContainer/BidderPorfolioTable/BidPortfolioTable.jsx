@@ -19,7 +19,6 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   const selectedSeasons = useSelector(state => state.bidderPortfolioSelectedSeasons);
   const userProfile = useSelector(state => state.userProfile);
   const wlType = useSelector(state => state.workListType);
-  console.log('wlType', wlType);
   const isSeasonSelected = selectedSeasons.length === 0;
   const todaysDate = () => {
     const date = new Date();
@@ -101,7 +100,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
     return typeMapping[type] || '';
   }
-
+  console.log('convertBidderTypeQuery(wlType)', convertBidderTypeQuery(wlType));
   const IncExc = ({ event, e }) => {
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
