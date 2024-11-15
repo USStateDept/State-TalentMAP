@@ -60,8 +60,14 @@ export function noteCableFetchDataSuccess(results) {
     results,
   };
 }
+export function noteCableAssignmentsRef(data) {
+  return {
+    type: 'NOTE_CABLE_ASSIGNMENTS_REFERENCE',
+    data,
+  };
+}
 let cancelNoteCable;
-export function noteCableFetchData(query = {}, location, memo) {
+export function noteCableFetchData(query = {}, location, memo, assignments) {
   return (dispatch) => {
     if (cancelNoteCable) { cancelNoteCable('cancel'); }
     batch(() => {
@@ -79,12 +85,14 @@ export function noteCableFetchData(query = {}, location, memo) {
           dispatch(noteCableFetchDataSuccess(data));
           dispatch(noteCableFetchDataErrored(false));
           dispatch(noteCableFetchDataLoading(false));
+          dispatch(noteCableAssignmentsRef(assignments));
           history.push(`${location}/${memo ? 'memo' : 'notification'}/${data[0]?.NM_SEQ_NUM}`);
         });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
+            dispatch(noteCableAssignmentsRef(null));
             dispatch(noteCableFetchDataSuccess({}));
             dispatch(noteCableFetchDataErrored(true));
             dispatch(noteCableFetchDataLoading(false));
@@ -102,6 +110,7 @@ export function noteCableFetchData(query = {}, location, memo) {
           });
         } else {
           batch(() => {
+            dispatch(noteCableAssignmentsRef(null));
             dispatch(noteCableFetchDataSuccess({}));
             dispatch(noteCableFetchDataErrored(false));
             dispatch(noteCableFetchDataLoading(true));
@@ -683,6 +692,7 @@ export function createOpsLog(data, onSuccess) {
 let cancelSendToEopf;
 export function sendToEopf(data, onSuccess) {
   return (dispatch) => {
+    console.log(data);
     if (cancelSendToEopf) {
       cancelSendToEopf('cancel');
     }
