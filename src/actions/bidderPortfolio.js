@@ -539,6 +539,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));
     dispatch(bidderPortfolioHasErrored(false));
+    dispatch(bidderPortfolioFetchDataSuccess([]));
     const state = getState();
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
@@ -600,6 +601,7 @@ export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) 
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioSeasonSearchHasErrored(true));
     dispatch(bidderPortfolioHasErrored(false));
+    dispatch(bidderPortfolioSeasonSearchFetchDataSuccess([]));
     const state = getState();
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
