@@ -547,6 +547,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id = ids.join();
+      query$ = omit(query$, ['bid_seasons']);
     }
     // if (isArray(seasons) && seasons.length && isSeasons) {
     //   query$.bid_seasons = join(seasons, ',');
