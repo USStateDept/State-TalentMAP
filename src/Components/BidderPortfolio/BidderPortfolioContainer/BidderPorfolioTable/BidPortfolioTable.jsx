@@ -9,6 +9,7 @@ import { setCDOIncludeExclude } from 'actions/bidderPortfolio';
 import CheckBox from '../../../CheckBox';
 
 const BidPortfolioTable = ({ results, setEditClassification }) => {
+  console.log('results', results);
   const dispatch = useDispatch();
   const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
   const rowSelection = {
@@ -100,8 +101,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
 
     return typeMapping[type] || 'CL';
   }
-  console.log('results', results);
-  console.log('convertBidderTypeQuery(wlType)', convertBidderTypeQuery(wlType));
+
   const IncExc = ({ event, e }) => {
     const workListCode = convertBidderTypeQuery(wlType);
     const hruId = userProfile?.user_info?.hru_id;
