@@ -38,7 +38,6 @@ class BidderPortfolioContainer extends Component {
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(item1?.perdet_seq_number));
         return matchingItem ? { ...item1, ...matchingItem } : null;
       }).filter(item => item !== null);
-      console.log('calling getClientData');
       return combinedArray;
     };
 
@@ -46,9 +45,6 @@ class BidderPortfolioContainer extends Component {
       firstArr.map(obj => {
         const match = secondArr.some(secondObj => secondObj.perdet_seq_number === obj.perdet_seq_number);
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(obj?.perdet_seq_number));
-        console.log('calling filterWorkLists');
-        console.log('matchingItem', matchingItem);
-        console.log('match', match);
         return {
           ...obj,
           workLists: match ? obj.workLists : null,
@@ -58,7 +54,6 @@ class BidderPortfolioContainer extends Component {
     );
     console.log('bidderPortfolioFilteredSeasonDataSuccess?.results', bidderPortfolioFilteredSeasonDataSuccess?.results);
     console.log('bidderPortfolio?.results', bidderPortfolio?.results);
-    console.log('bidderPortfolioExtraData', bidderPortfolioExtraData);
     const swapTables = () => {
       if (isClient && isSeason) {
         return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
