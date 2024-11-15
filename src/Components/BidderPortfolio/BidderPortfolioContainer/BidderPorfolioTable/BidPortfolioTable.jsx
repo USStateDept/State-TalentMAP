@@ -98,8 +98,9 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
       panel_clients: 'PC',
     };
 
-    return typeMapping[type] || '';
+    return typeMapping[type] || 'CL';
   }
+  console.log('results', results);
   console.log('convertBidderTypeQuery(wlType)', convertBidderTypeQuery(wlType));
   const IncExc = ({ event, e }) => {
     const workListCode = convertBidderTypeQuery(wlType);
