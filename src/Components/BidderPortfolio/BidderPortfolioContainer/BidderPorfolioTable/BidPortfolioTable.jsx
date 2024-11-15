@@ -27,55 +27,58 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     return formattedDate;
   };
 
-  const mapObjectToRow = (obj) => ({
-    Employee: obj?.shortened_name,
-    Skill: obj?.skills[0]?.description || 'None listed',
-    PPGrade: obj?.combined_pp_grade,
-    Tenure: obj?.PER_TENURE_CODE,
-    3: obj?.classifications.includes(207) ? '3' : '',
-    6: obj?.classifications.includes(208) ? '6' : '',
-    8: obj?.classifications.includes(217) ? '8' : '',
-    A: obj?.classifications.includes(209) ? 'A' : '',
-    C: obj?.classifications.includes(85) ? 'C' : '',
-    C1: obj?.classifications.includes(203) ? 'C1' : '',
-    CC: obj?.classifications.includes(204) ? 'CC' : '',
-    D: obj?.classifications.includes(133) ? 'D' : '',
-    F: obj?.classifications.includes(210) ? 'F' : '',
-    M: obj?.classifications.includes(206) ? 'M' : '',
-    R: obj?.classifications.includes(205) ? 'R' : '',
-    PR: obj?.classifications.includes(211) ? 'PR' : '',
-    T: obj?.classifications.includes(185) ? 'T' : '',
-    LocationOrg: `${obj?.pos_location} / ${obj?.current_assignment?.position?.organization || 'None listed'}`,
-    Code: obj?.role_code,
-    Position: obj?.position,
-    ETA: formatDate(obj?.current_assignment.asgd_eta_date),
-    TED: formatDate(obj?.current_assignment.end_date),
-    SkillCode: obj?.skills[0]?.code || 'None listed',
-    SkillCode2: obj?.skills[1]?.code || 'None listed',
-    SkillCode3: obj?.skills[2]?.code || 'None listed',
-    DOSEmail: obj?.cdos[0]?.cdo_email,
-    AltEmail: obj?.alt_email,
-    FSEOD: formatDate(obj?.EMP_FS_EOD_DT),
-    LastPromotion: formatDate(obj?.EMP_LAST_PROMOTION_DT),
-    SeparationDate: formatDate(obj?.SEP_PEND_DATE),
-    SeparationPanelDate: formatDate(obj?.SEP_PEND_PANEL_DATE),
-    SeparationLocation: obj?.SEP_PEND_LOCATION,
-    EFM: obj?.EFM_MED_CLEARANCE_IND,
-    Comments: obj?.comments,
-    MandatoryRetirement: formatDate(obj?.EMP_MANDATORY_RETIRE_DT),
-    MedicalIssue: obj?.EFM_MED_CLEARANCE_IND,
-    Ldr: obj?.EMP_FULFILLED_LEADERSHIP_IND,
-    NumberOfBids: obj?.EMP_ACTIVE_BID_COUNT,
-    PanelDate: formatDate(obj?.ASG_PEND_PANEL_DT),
-    SCD: formatDate(obj?.EMP_SERVICE_DT),
-    classifications: obj?.classifications,
-    perdetSeqNumber: obj?.perdet_seq_number,
-    workLists: obj?.workLists,
-    hruID: obj?.hru_id,
-    SendDOSEmail: false,
-    IncExc: false,
-    SendAltEmail: false,
-  });
+  const mapObjectToRow = (obj) => {
+    console.log('obj', obj);
+    return ({
+      Employee: obj?.shortened_name,
+      Skill: obj?.skills[0]?.description || 'None listed',
+      PPGrade: obj?.combined_pp_grade,
+      Tenure: obj?.PER_TENURE_CODE,
+      3: obj?.classifications.includes(207) ? '3' : '',
+      6: obj?.classifications.includes(208) ? '6' : '',
+      8: obj?.classifications.includes(217) ? '8' : '',
+      A: obj?.classifications.includes(209) ? 'A' : '',
+      C: obj?.classifications.includes(85) ? 'C' : '',
+      C1: obj?.classifications.includes(203) ? 'C1' : '',
+      CC: obj?.classifications.includes(204) ? 'CC' : '',
+      D: obj?.classifications.includes(133) ? 'D' : '',
+      F: obj?.classifications.includes(210) ? 'F' : '',
+      M: obj?.classifications.includes(206) ? 'M' : '',
+      R: obj?.classifications.includes(205) ? 'R' : '',
+      PR: obj?.classifications.includes(211) ? 'PR' : '',
+      T: obj?.classifications.includes(185) ? 'T' : '',
+      LocationOrg: `${obj?.pos_location} / ${obj?.current_assignment?.position?.organization || 'None listed'}`,
+      Code: obj?.role_code,
+      Position: obj?.position,
+      ETA: formatDate(obj?.current_assignment.asgd_eta_date),
+      TED: formatDate(obj?.current_assignment.end_date),
+      SkillCode: obj?.skills[0]?.code || 'None listed',
+      SkillCode2: obj?.skills[1]?.code || 'None listed',
+      SkillCode3: obj?.skills[2]?.code || 'None listed',
+      DOSEmail: obj?.cdos[0]?.cdo_email,
+      AltEmail: obj?.alt_email,
+      FSEOD: formatDate(obj?.EMP_FS_EOD_DT),
+      LastPromotion: formatDate(obj?.EMP_LAST_PROMOTION_DT),
+      SeparationDate: formatDate(obj?.SEP_PEND_DATE),
+      SeparationPanelDate: formatDate(obj?.SEP_PEND_PANEL_DATE),
+      SeparationLocation: obj?.SEP_PEND_LOCATION,
+      EFM: obj?.EFM_MED_CLEARANCE_IND,
+      Comments: obj?.comments,
+      MandatoryRetirement: formatDate(obj?.EMP_MANDATORY_RETIRE_DT),
+      MedicalIssue: obj?.EFM_MED_CLEARANCE_IND,
+      Ldr: obj?.EMP_FULFILLED_LEADERSHIP_IND,
+      NumberOfBids: obj?.EMP_ACTIVE_BID_COUNT,
+      PanelDate: formatDate(obj?.ASG_PEND_PANEL_DT),
+      SCD: formatDate(obj?.EMP_SERVICE_DT),
+      classifications: obj?.classifications,
+      perdetSeqNumber: obj?.perdet_seq_number,
+      workLists: obj?.workLists,
+      hruID: obj?.hru_id,
+      SendDOSEmail: false,
+      IncExc: false,
+      SendAltEmail: false,
+    });
+  };
 
   const [rows, setRows] = useState([]);
 
@@ -153,7 +156,40 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
   /* THIS SECTION IS A WORK IN PROGRESS, NEED TO CONTINUE FIGURING OUT CONDITIONS WITH WEB SERVICES */
 
   const IncExcCheckboxComponent = (e) => {
-    console.log('e', e);
+    /* THIS IS THE CHECKBOX CONDITIONS FOR THE BIDDER TYPES */
+    const isCLChecked =
+    (convertBidderTypeQuery(wlType) === 'CL') &&
+    Array.isArray(e?.data?.workLists)
+      ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && (obj?.bsceid !== undefined))
+      : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && (e.data.workLists?.bsceid !== undefined));
+
+    const isCUChecked =
+      (convertBidderTypeQuery(wlType) === 'CU') &&
+      Array.isArray(e?.data?.workLists)
+        ? e.data.workLists.some(obj => obj?.bswwlcode === 'CU' && (obj?.bsceid !== undefined))
+        : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CU' && (e.data.workLists?.bsceid !== undefined));
+
+    const isEBChecked =
+        (convertBidderTypeQuery(wlType) === 'EB') &&
+        Array.isArray(e?.data?.workLists)
+          ? e.data.workLists.some(obj => obj?.bswwlcode === 'EB' && obj?.bsceid !== undefined)
+          : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'EB' && (e.data.workLists?.bsceid !== undefined));
+
+    const combinedChecked = isCLChecked || isCUChecked || isEBChecked;
+
+    /* THIS IS THE DISABLED CONDITION FOR THE CHECKBOXES */
+
+    // const isBSCEExcluded =
+    // ((convertBidderTypeQuery(wlType) === 'EB') &&
+    // (Array.isArray(e?.data?.workLists)
+    //   ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && obj?.bsceincludeexcludeind === 'E')
+    //   : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && e.data.workLists?.bsceincludeexcludeind === 'E')));
+
+    console.log('isCLChecked', isCLChecked);
+    console.log('isCUChecked', isCUChecked);
+    console.log('isEBChecked', isEBChecked);
+
+
     const isEligibleDisabled = (
       convertBidderTypeQuery(wlType) === 'EB' &&
       (
@@ -171,35 +207,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
         convertBidderTypeQuery(wlType) === 'SB' ||
         isEligibleDisabled;
 
-    const isCLChecked =
-    (convertBidderTypeQuery(wlType) === 'CL') &&
-    Array.isArray(e?.data?.workLists)
-      ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && (obj?.bsceid !== undefined))
-      : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && (e.data.workLists?.bsceid !== undefined));
-
-    const isCUChecked =
-      (convertBidderTypeQuery(wlType) === 'CU') &&
-      Array.isArray(e?.data?.workLists)
-        ? e.data.workLists.some(obj => obj?.bswwlcode === 'CU' && (obj?.bsceid !== undefined))
-        : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CU' && (e.data.workLists?.bsceid !== undefined));
-
-    const isEBChecked =
-        (convertBidderTypeQuery(wlType) === 'EB') &&
-        Array.isArray(e?.data?.workLists)
-          ? e.data.workLists.some(obj => obj?.bswwlcode === 'EB' && obj?.bsceid !== null)
-          : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'EB' && (e.data.workLists?.bsceid !== undefined));
-
-    // const isBSCEExcluded =
-    // ((convertBidderTypeQuery(wlType) === 'EB') &&
-    // (Array.isArray(e?.data?.workLists)
-    //   ? e.data.workLists.some(obj => obj?.bswwlcode === 'CL' && obj?.bsceincludeexcludeind === 'E')
-    //   : (typeof e?.data?.workLists === 'object' && e.data.workLists?.bswwlcode === 'CL' && e.data.workLists?.bsceincludeexcludeind === 'E')));
-
-    const combinedChecked = isCLChecked || isCUChecked || isEBChecked;
-    console.log('isCLChecked', isCLChecked);
-    console.log('isCUChecked', isCUChecked);
-    console.log('isEBChecked', isEBChecked);
-
+    console.log('e', e);
     return (
       <CheckBox onCheckBoxClick={(event) => IncExc({ event, e })} disabled={isDisabled} value={combinedChecked} />
     );
