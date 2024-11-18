@@ -63,7 +63,7 @@ class BidderPortfolioContainer extends Component {
 
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
-        {!showNoCdosAlert && !hasErrored && isCDOD30 && !noResults &&
+        {!showNoCdosAlert && !hasErrored && isCDOD30 && !noResults && bidderPortfolioExtraData.length !== 0 &&
           <div className="usa-grid-full bidder-portfolio-listing">
             <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? swapTables() : []} setEditClassification={setEditClassification} />
           </div>

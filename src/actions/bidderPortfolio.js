@@ -2,12 +2,11 @@ import { batch } from 'react-redux';
 import { stringify } from 'query-string';
 import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
-import { toastSuccess } from 'actions/toast';
+import { toastError, toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
 import { BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR, BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS, BIDDER_PORTFOLIO_UPDATE_ERROR, BIDDER_PORTFOLIO_UPDATE_SUCCESS } from '../Constants/SystemMessages';
 import api from '../api';
-import { toastError } from './toast';
 
 let cancelCDOs;
 let cancelPortfolio;
@@ -568,10 +567,17 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
-          console.log('BPFD', data);
+          // filter null results
+          const data$ = data;
+          data$.results = data$.results.filter(obj => obj !== null);
+          data$.count = data$.results.length;
+          if (data$.count !== data.count) {
+            // eslint-disable-next-line no-console
+            console.warn('Check logs for bad employee data');
+          }
           batch(() => {
-            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-            dispatch(bidderPortfolioFetchDataSuccess(data));
+            dispatch(bidderPortfolioLastQuery(query$$, data$.count, endpoint));
+            dispatch(bidderPortfolioFetchDataSuccess(data$));
             if (!isCDO) {
               dispatch(bidderPortfolioHasErrored(false));
               dispatch(bidderPortfolioIsLoading(false));
