@@ -67,8 +67,8 @@ const BiddingToolCard = (props) => {
     housing: housingTypes?.[0]?.code || '',
     quarters: quartersTypes?.[0]?.code || '',
     efm_issues: ehcps?.[0]?.code || '',
-
     snd: 'N',
+    fpb: 'N',
     hds: 'N',
     apo_fpo_dpo: 'N',
     consumable_allowance: 'N',
@@ -135,6 +135,7 @@ const BiddingToolCard = (props) => {
         efm_issues: result?.efm_issues,
 
         snd: result?.snd ?? 'N',
+        fpb: result?.fpb ?? 'N',
         hds: result?.hds ?? 'N',
         apo_fpo_dpo: result?.apo_fpo_dpo ?? 'N',
         consumable_allowance: result?.consumable_allowance ?? 'N',
@@ -203,6 +204,7 @@ const BiddingToolCard = (props) => {
     { 'APO/FPO/DPO': result?.apo_fpo_dpo === 'Y' ? 'Yes' : 'No' },
     { 'Danger Pay': result?.danger_pay?.toString() || 'None Listed' },
     { 'SND': result?.snd === 'Y' ? 'Yes' : 'No' },
+    { 'FPB': result?.fpb === 'Y' ? '🟢🟢🟢' : '🔴🔴🔴' },
     { 'HDS': result?.hds === 'Y' ? 'Yes' : 'No' },
     { 'Unaccompanied Status': unaccompaniedStatuses.find(o => o.code === result?.unaccompanied_status)?.description || 'None Listed' },
     { 'Housing Type': housingTypes.find(o => o.code === result?.housing_type)?.description || 'None Listed' },
