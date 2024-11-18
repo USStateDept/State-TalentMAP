@@ -1,66 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchResultsExportLink matches snapshot 1`] = `
-<div
-  className="export-button-container"
->
-  <ExportButton
-    className=""
-    disabled={false}
-    isLoading={false}
-    onClick={[Function]}
-    primaryClass="usa-button-secondary"
-    text="Export"
-  />
-  <CSVLink
-    asyncOnClick={false}
-    data=""
-    filename="TalentMap_bidder_portfolio_export.csv"
-    headers={
-      Array [
-        Object {
-          "key": "user.last_name",
-          "label": "Last Name",
-        },
-        Object {
-          "key": "user.first_name",
-          "label": "First Name",
-        },
-        Object {
-          "key": "user.email",
-          "label": "Email",
-        },
-        Object {
-          "key": "user.username",
-          "label": "Username",
-        },
-        Object {
-          "key": "grade",
-          "label": "Grade",
-        },
-        Object {
-          "key": "primary_nationality",
-          "label": "Primary Nationality",
-        },
-        Object {
-          "key": "secondary_nationality",
-          "label": "Secondary Nationality",
-        },
-        Object {
-          "key": "current_assignment",
-          "label": "Current Assignment",
-        },
-        Object {
-          "key": "language_qualifications[0].representation",
-          "label": "Language",
-        },
-      ]
+exports[`ExportLink Component matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
     }
-    separator=","
-    tabIndex="-1"
-    target="_blank"
-    transform={[Function]}
-    uFEFF={false}
-  />
-</div>
+  }
+>
+  <MemoryRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "key": "turiqa",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "turiqa",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Connect(ExportLink)>
+        <ExportLink
+          bidderPortfolioLastQuery={Object {}}
+          disabled={false}
+          dispatch={[Function]}
+        >
+          <div
+            className="export-button-container"
+          >
+            <ExportButton
+              className=""
+              disabled={false}
+              isLoading={false}
+              onClick={[Function]}
+              primaryClass="usa-button-secondary"
+              text="Export - Max. 500"
+            >
+              <button
+                className="usa-button-secondary "
+                disabled={false}
+                onClick={[Function]}
+              >
+                <span>
+                  Export - Max. 500
+                </span>
+              </button>
+            </ExportButton>
+          </div>
+        </ExportLink>
+      </Connect(ExportLink)>
+    </Router>
+  </MemoryRouter>
+</Provider>
 `;

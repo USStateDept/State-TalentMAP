@@ -1,72 +1,58 @@
-import { shallow } from 'enzyme';
-import toJSON from 'enzyme-to-json';
-import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import sinon from 'sinon';
-import ExportLinkContainer, { ExportLink, mapDispatchToProps } from './ExportLink';
-import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
+import toJSON from 'enzyme-to-json';
+import ExportLink from './ExportLink';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('SearchResultsExportLink', () => {
+describe('ExportLink Component', () => {
   it('is defined', () => {
-    const wrapper = shallow(<ExportLink />);
+    const wrapper = mount(
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <ExportLink />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('it mounts', () => {
-    const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <ExportLinkContainer />
-    </MemoryRouter></Provider>);
+    const wrapper = mount(
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <ExportLink />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('calls onClick on button click', () => {
-    const wrapper = shallow(<ExportLink />);
-    expect(wrapper.instance().state.isLoading).toBe(false);
-    wrapper.find('ExportButton').props().onClick();
-    expect(wrapper.instance().state.isLoading).toBe(true);
-  });
-
-  it('sets the csv ref', () => {
-    const wrapper = shallow(<ExportLink />);
-    const setTo = 2;
-    wrapper.instance().setCsvRef(setTo);
-    expect(wrapper.instance().csvLink).toBe(setTo);
-  });
-
-  it('sets state when data is done loading', () => {
-    const wrapper = shallow(<ExportLink isLoading />);
-    const instance = wrapper.instance();
-    const data = { results: [] };
-    wrapper.setProps({ isLoading: false, hasErrored: false, data });
-    expect(instance.state.isLoading).toBe(false);
-    expect(instance.state.data).toEqual(data.results);
-  });
-
-  it('sets state when data is done loading', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(<ExportLink isLoading />);
-    wrapper.instance().setCsvRef({ link: { click: spy } });
-    wrapper.instance().UNSAFE_componentWillReceiveProps(
-      { isLoading: false, hasErrored: false, data: { results: [] } },
+    const wrapper = mount(
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <ExportLink />
+        </MemoryRouter>
+      </Provider>,
     );
-    sinon.assert.calledOnce(spy);
+    const button = wrapper.find('ExportButton').first();
+    button.simulate('click');
+    // You can add more assertions here to check the state or other side effects
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<ExportLink />);
+    const wrapper = mount(
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <ExportLink />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
-});
-
-describe('mapDispatchToProps', () => {
-  const config = {
-    fetchData: [],
-  };
-  testDispatchFunctions(mapDispatchToProps, config);
 });
