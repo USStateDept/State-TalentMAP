@@ -105,6 +105,7 @@ class BidControls extends Component {
   };
 
   onFilterChange = (q, value) => {
+    this.props.bidderPortfolioFetchDataSuccess({ results: [], count: 0 });
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
