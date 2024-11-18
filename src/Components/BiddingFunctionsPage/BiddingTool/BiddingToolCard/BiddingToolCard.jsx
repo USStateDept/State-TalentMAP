@@ -68,7 +68,7 @@ const BiddingToolCard = (props) => {
     quarters: quartersTypes?.[0]?.code || '',
     efm_issues: ehcps?.[0]?.code || '',
     snd: 'N',
-    fpb: 'N',
+    fbp: 'N',
     hds: 'N',
     apo_fpo_dpo: 'N',
     consumable_allowance: 'N',
@@ -135,7 +135,7 @@ const BiddingToolCard = (props) => {
         efm_issues: result?.efm_issues,
 
         snd: result?.snd ?? 'N',
-        fpb: result?.fpb ?? 'N',
+        fbp: result?.fbp ?? 'N',
         hds: result?.hds ?? 'N',
         apo_fpo_dpo: result?.apo_fpo_dpo ?? 'N',
         consumable_allowance: result?.consumable_allowance ?? 'N',
@@ -204,13 +204,23 @@ const BiddingToolCard = (props) => {
     { 'APO/FPO/DPO': result?.apo_fpo_dpo === 'Y' ? 'Yes' : 'No' },
     { 'Danger Pay': result?.danger_pay?.toString() || 'None Listed' },
     { 'SND': result?.snd === 'Y' ? 'Yes' : 'No' },
-    { 'FPB': result?.fpb === 'Y' ? '🟢🟢🟢' : '🔴🔴🔴' },
+    { 'FBP': (result?.fbp === 'Y' ? 'Yes' : 'No') },
     { 'HDS': result?.hds === 'Y' ? 'Yes' : 'No' },
     { 'Unaccompanied Status': unaccompaniedStatuses.find(o => o.code === result?.unaccompanied_status)?.description || 'None Listed' },
     { 'Housing Type': housingTypes.find(o => o.code === result?.housing_type)?.description || 'None Listed' },
     { 'Quarters': quartersTypes.find(o => o.code === result?.quarters_type)?.description || 'None Listed' },
     { 'EFM Issues': ehcps.find(o => o.code === result?.efm_issues)?.description || 'None Listed' },
   ];
+
+  // Remove this once the data is available TM-6553
+  if (result.fbp === undefined) {
+    sections.forEach((item, index) => {
+      if (Object.keys(item)[0] === 'FBP') {
+        sections[index] = { 'FBP': 'N/A' };
+      }
+    });
+  }
+
   const textAreas = [{
     label: 'School Year',
     name: 'school-year',
