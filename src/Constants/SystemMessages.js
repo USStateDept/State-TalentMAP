@@ -477,3 +477,10 @@ export const SEND_TO_EOPF_SUCCESS_TITLE = 'TM1 Sent to EOPF';
 export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF.';
 export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';
 export const SEND_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 to EOPF. Please try again.';
+
+export const EXPORT_DATA_LOADING_TITLE = 'Exporting Data...';
+export const EXPORT_DATA_LOADING = 'Export may take a while, please wait while we process. \n Export is capped at first 500 results.';
+export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
+export const EXPORT_DATA_SUCCESS = 'Data has been successfully exported.';
+export const EXPORT_DATA_ERROR_TITLE = 'Data Export Error';
+export const EXPORT_DATA_ERROR = 'There was an issue attempting to export this data. Please try again.';
