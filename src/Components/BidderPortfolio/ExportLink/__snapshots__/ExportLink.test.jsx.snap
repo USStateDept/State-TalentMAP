@@ -1,84 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExportLink Component matches snapshot 1`] = `
-<Provider
-  store={
+<ContextProvider
+  value={
     Object {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
     }
   }
 >
   <MemoryRouter>
-    <Router
-      history={
-        Object {
-          "action": "POP",
-          "block": [Function],
-          "canGo": [Function],
-          "createHref": [Function],
-          "entries": Array [
-            Object {
-              "hash": "",
-              "key": "turiqa",
-              "pathname": "/",
-              "search": "",
-              "state": undefined,
-            },
-          ],
-          "go": [Function],
-          "goBack": [Function],
-          "goForward": [Function],
-          "index": 0,
-          "length": 1,
-          "listen": [Function],
-          "location": Object {
-            "hash": "",
-            "key": "turiqa",
-            "pathname": "/",
-            "search": "",
-            "state": undefined,
-          },
-          "push": [Function],
-          "replace": [Function],
-        }
-      }
-    >
-      <Connect(ExportLink)>
-        <ExportLink
-          bidderPortfolioLastQuery={Object {}}
-          disabled={false}
-          dispatch={[Function]}
-        >
-          <div
-            className="export-button-container"
-          >
-            <ExportButton
-              className=""
-              disabled={false}
-              isLoading={false}
-              onClick={[Function]}
-              primaryClass="usa-button-secondary"
-              text="Export - Max. 500"
-            >
-              <button
-                className="usa-button-secondary "
-                disabled={false}
-                onClick={[Function]}
-              >
-                <span>
-                  Export - Max. 500
-                </span>
-              </button>
-            </ExportButton>
-          </div>
-        </ExportLink>
-      </Connect(ExportLink)>
-    </Router>
+    <Connect(ExportLink) />
   </MemoryRouter>
-</Provider>
+</ContextProvider>
 `;

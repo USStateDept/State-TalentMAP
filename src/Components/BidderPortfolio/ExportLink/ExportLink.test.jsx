@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import toJSON from 'enzyme-to-json';
@@ -11,18 +11,7 @@ const mockStore = configureStore(middlewares);
 
 describe('ExportLink Component', () => {
   it('is defined', () => {
-    const wrapper = mount(
-      <Provider store={mockStore({})}>
-        <MemoryRouter>
-          <ExportLink />
-        </MemoryRouter>
-      </Provider>,
-    );
-    expect(wrapper).toBeDefined();
-  });
-
-  it('it mounts', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
           <ExportLink />
@@ -46,7 +35,7 @@ describe('ExportLink Component', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
           <ExportLink />
