@@ -11,7 +11,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, RWADetoRibbon, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   getAccessiblePositionNumber,
@@ -35,6 +35,8 @@ import {
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
+const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
+
 export const renderHandshake = (stats, ribbonClass) => (
   get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className={ribbonClass} />
 );
@@ -51,7 +53,10 @@ export const renderIsHardToFill = (details, ribbonClass) => (
   get(details, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} />
 );
 
-const DETO_RWA_FLAG = () => checkFlag('flags.deto_rwa');
+export const renderIsAvailTeleworkPos = (details, ribbonClass) => {
+  const isAvailTeleworkPos = details?.position?.avail_telework_pos === 'Y';
+  return DETO_RWA_FLAG() && isAvailTeleworkPos && <RWADetoRibbon cutSide="both" className={ribbonClass} />;
+};
 
 const PositionDetailsItem = (props) => {
   const {
@@ -88,7 +93,7 @@ const PositionDetailsItem = (props) => {
   const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
   const assignee = get(position, 'assignee') || NO_USER_LISTED;
   const cycle = get(position, 'latest_bidcycle.name', 'None Listed');
-  const deto = position?.availTeleworkPos ? 'Eligible' : 'Not Eligible';
+  const deto = position?.avail_telework_pos === 'Y' ? 'Eligible' : 'Not Eligible';
 
   const getPostedDate = () => {
     const posted = get(position, COMMON_PROPERTIES.posted);
@@ -111,6 +116,7 @@ const PositionDetailsItem = (props) => {
         {renderHistDiffToStaff(details, ribbonClass)}
         {renderServiceNeedDifferential(details, ribbonClass)}
         {renderIsHardToFill(details, ribbonClass)}
+        {renderIsAvailTeleworkPos(details, ribbonClass)}
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>

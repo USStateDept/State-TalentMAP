@@ -125,9 +125,10 @@ const MaintainELPositionsTable = forwardRef(({ elPositions }, ref) => {
   };
 
   return (
-    <div className="el-table ag-theme-quartz" style={{ height: 475, width: '100%' }}>
+    <div className="el-table ag-theme-quartz" style={{ width: '100%' }}>
       <AgGridReact
         ref={gridRef}
+        domLayout="autoHeight"
         columnDefs={headers}
         rowData={rows}
         onCellValueChanged={onCellValueChanged}
