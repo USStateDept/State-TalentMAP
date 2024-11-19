@@ -212,15 +212,6 @@ const BiddingToolCard = (props) => {
     { 'EFM Issues': ehcps.find(o => o.code === result?.efm_issues)?.description || 'None Listed' },
   ];
 
-  // Remove this once the data is available TM-6553
-  if (result.fbp === undefined) {
-    sections.forEach((item, index) => {
-      if (Object.keys(item)[0] === 'FBP') {
-        sections[index] = { 'FBP': 'N/A' };
-      }
-    });
-  }
-
   const textAreas = [{
     label: 'School Year',
     name: 'school-year',
