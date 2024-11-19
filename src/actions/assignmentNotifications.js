@@ -27,6 +27,8 @@ import {
   SEND_MEMO_ERROR, SEND_MEMO_ERROR_TITLE, SEND_MEMO_SUCCESS, SEND_MEMO_SUCCESS_TITLE,
   SEND_NOTIFICATION_ERROR, SEND_NOTIFICATION_ERROR_TITLE,
   SEND_NOTIFICATION_SUCCESS, SEND_NOTIFICATION_SUCCESS_TITLE,
+  SEND_SOAP_ERROR,
+  SEND_SOAP_ERROR_TITLE,
   SEND_TO_EOPF_ERROR,
   SEND_TO_EOPF_ERROR_TITLE,
   SEND_TO_EOPF_SUCCESS,
@@ -548,7 +550,7 @@ export function getOpsWsdl(query = {}) {
   };
 }
 
-// ================ GET OPS DATA ================
+// ================ GET OPS SOAP DATA ================
 
 export function getOpsDataErrored(bool) {
   return {
@@ -577,7 +579,7 @@ export function getOpsData(query = {}) {
       dispatch(getOpsDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/ops/data/';
+    const endpoint = '/fsbid/notification/ops/soap/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelGetOpsData = c; }),
@@ -620,7 +622,7 @@ export function updateOpsLog(data, onSuccess) {
       cancelUpdateOpsLog('cancel');
     }
     api()
-      .post('/fsbid/notification/ops/update/', data, {
+      .post('/fsbid/notification/ops/log/', data, {
         cancelToken: new CancelToken((c) => { cancelUpdateOpsLog = c; }),
       })
       .then(() => {
@@ -646,31 +648,28 @@ export function updateOpsLog(data, onSuccess) {
 // ================ CREATE OPS LOG ================
 
 let cancelCreateOpsLog;
-export function createOpsLog(data, onSuccess) {
+export function createOpsLog(data, updateRequest, onSuccess) {
   return (dispatch) => {
     if (cancelCreateOpsLog) {
       cancelCreateOpsLog('cancel');
     }
     api()
-      .post('/fsbid/notification/ops/create/', data, {
+      .put('/fsbid/notification/ops/log/', data, {
         cancelToken: new CancelToken((c) => { cancelCreateOpsLog = c; }),
       })
-      .then((response) => {
+      .then(() => {
         dispatch(toastSuccess(
           INSERT_OPS_LOG_SUCCESS,
           INSERT_OPS_LOG_SUCCESS_TITLE,
         ));
 
         // Handle Post Insertion Update to Metadata
-        let submitMsg = response.PCUR_MESSAGE_O?.[0];
-        if (response.PV_RETURN_O === 0 && !submitMsg) {
-          submitMsg = 'SUCCESSFUL CALL OPS Web Service';
-        }
-        dispatch(updateOpsLog({
-          PV_OTL_ID_I: response.PV_OTL_ID_O,
-          PV_OTL_SUBMIT_RETURN_CODE_I: response.PV_RETURN_O,
-          PV_OTL_SUBMIT_MESSAGE_I: submitMsg || 'No Message',
-        }));
+        // let submitMsg = response.PCUR_MESSAGE_O?.[0];
+        // if (response.PV_RETURN_O === 0 && !submitMsg) {
+        //   submitMsg = 'SUCCESSFUL CALL OPS Web Service';
+        // }
+
+        dispatch(updateOpsLog(updateRequest));
 
         if (onSuccess) {
           onSuccess();
@@ -686,6 +685,99 @@ export function createOpsLog(data, onSuccess) {
       });
   };
 }
+
+// ================ SEND SOAP TO OPS WSDL ================
+
+// let cancelSendSoap;
+// export function sendSoap(data, onSuccess) {
+//   return (dispatch) => {
+//     if (cancelSendSoap) {
+//       cancelSendSoap('cancel');
+//     }
+//     api()
+//       .post('/fsbid/notification/ops/soap/', data.soapRequest, {
+//         cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
+//       })
+//       .then((response) => {
+//         const updateRequest = {
+//           PV_OTL_ID_I: response.PV_OTL_ID_O,
+//           PV_OTL_SUBMIT_RETURN_CODE_I: response.PV_RETURN_O,
+//           PV_OTL_SUBMIT_MESSAGE_I: response.PV_MESSAGE || 'No Message',
+//         };
+//         dispatch(createOpsLog(data.logRequest, updateRequest));
+//         dispatch(toastSuccess(
+//           UPDATE_OPS_LOG_SUCCESS,
+//           UPDATE_OPS_LOG_SUCCESS_TITLE,
+//         ));
+//         if (onSuccess) {
+//           onSuccess();
+//         }
+//       })
+//       .catch((err) => {
+//         if (err?.message !== 'cancel') {
+//           dispatch(toastError(
+//             UPDATE_OPS_LOG_ERROR,
+//             UPDATE_OPS_LOG_ERROR_TITLE,
+//           ));
+//         }
+//       });
+//   };
+// }
+
+// ================ SEND SOAP TO WSDL // MAKE OPS LOG ================
+
+let cancelSendSoap;
+export function sendSoap(data, onSuccess) {
+  return (dispatch) => {
+    if (cancelSendSoap) {
+      cancelSendSoap('cancel');
+    }
+    api().post('/fsbid/notification/ops/send/', data.soapRequest, {
+      cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
+    })
+      .then((response) => {
+        const updateRequest = {
+          PV_OTL_ID_I: response.PV_OTL_ID_O,
+          PV_OTL_SUBMIT_RETURN_CODE_I: response.PV_RETURN_O,
+          PV_OTL_SUBMIT_MESSAGE_I: response.PV_MESSAGE || 'No Message',
+        };
+        api().put('/fsbid/notification/ops/log/', data.logRequest)
+          .then(() => {
+            api().post('/fsbid/notification/ops/log/', updateRequest)
+              .then(() => {
+                dispatch(toastSuccess(
+                  'TM1 SOAP Message and OPS Log',
+                  'This TM1 SOAP Message has been successfully sent to OPS WSDL and OPS Logs were created.',
+                ));
+                if (onSuccess) {
+                  onSuccess();
+                }
+              })
+              .catch(() => {
+                dispatch(toastError(
+                  UPDATE_OPS_LOG_ERROR,
+                  UPDATE_OPS_LOG_ERROR_TITLE,
+                ));
+              });
+          })
+          .catch(() => {
+            dispatch(toastError(
+              INSERT_OPS_LOG_ERROR,
+              INSERT_OPS_LOG_ERROR_TITLE,
+            ));
+          });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(
+            SEND_SOAP_ERROR,
+            SEND_SOAP_ERROR_TITLE,
+          ));
+        }
+      });
+  };
+}
+
 
 // ================ SEND TO EOPF ================
 
