@@ -45,7 +45,7 @@ const AssignmentNotification = (props) => {
 
   const getOverlay = () => {
     let overlay;
-    if (noteId && !note?.length < 1) {
+    if (noteId && note?.length < 1) {
       overlay = (
         <Alert
           type="error"
