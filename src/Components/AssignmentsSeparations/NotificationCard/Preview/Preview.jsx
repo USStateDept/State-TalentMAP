@@ -171,7 +171,7 @@ const Preview = (props) => {
         const soapXml = generateSoapXML(opsLogData);
         dispatch(sendSoap({
           soapRequest: {
-            WSDL: opsWsdl,
+            WSDL: opsWsdl.PV_PARM_VALUE_O,
             SOAP: soapXml,
           },
           logRequest: {
