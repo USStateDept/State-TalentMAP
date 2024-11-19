@@ -72,17 +72,19 @@ export function noteCableFetchData(query = {}, location, memo, assignments) {
       .then(({ data }) => {
         batch(() => {
           dispatch(noteCableFetchDataSuccess(data));
+          dispatch(noteCableAssignmentsRef(assignments));
           dispatch(noteCableFetchDataErrored(false));
           dispatch(noteCableFetchDataLoading(false));
-          dispatch(noteCableAssignmentsRef(assignments));
           history.push(`${location}/${memo ? 'memo' : 'notification'}/${data[0]?.NM_SEQ_NUM}`);
         });
       })
       .catch((err) => {
+        batch(() => {
+          dispatch(noteCableFetchDataSuccess([]));
+          dispatch(noteCableAssignmentsRef([]));
+        });
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(noteCableAssignmentsRef(null));
-            dispatch(noteCableFetchDataSuccess({}));
             dispatch(noteCableFetchDataErrored(true));
             dispatch(noteCableFetchDataLoading(false));
             if (memo) {
@@ -99,8 +101,6 @@ export function noteCableFetchData(query = {}, location, memo, assignments) {
           });
         } else {
           batch(() => {
-            dispatch(noteCableAssignmentsRef(null));
-            dispatch(noteCableFetchDataSuccess({}));
             dispatch(noteCableFetchDataErrored(false));
             dispatch(noteCableFetchDataLoading(true));
           });
