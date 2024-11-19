@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getGal, sendNotification } from 'actions/assignmentNotifications';
@@ -36,6 +37,8 @@ const Preview = (props) => {
   const useSend = memo ? useMemoSend() : useNotificationSend();
 
   // ====================== Data Retrieval ======================
+
+  const assignmentsRef = useSelector(state => state.noteCableAssignmentsRef);
 
   const gal = useSelector(state => state.getGal);
   const galErrored = useSelector(state => state.getGalErrored);
@@ -126,20 +129,31 @@ const Preview = (props) => {
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      const pdf = generatePDF(getPreviewText, filename, memo);
+      const assignmentsParam = [];
+      if (assignmentsRef) {
+        assignmentsRef.forEach(a => {
+          assignments.push({
+            positionnumber: a.POS_NUM_TXT,
+            location: a.POS_LOCATION_CODE,
+            positiontitle: a.POS_TITLE_TXT,
+            eta: a.ASGD_ETA_DATE,
+            ted: a.ASGD_ETD_TED_DATE,
+            travelfunction: a.TF_CD,
+            datesent: cable?.O_LAST_SENT_DATE,
+            status: a.ASGS_CODE,
+            nmnotificationind: note?.NM_NOTIFICATION_IND,
+            effectivedate: cable?.O_LAST_SENT_DATE,
+          });
+        });
+      }
       dispatch(sendToEopf({
-        PDF: pdf,
-        FILENAME: filename,
-        ASSIGNMENTS: [{
-          DOCUMENT_TYPE: `Assignment ${memo ? 'Memo' : 'Cable'}`,
-          POSITION_NUMBER: assignments, // TODO: Ask EOPF team to accept array of assignments?
-          LOCATION: pdf,
-          POSITION_TITLE: pdf,
-          ETA: pdf,
-          TED: pdf,
-          TRAVEL_FUNCTION: pdf,
-          DATE_SENT: cable?.O_LAST_SENT_DATE,
-        }],
+        transactionid: uuidv4(),
+        perseqnum: nmSeqNum,
+        documenttype: `Assignment ${memo ? 'Memo' : 'Cable'}`,
+        pdffilename: filename,
+        pdffile: generatePDF(getPreviewText, filename, memo),
+        createid: note?.NM_CREATE_ID,
+        assignments: assignmentsParam,
       }, null, memo));
     }
 
@@ -344,6 +358,8 @@ const Preview = (props) => {
 Preview.propTypes = {
   note: PropTypes.shape({
     NM_SEQ_NUM: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    NM_NOTIFICATION_IND: PropTypes.string,
+    NM_CREATE_ID: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   cable: PropTypes.shape({
     O_LAST_SENT_DATE: PropTypes.string,

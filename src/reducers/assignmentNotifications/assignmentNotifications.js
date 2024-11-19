@@ -16,6 +16,14 @@ export function noteCableFetchDataLoading(state = false, action) {
       return state;
   }
 }
+export function noteCableAssignmentsRef(state = null, action) {
+  switch (action.type) {
+    case 'NOTE_CABLE_ASSIGNMENTS_REFERENCE':
+      return action.assignmentsRef;
+    default:
+      return state;
+  }
+}
 export function noteCableFetchData(state = {}, action) {
   switch (action.type) {
     case 'NOTE_CABLE_FETCH_SUCCESS':
