@@ -29,7 +29,6 @@ const Preview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
-    assignments,
   } = props;
 
   const dispatch = useDispatch();
@@ -138,7 +137,7 @@ const Preview = (props) => {
       const assignmentsParam = [];
       if (assignmentsRef) {
         assignmentsRef.forEach(a => {
-          assignments.push({
+          assignmentsParam.push({
             positionnumber: a.POS_NUM_TXT,
             location: a.POS_LOCATION_CODE,
             positiontitle: a.POS_TITLE_TXT,
@@ -385,9 +384,6 @@ Preview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
-  assignments: PropTypes.arrayOf(
-    PropTypes.shape({}),
-  ).isRequired,
 };
 
 Preview.defaultProps = {
