@@ -229,6 +229,7 @@
     "test": "node --expose-gc scripts/test.js --env=jsdom --no-cache --coverage --maxWorkers=3 --logHeapUsage",
     "test:local": "node --expose-gc scripts/test.js --env=jsdom --cache --coverage -u --logHeapUsage",
     "clean": "yarn cache clean && rm -rf node_modules && rm yarn.lock && yarn install",
+    "install:pure": "yarn install --pure-lockfile",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
