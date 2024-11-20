@@ -58,7 +58,7 @@ const Preview = (props) => {
   const opsLoading = opsWsdlLoading || opsDataLoading;
   const opsErrored = opsWsdlErrored || opsDataErrored;
 
-  const disableSend = opsLoading || opsErrored;
+  const prepareNoteSendError = !memo && (opsLoading || opsErrored);
 
   useEffect(() => {
     // Fetch OPS Data to Prepare for Send Notification (Not Applicable to Memo)
@@ -180,6 +180,31 @@ const Preview = (props) => {
         }, null));
       }
     }
+  };
+
+  const formActions = () => {
+    if (useSend) {
+      return (<>
+        {!prepareNoteSendError &&
+          <Alert
+            type="error"
+            title="Error preparing data for send functionality"
+            messages={[{ body: 'Please try again.' }]}
+          />
+        }
+        <div className="position-form--actions">
+          <button onClick={onCancel}>Back</button>
+        </div>
+      </>);
+    }
+    return (
+      <div className="position-form--actions">
+        <button onClick={onCancel}>Cancel</button>
+        <button onClick={() => { if (memo) { setRecipientMode(true); } else { handleSend(); } }}>
+          {memo ? 'Select Memo Recipients' : 'Send Cable'}
+        </button>
+      </div>
+    );
   };
 
   const getOverlay = () => {
@@ -351,20 +376,7 @@ const Preview = (props) => {
             {getPreviewText()?.length} / 500
           </div>
         </Row>
-        <div className="position-form--actions">
-          {useSend ?
-            <>
-              <button onClick={onCancel}>Cancel</button>
-              <button
-                onClick={() => { if (memo) { setRecipientMode(true); } else { handleSend(); } }}
-                disabled={!memo && disableSend}
-              >
-                {memo ? 'Select Memo Recipients' : 'Send Cable'}
-              </button>
-            </> :
-            <button onClick={onCancel}>Back</button>
-          }
-        </div>
+        {formActions()}
       </div>
     </Row>
   );
