@@ -657,7 +657,7 @@ export function sendSoap(data, onSuccess) {
 // ================ SEND TO EOPF ================
 
 let cancelSendToEopf;
-export function sendToEopf(data, onSuccess) {
+export function sendToEopf(data, onSuccess, memo) {
   return (dispatch) => {
     if (cancelSendToEopf) {
       cancelSendToEopf('cancel');
@@ -667,6 +667,11 @@ export function sendToEopf(data, onSuccess) {
         cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
       })
       .then(() => {
+        dispatch(storeNotification({
+          PV_NM_SEQ_NUM_I: data.perseqnum,
+          PV_FILE_NAME_I: data.pdffilename,
+          PV_NOTE_TYPE_I: memo ? 'M' : 'C',
+        }));
         dispatch(toastSuccess(
           SEND_TO_EOPF_SUCCESS,
           SEND_TO_EOPF_SUCCESS_TITLE,
