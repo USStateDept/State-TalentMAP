@@ -15,7 +15,7 @@ import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
 import { generateHTML, generatePDF, generateSoapXML, generateXML } from '../Common/Utilities';
-import { createOpsLog, getOpsData, getOpsWsdl, sendToEopf } from '../../../../actions/assignmentNotifications';
+import { getOpsData, getOpsWsdl, sendSoap, sendToEopf } from '../../../../actions/assignmentNotifications';
 
 const useNotificationSend = () => checkFlag('flags.assignment_notification_send');
 const useMemoSend = () => checkFlag('flags.assignment_memo_send');
@@ -29,7 +29,6 @@ const Preview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
-    assignments,
   } = props;
 
   const dispatch = useDispatch();
@@ -44,21 +43,27 @@ const Preview = (props) => {
   const galErrored = useSelector(state => state.getGalErrored);
   const galLoading = useSelector(state => state.getGalLoading);
 
-  // const opsWsdl = useSelector(state => state.getOpsWsdl);
-  // const opsWsdlErrored = useSelector(state => state.getOpsWsdlErrored);
-  // const opsWsdlLoading = useSelector(state => state.getOpsWsdlLoading);
+  const opsWsdl = useSelector(state => state.getOpsWsdl);
+  const opsWsdlErrored = useSelector(state => state.getOpsWsdlErrored);
+  const opsWsdlLoading = useSelector(state => state.getOpsWsdlLoading);
 
   const opsData = useSelector(state => state.getOpsData);
-  // const opsDataErrored = useSelector(state => state.getOpsDataErrored);
-  // const opsDataLoading = useSelector(state => state.getOpsDataLoading);
+  const opsDataErrored = useSelector(state => state.getOpsDataErrored);
+  const opsDataLoading = useSelector(state => state.getOpsDataLoading);
 
   const [recipientMode, setRecipientMode] = useState(false);
   const [galQuery, setGalQuery] = useState('');
   const [recipients, setRecipients] = useState([]);
 
+  const opsLoading = opsWsdlLoading || opsDataLoading;
+  const opsErrored = opsWsdlErrored || opsDataErrored;
+
+  const prepareNoteSendError = !memo && (opsLoading || opsErrored);
+
   useEffect(() => {
-    getOpsWsdl();
-    getOpsData({ PV_NM_SEQ_NUM_I: note?.NM_SEQ_NUM });
+    // Fetch OPS Data to Prepare for Send Notification (Not Applicable to Memo)
+    dispatch(getOpsWsdl());
+    dispatch(getOpsData({ PV_NM_SEQ_NUM_I: note?.NM_SEQ_NUM }));
   }, []);
 
   const getPreviewText = (fullPreview) => {
@@ -132,7 +137,7 @@ const Preview = (props) => {
       const assignmentsParam = [];
       if (assignmentsRef) {
         assignmentsRef.forEach(a => {
-          assignments.push({
+          assignmentsParam.push({
             positionnumber: a.POS_NUM_TXT,
             location: a.POS_LOCATION_CODE,
             positiontitle: a.POS_TITLE_TXT,
@@ -162,12 +167,44 @@ const Preview = (props) => {
     if (!memo) {
       const opsLogData = opsData?.PQRY_OTL_LOG_TM1_O?.[0];
       if (opsLogData) {
-        dispatch(createOpsLog({
-          PV_OTL_TM_DATA_I: generateSoapXML(opsLogData),
-          PV_ETL_SEQ_NBR_I: opsLogData.ETL_SEQ_NUM,
+        const soapXml = generateSoapXML(opsLogData);
+        dispatch(sendSoap({
+          soapRequest: {
+            WSDL: opsWsdl.PV_PARM_VALUE_O,
+            SOAP: soapXml,
+          },
+          logRequest: {
+            PV_OTL_TM_DATA_I: soapXml,
+            PV_ETL_SEQ_NBR_I: opsLogData.ETL_SEQ_NUM,
+          },
         }, null));
       }
     }
+  };
+
+  const formActions = () => {
+    if (useSend) {
+      return (<>
+        {!prepareNoteSendError &&
+          <Alert
+            type="error"
+            title="Error preparing data for send functionality"
+            messages={[{ body: 'Please try again.' }]}
+          />
+        }
+        <div className="position-form--actions">
+          <button onClick={onCancel}>Back</button>
+        </div>
+      </>);
+    }
+    return (
+      <div className="position-form--actions">
+        <button onClick={onCancel}>Cancel</button>
+        <button onClick={() => { if (memo) { setRecipientMode(true); } else { handleSend(); } }}>
+          {memo ? 'Select Memo Recipients' : 'Send Cable'}
+        </button>
+      </div>
+    );
   };
 
   const getOverlay = () => {
@@ -339,17 +376,7 @@ const Preview = (props) => {
             {getPreviewText()?.length} / 500
           </div>
         </Row>
-        <div className="position-form--actions">
-          {useSend ?
-            <>
-              <button onClick={onCancel}>Cancel</button>
-              <button onClick={() => { if (memo) { setRecipientMode(true); } else { handleSend(); } }}>
-                {memo ? 'Select Memo Recipients' : 'Send Cable'}
-              </button>
-            </> :
-            <button onClick={onCancel}>Back</button>
-          }
-        </div>
+        {formActions()}
       </div>
     </Row>
   );
@@ -369,9 +396,6 @@ Preview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
-  assignments: PropTypes.arrayOf(
-    PropTypes.shape({}),
-  ).isRequired,
 };
 
 Preview.defaultProps = {
