@@ -12,6 +12,14 @@ import api from '../api';
 import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
 import {
+  EMAIL_MEMO_ERROR,
+  EMAIL_MEMO_ERROR_TITLE,
+  EMAIL_MEMO_SUCCESS,
+  EMAIL_MEMO_SUCCESS_TITLE,
+  EMAIL_NOTIFICATION_ERROR,
+  EMAIL_NOTIFICATION_ERROR_TITLE,
+  EMAIL_NOTIFICATION_SUCCESS,
+  EMAIL_NOTIFICATION_SUCCESS_TITLE,
   GET_GAL_ERROR, GET_GAL_ERROR_TITLE, GET_MEMO_ERROR, GET_MEMO_ERROR_TITLE,
   GET_OPS_DATA_ERROR, GET_OPS_DATA_ERROR_TITLE, GET_OPS_WSDL_ERROR, GET_OPS_WSDL_ERROR_TITLE,
   INSERT_OPS_LOG_ERROR, INSERT_OPS_LOG_ERROR_TITLE,
@@ -685,6 +693,70 @@ export function sendToEopf(data, onSuccess, memo) {
           dispatch(toastError(
             SEND_TO_EOPF_ERROR,
             SEND_TO_EOPF_ERROR_TITLE,
+          ));
+        }
+      });
+  };
+}
+
+// ================ EMAIL NOTIFICATION ================
+
+let cancelEmailNotification;
+export function emailNotification(data, onSuccess) {
+  return (dispatch) => {
+    if (cancelEmailNotification) {
+      cancelEmailNotification('cancel');
+    }
+    api()
+      .post('/fsbid/notification/send_tm1_notification/', data, {
+        cancelToken: new CancelToken((c) => { cancelEmailNotification = c; }),
+      })
+      .then(() => {
+        dispatch(toastSuccess(
+          EMAIL_NOTIFICATION_SUCCESS,
+          EMAIL_NOTIFICATION_SUCCESS_TITLE,
+        ));
+        if (onSuccess) {
+          onSuccess();
+        }
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(
+            EMAIL_NOTIFICATION_ERROR,
+            EMAIL_NOTIFICATION_ERROR_TITLE,
+          ));
+        }
+      });
+  };
+}
+
+// ================ EMAIL MEMO ================
+
+let cancelEmailMemo;
+export function emailMemo(data, onSuccess) {
+  return (dispatch) => {
+    if (cancelEmailMemo) {
+      cancelEmailMemo('cancel');
+    }
+    api()
+      .post('/fsbid/notification/send_tm1_memo/', data, {
+        cancelToken: new CancelToken((c) => { cancelEmailMemo = c; }),
+      })
+      .then(() => {
+        dispatch(toastSuccess(
+          EMAIL_MEMO_SUCCESS,
+          EMAIL_MEMO_SUCCESS_TITLE,
+        ));
+        if (onSuccess) {
+          onSuccess();
+        }
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(
+            EMAIL_MEMO_ERROR,
+            EMAIL_MEMO_ERROR_TITLE,
           ));
         }
       });
