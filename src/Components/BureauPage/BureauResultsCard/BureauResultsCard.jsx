@@ -154,7 +154,7 @@ class BureauResultsCard extends Component {
 BureauResultsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
-  viewType: PropTypes.bool.isRequired,
+  viewType: PropTypes.string.isRequired,
 };
 
 BureauResultsCard.defaultProps = {
