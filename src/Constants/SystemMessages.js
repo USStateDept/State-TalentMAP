@@ -483,6 +483,16 @@ export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF
 export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';
 export const SEND_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 to EOPF. Please try again.';
 
+export const EMAIL_NOTIFICATION_SUCCESS_TITLE = 'Notification Emailed';
+export const EMAIL_NOTIFICATION_SUCCESS = 'This Notification has been successfully emailed to the recipient.';
+export const EMAIL_NOTIFICATION_ERROR_TITLE = 'Notification Email Error';
+export const EMAIL_NOTIFICATION_ERROR = 'There was an issue attempting to email this Notification. Please try again.';
+
+export const EMAIL_MEMO_SUCCESS_TITLE = 'Memo Emailed';
+export const EMAIL_MEMO_SUCCESS = 'This Memo has been successfully emailed to the recipient.';
+export const EMAIL_MEMO_ERROR_TITLE = 'Memo Email Error';
+export const EMAIL_MEMO_ERROR = 'There was an issue attempting to email this Memo. Please try again.';
+
 export const EXPORT_DATA_LOADING_TITLE = 'Exporting Data...';
 export const EXPORT_DATA_LOADING = 'Export may take a while, please wait while we process. \n Export is capped at first 500 results.';
 export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
