@@ -15,7 +15,7 @@ import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
 import { generateHTML, generatePDF, generateSoapXML, generateXML } from '../Common/Utilities';
-import { getOpsData, getOpsWsdl, sendSoap, sendToEopf } from '../../../../actions/assignmentNotifications';
+import { emailMemo, emailNotification, getOpsData, getOpsWsdl, sendSoap, sendToEopf } from '../../../../actions/assignmentNotifications';
 
 const useNotificationSend = () => checkFlag('flags.assignment_notification_send');
 const useMemoSend = () => checkFlag('flags.assignment_memo_send');
@@ -124,12 +124,26 @@ const Preview = (props) => {
 
     // ------------ Handle Send ------------
 
-    generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
-    generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
     dispatch(sendNotification({
       I_NM_SEQ_NUM: nmSeqNum,
       I_NOTE_TYPE: type,
     }, fetchData, memo));
+
+    if (memo) {
+      dispatch(emailNotification({
+        to: getCableValue('TO_ADDRESS'),
+        subject: getCableValue('SUBJECT'),
+        body: '',
+        attachments: [generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText())],
+      }));
+    } else {
+      dispatch(emailMemo({
+        to: getCableValue('TO_ADDRESS'),
+        subject: getCableValue('SUBJECT'),
+        body: '',
+        attachments: [generateXML(cable, getPreviewText(), getCableValue('SUBJECT'))],
+      }));
+    }
 
     // ------------ Handle PDF ------------
 
