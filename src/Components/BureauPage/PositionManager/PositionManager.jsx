@@ -38,8 +38,7 @@ const PositionManager = props => {
   } = props;
 
   const fromBureauMenu = viewType === 'bureau';
-  // Check is AO will work exactly as Post, if so, change variable name
-  const fromPostMenu = viewType === 'post' || viewType === 'ao';
+  const fromPostMenu = viewType === 'post';
 
   const initialBureaus = (fromBureauMenu && get(bureauPermissions, '[0]')) ? [get(bureauPermissions, '[0]')] : [];
   const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
@@ -400,7 +399,7 @@ const PositionManager = props => {
                     />
                   </div>
                   {
-                    fromBureauMenu &&
+                    !fromPostMenu &&
                     <PermissionsWrapper permissions={['bureau_user']}>
                       <div className="filter-div">
                         <div className="label">Bureau:</div>
@@ -421,7 +420,7 @@ const PositionManager = props => {
                     </PermissionsWrapper>
                   }
                   {
-                    fromPostMenu &&
+                    !fromBureauMenu &&
                     <PermissionsWrapper permissions={['post_user']}>
                       <div className="filter-div">
                         <div className="label">Organization:</div>
