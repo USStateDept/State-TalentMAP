@@ -34,9 +34,12 @@ const PositionManager = props => {
     bureauPositionsHasErrored,
     userSelections,
     orgPermissions,
-    fromBureauMenu,
-    fromPostMenu,
+    viewType,
   } = props;
+
+  const fromBureauMenu = viewType === 'bureau';
+  // Check is AO will work exactly as Post, if so, change variable name
+  const fromPostMenu = viewType === 'post' || viewType === 'ao';
 
   const initialBureaus = (fromBureauMenu && get(bureauPermissions, '[0]')) ? [get(bureauPermissions, '[0]')] : [];
   const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
@@ -634,8 +637,7 @@ PositionManager.propTypes = {
   bureauPermissions: BUREAU_PERMISSIONS,
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
-  fromBureauMenu: PropTypes.bool,
-  fromPostMenu: PropTypes.bool,
+  viewType: PropTypes.string.isRequired,
 };
 
 PositionManager.defaultProps = {
@@ -648,8 +650,6 @@ PositionManager.defaultProps = {
   orgPermissions: [],
   userSelections: {},
   showClear: false,
-  fromBureauMenu: false,
-  fromPostMenu: false,
 };
 
 const mapStateToProps = state => ({
