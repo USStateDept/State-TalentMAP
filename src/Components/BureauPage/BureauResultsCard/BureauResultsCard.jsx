@@ -34,7 +34,7 @@ class BureauResultsCard extends Component {
 
   render() {
     const { showMore } = this.state;
-    const { result, isProjectedVacancy, fromPostMenu } = this.props;
+    const { result, isProjectedVacancy, viewType } = this.props;
 
     const pos = result.position || result;
 
@@ -53,7 +53,7 @@ class BureauResultsCard extends Component {
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
 
-    const detailsLink = (<Link to={`/profile/${fromPostMenu ? 'post' : 'bureau'}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}>
+    const detailsLink = (<Link to={`/profile/${viewType}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}>
       <h3>{title}</h3></Link>);
     const shortListIndicator = hasShortList ? (<Tooltip
       title="Position has an active short list"
@@ -154,12 +154,11 @@ class BureauResultsCard extends Component {
 BureauResultsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
-  fromPostMenu: PropTypes.bool,
+  viewType: PropTypes.bool.isRequired,
 };
 
 BureauResultsCard.defaultProps = {
   isProjectedVacancy: false,
-  fromPostMenu: false,
 };
 
 export default BureauResultsCard;

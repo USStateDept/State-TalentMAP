@@ -605,7 +605,7 @@ const PositionManager = props => {
                       <BureauResultsCard
                         result={result}
                         key={result.id}
-                        fromPostMenu={fromPostMenu}
+                        viewType={viewType}
                       />
                     ))}
                   </div>
