@@ -55,7 +55,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
                 >
                   <button
                     className="usa-button-disabled"
-                    disabled="true"
+                    disabled={true}
                     id="disabled-search-button-search-2"
                     title="search button disabled"
                     type="submit"
@@ -160,7 +160,7 @@ exports[`SearchBarComponent big matches snapshot when showClear === true 1`] = `
                 >
                   <button
                     className="usa-button-disabled"
-                    disabled="true"
+                    disabled={true}
                     id="disabled-search-button-search-2"
                     title="search button disabled"
                     type="submit"
@@ -257,7 +257,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
                 >
                   <button
                     className="usa-button-disabled"
-                    disabled="true"
+                    disabled={true}
                     id="disabled-search-button-search-2"
                     title="search button disabled"
                     type="submit"
@@ -362,7 +362,7 @@ exports[`SearchBarComponent medium matches snapshot when showClear === true 1`] 
                 >
                   <button
                     className="usa-button-disabled"
-                    disabled="true"
+                    disabled={true}
                     id="disabled-search-button-search-2"
                     title="search button disabled"
                     type="submit"
@@ -459,7 +459,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
                 >
                   <button
                     className="usa-button-disabled"
-                    disabled="true"
+                    disabled={true}
                     id="disabled-search-button-search-2"
                     title="search button disabled"
                     type="submit"
@@ -562,7 +562,7 @@ exports[`SearchBarComponent small matches snapshot when showClear === true 1`] =
                 >
                   <button
                     className="usa-button-disabled"
-                    disabled="true"
+                    disabled={true}
                     id="disabled-search-button-search-2"
                     title="search button disabled"
                     type="submit"
