@@ -581,6 +581,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
+      {
+        text: 'Position Management',
+        route: '/profile/cdo/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+          'cdo',
+        ],
+      },
     ],
   },
   {
