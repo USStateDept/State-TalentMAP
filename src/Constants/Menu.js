@@ -510,6 +510,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'ao_user',
           ],
         } : null,
+      {
+        text: 'Position Management',
+        route: '/profile/ao/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+          'ao_user',
+        ],
+      },
     ],
   },
   {
