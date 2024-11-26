@@ -1,6 +1,6 @@
 import { downloadFromResponse, formatDate } from 'utilities';
 import { batch } from 'react-redux';
-import { get, identity, isArray, isEmpty, pickBy } from 'lodash';
+import { get, identity, isArray, pickBy } from 'lodash';
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
 import { toastError } from './toast';
@@ -61,19 +61,7 @@ export function bureauPositionsFetchDataSuccess(results) {
   };
 }
 
-export function bureauPositionsFetchData(userQuery, fromBureauMenu = true) {
-  // Ensure the userQuery includes bureaus or orgs, based on menu
-  // - otherwise we risk querying unauthorized positions
-  if ((fromBureauMenu && isEmpty(get(userQuery, 'position__bureau__code__in', []))) ||
-    (!fromBureauMenu && isEmpty(get(userQuery, 'position__org__code__in', [])))) {
-    return (dispatch) => {
-      batch(() => {
-        dispatch(bureauPositionsHasErrored(true));
-        dispatch(bureauPositionsIsLoading(false));
-      });
-    };
-  }
-
+export function bureauPositionsFetchData(userQuery) {
   // Combine defaults with given userQuery
   let q = pickBy(userQuery, identity);
   Object.keys(q).forEach(queryk => { if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); } });
