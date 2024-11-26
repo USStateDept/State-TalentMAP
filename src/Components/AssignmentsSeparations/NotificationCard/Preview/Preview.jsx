@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getGal, sendNotification } from 'actions/assignmentNotifications';
@@ -14,7 +15,7 @@ import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
 import { generateHTML, generatePDF, generateSoapXML, generateXML } from '../Common/Utilities';
-import { createOpsLog, getOpsData, getOpsWsdl, sendToEopf } from '../../../../actions/assignmentNotifications';
+import { getOpsData, getOpsWsdl, sendSoap, sendToEopf } from '../../../../actions/assignmentNotifications';
 
 const useNotificationSend = () => checkFlag('flags.assignment_notification_send');
 const useMemoSend = () => checkFlag('flags.assignment_memo_send');
@@ -28,7 +29,6 @@ const Preview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
-    assignments,
   } = props;
 
   const dispatch = useDispatch();
@@ -37,25 +37,33 @@ const Preview = (props) => {
 
   // ====================== Data Retrieval ======================
 
+  const assignmentsRef = useSelector(state => state.noteCableAssignmentsRef);
+
   const gal = useSelector(state => state.getGal);
   const galErrored = useSelector(state => state.getGalErrored);
   const galLoading = useSelector(state => state.getGalLoading);
 
-  // const opsWsdl = useSelector(state => state.getOpsWsdl);
-  // const opsWsdlErrored = useSelector(state => state.getOpsWsdlErrored);
-  // const opsWsdlLoading = useSelector(state => state.getOpsWsdlLoading);
+  const opsWsdl = useSelector(state => state.getOpsWsdl);
+  const opsWsdlErrored = useSelector(state => state.getOpsWsdlErrored);
+  const opsWsdlLoading = useSelector(state => state.getOpsWsdlLoading);
 
   const opsData = useSelector(state => state.getOpsData);
-  // const opsDataErrored = useSelector(state => state.getOpsDataErrored);
-  // const opsDataLoading = useSelector(state => state.getOpsDataLoading);
+  const opsDataErrored = useSelector(state => state.getOpsDataErrored);
+  const opsDataLoading = useSelector(state => state.getOpsDataLoading);
 
   const [recipientMode, setRecipientMode] = useState(false);
   const [galQuery, setGalQuery] = useState('');
   const [recipients, setRecipients] = useState([]);
 
+  const opsLoading = opsWsdlLoading || opsDataLoading;
+  const opsErrored = opsWsdlErrored || opsDataErrored;
+
+  const prepareNoteSendError = !memo && (opsLoading || opsErrored);
+
   useEffect(() => {
-    getOpsWsdl();
-    getOpsData({ PV_NM_SEQ_NUM_I: note?.NM_SEQ_NUM });
+    // Fetch OPS Data to Prepare for Send Notification (Not Applicable to Memo)
+    dispatch(getOpsWsdl());
+    dispatch(getOpsData({ PV_NM_SEQ_NUM_I: note?.NM_SEQ_NUM }));
   }, []);
 
   const getPreviewText = (fullPreview) => {
@@ -126,20 +134,31 @@ const Preview = (props) => {
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      const pdf = generatePDF(getPreviewText, filename, memo);
+      const assignmentsParam = [];
+      if (assignmentsRef) {
+        assignmentsRef.forEach(a => {
+          assignmentsParam.push({
+            positionnumber: a.POS_NUM_TXT,
+            location: a.POS_LOCATION_CODE,
+            positiontitle: a.POS_TITLE_TXT,
+            eta: a.ASGD_ETA_DATE,
+            ted: a.ASGD_ETD_TED_DATE,
+            travelfunction: a.TF_CD,
+            datesent: cable?.O_LAST_SENT_DATE,
+            status: a.ASGS_CODE,
+            nmnotificationind: note?.NM_NOTIFICATION_IND,
+            effectivedate: cable?.O_LAST_SENT_DATE,
+          });
+        });
+      }
       dispatch(sendToEopf({
-        PDF: pdf,
-        FILENAME: filename,
-        ASSIGNMENTS: [{
-          DOCUMENT_TYPE: `Assignment ${memo ? 'Memo' : 'Cable'}`,
-          POSITION_NUMBER: assignments, // TODO: Ask EOPF team to accept array of assignments?
-          LOCATION: pdf,
-          POSITION_TITLE: pdf,
-          ETA: pdf,
-          TED: pdf,
-          TRAVEL_FUNCTION: pdf,
-          DATE_SENT: cable?.O_LAST_SENT_DATE,
-        }],
+        transactionid: uuidv4(),
+        perseqnum: nmSeqNum,
+        documenttype: `Assignment ${memo ? 'Memo' : 'Cable'}`,
+        pdffilename: filename,
+        pdffile: generatePDF(getPreviewText, filename, memo),
+        createid: note?.NM_CREATE_ID,
+        assignments: assignmentsParam,
       }, null, memo));
     }
 
@@ -148,12 +167,44 @@ const Preview = (props) => {
     if (!memo) {
       const opsLogData = opsData?.PQRY_OTL_LOG_TM1_O?.[0];
       if (opsLogData) {
-        dispatch(createOpsLog({
-          PV_OTL_TM_DATA_I: generateSoapXML(opsLogData),
-          PV_ETL_SEQ_NBR_I: opsLogData.ETL_SEQ_NUM,
+        const soapXml = generateSoapXML(opsLogData);
+        dispatch(sendSoap({
+          soapRequest: {
+            WSDL: opsWsdl.PV_PARM_VALUE_O,
+            SOAP: soapXml,
+          },
+          logRequest: {
+            PV_OTL_TM_DATA_I: soapXml,
+            PV_ETL_SEQ_NBR_I: opsLogData.ETL_SEQ_NUM,
+          },
         }, null));
       }
     }
+  };
+
+  const formActions = () => {
+    if (useSend) {
+      return (<>
+        {!prepareNoteSendError &&
+          <Alert
+            type="error"
+            title="Error preparing data for send functionality"
+            messages={[{ body: 'Please try again.' }]}
+          />
+        }
+        <div className="position-form--actions">
+          <button onClick={onCancel}>Back</button>
+        </div>
+      </>);
+    }
+    return (
+      <div className="position-form--actions">
+        <button onClick={onCancel}>Cancel</button>
+        <button onClick={() => { if (memo) { setRecipientMode(true); } else { handleSend(); } }}>
+          {memo ? 'Select Memo Recipients' : 'Send Cable'}
+        </button>
+      </div>
+    );
   };
 
   const getOverlay = () => {
@@ -325,17 +376,7 @@ const Preview = (props) => {
             {getPreviewText()?.length} / 500
           </div>
         </Row>
-        <div className="position-form--actions">
-          {useSend ?
-            <>
-              <button onClick={onCancel}>Cancel</button>
-              <button onClick={() => { if (memo) { setRecipientMode(true); } else { handleSend(); } }}>
-                {memo ? 'Select Memo Recipients' : 'Send Cable'}
-              </button>
-            </> :
-            <button onClick={onCancel}>Back</button>
-          }
-        </div>
+        {formActions()}
       </div>
     </Row>
   );
@@ -344,6 +385,8 @@ const Preview = (props) => {
 Preview.propTypes = {
   note: PropTypes.shape({
     NM_SEQ_NUM: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    NM_NOTIFICATION_IND: PropTypes.string,
+    NM_CREATE_ID: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   cable: PropTypes.shape({
     O_LAST_SENT_DATE: PropTypes.string,
@@ -353,9 +396,6 @@ Preview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
-  assignments: PropTypes.arrayOf(
-    PropTypes.shape({}),
-  ).isRequired,
 };
 
 Preview.defaultProps = {

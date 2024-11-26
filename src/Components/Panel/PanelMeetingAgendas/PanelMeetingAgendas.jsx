@@ -110,7 +110,7 @@ const PanelMeetingAgendas = (props) => {
   const getQuery = () => ({
     page,
     limit,
-    ordering: ['-panel_date', 'agenda_id'],
+    ordering: ['-panel_date', 'pmiofficialitemnum'],
     pmipmseqnum: pmSeqNums,
     orgs: selectedOrgs.map(orgObject => orgObject.code),
     categories: selectedCategories.map(categoryObject => categoryObject.mic_code),

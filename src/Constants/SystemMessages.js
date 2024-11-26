@@ -478,6 +478,11 @@ export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully up
 export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
 export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';
 
+export const SEND_SOAP_SUCCESS_TITLE = 'TM1 SOAP Message Sent';
+export const SEND_SOAP_SUCCESS = 'This TM1 SOAP Message has been successfully sent to OPS WSDL.';
+export const SEND_SOAP_ERROR_TITLE = 'TM1 SOAP Message Error';
+export const SEND_SOAP_ERROR = 'There was an issue attempting to send this TM1 SOAP Message to OPS WSDL. Please try again.';
+
 export const SEND_TO_EOPF_SUCCESS_TITLE = 'TM1 Sent to EOPF';
 export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF.';
 export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';

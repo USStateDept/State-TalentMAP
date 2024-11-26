@@ -41,18 +41,19 @@ const AssignmentNotification = (props) => {
   const employeeData$ = employeeData?.data;
   const employeeName = employeeDataLoading ? '' : employeeData$?.name;
 
-
   // ====================== UI State Management ======================
-
-  useEffect(() => {
-    if (noteId && note?.length < 1) {
-      history.push(`/profile/${viewType}/${clientId}/assignmentsseparations`);
-    }
-  }, []);
 
   const getOverlay = () => {
     let overlay;
-    if (resultsLoading || employeeDataLoading || noteLoading) {
+    if (noteId && note?.length < 1) {
+      overlay = (
+        <Alert
+          type="error"
+          title="Error Retrieving Cable Data"
+          messages={[{ body: 'Please return to Maintain Assignments to select assignments and try adding the Notification/Memo again.' }]}
+        />
+      );
+    } else if (resultsLoading || employeeDataLoading || noteLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
     } else if (resultsErrored || noteErrored || employeeDataError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
@@ -61,7 +62,17 @@ const AssignmentNotification = (props) => {
     } else {
       return false;
     }
-    return overlay;
+    return (
+      <div className="pl-10 pr-10">
+        <button
+          onClick={() => history.push(`/profile/${viewType}/${clientId}/assignmentsseparations`)}
+          className="mt-30"
+        >
+          Back to Maintain Assignments
+        </button>
+        {overlay}
+      </div>
+    );
   };
 
   return (getOverlay() ||
