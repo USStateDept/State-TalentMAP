@@ -24,8 +24,8 @@ const MaintainEntryLevelPositions = () => {
   const tableRef = useRef(null);
 
   const userSelections = useSelector(state => state.entryLevelSelections);
-  const [page, setPage] = useState(userSelections.page || 1);
-  const [limit, setLimit] = useState(userSelections.limit || 50);
+  const [page, setPage] = useState(userSelections?.page || 1);
+  const [limit, setLimit] = useState(userSelections?.limit || 50);
   const [selectedTps, setSelectedTps] = useState(userSelections?.selectedTps || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
