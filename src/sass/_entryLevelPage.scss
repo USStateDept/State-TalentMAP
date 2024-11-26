@@ -52,9 +52,11 @@
     }
 
     .pill-list-container {
+        height: 150px;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
+        overflow-y: scroll;
 
         .pill {
             border-radius: 12px;
