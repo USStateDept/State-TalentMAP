@@ -122,6 +122,7 @@ const MaintainEntryLevelPositions = () => {
     textSearchRef.current.clearText();
     setPosNumberText('');
     posNumRef.current.value = '';
+    setPosNumbers([]);
     setClearFilters(false);
   };
 
@@ -190,7 +191,7 @@ const MaintainEntryLevelPositions = () => {
     let list = input
       .split(/[\n\t ,]+/)
       .map(str => str.trim())
-      .filter(str => str.length > 0);
+      .filter(str => str.length === 8);
 
     // Use a Set to remove duplicates within the input string
     list = [...new Set(list)];
@@ -199,7 +200,9 @@ const MaintainEntryLevelPositions = () => {
     const uniqueList = list.filter(str => !posNumbers.includes(str));
 
     // Update the state with the new list of unique strings
-    setPosNumbers([...posNumbers, ...uniqueList].sort());
+    if (uniqueList.length !== 0) {
+      setPosNumbers([...posNumbers, ...uniqueList].sort());
+    }
     setPosNumberText('');
   };
   const removePosNumber = (value) => {
