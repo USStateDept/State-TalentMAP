@@ -199,7 +199,7 @@ const Preview = (props) => {
   const formActions = () => {
     if (useSend) {
       return (<>
-        {!prepareNoteSendError &&
+        {prepareNoteSendError &&
           <Alert
             type="error"
             title="Error preparing data for send functionality"
