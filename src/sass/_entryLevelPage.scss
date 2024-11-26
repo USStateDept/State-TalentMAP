@@ -51,7 +51,15 @@
         }
     }
 
-    .list-container {
+    .pill-list-container {
         width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .pill {
+            border-radius: 12px;
+            font-size: .8em;
+            padding: .5em;
+        }
     }    
 }

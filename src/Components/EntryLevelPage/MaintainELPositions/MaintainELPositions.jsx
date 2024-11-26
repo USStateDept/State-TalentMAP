@@ -345,11 +345,11 @@ const MaintainEntryLevelPositions = () => {
                     <FA name="plus" className="add-button" onClick={addPosNumber} />
                   </div>
                 </div>
-                <div className="list-container">
+                <div className="usa-grid-full pill-list-container">
                   {posNumbers.map((number) => (
-                    <div key={`posNum-${number}`} className="list-item">
-                      {number}
-                      <button onClick={() => removePosNumber(number)}>
+                    <div key={`posNum-${number}`} >
+                      <button className="pill" onClick={() => removePosNumber(number)}>
+                        {number}
                         <FA name="times" />
                       </button>
                     </div>
