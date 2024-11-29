@@ -42,8 +42,9 @@ export function assignmentFetchData(id) {
       .then(({ data }) => {
         batch(() => {
           dispatch(assignmentFetchDataSuccess(data));
-          console.log('🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
+          console.log('Start: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
           console.log(data);
+          console.log('END: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
           dispatch(assignmentIsLoading(false));
           dispatch(assignmentHasErrored(false));
         });
