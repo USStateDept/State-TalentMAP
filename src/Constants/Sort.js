@@ -1,5 +1,5 @@
 import { filter } from 'lodash';
-// import { checkFlag } from 'flags';
+import { checkFlag } from 'flags';
 
 // BEGIN: KEEP THESE CONSTANTS TOGETHER IN THIS ORDER
 const POSITION_SEARCH_SORTS$ = {
