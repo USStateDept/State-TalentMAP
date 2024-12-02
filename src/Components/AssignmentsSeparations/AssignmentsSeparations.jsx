@@ -8,7 +8,7 @@ import { checkFlag } from 'flags';
 import { useDataLoader } from 'hooks';
 import { formatDate } from 'utilities';
 import { altAssignmentsSeparations } from 'actions/assignment';
-import { noteCableFetchData } from 'actions/assignmentNotifications';
+import { noteCableFetchData } from 'actions/tmOne';
 import { NO_VALUE } from 'Constants/SystemMessages';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
