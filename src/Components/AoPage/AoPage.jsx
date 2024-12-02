@@ -8,9 +8,11 @@ import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeeti
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import AssignmentsSeparations from 'Components/AssignmentsSeparations';
 import BidderPortfolio from 'Containers/BidderPortfolio';
-import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
-import ProjectedVacancy from '../BureauPage/ProjectedVacancy';
-import AssignmentTMOne from '../AssignmentsSeparations/AssignmentTMOne/AssignmentTMOne';
+import AssignmentTMOne from 'Components/AssignmentsSeparations/AssignmentTMOne/AssignmentTMOne';
+import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool';
+import ProjectedVacancy from 'Components/BureauPage/ProjectedVacancy';
+import PositionManager from 'Components/BureauPage/PositionManager';
+import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
 
 const AoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -30,6 +32,8 @@ const AoPage = () => (
       <Route path="/profile/ao/bidderportfolio" render={() => <BidderPortfolio viewType="ao" />} />
       <Route path="/profile/ao/biddingtool/:id" render={() => <BiddingTool />} />
       <Route path="/profile/ao/biddingtool/" render={() => <BiddingTool />} />
+      <Route path="/profile/ao/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
+      <Route path="/profile/ao/positionmanager" render={() => <PositionManager viewType="ao" />} />
     </Switch>
   </div>
 );

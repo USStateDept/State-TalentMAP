@@ -34,9 +34,11 @@ const PositionManager = props => {
     bureauPositionsHasErrored,
     userSelections,
     orgPermissions,
-    fromBureauMenu,
-    fromPostMenu,
+    viewType,
   } = props;
+
+  const fromBureauMenu = viewType === 'bureau';
+  const fromPostMenu = viewType === 'post';
 
   const initialBureaus = (fromBureauMenu && get(bureauPermissions, '[0]')) ? [get(bureauPermissions, '[0]')] : [];
   const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
@@ -153,15 +155,18 @@ const PositionManager = props => {
   // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    props.fetchBureauPositions(query, fromBureauMenu);
+    props.fetchBureauPositions(query);
     props.saveSelections(currentInputs);
   }, []);
 
   // Rerender and action on user selections
   useEffect(() => {
     if (prevPage) {
-      if ((fromBureauMenu && !noBureausSelected) || (fromPostMenu && !noOrgsSelected)) {
-        props.fetchBureauPositions(query, fromBureauMenu);
+      // make sure necessary filters are selected depending on viewType
+      if (!fromBureauMenu && !fromPostMenu) {
+        props.fetchBureauPositions(query);
+      } else if ((fromBureauMenu && !noBureausSelected) || (fromPostMenu && !noOrgsSelected)) {
+        props.fetchBureauPositions(query);
       }
       props.saveSelections(currentInputs);
       setPage(1);
@@ -189,7 +194,7 @@ const PositionManager = props => {
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
-      props.fetchBureauPositions(query, fromBureauMenu);
+      props.fetchBureauPositions(query);
       props.saveSelections(currentInputs);
     }
   }, [page]);
@@ -397,7 +402,7 @@ const PositionManager = props => {
                     />
                   </div>
                   {
-                    fromBureauMenu &&
+                    !fromPostMenu &&
                     <PermissionsWrapper permissions={['bureau_user']}>
                       <div className="filter-div">
                         <div className="label">Bureau:</div>
@@ -418,7 +423,7 @@ const PositionManager = props => {
                     </PermissionsWrapper>
                   }
                   {
-                    fromPostMenu &&
+                    !fromBureauMenu &&
                     <PermissionsWrapper permissions={['post_user']}>
                       <div className="filter-div">
                         <div className="label">Organization:</div>
@@ -602,7 +607,7 @@ const PositionManager = props => {
                       <BureauResultsCard
                         result={result}
                         key={result.id}
-                        fromPostMenu={fromPostMenu}
+                        viewType={viewType}
                       />
                     ))}
                   </div>
@@ -634,8 +639,7 @@ PositionManager.propTypes = {
   bureauPermissions: BUREAU_PERMISSIONS,
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
-  fromBureauMenu: PropTypes.bool,
-  fromPostMenu: PropTypes.bool,
+  viewType: PropTypes.string.isRequired,
 };
 
 PositionManager.defaultProps = {
@@ -648,8 +652,6 @@ PositionManager.defaultProps = {
   orgPermissions: [],
   userSelections: {},
   showClear: false,
-  fromBureauMenu: false,
-  fromPostMenu: false,
 };
 
 const mapStateToProps = state => ({
@@ -665,8 +667,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query, bureauMenu) =>
-    dispatch(bureauPositionsFetchData(query, bureauMenu)),
+  fetchBureauPositions: (query) =>
+    dispatch(bureauPositionsFetchData(query)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
