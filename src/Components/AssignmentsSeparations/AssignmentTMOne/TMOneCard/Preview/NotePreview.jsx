@@ -92,16 +92,16 @@ const NotePreview = (props) => {
       I_NOTE_TYPE: type,
     }, fetchData));
 
-    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
-    const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
+    // const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
+    // const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
     dispatch(emailNotification({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
       body: '',
-      attachments: [{
-        filename: getCableValue('SUBJECT'),
-        content: encodedHtml,
-      }],
+      // attachments: [{
+      //   filename: getCableValue('SUBJECT'),
+      //   content: encodedHtml,
+      // }],
     }));
 
     // ------------ Handle PDF ------------
