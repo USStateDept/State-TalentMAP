@@ -25,8 +25,6 @@ class BidderPortfolioContainer extends Component {
   render() {
     const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, pageSize, showListView, isLoading, viewType,
       cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
-    console.log('bidderPortfolioFilteredSeasonDataSuccess BidConatiner', bidderPortfolioFilteredSeasonDataSuccess);
-    console.log('bidderPortfolio BidConatiner', bidderPortfolio);
     const showCDOD30 = checkFlag('flags.CDOD30');
 
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
