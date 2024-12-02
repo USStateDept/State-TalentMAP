@@ -440,7 +440,7 @@ export function getClientPerdets(query = {}) {
       if (ids.length) {
         const response = await api().post(url, { cancelToken });
         const { data } = response;
-        const newQuery = { ...query$, perdet_seq_num: data.map(String) };
+        const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
