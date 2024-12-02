@@ -636,7 +636,6 @@ export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) 
         }),
       })
         .then(({ data }) => {
-          console.log('BPSFD', data);
           batch(() => {
             dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
             if (!isCDO) {
