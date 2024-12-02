@@ -197,8 +197,8 @@ const AssignmentsSeparations = (props) => {
                   tabIndex={0}
                   onClick={() => {
                     if (hasSelections) {
-                      const seqNums = selectedAssignments?.map(a => a.seqNum).join(',');
-                      const revisionNums = selectedAssignments?.map(a => a.revisionNum).join(',');
+                      const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
+                      const revisionNums = selectedAssignments?.map(a => a.ASGD_REVISION_NUM).join(',');
                       dispatch(noteCableFetchData(
                         {
                           I_ASG_SEQ_NUM: seqNums,
@@ -250,18 +250,15 @@ const AssignmentsSeparations = (props) => {
                   id={`include-${data.ASG_SEQ_NUM}`}
                   label="Include"
                   disabled={disableOtherEdits}
-                  value={selectedAssignments?.find(a => a.seqNum === data.ASG_SEQ_NUM) === true}
+                  value={selectedAssignments?.find(a => a.ASG_SEQ_NUM === data.ASG_SEQ_NUM) === true}
                   onCheckBoxClick={() => {
-                    if (selectedAssignments?.find(a => a.seqNum === data.ASG_SEQ_NUM)) {
-                      const filteredSelection = selectedAssignments.filter(a => a.seqNum !== data.ASG_SEQ_NUM);
+                    if (selectedAssignments?.find(a => a.ASG_SEQ_NUM === data.ASG_SEQ_NUM)) {
+                      const filteredSelection = selectedAssignments.filter(a => a.ASG_SEQ_NUM !== data.ASG_SEQ_NUM);
                       setSelectedAssignments(filteredSelection);
                     } else {
                       setSelectedAssignments([
                         ...selectedAssignments,
-                        {
-                          seqNum: data.ASG_SEQ_NUM,
-                          revisionNum: data.ASGD_REVISION_NUM,
-                        },
+                        data,
                       ]);
                     }
                   }}
