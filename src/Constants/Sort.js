@@ -108,8 +108,7 @@ export const BID_PORTFOLIO_FILTERS = {
 };
 
 BID_PORTFOLIO_FILTERS.defaultSort = BID_PORTFOLIO_FILTERS.options[0].value;
-// const showCDOD30 = checkFlag('flags.CDOD30');
-const showCDOD30 = true;
+const showCDOD30 = checkFlag('flags.CDOD30');
 
 if (showCDOD30) {
   BID_PORTFOLIO_FILTERS.options.push(
