@@ -11,7 +11,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from 'Components/Layout';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
-import { generateHTML, generatePDF, generateSoapXML } from '../Common/Utilities';
+import { generatePDF, generateSoapXML } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_notification_send');
 
