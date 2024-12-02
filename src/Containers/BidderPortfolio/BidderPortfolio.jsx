@@ -140,8 +140,6 @@ class BidderPortfolio extends Component {
     const { hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
       || (availableBiddersIdsLoading && !bidderIdsHasLoaded)) && cdos.length;
-    console.log('bidderPortfolioSeasonSearchFetchDataSuccess BidPortfolio', bidderPortfolioFilteredSeasonDataSuccess);
-    console.log('bidderPortfolio BidPortfolio', bidderPortfolio);
     return (
       <div>
         <BidderPortfolioPage
