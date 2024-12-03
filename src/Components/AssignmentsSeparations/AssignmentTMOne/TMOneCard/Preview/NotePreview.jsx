@@ -98,10 +98,10 @@ const NotePreview = (props) => {
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
       body: '',
-      // attachments: [{
-      //   filename: getCableValue('SUBJECT'),
-      //   content: encodedHtml,
-      // }],
+      attachments: [{
+        filename: `${getCableValue('SUBJECT')}.html`,
+        content: encodedHtml,
+      }],
     }));
 
     // ------------ Handle PDF ------------

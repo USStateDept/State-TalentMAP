@@ -88,7 +88,7 @@ const MemoPreview = (props) => {
       subject: getCableValue('SUBJECT'),
       body: '',
       attachments: [{
-        filename: getCableValue('SUBJECT'),
+        filename: `${getCableValue('SUBJECT')}.xml`,
         content: encodedXml,
       }],
     }));
