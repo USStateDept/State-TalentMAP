@@ -188,7 +188,7 @@ export function getLog(id, size) {
   };
 }
 
-export function getLogToDownload(id, size = 1000) {
+export function getLogToDownload(id, size = 5000) {
   return (dispatch) => {
     dispatch(logToDownloadIsLoading(true));
     dispatch(logToDownloadHasErrored(false));
