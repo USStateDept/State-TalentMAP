@@ -48,10 +48,10 @@ class BidderPortfolioPage extends Component {
 
   render() {
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioIsLoading, cdosLength, pageNumber,
+    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading, updatePagination, viewType,
-      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering, isCDOD30, setEditClassification } = this.props;
+      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
@@ -124,6 +124,7 @@ class BidderPortfolioPage extends Component {
                   <BidderPortfolioContainer
                     bidderPortfolio={bidderPortfolio}
                     bidderPortfolioExtraData={bidderPortfolioExtraData}
+                    bidderPortfolioFilteredSeasonDataSuccess={bidderPortfolioFilteredSeasonDataSuccess}
                     pageSize={pageSize}
                     queryParamUpdate={queryParamUpdate}
                     pageNumber={pageNumber}
@@ -131,6 +132,8 @@ class BidderPortfolioPage extends Component {
                     showEdit={showEdit}
                     classifications={classifications}
                     isCDOD30={isCDOD30}
+                    isSeason={isSeason}
+                    isClient={isClient}
                     setEditClassification={setEditClassification}
                     isLoading={bidderPortfolioIsLoading}
                     cdosLength={cdosLength}
@@ -151,6 +154,7 @@ class BidderPortfolioPage extends Component {
 BidderPortfolioPage.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
+  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   bidderPortfolioIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioHasErrored: PropTypes.bool.isRequired,
   pageSize: PropTypes.number.isRequired,
@@ -163,6 +167,8 @@ BidderPortfolioPage.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   isCDOD30: PropTypes.bool.isRequired,
+  isClient: PropTypes.bool.isRequired,
+  isSeason: PropTypes.bool.isRequired,
   setEditClassification: PropTypes.bool.isRequired,
   updatePagination: PropTypes.func,
   viewType: PropTypes.string,
