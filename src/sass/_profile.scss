@@ -161,7 +161,9 @@
       margin-top: 1rem;
     }
   }
-
+  .ag-cell, label {
+    display: initial;
+  }
   .favorite-positions-container,
   .saved-searches-container {
     position: relative;
