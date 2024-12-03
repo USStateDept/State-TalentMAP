@@ -46,7 +46,6 @@ const ProfileDashboard = ({
               const isBidder = checkIsBidder();
               // const perdet = userProfile?.perdet_seq_number || '';//TODO: What is this?
               const perdet = userProfile?.id || '';
-              console.log(userProfile);
               const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
