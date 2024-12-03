@@ -20,4 +20,48 @@
             display: initial;
         }
     }
+
+    .label-wrapper {
+        width: 100%;
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .text-input {
+            height: 30px;
+            width: 100%;
+            font-size: 14px;
+            padding-right: 30px; /* Adjust padding to make space for the button */
+        }
+
+        > span {
+            color: $color-gray;
+            position: relative;
+            right: 30px;
+            padding: 5px;
+            cursor: pointer;
+
+            &:hover {
+                color: $color-gray-darkest;
+            }
+        }
+    }
+
+    .pill-list-container {
+        height: 150px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        overflow-y: scroll;
+
+        .pill {
+            border-radius: 12px;
+            font-size: .8em;
+            padding: .5em;
+        }
+    }    
 }

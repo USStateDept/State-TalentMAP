@@ -112,7 +112,8 @@
   },
   "resolutions": {
     "**/**/type-fest": "0.21.3",
-    "enzyme/cheerio": "1.0.0-rc.12"
+    "enzyme/cheerio": "1.0.0-rc.12",
+    "signal-exit": "3.0.2"
   },
   "@comment devDependencies": [
     "dart-sass 1.33.0 introduces a breaking change to division. This causes uswds compilation to fail. https://github.com/sass/dart-sass/releases/tag/1.33.0",
@@ -229,6 +230,7 @@
     "test": "node --expose-gc scripts/test.js --env=jsdom --no-cache --coverage --maxWorkers=3 --logHeapUsage",
     "test:local": "node --expose-gc scripts/test.js --env=jsdom --cache --coverage -u --logHeapUsage",
     "clean": "yarn cache clean && rm -rf node_modules && rm yarn.lock && yarn install",
+    "install:pure": "yarn install --pure-lockfile",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",

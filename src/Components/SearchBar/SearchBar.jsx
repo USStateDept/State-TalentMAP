@@ -84,7 +84,7 @@ class SearchBar extends Component {
             !noButton &&
             <button
               className="usa-button-disabled"
-              disabled="true"
+              disabled
               type="submit"
               id={`disabled-search-button-${id}`}
               title="search button disabled"

@@ -176,7 +176,10 @@ const AssignmentsSeparations = (props) => {
                         {
                           I_ASG_SEQ_NUM: seqNums,
                           I_ASGD_REVISION_NUM: revisionNums,
-                        }, `/profile/${viewType}/${id}/assignmentsseparations`,
+                        },
+                        `/profile/${viewType}/${id}/assignmentsseparations`,
+                        false,
+                        selectedAssignments,
                       ));
                     }
                   }}
@@ -203,6 +206,7 @@ const AssignmentsSeparations = (props) => {
                         },
                         `/profile/${viewType}/${id}/assignmentsseparations`,
                         true,
+                        selectedAssignments,
                       ));
                     }
                   }}

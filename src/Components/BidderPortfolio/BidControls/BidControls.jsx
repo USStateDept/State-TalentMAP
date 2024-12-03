@@ -10,7 +10,17 @@ import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { bidderPortfolioExtraDetailsFetchData, bidderPortfolioFetchDataSuccess, bidderPortfolioSetUnassigned, getClientDatePerdets, setEditClassification, setIsCDOD30, setPanelDateID } from 'actions/bidderPortfolio';
+import { bidderPortfolioExtraDetailsFetchData,
+  bidderPortfolioFetchDataSuccess,
+  bidderPortfolioSetUnassigned,
+  getClientDatePerdets,
+  isClient,
+  isSeasons,
+  setEditClassification,
+  setIsCDOD30,
+  setPanelDateID,
+  workListTypeSuccess,
+} from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
 import ResultsPillContainer from '../../ResultsPillContainer/ResultsPillContainer';
 import SelectForm from '../../SelectForm';
@@ -74,6 +84,7 @@ class BidControls extends Component {
   }
 
   onSeasonChange = (seasons, value) => {
+    this.props.isSeasons(seasons.length !== 0);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
@@ -94,6 +105,7 @@ class BidControls extends Component {
   };
 
   onFilterChange = (q, value) => {
+    this.props.bidderPortfolioFetchDataSuccess({ results: [], count: 0 });
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
@@ -106,6 +118,8 @@ class BidControls extends Component {
       panelClient: (q === 'panel_clients' && this.state.hasSeasons),
     });
     this.props.setEditClassifications(q === 'classification');
+    this.props.isClient(q === '');
+    this.props.setWLType(q || '');
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
     } else {
@@ -164,6 +178,7 @@ class BidControls extends Component {
     const { resetKeyword } = this.props;
     resetKeyword();
     this.props.bidderPortfolioFetchDataSuccess({ results: [], count: 0 });
+    this.props.setWLType('');
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
@@ -212,7 +227,7 @@ class BidControls extends Component {
         // this.props.queryParamUpdate({ panelClientID: e.target.value });
         this.props.setPanelDateID(e.target.value);
         this.props.getClientDatePerdets({
-          hru_id__in: proxyCdos[0].hru_id, // will always be one
+          hru_id: proxyCdos[0].hru_id, // will always be one
           panel_clients: true,
           cdo_pm_seq_num: e.target.value,
         });
@@ -312,14 +327,14 @@ class BidControls extends Component {
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
           { showCDOD30 &&
-            <div className="jc-toggle-container">
-              <ToggleButton
-                labelTextRight={!isCDOD30 ? 'Toggle CDO D3.0 View' : 'Toggle Client Search View'}
-                onChange={this.onCDOToggleChange}
-                checked={isCDOD30}
-                onColor="#0071BC"
-              />
-            </div>
+          <div className="jc-toggle-container">
+            <ToggleButton
+              labelTextRight={!isCDOD30 ? 'Toggle CDO D3.0 View' : 'Toggle Client Search View'}
+              onChange={this.onCDOToggleChange}
+              checked={isCDOD30}
+              onColor="#0071BC"
+            />
+          </div>
           }
         </div>
         <div className="usa-width-one-whole portfolio-filter-pills-container">
@@ -343,9 +358,12 @@ BidControls.propTypes = {
   defaultOrdering: PropTypes.string.isRequired,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
+  isSeasons: PropTypes.func.isRequired,
   bidderPortfolioFetchDataSuccess: PropTypes.func.isRequired,
   setCDOD30: PropTypes.func.isRequired,
   setEditClassifications: PropTypes.func.isRequired,
+  isClient: PropTypes.func.isRequired,
+  setWLType: PropTypes.func.isRequired,
   setPanelDateID: PropTypes.func.isRequired,
   getClientDatePerdets: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
@@ -368,14 +386,18 @@ const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
   unassignedSelection: state.bidderPortfolioSelectedUnassigned,
   panelClientFetchData: state.panelClientFetchData,
+  workListType: state.workListType,
 });
 
 export const mapDispatchToProps = dispatch => ({
+  isSeasons: (bool) => dispatch(isSeasons(bool)),
+  isClient: (bool) => dispatch(isClient(bool)),
   setUnassigned: (arr = []) => dispatch(bidderPortfolioSetUnassigned(arr)),
   setCDOD30: (bool) => dispatch(setIsCDOD30(bool)),
   bidderPortfolioFetchDataSuccess: (results) => dispatch(bidderPortfolioFetchDataSuccess(results)),
   setEditClassifications: (bool) => dispatch(setEditClassification(bool)),
   setPanelDateID: (id) => dispatch(setPanelDateID(id)),
+  setWLType: (wlCode) => dispatch(workListTypeSuccess(wlCode)),
   getClientDatePerdets: async query => {
     await dispatch(getClientDatePerdets(query));
     dispatch(bidderPortfolioExtraDetailsFetchData());

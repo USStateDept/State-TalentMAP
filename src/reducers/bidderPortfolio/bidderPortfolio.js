@@ -32,11 +32,35 @@ export function isCDOD30(state = false, action) {
       return state;
   }
 }
-
+export function isClient(state = true, action) {
+  switch (action.type) {
+    case 'IS_CLIENT':
+      return action.isClient;
+    default:
+      return state;
+  }
+}
+export function isSeasons(state = false, action) {
+  switch (action.type) {
+    case 'IS_SEASONS':
+      return action.isSeasons;
+    default:
+      return state;
+  }
+}
 export function panelDateID(state = '', action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_PANEL_DATE':
       return action.panelDateID;
+    default:
+      return state;
+  }
+}
+
+export function workListType(state = '', action) {
+  switch (action.type) {
+    case 'WORK_LIST_TYPE_SUCCESS':
+      return action.wlCode;
     default:
       return state;
   }
@@ -131,7 +155,30 @@ export function lastBidderPortfolio(state = { results: [] }, action) {
       return state;
   }
 }
-
+export function bidderPortfolioSeasonSearchHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASON_SEARCH_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasonSearchIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASON_SEARCH_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasonSearchFetchDataSuccess(state = { results: [] }, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASON_SEARCH_FETCH_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
 export function bidderPortfolioCountsHasErrored(state = false, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_COUNTS_HAS_ERRORED':
@@ -228,6 +275,33 @@ export function panelClientFetchDataLoading(state = false, action) {
   switch (action.type) {
     case 'PANEL_CLIENT_FETCH_DATA_LOADING':
       return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function includeExcludeCDOIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'INCLUDE_EXCLUDE_CDO_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function includeExcludeCDOHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'INCLUDE_EXCLUDE_CDO_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function includeExcludeCDO(state = false, action) {
+  switch (action.type) {
+    case 'INCLUDE_EXCLUDE_CDO_SUCCESS':
+      return action.success;
     default:
       return state;
   }

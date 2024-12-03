@@ -17,7 +17,6 @@ export const generatePDF = (getPreviewText, filename, memo) => {
 
   // eslint-disable-next-line new-cap
   const pdf = new jsPDF('p', 'pt', 'a4');
-  let encodedPdf = null;
   pdf.html(content, {
     callback: (doc) => {
       if (memo) {
@@ -37,13 +36,12 @@ export const generatePDF = (getPreviewText, filename, memo) => {
         );
         doc.restoreGraphicsState();
       }
-      encodedPdf = pdf.output('datauristring');
-      // doc.save(filename); // TEMPORARY: Saves PDF locally for testing purposes
     },
     margin: [36, 36, 36, 36],
     autoPaging: 'text',
   });
-  return encodedPdf;
+  const base64string = pdf.output('datauristring');
+  return base64string;
 };
 
 /**
@@ -231,45 +229,45 @@ export const generateXML = (cable, content, subject) => {
  * @param {*} log ref data returned from PRC_LIST_OPS_TM1_DATA procedure
  */
 export const generateSoapXML = (log) => {
-  let xmlStr = '<?xml version="1.0">';
+  let xmlStr = '<?xml version="1.0"?>';
 
   xmlStr = xmlStr.concat('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">');
   xmlStr = xmlStr.concat('<SOAP-ENV:Body>');
 
   xmlStr = xmlStr.concat('<Create__CompIntfc__OP_TM_STG_WEB_SRV3>');
 
-  xmlStr = xmlStr.concat(`<OP_TRV_MSG_TYPE>${log.OP_TRV_MSG_TYPE}<OP_TRV_MSG_TYPE>`);
-  xmlStr = xmlStr.concat(`<EMPLID>${log.EMPLID}<EMPLID>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASGN_ID>${log.OP_TM_ASGN_SEQ}<OP_TM_ASGN_ID>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASG_REV>${log.OP_TM_ASG_REV}<OP_TM_ASG_REV>`);
-  xmlStr = xmlStr.concat('<OP_TM_TA_ID>0<OP_TM_TA_ID>');
-  xmlStr = xmlStr.concat('<OP_TM_TR_ID>0<OP_TM_TR_ID>');
-  xmlStr = xmlStr.concat('<OP_TM_TR_ID_REV>0<OP_TM_TR_ID_REV>');
-  xmlStr = xmlStr.concat(`<OP_TM_EMP_SEQ_NBR>${log.OP_TM_EMPLID_SEQ}<OP_TM_EMP_SEQ_NBR>`);
-  xmlStr = xmlStr.concat(`<OP_TM_NM_SEQ>${log.OP_TM_NM_SEQ}<OP_TM_NM_SEQ>`);
-  xmlStr = xmlStr.concat(`<POSITION_NBR>${log.POSITION_NBR}<POSITION_NBR>`);
-  xmlStr = xmlStr.concat(`<OP_TM_POS_SEQ>${log.OP_TM_POS_SEQ}<OP_TM_POS_SEQ>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASG_STATUS>${log.OP_TM_ASG_STATUS}<OP_TM_ASG_STATUS>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASG_TF_CD>${log.OP_TM_ASG_TF_CD}<OP_TM_ASG_TF_CD>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASG_TOD_CD>${log.OP_TM_ASG_TOD_CD}<OP_TM_ASG_TOD_CD>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASG_TOD_MNTH>${log.OP_TM_ASG_TOD_MNTH}<OP_TM_ASG_TOD_MNTH>`);
-  xmlStr = xmlStr.concat(`<DEPTID>${log.DEPTID}<DEPTID>`);
-  xmlStr = xmlStr.concat(`<DEPTID2>${log.DEPTID2}<DEPTID2>`);
-  xmlStr = xmlStr.concat(`<OP_TM_ASG_ETA_DATE>${log.OP_TM_ASG_ETA_DATE}<OP_TM_ASG_ETA_DATE>`);
-  xmlStr = xmlStr.concat(`<OP_TM_TRANS_ELG_DT>${log.OP_TM_ASG_ET_ED_DT}<OP_TM_TRANS_ELG_DT>`);
-  xmlStr = xmlStr.concat('<BEGIN_DT><BEGIN_DT>');
-  xmlStr = xmlStr.concat(`<OP_LAT_CODE>${log.OP_LAT_CODE}<OP_LAT_CODE>`);
-  xmlStr = xmlStr.concat(`<OP_TM_SUBJECT_TXT><![CDATA[${log.OP_TM_SUBJECT_TXT}]]><OP_TM_SUBJECT_TXT>`);
-  xmlStr = xmlStr.concat('<OP_TM_TA_DT><OP_TM_TA_DT>');
-  xmlStr = xmlStr.concat('<OP_TM_ASG_ETD_DT><OP_TM_ASG_ETD_DT>');
-  xmlStr = xmlStr.concat('<OP_TM_TS_CD><OP_TM_TS_CD>');
-  xmlStr = xmlStr.concat('<OP_DIP_TTL_CD><OP_DIP_TTL_CD>');
-  xmlStr = xmlStr.concat('<OP_TM_PROCESSED>N<OP_TM_PROCESSED>');
-  xmlStr = xmlStr.concat('<OP_TM_STG_ERRORCD>N<OP_TM_STG_ERRORCD>');
-  xmlStr = xmlStr.concat('<LASTUPDDTBY>FSBID<LASTUPDDTBY>');
-  xmlStr = xmlStr.concat('<LASTUPDDTTM><LASTUPDDTTM>');
-  xmlStr = xmlStr.concat(`<OP_TRV_MSG><![CDATA[${log.OP_TRV_MSG}]]><OP_TRV_MSG>`);
-  xmlStr = xmlStr.concat('<OP_TM_DEPENDENT><OP_TM_DEPENDENT>');
+  xmlStr = xmlStr.concat(`<OP_TRV_MSG_TYPE>${log.OP_TRV_MSG_TYPE}</OP_TRV_MSG_TYPE>`);
+  xmlStr = xmlStr.concat(`<EMPLID>${log.EMPLID}</EMPLID>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASGN_ID>${log.OP_TM_ASGN_SEQ}</OP_TM_ASGN_ID>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_REV>${log.OP_TM_ASG_REV}</OP_TM_ASG_REV>`);
+  xmlStr = xmlStr.concat('<OP_TM_TA_ID>0</OP_TM_TA_ID>');
+  xmlStr = xmlStr.concat('<OP_TM_TR_ID>0</OP_TM_TR_ID>');
+  xmlStr = xmlStr.concat('<OP_TM_TR_ID_REV>0</OP_TM_TR_ID_REV>');
+  xmlStr = xmlStr.concat(`<OP_TM_EMP_SEQ_NBR>${log.OP_TM_EMPLID_SEQ}</OP_TM_EMP_SEQ_NBR>`);
+  xmlStr = xmlStr.concat(`<OP_TM_NM_SEQ>${log.OP_TM_NM_SEQ}</OP_TM_NM_SEQ>`);
+  xmlStr = xmlStr.concat(`<POSITION_NBR>${log.POSITION_NBR}</POSITION_NBR>`);
+  xmlStr = xmlStr.concat(`<OP_TM_POS_SEQ>${log.OP_TM_POS_SEQ}</OP_TM_POS_SEQ>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_STATUS>${log.OP_TM_ASG_STATUS}</OP_TM_ASG_STATUS>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_TF_CD>${log.OP_TM_ASG_TF_CD}</OP_TM_ASG_TF_CD>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_TOD_CD>${log.OP_TM_ASG_TOD_CD}</OP_TM_ASG_TOD_CD>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_TOD_MNTH>${log.OP_TM_ASG_TOD_MNTH}</OP_TM_ASG_TOD_MNTH>`);
+  xmlStr = xmlStr.concat(`<DEPTID>${log.DEPTID}</DEPTID>`);
+  xmlStr = xmlStr.concat(`<DEPTID2>${log.DEPTID2}</DEPTID2>`);
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_ETA_DATE>${log.OP_TM_ASG_ETA_DATE}</OP_TM_ASG_ETA_DATE>`);
+  xmlStr = xmlStr.concat(`<OP_TM_TRANS_ELG_DT>${log.OP_TM_ASG_ET_ED_DT}</OP_TM_TRANS_ELG_DT>`);
+  xmlStr = xmlStr.concat('<BEGIN_DT></BEGIN_DT>');
+  xmlStr = xmlStr.concat(`<OP_LAT_CODE>${log.OP_LAT_CODE}</OP_LAT_CODE>`);
+  xmlStr = xmlStr.concat(`<OP_TM_SUBJECT_TXT><![CDATA[${log.OP_TM_SUBJECT_TXT}]]></OP_TM_SUBJECT_TXT>`);
+  xmlStr = xmlStr.concat('<OP_TM_TA_DT></OP_TM_TA_DT>');
+  xmlStr = xmlStr.concat('<OP_TM_ASG_ETD_DT></OP_TM_ASG_ETD_DT>');
+  xmlStr = xmlStr.concat('<OP_TM_TS_CD></OP_TM_TS_CD>');
+  xmlStr = xmlStr.concat('<OP_DIP_TTL_CD></OP_DIP_TTL_CD>');
+  xmlStr = xmlStr.concat('<OP_TM_PROCESSED>N</OP_TM_PROCESSED>');
+  xmlStr = xmlStr.concat('<OP_TM_STG_ERRORCD>N</OP_TM_STG_ERRORCD>');
+  xmlStr = xmlStr.concat('<LASTUPDDTBY>FSBID</LASTUPDDTBY>');
+  xmlStr = xmlStr.concat('<LASTUPDDTTM></LASTUPDDTTM>');
+  xmlStr = xmlStr.concat(`<OP_TRV_MSG><![CDATA[${log.OP_TRV_MSG}]]></OP_TRV_MSG>`);
+  xmlStr = xmlStr.concat('<OP_TM_DEPENDENT></OP_TM_DEPENDENT>');
 
   xmlStr = xmlStr.concat('</Create__CompIntfc__OP_TM_STG_WEB_SRV3>');
 

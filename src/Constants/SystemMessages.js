@@ -270,6 +270,11 @@ export const BIDDER_PORTFOLIO_UPDATE_SUCCESS = 'Bidder Portfolio has been update
 export const BIDDER_PORTFOLIO_UPDATE_ERROR_TITLE = 'Bidder Portfolio Update Error';
 export const BIDDER_PORTFOLIO_UPDATE_ERROR = 'There was an issue attempting to update this Bidder Portfolio. Please try again.';
 
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS_TITLE = 'Bidder Portfolio Updated';
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS = 'Bidder Portfolio has been updated.';
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR_TITLE = 'Bidder Portfolio Update Error';
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR = 'There was an issue attempting to update this Bidder Portfolio. Please try again.';
+
 export const BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE = 'Bureau Exceptions Added';
 export const BUREAU_EXCEPTIONS_ADD_SUCCESS = 'Bureau Exceptions have been added.';
 export const BUREAU_EXCEPTIONS_ADD_ERROR_TITLE = 'Adding Bureau Exceptions Error';
@@ -473,7 +478,19 @@ export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully up
 export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
 export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';
 
+export const SEND_SOAP_SUCCESS_TITLE = 'TM1 SOAP Message Sent';
+export const SEND_SOAP_SUCCESS = 'This TM1 SOAP Message has been successfully sent to OPS WSDL.';
+export const SEND_SOAP_ERROR_TITLE = 'TM1 SOAP Message Error';
+export const SEND_SOAP_ERROR = 'There was an issue attempting to send this TM1 SOAP Message to OPS WSDL. Please try again.';
+
 export const SEND_TO_EOPF_SUCCESS_TITLE = 'TM1 Sent to EOPF';
 export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF.';
 export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';
 export const SEND_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 to EOPF. Please try again.';
+
+export const EXPORT_DATA_LOADING_TITLE = 'Exporting Data...';
+export const EXPORT_DATA_LOADING = 'Export may take a while, please wait while we process. \n Export is capped at first 500 results.';
+export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
+export const EXPORT_DATA_SUCCESS = 'Data has been successfully exported.';
+export const EXPORT_DATA_ERROR_TITLE = 'Data Export Error';
+export const EXPORT_DATA_ERROR = 'There was an issue attempting to export this data. Please try again.';

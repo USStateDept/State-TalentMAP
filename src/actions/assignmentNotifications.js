@@ -13,29 +13,18 @@ import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
 import {
   GET_GAL_ERROR, GET_GAL_ERROR_TITLE, GET_MEMO_ERROR, GET_MEMO_ERROR_TITLE,
-  GET_OPS_DATA_ERROR,
-  GET_OPS_DATA_ERROR_TITLE,
-  GET_OPS_WSDL_ERROR,
-  GET_OPS_WSDL_ERROR_TITLE,
-  INSERT_OPS_LOG_ERROR,
-  INSERT_OPS_LOG_ERROR_TITLE,
-  INSERT_OPS_LOG_SUCCESS,
-  INSERT_OPS_LOG_SUCCESS_TITLE,
+  GET_OPS_DATA_ERROR, GET_OPS_DATA_ERROR_TITLE, GET_OPS_WSDL_ERROR, GET_OPS_WSDL_ERROR_TITLE,
+  INSERT_OPS_LOG_ERROR, INSERT_OPS_LOG_ERROR_TITLE,
   REBUILD_MEMO_ERROR, REBUILD_MEMO_ERROR_TITLE, REBUILD_MEMO_SUCCESS, REBUILD_MEMO_SUCCESS_TITLE,
   REBUILD_NOTIFICATION_ERROR, REBUILD_NOTIFICATION_ERROR_TITLE,
   REBUILD_NOTIFICATION_SUCCESS, REBUILD_NOTIFICATION_SUCCESS_TITLE,
   SEND_MEMO_ERROR, SEND_MEMO_ERROR_TITLE, SEND_MEMO_SUCCESS, SEND_MEMO_SUCCESS_TITLE,
   SEND_NOTIFICATION_ERROR, SEND_NOTIFICATION_ERROR_TITLE,
   SEND_NOTIFICATION_SUCCESS, SEND_NOTIFICATION_SUCCESS_TITLE,
-  SEND_TO_EOPF_ERROR,
-  SEND_TO_EOPF_ERROR_TITLE,
-  SEND_TO_EOPF_SUCCESS,
-  SEND_TO_EOPF_SUCCESS_TITLE,
+  SEND_SOAP_ERROR, SEND_SOAP_ERROR_TITLE, SEND_TO_EOPF_ERROR, SEND_TO_EOPF_ERROR_TITLE,
+  SEND_TO_EOPF_SUCCESS, SEND_TO_EOPF_SUCCESS_TITLE,
   UPDATE_MEMO_ERROR, UPDATE_MEMO_ERROR_TITLE, UPDATE_MEMO_SUCCESS, UPDATE_MEMO_SUCCESS_TITLE,
-  UPDATE_OPS_LOG_ERROR,
-  UPDATE_OPS_LOG_ERROR_TITLE,
-  UPDATE_OPS_LOG_SUCCESS,
-  UPDATE_OPS_LOG_SUCCESS_TITLE,
+  UPDATE_OPS_LOG_ERROR, UPDATE_OPS_LOG_ERROR_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
 
@@ -60,8 +49,14 @@ export function noteCableFetchDataSuccess(results) {
     results,
   };
 }
+export function noteCableAssignmentsRef(assignmentsRef) {
+  return {
+    type: 'NOTE_CABLE_ASSIGNMENTS_REFERENCE',
+    assignmentsRef,
+  };
+}
 let cancelNoteCable;
-export function noteCableFetchData(query = {}, location, memo) {
+export function noteCableFetchData(query = {}, location, memo, assignments) {
   return (dispatch) => {
     if (cancelNoteCable) { cancelNoteCable('cancel'); }
     batch(() => {
@@ -77,15 +72,19 @@ export function noteCableFetchData(query = {}, location, memo) {
       .then(({ data }) => {
         batch(() => {
           dispatch(noteCableFetchDataSuccess(data));
+          dispatch(noteCableAssignmentsRef(assignments));
           dispatch(noteCableFetchDataErrored(false));
           dispatch(noteCableFetchDataLoading(false));
           history.push(`${location}/${memo ? 'memo' : 'notification'}/${data[0]?.NM_SEQ_NUM}`);
         });
       })
       .catch((err) => {
+        batch(() => {
+          dispatch(noteCableFetchDataSuccess([]));
+          dispatch(noteCableAssignmentsRef([]));
+        });
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(noteCableFetchDataSuccess({}));
             dispatch(noteCableFetchDataErrored(true));
             dispatch(noteCableFetchDataLoading(false));
             if (memo) {
@@ -102,7 +101,6 @@ export function noteCableFetchData(query = {}, location, memo) {
           });
         } else {
           batch(() => {
-            dispatch(noteCableFetchDataSuccess({}));
             dispatch(noteCableFetchDataErrored(false));
             dispatch(noteCableFetchDataLoading(true));
           });
@@ -539,7 +537,7 @@ export function getOpsWsdl(query = {}) {
   };
 }
 
-// ================ GET OPS DATA ================
+// ================ GET OPS SOAP DATA ================
 
 export function getOpsDataErrored(bool) {
   return {
@@ -568,7 +566,7 @@ export function getOpsData(query = {}) {
       dispatch(getOpsDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/ops/data/';
+    const endpoint = '/fsbid/notification/ops/soap/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelGetOpsData = c; }),
@@ -602,76 +600,54 @@ export function getOpsData(query = {}) {
   };
 }
 
-// ================ UPDATE OPS LOG ================
+// ================ SEND SOAP TO WSDL // MAKE OPS LOG ================
 
-let cancelUpdateOpsLog;
-export function updateOpsLog(data, onSuccess) {
+let cancelSendSoap;
+export function sendSoap(data, onSuccess) {
   return (dispatch) => {
-    if (cancelUpdateOpsLog) {
-      cancelUpdateOpsLog('cancel');
+    if (cancelSendSoap) {
+      cancelSendSoap('cancel');
     }
-    api()
-      .post('/fsbid/notification/ops/update/', data, {
-        cancelToken: new CancelToken((c) => { cancelUpdateOpsLog = c; }),
-      })
-      .then(() => {
-        dispatch(toastSuccess(
-          UPDATE_OPS_LOG_SUCCESS,
-          UPDATE_OPS_LOG_SUCCESS_TITLE,
-        ));
-        if (onSuccess) {
-          onSuccess();
-        }
-      })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          dispatch(toastError(
-            UPDATE_OPS_LOG_ERROR,
-            UPDATE_OPS_LOG_ERROR_TITLE,
-          ));
-        }
-      });
-  };
-}
-
-// ================ CREATE OPS LOG ================
-
-let cancelCreateOpsLog;
-export function createOpsLog(data, onSuccess) {
-  return (dispatch) => {
-    if (cancelCreateOpsLog) {
-      cancelCreateOpsLog('cancel');
-    }
-    api()
-      .post('/fsbid/notification/ops/create/', data, {
-        cancelToken: new CancelToken((c) => { cancelCreateOpsLog = c; }),
-      })
+    api().post('/fsbid/notification/ops/send/', data.soapRequest, {
+      cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
+    })
       .then((response) => {
-        dispatch(toastSuccess(
-          INSERT_OPS_LOG_SUCCESS,
-          INSERT_OPS_LOG_SUCCESS_TITLE,
-        ));
-
-        // Handle Post Insertion Update to Metadata
-        let submitMsg = response.PCUR_MESSAGE_O?.[0];
-        if (response.PV_RETURN_O === 0 && !submitMsg) {
-          submitMsg = 'SUCCESSFUL CALL OPS Web Service';
-        }
-        dispatch(updateOpsLog({
+        const updateRequest = {
           PV_OTL_ID_I: response.PV_OTL_ID_O,
           PV_OTL_SUBMIT_RETURN_CODE_I: response.PV_RETURN_O,
-          PV_OTL_SUBMIT_MESSAGE_I: submitMsg || 'No Message',
-        }));
-
-        if (onSuccess) {
-          onSuccess();
-        }
+          PV_OTL_SUBMIT_MESSAGE_I: response.PV_MESSAGE || 'No Message',
+        };
+        api().put('/fsbid/notification/ops/log/', data.logRequest)
+          .then(() => {
+            api().post('/fsbid/notification/ops/log/', updateRequest)
+              .then(() => {
+                dispatch(toastSuccess(
+                  'TM1 SOAP Message and OPS Log',
+                  'This TM1 SOAP Message has been successfully sent to OPS WSDL and OPS Logs were created.',
+                ));
+                if (onSuccess) {
+                  onSuccess();
+                }
+              })
+              .catch(() => {
+                dispatch(toastError(
+                  UPDATE_OPS_LOG_ERROR,
+                  UPDATE_OPS_LOG_ERROR_TITLE,
+                ));
+              });
+          })
+          .catch(() => {
+            dispatch(toastError(
+              INSERT_OPS_LOG_ERROR,
+              INSERT_OPS_LOG_ERROR_TITLE,
+            ));
+          });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           dispatch(toastError(
-            INSERT_OPS_LOG_ERROR,
-            INSERT_OPS_LOG_ERROR_TITLE,
+            SEND_SOAP_ERROR,
+            SEND_SOAP_ERROR_TITLE,
           ));
         }
       });
@@ -681,7 +657,7 @@ export function createOpsLog(data, onSuccess) {
 // ================ SEND TO EOPF ================
 
 let cancelSendToEopf;
-export function sendToEopf(data, onSuccess) {
+export function sendToEopf(data, onSuccess, memo) {
   return (dispatch) => {
     if (cancelSendToEopf) {
       cancelSendToEopf('cancel');
@@ -691,6 +667,11 @@ export function sendToEopf(data, onSuccess) {
         cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
       })
       .then(() => {
+        dispatch(storeNotification({
+          PV_NM_SEQ_NUM_I: data.perseqnum,
+          PV_FILE_NAME_I: data.pdffilename,
+          PV_NOTE_TYPE_I: memo ? 'M' : 'C',
+        }));
         dispatch(toastSuccess(
           SEND_TO_EOPF_SUCCESS,
           SEND_TO_EOPF_SUCCESS_TITLE,

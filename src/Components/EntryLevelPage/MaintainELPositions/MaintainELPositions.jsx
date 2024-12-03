@@ -20,11 +20,12 @@ import TotalResults from '../../TotalResults';
 const MaintainEntryLevelPositions = () => {
   const dispatch = useDispatch();
   const textSearchRef = useRef();
+  const posNumRef = useRef();
   const tableRef = useRef(null);
 
   const userSelections = useSelector(state => state.entryLevelSelections);
-  const [page, setPage] = useState(userSelections.page || 1);
-  const [limit, setLimit] = useState(userSelections.limit || 50);
+  const [page, setPage] = useState(userSelections?.page || 1);
+  const [limit, setLimit] = useState(userSelections?.limit || 50);
   const [selectedTps, setSelectedTps] = useState(userSelections?.selectedTps || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
@@ -35,6 +36,8 @@ const MaintainEntryLevelPositions = () => {
   const [overseas, setOverseas] = useState(userSelections?.overseas || false);
   const [domestic, setDomestic] = useState(userSelections?.domestic || false);
   const [textSearch, setTextSearch] = useState('');
+  const [posNumberText, setPosNumberText] = useState('');
+  const [posNumbers, setPosNumbers] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
 
   const elFiltersHasErrored = useSelector(state => state.entryLevelFiltersFetchDataErrored);
@@ -70,6 +73,7 @@ const MaintainEntryLevelPositions = () => {
     page,
     limit,
     text: textSearch,
+    'el-pos-numbers': posNumbers,
     'el-tps': selectedTps.map(tpObject => (tpObject?.code)),
     'el-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
     'el-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
@@ -90,6 +94,7 @@ const MaintainEntryLevelPositions = () => {
       selectedSkills,
       selectedJobs,
       selectedLanguages,
+      posNumbers,
     ];
     if (isEmpty(filter(flatten(filters))) && !overseas && !domestic && isEmpty(textSearch)) {
       setClearFilters(false);
@@ -115,6 +120,9 @@ const MaintainEntryLevelPositions = () => {
     setDomestic(false);
     setTextSearch('');
     textSearchRef.current.clearText();
+    setPosNumberText('');
+    posNumRef.current.value = '';
+    setPosNumbers([]);
     setClearFilters(false);
   };
 
@@ -131,6 +139,7 @@ const MaintainEntryLevelPositions = () => {
     overseas,
     domestic,
     textSearch,
+    posNumbers,
     limit,
   ]);
 
@@ -176,6 +185,31 @@ const MaintainEntryLevelPositions = () => {
     }
   };
 
+  const addPosNumber = () => {
+    const input = posNumberText;
+    // Split the string by newline, space, or comma and remove empty strings
+    let list = input
+      .split(/[\n\t ,]+/)
+      .map(str => str.trim())
+      .filter(str => str.length === 8);
+
+    // Use a Set to remove duplicates within the input string
+    list = [...new Set(list)];
+
+    // Filter out duplicates that are already in posNumbers
+    const uniqueList = list.filter(str => !posNumbers.includes(str));
+
+    // Update the state with the new list of unique strings
+    if (uniqueList.length !== 0) {
+      setPosNumbers([...posNumbers, ...uniqueList].sort());
+    }
+    setPosNumberText('');
+  };
+  const removePosNumber = (value) => {
+    const list = posNumbers.filter(item => item !== value);
+    setPosNumbers(list);
+  };
+
   return (
     isLoading ? <Spinner type="bureau-filters" size="small" /> :
       <>
@@ -202,105 +236,136 @@ const MaintainEntryLevelPositions = () => {
               </div>
             </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
-              <div className="filter-div">
-                <div className="label">Tracking Program:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select TP(s)"
-                  value={selectedTps}
-                  options={tpFilters}
-                  onChange={setSelectedTps}
-                  valueKey="code"
-                  labelKey="code"
-                />
+              <div className="usa-grid-full">
+                <div className="filter-div">
+                  <div className="label">Tracking Program:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select TP(s)"
+                    value={selectedTps}
+                    options={tpFilters}
+                    onChange={setSelectedTps}
+                    valueKey="code"
+                    labelKey="code"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Bureau:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Bureau(s)"
+                    value={selectedBureaus}
+                    options={bureauFilters}
+                    onChange={setSelectedBureaus}
+                    valueKey="code"
+                    labelKey="description"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Location/Org:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Organization(s)"
+                    value={selectedOrgs}
+                    options={orgFilters}
+                    onChange={setSelectedOrgs}
+                    valueKey="code"
+                    labelKey="description"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Grade:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Grade(s)"
+                    value={selectedGrades}
+                    options={gradeFilters}
+                    onChange={setSelectedGrades}
+                    valueKey="code"
+                    labelKey="description"
+                  />
+                </div>
               </div>
-              <div className="filter-div">
-                <div className="label">Bureau:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Bureau(s)"
-                  value={selectedBureaus}
-                  options={bureauFilters}
-                  onChange={setSelectedBureaus}
-                  valueKey="code"
-                  labelKey="description"
-                />
+              <div className="usa-grid-full">
+                <div className="filter-div">
+                  <div className="label">Skill:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Skill(s)"
+                    value={selectedSkills}
+                    options={skillsFilters}
+                    onChange={setSelectedSkills}
+                    valueKey="code"
+                    labelKey="custom_description"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Job Categories:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Job Categories(s)"
+                    value={selectedJobs}
+                    options={jcFilters}
+                    onChange={setSelectedJobs}
+                    valueKey="code"
+                    labelKey="description"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Languages:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Language(s)"
+                    value={selectedLanguages}
+                    options={languageFilters}
+                    onChange={setSelectedLanguages}
+                    valueKey="code"
+                    labelKey="description"
+                  />
+                </div>
+                <div className="filter-div">
+                  <CheckBox
+                    id="overseas"
+                    label="Overseas Only"
+                    value={overseas}
+                    onCheckBoxClick={e => setOverseas(e)}
+                    disabled={domestic}
+                  />
+                  <CheckBox
+                    id="domestic"
+                    label="Domestic Only"
+                    value={domestic}
+                    onCheckBoxClick={e => setDomestic(e)}
+                    disabled={overseas}
+                  />
+                </div>
               </div>
-              <div className="filter-div">
-                <div className="label">Location/Org:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Organization(s)"
-                  value={selectedOrgs}
-                  options={orgFilters}
-                  onChange={setSelectedOrgs}
-                  valueKey="code"
-                  labelKey="description"
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Grade:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Grade(s)"
-                  value={selectedGrades}
-                  options={gradeFilters}
-                  onChange={setSelectedGrades}
-                  valueKey="code"
-                  labelKey="description"
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Skill:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Skill(s)"
-                  value={selectedSkills}
-                  options={skillsFilters}
-                  onChange={setSelectedSkills}
-                  valueKey="code"
-                  labelKey="custom_description"
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Job Categories:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Job Categories(s)"
-                  value={selectedJobs}
-                  options={jcFilters}
-                  onChange={setSelectedJobs}
-                  valueKey="code"
-                  labelKey="description"
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Languages:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Language(s)"
-                  value={selectedLanguages}
-                  options={languageFilters}
-                  onChange={setSelectedLanguages}
-                  valueKey="code"
-                  labelKey="description"
-                />
-              </div>
-              <div className="filter-div">
-                <CheckBox
-                  id="overseas"
-                  label="Overseas Only"
-                  value={overseas}
-                  onCheckBoxClick={e => setOverseas(e)}
-                  disabled={domestic}
-                />
-                <CheckBox
-                  id="domestic"
-                  label="Domestic Only"
-                  value={domestic}
-                  onCheckBoxClick={e => setDomestic(e)}
-                  disabled={overseas}
-                />
+              <div className="usa-grid-full">
+                <div className="label-wrapper">
+                  <label htmlFor="posNum">Position Number(s)</label>
+                  <div className="input-wrapper">
+                    <input
+                      id="posNum"
+                      ref={posNumRef}
+                      className="text-input"
+                      type="text"
+                      value={posNumberText}
+                      onChange={e => setPosNumberText(e.target.value)}
+                      placeholder="Add position numbers"
+                    />
+                    <FA name="plus" className="add-button" onClick={addPosNumber} />
+                  </div>
+                </div>
+                <div className="usa-grid-full pill-list-container">
+                  {posNumbers.map((number) => (
+                    <div key={`posNum-${number}`} >
+                      <button className="pill" onClick={() => removePosNumber(number)}>
+                        {number}
+                        <FA name="times" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
