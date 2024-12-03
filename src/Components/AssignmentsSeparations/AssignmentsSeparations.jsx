@@ -170,8 +170,8 @@ const AssignmentsSeparations = (props) => {
                   tabIndex={0}
                   onClick={() => {
                     if (hasSelections) {
-                      const seqNums = selectedAssignments?.map(a => a.seqNum).join(',');
-                      const revisionNums = selectedAssignments?.map(a => a.revisionNum).join(',');
+                      const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
+                      const revisionNums = selectedAssignments?.map(a => a.ASGD_REVISION_NUM).join(',');
                       dispatch(noteCableFetchData(
                         {
                           I_ASG_SEQ_NUM: seqNums,
