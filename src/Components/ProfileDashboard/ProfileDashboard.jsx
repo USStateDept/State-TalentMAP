@@ -44,7 +44,7 @@ const ProfileDashboard = ({
             {(matches) => {
               const checkIsBidder = () => includes(userProfile?.permission_groups || [], 'bidder') || includes(userProfile?.permissions || [], 'bidder');
               const isBidder = checkIsBidder();
-              // const perdet = userProfile?.perdet_seq_number || '';//TODO: What is this?
+              // const perdet = userProfile?.perdet_seq_number || '';//TODO: What is this? Is it different from id?
               const perdet = userProfile?.id || '';
               const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
