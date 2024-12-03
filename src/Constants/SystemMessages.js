@@ -270,6 +270,11 @@ export const BIDDER_PORTFOLIO_UPDATE_SUCCESS = 'Bidder Portfolio has been update
 export const BIDDER_PORTFOLIO_UPDATE_ERROR_TITLE = 'Bidder Portfolio Update Error';
 export const BIDDER_PORTFOLIO_UPDATE_ERROR = 'There was an issue attempting to update this Bidder Portfolio. Please try again.';
 
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS_TITLE = 'Bidder Portfolio Updated';
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS = 'Bidder Portfolio has been updated.';
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR_TITLE = 'Bidder Portfolio Update Error';
+export const BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_ERROR = 'There was an issue attempting to update this Bidder Portfolio. Please try again.';
+
 export const BUREAU_EXCEPTIONS_ADD_SUCCESS_TITLE = 'Bureau Exceptions Added';
 export const BUREAU_EXCEPTIONS_ADD_SUCCESS = 'Bureau Exceptions have been added.';
 export const BUREAU_EXCEPTIONS_ADD_ERROR_TITLE = 'Adding Bureau Exceptions Error';

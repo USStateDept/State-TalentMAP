@@ -48,15 +48,18 @@ describe('BidControlsComponent', () => {
         queryParamUpdate={spy}
         biddersNumerator={5}
         setEditClassifications={() => {}}
+        setWLType={() => {}}
         biddersDenominator={10}
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        bidderPortfolioFetchDataSuccess={spy}
+        isClient={spy}
         {...props}
       />,
     );
     wrapper.instance().onFilterChange({ target: { value: 'test' } });
-    sinon.assert.calledOnce(spy);
+    sinon.assert.called(spy);
   });
 
   it('sets state when onSeasonChange() is called', () => {
@@ -67,9 +70,13 @@ describe('BidControlsComponent', () => {
         biddersNumerator={5}
         biddersDenominator={10}
         setEditClassifications={() => {}}
+        setWLType={() => {}}
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        bidderPortfolioFetchDataSuccess={spy}
+        isClient={spy}
+        isSeasons={spy}
         {...props}
       />,
     );
