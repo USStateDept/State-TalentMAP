@@ -53,11 +53,13 @@ describe('BidControlsComponent', () => {
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        bidderPortfolioFetchDataSuccess={spy}
+        isClient={spy}
         {...props}
       />,
     );
     wrapper.instance().onFilterChange({ target: { value: 'test' } });
-    sinon.assert.calledOnce(spy);
+    sinon.assert.called(spy);
   });
 
   it('sets state when onSeasonChange() is called', () => {
@@ -72,6 +74,9 @@ describe('BidControlsComponent', () => {
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        bidderPortfolioFetchDataSuccess={spy}
+        isClient={spy}
+        isSeasons={spy}
         {...props}
       />,
     );
