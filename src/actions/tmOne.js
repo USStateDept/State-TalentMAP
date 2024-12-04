@@ -1,35 +1,30 @@
-import {
-  GET_NOTIFICATION_ERROR,
-  GET_NOTIFICATION_ERROR_TITLE,
-  UPDATE_NOTIFICATION_ERROR,
-  UPDATE_NOTIFICATION_ERROR_TITLE,
-  UPDATE_NOTIFICATION_SUCCESS,
-  UPDATE_NOTIFICATION_SUCCESS_TITLE,
-} from 'Constants/SystemMessages';
 import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 import { convertQueryToString } from '../utilities';
 import {
-  GET_GAL_ERROR, GET_GAL_ERROR_TITLE, GET_MEMO_ERROR, GET_MEMO_ERROR_TITLE,
-  GET_OPS_DATA_ERROR, GET_OPS_DATA_ERROR_TITLE, GET_OPS_WSDL_ERROR, GET_OPS_WSDL_ERROR_TITLE,
-  INSERT_OPS_LOG_ERROR, INSERT_OPS_LOG_ERROR_TITLE,
+  EMAIL_MEMO_ERROR, EMAIL_MEMO_ERROR_TITLE, EMAIL_MEMO_SUCCESS, EMAIL_MEMO_SUCCESS_TITLE,
+  EMAIL_NOTIFICATION_ERROR, EMAIL_NOTIFICATION_ERROR_TITLE, EMAIL_NOTIFICATION_SUCCESS, EMAIL_NOTIFICATION_SUCCESS_TITLE,
+  GET_MEMO_ERROR, GET_MEMO_ERROR_TITLE,
+  GET_NOTIFICATION_ERROR, GET_NOTIFICATION_ERROR_TITLE,
+  INSERT_NOTIFICATION_OPS_LOG_ERROR, INSERT_NOTIFICATION_OPS_LOG_ERROR_TITLE,
   REBUILD_MEMO_ERROR, REBUILD_MEMO_ERROR_TITLE, REBUILD_MEMO_SUCCESS, REBUILD_MEMO_SUCCESS_TITLE,
-  REBUILD_NOTIFICATION_ERROR, REBUILD_NOTIFICATION_ERROR_TITLE,
-  REBUILD_NOTIFICATION_SUCCESS, REBUILD_NOTIFICATION_SUCCESS_TITLE,
+  REBUILD_NOTIFICATION_ERROR, REBUILD_NOTIFICATION_ERROR_TITLE, REBUILD_NOTIFICATION_SUCCESS, REBUILD_NOTIFICATION_SUCCESS_TITLE,
   SEND_MEMO_ERROR, SEND_MEMO_ERROR_TITLE, SEND_MEMO_SUCCESS, SEND_MEMO_SUCCESS_TITLE,
   SEND_NOTIFICATION_ERROR, SEND_NOTIFICATION_ERROR_TITLE,
+  SEND_NOTIFICATION_SOAP_ERROR, SEND_NOTIFICATION_SOAP_ERROR_TITLE,
   SEND_NOTIFICATION_SUCCESS, SEND_NOTIFICATION_SUCCESS_TITLE,
-  SEND_SOAP_ERROR, SEND_SOAP_ERROR_TITLE, SEND_TO_EOPF_ERROR, SEND_TO_EOPF_ERROR_TITLE,
-  SEND_TO_EOPF_SUCCESS, SEND_TO_EOPF_SUCCESS_TITLE,
+  SEND_NOTIFICATION_TO_EOPF_ERROR, SEND_NOTIFICATION_TO_EOPF_ERROR_TITLE, SEND_NOTIFICATION_TO_EOPF_SUCCESS, SEND_NOTIFICATION_TO_EOPF_SUCCESS_TITLE,
   UPDATE_MEMO_ERROR, UPDATE_MEMO_ERROR_TITLE, UPDATE_MEMO_SUCCESS, UPDATE_MEMO_SUCCESS_TITLE,
-  UPDATE_OPS_LOG_ERROR, UPDATE_OPS_LOG_ERROR_TITLE,
+  UPDATE_NOTIFICATION_ERROR, UPDATE_NOTIFICATION_ERROR_TITLE,
+  UPDATE_NOTIFICATION_OPS_LOG_ERROR, UPDATE_NOTIFICATION_OPS_LOG_ERROR_TITLE,
+  UPDATE_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
 
 
-// ================ GET NOTE CABLE ================
+// ================ GET TM1 DATA ================
 
 export function noteCableFetchDataErrored(bool) {
   return {
@@ -64,7 +59,7 @@ export function noteCableFetchData(query = {}, location, memo, assignments) {
       dispatch(noteCableFetchDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/note_cable/';
+    const endpoint = '/fsbid/tmone/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelNoteCable = c; }),
@@ -109,7 +104,7 @@ export function noteCableFetchData(query = {}, location, memo, assignments) {
   };
 }
 
-// ================ GET CABLE ================
+// ================ GET TM1 REF ================
 
 export function cableFetchDataErrored(bool) {
   return {
@@ -138,7 +133,7 @@ export function cableFetchData(query = {}) {
       dispatch(cableFetchDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/cable/';
+    const endpoint = '/fsbid/tmone/ref/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelCable = c; }),
@@ -168,7 +163,7 @@ export function cableFetchData(query = {}) {
   };
 }
 
-// ================ GET NOTE CABLE REF ================
+// ================ GET TM1 EDIT REF ================
 
 export function noteCableRefFetchDataErrored(bool) {
   return {
@@ -197,7 +192,7 @@ export function noteCableRefFetchData(query = {}) {
       dispatch(noteCableRefFetchDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/note_cable/ref/';
+    const endpoint = '/fsbid/tmone/edit/ref/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelNoteCableRef = c; }),
@@ -236,7 +231,7 @@ export function editNoteCable(data, onSuccess, memo) {
       cancelEditNoteCable('cancel');
     }
     api()
-      .post('/fsbid/notification/cable/edit/', data, {
+      .post('/fsbid/tmone/edit/', data, {
         cancelToken: new CancelToken((c) => { cancelEditNoteCable = c; }),
       })
       .then(() => {
@@ -282,7 +277,7 @@ export function rebuildNotification(data, onSuccess, memo) {
       cancelRebuildNotification('cancel');
     }
     api()
-      .put('/fsbid/notification/rebuild/', data, {
+      .put('/fsbid/tmone/rebuild/', data, {
         cancelToken: new CancelToken((c) => { cancelRebuildNotification = c; }),
       })
       .then(() => {
@@ -348,7 +343,7 @@ export function getGal(query = {}) {
       dispatch(getGalErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/gal/';
+    const endpoint = '/fsbid/tmone/gal/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelGetGal = c; }),
@@ -366,10 +361,6 @@ export function getGal(query = {}) {
             dispatch(getGalSuccess({}));
             dispatch(getGalErrored(true));
             dispatch(getGalLoading(false));
-            dispatch(toastError(
-              GET_GAL_ERROR,
-              GET_GAL_ERROR_TITLE,
-            ));
           });
         } else {
           batch(() => {
@@ -391,7 +382,7 @@ export function sendNotification(data, onSuccess, memo) {
       cancelSendNotification('cancel');
     }
     api()
-      .post('/fsbid/notification/send/', data, {
+      .post('/fsbid/tmone/send/', data, {
         cancelToken: new CancelToken((c) => { cancelSendNotification = c; }),
       })
       .then(() => {
@@ -437,7 +428,7 @@ export function storeNotification(data, onSuccess, memo) {
       cancelStoreNotification('cancel');
     }
     api()
-      .post('/fsbid/notification/store/', data, {
+      .post('/fsbid/tmone/store/', data, {
         cancelToken: new CancelToken((c) => { cancelStoreNotification = c; }),
       })
       .then(() => {
@@ -474,6 +465,43 @@ export function storeNotification(data, onSuccess, memo) {
   };
 }
 
+// ================ SEND TO EOPF ================
+
+let cancelSendToEopf;
+export function sendToEopf(data, onSuccess, memo) {
+  return (dispatch) => {
+    if (cancelSendToEopf) {
+      cancelSendToEopf('cancel');
+    }
+    api()
+      .post('/fsbid/tmone/eopf/', data, {
+        cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
+      })
+      .then(() => {
+        dispatch(storeNotification({
+          PV_NM_SEQ_NUM_I: data.perseqnum,
+          PV_FILE_NAME_I: data.pdffilename,
+          PV_NOTE_TYPE_I: memo ? 'M' : 'C',
+        }));
+        dispatch(toastSuccess(
+          SEND_NOTIFICATION_TO_EOPF_SUCCESS,
+          SEND_NOTIFICATION_TO_EOPF_SUCCESS_TITLE,
+        ));
+        if (onSuccess) {
+          onSuccess();
+        }
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(
+            SEND_NOTIFICATION_TO_EOPF_ERROR,
+            SEND_NOTIFICATION_TO_EOPF_ERROR_TITLE,
+          ));
+        }
+      });
+  };
+}
+
 // ================ GET OPS WSDL ================
 
 export function getOpsWsdlErrored(bool) {
@@ -503,7 +531,7 @@ export function getOpsWsdl(query = {}) {
       dispatch(getOpsWsdlErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/ops/wsdl/';
+    const endpoint = '/fsbid/tmone/ops/wsdl/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelGetOpsWsdl = c; }),
@@ -521,10 +549,6 @@ export function getOpsWsdl(query = {}) {
             dispatch(getOpsWsdlSuccess({}));
             dispatch(getOpsWsdlErrored(true));
             dispatch(getOpsWsdlLoading(false));
-            dispatch(toastError(
-              GET_OPS_WSDL_ERROR,
-              GET_OPS_WSDL_ERROR_TITLE,
-            ));
           });
         } else {
           batch(() => {
@@ -566,7 +590,7 @@ export function getOpsData(query = {}) {
       dispatch(getOpsDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/notification/ops/soap/';
+    const endpoint = '/fsbid/tmone/ops/soap/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelGetOpsData = c; }),
@@ -584,10 +608,6 @@ export function getOpsData(query = {}) {
             dispatch(getOpsDataSuccess({}));
             dispatch(getOpsDataErrored(true));
             dispatch(getOpsDataLoading(false));
-            dispatch(toastError(
-              GET_OPS_DATA_ERROR,
-              GET_OPS_DATA_ERROR_TITLE,
-            ));
           });
         } else {
           batch(() => {
@@ -608,7 +628,7 @@ export function sendSoap(data, onSuccess) {
     if (cancelSendSoap) {
       cancelSendSoap('cancel');
     }
-    api().post('/fsbid/notification/ops/send/', data.soapRequest, {
+    api().post('/fsbid/tmone/ops/send/', data.soapRequest, {
       cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
     })
       .then((response) => {
@@ -617,9 +637,9 @@ export function sendSoap(data, onSuccess) {
           PV_OTL_SUBMIT_RETURN_CODE_I: response.PV_RETURN_O,
           PV_OTL_SUBMIT_MESSAGE_I: response.PV_MESSAGE || 'No Message',
         };
-        api().put('/fsbid/notification/ops/log/', data.logRequest)
+        api().put('/fsbid/tmone/ops/log/', data.logRequest)
           .then(() => {
-            api().post('/fsbid/notification/ops/log/', updateRequest)
+            api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
                 dispatch(toastSuccess(
                   'TM1 SOAP Message and OPS Log',
@@ -631,50 +651,45 @@ export function sendSoap(data, onSuccess) {
               })
               .catch(() => {
                 dispatch(toastError(
-                  UPDATE_OPS_LOG_ERROR,
-                  UPDATE_OPS_LOG_ERROR_TITLE,
+                  UPDATE_NOTIFICATION_OPS_LOG_ERROR,
+                  UPDATE_NOTIFICATION_OPS_LOG_ERROR_TITLE,
                 ));
               });
           })
           .catch(() => {
             dispatch(toastError(
-              INSERT_OPS_LOG_ERROR,
-              INSERT_OPS_LOG_ERROR_TITLE,
+              INSERT_NOTIFICATION_OPS_LOG_ERROR,
+              INSERT_NOTIFICATION_OPS_LOG_ERROR_TITLE,
             ));
           });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           dispatch(toastError(
-            SEND_SOAP_ERROR,
-            SEND_SOAP_ERROR_TITLE,
+            SEND_NOTIFICATION_SOAP_ERROR,
+            SEND_NOTIFICATION_SOAP_ERROR_TITLE,
           ));
         }
       });
   };
 }
 
-// ================ SEND TO EOPF ================
+// ================ EMAIL NOTIFICATION ================
 
-let cancelSendToEopf;
-export function sendToEopf(data, onSuccess, memo) {
+let cancelEmailNotification;
+export function emailNotification(data, onSuccess) {
   return (dispatch) => {
-    if (cancelSendToEopf) {
-      cancelSendToEopf('cancel');
+    if (cancelEmailNotification) {
+      cancelEmailNotification('cancel');
     }
     api()
-      .post('/fsbid/notification/eopf/', data, {
-        cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
+      .post('/fsbid/tmone/email/note/', data, {
+        cancelToken: new CancelToken((c) => { cancelEmailNotification = c; }),
       })
       .then(() => {
-        dispatch(storeNotification({
-          PV_NM_SEQ_NUM_I: data.perseqnum,
-          PV_FILE_NAME_I: data.pdffilename,
-          PV_NOTE_TYPE_I: memo ? 'M' : 'C',
-        }));
         dispatch(toastSuccess(
-          SEND_TO_EOPF_SUCCESS,
-          SEND_TO_EOPF_SUCCESS_TITLE,
+          EMAIL_NOTIFICATION_SUCCESS,
+          EMAIL_NOTIFICATION_SUCCESS_TITLE,
         ));
         if (onSuccess) {
           onSuccess();
@@ -683,8 +698,40 @@ export function sendToEopf(data, onSuccess, memo) {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           dispatch(toastError(
-            SEND_TO_EOPF_ERROR,
-            SEND_TO_EOPF_ERROR_TITLE,
+            EMAIL_NOTIFICATION_ERROR,
+            EMAIL_NOTIFICATION_ERROR_TITLE,
+          ));
+        }
+      });
+  };
+}
+
+// ================ EMAIL MEMO ================
+
+let cancelEmailMemo;
+export function emailMemo(data, onSuccess) {
+  return (dispatch) => {
+    if (cancelEmailMemo) {
+      cancelEmailMemo('cancel');
+    }
+    api()
+      .post('/fsbid/tmone/email/memo/', data, {
+        cancelToken: new CancelToken((c) => { cancelEmailMemo = c; }),
+      })
+      .then(() => {
+        dispatch(toastSuccess(
+          EMAIL_MEMO_SUCCESS,
+          EMAIL_MEMO_SUCCESS_TITLE,
+        ));
+        if (onSuccess) {
+          onSuccess();
+        }
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          dispatch(toastError(
+            EMAIL_MEMO_ERROR,
+            EMAIL_MEMO_ERROR_TITLE,
           ));
         }
       });

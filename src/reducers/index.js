@@ -81,7 +81,7 @@ import bidAudit from './bidAudit';
 import jobCategories from './jobCategories';
 import orgStats from './orgStats';
 import biddingTool from './biddingTool';
-import assignmentNotifications from './assignmentNotifications';
+import tmOne from './tmOne';
 
 export default (history) => combineReducers({
   ...results,
@@ -160,7 +160,7 @@ export default (history) => combineReducers({
   ...jobCategories,
   ...orgStats,
   ...biddingTool,
-  ...assignmentNotifications,
+  ...tmOne,
   router: connectRouter(history),
   client,
   login,

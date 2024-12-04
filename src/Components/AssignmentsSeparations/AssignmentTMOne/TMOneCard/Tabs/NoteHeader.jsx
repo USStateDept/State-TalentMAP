@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
-import DefinitionList from '../../../DefinitionList';
+import DefinitionList from '../../../../DefinitionList';
 import InputActions from '../Common/InputActions';
 
 const NoteHeader = (props) => {

@@ -6,7 +6,7 @@ import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import InteractiveElement from 'Components/InteractiveElement';
-import CheckBox from '../../../CheckBox/CheckBox';
+import CheckBox from '../../../../CheckBox/CheckBox';
 import InputActions from '../Common/InputActions';
 
 const Paragraphs = (props) => {
