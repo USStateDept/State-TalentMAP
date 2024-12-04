@@ -71,7 +71,7 @@ const ProfileDashboard = ({
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments
-                          id={perdet}
+                          id={userProfile.perdet_seq_number}
                           showMaintainAssignmentLink={showMaintainAssignmentLink}
                           viewType={userRole}
                         />
