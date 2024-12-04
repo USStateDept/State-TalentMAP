@@ -425,68 +425,68 @@ export const CREATE_ALT_SEPARATION_ERROR = 'There was an issue attempting to cre
 
 export const GET_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Error';
 export const GET_NOTIFICATION_ERROR = 'There was an issue attempting to create this Assignment Notification. Please try again.';
-
-export const UPDATE_NOTIFICATION_SUCCESS_TITLE = 'Assignment Notification Saved';
-export const UPDATE_NOTIFICATION_SUCCESS = 'This Assignment Notification has been successfully saved.';
-export const UPDATE_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Error';
-export const UPDATE_NOTIFICATION_ERROR = 'There was an issue attempting to save this Assignment Notification. Please try again.';
-
-export const REBUILD_NOTIFICATION_SUCCESS_TITLE = 'Assignment Notification Rebuilt';
-export const REBUILD_NOTIFICATION_SUCCESS = 'This Assignment Notification has been successfully rebuilt.';
-export const REBUILD_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Rebuild Error';
-export const REBUILD_NOTIFICATION_ERROR = 'There was an issue attempting to rebuild this Assignment Notification. Please try again.';
-
-export const SEND_NOTIFICATION_SUCCESS_TITLE = 'Assignment Notification Sent';
-export const SEND_NOTIFICATION_SUCCESS = 'This Assignment Notification has been successfully sent.';
-export const SEND_NOTIFICATION_ERROR_TITLE = 'Assignment Notification Send Error';
-export const SEND_NOTIFICATION_ERROR = 'There was an issue attempting to send this Assignment Notification. Please try again.';
-
 export const GET_MEMO_ERROR_TITLE = 'Assignment Memo Error';
 export const GET_MEMO_ERROR = 'There was an issue attempting to create this Assignment Memo. Please try again.';
 
-export const UPDATE_MEMO_SUCCESS_TITLE = 'Assignment Memo Saved';
-export const UPDATE_MEMO_SUCCESS = 'This Assignment Memo has been successfully saved.';
-export const UPDATE_MEMO_ERROR_TITLE = 'Assignment Memo Error';
-export const UPDATE_MEMO_ERROR = 'There was an issue attempting to save this Assignment Memo. Please try again.';
+export const UPDATE_NOTIFICATION_SUCCESS_TITLE = 'TM1 Assignment Notification Saved';
+export const UPDATE_NOTIFICATION_SUCCESS = 'This TM1 Assignment Notification has been successfully saved.';
+export const UPDATE_NOTIFICATION_ERROR_TITLE = 'TM1 Assignment Notification Error';
+export const UPDATE_NOTIFICATION_ERROR = 'There was an issue attempting to save this TM1 Assignment Notification. Please try again.';
+export const UPDATE_MEMO_SUCCESS_TITLE = 'TM1 Assignment Memo Saved';
+export const UPDATE_MEMO_SUCCESS = 'This TM1 Assignment Memo has been successfully saved.';
+export const UPDATE_MEMO_ERROR_TITLE = 'TM1 Assignment Memo Error';
+export const UPDATE_MEMO_ERROR = 'There was an issue attempting to save this TM1 Assignment Memo. Please try again.';
 
-export const REBUILD_MEMO_SUCCESS_TITLE = 'Assignment Memo Rebuilt';
-export const REBUILD_MEMO_SUCCESS = 'This Assignment Memo has been successfully rebuilt.';
-export const REBUILD_MEMO_ERROR_TITLE = 'Assignment Memo Rebuild Error';
-export const REBUILD_MEMO_ERROR = 'There was an issue attempting to rebuild this Assignment Memo. Please try again.';
+export const REBUILD_NOTIFICATION_SUCCESS_TITLE = 'TM1 Assignment Notification Rebuilt';
+export const REBUILD_NOTIFICATION_SUCCESS = 'This TM1 Assignment Notification has been successfully rebuilt.';
+export const REBUILD_NOTIFICATION_ERROR_TITLE = 'TM1 Assignment Notification Rebuild Error';
+export const REBUILD_NOTIFICATION_ERROR = 'There was an issue attempting to rebuild this TM1 Assignment Notification. Please try again.';
+export const REBUILD_MEMO_SUCCESS_TITLE = 'TM1 Assignment Memo Rebuilt';
+export const REBUILD_MEMO_SUCCESS = 'This TM1 Assignment Memo has been successfully rebuilt.';
+export const REBUILD_MEMO_ERROR_TITLE = 'TM1 Assignment Memo Rebuild Error';
+export const REBUILD_MEMO_ERROR = 'There was an issue attempting to rebuild this TM1 Assignment Memo. Please try again.';
 
-export const SEND_MEMO_SUCCESS_TITLE = 'Assignment Memo Sent';
-export const SEND_MEMO_SUCCESS = 'This Assignment Memo has been successfully sent.';
-export const SEND_MEMO_ERROR_TITLE = 'Assignment Memo Send Error';
-export const SEND_MEMO_ERROR = 'There was an issue attempting to send this Assignment Memo. Please try again.';
+export const SEND_NOTIFICATION_SUCCESS_TITLE = 'TM1 Assignment Notification Send Initiated';
+export const SEND_NOTIFICATION_SUCCESS = 'This TM1 Assignment Notification has been successfully initiated for sending.';
+export const SEND_NOTIFICATION_ERROR_TITLE = 'TM1 Assignment Notification Initiate Send Error';
+export const SEND_NOTIFICATION_ERROR = 'There was an issue attempting to initate sending this TM1 Assignment Notification. Please try again.';
+export const SEND_MEMO_SUCCESS_TITLE = 'TM1 Assignment Memo Send Initiated';
+export const SEND_MEMO_SUCCESS = 'This TM1 Assignment Memo has been successfully initiated for sending.';
+export const SEND_MEMO_ERROR_TITLE = 'TM1 Assignment Memo Initiate Send Error';
+export const SEND_MEMO_ERROR = 'There was an issue attempting to initate sending this TM1 Assignment Memo. Please try again.';
 
-export const GET_GAL_ERROR_TITLE = 'GAL Lookup Error';
-export const GET_GAL_ERROR = 'There was an issue attempting this GAL Lookup. Please try again.';
+export const INSERT_NOTIFICATION_OPS_LOG_SUCCESS_TITLE = 'TM1 Assignment Notification OPS Log Created';
+export const INSERT_NOTIFICATION_OPS_LOG_SUCCESS = 'This TM1 Assignment Notification OPS Log has been successfully created.';
+export const INSERT_NOTIFICATION_OPS_LOG_ERROR_TITLE = 'TM1 Assignment Notification OPS Log Create Error';
+export const INSERT_NOTIFICATION_OPS_LOG_ERROR = 'There was an issue attempting to create this TM1 Assignment Notification OPS Log. Please try again.';
 
-export const GET_OPS_WSDL_ERROR_TITLE = 'OPS WSDL Error';
-export const GET_OPS_WSDL_ERROR = 'There was an issue attempting to retrieve the OPS WSDL. Please try again.';
+export const UPDATE_NOTIFICATION_OPS_LOG_SUCCESS_TITLE = 'TM1 Assignment Notification OPS Log Updated';
+export const UPDATE_NOTIFICATION_OPS_LOG_SUCCESS = 'This TM1 Assignment Notification OPS Log has been successfully updated.';
+export const UPDATE_NOTIFICATION_OPS_LOG_ERROR_TITLE = 'TM1 Assignment Notification OPS Log Update Error';
+export const UPDATE_NOTIFICATION_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 Assignment Notification OPS Log. Please try again.';
 
-export const GET_OPS_DATA_ERROR_TITLE = 'OPS Log Data Error';
-export const GET_OPS_DATA_ERROR = 'There was an issue attempting to retrieve OPS Log Data. Please try again.';
+export const SEND_NOTIFICATION_SOAP_SUCCESS_TITLE = 'TM1 Assignment Notification SOAP Message Sent';
+export const SEND_NOTIFICATION_SOAP_SUCCESS = 'This TM1 Assignment Notification SOAP Message has been successfully sent to OPS WSDL.';
+export const SEND_NOTIFICATION_SOAP_ERROR_TITLE = 'TM1 Assignment Notification SOAP Message Error';
+export const SEND_NOTIFICATION_SOAP_ERROR = 'There was an issue attempting to send this TM1 Assignment Notification SOAP Message to OPS WSDL. Please try again.';
 
-export const INSERT_OPS_LOG_SUCCESS_TITLE = 'OPS Log Created';
-export const INSERT_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully created.';
-export const INSERT_OPS_LOG_ERROR_TITLE = 'Create OPS Log Error';
-export const INSERT_OPS_LOG_ERROR = 'There was an issue attempting to create this TM1 OPS Log. Please try again.';
+export const SEND_NOTIFICATION_TO_EOPF_SUCCESS_TITLE = 'TM1 Assignment Notification Sent to EOPF';
+export const SEND_NOTIFICATION_TO_EOPF_SUCCESS = 'This TM1 Assignment Notification has been successfully sent to EOPF.';
+export const SEND_NOTIFICATION_TO_EOPF_ERROR_TITLE = 'TM1 Assignment Notification Send to EOPF Error';
+export const SEND_NOTIFICATION_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 Assignment Notification to EOPF. Please try again.';
+export const SEND_MEMO_TO_EOPF_SUCCESS_TITLE = 'TM1 Assignment Memo Sent to EOPF';
+export const SEND_MEMO_TO_EOPF_SUCCESS = 'This TM1 Assignment Memo has been successfully sent to EOPF.';
+export const SEND_MEMO_TO_EOPF_ERROR_TITLE = 'TM1 Assignment Memo Send to EOPF Error';
+export const SEND_MEMO_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 Assignment Memo to EOPF. Please try again.';
 
-export const UPDATE_OPS_LOG_SUCCESS_TITLE = 'OPS Log Updated';
-export const UPDATE_OPS_LOG_SUCCESS = 'This TM1 OPS Log has been successfully updated.';
-export const UPDATE_OPS_LOG_ERROR_TITLE = 'Update OPS Log Error';
-export const UPDATE_OPS_LOG_ERROR = 'There was an issue attempting to update this TM1 OPS Log. Please try again.';
-
-export const SEND_SOAP_SUCCESS_TITLE = 'TM1 SOAP Message Sent';
-export const SEND_SOAP_SUCCESS = 'This TM1 SOAP Message has been successfully sent to OPS WSDL.';
-export const SEND_SOAP_ERROR_TITLE = 'TM1 SOAP Message Error';
-export const SEND_SOAP_ERROR = 'There was an issue attempting to send this TM1 SOAP Message to OPS WSDL. Please try again.';
-
-export const SEND_TO_EOPF_SUCCESS_TITLE = 'TM1 Sent to EOPF';
-export const SEND_TO_EOPF_SUCCESS = 'This TM1 has been successfully sent to EOPF.';
-export const SEND_TO_EOPF_ERROR_TITLE = 'TM1 Send to EOPF Error';
-export const SEND_TO_EOPF_ERROR = 'There was an issue attempting to send this TM1 to EOPF. Please try again.';
+export const EMAIL_NOTIFICATION_SUCCESS_TITLE = 'TM1 Assignment Notification Emailed';
+export const EMAIL_NOTIFICATION_SUCCESS = 'This TM1 Assignment Notification has been successfully emailed to the recipient.';
+export const EMAIL_NOTIFICATION_ERROR_TITLE = 'TM1 Assignment Notification Email Error';
+export const EMAIL_NOTIFICATION_ERROR = 'There was an issue attempting to email this TM1 Assignment Notification. Please try again.';
+export const EMAIL_MEMO_SUCCESS_TITLE = 'TM1 Assignment Memo Emailed';
+export const EMAIL_MEMO_SUCCESS = 'This TM1 Assignment Memo has been successfully emailed to the recipient(s).';
+export const EMAIL_MEMO_ERROR_TITLE = 'TM1 Assignment Memo Email Error';
+export const EMAIL_MEMO_ERROR = 'There was an issue attempting to email this TM1 Assignment Memo. Please try again.';
 
 export const EXPORT_DATA_LOADING_TITLE = 'Exporting Data...';
 export const EXPORT_DATA_LOADING = 'Export may take a while, please wait while we process. \n Export is capped at first 500 results.';

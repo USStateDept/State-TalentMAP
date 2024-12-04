@@ -8,9 +8,9 @@ import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeeti
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import AssignmentsSeparations from 'Components/AssignmentsSeparations';
 import BidderPortfolio from 'Containers/BidderPortfolio';
+import AssignmentTMOne from 'Components/AssignmentsSeparations/AssignmentTMOne/AssignmentTMOne';
 import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool';
 import ProjectedVacancy from 'Components/BureauPage/ProjectedVacancy';
-import AssignmentNotification from 'Components/AssignmentsSeparations/AssignmentNotification/AssignmentNotification';
 import PositionManager from 'Components/BureauPage/PositionManager';
 import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
 
@@ -26,8 +26,8 @@ const AoPage = () => (
       <Route path="/profile/ao/panelmeetingagendas" render={(props) => <PanelMeetingAgendas {...props} />} />
       <Route path="/profile/ao/projectedvacancy" render={() => <ProjectedVacancy viewType="ao" />} />
       <Route path="/profile/ao/publishablepositions" render={() => <PublishablePositions viewType="ao" />} />
-      <Route path="/profile/ao/:id/assignmentsseparations/notification/:noteMemoID" render={(props) => <AssignmentNotification {...props} />} />
-      <Route path="/profile/ao/:id/assignmentsseparations/memo/:noteMemoID" render={(props) => <AssignmentNotification {...props} />} />
+      <Route path="/profile/ao/:id/assignmentsseparations/notification/:noteMemoID" render={(props) => <AssignmentTMOne {...props} />} />
+      <Route path="/profile/ao/:id/assignmentsseparations/memo/:noteMemoID" render={(props) => <AssignmentTMOne {...props} />} />
       <Route path="/profile/ao/:id/assignmentsseparations" render={(props) => <AssignmentsSeparations {...props} />} />
       <Route path="/profile/ao/bidderportfolio" render={() => <BidderPortfolio viewType="ao" />} />
       <Route path="/profile/ao/biddingtool/:id" render={() => <BiddingTool />} />

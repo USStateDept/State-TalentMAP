@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import {
   cableFetchData, editNoteCable, noteCableRefFetchData,
   rebuildNotification,
-} from 'actions/assignmentNotifications';
+} from 'actions/tmOne';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import TabbedCard from 'Components/TabbedCard';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
-import Header from './Tabs/NoteHeader';
+import NoteHeader from './Tabs/NoteHeader';
 import EFM from './Tabs/EFM';
 import Remarks from './Tabs/Remarks';
 import Training from './Tabs/Training';
@@ -17,10 +17,11 @@ import Assignments from './Tabs/Assignments';
 import Paragraphs from './Tabs/Paragraphs';
 import Routing from './Tabs/Routing';
 import MemoHeader from './Tabs/MemoHeader';
-import Preview from './Preview/Preview';
-import { formatDate } from '../../../utilities';
+import Preview from './Preview/NotePreview';
+import { formatDate } from '../../../../utilities';
+import MemoPreview from './Preview/MemoPreview';
 
-const NotificationCard = (props) => {
+const TMOneCard = (props) => {
   const { note, onCancel, memo } = props;
 
   const dispatch = useDispatch();
@@ -356,129 +357,158 @@ const NotificationCard = (props) => {
     return overlay;
   };
 
+  // ====================== Edit Mode Tabs ======================
+
+  const memoHeader = {
+    text: 'Header',
+    value: 'HEADER',
+    content: freeTextContainer(
+      <MemoHeader
+        getCableValue={getCableValue}
+        modCableValue={modCableValue}
+        handleDefaultClear={handleDefaultClear}
+      />,
+      ['TO_ADDRESS', 'FROM_ADDRESS', 'SUBJECT'],
+    ),
+  };
+
+  const noteHeader = {
+    text: 'Header',
+    value: 'HEADER',
+    content: freeTextContainer(
+      <NoteHeader
+        getCableValue={getCableValue}
+        modCableValue={modCableValue}
+        handleDefaultClear={handleDefaultClear}
+      />,
+      [
+        'DRAFTING OFFICE', 'DATE', 'TELEPHONE', 'SUBJECT',
+        'CLEARANCE', 'CLASSIFICATION', 'SPECIAL HANDLING',
+        'CAPTIONS', 'E.O.', 'TAGS', 'EOM', 'CONTINUATION',
+      ],
+    ),
+  };
+
+  const routing = {
+    text: 'Routing',
+    value: 'ROUTING',
+    content: freeTextContainer(
+      <Routing
+        routingValue={noteRouting}
+        modRoutingValue={modRoutingValue}
+        postOptions={ref?.QRY_POST_REF}
+        precedenceOptions={ref?.QRY_PT_REF}
+        organizationOptions={ref?.QRY_ORGS_REF}
+      />,
+      ['ACTION', 'INFORMATION', 'DISTRIBUTION'],
+    ),
+  };
+
+  const assignments = {
+    text: 'Assignments',
+    value: 'ASSIGNMENTS',
+    content: freeTextContainer(
+      <Assignments
+        getCableValue={getCableValue}
+        modCableValue={modCableValue}
+        handleDefaultClear={handleDefaultClear}
+        assignments={noteAssignments}
+        setAssignments={setNoteAssignments}
+      />,
+      ['ASSIGNMENTS', 'COMBINED TOD'],
+    ),
+  };
+
+  const paragraphs = {
+    text: 'Paragraphs',
+    value: 'PARAGRAPHS',
+    content: freeTextContainer(
+      <Paragraphs
+        getCableValue={getCableValue}
+        handleDefaultClear={handleDefaultClear}
+        selections={noteParagraphs}
+        setSelections={setNoteParagraphs}
+        paragraphs={ref?.QRY_PARA_REF}
+        defaultSelections={ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1).map(p => p.NOTP_CODE)}
+      />,
+      ['PARAGRAPHS'],
+    ),
+  };
+
+  const training = {
+    text: 'Training',
+    value: 'TRAINING',
+    content: freeTextContainer(
+      <Training
+        getCableValue={getCableValue}
+        modCableValue={modCableValue}
+        handleDefaultClear={handleDefaultClear}
+      />,
+      ['TRAINING'],
+    ),
+  };
+
+  const efm = {
+    text: 'EFM',
+    value: 'EFM',
+    content: freeTextContainer(
+      <EFM
+        getCableValue={getCableValue}
+        modCableValue={modCableValue}
+      />,
+      ['EFM'],
+    ),
+  };
+
+  const remarks = {
+    text: 'Remarks',
+    value: 'REMARKS',
+    content: freeTextContainer(
+      <Remarks
+        getCableValue={getCableValue}
+        modCableValue={modCableValue}
+        handleDefaultClear={handleDefaultClear}
+      />,
+      ['REMARKS'],
+    ),
+  };
+
   const cardMode = () => {
     if (editMode) {
       return (
         <TabbedCard
-          tabs={[memo ? {
-            text: 'Header',
-            value: 'HEADER',
-            content: freeTextContainer(
-              <MemoHeader
-                getCableValue={getCableValue}
-                modCableValue={modCableValue}
-                handleDefaultClear={handleDefaultClear}
-              />,
-              ['TO_ADDRESS', 'FROM_ADDRESS', 'SUBJECT'],
-            ),
-          } : {
-            text: 'Header',
-            value: 'HEADER',
-            content: freeTextContainer(
-              <Header
-                getCableValue={getCableValue}
-                modCableValue={modCableValue}
-                handleDefaultClear={handleDefaultClear}
-              />,
-              [
-                'DRAFTING OFFICE', 'DATE', 'TELEPHONE', 'SUBJECT',
-                'CLEARANCE', 'CLASSIFICATION', 'SPECIAL HANDLING',
-                'CAPTIONS', 'E.O.', 'TAGS', 'EOM', 'CONTINUATION',
-              ],
-            ),
-          }, memo ? null : {
-            text: 'Routing',
-            value: 'ROUTING',
-            content: freeTextContainer(
-              <Routing
-                routingValue={noteRouting}
-                modRoutingValue={modRoutingValue}
-                postOptions={ref?.QRY_POST_REF}
-                precedenceOptions={ref?.QRY_PT_REF}
-                organizationOptions={ref?.QRY_ORGS_REF}
-              />,
-              ['ACTION', 'INFORMATION', 'DISTRIBUTION'],
-            ),
-          }, {
-            text: 'Assignments',
-            value: 'ASSIGNMENTS',
-            content: freeTextContainer(
-              <Assignments
-                getCableValue={getCableValue}
-                modCableValue={modCableValue}
-                handleDefaultClear={handleDefaultClear}
-                assignments={noteAssignments}
-                setAssignments={setNoteAssignments}
-              />,
-              ['ASSIGNMENTS', 'COMBINED TOD'],
-            ),
-          }, {
-            text: 'Paragraphs',
-            value: 'PARAGRAPHS',
-            content: freeTextContainer(
-              <Paragraphs
-                getCableValue={getCableValue}
-                handleDefaultClear={handleDefaultClear}
-                selections={noteParagraphs}
-                setSelections={setNoteParagraphs}
-                paragraphs={ref?.QRY_PARA_REF}
-                defaultSelections={ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1).map(p => p.NOTP_CODE)}
-              />,
-              ['PARAGRAPHS'],
-            ),
-          }, memo ? null : {
-            text: 'Training',
-            value: 'TRAINING',
-            content: freeTextContainer(
-              <Training
-                getCableValue={getCableValue}
-                modCableValue={modCableValue}
-                handleDefaultClear={handleDefaultClear}
-              />,
-              ['TRAINING'],
-            ),
-          }, memo ? null : {
-            text: 'EFM',
-            value: 'EFM',
-            content: freeTextContainer(
-              <EFM
-                getCableValue={getCableValue}
-                modCableValue={modCableValue}
-              />,
-              ['EFM'],
-            ),
-          }, {
-            text: 'Remarks',
-            value: 'REMARKS',
-            content: freeTextContainer(
-              <Remarks
-                getCableValue={getCableValue}
-                modCableValue={modCableValue}
-                handleDefaultClear={handleDefaultClear}
-              />,
-              ['REMARKS'],
-            ),
-          }]}
+          tabs={memo ?
+            [memoHeader, assignments, paragraphs, remarks] :
+            [noteHeader, routing, assignments, paragraphs, training, efm, remarks]
+          }
         />
       );
     }
     return (
-      <Preview
-        note={note}
-        cable={cable}
-        onCancel={onCancel}
-        memo={memo}
-        getCableValue={getCableValue}
-        setEditMode={setEditMode}
-        fetchData={fetchNoteData}
-      />
+      memo ?
+        <MemoPreview
+          note={note}
+          cable={cable}
+          onCancel={onCancel}
+          getCableValue={getCableValue}
+          setEditMode={setEditMode}
+          fetchData={fetchNoteData}
+        /> :
+        <Preview
+          note={note}
+          cable={cable}
+          onCancel={onCancel}
+          getCableValue={getCableValue}
+          setEditMode={setEditMode}
+          fetchData={fetchNoteData}
+        />
     );
   };
 
   return (getOverlay() || cardMode());
 };
 
-NotificationCard.propTypes = {
+TMOneCard.propTypes = {
   note: PropTypes.shape({
     NM_SEQ_NUM: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
@@ -486,10 +516,10 @@ NotificationCard.propTypes = {
   memo: PropTypes.bool,
 };
 
-NotificationCard.defaultProps = {
+TMOneCard.defaultProps = {
   note: undefined,
   onCancel: EMPTY_FUNCTION,
   memo: false,
 };
 
-export default NotificationCard;
+export default TMOneCard;

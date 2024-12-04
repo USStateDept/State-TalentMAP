@@ -10,9 +10,9 @@ import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import api from '../../../api';
 import { history } from '../../../store';
-import NotificationCard from '../NotificationCard';
+import TMOneCard from './TMOneCard';
 
-const AssignmentNotification = (props) => {
+const AssignmentTMOne = (props) => {
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
@@ -23,11 +23,6 @@ const AssignmentNotification = (props) => {
   const dispatch = useDispatch();
 
   // ====================== Data Retrieval ======================
-
-  const results = useSelector(state => state.altAssignmentsSeparations);
-  const resultsErrored = useSelector(state => state.altAssignmentsSeparationsErrored);
-  const resultsLoading = useSelector(state => state.altAssignmentsSeparationsLoading);
-  const noResults = results?.length === 0;
 
   const note = useSelector(state => state.noteCableFetchData);
   const noteErrored = useSelector(state => state.noteCableFetchDataErrored);
@@ -53,12 +48,10 @@ const AssignmentNotification = (props) => {
           messages={[{ body: 'Please return to Maintain Assignments to select assignments and try adding the Notification/Memo again.' }]}
         />
       );
-    } else if (resultsLoading || employeeDataLoading || noteLoading) {
+    } else if (employeeDataLoading || noteLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
-    } else if (resultsErrored || noteErrored || employeeDataError) {
+    } else if (noteErrored || employeeDataError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-    } else if (noResults) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'No assignments for this user.' }]} />;
     } else {
       return false;
     }
@@ -100,7 +93,7 @@ const AssignmentNotification = (props) => {
           </span>
         </div>
         {noteId &&
-          <NotificationCard
+          <TMOneCard
             note={note[0]}
             onCancel={() => history.push(`/profile/${viewType}/${clientId}/assignmentsseparations`)}
             memo={noteType === 'memo'}
@@ -111,7 +104,7 @@ const AssignmentNotification = (props) => {
   );
 };
 
-AssignmentNotification.propTypes = {
+AssignmentTMOne.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -123,9 +116,9 @@ AssignmentNotification.propTypes = {
   }),
 };
 
-AssignmentNotification.defaultProps = {
+AssignmentTMOne.defaultProps = {
   match: {},
   location: {},
 };
 
-export default withRouter(AssignmentNotification);
+export default withRouter(AssignmentTMOne);

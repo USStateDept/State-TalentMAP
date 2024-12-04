@@ -18,7 +18,7 @@ import {
   noteCableRefFetchData,
   noteCableRefFetchDataErrored,
   noteCableRefFetchDataLoading,
-} from './assignmentNotifications';
+} from './tmOne';
 
 export default {
   cableFetchData,
