@@ -168,6 +168,7 @@ const BiddingToolCard = (props) => {
         efm_issues: ehcps?.[0]?.code || '',
 
         snd: 'N',
+        fbp: 'N',
         hds: 'N',
         apo_fpo_dpo: 'N',
         consumable_allowance: 'N',
@@ -411,6 +412,14 @@ const BiddingToolCard = (props) => {
               id="snd"
               onCheckBoxClick={e => setValues({ ...values, snd: e ? 'Y' : 'N' })}
               value={values.snd === 'Y'}
+            />
+          </div>
+          <div className="position-form--label-input-container mt-30">
+            <CheckBox
+              label="FBP"
+              id="fbp"
+              onCheckBoxClick={e => setValues({ ...values, fbp: e ? 'Y' : 'N' })}
+              value={values.fbp === 'Y'}
             />
           </div>
           <div className="position-form--label-input-container mt-30">
