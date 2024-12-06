@@ -277,6 +277,7 @@ export function bidderPortfolioSeasonsFetchData() {
     const endpoint = '/fsbid/bid_seasons/';
     api().get(endpoint)
       .then(({ data }) => {
+        console.log('bidderPortfolioSeasonsFetchData', data);
         batch(() => {
           dispatch(bidderPortfolioSeasonsSuccess(data));
           dispatch(bidderPortfolioSeasonsHasErrored(false));
@@ -320,6 +321,7 @@ export function bidderPortfolioExtraDetailsFetchData(query = {}) {
       }),
     })
       .then(({ data }) => {
+        console.log('bidderPortfolioExtraDetailsFetchData', data);
         batch(() => {
           dispatch(bidderPortfolioExtraDetailsFetchDataSuccess(data));
           dispatch(bidderPortfolioHasErrored(false));
@@ -415,6 +417,7 @@ export function getClientDatePerdets(query = {}) {
       if (ids.length) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, query$, { cancelToken });
+        console.log('getClientDatePerdets - client/panel_update/', response);
         const { data } = response;
         const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
@@ -432,6 +435,7 @@ export function getClientDatePerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
+          console.log('getClientDatePerdets - client/', secondData);
 
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
@@ -500,6 +504,7 @@ export function getClientPerdets(query = {}) {
       if (ids.length) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, { cancelToken });
+        console.log('getClientPerdets - client/client_perdets/', response);
         const { data } = response;
         const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
@@ -517,7 +522,7 @@ export function getClientPerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-
+          console.log('getClientPerdets - client/', secondData);
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -567,14 +572,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
-          // filter null results
-          // const data$ = data;
-          // data$.results = data$.results.filter(obj => obj !== null);
-          // data$.count = data$.results.length;
-          // if (data$.count !== data.count) {
-          //   // eslint-disable-next-line no-console
-          //   console.warn('Check logs for bad employee data');
-          // }
+          console.log('bidderPortfolioFetchData', data);
           batch(() => {
             dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
             dispatch(bidderPortfolioFetchDataSuccess(data));
@@ -636,6 +634,7 @@ export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) 
         }),
       })
         .then(({ data }) => {
+          console.log('bidderPortfolioSingleSeasonFetchData', data);
           batch(() => {
             dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
             if (!isCDO) {
