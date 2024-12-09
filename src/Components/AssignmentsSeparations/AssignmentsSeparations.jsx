@@ -19,6 +19,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
+import { sortBy } from 'lodash';
 
 const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
@@ -58,9 +59,16 @@ const AssignmentsSeparations = (props) => {
   // ====================== Data Retrieval ======================
 
   const results = useSelector(state => state.altAssignmentsSeparations);
+  // const sortedResults = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
+  const sortedResults = results.slice().sort((a, b) => {
+    const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
+    const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
+    return yearB - yearA;
+  });
   const resultsErrored = useSelector(state => state.altAssignmentsSeparationsErrored);
   const resultsLoading = useSelector(state => state.altAssignmentsSeparationsLoading);
-  const noResults = results?.length === 0;
+  // const noResults = results?.length === 0;
+  const noResults = sortedResults?.length === 0;
 
   useEffect(() => {
     dispatch(altAssignmentsSeparations(id));
