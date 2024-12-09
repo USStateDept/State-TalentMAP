@@ -615,6 +615,7 @@ export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) 
     }
     if (isArray(seasons) && seasons.length) {
       query$.bid_seasons = join(seasons, ',');
+      // query$.limit = 9999; // why is this needed?
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
