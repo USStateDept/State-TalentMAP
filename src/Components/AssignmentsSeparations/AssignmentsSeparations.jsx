@@ -62,10 +62,22 @@ const AssignmentsSeparations = (props) => {
   const sortedResults2 = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
   // eslint-disable-next-line no-console
   console.log('sortedResults2', sortedResults2);
+  // const sortedResults = results.slice().sort((a, b) => {
+  //   const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
+  //   const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
+  //   return yearB - yearA;
+  // });
   const sortedResults = results.slice().sort((a, b) => {
-    const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
-    const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
-    return yearB - yearA;
+    const [dayA, monthA, yearA] = a.ASGD_ETD_TED_DATE.split('/').map(part => parseInt(part, 10));
+    const [dayB, monthB, yearB] = b.ASGD_ETD_TED_DATE.split('/').map(part => parseInt(part, 10));
+
+    if (yearA !== yearB) {
+      return yearA - yearB;
+    }
+    if (monthA !== monthB) {
+      return monthA - monthB;
+    }
+    return dayA - dayB;
   });
   // eslint-disable-next-line no-console
   console.log('results', results);
