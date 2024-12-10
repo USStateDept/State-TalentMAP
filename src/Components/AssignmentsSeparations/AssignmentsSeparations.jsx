@@ -26,10 +26,10 @@ const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
 
 // checking user permissions for Add New Assignment/Separation link
-const userProfile = useSelector(state => state.userProfile);
-const aoOrCDO = userHasPermissions(['ao_user', 'cdo'], userProfile?.permission_groups);
-// eslint-disable-next-line no-console
-console.log('aoOrCDO flag', aoOrCDO);
+// const userProfile = useSelector(state => state.userProfile);
+// const aoOrCDO = userHasPermissions(['ao_user', 'cdo'], userProfile?.permission_groups);
+// // eslint-disable-next-line no-console
+// console.log('aoOrCDO flag', aoOrCDO);
 
 export const panelMeetingLink = (pmSeqNum, date, editMode) => {
   if ((!pmSeqNum && !date) && editMode) {
