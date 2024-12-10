@@ -396,7 +396,6 @@ export function getClientDatePerdets(query = {}) {
 
       if (seasons.length) {
         query$.bid_seasons = seasons.join(',');
-        query$.limit = 9999;
       }
       if (!query$.bid_seasons) {
         query$ = omit(query$, ['hasHandshake', 'handshake']);
@@ -432,7 +431,6 @@ export function getClientDatePerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -517,7 +515,6 @@ export function getClientPerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -567,17 +564,9 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
-          // filter null results
-          const data$ = data;
-          data$.results = data$.results.filter(obj => obj !== null);
-          data$.count = data$.results.length;
-          if (data$.count !== data.count) {
-            // eslint-disable-next-line no-console
-            console.warn('Check logs for bad employee data');
-          }
           batch(() => {
-            dispatch(bidderPortfolioLastQuery(query$$, data$.count, endpoint));
-            dispatch(bidderPortfolioFetchDataSuccess(data$));
+            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+            dispatch(bidderPortfolioFetchDataSuccess(data));
             if (!isCDO) {
               dispatch(bidderPortfolioHasErrored(false));
               dispatch(bidderPortfolioIsLoading(false));
@@ -617,7 +606,6 @@ export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) 
     }
     if (isArray(seasons) && seasons.length) {
       query$.bid_seasons = join(seasons, ',');
-      query$.limit = 9999;
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
