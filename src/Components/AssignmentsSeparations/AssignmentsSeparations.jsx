@@ -74,7 +74,7 @@ const AssignmentsSeparations = (props) => {
   const resultsErrored = useSelector(state => state.altAssignmentsSeparationsErrored);
   const resultsLoading = useSelector(state => state.altAssignmentsSeparationsLoading);
   // const noResults = results?.length === 0;
-  const noResults = sortedResults?.length === 0;
+  const noResults = sortedResults2?.length === 0;
 
   useEffect(() => {
     dispatch(altAssignmentsSeparations(id));
@@ -256,8 +256,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         }
-        {assignmentToggle && (sortedResults?.QRY_LSTASGS_REF?.length > 0 ?
-          sortedResults?.QRY_LSTASGS_REF?.map(data => (
+        {assignmentToggle && (sortedResults2?.QRY_LSTASGS_REF?.length > 0 ?
+          sortedResults2?.QRY_LSTASGS_REF?.map(data => (
             <div key={`include-${data.ASG_SEQ_NUM}`} className="position-content--container" >
               <div className="toggle-include account-margin">
                 <CheckBox
@@ -302,7 +302,7 @@ const AssignmentsSeparations = (props) => {
           />
         )}
         {!assignmentToggle && (sortedResults?.QRY_LSTSEPS_REF?.length > 0 ?
-          sortedResults?.QRY_LSTSEPS_REF?.map(data => (
+          sortedResults2?.QRY_LSTSEPS_REF?.map(data => (
             <TabbedCard
               key={data?.SEP_SEQ_NUM}
               tabs={[{
