@@ -10,7 +10,6 @@ import CheckBox from '../../../CheckBox';
 
 const BidPortfolioTable = ({ results, setEditClassification }) => {
   const dispatch = useDispatch();
-  console.log('Loading table...:\n', results);
   const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
   const rowSelection = {
     mode: 'multiRow',
