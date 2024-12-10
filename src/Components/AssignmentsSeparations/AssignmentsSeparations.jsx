@@ -20,9 +20,16 @@ import { sortBy } from 'lodash';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
+import { userHasPermissions } from '../../utilities';
 
 const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
+
+// checking user permissions for Add New Assignment/Separation link
+const userProfile = useSelector(state => state.userProfile);
+const aoOrCDO = userHasPermissions(['ao_user', 'cdo'], userProfile?.permission_groups);
+// eslint-disable-next-line no-console
+console.log('aoOrCDO flag', aoOrCDO);
 
 export const panelMeetingLink = (pmSeqNum, date, editMode) => {
   if ((!pmSeqNum && !date) && editMode) {
@@ -59,34 +66,22 @@ const AssignmentsSeparations = (props) => {
   // ====================== Data Retrieval ======================
 
   const results = useSelector(state => state.altAssignmentsSeparations);
-  const sortedResults2 = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
-  // eslint-disable-next-line no-console
-  console.log('sortedResults2', sortedResults2);
-  // const sortedResults = results.slice().sort((a, b) => {
-  //   const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
-  //   const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
-  //   return yearB - yearA;
-  // });
-  const sortedResults = results.slice().sort((a, b) => {
-    const [dayA, monthA, yearA] = a.ASGD_ETD_TED_DATE.split('/').map(part => parseInt(part, 10));
-    const [dayB, monthB, yearB] = b.ASGD_ETD_TED_DATE.split('/').map(part => parseInt(part, 10));
-
-    if (yearA !== yearB) {
-      return yearA - yearB;
-    }
-    if (monthA !== monthB) {
-      return monthA - monthB;
-    }
-    return dayA - dayB;
-  });
   // eslint-disable-next-line no-console
   console.log('results', results);
+  const sortedResults = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
   // eslint-disable-next-line no-console
   console.log('sortedResults', sortedResults);
+  const sortedResults2 = results.slice().sort((a, b) => {
+    const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
+    const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
+    return yearB - yearA;
+  });
+  // eslint-disable-next-line no-console
+  console.log('sortedResults2 with longer sorting code', sortedResults2);
   const resultsErrored = useSelector(state => state.altAssignmentsSeparationsErrored);
   const resultsLoading = useSelector(state => state.altAssignmentsSeparationsLoading);
   // const noResults = results?.length === 0;
-  const noResults = sortedResults2?.length === 0;
+  const noResults = sortedResults?.length === 0;
 
   useEffect(() => {
     dispatch(altAssignmentsSeparations(id));
@@ -268,8 +263,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         }
-        {assignmentToggle && (sortedResults2?.QRY_LSTASGS_REF?.length > 0 ?
-          sortedResults2?.QRY_LSTASGS_REF?.map(data => (
+        {assignmentToggle && (sortedResults?.QRY_LSTASGS_REF?.length > 0 ?
+          sortedResults?.QRY_LSTASGS_REF?.map(data => (
             <div key={`include-${data.ASG_SEQ_NUM}`} className="position-content--container" >
               <div className="toggle-include account-margin">
                 <CheckBox
@@ -314,7 +309,7 @@ const AssignmentsSeparations = (props) => {
           />
         )}
         {!assignmentToggle && (sortedResults?.QRY_LSTSEPS_REF?.length > 0 ?
-          sortedResults2?.QRY_LSTSEPS_REF?.map(data => (
+          sortedResults?.QRY_LSTSEPS_REF?.map(data => (
             <TabbedCard
               key={data?.SEP_SEQ_NUM}
               tabs={[{
