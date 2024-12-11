@@ -22,6 +22,7 @@ import {
   UPDATE_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
+import { extractSoapResponse } from '../Components/AssignmentsSeparations/AssignmentTMOne/TMOneCard/Common/Utilities';
 
 
 // ================ GET TM1 DATA ================
@@ -523,16 +524,14 @@ export function getOpsWsdlSuccess(results) {
   };
 }
 let cancelGetOpsWsdl;
-export function getOpsWsdl(query = {}) {
+export function getOpsWsdl() {
   return (dispatch) => {
     if (cancelGetOpsWsdl) { cancelGetOpsWsdl('cancel'); }
     batch(() => {
       dispatch(getOpsWsdlLoading(true));
       dispatch(getOpsWsdlErrored(false));
     });
-    const q = convertQueryToString(query);
-    const endpoint = '/fsbid/tmone/ops/wsdl/';
-    const ep = `${endpoint}?${q}`;
+    const ep = '/fsbid/tmone/ops/wsdl/';
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelGetOpsWsdl = c; }),
     })
@@ -555,6 +554,63 @@ export function getOpsWsdl(query = {}) {
             dispatch(getOpsWsdlSuccess({}));
             dispatch(getOpsWsdlErrored(false));
             dispatch(getOpsWsdlLoading(true));
+          });
+        }
+      });
+  };
+}
+
+// ================ GET OPS SOAP ACTION ================
+
+export function getOpsSoapActionErrored(bool) {
+  return {
+    type: 'OPS_SOAP_ACTION_FETCH_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function getOpsSoapActionLoading(bool) {
+  return {
+    type: 'OPS_SOAP_ACTION_FETCH_LOADING',
+    isLoading: bool,
+  };
+}
+export function getOpsSoapActionSuccess(results) {
+  return {
+    type: 'OPS_SOAP_ACTION_FETCH_SUCCESS',
+    results,
+  };
+}
+let cancelGetOpsSoapAction;
+export function getOpsSoapAction() {
+  return (dispatch) => {
+    if (cancelGetOpsSoapAction) { cancelGetOpsSoapAction('cancel'); }
+    batch(() => {
+      dispatch(getOpsSoapActionLoading(true));
+      dispatch(getOpsSoapActionErrored(false));
+    });
+    const ep = '/fsbid/tmone/ops/action/';
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => { cancelGetOpsSoapAction = c; }),
+    })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(getOpsSoapActionSuccess(data));
+          dispatch(getOpsSoapActionErrored(false));
+          dispatch(getOpsSoapActionLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message !== 'cancel') {
+          batch(() => {
+            dispatch(getOpsSoapActionSuccess({}));
+            dispatch(getOpsSoapActionErrored(true));
+            dispatch(getOpsSoapActionLoading(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(getOpsSoapActionSuccess({}));
+            dispatch(getOpsSoapActionErrored(false));
+            dispatch(getOpsSoapActionLoading(true));
           });
         }
       });
@@ -632,13 +688,14 @@ export function sendSoap(data, onSuccess) {
       cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
     })
       .then((response) => {
-        const updateRequest = {
-          PV_OTL_ID_I: response.PV_OTL_ID_O,
-          PV_OTL_SUBMIT_RETURN_CODE_I: response.PV_RETURN_O,
-          PV_OTL_SUBMIT_MESSAGE_I: response.PV_MESSAGE || 'No Message',
-        };
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
           .then(() => {
+            const soapResponse = extractSoapResponse(data);
+            const updateRequest = {
+              PV_OTL_ID_I: response.PV_OTL_ID_O,
+              PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
+              PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
+            };
             api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
                 dispatch(toastSuccess(
