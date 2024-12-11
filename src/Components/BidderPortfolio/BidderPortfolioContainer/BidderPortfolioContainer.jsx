@@ -23,7 +23,7 @@ class BidderPortfolioContainer extends Component {
   };
 
   render() {
-    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, pageSize, showListView, isLoading, viewType,
+    const { bidderPortfolio, bidderPortfolioExtraData, pageSize, showListView, isLoading, viewType,
       cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
     const showCDOD30 = checkFlag('flags.CDOD30');
 
@@ -34,31 +34,37 @@ class BidderPortfolioContainer extends Component {
 
     const getClientData = () => {
       const combinedArray = bidderPortfolio?.results?.map(item1 => {
+        const worklist = item1.workLists ? item1.workLists : null;
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(item1?.perdet_seq_number));
+        if (isClient && isSeason) {
+          return matchingItem ? { ...item1, workLists: worklist, ...matchingItem } : null;
+        }
         return matchingItem ? { ...item1, ...matchingItem } : null;
       }).filter(item => item !== null);
+      console.log('bidSeason -- if true, should see workLists in data: ', isSeason);
+      console.log('tableData: ', combinedArray);
       return combinedArray;
     };
 
-    const filterWorkLists = (firstArr, secondArr) => (
-      firstArr.map(obj => {
-        const match = secondArr.some(secondObj => secondObj.perdet_seq_number === obj.perdet_seq_number);
-        const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(obj?.perdet_seq_number));
-        return {
-          ...obj,
-          workLists: match ? obj.workLists : null,
-          ...matchingItem,
-        };
-      })
-    );
+    // const filterWorkLists = (firstArr, secondArr) => (
+    //   firstArr.map(obj => {
+    //     const match = secondArr.some(secondObj => secondObj.perdet_seq_number === obj.perdet_seq_number);
+    //     const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(obj?.perdet_seq_number));
+    //     return {
+    //       ...obj,
+    //       workLists: match ? obj.workLists : null,
+    //       ...matchingItem,
+    //     };
+    //   })
+    // );
 
-    const swapTables = () => {
-      if (isClient && isSeason) {
-        console.log('filtedList: ', filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results));
-        return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
-      }
-      return getClientData();
-    };
+    const swapTables = () =>
+      // if (isClient && isSeason) {
+      //   console.log('filtedList: ', filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results));
+      //   return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
+      // }
+      getClientData()
+    ;
 
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
@@ -126,7 +132,7 @@ class BidderPortfolioContainer extends Component {
 BidderPortfolioContainer.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
-  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
+  // bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   pageSize: PropTypes.number.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
