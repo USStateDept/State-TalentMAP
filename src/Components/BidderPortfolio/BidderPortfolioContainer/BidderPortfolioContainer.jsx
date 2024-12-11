@@ -54,6 +54,7 @@ class BidderPortfolioContainer extends Component {
 
     const swapTables = () => {
       if (isClient && isSeason) {
+        console.log('filtedList: ', filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results));
         return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
       }
       return getClientData();
