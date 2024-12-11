@@ -539,14 +539,14 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
 
-    // const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    // if (isArray(seasons) && seasons.length && isSeasons) {
-    //   query$.bid_seasons = join(seasons, ',');
-    // }
+    if (isArray(seasons) && seasons.length && isSeasons) {
+      query$.bid_seasons = join(seasons, ',');
+    }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
     }
