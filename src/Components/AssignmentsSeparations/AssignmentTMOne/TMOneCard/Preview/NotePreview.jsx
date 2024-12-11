@@ -6,7 +6,7 @@ import FA from 'react-fontawesome';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
-import { emailNotification, getOpsData, getOpsWsdl, sendNotification, sendSoap, sendToEopf } from 'actions/tmOne';
+import { emailNotification, getOpsData, getOpsSoapAction, getOpsWsdl, sendNotification, sendSoap, sendToEopf } from 'actions/tmOne';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from 'Components/Layout';
 import Alert from 'Components/Alert';
@@ -35,18 +35,23 @@ const NotePreview = (props) => {
   const opsWsdlErrored = useSelector(state => state.getOpsWsdlErrored);
   const opsWsdlLoading = useSelector(state => state.getOpsWsdlLoading);
 
+  const opsAction = useSelector(state => state.getOpsSoapAction);
+  const opsActionErrored = useSelector(state => state.getOpsSoapActionErrored);
+  const opsActionLoading = useSelector(state => state.getOpsSoapActionLoading);
+
   const opsData = useSelector(state => state.getOpsData);
   const opsDataErrored = useSelector(state => state.getOpsDataErrored);
   const opsDataLoading = useSelector(state => state.getOpsDataLoading);
 
-  const opsLoading = opsWsdlLoading || opsDataLoading;
-  const opsErrored = opsWsdlErrored || opsDataErrored;
+  const opsLoading = opsWsdlLoading || opsActionLoading || opsDataLoading;
+  const opsErrored = opsWsdlErrored || opsActionErrored || opsDataErrored;
 
   const prepareNoteSendError = opsLoading || opsErrored;
 
   useEffect(() => {
     // Fetch OPS Data to Prepare for Send Notification (Not Applicable to Memo)
     dispatch(getOpsWsdl());
+    dispatch(getOpsSoapAction());
     dispatch(getOpsData({ PV_NM_SEQ_NUM_I: note?.NM_SEQ_NUM }));
   }, []);
 
@@ -143,6 +148,7 @@ const NotePreview = (props) => {
       dispatch(sendSoap({
         soapRequest: {
           WSDL: opsWsdl.PV_PARM_VALUE_O,
+          ACTION: opsAction.PV_PARM_VALUE_O,
           SOAP: soapXml,
         },
         logRequest: {
