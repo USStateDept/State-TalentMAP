@@ -275,11 +275,12 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: async (query, cdo) => dispatch(bidderPortfolioFetchData(query, cdo)),
+  // eslint-disable-next-line no-unused-vars
   fetchBidderPortfolioCDO: async (query, cdo, season) => {
     await dispatch(bidderPortfolioFetchData(query, cdo, false));
-    if (season) {
-      dispatch(bidderPortfolioSingleSeasonFetchData(query, cdo, season));
-    }
+    // if (season) {
+    //   dispatch(bidderPortfolioSingleSeasonFetchData(query, cdo, season));
+    // }
     dispatch(bidderPortfolioExtraDetailsFetchData());
   },
   fetchUnassignedBidderTypes: async query => {
