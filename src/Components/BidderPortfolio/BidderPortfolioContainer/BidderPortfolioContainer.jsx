@@ -23,7 +23,7 @@ class BidderPortfolioContainer extends Component {
   };
 
   render() {
-    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, pageSize, showListView, isLoading, viewType,
+    const { bidderPortfolio, bidderPortfolioExtraData, pageSize, showListView, isLoading, viewType,
       cdosLength, hideControls, classifications, hasErrored, pageNumber, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
     const showCDOD30 = checkFlag('flags.CDOD30');
 
@@ -34,36 +34,21 @@ class BidderPortfolioContainer extends Component {
 
     const getClientData = () => {
       const combinedArray = bidderPortfolio?.results?.map(item1 => {
+        const worklist = item1.workLists ? item1.workLists : null;
         const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(item1?.perdet_seq_number));
+        if (isClient && isSeason) {
+          return matchingItem ? { ...item1, workLists: worklist, ...matchingItem } : null;
+        }
         return matchingItem ? { ...item1, ...matchingItem } : null;
       }).filter(item => item !== null);
       return combinedArray;
-    };
-
-    const filterWorkLists = (firstArr, secondArr) => (
-      firstArr.map(obj => {
-        const match = secondArr.some(secondObj => secondObj.perdet_seq_number === obj.perdet_seq_number);
-        const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(obj?.perdet_seq_number));
-        return {
-          ...obj,
-          workLists: match ? obj.workLists : null,
-          ...matchingItem,
-        };
-      })
-    );
-
-    const swapTables = () => {
-      if (isClient && isSeason) {
-        return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
-      }
-      return getClientData();
     };
 
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {!showNoCdosAlert && !hasErrored && isCDOD30 && !noResults && bidderPortfolioExtraData.length !== 0 &&
           <div className="usa-grid-full bidder-portfolio-listing">
-            <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? swapTables() : []} setEditClassification={setEditClassification} />
+            <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? getClientData() : []} setEditClassification={setEditClassification} />
           </div>
         }
         {
@@ -125,7 +110,6 @@ class BidderPortfolioContainer extends Component {
 BidderPortfolioContainer.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
-  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   pageSize: PropTypes.number.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
