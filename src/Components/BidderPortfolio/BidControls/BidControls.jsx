@@ -257,6 +257,7 @@ class BidControls extends Component {
             <BidCyclePicker
               setSeasonsCb={(b, value) => this.onSeasonChange(b, value)}
               setClick={(a) => { this.updateMultiSelect = a; }}
+              pageSize={pageSize}
               updatePagination={updatePagination}
               isMultiple={!isCDOD30}
             />

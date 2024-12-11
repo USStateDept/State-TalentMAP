@@ -68,6 +68,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       />
       <Connect(BidCyclePicker)
         isMultiple={true}
+        pageSize={10}
         setClick={[Function]}
         setSeasonsCb={[Function]}
         updatePagination={[Function]}
@@ -199,6 +200,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       />
       <Connect(BidCyclePicker)
         isMultiple={true}
+        pageSize={10}
         setClick={[Function]}
         setSeasonsCb={[Function]}
         updatePagination={[Function]}
