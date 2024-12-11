@@ -110,7 +110,6 @@ class BidderPortfolioContainer extends Component {
 BidderPortfolioContainer.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
-  // bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   pageSize: PropTypes.number.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
