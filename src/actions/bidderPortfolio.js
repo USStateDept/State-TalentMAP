@@ -555,7 +555,7 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    if (isArray(seasons) && seasons.length && isSeasons) {
+    if (isArray(seasons) && seasons.length && !isCDO) {
       query$.bid_seasons = join(seasons, ',');
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
