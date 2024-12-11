@@ -132,7 +132,7 @@ class BidderPortfolio extends Component {
   }
 
   render() {
-    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
+    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       updatePagination, bidderPortfolioPagination, viewType,
@@ -145,7 +145,6 @@ class BidderPortfolio extends Component {
         <BidderPortfolioPage
           bidderPortfolio={bidderPortfolio}
           bidderPortfolioExtraData={bidderPortfolioExtraData}
-          bidderPortfolioFilteredSeasonDataSuccess={bidderPortfolioFilteredSeasonDataSuccess}
           bidderPortfolioIsLoading={isLoading}
           bidderPortfolioHasErrored={bidderPortfolioHasErrored}
           pageSize={bidderPortfolioPagination.pageSize || 10}
@@ -175,7 +174,6 @@ class BidderPortfolio extends Component {
 BidderPortfolio.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
-  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   bidderPortfolioIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolio: PropTypes.func.isRequired,
@@ -213,7 +211,6 @@ BidderPortfolio.propTypes = {
 BidderPortfolio.defaultProps = {
   bidderPortfolio: { results: [] },
   bidderPortfolioExtraData: { results: [] },
-  bidderPortfolioFilteredSeasonDataSuccess: { results: [] },
   bidderPortfolioIsLoading: false,
   bidderPortfolioHasErrored: false,
   fetchBidderPortfolio: EMPTY_FUNCTION,
@@ -248,7 +245,6 @@ BidderPortfolio.defaultProps = {
 const mapStateToProps = state => ({
   bidderPortfolio: state.bidderPortfolio,
   bidderPortfolioExtraData: state.bidderPortfolioExtraData,
-  bidderPortfolioFilteredSeasonDataSuccess: state.bidderPortfolioSeasonSearchFetchDataSuccess,
   bidderPortfolioIsLoading: state.bidderPortfolioIsLoading,
   bidderPortfolioHasErrored: state.bidderPortfolioHasErrored,
   bidderPortfolioCounts: state.bidderPortfolioCounts,

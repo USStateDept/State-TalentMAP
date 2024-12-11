@@ -70,24 +70,6 @@ export function bidderPortfolioFetchDataSuccess(results) {
     results,
   };
 }
-export function bidderPortfolioSeasonSearchHasErrored(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidderPortfolioSeasonSearchIsLoading(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidderPortfolioSeasonSearchFetchDataSuccess(results) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_FETCH_DATA_SUCCESS',
-    results,
-  };
-}
 export function bidderPortfolioExtraDetailsFetchDataSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_EXTRA_DETAILS_FETCH_DATA_SUCCESS',
