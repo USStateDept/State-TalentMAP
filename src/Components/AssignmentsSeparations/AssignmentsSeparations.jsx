@@ -55,7 +55,6 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 };
 
 const AssignmentsSeparations = (props) => {
-
   // for testing pirposes
   // checking user permissions for Add New Assignment/Separation link
   const userProfile = useSelector(state => state.userProfile);
