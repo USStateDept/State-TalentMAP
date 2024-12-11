@@ -275,10 +275,8 @@ export function bidderPortfolioSeasonsFetchData() {
       dispatch(bidderPortfolioSeasonsHasErrored(false));
     });
     const endpoint = '/fsbid/bid_seasons/';
-    console.log('bidderPortfolioSeasonsFetchData', endpoint);
     api().get(endpoint)
       .then(({ data }) => {
-        console.log('bidderPortfolioSeasonsFetchData data:\n', data);
         batch(() => {
           dispatch(bidderPortfolioSeasonsSuccess(data));
           dispatch(bidderPortfolioSeasonsHasErrored(false));
@@ -316,14 +314,12 @@ export function bidderPortfolioExtraDetailsFetchData(query = {}) {
     const queryString = stringify(query$);
     const endpoint = '/fsbid/client/extra_client_data/';
     const q = `${endpoint}?${queryString}`;
-    console.log('bidderPortfolioExtraDetailsFetchData', q);
     api().post(q, {
       cancelToken: new CancelToken((c) => {
         cancelPortfolio = c;
       }),
     })
       .then(({ data }) => {
-        console.log('bidderPortfolioExtraDetailsFetchData data:\n', data);
         batch(() => {
           dispatch(bidderPortfolioExtraDetailsFetchDataSuccess(data));
           dispatch(bidderPortfolioHasErrored(false));
@@ -417,15 +413,12 @@ export function getClientDatePerdets(query = {}) {
 
       if (ids.length) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
-        console.log('getClientDatePerdets panel_update', url);
         const response = await api().post(url, query$, { cancelToken });
-        console.log('getClientDatePerdets panel_update response:\n', response);
         const { data } = response;
         const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
-        console.log('getClientDatePerdets client', secondUrl);
 
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
@@ -438,7 +431,6 @@ export function getClientDatePerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-          console.log('getClientDatePerdets client data:\n', secondData);
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -502,17 +494,14 @@ export function getClientPerdets(query = {}) {
       }
 
       const cancelToken = new CancelToken(c => { cancelUnnassignedBidders = c; });
-      console.log('getClientPerdets client_perdets', url);
       if (ids.length) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, { cancelToken });
-        console.log('getClientPerdets client_perdets response:\n', response);
         const { data } = response;
         const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
-        console.log('getClientPerdets client', secondUrl);
 
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
@@ -525,7 +514,6 @@ export function getClientPerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-          console.log('getClientPerdets client data:\n', secondData);
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -568,7 +556,6 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
-    console.log('bidderPortfolioFetchData', q);
     if (ids.length) {
       api().get(q, {
         cancelToken: new CancelToken((c) => {
@@ -576,7 +563,6 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
-          console.log('bidderPortfolioFetchData data:\n', data);
           batch(() => {
             dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
             dispatch(bidderPortfolioFetchDataSuccess(data));
@@ -596,67 +582,6 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
             batch(() => {
               dispatch(bidderPortfolioHasErrored(true));
               dispatch(bidderPortfolioIsLoading(false));
-            });
-          }
-        });
-    }
-  };
-}
-
-export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) {
-  return (dispatch, getState) => {
-    if (cancelPortfolio) { cancelPortfolio('cancel'); }
-    dispatch(bidderPortfolioSeasonSearchIsLoading(true));
-    dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-    const state = getState();
-    const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
-    const ids = cdos.map(m => m.hru_id).filter(f => f);
-
-    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
-    let query$ = { ...query };
-    if (ids.length) {
-      query$.hru_id = ids.join();
-    }
-    if (isArray(seasons) && seasons.length) {
-      query$.bid_seasons = join(seasons, ',');
-    }
-    if (!query$.bid_seasons || !query$.bid_seasons.length) {
-      query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
-    }
-
-    if (!query$.ordering) {
-      query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
-    }
-    const query$$ = stringify(query$);
-    const endpoint = '/fsbid/client/';
-    const q = `${endpoint}?${query$$}`;
-    console.log('bidderPortfolioSingleSeasonFetchData', q);
-    if (ids.length) {
-      api().get(q, {
-        cancelToken: new CancelToken((c) => {
-          cancelPortfolio = c;
-        }),
-      })
-        .then(({ data }) => {
-          console.log('bidderPortfolioSingleSeasonFetchData data:\n', data);
-          batch(() => {
-            dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
-            if (!isCDO) {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
-            }
-          });
-        })
-        .catch((m) => {
-          if (get(m, 'message') === 'cancel') {
-            batch(() => {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(true));
-            });
-          } else {
-            batch(() => {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(true));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
             });
           }
         });
@@ -756,7 +681,6 @@ export function bidderPortfolioFetchDataFromLastQuery() {
       dispatch(lastBidderPortfolioHasErrored(false));
     });
     const q = getState().bidderPortfolioLastQuery;
-    console.log('bidderPortfolioFetchDataFromLastQuery', q);
     api().get(q)
       .then(({ data }) => {
         const data$ = isArray(data) ? data : [];
@@ -764,7 +688,6 @@ export function bidderPortfolioFetchDataFromLastQuery() {
           results: data$,
           count: data$.length,
         };
-        console.log('bidderPortfolioFetchDataFromLastQuery data:\n', data$$);
         batch(() => {
           dispatch(bidderPortfolioFetchDataSuccess(data$$));
           dispatch(lastBidderPortfolioHasErrored(false));
@@ -820,10 +743,8 @@ export function saveBidderPortfolioSelections(data = {}) {
 export function setCDOIncludeExclude(data = {}) {
   return (dispatch) => {
     const endpoint = '/fsbid/client/cdo_include_exlude/';
-    console.log('setCDOIncludeExclude', endpoint);
     api().post(endpoint, data)
       .then(() => {
-        console.log('setCDOIncludeExclude data:\n', data);
         batch(() => {
           dispatch(includeExcludeCDOSuccess(true));
           dispatch(toastSuccess(BIDDER_PORTFOLIO_INCLUDE_EXCLUDE_SUCCESS));

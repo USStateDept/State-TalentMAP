@@ -41,36 +41,14 @@ class BidderPortfolioContainer extends Component {
         }
         return matchingItem ? { ...item1, ...matchingItem } : null;
       }).filter(item => item !== null);
-      console.log('bidSeason -- if true, should see workLists in data: ', isSeason);
-      console.log('tableData: ', combinedArray);
       return combinedArray;
     };
-
-    // const filterWorkLists = (firstArr, secondArr) => (
-    //   firstArr.map(obj => {
-    //     const match = secondArr.some(secondObj => secondObj.perdet_seq_number === obj.perdet_seq_number);
-    //     const matchingItem = bidderPortfolioExtraData?.find(item2 => Number(item2?.PER_SEQ_NUM) === Number(obj?.perdet_seq_number));
-    //     return {
-    //       ...obj,
-    //       workLists: match ? obj.workLists : null,
-    //       ...matchingItem,
-    //     };
-    //   })
-    // );
-
-    const swapTables = () =>
-      // if (isClient && isSeason) {
-      //   console.log('filtedList: ', filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results));
-      //   return filterWorkLists(bidderPortfolio?.results, bidderPortfolioFilteredSeasonDataSuccess?.results);
-      // }
-      getClientData()
-    ;
 
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {!showNoCdosAlert && !hasErrored && isCDOD30 && !noResults && bidderPortfolioExtraData.length !== 0 &&
           <div className="usa-grid-full bidder-portfolio-listing">
-            <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? swapTables() : []} setEditClassification={setEditClassification} />
+            <BidderPortfolioTable results={bidderPortfolioExtraData.length !== 0 ? getClientData() : []} setEditClassification={setEditClassification} />
           </div>
         }
         {
