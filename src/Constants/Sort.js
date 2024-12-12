@@ -112,6 +112,7 @@ const showCDOD30 = checkFlag('flags.CDOD30');
 
 if (showCDOD30) {
   BID_PORTFOLIO_FILTERS.options.push(
+    { value: 'assigned_bidders', text: 'Assigned Bidders' },
     { value: 'eligible_bidders', text: 'Eligible Bidders' },
     { value: 'cusp_bidders', text: 'Cusp Bidders' },
     { value: 'separations', text: 'Separations' },

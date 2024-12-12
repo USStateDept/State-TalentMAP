@@ -89,6 +89,8 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     const typeMapping = {
       noBids: 'NB',
       noPanel: 'NP',
+      unassigned_bidders: 'UB',
+      assigned_bidders: 'AB',
       handshake: 'HS',
       eligible_bidders: 'EB',
       cusp_bidders: 'CU',
