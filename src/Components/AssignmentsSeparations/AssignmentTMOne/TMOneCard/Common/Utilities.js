@@ -339,11 +339,18 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
  * to use in OPS log inserts and updates
  * @param {*} res SOAP XML response
  */
-export const extractSoapResponse = (response) => {
+export const extractSoapResponse = (res) => {
+  // Decode string escape sequences in the XML response
+  const response = res.replace(/\\u(\w{4})/gi, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
+
+  // Parse string into XML for simplified extraction
   const parser = new window.DOMParser();
   const xml = parser.parseFromString(response, 'text/xml');
+
+  // Extract necessary tag values to determine successfulness
   const notification = xml.getElementsByTagName('notification')[0].textContent;
   const statusCode = xml.getElementsByTagName('StatusCode')[0].textContent;
+
   if (notification) {
     const successMsg = `SUCCESSFUL CALL OPS Web Service: ${response}`;
     return {
