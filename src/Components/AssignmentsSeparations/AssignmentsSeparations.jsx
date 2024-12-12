@@ -156,15 +156,17 @@ const AssignmentsSeparations = (props) => {
           </span>
           <div className="add-buttons">
             <div className={`create-new-button ${disableOtherEdits ? 'disabled' : ''}`}>
-              <a
-                role="button"
-                className="width-300"
-                tabIndex={0}
-                onClick={() => { if (!disableOtherEdits) setOpenModal(true); }}
-              >
-                <FA name="briefcase" />
-                Add New Assignment/Separation
-              </a>
+              {!aoOrCDO && (
+                <a
+                  role="button"
+                  className="width-300"
+                  tabIndex={0}
+                  onClick={() => { if (!disableOtherEdits) setOpenModal(true); }}
+                >
+                  <FA name="briefcase" />
+                  Add New Assignment/Separation
+                </a>
+              )}
             </div>
             {useNotification() &&
               <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
