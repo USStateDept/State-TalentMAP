@@ -75,10 +75,18 @@ const AssignmentsSeparations = (props) => {
   const results = useSelector(state => state.altAssignmentsSeparations);
   // eslint-disable-next-line no-console
   console.log('results', results);
+  // eslint-disable-next-line no-console
+  console.log('results.QRY_LSTASGS_REF', results.QRY_LSTASGS_REF);
+  // eslint-disable-next-line no-console
+  console.log('results.QRY_LSTSEPS_REF', results.QRY_LSTSEPS_REF);
+  // eslint-disable-next-line no-console
+  console.log('type of results', typeof results);
+  // eslint-disable-next-line no-console
   const sortedResults = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
   // eslint-disable-next-line no-console
   console.log('sortedResults', sortedResults);
-  const sortedResults2 = results.slice().sort((a, b) => {
+  // eslint-disable-next-line no-console
+  const sortedResults2 = results.QRY_LSTASGS_REF.slice().sort((a, b) => {
     const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
     const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
     return yearB - yearA;
