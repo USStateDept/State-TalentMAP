@@ -108,7 +108,7 @@ class BidControls extends Component {
     this.props.bidderPortfolioFetchDataSuccess({ results: [], count: 0 });
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
-      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters' || b.value !== 'languages'); // temporarily flag languages filter
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
     this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
@@ -218,7 +218,7 @@ class BidControls extends Component {
     const showClear = !!pills.length || getKeyword;
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!displayUnassignedFilter) {
-      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters' || b.value !== 'languages'); // temporarily flag languages filter
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
 
     const onPanelDateIDChange = (e) => {
