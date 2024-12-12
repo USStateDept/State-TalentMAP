@@ -47,6 +47,9 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 };
 
 const AssignmentsSeparations = (props) => {
+  // checking user permissions for Add New Assignment/Separation link
+  const userProfile = useSelector(state => state.userProfile);
+  const aoOrCDO = userHasPermissions(['ao_user', 'cdo'], userProfile?.permission_groups);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
