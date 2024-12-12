@@ -275,7 +275,7 @@ class BidControls extends Component {
                   disabled={!hasSeasons}
                 />
               </PreferenceWrapper>
-              { unassignedFilter &&
+              { false && // temporarily hiding as it is not working
               <div className={`unassigned-bidder-picker-container usa-form ${!unassignedFilter ? 'unassigned-disabled' : ''}`}>
                 <div className="label">Unassigned Filters:</div>
                 <Picky
@@ -285,7 +285,6 @@ class BidControls extends Component {
                   onChange={this.onUnassignedChange}
                   numberDisplayed={2}
                   dropdownHeight={255}
-                  // multiple //commented out to prevent multiple selections
                   renderList={renderList}
                   valueKey="value"
                   labelKey="text"
