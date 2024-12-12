@@ -48,7 +48,7 @@ class BidderPortfolioPage extends Component {
 
   render() {
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioFilteredSeasonDataSuccess, bidderPortfolioIsLoading, cdosLength, pageNumber,
+    const { bidderPortfolio, bidderPortfolioExtraData, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading, updatePagination, viewType,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering, isCDOD30, isSeason, isClient, setEditClassification } = this.props;
@@ -124,7 +124,6 @@ class BidderPortfolioPage extends Component {
                   <BidderPortfolioContainer
                     bidderPortfolio={bidderPortfolio}
                     bidderPortfolioExtraData={bidderPortfolioExtraData}
-                    bidderPortfolioFilteredSeasonDataSuccess={bidderPortfolioFilteredSeasonDataSuccess}
                     pageSize={pageSize}
                     queryParamUpdate={queryParamUpdate}
                     pageNumber={pageNumber}
@@ -154,7 +153,6 @@ class BidderPortfolioPage extends Component {
 BidderPortfolioPage.propTypes = {
   bidderPortfolio: BIDDER_LIST.isRequired,
   bidderPortfolioExtraData: BIDDER_LIST.isRequired,
-  bidderPortfolioFilteredSeasonDataSuccess: BIDDER_LIST.isRequired,
   bidderPortfolioIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioHasErrored: PropTypes.bool.isRequired,
   pageSize: PropTypes.number.isRequired,

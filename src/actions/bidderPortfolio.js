@@ -70,24 +70,6 @@ export function bidderPortfolioFetchDataSuccess(results) {
     results,
   };
 }
-export function bidderPortfolioSeasonSearchHasErrored(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidderPortfolioSeasonSearchIsLoading(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidderPortfolioSeasonSearchFetchDataSuccess(results) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_FETCH_DATA_SUCCESS',
-    results,
-  };
-}
 export function bidderPortfolioExtraDetailsFetchDataSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_EXTRA_DETAILS_FETCH_DATA_SUCCESS',
@@ -494,7 +476,6 @@ export function getClientPerdets(query = {}) {
       }
 
       const cancelToken = new CancelToken(c => { cancelUnnassignedBidders = c; });
-
       if (ids.length) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, { cancelToken });
@@ -539,14 +520,14 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
 
-    // const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    // if (isArray(seasons) && seasons.length && isSeasons) {
-    //   query$.bid_seasons = join(seasons, ',');
-    // }
+    if (isArray(seasons) && seasons.length && !isCDO) {
+      query$.bid_seasons = join(seasons, ',');
+    }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
     }
@@ -583,65 +564,6 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
             batch(() => {
               dispatch(bidderPortfolioHasErrored(true));
               dispatch(bidderPortfolioIsLoading(false));
-            });
-          }
-        });
-    }
-  };
-}
-
-export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) {
-  return (dispatch, getState) => {
-    if (cancelPortfolio) { cancelPortfolio('cancel'); }
-    dispatch(bidderPortfolioSeasonSearchIsLoading(true));
-    dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-    const state = getState();
-    const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
-    const ids = cdos.map(m => m.hru_id).filter(f => f);
-
-    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
-    let query$ = { ...query };
-    if (ids.length) {
-      query$.hru_id = ids.join();
-    }
-    if (isArray(seasons) && seasons.length) {
-      query$.bid_seasons = join(seasons, ',');
-    }
-    if (!query$.bid_seasons || !query$.bid_seasons.length) {
-      query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
-    }
-
-    if (!query$.ordering) {
-      query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
-    }
-    const query$$ = stringify(query$);
-    const endpoint = '/fsbid/client/';
-    const q = `${endpoint}?${query$$}`;
-    if (ids.length) {
-      api().get(q, {
-        cancelToken: new CancelToken((c) => {
-          cancelPortfolio = c;
-        }),
-      })
-        .then(({ data }) => {
-          batch(() => {
-            dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
-            if (!isCDO) {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
-            }
-          });
-        })
-        .catch((m) => {
-          if (get(m, 'message') === 'cancel') {
-            batch(() => {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(true));
-            });
-          } else {
-            batch(() => {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(true));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
             });
           }
         });
