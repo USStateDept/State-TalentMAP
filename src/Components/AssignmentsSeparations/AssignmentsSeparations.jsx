@@ -19,6 +19,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
+import { userHasPermissions } from '../../utilities';
 
 const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
