@@ -236,7 +236,7 @@ export const generateSoapXML = (log) => {
 
   xmlStr = xmlStr.concat('<Create__CompIntfc__OP_TM_STG_WEB_SRV3>');
 
-  xmlStr = xmlStr.concat(`<OP_TRV_MSG_TYPE>${log.OP_TRV_MSG_TYPE ?? ''}</OP_TRV_MSG_TYPE>`);
+  xmlStr = xmlStr.concat(`<OP_TRV_MSG_TYPE>TMONE</OP_TRV_MSG_TYPE>`);
   xmlStr = xmlStr.concat(`<EMPLID>${log.EMPLID ?? ''}</EMPLID>`);
   xmlStr = xmlStr.concat(`<OP_TM_ASGN_ID>${log.OP_TM_ASGN_SEQ ?? ''}</OP_TM_ASGN_ID>`);
   xmlStr = xmlStr.concat(`<OP_TM_ASG_REV>${log.OP_TM_ASG_REV ?? ''}</OP_TM_ASG_REV>`);
@@ -264,7 +264,7 @@ export const generateSoapXML = (log) => {
   xmlStr = xmlStr.concat('<OP_DIP_TTL_CD></OP_DIP_TTL_CD>');
   xmlStr = xmlStr.concat('<OP_TM_PROCESSED>N</OP_TM_PROCESSED>');
   xmlStr = xmlStr.concat('<OP_TM_STG_ERRORCD>N</OP_TM_STG_ERRORCD>');
-  xmlStr = xmlStr.concat('<LASTUPDTBY>FSBID</LASTUPDTBY>');
+  xmlStr = xmlStr.concat('<LASTUPDTBY>TalentMAP</LASTUPDTBY>');
   xmlStr = xmlStr.concat('<LASTUPDDTTM></LASTUPDDTTM>');
   xmlStr = xmlStr.concat(`<OP_TRV_MSG><![CDATA[${log.OP_TRV_MSG ?? ''}]]></OP_TRV_MSG>`);
   xmlStr = xmlStr.concat('<OP_TM_DEPENDENT></OP_TM_DEPENDENT>');
