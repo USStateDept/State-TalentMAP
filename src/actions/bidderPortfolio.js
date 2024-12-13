@@ -453,7 +453,6 @@ export function getClientPerdets(query = {}) {
       }
 
       if (get(query, 'hasHandshake') === 'unassigned_filters') {
-        query$ = omit(query$, ['hasHandshake']);
         const UAvalues = unassigned.map(a => a.value);
         if (UAvalues.includes('noPanel')) query$.noPanel = true;
         if (UAvalues.includes('noBids')) query$.noBids = true;
