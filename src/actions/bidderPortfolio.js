@@ -401,7 +401,6 @@ export function getClientDatePerdets(query = {}) {
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
-
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
           dispatch(bidderPortfolioFetchDataSuccess({ results: [], count: '0' }));
@@ -454,7 +453,6 @@ export function getClientPerdets(query = {}) {
       }
 
       if (get(query, 'hasHandshake') === 'unassigned_filters') {
-        query$ = omit(query$, ['hasHandshake']);
         const UAvalues = unassigned.map(a => a.value);
         if (UAvalues.includes('noPanel')) query$.noPanel = true;
         if (UAvalues.includes('noBids')) query$.noBids = true;
@@ -484,7 +482,6 @@ export function getClientPerdets(query = {}) {
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
-
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
           dispatch(bidderPortfolioFetchDataSuccess({ results: [], count: '0' }));
