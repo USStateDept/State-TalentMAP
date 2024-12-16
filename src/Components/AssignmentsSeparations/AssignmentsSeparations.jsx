@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -50,6 +51,7 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 const AssignmentsSeparations = (props) => {
   // checking user permissions for Add New Assignment/Separation link
   const userProfile = useSelector(state => state.userProfile);
+  console.log('userProfile:', userProfile);
   const adminOrSuperuser = userHasSomePermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
   // eslint-disable-next-line no-console
   console.log('adminOrSuperuser value (using userHasSomePermissions):', adminOrSuperuser);
