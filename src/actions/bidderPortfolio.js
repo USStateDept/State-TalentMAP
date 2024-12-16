@@ -70,24 +70,6 @@ export function bidderPortfolioFetchDataSuccess(results) {
     results,
   };
 }
-export function bidderPortfolioSeasonSearchHasErrored(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidderPortfolioSeasonSearchIsLoading(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidderPortfolioSeasonSearchFetchDataSuccess(results) {
-  return {
-    type: 'BIDDER_PORTFOLIO_SEASON_SEARCH_FETCH_DATA_SUCCESS',
-    results,
-  };
-}
 export function bidderPortfolioExtraDetailsFetchDataSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_EXTRA_DETAILS_FETCH_DATA_SUCCESS',
@@ -396,7 +378,6 @@ export function getClientDatePerdets(query = {}) {
 
       if (seasons.length) {
         query$.bid_seasons = seasons.join(',');
-        query$.limit = 9999;
       }
       if (!query$.bid_seasons) {
         query$ = omit(query$, ['hasHandshake', 'handshake']);
@@ -416,11 +397,10 @@ export function getClientDatePerdets(query = {}) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, query$, { cancelToken });
         const { data } = response;
-        const newQuery = { ...query$, perdet_seq_num: data.map(String) };
+        const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
-
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
           dispatch(bidderPortfolioFetchDataSuccess({ results: [], count: '0' }));
@@ -432,7 +412,6 @@ export function getClientDatePerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -474,7 +453,6 @@ export function getClientPerdets(query = {}) {
       }
 
       if (get(query, 'hasHandshake') === 'unassigned_filters') {
-        query$ = omit(query$, ['hasHandshake']);
         const UAvalues = unassigned.map(a => a.value);
         if (UAvalues.includes('noPanel')) query$.noPanel = true;
         if (UAvalues.includes('noBids')) query$.noBids = true;
@@ -496,16 +474,14 @@ export function getClientPerdets(query = {}) {
       }
 
       const cancelToken = new CancelToken(c => { cancelUnnassignedBidders = c; });
-
       if (ids.length) {
         query$ = omit(query$, ['bid_seasons', 'hasHandshake', 'handshake', 'eligible_bidders', 'cusp_bidders', 'separations', 'languages']);
         const response = await api().post(url, { cancelToken });
         const { data } = response;
-        const newQuery = { ...query$, perdet_seq_num: data.map(String) };
+        const newQuery = { ...query$, perdet_seq_num: data.join(',') };
         const secondQueryString = stringify(newQuery);
         const secondEndpoint = '/fsbid/client/';
         const secondUrl = `${secondEndpoint}?${secondQueryString}`;
-
         if (data.length === 0) {
           dispatch(bidderPortfolioLastQuery(secondQueryString, 0, secondEndpoint));
           dispatch(bidderPortfolioFetchDataSuccess({ results: [], count: '0' }));
@@ -517,7 +493,6 @@ export function getClientPerdets(query = {}) {
         try {
           const secondResponse = await api().get(secondUrl, { cancelToken });
           const { data: secondData } = secondResponse;
-
           batch(() => {
             dispatch(bidderPortfolioLastQuery(secondQueryString, secondData.count, secondEndpoint));
             dispatch(bidderPortfolioFetchDataSuccess(secondData));
@@ -542,14 +517,14 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
 
-    // const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id = ids.join();
     }
-    // if (isArray(seasons) && seasons.length && isSeasons) {
-    //   query$.bid_seasons = join(seasons, ',');
-    // }
+    if (isArray(seasons) && seasons.length && !isCDO) {
+      query$.bid_seasons = join(seasons, ',');
+    }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
     }
@@ -567,17 +542,9 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
         }),
       })
         .then(({ data }) => {
-          // filter null results
-          const data$ = data;
-          data$.results = data$.results.filter(obj => obj !== null);
-          data$.count = data$.results.length;
-          if (data$.count !== data.count) {
-            // eslint-disable-next-line no-console
-            console.warn('Check logs for bad employee data');
-          }
           batch(() => {
-            dispatch(bidderPortfolioLastQuery(query$$, data$.count, endpoint));
-            dispatch(bidderPortfolioFetchDataSuccess(data$));
+            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+            dispatch(bidderPortfolioFetchDataSuccess(data));
             if (!isCDO) {
               dispatch(bidderPortfolioHasErrored(false));
               dispatch(bidderPortfolioIsLoading(false));
@@ -594,66 +561,6 @@ export function bidderPortfolioFetchData(query = {}, isCDO = false) {
             batch(() => {
               dispatch(bidderPortfolioHasErrored(true));
               dispatch(bidderPortfolioIsLoading(false));
-            });
-          }
-        });
-    }
-  };
-}
-
-export function bidderPortfolioSingleSeasonFetchData(query = {}, isCDO = false) {
-  return (dispatch, getState) => {
-    if (cancelPortfolio) { cancelPortfolio('cancel'); }
-    dispatch(bidderPortfolioSeasonSearchIsLoading(true));
-    dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-    const state = getState();
-    const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
-    const ids = cdos.map(m => m.hru_id).filter(f => f);
-
-    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
-    let query$ = { ...query };
-    if (ids.length) {
-      query$.hru_id = ids.join();
-    }
-    if (isArray(seasons) && seasons.length) {
-      query$.bid_seasons = join(seasons, ',');
-      query$.limit = 9999;
-    }
-    if (!query$.bid_seasons || !query$.bid_seasons.length) {
-      query$ = omit(query$, ['hasHandshake', 'handshake']); // hasHandshake requires at least one bid season
-    }
-
-    if (!query$.ordering) {
-      query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
-    }
-    const query$$ = stringify(query$);
-    const endpoint = '/fsbid/client/';
-    const q = `${endpoint}?${query$$}`;
-    if (ids.length) {
-      api().get(q, {
-        cancelToken: new CancelToken((c) => {
-          cancelPortfolio = c;
-        }),
-      })
-        .then(({ data }) => {
-          batch(() => {
-            dispatch(bidderPortfolioSeasonSearchFetchDataSuccess(data));
-            if (!isCDO) {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
-            }
-          });
-        })
-        .catch((m) => {
-          if (get(m, 'message') === 'cancel') {
-            batch(() => {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(false));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(true));
-            });
-          } else {
-            batch(() => {
-              dispatch(bidderPortfolioSeasonSearchHasErrored(true));
-              dispatch(bidderPortfolioSeasonSearchIsLoading(false));
             });
           }
         });
