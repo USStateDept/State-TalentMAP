@@ -52,7 +52,7 @@ const AssignmentsSeparations = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const adminOrSuperuser = userHasSomePermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
   // eslint-disable-next-line no-console
-  console.log('adminOrSuperuser value:', adminOrSuperuser);
+  console.log('adminOrSuperuser value (using userHasSomePermissions):', adminOrSuperuser);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
