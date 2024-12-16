@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -51,18 +50,7 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 const AssignmentsSeparations = (props) => {
   // checking user permissions for Add New Assignment/Separation link
   const userProfile = useSelector(state => state.userProfile);
-  console.log('userProfile:', userProfile);
-  console.log('userProfile?.permission_groups:', userProfile?.permission_groups);
-
-  if (userProfile?.permission_groups) {
-    userProfile.permission_groups.forEach((role, index) => {
-      console.log(`Role ${index + 1}:`, role);
-    });
-  }
-
   const adminOrSuperuser = userHasSomePermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
-  // eslint-disable-next-line no-console
-  console.log('adminOrSuperuser value (using userHasSomePermissions):', adminOrSuperuser);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
