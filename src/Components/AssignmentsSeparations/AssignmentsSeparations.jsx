@@ -19,7 +19,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
-import { userHasPermissions } from '../../utilities';
+import { userHasSomePermissions } from '../../utilities';
 
 const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
@@ -50,7 +50,7 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 const AssignmentsSeparations = (props) => {
   // checking user permissions for Add New Assignment/Separation link
   const userProfile = useSelector(state => state.userProfile);
-  const adminOrSuperuser = userHasPermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
+  const adminOrSuperuser = userHasSomePermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
   // eslint-disable-next-line no-console
   console.log('adminOrSuperuser value:', adminOrSuperuser);
   const location = props.location?.pathname;
