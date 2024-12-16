@@ -20,6 +20,7 @@ import { sortBy } from 'lodash';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
+import { userHasSomePermissions } from '../../utilities';
 
 const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
@@ -48,6 +49,9 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 };
 
 const AssignmentsSeparations = (props) => {
+  // checking user permissions for Add New Assignment/Separation link
+  const userProfile = useSelector(state => state.userProfile);
+  const adminOrSuperuser = userHasSomePermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
@@ -174,15 +178,17 @@ const AssignmentsSeparations = (props) => {
           </span>
           <div className="add-buttons">
             <div className={`create-new-button ${disableOtherEdits ? 'disabled' : ''}`}>
-              <a
-                role="button"
-                className="width-300"
-                tabIndex={0}
-                onClick={() => { if (!disableOtherEdits) setOpenModal(true); }}
-              >
-                <FA name="briefcase" />
-                Add New Assignment/Separation
-              </a>
+              {adminOrSuperuser && (
+                <a
+                  role="button"
+                  className="width-300"
+                  tabIndex={0}
+                  onClick={() => { if (!disableOtherEdits) setOpenModal(true); }}
+                >
+                  <FA name="briefcase" />
+                  Add New Assignment/Separation
+                </a>
+              )}
             </div>
             {useNotification() &&
               <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
