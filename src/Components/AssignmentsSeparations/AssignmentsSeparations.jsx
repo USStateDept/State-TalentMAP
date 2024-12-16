@@ -50,7 +50,7 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 const AssignmentsSeparations = (props) => {
   // checking user permissions for Add New Assignment/Separation link
   const userProfile = useSelector(state => state.userProfile);
-  const aoOrCDO = userHasPermissions(['ao_user', 'cdo'], userProfile?.permission_groups);
+  const adminOrSuperuser = userHasPermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
@@ -156,7 +156,7 @@ const AssignmentsSeparations = (props) => {
           </span>
           <div className="add-buttons">
             <div className={`create-new-button ${disableOtherEdits ? 'disabled' : ''}`}>
-              {!aoOrCDO && (
+              {adminOrSuperuser && (
                 <a
                   role="button"
                   className="width-300"
