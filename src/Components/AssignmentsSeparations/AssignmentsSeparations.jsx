@@ -51,6 +51,8 @@ const AssignmentsSeparations = (props) => {
   // checking user permissions for Add New Assignment/Separation link
   const userProfile = useSelector(state => state.userProfile);
   const adminOrSuperuser = userHasPermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
+  // eslint-disable-next-line no-console
+  console.log('adminOrSuperuser value:', adminOrSuperuser);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
