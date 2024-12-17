@@ -254,12 +254,12 @@ export const generateSoapXML = (log) => {
   xmlStr = xmlStr.concat(`<DEPTID>${log.DEPTID ?? ''}</DEPTID>`);
   xmlStr = xmlStr.concat(`<DEPTID2>${log.DEPTID2 ?? ''}</DEPTID2>`);
   xmlStr = xmlStr.concat(`<OP_TM_ASG_ETA_DATE>${log.OP_TM_ASG_ETA_DATE ?? ''}</OP_TM_ASG_ETA_DATE>`);
-  xmlStr = xmlStr.concat(`<OP_TM_TRANS_ELG_DT>${log.OP_TM_ASG_ET_ED_DT ?? ''}</OP_TM_TRANS_ELG_DT>`);
+  xmlStr = xmlStr.concat('<OP_TM_TRANS_ELG_DT></OP_TM_TRANS_ELG_DT>');
   xmlStr = xmlStr.concat('<BEGIN_DT></BEGIN_DT>');
   xmlStr = xmlStr.concat(`<OP_LAT_CODE>${log.OP_LAT_CODE ?? ''}</OP_LAT_CODE>`);
   xmlStr = xmlStr.concat(`<OP_TM_SUBJECT_TXT><![CDATA[${log.OP_TM_SUBJECT_TXT ?? ''}]]></OP_TM_SUBJECT_TXT>`);
   xmlStr = xmlStr.concat('<OP_TM_TA_DT></OP_TM_TA_DT>');
-  xmlStr = xmlStr.concat('<OP_TM_ASG_ETD_DT></OP_TM_ASG_ETD_DT>');
+  xmlStr = xmlStr.concat(`<OP_TM_ASG_ETD_DT>${log.OP_TM_ASG_ET_ED_DT ?? ''}</OP_TM_ASG_ETD_DT>`);
   xmlStr = xmlStr.concat('<OP_TM_TS_CD></OP_TM_TS_CD>');
   xmlStr = xmlStr.concat('<OP_DIP_TTL_CD></OP_DIP_TTL_CD>');
   xmlStr = xmlStr.concat('<OP_TM_PROCESSED>N</OP_TM_PROCESSED>');
