@@ -126,10 +126,11 @@ const AssignmentsSeparations = (props) => {
     return overlay;
   };
 
-  const tm1Disabled = () => {
+  const tm1Disabled = (memo) => {
     const noSelections = selectedAssignments.length < 1;
     const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
-    return hasEffectedOrCompleted || noSelections;
+    const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
+    return hasEffectedOrCompleted || noSelections || (memo && hasOverseas);
   };
 
   return (getOverlay() ||
@@ -208,7 +209,7 @@ const AssignmentsSeparations = (props) => {
                   role="button"
                   className="width-300"
                   tabIndex={0}
-                  disabled={tm1Disabled()}
+                  disabled={tm1Disabled(true)}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
