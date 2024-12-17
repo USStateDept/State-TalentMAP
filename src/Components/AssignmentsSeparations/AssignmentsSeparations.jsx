@@ -126,6 +126,12 @@ const AssignmentsSeparations = (props) => {
     return overlay;
   };
 
+  const tm1Disabled = () => {
+    const noSelections = selectedAssignments.length < 1;
+    const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
+    return hasEffectedOrCompleted || noSelections;
+  };
+
   return (getOverlay() ||
     <div className="assignments-maintenance-page position-search">
       <div className="asg-content">
@@ -174,6 +180,7 @@ const AssignmentsSeparations = (props) => {
                   role="button"
                   className="width-300"
                   tabIndex={0}
+                  disabled={tm1Disabled()}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
@@ -201,6 +208,7 @@ const AssignmentsSeparations = (props) => {
                   role="button"
                   className="width-300"
                   tabIndex={0}
+                  disabled={tm1Disabled()}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
