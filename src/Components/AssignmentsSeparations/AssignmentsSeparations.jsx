@@ -280,6 +280,7 @@ const AssignmentsSeparations = (props) => {
                     data={data}
                     setDisableOtherEdits={setDisableOtherEdits}
                     disableOtherEdits={disableOtherEdits}
+                    isAdmin={adminOrSuperuser}
                   />,
                 }]}
               />
