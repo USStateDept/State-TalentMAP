@@ -141,6 +141,33 @@ export function getOpsWsdl(state = [], action) {
   }
 }
 
+// ================ GET OPS SOAP ACTION ================
+
+export function getOpsSoapActionErrored(state = false, action) {
+  switch (action.type) {
+    case 'OPS_SOAP_ACTION_FETCH_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function getOpsSoapActionLoading(state = false, action) {
+  switch (action.type) {
+    case 'OPS_SOAP_ACTION_FETCH_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function getOpsSoapAction(state = [], action) {
+  switch (action.type) {
+    case 'OPS_SOAP_ACTION_FETCH_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
 // ================ GET OPS DATA ================
 
 export function getOpsDataErrored(state = false, action) {

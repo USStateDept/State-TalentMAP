@@ -81,12 +81,22 @@ const AssignmentsSeparations = (props) => {
   const [assignmentToggle, setAssignmentToggle] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [disableOtherEdits, setDisableOtherEdits] = useState(false);
+  const [disableNotification, setDisableNotification] = useState(true);
+  const [disableMemo, setDisableMemo] = useState(true);
   const [selectedAssignments, setSelectedAssignments] = useState([]);
   const hasSelections = selectedAssignments.length > 0;
 
   useEffect(() => {
     setDisableOtherEdits(false);
   }, []);
+
+  useEffect(() => {
+    const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
+    const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
+    const tm1Condition = disableOtherEdits || !hasSelections || hasEffectedOrCompleted;
+    setDisableNotification(tm1Condition || !hasOverseas);
+    setDisableMemo(tm1Condition || hasOverseas);
+  }, [disableOtherEdits, selectedAssignments]);
 
   useEffect(() => {
     if (openModal) {
@@ -124,13 +134,6 @@ const AssignmentsSeparations = (props) => {
       return false;
     }
     return overlay;
-  };
-
-  const tm1Disabled = (memo) => {
-    const noSelections = selectedAssignments.length < 1;
-    const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
-    const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
-    return hasEffectedOrCompleted || noSelections || (memo && hasOverseas);
   };
 
   return (getOverlay() ||
@@ -176,12 +179,12 @@ const AssignmentsSeparations = (props) => {
               )}
             </div>
             {useNotification() &&
-              <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
+              <div className={`create-new-button align-left ${disableNotification ? 'disabled' : ''}`}>
                 <a
                   role="button"
                   className="width-300"
                   tabIndex={0}
-                  disabled={tm1Disabled()}
+                  disabled={disableNotification}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
@@ -204,12 +207,12 @@ const AssignmentsSeparations = (props) => {
               </div>
             }
             {useMemo() &&
-              <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
+              <div className={`create-new-button align-left ${disableMemo ? 'disabled' : ''}`}>
                 <a
                   role="button"
                   className="width-300"
                   tabIndex={0}
-                  disabled={tm1Disabled(true)}
+                  disabled={disableMemo}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
