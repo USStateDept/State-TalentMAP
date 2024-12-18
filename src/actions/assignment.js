@@ -88,22 +88,14 @@ export function altAssignmentsSeparations(id) {
       .then(({ data }) => {
         let assignments = data.QRY_LSTASGS_REF;
         const separations = data.QRY_LSTSEPS_REF;
-        console.log('Data', data);
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
-          // assignments = sortBy(assignments, ['ASGD_ETD_TED_DATE']);
           assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
-          // const sortedResults2 = results.QRY_LSTASGS_REF.slice().sort((a, b) => {
-          //   const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
-          //   const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
-          //   return yearB - yearA;
-          // });
         }
         const sortedData = {
           assignments,
           separations,
         };
-        console.log('Sorted Data', sortedData);
         batch(() => {
           dispatch(altAssignmentsSeparationsSuccess(sortedData));
           dispatch(altAssignmentsSeparationsLoading(false));
