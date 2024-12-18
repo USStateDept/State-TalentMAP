@@ -260,8 +260,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         }
-        {assignmentToggle && (results?.QRY_LSTASGS_REF?.length > 0 ?
-          results?.QRY_LSTASGS_REF?.map(data => (
+        {assignmentToggle && (results?.assignments?.length > 0 ?
+          results?.assignments?.map(data => (
             <div key={`include-${data.ASG_SEQ_NUM}`} className="position-content--container" >
               <div className="toggle-include account-margin">
                 <CheckBox
@@ -306,8 +306,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         )}
-        {!assignmentToggle && (results?.QRY_LSTSEPS_REF?.length > 0 ?
-          results?.QRY_LSTSEPS_REF?.map(data => (
+        {!assignmentToggle && (results?.separations?.length > 0 ?
+          results?.separations?.map(data => (
             <TabbedCard
               key={data?.SEP_SEQ_NUM}
               tabs={[{
