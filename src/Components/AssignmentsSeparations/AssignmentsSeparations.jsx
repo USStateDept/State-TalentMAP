@@ -16,7 +16,6 @@ import CheckBox from 'Components/CheckBox';
 import ReactModal from 'Components/ReactModal';
 import TabbedCard from 'Components/TabbedCard';
 import InteractiveElement from 'Components/InteractiveElement';
-import { sortBy } from 'lodash';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
@@ -63,30 +62,9 @@ const AssignmentsSeparations = (props) => {
   // ====================== Data Retrieval ======================
 
   const results = useSelector(state => state.altAssignmentsSeparations);
-  // eslint-disable-next-line no-console
-  console.log('results', results);
-  // eslint-disable-next-line no-console
-  console.log('results.QRY_LSTASGS_REF', results.QRY_LSTASGS_REF);
-  // eslint-disable-next-line no-console
-  console.log('results.QRY_LSTSEPS_REF', results.QRY_LSTSEPS_REF);
-  // eslint-disable-next-line no-console
-  console.log('type of results', typeof results);
-  // eslint-disable-next-line no-console
-  const sortedResults = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
-  // eslint-disable-next-line no-console
-  console.log('sortedResults', sortedResults);
-  // eslint-disable-next-line no-console
-  const sortedResults2 = results.QRY_LSTASGS_REF.slice().sort((a, b) => {
-    const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
-    const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
-    return yearB - yearA;
-  });
-  // eslint-disable-next-line no-console
-  console.log('sortedResults2 with longer sorting code', sortedResults2);
   const resultsErrored = useSelector(state => state.altAssignmentsSeparationsErrored);
   const resultsLoading = useSelector(state => state.altAssignmentsSeparationsLoading);
-  // const noResults = results?.length === 0;
-  const noResults = sortedResults?.length === 0;
+  const noResults = results?.length === 0;
 
   useEffect(() => {
     dispatch(altAssignmentsSeparations(id));
@@ -270,8 +248,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         }
-        {assignmentToggle && (sortedResults?.QRY_LSTASGS_REF?.length > 0 ?
-          sortedResults?.QRY_LSTASGS_REF?.map(data => (
+        {assignmentToggle && (results?.assignments?.length > 0 ?
+          results?.assignments?.map(data => (
             <div key={`include-${data.ASG_SEQ_NUM}`} className="position-content--container" >
               <div className="toggle-include account-margin">
                 <CheckBox
@@ -315,8 +293,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         )}
-        {!assignmentToggle && (sortedResults?.QRY_LSTSEPS_REF?.length > 0 ?
-          sortedResults?.QRY_LSTSEPS_REF?.map(data => (
+        {!assignmentToggle && (results?.separations?.length > 0 ?
+          results?.separations?.map(data => (
             <TabbedCard
               key={data?.SEP_SEQ_NUM}
               tabs={[{

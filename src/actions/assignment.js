@@ -86,10 +86,24 @@ export function altAssignmentsSeparations(id) {
     api()
       .get(`/fsbid/assignment_history/${id}/assignments-separations/`)
       .then(({ data }) => {
-        console.log('data', data);
-        // Sort data by TED Date, newest first
-        const sortedData = sortBy(data, ['ASGD_ETD_TED_DATE']);
-        console.log('sortedData', sortedData);
+        let assignments = data.QRY_LSTASGS_REF;
+        const separations = data.QRY_LSTSEPS_REF;
+        console.log('Data', data);
+        // Sort assignments by TED Date, newest first
+        if (assignments.length > 0) {
+          assignments = sortBy(assignments, ['ASGD_ETD_TED_DATE']);
+          // const sortedResults = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
+          // const sortedResults2 = results.QRY_LSTASGS_REF.slice().sort((a, b) => {
+          //   const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
+          //   const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
+          //   return yearB - yearA;
+          // });
+        }
+        const sortedData = {
+          assignments,
+          separations,
+        };
+        console.log('Sorted Data', sortedData);
         batch(() => {
           dispatch(altAssignmentsSeparationsSuccess(sortedData));
           dispatch(altAssignmentsSeparationsLoading(false));
