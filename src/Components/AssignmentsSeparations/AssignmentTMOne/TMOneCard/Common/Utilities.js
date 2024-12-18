@@ -236,13 +236,13 @@ export const generateSoapXML = (log) => {
 
   xmlStr = xmlStr.concat('<Create__CompIntfc__OP_TM_STG_WEB_SRV3>');
 
-  xmlStr = xmlStr.concat(`<OP_TRV_MSG_TYPE>TMONE</OP_TRV_MSG_TYPE>`);
+  xmlStr = xmlStr.concat('<OP_TRV_MSG_TYPE>TMONE</OP_TRV_MSG_TYPE>');
   xmlStr = xmlStr.concat(`<EMPLID>${log.EMPLID ?? ''}</EMPLID>`);
   xmlStr = xmlStr.concat(`<OP_TM_ASGN_ID>${log.OP_TM_ASGN_SEQ ?? ''}</OP_TM_ASGN_ID>`);
   xmlStr = xmlStr.concat(`<OP_TM_ASG_REV>${log.OP_TM_ASG_REV ?? ''}</OP_TM_ASG_REV>`);
-  xmlStr = xmlStr.concat('<OP_TM_TA_ID>0</OP_TM_TA_ID>');
-  xmlStr = xmlStr.concat('<OP_TM_TR_ID>0</OP_TM_TR_ID>');
-  xmlStr = xmlStr.concat('<OP_TM_TR_ID_REV>0</OP_TM_TR_ID_REV>');
+  xmlStr = xmlStr.concat('<OP_TM_TA_ID></OP_TM_TA_ID>');
+  xmlStr = xmlStr.concat('<OP_TM_TR_ID></OP_TM_TR_ID>');
+  xmlStr = xmlStr.concat('<OP_TM_TR_ID_REV></OP_TM_TR_ID_REV>');
   xmlStr = xmlStr.concat(`<OP_TM_EMP_SEQ_NBR>${log.OP_TM_EMPLID_SEQ ?? ''}</OP_TM_EMP_SEQ_NBR>`);
   xmlStr = xmlStr.concat(`<OP_TM_NM_SEQ>${log.OP_TM_NM_SEQ ?? ''}</OP_TM_NM_SEQ>`);
   xmlStr = xmlStr.concat(`<POSITION_NBR>${log.POSITION_NBR ?? ''}</POSITION_NBR>`);
