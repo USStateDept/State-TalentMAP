@@ -1,5 +1,6 @@
 import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
+import { sortBy } from 'lodash';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 import {
@@ -85,8 +86,18 @@ export function altAssignmentsSeparations(id) {
     api()
       .get(`/fsbid/assignment_history/${id}/assignments-separations/`)
       .then(({ data }) => {
+        let assignments = data.QRY_LSTASGS_REF;
+        const separations = data.QRY_LSTSEPS_REF;
+        // Sort assignments by TED Date, newest first
+        if (assignments.length > 0) {
+          assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
+        }
+        const sortedData = {
+          assignments,
+          separations,
+        };
         batch(() => {
-          dispatch(altAssignmentsSeparationsSuccess(data));
+          dispatch(altAssignmentsSeparationsSuccess(sortedData));
           dispatch(altAssignmentsSeparationsLoading(false));
           dispatch(altAssignmentsSeparationsErrored(false));
         });
