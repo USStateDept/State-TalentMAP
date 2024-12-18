@@ -91,8 +91,8 @@ export function altAssignmentsSeparations(id) {
         console.log('Data', data);
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
-          assignments = sortBy(assignments, ['ASGD_ETD_TED_DATE']);
-          // const sortedResults = sortBy(results, [(item) => item.ASGD_ETD_TED_DATE]);
+          // assignments = sortBy(assignments, ['ASGD_ETD_TED_DATE']);
+          assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
           // const sortedResults2 = results.QRY_LSTASGS_REF.slice().sort((a, b) => {
           //   const yearA = parseInt(a.ASGD_ETD_TED_DATE.split('/')[1], 10);
           //   const yearB = parseInt(b.ASGD_ETD_TED_DATE.split('/')[1], 10);
