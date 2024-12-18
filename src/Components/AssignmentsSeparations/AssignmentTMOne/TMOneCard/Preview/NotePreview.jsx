@@ -153,7 +153,7 @@ const NotePreview = (props) => {
         },
         logRequest: {
           PV_OTL_TM_DATA_I: soapXml,
-          PV_ETL_SEQ_NBR_I: opsLogData.ETL_SEQ_NUM || '',
+          PV_ETL_SEQ_NBR_I: opsLogData.ETL_SEQ_NUM,
         },
       }, null));
     }
