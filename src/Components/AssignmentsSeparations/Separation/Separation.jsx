@@ -28,6 +28,7 @@ const Separation = (props) => {
     setDisableOtherEdits,
     disableOtherEdits,
     employee,
+    isAdmin,
   } = props;
 
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ const Separation = (props) => {
               id="assignment-statuses"
               value={status}
               onChange={(e) => setStatus(e?.target.value)}
+              disabled={!isAdmin}
             >
               <option value="" disabled>
                 Select Status
@@ -361,6 +363,7 @@ Separation.propTypes = {
   setDisableOtherEdits: PropTypes.func,
   disableOtherEdits: PropTypes.bool,
   employee: PropTypes.shape(),
+  isAdmin: PropTypes.bool,
 };
 
 Separation.defaultProps = {
@@ -371,6 +374,7 @@ Separation.defaultProps = {
   setDisableOtherEdits: EMPTY_FUNCTION,
   disableOtherEdits: false,
   employee: undefined,
+  isAdmin: false,
 };
 
 export default Separation;
