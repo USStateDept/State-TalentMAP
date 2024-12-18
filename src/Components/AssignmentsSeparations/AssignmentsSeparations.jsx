@@ -94,7 +94,7 @@ const AssignmentsSeparations = (props) => {
     const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
     const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
     const tm1Condition = disableOtherEdits || !hasSelections || hasEffectedOrCompleted;
-    setDisableNotification(tm1Condition);
+    setDisableNotification(tm1Condition || !hasOverseas);
     setDisableMemo(tm1Condition || hasOverseas);
   }, [disableOtherEdits, selectedAssignments]);
 
