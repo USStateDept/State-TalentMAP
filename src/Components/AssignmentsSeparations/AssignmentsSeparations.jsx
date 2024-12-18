@@ -19,6 +19,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import api from '../../api';
 import Assignment from './Assignment';
 import Separation from './Separation';
+import { userHasSomePermissions } from '../../utilities';
 
 const useNotification = () => checkFlag('flags.assignment_notification');
 const useMemo = () => checkFlag('flags.assignment_memo');
@@ -47,6 +48,9 @@ export const panelMeetingLink = (pmSeqNum, date, editMode) => {
 };
 
 const AssignmentsSeparations = (props) => {
+  // checking user permissions for Add New Assignment/Separation link
+  const userProfile = useSelector(state => state.userProfile);
+  const adminOrSuperuser = userHasSomePermissions(['fsbid_admin', 'superuser'], userProfile?.permission_groups);
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
@@ -122,6 +126,13 @@ const AssignmentsSeparations = (props) => {
     return overlay;
   };
 
+  const tm1Disabled = (memo) => {
+    const noSelections = selectedAssignments.length < 1;
+    const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
+    const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
+    return hasEffectedOrCompleted || noSelections || (memo && hasOverseas);
+  };
+
   return (getOverlay() ||
     <div className="assignments-maintenance-page position-search">
       <div className="asg-content">
@@ -152,15 +163,17 @@ const AssignmentsSeparations = (props) => {
           </span>
           <div className="add-buttons">
             <div className={`create-new-button ${disableOtherEdits ? 'disabled' : ''}`}>
-              <a
-                role="button"
-                className="width-300"
-                tabIndex={0}
-                onClick={() => { if (!disableOtherEdits) setOpenModal(true); }}
-              >
-                <FA name="briefcase" />
-                Add New Assignment/Separation
-              </a>
+              {adminOrSuperuser && (
+                <a
+                  role="button"
+                  className="width-300"
+                  tabIndex={0}
+                  onClick={() => { if (!disableOtherEdits) setOpenModal(true); }}
+                >
+                  <FA name="briefcase" />
+                  Add New Assignment/Separation
+                </a>
+              )}
             </div>
             {useNotification() &&
               <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
@@ -168,6 +181,7 @@ const AssignmentsSeparations = (props) => {
                   role="button"
                   className="width-300"
                   tabIndex={0}
+                  disabled={tm1Disabled()}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
@@ -195,6 +209,7 @@ const AssignmentsSeparations = (props) => {
                   role="button"
                   className="width-300"
                   tabIndex={0}
+                  disabled={tm1Disabled(true)}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
