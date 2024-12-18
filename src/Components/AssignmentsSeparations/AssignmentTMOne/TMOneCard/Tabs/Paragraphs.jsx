@@ -21,6 +21,32 @@ const Paragraphs = (props) => {
 
   const [expanded, setExpanded] = useState([]);
 
+  const overridedParagraphs = () => {
+    const text = getCableValue('PARAGRAPHS');
+    let textArray = text.split(/\n\n/);
+    textArray.shift();
+    textArray.pop();
+    textArray = textArray.map(t => t.substr(t.indexOf(' ') + 1));
+    const paragraphArray = textArray.map(t => {
+      const values = t.split(/\n/);
+      return {
+        NOTP_SHORT_DESC_TEXT: values[0],
+        NOTP_DESC_TEXT: t.substr(t.indexOf('\n') + 1),
+      };
+    });
+    console.log(paragraphArray);
+    return paragraphArray;
+  };
+  overridedParagraphs();
+
+  const getParagraphs = () => {
+    const paragraphForm = paragraphs;
+
+    return paragraphForm;
+  };
+
+  getParagraphs();
+
   const handleCheck = (id) => {
     let newSelections = [...selections];
     if (selections.includes(id)) {
@@ -41,6 +67,10 @@ const Paragraphs = (props) => {
     setExpanded(newExpanded);
   };
 
+  // const handleOverrideText = () => {
+
+  // };
+
   return (
     <div className="position-content position-form input-container">
       <InputActions
@@ -52,40 +82,45 @@ const Paragraphs = (props) => {
       />
       <div className="mb-20">
         <span className="section-title">Chosen Paragraphs</span>
-        {paragraphs.sort((a, b) => a.ORDER_NUM - b.ORDER_NUM).map(o => (
-          <div key={o.NOTP_CODE}>
-            <div className="chosen-paragraph">
-              <div>
-                <CheckBox
-                  id={`${o.NOTP_CODE}-checkbox`}
-                  name={`${o.NOTP_CODE}-checkbox`}
-                  value={selections.includes(o.NOTP_CODE)}
-                  onChange={() => handleCheck(o.NOTP_CODE)}
-                />
-                <span>{o.NOTP_SHORT_DESC_TEXT}</span>
+        {paragraphs.sort((a, b) => a.ORDER_NUM - b.ORDER_NUM).map(o => {
+          const selected = selections.includes(o.NOTP_CODE);
+          return (
+            <div key={o.NOTP_CODE}>
+              <div className="chosen-paragraph">
+                <div>
+                  <CheckBox
+                    id={`${o.NOTP_CODE}-checkbox`}
+                    name={`${o.NOTP_CODE}-checkbox`}
+                    value={selected}
+                    onChange={() => handleCheck(o.NOTP_CODE)}
+                  />
+                  <span>{o.NOTP_SHORT_DESC_TEXT}</span>
+                </div>
+                <div>
+                  <InteractiveElement className="toggle-more" onClick={() => handleExpand(o.NOTP_CODE)}>
+                    <FA id={o.NOTP_CODE} name={`chevron-${expanded.includes(o.NOTP_CODE) ? 'up' : 'down'}`} />
+                  </InteractiveElement>
+                </div>
               </div>
-              <div>
-                <InteractiveElement className="toggle-more" onClick={() => handleExpand(o.NOTP_CODE)}>
-                  <FA id={o.NOTP_CODE} name={`chevron-${expanded.includes(o.NOTP_CODE) ? 'up' : 'down'}`} />
-                </InteractiveElement>
-              </div>
+              {expanded.includes(o.NOTP_CODE) &&
+                <Tooltip title="Ensure paragraph is selected before editing the text.">
+                  <div>
+                    <TextareaAutosize
+                      maxRows={6}
+                      minRows={4}
+                      maxLength="500"
+                      name={`${o.NOTP_CODE}-input`}
+                      placeholder="No Description"
+                      value={paragraphs?.find(item => item.NOTP_CODE === o.NOTP_CODE)?.NOTP_DESC_TEXT}
+                      className={!selected ? 'disabled-input' : ''}
+                      disabled={!selected}
+                    />
+                  </div>
+                </Tooltip>
+              }
             </div>
-            {expanded.includes(o.NOTP_CODE) &&
-              <div>
-                <TextareaAutosize
-                  maxRows={6}
-                  minRows={4}
-                  maxLength="500"
-                  name={`${o.NOTP_CODE}-input`}
-                  placeholder="No Description"
-                  value={paragraphs?.find(item => item.NOTP_CODE === o.NOTP_CODE)?.NOTP_DESC_TEXT}
-                  className="disabled-input"
-                  disabled
-                />
-              </div>
-            }
-          </div>
-        ))}
+          );
+        })}
       </div>
       <Row fluid className="position-content--description">
         <span className="definition-title">Preview Text</span>
