@@ -30,6 +30,7 @@ const Assignment = (props) => {
     setDisableOtherEdits,
     disableOtherEdits,
     employee,
+    isAdmin,
   } = props;
 
   const dispatch = useDispatch();
@@ -273,6 +274,7 @@ const Assignment = (props) => {
               id="assignment-statuses"
               value={status}
               onChange={(e) => setStatus(e?.target.value)}
+              disabled={!isAdmin}
             >
               <option value="" disabled>
                 Select Status
@@ -522,6 +524,7 @@ Assignment.propTypes = {
   setDisableOtherEdits: PropTypes.func,
   disableOtherEdits: PropTypes.bool,
   employee: PropTypes.shape(),
+  isAdmin: PropTypes.bool,
 };
 
 Assignment.defaultProps = {
@@ -532,6 +535,7 @@ Assignment.defaultProps = {
   setDisableOtherEdits: EMPTY_FUNCTION,
   disableOtherEdits: false,
   employee: undefined,
+  isAdmin: false,
 };
 
 export default Assignment;
