@@ -5,6 +5,45 @@ import { formatDate, getAssetPath } from 'utilities';
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 
 /**
+ * Generates array of assignments in proper format for 
+ * EOPF File Importer post request when sending Notification or Memo
+ * @param {*} assignmentsRef array of assignments selected for cable/memo
+ * @param {*} cable the basic cable/memo data
+ */
+export const generateEopfAssignments = (assignmentsRef, cable) => {
+  // Reference of invalid date parameters
+  const invalid = [undefined, null, '', 'null'];
+
+  // Converts MM/YYYY string to a valid date input
+  const validDate = (monthYear) => {
+    const split = monthYear.split('/');
+    return new Date(split[1], split[0] - 1, 1);
+  };
+
+  const assignmentsParam = [];
+
+  if (assignmentsRef) {
+    assignmentsRef.forEach(a => {
+      // Append assignment to array parameter
+      assignmentsParam.push({
+        positionnumber: a.POS_NUM_TXT,
+        location: a.POS_LOCATION_CODE,
+        positiontitle: a.POS_TITLE_TXT,
+        eta: invalid.includes(a.ASGD_ETA_DATE) ? null : validDate(a.ASGD_ETA_DATE),
+        ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : validDate(a.ASGD_ETD_TED_DATE),
+        travelfunction: a.TF_CD,
+        datesent: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
+        status: a.ASGS_CODE,
+        nmnotificationind: note?.NM_NOTIFICATION_IND,
+        effectivedate: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
+      });
+    });
+  }
+
+  return assignmentsParam;
+};
+
+/**
  * Generates PDF of TM1 Note/Memo formatted accordingly to given
  * examples in EOPF directory
  * @param {*} getPreviewText retrieves the formatted note/memo preview text

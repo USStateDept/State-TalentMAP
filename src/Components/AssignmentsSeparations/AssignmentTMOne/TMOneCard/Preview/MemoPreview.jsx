@@ -14,7 +14,7 @@ import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
-import { generatePDF } from '../Common/Utilities';
+import { generateEopfAssignments, generatePDF } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_memo_send');
 
@@ -96,23 +96,6 @@ const MemoPreview = (props) => {
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      const assignmentsParam = [];
-      if (assignmentsRef) {
-        assignmentsRef.forEach(a => {
-          assignmentsParam.push({
-            positionnumber: a.POS_NUM_TXT,
-            location: a.POS_LOCATION_CODE,
-            positiontitle: a.POS_TITLE_TXT,
-            eta: a.ASGD_ETA_DATE,
-            ted: a.ASGD_ETD_TED_DATE,
-            travelfunction: a.TF_CD,
-            datesent: cable?.O_LAST_SENT_DATE,
-            status: a.ASGS_CODE,
-            nmnotificationind: note?.NM_NOTIFICATION_IND,
-            effectivedate: cable?.O_LAST_SENT_DATE,
-          });
-        });
-      }
       dispatch(sendToEopf({
         transactionid: uuidv4(),
         perseqnum: nmSeqNum,
@@ -120,7 +103,7 @@ const MemoPreview = (props) => {
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename, true),
         createid: note?.NM_CREATE_ID,
-        assignments: assignmentsParam,
+        assignments: generateEopfAssignments(assignmentsRef, cable),
       }, null, true));
     }
   };

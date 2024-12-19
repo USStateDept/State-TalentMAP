@@ -11,7 +11,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from 'Components/Layout';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
-import { generatePDF, generateSoapXML } from '../Common/Utilities';
+import { generateEopfAssignments, generatePDF, generateSoapXML } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_notification_send');
 
@@ -112,33 +112,6 @@ const NotePreview = (props) => {
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      const assignmentsParam = [];
-      if (assignmentsRef) {
-        assignmentsRef.forEach(a => {
-          // Reference of invalid date parameters
-          const invalid = [undefined, null, '', 'null'];
-
-          // Converts MM/YYYY string to a valid date input
-          const validDate = (monthYear) => {
-            const split = monthYear.split('/');
-            return new Date(split[1], split[0] - 1, 1);
-          };
-
-          // Append assignment to array parameter
-          assignmentsParam.push({
-            positionnumber: a.POS_NUM_TXT,
-            location: a.POS_LOCATION_CODE,
-            positiontitle: a.POS_TITLE_TXT,
-            eta: invalid.includes(a.ASGD_ETA_DATE) ? null : validDate(a.ASGD_ETA_DATE),
-            ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : validDate(a.ASGD_ETD_TED_DATE),
-            travelfunction: a.TF_CD,
-            datesent: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
-            status: a.ASGS_CODE,
-            nmnotificationind: note?.NM_NOTIFICATION_IND,
-            effectivedate: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
-          });
-        });
-      }
       dispatch(sendToEopf({
         transactionid: uuidv4(),
         perseqnum: nmSeqNum,
@@ -146,7 +119,7 @@ const NotePreview = (props) => {
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename),
         createid: note?.NM_CREATE_ID,
-        assignments: assignmentsParam,
+        assignments: generateEopfAssignments(assignmentsRef, cable),
       }));
     }
 
