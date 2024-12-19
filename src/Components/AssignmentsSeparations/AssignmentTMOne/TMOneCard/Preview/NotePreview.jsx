@@ -119,7 +119,7 @@ const NotePreview = (props) => {
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename),
         createid: note?.NM_CREATE_ID,
-        assignments: generateEopfAssignments(assignmentsRef, cable),
+        assignments: generateEopfAssignments(assignmentsRef, cable, note),
       }));
     }
 

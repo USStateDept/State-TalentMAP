@@ -5,12 +5,13 @@ import { formatDate, getAssetPath } from 'utilities';
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 
 /**
- * Generates array of assignments in proper format for 
+ * Generates array of assignments in proper format for
  * EOPF File Importer post request when sending Notification or Memo
  * @param {*} assignmentsRef array of assignments selected for cable/memo
  * @param {*} cable the basic cable/memo data
+ * @param {*} note the additional cable/memo data
  */
-export const generateEopfAssignments = (assignmentsRef, cable) => {
+export const generateEopfAssignments = (assignmentsRef, cable, note) => {
   // Reference of invalid date parameters
   const invalid = [undefined, null, '', 'null'];
 
