@@ -1,6 +1,7 @@
 .tm-checkbox-small {
-  [type=checkbox] + label::before,
-  [type=radio] + label::before {
+
+  [type=checkbox]+label::before,
+  [type=radio]+label::before {
     $size: 13px;
     background-size: 100%;
     height: $size;
@@ -10,12 +11,13 @@
 }
 
 .tm-checkbox-transparent {
-  [type=checkbox]:not(:checked) + label::before,
-  [type=radio]:not(:checked) + label::before {
+
+  [type=checkbox]:not(:checked)+label::before,
+  [type=radio]:not(:checked)+label::before {
     background-color: transparent;
   }
 
-  [disabled]:checked + label::before {
+  [disabled]:checked+label::before {
     background-image: url('#{$asset-path}assets/img/check-gray.svg');
     background-size: 2em;
   }
@@ -29,23 +31,32 @@
   label {
     cursor: initial;
 
-    > span {
+    >span {
       color: initial;
     }
   }
 
-  [type=checkbox]:disabled + label::before,
-  [type=radio]:disabled + label::before {
+  [type=checkbox]:disabled+label::before,
+  [type=radio]:disabled+label::before {
     background: transparent;
     box-shadow: initial;
   }
 
-  [disabled]:checked + label::before {
+  [disabled]:checked+label::before {
     background-color: $color-white;
     background-image: url('#{$asset-path}assets/img/check-black.svg');
     background-size: 1em;
     border-color: initial;
     box-shadow: initial;
     cursor: initial;
+  }
+}
+
+
+.tm-checkbox-disabled {
+  [type=checkbox]:disabled+label::before, 
+  [type=radio]:disabled + label::before {
+    background-color: $bg-gray-dark-2;
+    box-shadow: 0 0 0 1px $bg-gray-dark-1;
   }
 }
