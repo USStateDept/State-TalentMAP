@@ -63,6 +63,7 @@ const Paragraphs = (props) => {
                         id={`${o.NOTP_CODE}-checkbox`}
                         name={`${o.NOTP_CODE}-checkbox`}
                         value={selected}
+                        className="tm-checkbox-disabled"
                         disabled
                       />
                     </Tooltip> :
