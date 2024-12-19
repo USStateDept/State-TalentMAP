@@ -88,8 +88,13 @@ export function altAssignmentsSeparations(id) {
       .then(({ data }) => {
         let assignments = data.QRY_LSTASGS_REF;
         const separations = data.QRY_LSTSEPS_REF;
+        console.log(assignments);
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
+          console.log('sorting');
+          console.log(sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]));
+          console.log('reversing');
+          console.log(sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse());
           assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
         }
         const sortedData = {
