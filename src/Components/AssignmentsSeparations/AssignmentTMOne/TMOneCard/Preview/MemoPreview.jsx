@@ -69,9 +69,9 @@ const MemoPreview = (props) => {
     const type = 'M';
     let now = new Date();
     now = now.toISOString();
-    now = now.replace(/\D/g, '');
-    const date = now.substring(0, 8);
-    const time = now.substring(8, 14);
+    const datetime = now.replace(/\D/g, '');
+    const date = datetime.substring(0, 8);
+    const time = datetime.substring(8, 14);
     const filename = `TMONE_MEMO_${nmSeqNum}_${date}_${time}.pdf`;
 
     // ------------ Handle Send ------------
@@ -103,7 +103,7 @@ const MemoPreview = (props) => {
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename, true),
         createid: note?.NM_CREATE_ID,
-        assignments: generateEopfAssignments(assignmentsRef, cable, note),
+        assignments: generateEopfAssignments(assignmentsRef, note, now),
       }, null, true));
     }
   };

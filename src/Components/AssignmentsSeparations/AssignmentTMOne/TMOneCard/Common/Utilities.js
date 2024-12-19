@@ -10,8 +10,9 @@ const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
  * @param {*} assignmentsRef array of assignments selected for cable/memo
  * @param {*} cable the basic cable/memo data
  * @param {*} note the additional cable/memo data
+ * @param {*} sentDate the additional cable/memo data
  */
-export const generateEopfAssignments = (assignmentsRef, cable, note) => {
+export const generateEopfAssignments = (assignmentsRef, note, sentDate) => {
   // Reference of invalid date parameters
   const invalid = [undefined, null, '', 'null'];
 
@@ -33,10 +34,10 @@ export const generateEopfAssignments = (assignmentsRef, cable, note) => {
         eta: invalid.includes(a.ASGD_ETA_DATE) ? null : validDate(a.ASGD_ETA_DATE),
         ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : validDate(a.ASGD_ETD_TED_DATE),
         travelfunction: a.TF_CD,
-        datesent: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
+        datesent: sentDate,
         status: a.ASGS_CODE,
         nmnotificationind: note?.NM_NOTIFICATION_IND,
-        effectivedate: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
+        effectivedate: sentDate,
       });
     });
   }
