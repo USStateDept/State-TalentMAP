@@ -89,27 +89,31 @@ const TMOneCard = (props) => {
     return section?.NME_OVERRIDE_CLOB || section?.NME_DEFAULT_CLOB;
   };
 
-  const paragraphIsDefaultOrClear = () => {
+  const updateDisableParagraphSelect = (bool) => {
+    if (bool) {
+      setDisableParagraphSelect(bool);
+      return;
+    }
     const value = getCableValue('PARAGRAPHS', true);
-    if ((value?.NME_OVERRIDE_CLOB !== '' && value?.NME_CLEAR_IND === 'N') || value?.NME_CLEAR_IND === 'Y') {
-      setDisableParagraphSelect(false);
-    } else if (value?.NME_CLEAR_IND === 'N') {
+    if ((value?.NME_OVERRIDE_CLOB === '' && value?.NME_CLEAR_IND === 'N')) {
+      // Paragraph is DEFAULT
       setDisableParagraphSelect(false);
     } else {
+      // Paragraph is CLEAR or OVERRIDE
       setDisableParagraphSelect(true);
     }
   };
 
   useEffect(() => {
-    paragraphIsDefaultOrClear();
+    updateDisableParagraphSelect();
   }, []);
 
   const modCableValue = (key, override) => {
+    if (key === 'PARAGRAPHS') {
+      updateDisableParagraphSelect();
+    }
     const sections = noteCable.map(c => {
       if (c.ME_DESC === key) {
-        if (key === 'PARAGRAPHS') {
-          paragraphIsDefaultOrClear();
-        }
         if (key === 'DATE') {
           return {
             ...c,
@@ -172,9 +176,11 @@ const TMOneCard = (props) => {
     if (cableKeys.includes('PARAGRAPHS')) {
       if (clear) {
         setNoteParagraphs([]);
+        updateDisableParagraphSelect(true);
       } else if (ref?.QRY_PARA_REF) {
         const selectedParagraphs = ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1);
         setNoteParagraphs(selectedParagraphs.map(p => p.NOTP_CODE));
+        updateDisableParagraphSelect(false);
       }
     }
   };
