@@ -88,7 +88,6 @@ export function altAssignmentsSeparations(id) {
       .then(({ data }) => {
         let assignments = data.QRY_LSTASGS_REF;
         const separations = data.QRY_LSTSEPS_REF;
-        console.log(assignments);
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
           assignments = sortBy(assignments, [(item) => {
@@ -96,23 +95,8 @@ export function altAssignmentsSeparations(id) {
               const [month, year] = item.ASGD_ETD_TED_DATE.split('/');
               return new Date(Date.UTC(year, month - 1, 1));
             }
-            return new Date(0); // Use a very old date for null values
+            return new Date(0); // Use a very old date for null values to add to end of list
           }]).reverse(); // Reverse to get newest dates first
-          console.log('sorted assignments');
-          console.log(assignments);
-
-          // option 2
-          const sortedAssignments = assignments.sort((a, b) => {
-            if (a.ASGD_ETD_TED_DATE === null) return 1;
-            if (b.ASGD_ETD_TED_DATE === null) return -1;
-            const [monthA, yearA] = a.ASGD_ETD_TED_DATE.split('/');
-            const [monthB, yearB] = b.ASGD_ETD_TED_DATE.split('/');
-            const dateA = new Date(Date.UTC(yearA, monthA - 1, 1));
-            const dateB = new Date(Date.UTC(yearB, monthB - 1, 1));
-            return dateB - dateA; // Newest dates first
-          });
-          console.log('sorted assignments 2');
-          console.log(sortedAssignments);
         }
         const sortedData = {
           assignments,
@@ -124,8 +108,7 @@ export function altAssignmentsSeparations(id) {
           dispatch(altAssignmentsSeparationsErrored(false));
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         batch(() => {
           dispatch(altAssignmentsSeparationsErrored(true));
           dispatch(altAssignmentsSeparationsLoading(false));
