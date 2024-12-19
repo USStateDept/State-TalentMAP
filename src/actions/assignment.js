@@ -97,8 +97,13 @@ export function altAssignmentsSeparations(id) {
           console.log(sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse());
           assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
 
-          // Sort option 2
-          const sortedAssignments = assignments.sort((a, b) => {
+          // sort option 2
+          const sortedAssignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE ? new Date(item.ASGD_ETD_TED_DATE) : null]).reverse();
+          console.log('sortedAssignments');
+          console.log(sortedAssignments);
+
+          // Sort option 3
+          const sortedAssignments2 = assignments.sort((a, b) => {
             const dateA = a.ASGD_ETD_TED_DATE ? new Date(a.ASGD_ETD_TED_DATE) : null;
             const dateB = b.ASGD_ETD_TED_DATE ? new Date(b.ASGD_ETD_TED_DATE) : null;
 
@@ -111,8 +116,8 @@ export function altAssignmentsSeparations(id) {
             }
             return 0; // Both are null, maintain original order
           });
-          console.log('sortedAssignments');
-          console.log(sortedAssignments);
+          console.log('sortedAssignments2');
+          console.log(sortedAssignments2);
         }
         const sortedData = {
           assignments,
