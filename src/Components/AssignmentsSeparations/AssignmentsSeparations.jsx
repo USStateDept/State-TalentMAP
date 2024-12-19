@@ -81,12 +81,22 @@ const AssignmentsSeparations = (props) => {
   const [assignmentToggle, setAssignmentToggle] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [disableOtherEdits, setDisableOtherEdits] = useState(false);
+  const [disableNotification, setDisableNotification] = useState(true);
+  const [disableMemo, setDisableMemo] = useState(true);
   const [selectedAssignments, setSelectedAssignments] = useState([]);
   const hasSelections = selectedAssignments.length > 0;
 
   useEffect(() => {
     setDisableOtherEdits(false);
   }, []);
+
+  useEffect(() => {
+    const hasEffectedOrCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'EF' || a.ASGS_CODE === 'CP');
+    const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
+    const tm1Condition = disableOtherEdits || !hasSelections || hasEffectedOrCompleted;
+    setDisableNotification(tm1Condition || !hasOverseas);
+    setDisableMemo(tm1Condition || hasOverseas);
+  }, [disableOtherEdits, selectedAssignments]);
 
   useEffect(() => {
     if (openModal) {
@@ -169,11 +179,12 @@ const AssignmentsSeparations = (props) => {
               )}
             </div>
             {useNotification() &&
-              <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
+              <div className={`create-new-button align-left ${disableNotification ? 'disabled' : ''}`}>
                 <a
                   role="button"
                   className="width-300"
                   tabIndex={0}
+                  disabled={disableNotification}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
@@ -196,11 +207,12 @@ const AssignmentsSeparations = (props) => {
               </div>
             }
             {useMemo() &&
-              <div className={`create-new-button align-left ${(disableOtherEdits || !hasSelections) ? 'disabled' : ''}`}>
+              <div className={`create-new-button align-left ${disableMemo ? 'disabled' : ''}`}>
                 <a
                   role="button"
                   className="width-300"
                   tabIndex={0}
+                  disabled={disableMemo}
                   onClick={() => {
                     if (hasSelections) {
                       const seqNums = selectedAssignments?.map(a => a.ASG_SEQ_NUM).join(',');
@@ -248,14 +260,14 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         }
-        {assignmentToggle && (results?.QRY_LSTASGS_REF?.length > 0 ?
-          results?.QRY_LSTASGS_REF?.map(data => (
+        {assignmentToggle && (results?.assignments?.length > 0 ?
+          results?.assignments?.map(data => (
             <div key={`include-${data.ASG_SEQ_NUM}`} className="position-content--container" >
               <div className="toggle-include account-margin">
                 <CheckBox
                   id={`include-${data.ASG_SEQ_NUM}`}
                   label="Include"
-                  disabled={disableOtherEdits}
+                  disabled={disableOtherEdits || data.ASGS_CODE === 'EF' || data.ASGS_CODE === 'CP'}
                   value={selectedAssignments?.find(a => a.ASG_SEQ_NUM === data.ASG_SEQ_NUM) === true}
                   onCheckBoxClick={() => {
                     if (selectedAssignments?.find(a => a.ASG_SEQ_NUM === data.ASG_SEQ_NUM)) {
@@ -280,6 +292,7 @@ const AssignmentsSeparations = (props) => {
                     data={data}
                     setDisableOtherEdits={setDisableOtherEdits}
                     disableOtherEdits={disableOtherEdits}
+                    isAdmin={adminOrSuperuser}
                   />,
                 }]}
               />
@@ -293,8 +306,8 @@ const AssignmentsSeparations = (props) => {
             }]}
           />
         )}
-        {!assignmentToggle && (results?.QRY_LSTSEPS_REF?.length > 0 ?
-          results?.QRY_LSTSEPS_REF?.map(data => (
+        {!assignmentToggle && (results?.separations?.length > 0 ?
+          results?.separations?.map(data => (
             <TabbedCard
               key={data?.SEP_SEQ_NUM}
               tabs={[{
@@ -305,6 +318,7 @@ const AssignmentsSeparations = (props) => {
                   data={data}
                   setDisableOtherEdits={setDisableOtherEdits}
                   disableOtherEdits={disableOtherEdits}
+                  isAdmin={adminOrSuperuser}
                 />,
               }]}
             />
