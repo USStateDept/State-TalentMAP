@@ -92,8 +92,8 @@ export function altAssignmentsSeparations(id) {
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
           assignments = sortBy(assignments, [(item) => {
-            if (item.ETA) {
-              const [month, year] = item.ETA.split('/');
+            if (item.ASGD_ETD_TED_DATE) {
+              const [month, year] = item.ASGD_ETD_TED_DATE.split('/');
               return new Date(Date.UTC(year, month - 1, 1));
             }
             return new Date(0); // Use a very old date for null values
@@ -103,10 +103,10 @@ export function altAssignmentsSeparations(id) {
 
           // option 2
           const sortedAssignments = assignments.sort((a, b) => {
-            if (a.ETA === null) return 1;
-            if (b.ETA === null) return -1;
-            const [monthA, yearA] = a.ETA.split('/');
-            const [monthB, yearB] = b.ETA.split('/');
+            if (a.ASGD_ETD_TED_DATE === null) return 1;
+            if (b.ASGD_ETD_TED_DATE === null) return -1;
+            const [monthA, yearA] = a.ASGD_ETD_TED_DATE.split('/');
+            const [monthB, yearB] = b.ASGD_ETD_TED_DATE.split('/');
             const dateA = new Date(Date.UTC(yearA, monthA - 1, 1));
             const dateB = new Date(Date.UTC(yearB, monthB - 1, 1));
             return dateB - dateA; // Newest dates first
@@ -124,7 +124,8 @@ export function altAssignmentsSeparations(id) {
           dispatch(altAssignmentsSeparationsErrored(false));
         });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         batch(() => {
           dispatch(altAssignmentsSeparationsErrored(true));
           dispatch(altAssignmentsSeparationsLoading(false));
