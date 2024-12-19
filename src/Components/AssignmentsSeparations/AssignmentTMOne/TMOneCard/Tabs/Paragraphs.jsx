@@ -107,8 +107,8 @@ const Paragraphs = (props) => {
           <TextareaAutosize
             maxRows={12}
             minRows={4}
-            maxLength="500"
-            name="preview-text"
+            maxLength="50000"
+            name="paragraphs"
             placeholder="No Description"
             value={getCableValue('PARAGRAPHS')}
             onChange={(e) => modCableValue('PARAGRAPHS', e.target.value)}
