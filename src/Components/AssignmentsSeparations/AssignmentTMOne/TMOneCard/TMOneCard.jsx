@@ -326,11 +326,7 @@ const TMOneCard = (props) => {
           <span>
             Please update all relevant information as it pertains to this {memo ? 'memo' : 'note'}.
           </span>
-          {extraNote &&
-            <span>
-              {extraNote}
-            </span>
-          }
+          {extraNote && extraNote}
         </div>
         <div className="notification-card__rebuild">
           <button
@@ -459,6 +455,11 @@ const TMOneCard = (props) => {
         disableParagraphSelect={disableParagraphSelect}
       />,
       ['PARAGRAPHS'],
+      <span>
+        <br />Remember to save changes to paragraph selections in order to see updates in the preview textbox.
+        <br />Note that overwriting text in the preview will disable paragraph selection.
+        <br />Default option must be selected and saved before attempting to reselect paragraphs.
+      </span>,
     ),
   };
 
