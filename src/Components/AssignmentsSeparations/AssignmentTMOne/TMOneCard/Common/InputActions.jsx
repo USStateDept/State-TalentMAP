@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
 
 const InputActions = (props) => {
-  const { keys, handleDefaultClear, getCableValue, paragraphSelections, paragraphDefault } = props;
+  const { keys, handleDefaultClear, getCableValue } = props;
 
   const isDefault = () => {
-    if (keys.includes('PARAGRAPHS')) {
-      return paragraphSelections.sort().join(',') === paragraphDefault.sort().join(',');
-    }
     let def = true;
     keys.forEach(key => {
       const value = getCableValue(key, true);
@@ -18,9 +15,6 @@ const InputActions = (props) => {
   };
 
   const isClear = () => {
-    if (keys.includes('PARAGRAPHS')) {
-      return paragraphSelections.length === 0;
-    }
     let clear = true;
     keys.forEach(key => {
       const value = getCableValue(key, true);
@@ -61,13 +55,9 @@ InputActions.propTypes = {
   keys: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCableValue: PropTypes.func.isRequired,
   handleDefaultClear: PropTypes.func.isRequired,
-  paragraphSelections: PropTypes.arrayOf(PropTypes.string),
-  paragraphDefault: PropTypes.arrayOf(PropTypes.string),
 };
 
 InputActions.defaultProps = {
-  paragraphSelections: [],
-  paragraphDefault: [],
 };
 
 export default InputActions;

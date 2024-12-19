@@ -44,6 +44,7 @@ const TMOneCard = (props) => {
   const [noteRouting, setNoteRouting] = useState(ref?.QRY_NMD_REF || []);
   const [noteAssignments, setNoteAssignments] = useState([]);
   const [noteParagraphs, setNoteParagraphs] = useState([]);
+  const [disableParagraphSelect, setDisableParagraphSelect] = useState(false);
 
   const fetchNoteData = () => {
     if (note?.NM_SEQ_NUM) {
@@ -87,6 +88,21 @@ const TMOneCard = (props) => {
     }
     return section?.NME_OVERRIDE_CLOB || section?.NME_DEFAULT_CLOB;
   };
+
+  const updateDisableParagraphSelect = () => {
+    const value = getCableValue('PARAGRAPHS', true);
+    if ((value?.NME_OVERRIDE_CLOB === '' && value?.NME_CLEAR_IND === 'N')) {
+      // Paragraph is DEFAULT
+      setDisableParagraphSelect(false);
+    } else {
+      // Paragraph is CLEAR or OVERRIDE
+      setDisableParagraphSelect(true);
+    }
+  };
+
+  useEffect(() => {
+    updateDisableParagraphSelect();
+  }, [noteCable]);
 
   const modCableValue = (key, override) => {
     const sections = noteCable.map(c => {
@@ -153,9 +169,11 @@ const TMOneCard = (props) => {
     if (cableKeys.includes('PARAGRAPHS')) {
       if (clear) {
         setNoteParagraphs([]);
+        setDisableParagraphSelect(true);
       } else if (ref?.QRY_PARA_REF) {
         const selectedParagraphs = ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1);
         setNoteParagraphs(selectedParagraphs.map(p => p.NOTP_CODE));
+        setDisableParagraphSelect(false);
       }
     }
   };
@@ -196,13 +214,16 @@ const TMOneCard = (props) => {
 
     // --------- Paragraph Selections ---------
 
-    const paragraph = getCableValue('PARAGRAPHS', true);
-    const paragraphReq = {
-      I_PARA_NME_SEQ_NUM: paragraph.NME_SEQ_NUM,
-      I_PARA_NOTP_CODE: noteParagraphs.join(),
-      I_PARA_NME_UPDATE_ID: paragraph.NME_UPDATE_ID,
-      I_PARA_NME_UPDATE_DATE: paragraph.NME_UPDATE_DATE,
-    };
+    let paragraphReq = {};
+    if (!disableParagraphSelect) {
+      const paragraph = getCableValue('PARAGRAPHS', true);
+      paragraphReq = {
+        I_PARA_NME_SEQ_NUM: paragraph.NME_SEQ_NUM,
+        I_PARA_NOTP_CODE: noteParagraphs.join(),
+        I_PARA_NME_UPDATE_ID: paragraph.NME_UPDATE_ID,
+        I_PARA_NME_UPDATE_DATE: paragraph.NME_UPDATE_DATE,
+      };
+    }
 
     // --------- Base Request ---------
 
@@ -280,7 +301,7 @@ const TMOneCard = (props) => {
     dispatch(editNoteCable(req, fetchNoteData, memo));
   };
 
-  const freeTextContainer = (children, meDescs) => {
+  const freeTextContainer = (children, meDescs, extraNote) => {
     let tabSeqNums = '';
     let tabUpdateIds = '';
     let tabUpdateDates = '';
@@ -305,6 +326,7 @@ const TMOneCard = (props) => {
           <span>
             Please update all relevant information as it pertains to this {memo ? 'memo' : 'note'}.
           </span>
+          {extraNote && extraNote}
         </div>
         <div className="notification-card__rebuild">
           <button
@@ -425,13 +447,19 @@ const TMOneCard = (props) => {
     content: freeTextContainer(
       <Paragraphs
         getCableValue={getCableValue}
+        modCableValue={modCableValue}
         handleDefaultClear={handleDefaultClear}
         selections={noteParagraphs}
         setSelections={setNoteParagraphs}
         paragraphs={ref?.QRY_PARA_REF}
-        defaultSelections={ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1).map(p => p.NOTP_CODE)}
+        disableParagraphSelect={disableParagraphSelect}
       />,
       ['PARAGRAPHS'],
+      <span>
+        <br />Remember to save changes to paragraph selections in order to see updates in the preview textbox.
+        <br />Note that overwriting text in the preview will disable paragraph selection.
+        <br />Default option must be selected and saved before attempting to reselect paragraphs.
+      </span>,
     ),
   };
 
