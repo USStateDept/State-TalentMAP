@@ -115,17 +115,27 @@ const NotePreview = (props) => {
       const assignmentsParam = [];
       if (assignmentsRef) {
         assignmentsRef.forEach(a => {
+          // Reference of invalid date parameters
+          const invalid = [undefined, null, '', 'null'];
+
+          // Converts MM/YYYY string to a valid date input
+          const validDate = (monthYear) => {
+            const split = monthYear.split('/');
+            return new Date(split[1], split[0] - 1, 1);
+          };
+
+          // Append assignment to array parameter
           assignmentsParam.push({
             positionnumber: a.POS_NUM_TXT,
             location: a.POS_LOCATION_CODE,
             positiontitle: a.POS_TITLE_TXT,
-            eta: a.ASGD_ETA_DATE,
-            ted: a.ASGD_ETD_TED_DATE,
+            eta: invalid.includes(a.ASGD_ETA_DATE) ? null : validDate(a.ASGD_ETA_DATE),
+            ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : validDate(a.ASGD_ETD_TED_DATE),
             travelfunction: a.TF_CD,
-            datesent: cable?.O_LAST_SENT_DATE,
+            datesent: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
             status: a.ASGS_CODE,
             nmnotificationind: note?.NM_NOTIFICATION_IND,
-            effectivedate: cable?.O_LAST_SENT_DATE,
+            effectivedate: invalid.includes(cable?.O_LAST_SENT_DATE) ? null : cable?.O_LAST_SENT_DATE,
           });
         });
       }
