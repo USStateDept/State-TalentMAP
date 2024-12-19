@@ -15,8 +15,9 @@ const Paragraphs = (props) => {
     setSelections,
     paragraphs,
     getCableValue,
+    modCableValue,
     handleDefaultClear,
-    defaultSelections,
+    disableParagraphSelect,
   } = props;
 
   const [expanded, setExpanded] = useState([]);
@@ -47,63 +48,74 @@ const Paragraphs = (props) => {
         keys={['PARAGRAPHS']}
         getCableValue={getCableValue}
         handleDefaultClear={handleDefaultClear}
-        paragraphSelections={selections}
-        paragraphDefault={defaultSelections}
       />
       <div className="mb-20">
         <span className="section-title">Chosen Paragraphs</span>
-        {paragraphs.sort((a, b) => a.ORDER_NUM - b.ORDER_NUM).map(o => (
-          <div key={o.NOTP_CODE}>
-            <div className="chosen-paragraph">
-              <div>
-                <CheckBox
-                  id={`${o.NOTP_CODE}-checkbox`}
-                  name={`${o.NOTP_CODE}-checkbox`}
-                  value={selections.includes(o.NOTP_CODE)}
-                  onChange={() => handleCheck(o.NOTP_CODE)}
-                />
-                <span>{o.NOTP_SHORT_DESC_TEXT}</span>
+        {paragraphs.sort((a, b) => a.ORDER_NUM - b.ORDER_NUM).map(o => {
+          const selected = selections.includes(o.NOTP_CODE);
+          return (
+            <div key={o.NOTP_CODE}>
+              <div className="chosen-paragraph">
+                <div>
+                  {disableParagraphSelect ?
+                    <Tooltip title="Reset this tab to default and save in order to reselect paragraph options.">
+                      <CheckBox
+                        id={`${o.NOTP_CODE}-checkbox`}
+                        name={`${o.NOTP_CODE}-checkbox`}
+                        value={selected}
+                        className="tm-checkbox-disabled"
+                        disabled
+                      />
+                    </Tooltip> :
+                    <Tooltip title="Please save after reselecting paragraph options in order to see updates in the preview.">
+                      <CheckBox
+                        id={`${o.NOTP_CODE}-checkbox`}
+                        name={`${o.NOTP_CODE}-checkbox`}
+                        value={selected}
+                        onChange={() => handleCheck(o.NOTP_CODE)}
+                      />
+                    </Tooltip>
+                  }
+                  <span>{o.NOTP_SHORT_DESC_TEXT}</span>
+                </div>
+                <div>
+                  <InteractiveElement className="toggle-more" onClick={() => handleExpand(o.NOTP_CODE)}>
+                    <FA id={o.NOTP_CODE} name={`chevron-${expanded.includes(o.NOTP_CODE) ? 'up' : 'down'}`} />
+                  </InteractiveElement>
+                </div>
               </div>
-              <div>
-                <InteractiveElement className="toggle-more" onClick={() => handleExpand(o.NOTP_CODE)}>
-                  <FA id={o.NOTP_CODE} name={`chevron-${expanded.includes(o.NOTP_CODE) ? 'up' : 'down'}`} />
-                </InteractiveElement>
-              </div>
+              {expanded.includes(o.NOTP_CODE) &&
+                <div>
+                  <TextareaAutosize
+                    maxRows={6}
+                    minRows={4}
+                    maxLength="500"
+                    name={`${o.NOTP_CODE}-input`}
+                    placeholder="No Description"
+                    value={paragraphs?.find(item => item.NOTP_CODE === o.NOTP_CODE)?.NOTP_DESC_TEXT}
+                    className="disabled-input"
+                    disabled
+                  />
+                </div>
+              }
             </div>
-            {expanded.includes(o.NOTP_CODE) &&
-              <div>
-                <TextareaAutosize
-                  maxRows={6}
-                  minRows={4}
-                  maxLength="500"
-                  name={`${o.NOTP_CODE}-input`}
-                  placeholder="No Description"
-                  value={paragraphs?.find(item => item.NOTP_CODE === o.NOTP_CODE)?.NOTP_DESC_TEXT}
-                  className="disabled-input"
-                  disabled
-                />
-              </div>
-            }
-          </div>
-        ))}
+          );
+        })}
       </div>
       <Row fluid className="position-content--description">
         <span className="definition-title">Preview Text</span>
-        <Tooltip title="Save changes to generate new preview text.">
-          <Linkify properties={{ target: '_blank' }}>
-            <TextareaAutosize
-              maxRows={12}
-              minRows={4}
-              maxLength="500"
-              name="preview-text"
-              placeholder="No Description"
-              value={getCableValue('PARAGRAPHS')}
-              className="disabled-input"
-              draggable={false}
-              disabled
-            />
-          </Linkify>
-        </Tooltip>
+        <Linkify properties={{ target: '_blank' }}>
+          <TextareaAutosize
+            maxRows={12}
+            minRows={4}
+            maxLength="50000"
+            name="paragraphs"
+            placeholder="No Description"
+            value={getCableValue('PARAGRAPHS')}
+            onChange={(e) => modCableValue('PARAGRAPHS', e.target.value)}
+            draggable={false}
+          />
+        </Linkify>
         <div className="word-count">
           {getCableValue('PARAGRAPHS')?.length} / 500
         </div>
@@ -117,15 +129,15 @@ Paragraphs.propTypes = {
   setSelections: PropTypes.func.isRequired,
   paragraphs: PropTypes.arrayOf(PropTypes.shape({})),
   getCableValue: PropTypes.func.isRequired,
+  modCableValue: PropTypes.func.isRequired,
   handleDefaultClear: PropTypes.func.isRequired,
-  defaultSelections: PropTypes.arrayOf(PropTypes.string),
+  disableParagraphSelect: PropTypes.bool.isRequired,
 };
 
 Paragraphs.defaultProps = {
   selections: undefined,
   setSelections: undefined,
   paragraphs: undefined,
-  defaultSelections: undefined,
 };
 
 export default Paragraphs;
