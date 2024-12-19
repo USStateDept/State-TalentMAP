@@ -113,7 +113,7 @@ const NotePreview = (props) => {
 
     if (cable?.O_LAST_SENT_DATE) {
       dispatch(sendToEopf({
-        transactionid: uuidv4(),
+        transactionid: uuidv4().substring(0, 19),
         perseqnum: nmSeqNum,
         documenttype: 'Assignment Cable',
         pdffilename: filename,
