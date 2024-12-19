@@ -44,6 +44,7 @@ const TMOneCard = (props) => {
   const [noteRouting, setNoteRouting] = useState(ref?.QRY_NMD_REF || []);
   const [noteAssignments, setNoteAssignments] = useState([]);
   const [noteParagraphs, setNoteParagraphs] = useState([]);
+  const [disableParagraphSelect, setDisableParagraphSelect] = useState(false);
 
   const fetchNoteData = () => {
     if (note?.NM_SEQ_NUM) {
@@ -88,9 +89,27 @@ const TMOneCard = (props) => {
     return section?.NME_OVERRIDE_CLOB || section?.NME_DEFAULT_CLOB;
   };
 
+  const paragraphIsDefaultOrClear = () => {
+    const value = getCableValue('PARAGRAPHS', true);
+    if ((value?.NME_OVERRIDE_CLOB !== '' && value?.NME_CLEAR_IND === 'N') || value?.NME_CLEAR_IND === 'Y') {
+      setDisableParagraphSelect(false);
+    } else if (value?.NME_CLEAR_IND === 'N') {
+      setDisableParagraphSelect(false);
+    } else {
+      setDisableParagraphSelect(true);
+    }
+  };
+
+  useEffect(() => {
+    paragraphIsDefaultOrClear();
+  }, []);
+
   const modCableValue = (key, override) => {
     const sections = noteCable.map(c => {
       if (c.ME_DESC === key) {
+        if (key === 'PARAGRAPHS') {
+          paragraphIsDefaultOrClear();
+        }
         if (key === 'DATE') {
           return {
             ...c,
@@ -280,7 +299,7 @@ const TMOneCard = (props) => {
     dispatch(editNoteCable(req, fetchNoteData, memo));
   };
 
-  const freeTextContainer = (children, meDescs) => {
+  const freeTextContainer = (children, meDescs, extraNote) => {
     let tabSeqNums = '';
     let tabUpdateIds = '';
     let tabUpdateDates = '';
@@ -305,6 +324,11 @@ const TMOneCard = (props) => {
           <span>
             Please update all relevant information as it pertains to this {memo ? 'memo' : 'note'}.
           </span>
+          {extraNote &&
+            <span>
+              {extraNote}
+            </span>
+          }
         </div>
         <div className="notification-card__rebuild">
           <button
@@ -425,11 +449,12 @@ const TMOneCard = (props) => {
     content: freeTextContainer(
       <Paragraphs
         getCableValue={getCableValue}
+        modCableValue={modCableValue}
         handleDefaultClear={handleDefaultClear}
         selections={noteParagraphs}
         setSelections={setNoteParagraphs}
         paragraphs={ref?.QRY_PARA_REF}
-        defaultSelections={ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1).map(p => p.NOTP_CODE)}
+        disableParagraphSelect={disableParagraphSelect}
       />,
       ['PARAGRAPHS'],
     ),
