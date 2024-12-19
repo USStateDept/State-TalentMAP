@@ -267,7 +267,7 @@ const AssignmentsSeparations = (props) => {
                 <CheckBox
                   id={`include-${data.ASG_SEQ_NUM}`}
                   label="Include"
-                  disabled={disableOtherEdits}
+                  disabled={disableOtherEdits || data.ASGS_CODE === 'EF' || data.ASGS_CODE === 'CP'}
                   value={selectedAssignments?.find(a => a.ASG_SEQ_NUM === data.ASG_SEQ_NUM) === true}
                   onCheckBoxClick={() => {
                     if (selectedAssignments?.find(a => a.ASG_SEQ_NUM === data.ASG_SEQ_NUM)) {
