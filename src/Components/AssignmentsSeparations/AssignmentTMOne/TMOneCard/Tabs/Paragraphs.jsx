@@ -15,37 +15,12 @@ const Paragraphs = (props) => {
     setSelections,
     paragraphs,
     getCableValue,
+    modCableValue,
     handleDefaultClear,
-    defaultSelections,
+    disableParagraphSelect,
   } = props;
 
   const [expanded, setExpanded] = useState([]);
-
-  const overridedParagraphs = () => {
-    const text = getCableValue('PARAGRAPHS');
-    let textArray = text.split(/\n\n/);
-    textArray.shift();
-    textArray.pop();
-    textArray = textArray.map(t => t.substr(t.indexOf(' ') + 1));
-    const paragraphArray = textArray.map(t => {
-      const values = t.split(/\n/);
-      return {
-        NOTP_SHORT_DESC_TEXT: values[0],
-        NOTP_DESC_TEXT: t.substr(t.indexOf('\n') + 1),
-      };
-    });
-    console.log(paragraphArray);
-    return paragraphArray;
-  };
-  overridedParagraphs();
-
-  const getParagraphs = () => {
-    const paragraphForm = paragraphs;
-
-    return paragraphForm;
-  };
-
-  getParagraphs();
 
   const handleCheck = (id) => {
     let newSelections = [...selections];
@@ -67,18 +42,12 @@ const Paragraphs = (props) => {
     setExpanded(newExpanded);
   };
 
-  // const handleOverrideText = () => {
-
-  // };
-
   return (
     <div className="position-content position-form input-container">
       <InputActions
         keys={['PARAGRAPHS']}
         getCableValue={getCableValue}
         handleDefaultClear={handleDefaultClear}
-        paragraphSelections={selections}
-        paragraphDefault={defaultSelections}
       />
       <div className="mb-20">
         <span className="section-title">Chosen Paragraphs</span>
@@ -88,12 +57,24 @@ const Paragraphs = (props) => {
             <div key={o.NOTP_CODE}>
               <div className="chosen-paragraph">
                 <div>
-                  <CheckBox
-                    id={`${o.NOTP_CODE}-checkbox`}
-                    name={`${o.NOTP_CODE}-checkbox`}
-                    value={selected}
-                    onChange={() => handleCheck(o.NOTP_CODE)}
-                  />
+                  {disableParagraphSelect ?
+                    <Tooltip title="Reset this tab to default and save in order to reselect paragraph options.">
+                      <CheckBox
+                        id={`${o.NOTP_CODE}-checkbox`}
+                        name={`${o.NOTP_CODE}-checkbox`}
+                        value={selected}
+                        disabled
+                      />
+                    </Tooltip> :
+                    <Tooltip title="Please save after reselecting paragraph options in order to see updates in the preview.">
+                      <CheckBox
+                        id={`${o.NOTP_CODE}-checkbox`}
+                        name={`${o.NOTP_CODE}-checkbox`}
+                        value={selected}
+                        onChange={() => handleCheck(o.NOTP_CODE)}
+                      />
+                    </Tooltip>
+                  }
                   <span>{o.NOTP_SHORT_DESC_TEXT}</span>
                 </div>
                 <div>
@@ -103,20 +84,18 @@ const Paragraphs = (props) => {
                 </div>
               </div>
               {expanded.includes(o.NOTP_CODE) &&
-                <Tooltip title="Ensure paragraph is selected before editing the text.">
-                  <div>
-                    <TextareaAutosize
-                      maxRows={6}
-                      minRows={4}
-                      maxLength="500"
-                      name={`${o.NOTP_CODE}-input`}
-                      placeholder="No Description"
-                      value={paragraphs?.find(item => item.NOTP_CODE === o.NOTP_CODE)?.NOTP_DESC_TEXT}
-                      className={!selected ? 'disabled-input' : ''}
-                      disabled={!selected}
-                    />
-                  </div>
-                </Tooltip>
+                <div>
+                  <TextareaAutosize
+                    maxRows={6}
+                    minRows={4}
+                    maxLength="500"
+                    name={`${o.NOTP_CODE}-input`}
+                    placeholder="No Description"
+                    value={paragraphs?.find(item => item.NOTP_CODE === o.NOTP_CODE)?.NOTP_DESC_TEXT}
+                    className="disabled-input"
+                    disabled
+                  />
+                </div>
               }
             </div>
           );
@@ -124,21 +103,18 @@ const Paragraphs = (props) => {
       </div>
       <Row fluid className="position-content--description">
         <span className="definition-title">Preview Text</span>
-        <Tooltip title="Save changes to generate new preview text.">
-          <Linkify properties={{ target: '_blank' }}>
-            <TextareaAutosize
-              maxRows={12}
-              minRows={4}
-              maxLength="500"
-              name="preview-text"
-              placeholder="No Description"
-              value={getCableValue('PARAGRAPHS')}
-              className="disabled-input"
-              draggable={false}
-              disabled
-            />
-          </Linkify>
-        </Tooltip>
+        <Linkify properties={{ target: '_blank' }}>
+          <TextareaAutosize
+            maxRows={12}
+            minRows={4}
+            maxLength="500"
+            name="preview-text"
+            placeholder="No Description"
+            value={getCableValue('PARAGRAPHS')}
+            onChange={(e) => modCableValue('PARAGRAPHS', e.target.value)}
+            draggable={false}
+          />
+        </Linkify>
         <div className="word-count">
           {getCableValue('PARAGRAPHS')?.length} / 500
         </div>
@@ -152,15 +128,15 @@ Paragraphs.propTypes = {
   setSelections: PropTypes.func.isRequired,
   paragraphs: PropTypes.arrayOf(PropTypes.shape({})),
   getCableValue: PropTypes.func.isRequired,
+  modCableValue: PropTypes.func.isRequired,
   handleDefaultClear: PropTypes.func.isRequired,
-  defaultSelections: PropTypes.arrayOf(PropTypes.string),
+  disableParagraphSelect: PropTypes.bool.isRequired,
 };
 
 Paragraphs.defaultProps = {
   selections: undefined,
   setSelections: undefined,
   paragraphs: undefined,
-  defaultSelections: undefined,
 };
 
 export default Paragraphs;
