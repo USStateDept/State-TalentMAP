@@ -102,12 +102,9 @@ const TMOneCard = (props) => {
 
   useEffect(() => {
     updateDisableParagraphSelect();
-  }, []);
+  }, [noteCable]);
 
   const modCableValue = (key, override) => {
-    if (key === 'PARAGRAPHS') {
-      updateDisableParagraphSelect();
-    }
     const sections = noteCable.map(c => {
       if (c.ME_DESC === key) {
         if (key === 'DATE') {
@@ -217,13 +214,16 @@ const TMOneCard = (props) => {
 
     // --------- Paragraph Selections ---------
 
-    const paragraph = getCableValue('PARAGRAPHS', true);
-    const paragraphReq = {
-      I_PARA_NME_SEQ_NUM: paragraph.NME_SEQ_NUM,
-      I_PARA_NOTP_CODE: noteParagraphs.join(),
-      I_PARA_NME_UPDATE_ID: paragraph.NME_UPDATE_ID,
-      I_PARA_NME_UPDATE_DATE: paragraph.NME_UPDATE_DATE,
-    };
+    let paragraphReq = {};
+    if (!disableParagraphSelect) {
+      const paragraph = getCableValue('PARAGRAPHS', true);
+      paragraphReq = {
+        I_PARA_NME_SEQ_NUM: paragraph.NME_SEQ_NUM,
+        I_PARA_NOTP_CODE: noteParagraphs.join(),
+        I_PARA_NME_UPDATE_ID: paragraph.NME_UPDATE_ID,
+        I_PARA_NME_UPDATE_DATE: paragraph.NME_UPDATE_DATE,
+      };
+    }
 
     // --------- Base Request ---------
 
