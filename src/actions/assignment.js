@@ -91,33 +91,28 @@ export function altAssignmentsSeparations(id) {
         console.log(assignments);
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
-          console.log('sorting');
-          console.log(sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]));
-          console.log('reversing');
-          console.log(sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse());
-          assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
-
-          // sort option 2
-          const sortedAssignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE ? new Date(item.ASGD_ETD_TED_DATE) : null]).reverse();
-          console.log('sortedAssignments');
-          console.log(sortedAssignments);
-
-          // Sort option 3
-          const sortedAssignments2 = assignments.sort((a, b) => {
-            const dateA = a.ASGD_ETD_TED_DATE ? new Date(a.ASGD_ETD_TED_DATE) : null;
-            const dateB = b.ASGD_ETD_TED_DATE ? new Date(b.ASGD_ETD_TED_DATE) : null;
-
-            if (dateA && dateB) {
-              return dateB - dateA; // Newest date first
-            } else if (dateA) {
-              return -1; // `a` comes before `b`
-            } else if (dateB) {
-              return 1; // `b` comes before `a`
+          assignments = sortBy(assignments, [(item) => {
+            if (item.ETA) {
+              const [month, year] = item.ETA.split('/');
+              return new Date(Date.UTC(year, month - 1, 1));
             }
-            return 0; // Both are null, maintain original order
+            return new Date(0); // Use a very old date for null values
+          }]).reverse(); // Reverse to get newest dates first
+          console.log('sorted assignments');
+          console.log(assignments);
+
+          // option 2
+          const sortedAssignments = assignments.sort((a, b) => {
+            if (a.ETA === null) return 1;
+            if (b.ETA === null) return -1;
+            const [monthA, yearA] = a.ETA.split('/');
+            const [monthB, yearB] = b.ETA.split('/');
+            const dateA = new Date(Date.UTC(yearA, monthA - 1, 1));
+            const dateB = new Date(Date.UTC(yearB, monthB - 1, 1));
+            return dateB - dateA; // Newest dates first
           });
-          console.log('sortedAssignments2');
-          console.log(sortedAssignments2);
+          console.log('sorted assignments 2');
+          console.log(sortedAssignments);
         }
         const sortedData = {
           assignments,
