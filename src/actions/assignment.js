@@ -96,6 +96,23 @@ export function altAssignmentsSeparations(id) {
           console.log('reversing');
           console.log(sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse());
           assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
+
+          // Sort option 2
+          const sortedAssignments = assignments.sort((a, b) => {
+            const dateA = a.ASGD_ETD_TED_DATE ? new Date(a.ASGD_ETD_TED_DATE) : null;
+            const dateB = b.ASGD_ETD_TED_DATE ? new Date(b.ASGD_ETD_TED_DATE) : null;
+
+            if (dateA && dateB) {
+              return dateB - dateA; // Newest date first
+            } else if (dateA) {
+              return -1; // `a` comes before `b`
+            } else if (dateB) {
+              return 1; // `b` comes before `a`
+            }
+            return 0; // Both are null, maintain original order
+          });
+          console.log('sortedAssignments');
+          console.log(sortedAssignments);
         }
         const sortedData = {
           assignments,
