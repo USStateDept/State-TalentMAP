@@ -89,11 +89,7 @@ const TMOneCard = (props) => {
     return section?.NME_OVERRIDE_CLOB || section?.NME_DEFAULT_CLOB;
   };
 
-  const updateDisableParagraphSelect = (bool) => {
-    if (bool) {
-      setDisableParagraphSelect(bool);
-      return;
-    }
+  const updateDisableParagraphSelect = () => {
     const value = getCableValue('PARAGRAPHS', true);
     if ((value?.NME_OVERRIDE_CLOB === '' && value?.NME_CLEAR_IND === 'N')) {
       // Paragraph is DEFAULT
@@ -176,11 +172,11 @@ const TMOneCard = (props) => {
     if (cableKeys.includes('PARAGRAPHS')) {
       if (clear) {
         setNoteParagraphs([]);
-        updateDisableParagraphSelect(true);
+        setDisableParagraphSelect(true);
       } else if (ref?.QRY_PARA_REF) {
         const selectedParagraphs = ref?.QRY_PARA_REF?.filter(p => p.INC_IND === 1);
         setNoteParagraphs(selectedParagraphs.map(p => p.NOTP_CODE));
-        updateDisableParagraphSelect(false);
+        setDisableParagraphSelect(false);
       }
     }
   };
