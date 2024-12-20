@@ -86,7 +86,8 @@ export const generatePDF = (getPreviewText, filename, memo) => {
     autoPaging: 'text',
   });
   const base64string = pdf.output('datauristring');
-  return base64string;
+  const strippedString = base64string.split(',')[1];
+  return strippedString;
 };
 
 /**
