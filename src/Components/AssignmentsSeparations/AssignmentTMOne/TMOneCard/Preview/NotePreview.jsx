@@ -11,7 +11,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from 'Components/Layout';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
-import { generatePDF, generateSoapXML } from '../Common/Utilities';
+import { generateEopfAssignments, generatePDF, generateSoapXML } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_notification_send');
 
@@ -23,6 +23,7 @@ const NotePreview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
+    perseqnum,
   } = props;
 
   const dispatch = useDispatch();
@@ -85,9 +86,9 @@ const NotePreview = (props) => {
     const type = 'C';
     let now = new Date();
     now = now.toISOString();
-    now = now.replace(/\D/g, '');
-    const date = now.substring(0, 8);
-    const time = now.substring(8, 14);
+    const datetime = now.replace(/\D/g, '');
+    const date = datetime.substring(0, 8);
+    const time = datetime.substring(8, 14);
     const filename = `TMONE_CABLE_${nmSeqNum}_${date}_${time}.pdf`;
 
     // ------------ Handle Send ------------
@@ -112,31 +113,14 @@ const NotePreview = (props) => {
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      const assignmentsParam = [];
-      if (assignmentsRef) {
-        assignmentsRef.forEach(a => {
-          assignmentsParam.push({
-            positionnumber: a.POS_NUM_TXT,
-            location: a.POS_LOCATION_CODE,
-            positiontitle: a.POS_TITLE_TXT,
-            eta: a.ASGD_ETA_DATE,
-            ted: a.ASGD_ETD_TED_DATE,
-            travelfunction: a.TF_CD,
-            datesent: cable?.O_LAST_SENT_DATE,
-            status: a.ASGS_CODE,
-            nmnotificationind: note?.NM_NOTIFICATION_IND,
-            effectivedate: cable?.O_LAST_SENT_DATE,
-          });
-        });
-      }
       dispatch(sendToEopf({
-        transactionid: uuidv4(),
-        perseqnum: nmSeqNum,
-        documenttype: 'Assignment Cable',
+        transactionid: uuidv4().substring(0, 19),
+        perseqnum,
+        documenttype: 'TMONEAC',
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename),
         createid: note?.NM_CREATE_ID,
-        assignments: assignmentsParam,
+        assignments: generateEopfAssignments(assignmentsRef, note, now),
       }));
     }
 
@@ -235,6 +219,7 @@ NotePreview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
+  perseqnum: PropTypes.string.isRequired,
 };
 
 NotePreview.defaultProps = {

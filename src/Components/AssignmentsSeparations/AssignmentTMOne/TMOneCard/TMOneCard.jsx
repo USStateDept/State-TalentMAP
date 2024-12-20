@@ -22,7 +22,7 @@ import { formatDate } from '../../../../utilities';
 import MemoPreview from './Preview/MemoPreview';
 
 const TMOneCard = (props) => {
-  const { note, onCancel, memo } = props;
+  const { note, onCancel, memo, perseqnum } = props;
 
   const dispatch = useDispatch();
 
@@ -521,6 +521,7 @@ const TMOneCard = (props) => {
           getCableValue={getCableValue}
           setEditMode={setEditMode}
           fetchData={fetchNoteData}
+          perseqnum={perseqnum}
         /> :
         <Preview
           note={note}
@@ -529,6 +530,7 @@ const TMOneCard = (props) => {
           getCableValue={getCableValue}
           setEditMode={setEditMode}
           fetchData={fetchNoteData}
+          perseqnum={perseqnum}
         />
     );
   };
@@ -542,6 +544,7 @@ TMOneCard.propTypes = {
   }),
   onCancel: PropTypes.func,
   memo: PropTypes.bool,
+  perseqnum: PropTypes.string.isRequired,
 };
 
 TMOneCard.defaultProps = {
