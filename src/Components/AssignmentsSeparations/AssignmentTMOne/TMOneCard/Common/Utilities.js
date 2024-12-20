@@ -19,8 +19,12 @@ export const generateEopfAssignments = (assignmentsRef, note, sentDate) => {
   // Converts MM/YYYY string to a valid date input
   const validDate = (monthYear) => {
     const split = monthYear.split('/');
-    return new Date(split[1], split[0] - 1, 1);
+    const dateValue = new Date(split[1], split[0] - 1, 1);
+    return dateValue.toISOString();
   };
+
+  // Returns YYYY-MM-DD format of ISO datetime string
+  const removeTimestamp = (date) => date.substring(0, 10);
 
   const assignmentsParam = [];
 
@@ -31,13 +35,13 @@ export const generateEopfAssignments = (assignmentsRef, note, sentDate) => {
         positionnumber: a.POS_NUM_TXT,
         location: a.POS_LOCATION_CODE,
         positiontitle: a.POS_TITLE_TXT,
-        eta: invalid.includes(a.ASGD_ETA_DATE) ? null : validDate(a.ASGD_ETA_DATE),
-        ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : validDate(a.ASGD_ETD_TED_DATE),
+        eta: invalid.includes(a.ASGD_ETA_DATE) ? null : removeTimestamp(validDate(a.ASGD_ETA_DATE)),
+        ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : removeTimestamp(validDate(a.ASGD_ETD_TED_DATE)),
         travelfunction: a.TF_CD,
-        datesent: sentDate,
+        datesent: removeTimestamp(sentDate),
         status: a.ASGS_CODE,
         nmnotificationind: note?.NM_NOTIFICATION_IND,
-        effectivedate: sentDate,
+        effectivedate: removeTimestamp(sentDate),
       });
     });
   }
