@@ -99,7 +99,7 @@ const MemoPreview = (props) => {
       dispatch(sendToEopf({
         transactionid: uuidv4().substring(0, 19),
         perseqnum: nmSeqNum,
-        documenttype: 'Assignment Memo',
+        documenttype: 'TMONEAM',
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename, true),
         createid: note?.NM_CREATE_ID,

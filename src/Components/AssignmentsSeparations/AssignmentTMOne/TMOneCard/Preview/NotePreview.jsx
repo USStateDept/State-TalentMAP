@@ -115,7 +115,7 @@ const NotePreview = (props) => {
       dispatch(sendToEopf({
         transactionid: uuidv4().substring(0, 19),
         perseqnum: nmSeqNum,
-        documenttype: 'Assignment Cable',
+        documenttype: 'TMONEAC',
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename),
         createid: note?.NM_CREATE_ID,
