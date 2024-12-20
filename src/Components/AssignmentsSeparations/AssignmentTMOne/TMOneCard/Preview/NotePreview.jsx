@@ -219,6 +219,7 @@ NotePreview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
+  perseqnum: PropTypes.string.isRequired,
 };
 
 NotePreview.defaultProps = {
