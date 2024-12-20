@@ -423,8 +423,8 @@ export function sendNotification(data, onSuccess, memo) {
 // ================ STORE TM1 ================
 
 let cancelStoreNotification;
-export function storeNotification(data, onSuccess, memo) {
-  return (dispatch) => {
+export function storeNotification(data, onSuccess) {
+  return () => {
     if (cancelStoreNotification) {
       cancelStoreNotification('cancel');
     }
@@ -433,35 +433,11 @@ export function storeNotification(data, onSuccess, memo) {
         cancelToken: new CancelToken((c) => { cancelStoreNotification = c; }),
       })
       .then(() => {
-        if (memo) {
-          dispatch(toastSuccess(
-            SEND_MEMO_SUCCESS,
-            SEND_MEMO_SUCCESS_TITLE,
-          ));
-        } else {
-          dispatch(toastSuccess(
-            SEND_NOTIFICATION_SUCCESS,
-            SEND_NOTIFICATION_SUCCESS_TITLE,
-          ));
-        }
         if (onSuccess) {
           onSuccess();
         }
       })
-      .catch((err) => {
-        if (err?.message !== 'cancel') {
-          if (memo) {
-            dispatch(toastError(
-              SEND_MEMO_ERROR,
-              SEND_MEMO_ERROR_TITLE,
-            ));
-          } else {
-            dispatch(toastError(
-              SEND_NOTIFICATION_ERROR,
-              SEND_NOTIFICATION_ERROR_TITLE,
-            ));
-          }
-        }
+      .catch(() => {
       });
   };
 }
