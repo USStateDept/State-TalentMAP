@@ -23,6 +23,7 @@ const NotePreview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
+    perseqnum,
   } = props;
 
   const dispatch = useDispatch();
@@ -114,7 +115,7 @@ const NotePreview = (props) => {
     if (cable?.O_LAST_SENT_DATE) {
       dispatch(sendToEopf({
         transactionid: uuidv4().substring(0, 19),
-        perseqnum: nmSeqNum,
+        perseqnum,
         documenttype: 'TMONEAC',
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename),
