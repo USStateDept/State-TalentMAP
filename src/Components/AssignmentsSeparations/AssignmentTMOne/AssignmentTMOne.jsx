@@ -97,6 +97,7 @@ const AssignmentTMOne = (props) => {
             note={note[0]}
             onCancel={() => history.push(`/profile/${viewType}/${clientId}/assignmentsseparations`)}
             memo={noteType === 'memo'}
+            perseqnum={employeeData$?.per_seq_num}
           />
         }
       </div>
