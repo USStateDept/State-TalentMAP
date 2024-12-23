@@ -90,7 +90,13 @@ export function altAssignmentsSeparations(id) {
         const separations = data.QRY_LSTSEPS_REF;
         // Sort assignments by TED Date, newest first
         if (assignments.length > 0) {
-          assignments = sortBy(assignments, [(item) => item.ASGD_ETD_TED_DATE]).reverse();
+          assignments = sortBy(assignments, [(item) => {
+            if (item.ASGD_ETD_TED_DATE) {
+              const [month, year] = item.ASGD_ETD_TED_DATE.split('/');
+              return new Date(Date.UTC(year, month - 1, 1));
+            }
+            return new Date(0); // Use a very old date for null values to add to end of list
+          }]).reverse(); // Reverse to get newest dates first
         }
         const sortedData = {
           assignments,
