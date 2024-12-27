@@ -12,7 +12,7 @@ export function aboutContentHasErrored(bool) {
 
 export function aboutContentIsLoading(bool) {
   return {
-    type: 'ABOUT_CONTENT_IS_LOADIN',
+    type: 'ABOUT_CONTENT_IS_LOADING',
     isLoading: bool,
   };
 }
