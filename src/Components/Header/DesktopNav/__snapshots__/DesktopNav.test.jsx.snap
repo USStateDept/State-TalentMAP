@@ -144,6 +144,14 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className="nav-link-container header-nav-desktop desktop-nav-only"
+  >
+    <withRouter(NavLink)
+      link="/help"
+      title="Help"
+    />
+  </div>
 </div>
 `;
 
@@ -185,6 +193,14 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
         className="header-nav-link"
       />
     </div>
+  </div>
+  <div
+    className="nav-link-container header-nav-desktop desktop-nav-only"
+  >
+    <withRouter(NavLink)
+      link="/help"
+      title="Help"
+    />
   </div>
 </div>
 `;
