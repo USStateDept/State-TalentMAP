@@ -11,7 +11,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from 'Components/Layout';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
-import { generateEopfAssignments, generatePDF, generateSoapXML } from '../Common/Utilities';
+import { generateEopfAssignments, generatePDF, generateSoapXML, generateXML } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_notification_send');
 
@@ -98,16 +98,16 @@ const NotePreview = (props) => {
       I_NOTE_TYPE: type,
     }, fetchData));
 
-    // const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
-    // const encodedXml = Buffer.from(JSON.stringify(xml)).toString('base64');
+    const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
+    const encodedXml = Buffer.from(JSON.stringify(xml)).toString('base64');
     dispatch(emailNotification({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
-      body: '',
-      // attachments: [{
-      //   filename: `${getCableValue('SUBJECT')}.xml`,
-      //   content: encodedXml,
-      // }],
+      body: 'Dec 30th, testing for notification cables to have an XML attachment.',
+      attachments: [{
+        filename: `${getCableValue('SUBJECT')}.xml`,
+        content: encodedXml,
+      }],
     }));
 
     // ------------ Handle PDF ------------
