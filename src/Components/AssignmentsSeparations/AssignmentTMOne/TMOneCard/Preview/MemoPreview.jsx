@@ -14,7 +14,7 @@ import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
-import { generateEopfAssignments, generatePDF, generateXML } from '../Common/Utilities';
+import { generateEopfAssignments, generateHTML, generatePDF } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_memo_send');
 
@@ -82,15 +82,16 @@ const MemoPreview = (props) => {
       I_NOTE_TYPE: type,
     }, fetchData, true));
 
-    const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
-    const encodedXml = Buffer.from(JSON.stringify(xml)).toString('base64');
+
+    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
+    const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
       body: '',
       attachments: [{
-        filename: `${getCableValue('SUBJECT')}.xml`,
-        content: encodedXml,
+        filename: `${getCableValue('SUBJECT')}.html`,
+        content: encodedHtml,
       }],
     }));
 
