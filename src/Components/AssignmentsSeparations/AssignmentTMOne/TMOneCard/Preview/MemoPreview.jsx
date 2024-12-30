@@ -103,7 +103,7 @@ const MemoPreview = (props) => {
         documenttype: 'TMONEAM',
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename, true),
-        createid: note?.NM_CREATE_ID,
+        createid: note?.NM_CREATE_ID.toString(),
         assignments: generateEopfAssignments(assignmentsRef, note, now),
       }, null, true));
     }
