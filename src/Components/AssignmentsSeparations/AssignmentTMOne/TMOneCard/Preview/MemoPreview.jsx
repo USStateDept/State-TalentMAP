@@ -88,11 +88,11 @@ const MemoPreview = (props) => {
     const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
     const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
 
-    console.log('HTML:', html);
-    console.log('html of type: ', typeof html);
+    console.log('HTML\n', html);
+    console.log('html of type: \n', typeof html);
 
-    console.log('Encoded HTML:', encodedHtml);
-    console.log('encodedHtml of type: ', typeof encodedHtml);
+    console.log('Encoded HTML:\n', encodedHtml);
+    console.log('encodedHtml of type: \n', typeof encodedHtml);
 
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),

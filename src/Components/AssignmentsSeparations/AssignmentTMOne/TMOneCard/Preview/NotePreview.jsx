@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -100,6 +101,12 @@ const NotePreview = (props) => {
 
     const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
     const encodedXml = Buffer.from(JSON.stringify(xml)).toString('base64');
+
+    console.log('XML:\n', xml);
+    console.log('xml of type: \n', typeof xml);
+    console.log('Encoded XML:\n', encodedXml);
+    console.log('encodedXml of type: \n', typeof encodedXml);
+
     dispatch(emailNotification({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
