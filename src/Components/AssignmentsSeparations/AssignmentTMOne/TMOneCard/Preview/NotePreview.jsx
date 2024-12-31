@@ -110,7 +110,7 @@ const NotePreview = (props) => {
     dispatch(emailNotification({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
-      body: 'Dec 30th, testing for notification cables to have an XML attachment.',
+      body: 'Dec 31st, 2024 testing for notification cables to have an XML attachment.',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.xml`,
         content: encodedXml,

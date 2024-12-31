@@ -97,7 +97,7 @@ const MemoPreview = (props) => {
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
-      body: 'Dec 30th, testing for mnemo emails to have an HTML attachment.',
+      body: 'Dec 31st, 2024 testing for mnemo emails to have an HTML attachment.',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.html`,
         content: encodedHtml,
