@@ -118,7 +118,7 @@ const NotePreview = (props) => {
       body: '',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.xml`,
-        content: encodedXml,
+        content: encodedXml2,
       }],
     }));
 
