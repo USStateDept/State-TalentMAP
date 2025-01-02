@@ -106,11 +106,12 @@ const NotePreview = (props) => {
     console.log('xml of type: \n', typeof xml);
     console.log('Encoded XML:\n', encodedXml);
     console.log('encodedXml of type: \n', typeof encodedXml);
+    // to: getCableValue('TO_ADDRESS'),
 
     dispatch(emailNotification({
-      to: getCableValue('TO_ADDRESS'),
+      to: 'ShahM1@state.gov',
       subject: getCableValue('SUBJECT'),
-      body: 'Dec 31st, 2024 testing for notification cables to have an XML attachment.',
+      body: '',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.xml`,
         content: encodedXml,
