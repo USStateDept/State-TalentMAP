@@ -13,7 +13,7 @@ const BureauPage = () => (
     <Switch>
       <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
       <Route path="/profile/bureau/managepostaccess" render={() => <ManagePostAccess />} />
-      <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
+      <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails viewType="bureau" />} />
       <Route path="/profile/bureau/positionmanager" render={() => <PositionManager viewType="bureau" />} />
       <Route path="/profile/bureau/projectedvacancy" render={() => <ProjectedVacancy viewType="bureau" />} />
       <Route path="/profile/bureau/publishablepositions" render={() => <PublishablePositions viewType="bureau" />} />

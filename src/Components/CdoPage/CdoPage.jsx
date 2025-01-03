@@ -29,7 +29,7 @@ const CdoPage = () => (
       <Route path="/profile/cdo/panelmeetingagendas" render={(props) => <PanelMeetingAgendas {...props} isCDO />} />
       <Route path="/profile/cdo/biddingtool/:id" render={() => <BiddingTool />} />
       <Route path="/profile/cdo/biddingtool/" render={() => <BiddingTool />} />
-      <Route path="/profile/cdo/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
+      <Route path="/profile/cdo/positionmanager/:type/:id" render={() => <PositionManagerDetails viewType="cdo" />} />
       <Route path="/profile/cdo/positionmanager" render={() => <PositionManager viewType="cdo" />} />
     </Switch>
   </div>

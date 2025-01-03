@@ -410,8 +410,8 @@ class PositionManagerBidders extends Component {
 
   isDndDisabled = () => {
     const { bidsIsLoading, isLocked,
-      hasBureauPermission } = this.props;
-    return bidsIsLoading || (isLocked && !hasBureauPermission);
+      hasBureauPermission, viewType } = this.props;
+    return bidsIsLoading || (isLocked && !hasBureauPermission) || (viewType === 'ao' || viewType === 'cdo');
   }
 
     /**
@@ -654,6 +654,7 @@ PositionManagerBidders.propTypes = {
   hasPostPermission: PropTypes.bool,
   classifications: CLASSIFICATIONS,
   positionHasHsReg: PropTypes.bool,
+  viewType: PropTypes.string.isRequired,
 };
 
 PositionManagerBidders.defaultProps = {
