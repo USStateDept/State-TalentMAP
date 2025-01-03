@@ -100,16 +100,13 @@ const NotePreview = (props) => {
     }, fetchData));
 
     const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
-    const encodedXml = Buffer.from(JSON.stringify(xml)).toString('base64');
-    const encodedXml2 = Buffer.from(xml).toString('base64');
+    const encodedXml = Buffer.from(xml).toString('base64');
 
     console.log('XML:\n', xml);
     console.log('xml of type: \n', typeof xml);
     console.log('Encoded XML:\n', encodedXml);
     console.log('encodedXml of type: \n', typeof encodedXml);
 
-    console.log('Encoded XML 2 (without JSON stringify):\n', encodedXml2);
-    console.log('encodedXml2 of type: \n', typeof encodedXml2);
     // to: getCableValue('TO_ADDRESS'),
 
     dispatch(emailNotification({
@@ -118,7 +115,7 @@ const NotePreview = (props) => {
       body: '',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.xml`,
-        content: encodedXml2,
+        content: encodedXml,
       }],
     }));
 
