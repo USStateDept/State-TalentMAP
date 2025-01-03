@@ -88,7 +88,7 @@ const MemoPreview = (props) => {
 
     const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
     // const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
-    const encodedHtml = Buffer.from((html).toString('base64');
+    const encodedHtml = Buffer.from(html).toString('base64');
 
     console.log('HTML\n', html);
     console.log('html of type: \n', typeof html);
