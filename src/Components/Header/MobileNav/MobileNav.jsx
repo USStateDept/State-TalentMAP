@@ -24,6 +24,9 @@ const MobileNav = ({ user, logout, showLogin }) => (
           <li>
             <Link to="/about">About</Link>
           </li>
+          <li>
+            <Link to="/help">Help</Link>
+          </li>
           <span className="usa-unstyled-list mobile-nav-only">
             <hr />
             <li>

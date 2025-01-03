@@ -14,7 +14,7 @@ import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import NavTabs from 'Components/NavTabs';
 import InteractiveElement from 'Components/InteractiveElement';
-import { generatePDF, generateXML } from '../Common/Utilities';
+import { generateEopfAssignments, generateHTML, generatePDF } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_memo_send');
 
@@ -26,6 +26,7 @@ const MemoPreview = (props) => {
     getCableValue,
     setEditMode,
     fetchData,
+    perseqnum,
   } = props;
 
   const dispatch = useDispatch();
@@ -69,9 +70,9 @@ const MemoPreview = (props) => {
     const type = 'M';
     let now = new Date();
     now = now.toISOString();
-    now = now.replace(/\D/g, '');
-    const date = now.substring(0, 8);
-    const time = now.substring(8, 14);
+    const datetime = now.replace(/\D/g, '');
+    const date = datetime.substring(0, 8);
+    const time = datetime.substring(8, 14);
     const filename = `TMONE_MEMO_${nmSeqNum}_${date}_${time}.pdf`;
 
     // ------------ Handle Send ------------
@@ -81,46 +82,30 @@ const MemoPreview = (props) => {
       I_NOTE_TYPE: type,
     }, fetchData, true));
 
-    const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
-    const encodedXml = Buffer.from(JSON.stringify(xml)).toString('base64');
+
+    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
+    const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
       body: '',
       attachments: [{
-        filename: `${getCableValue('SUBJECT')}.xml`,
-        content: encodedXml,
+        filename: `${getCableValue('SUBJECT')}.html`,
+        content: encodedHtml,
       }],
     }));
 
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      const assignmentsParam = [];
-      if (assignmentsRef) {
-        assignmentsRef.forEach(a => {
-          assignmentsParam.push({
-            positionnumber: a.POS_NUM_TXT,
-            location: a.POS_LOCATION_CODE,
-            positiontitle: a.POS_TITLE_TXT,
-            eta: a.ASGD_ETA_DATE,
-            ted: a.ASGD_ETD_TED_DATE,
-            travelfunction: a.TF_CD,
-            datesent: cable?.O_LAST_SENT_DATE,
-            status: a.ASGS_CODE,
-            nmnotificationind: note?.NM_NOTIFICATION_IND,
-            effectivedate: cable?.O_LAST_SENT_DATE,
-          });
-        });
-      }
       dispatch(sendToEopf({
-        transactionid: uuidv4(),
-        perseqnum: nmSeqNum,
-        documenttype: 'Assignment Memo',
+        transactionid: uuidv4().substring(0, 19),
+        perseqnum,
+        documenttype: 'TMONEAM',
         pdffilename: filename,
         pdffile: generatePDF(getPreviewText, filename, true),
         createid: note?.NM_CREATE_ID,
-        assignments: assignmentsParam,
+        assignments: generateEopfAssignments(assignmentsRef, note, now),
       }, null, true));
     }
   };
@@ -311,6 +296,7 @@ MemoPreview.propTypes = {
   getCableValue: PropTypes.func.isRequired,
   setEditMode: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
+  perseqnum: PropTypes.string.isRequired,
 };
 
 MemoPreview.defaultProps = {

@@ -44,6 +44,9 @@ const DesktopNav = ({
         </div>
       </div>
     </div>
+    <div className="nav-link-container header-nav-desktop desktop-nav-only">
+      <NavLink link="/help" title="Help" />
+    </div>
   </div>
 );
 

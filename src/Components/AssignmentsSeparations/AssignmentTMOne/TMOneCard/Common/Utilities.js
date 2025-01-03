@@ -5,6 +5,51 @@ import { formatDate, getAssetPath } from 'utilities';
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 
 /**
+ * Generates array of assignments in proper format for
+ * EOPF File Importer post request when sending Notification or Memo
+ * @param {*} assignmentsRef array of assignments selected for cable/memo
+ * @param {*} cable the basic cable/memo data
+ * @param {*} note the additional cable/memo data
+ * @param {*} sentDate the additional cable/memo data
+ */
+export const generateEopfAssignments = (assignmentsRef, note, sentDate) => {
+  // Reference of invalid date parameters
+  const invalid = [undefined, null, '', 'null'];
+
+  // Converts MM/YYYY string to a valid date input
+  const validDate = (monthYear) => {
+    const split = monthYear.split('/');
+    const dateValue = new Date(split[1], split[0] - 1, 1);
+    return dateValue.toISOString();
+  };
+
+  // Returns YYYY-MM-DD format of ISO datetime string
+  const removeTimestamp = (date) => date.substring(0, 10);
+
+  const assignmentsParam = [];
+
+  if (assignmentsRef) {
+    assignmentsRef.forEach(a => {
+      // Append assignment to array parameter
+      assignmentsParam.push({
+        positionnumber: a.POS_NUM_TXT,
+        location: a.POS_LOCATION_CODE,
+        positiontitle: a.POS_TITLE_TXT,
+        eta: invalid.includes(a.ASGD_ETA_DATE) ? null : removeTimestamp(validDate(a.ASGD_ETA_DATE)),
+        ted: invalid.includes(a.ASGD_ETD_TED_DATE) ? null : removeTimestamp(validDate(a.ASGD_ETD_TED_DATE)),
+        travelfunction: a.TF_CD,
+        datesent: removeTimestamp(sentDate),
+        status: a.ASGS_CODE,
+        nmnotificationind: note?.NM_NOTIFICATION_IND,
+        effectivedate: removeTimestamp(sentDate),
+      });
+    });
+  }
+
+  return assignmentsParam;
+};
+
+/**
  * Generates PDF of TM1 Note/Memo formatted accordingly to given
  * examples in EOPF directory
  * @param {*} getPreviewText retrieves the formatted note/memo preview text
@@ -41,7 +86,8 @@ export const generatePDF = (getPreviewText, filename, memo) => {
     autoPaging: 'text',
   });
   const base64string = pdf.output('datauristring');
-  return base64string;
+  const strippedString = base64string.split(',')[1];
+  return strippedString;
 };
 
 /**
