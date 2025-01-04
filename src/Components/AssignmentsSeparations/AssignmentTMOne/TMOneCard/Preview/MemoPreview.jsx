@@ -4,6 +4,7 @@ import { Buffer } from 'buffer';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
+import { renderToStaticMarkup } from 'react-dom/server';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
 import { v4 as uuidv4 } from 'uuid';
@@ -87,6 +88,7 @@ const MemoPreview = (props) => {
 
 
     const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
+    const htmlString = renderToStaticMarkup(html);
     // const encodedHtml = Buffer.from(JSON.stringify(html)).toString('base64');
     const encodedHtml = Buffer.from(html).toString('base64');
 
@@ -102,7 +104,7 @@ const MemoPreview = (props) => {
       body: '',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.html`,
-        content: encodedHtml,
+        content: htmlString,
       }],
     }));
 
