@@ -33,8 +33,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
   const hsCity = get(hsAssignment, 'locationCity') ? `${get(hsAssignment, 'locationCity')},` : '';
   const hsCountry = get(hsAssignment, 'locationCountry') || '';
   const hsOrg = get(hsAssignment, 'orgDescription') ? `(${get(hsAssignment, 'orgDescription')})` : '';
+  const hasHandshake = get(result, 'hsAssignment.orgDescription') || false;
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
-  const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
   const ted = get(currentAssignment, 'TED') ? formatDate(currentAssignment.TED) : FALLBACK;
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -66,7 +66,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
     <BoxShadow className="employee-agenda-stat-card">
       <div className="employee-agenda-card-inner">
         <div className="ribbon-container-condensed">
-          {showHandshakeIcon &&
+          {hasHandshake &&
                   <Tooltip
                     title="Handshake"
                     arrow
@@ -93,8 +93,12 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
           <dt className="location-label-card">Location (Org):</dt>
           <dd className="location-data-card">
             {currentPost}
-            <FA className="org-fa-arrow" name="long-arrow-right" />
-            {hsPost}
+            { hasHandshake &&
+              <>
+                <FA className="org-fa-arrow" name="long-arrow-right" />
+                {hsPost}
+              </>
+            }
           </dd>
         </div>
         <div className="employee-card-data-point">
