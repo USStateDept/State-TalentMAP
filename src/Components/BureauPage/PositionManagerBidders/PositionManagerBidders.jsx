@@ -435,8 +435,10 @@ class PositionManagerBidders extends Component {
 
   render() {
     const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
-      hasBureauPermission, bidCycle } = this.props;
+      hasBureauPermission, bidCycle, viewType } = this.props;
     const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
+
+    const bureauOrPost = viewType === 'bureau' || viewType === 'post';
 
     const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
       <th scope="col">{item}</th>
@@ -529,14 +531,16 @@ class PositionManagerBidders extends Component {
                   :
                   <>
                     {/* eslint-disable no-nested-ternary */}
-                    {!get(bidCycle, 'handshake_allowed_date') && <Alert type="dark" title="Bureaus cannot offer handshakes for this cycle at this time" />}
+                    {bureauOrPost && !get(bidCycle, 'handshake_allowed_date') && <Alert type="dark" title="Bureaus cannot offer handshakes for this cycle at this time" />}
                     {isLocked ?
                       hasBureauPermission ? shortListSection : <>
-                        <Alert
-                          type="info"
-                          title="Short List Locked"
-                          messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
-                        />
+                        { bureauOrPost &&
+                          <Alert
+                            type="info"
+                            title="Short List Locked"
+                            messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
+                          />
+                        }
                         <div>
                           {shortListSection}
                         </div>
