@@ -401,42 +401,46 @@ const PositionManager = props => {
                       labelKey="custom_description"
                     />
                   </div>
-                  <PermissionsWrapper permissions={['bureau_user', 'ao_user', 'cdo']} minimum>
-                    <div className="filter-div">
-                      <div className="label">Bureau:</div>
-                      <Picky
-                        placeholder="Select Bureau(s)"
-                        value={selectedBureaus.filter(f => f)}
-                        options={bureauOptions}
-                        onChange={setSelectedBureaus}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="long_description"
-                      />
-                    </div>
-                  </PermissionsWrapper>
-                  <PermissionsWrapper permissions={['post_user', 'ao_user', 'cdo']} minimum>
-                    <div className="filter-div">
-                      <div className="label">Organization:</div>
-                      <Picky
-                        placeholder="Select Organization(s)"
-                        value={selectedOrgs}
-                        options={organizationOptions}
-                        onChange={setSelectedOrgs}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="long_description"
-                      />
-                    </div>
-                  </PermissionsWrapper>
+                  { !fromPostMenu &&
+                    <PermissionsWrapper permissions={['bureau_user', 'ao_user', 'cdo']} minimum>
+                      <div className="filter-div">
+                        <div className="label">Bureau:</div>
+                        <Picky
+                          placeholder="Select Bureau(s)"
+                          value={selectedBureaus.filter(f => f)}
+                          options={bureauOptions}
+                          onChange={setSelectedBureaus}
+                          numberDisplayed={2}
+                          multiple
+                          includeFilter
+                          dropdownHeight={255}
+                          renderList={renderSelectionList}
+                          valueKey="code"
+                          labelKey="long_description"
+                        />
+                      </div>
+                    </PermissionsWrapper>
+                  }
+                  { !fromBureauMenu &&
+                    <PermissionsWrapper permissions={['post_user', 'ao_user', 'cdo']} minimum>
+                      <div className="filter-div">
+                        <div className="label">Organization:</div>
+                        <Picky
+                          placeholder="Select Organization(s)"
+                          value={selectedOrgs}
+                          options={organizationOptions}
+                          onChange={setSelectedOrgs}
+                          numberDisplayed={2}
+                          multiple
+                          includeFilter
+                          dropdownHeight={255}
+                          renderList={renderSelectionList}
+                          valueKey="code"
+                          labelKey="long_description"
+                        />
+                      </div>
+                    </PermissionsWrapper>
+                  }
                   <div className="filter-div">
                     <div className="label">Skill:</div>
                     <Picky
