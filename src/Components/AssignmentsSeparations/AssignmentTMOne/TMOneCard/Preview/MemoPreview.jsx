@@ -98,6 +98,9 @@ const MemoPreview = (props) => {
     console.log('Encoded HTML:\n', encodedHtml);
     console.log('encodedHtml of type: \n', typeof encodedHtml);
 
+    console.log('HTML STRING\n', htmlString);
+    console.log('htmlString of type: \n', typeof htmlString);
+
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
