@@ -61,7 +61,7 @@ export const generatePDF = (getPreviewText, filename, eopfRequest, memo) => {
   content.innerHTML = getPreviewText(true);
 
   // eslint-disable-next-line new-cap
-  const pdf = new jsPDF('p', 'pt', 'a4');
+  const pdf = new jsPDF('p', 'pt', 'a4', true);
   pdf.html(content, {
     callback: (doc) => {
       if (memo) {
