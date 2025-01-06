@@ -112,7 +112,7 @@ const NotePreview = (props) => {
     dispatch(emailNotification({
       to: 'ShahM1@state.gov',
       subject: getCableValue('SUBJECT'),
-      body: '',
+      body: 'Last XML test run on Jan 6th, 2025 to ensure XML is being generated and decoded correctly.',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.xml`,
         content: encodedXml,
