@@ -55,7 +55,7 @@ export const generateEopfAssignments = (assignmentsRef, note, sentDate) => {
  * @param {*} getPreviewText retrieves the formatted note/memo preview text
  * @param {*} filename name of the note/memo according to EOPF filename standards
  */
-export const generatePDF = (getPreviewText, filename, memo) => {
+export const generatePDF = (getPreviewText, filename, eopfRequest, memo) => {
   const content = document.createElement('p');
   content.style.cssText = 'width:calc(595px - 72px); font-size:12px; font-family:Times; line-height:1.3em; letter-spacing:0.01em; white-space:pre-line;';
   content.innerHTML = getPreviewText(true);
@@ -81,13 +81,14 @@ export const generatePDF = (getPreviewText, filename, memo) => {
         );
         doc.restoreGraphicsState();
       }
+      const base64pdf = doc.output('datauristring');
+      const strippedPdfString = base64pdf.split(',')[1];
+
+      eopfRequest(strippedPdfString);
     },
     margin: [36, 36, 36, 36],
     autoPaging: 'text',
   });
-  const base64string = pdf.output('datauristring');
-  const strippedString = base64string.split(',')[1];
-  return strippedString;
 };
 
 /**
