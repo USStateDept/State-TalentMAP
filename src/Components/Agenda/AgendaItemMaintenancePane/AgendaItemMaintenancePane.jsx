@@ -572,10 +572,11 @@ const AgendaItemMaintenancePane = (props) => {
                   const keyId = i;
                   return (
                     <option key={`${a.pos_title}-${keyId}`} value={a.pos_num}>
-                      {/* eslint-disable-next-line react/no-unescaped-entities */}
-                      '{a.status || defaultText}'
-                      in {a.org || defaultText} -&nbsp;
-                      {a.pos_title || defaultText}({a.pos_num || defaultText})
+                      {a.is_separation ? (
+                        `'${a.status || defaultText}' at ${a.separation_location.city || defaultText}, ${a.separation_location.country || defaultText}`
+                      ) : (
+                        `'${a.status || defaultText}' in ${a.org || defaultText} - ${a.pos_title || defaultText} (${a.pos_num || defaultText})`
+                      )}
                     </option>
                   );
                 })}
