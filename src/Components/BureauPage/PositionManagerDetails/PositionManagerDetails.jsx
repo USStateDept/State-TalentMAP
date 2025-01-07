@@ -78,7 +78,7 @@ class PositionManagerDetails extends Component {
     const { id, hasLoaded, filters, ordering } = this.state;
     const { allBids, allBidsIsLoading, bids, bidsIsLoading, bureauPositionIsLoading,
       bureauPosition, ranking, rankingIsLoading,
-      classifications, classificationsIsLoading } = this.props;
+      classifications, classificationsIsLoading, viewType } = this.props;
     const isProjectedVacancy = false;
     const isFilled = get(bureauPosition, 'status_code') === 'FP';
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
@@ -143,6 +143,7 @@ class PositionManagerDetails extends Component {
                       hasPostPermission={bureauPosition.has_post_permission}
                       classifications={classifications}
                       hasHsReg={hasHsReg}
+                      viewType={viewType}
                     />
                   </div>
                 </div>
@@ -172,6 +173,7 @@ PositionManagerDetails.propTypes = {
   classifications: CLASSIFICATIONS,
   classificationsIsLoading: PropTypes.bool,
   clearBidderRankingsData: PropTypes.func,
+  viewType: PropTypes.string.isRequired,
 };
 
 PositionManagerDetails.defaultProps = {

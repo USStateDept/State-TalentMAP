@@ -401,9 +401,8 @@ const PositionManager = props => {
                       labelKey="custom_description"
                     />
                   </div>
-                  {
-                    !fromPostMenu &&
-                    <PermissionsWrapper permissions={['bureau_user']}>
+                  { !fromPostMenu &&
+                    <PermissionsWrapper permissions={['bureau_user', 'ao_user', 'cdo']} minimum>
                       <div className="filter-div">
                         <div className="label">Bureau:</div>
                         <Picky
@@ -422,9 +421,8 @@ const PositionManager = props => {
                       </div>
                     </PermissionsWrapper>
                   }
-                  {
-                    !fromBureauMenu &&
-                    <PermissionsWrapper permissions={['post_user']}>
+                  { !fromBureauMenu &&
+                    <PermissionsWrapper permissions={['post_user', 'ao_user', 'cdo']} minimum>
                       <div className="filter-div">
                         <div className="label">Organization:</div>
                         <Picky
