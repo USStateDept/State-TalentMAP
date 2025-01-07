@@ -122,15 +122,19 @@ const NotePreview = (props) => {
     // ------------ Handle PDF ------------
 
     if (cable?.O_LAST_SENT_DATE) {
-      dispatch(sendToEopf({
-        transactionid: uuidv4().substring(0, 19),
-        perseqnum,
-        documenttype: 'TMONEAC',
-        pdffilename: filename,
-        pdffile: generatePDF(getPreviewText, filename),
-        createid: note?.NM_CREATE_ID,
-        assignments: generateEopfAssignments(assignmentsRef, note, now),
-      }));
+      // Helper function to consume EOPF endpoint with outputted base64 pdf string
+      const eopfRequest = (base64pdf) => {
+        dispatch(sendToEopf({
+          transactionid: uuidv4(),
+          perseqnum,
+          documenttype: 'TMONEAC',
+          pdffilename: filename,
+          pdffile: base64pdf,
+          createid: note?.NM_CREATE_ID.toString(),
+          assignments: generateEopfAssignments(assignmentsRef, note, now),
+        }));
+      };
+      generatePDF(getPreviewText, filename, eopfRequest);
     }
 
     // ------------ Handle OPS ------------
