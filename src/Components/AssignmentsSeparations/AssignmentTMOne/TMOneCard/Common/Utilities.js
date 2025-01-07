@@ -55,13 +55,13 @@ export const generateEopfAssignments = (assignmentsRef, note, sentDate) => {
  * @param {*} getPreviewText retrieves the formatted note/memo preview text
  * @param {*} filename name of the note/memo according to EOPF filename standards
  */
-export const generatePDF = (getPreviewText, filename, memo) => {
+export const generatePDF = (getPreviewText, filename, eopfRequest, memo) => {
   const content = document.createElement('p');
   content.style.cssText = 'width:calc(595px - 72px); font-size:12px; font-family:Times; line-height:1.3em; letter-spacing:0.01em; white-space:pre-line;';
   content.innerHTML = getPreviewText(true);
 
   // eslint-disable-next-line new-cap
-  const pdf = new jsPDF('p', 'pt', 'a4');
+  const pdf = new jsPDF('p', 'pt', 'a4', true);
   pdf.html(content, {
     callback: (doc) => {
       if (memo) {
@@ -81,13 +81,14 @@ export const generatePDF = (getPreviewText, filename, memo) => {
         );
         doc.restoreGraphicsState();
       }
+      const base64pdf = doc.output('datauristring');
+      const strippedPdfString = base64pdf.split(',')[1];
+
+      eopfRequest(strippedPdfString);
     },
     margin: [36, 36, 36, 36],
     autoPaging: 'text',
   });
-  const base64string = pdf.output('datauristring');
-  const strippedString = base64string.split(',')[1];
-  return strippedString;
 };
 
 /**
@@ -287,8 +288,8 @@ export const generateSoapXML = (log) => {
   xmlStr = xmlStr.concat(`<OP_TM_ASGN_ID>${log.OP_TM_ASGN_SEQ ?? ''}</OP_TM_ASGN_ID>`);
   xmlStr = xmlStr.concat(`<OP_TM_ASG_REV>${log.OP_TM_ASG_REV ?? ''}</OP_TM_ASG_REV>`);
   xmlStr = xmlStr.concat('<OP_TM_TA_ID></OP_TM_TA_ID>');
-  xmlStr = xmlStr.concat('<OP_TM_TR_ID></OP_TM_TR_ID>');
-  xmlStr = xmlStr.concat('<OP_TM_TR_ID_REV></OP_TM_TR_ID_REV>');
+  xmlStr = xmlStr.concat('<OP_TM_TR_ID>0</OP_TM_TR_ID>');
+  xmlStr = xmlStr.concat('<OP_TM_TR_ID_REV>0</OP_TM_TR_ID_REV>');
   xmlStr = xmlStr.concat(`<OP_TM_EMP_SEQ_NBR>${log.OP_TM_EMPLID_SEQ ?? ''}</OP_TM_EMP_SEQ_NBR>`);
   xmlStr = xmlStr.concat(`<OP_TM_NM_SEQ>${log.OP_TM_NM_SEQ ?? ''}</OP_TM_NM_SEQ>`);
   xmlStr = xmlStr.concat(`<POSITION_NBR>${log.POSITION_NBR ?? ''}</POSITION_NBR>`);
