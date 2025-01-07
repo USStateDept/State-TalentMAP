@@ -32,7 +32,7 @@ const AoPage = () => (
       <Route path="/profile/ao/bidderportfolio" render={() => <BidderPortfolio viewType="ao" />} />
       <Route path="/profile/ao/biddingtool/:id" render={() => <BiddingTool />} />
       <Route path="/profile/ao/biddingtool/" render={() => <BiddingTool />} />
-      <Route path="/profile/ao/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
+      <Route path="/profile/ao/positionmanager/:type/:id" render={() => <PositionManagerDetails viewType="ao" />} />
       <Route path="/profile/ao/positionmanager" render={() => <PositionManager viewType="ao" />} />
     </Switch>
   </div>
