@@ -26,6 +26,9 @@ const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 // converting dos seal to base64 to be used later in sendind memo emails
 const dosSealBase64 = fs.readFileSync(dosSeal, { encoding: 'base64' });
 
+console.log('dosSealBase64', dosSealBase64);
+console.log('dosSeal', dosSeal);
+
 const MemoPreview = (props) => {
   const {
     note,
@@ -91,7 +94,7 @@ const MemoPreview = (props) => {
     }, fetchData, true));
 
 
-    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText(), dosSealBase64);
+    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
     const htmlString = renderToStaticMarkup(html);
     const encodedHtml = Buffer.from(htmlString).toString('base64');
 
