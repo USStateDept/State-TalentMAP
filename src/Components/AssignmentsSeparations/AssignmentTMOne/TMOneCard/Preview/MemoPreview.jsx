@@ -7,10 +7,11 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
+import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
-import { ifEnter } from 'utilities';
+import { getAssetPath, ifEnter } from 'utilities';
 import { emailMemo, getGal, sendNotification, sendToEopf } from 'actions/tmOne';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from 'Components/Layout';
@@ -21,6 +22,9 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { generateEopfAssignments, generateHTML, generatePDF } from '../Common/Utilities';
 
 const useSend = () => checkFlag('flags.assignment_memo_send');
+const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
+// converting dos seal to base64 to be used later in sendind memo emails
+const dosSealBase64 = fs.readFileSync(dosSeal, { encoding: 'base64' });
 
 const MemoPreview = (props) => {
   const {
@@ -87,7 +91,7 @@ const MemoPreview = (props) => {
     }, fetchData, true));
 
 
-    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
+    const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText(), dosSealBase64);
     const htmlString = renderToStaticMarkup(html);
     const encodedHtml = Buffer.from(htmlString).toString('base64');
 
