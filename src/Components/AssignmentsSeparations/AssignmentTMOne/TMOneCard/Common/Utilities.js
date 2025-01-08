@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import fs from 'fs';
@@ -6,6 +7,8 @@ import { formatDate, getAssetPath } from 'utilities';
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 // converting dos seal to base64 to be used later in sendind memo emails
 const dosSealBase64 = fs.readFileSync(dosSeal, { encoding: 'base64' });
+console.log('dosSealBase64 inside the utitlities.js file');
+console.log(dosSealBase64);
 
 /**
  * Generates array of assignments in proper format for
@@ -342,7 +345,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
       <div id="AsgMemoHeader" style={{ width: 650, backgroundColor: 'white' }}>
         <div id="divReport">
           <div style={{ position: 'absolute', right: 0 }}>
-            <img src={`data:image/png;base64,${dosSealBase64}`} width="90" height="90" alt="DoS Seal" border="0" />
+            <img src={dosSeal} width="90" height="90" alt="DoS Seal" border="0" />
           </div>
           <div style={{ fontSize: 18, fontWeight: 600, color: 'navy' }}>
             <span>MEMORANDUM</span>
