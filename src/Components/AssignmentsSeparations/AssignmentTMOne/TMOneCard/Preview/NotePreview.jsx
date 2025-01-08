@@ -102,15 +102,8 @@ const NotePreview = (props) => {
     const xml = generateXML(cable, getPreviewText(), getCableValue('SUBJECT'));
     const encodedXml = Buffer.from(xml).toString('base64');
 
-    console.log('XML:\n', xml);
-    console.log('xml of type: \n', typeof xml);
-    console.log('Encoded XML:\n', encodedXml);
-    console.log('encodedXml of type: \n', typeof encodedXml);
-
-    // to: getCableValue('TO_ADDRESS'),
-
     dispatch(emailNotification({
-      to: 'ShahM1@state.gov',
+      to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
       body: '',
       attachments: [{
