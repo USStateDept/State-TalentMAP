@@ -157,7 +157,7 @@ const Assignment = (props) => {
   useEffect(() => {
     if (editMode) {
       setDisableOtherEdits(editMode);
-      setStatus(details?.ASGS_CODE || 'EF'); // Default to "Effective"
+      setStatus(details?.ASGS_CODE || 'AP'); // Default to "Pending"
       setAction(details?.LAT_CODE || '');
       setTED(details?.ASGD_ETD_TED_DATE || '');
       setETA(details?.ASGD_ETA_DATE || '');
