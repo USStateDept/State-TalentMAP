@@ -8,6 +8,8 @@ import {
   EMAIL_NOTIFICATION_ERROR, EMAIL_NOTIFICATION_ERROR_TITLE, EMAIL_NOTIFICATION_SUCCESS, EMAIL_NOTIFICATION_SUCCESS_TITLE,
   GET_MEMO_ERROR, GET_MEMO_ERROR_TITLE,
   GET_NOTIFICATION_ERROR, GET_NOTIFICATION_ERROR_TITLE,
+  INSERT_NOTIFICATION_OPS_LOG_ERROR,
+  INSERT_NOTIFICATION_OPS_LOG_ERROR_TITLE,
   REBUILD_MEMO_ERROR, REBUILD_MEMO_ERROR_TITLE, REBUILD_MEMO_SUCCESS, REBUILD_MEMO_SUCCESS_TITLE,
   REBUILD_NOTIFICATION_ERROR, REBUILD_NOTIFICATION_ERROR_TITLE, REBUILD_NOTIFICATION_SUCCESS, REBUILD_NOTIFICATION_SUCCESS_TITLE,
   SEND_MEMO_ERROR, SEND_MEMO_ERROR_TITLE, SEND_MEMO_SUCCESS, SEND_MEMO_SUCCESS_TITLE,
@@ -17,6 +19,8 @@ import {
   SEND_NOTIFICATION_TO_EOPF_ERROR, SEND_NOTIFICATION_TO_EOPF_ERROR_TITLE, SEND_NOTIFICATION_TO_EOPF_SUCCESS, SEND_NOTIFICATION_TO_EOPF_SUCCESS_TITLE,
   UPDATE_MEMO_ERROR, UPDATE_MEMO_ERROR_TITLE, UPDATE_MEMO_SUCCESS, UPDATE_MEMO_SUCCESS_TITLE,
   UPDATE_NOTIFICATION_ERROR, UPDATE_NOTIFICATION_ERROR_TITLE,
+  UPDATE_NOTIFICATION_OPS_LOG_ERROR,
+  UPDATE_NOTIFICATION_OPS_LOG_ERROR_TITLE,
   UPDATE_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
@@ -664,14 +668,18 @@ export function sendSoap(data, onSuccess) {
       .then((response) => {
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
           .then(() => {
+            console.log('Successful Log Creation');
             const soapResponse = extractSoapResponse(data);
+            console.log(soapResponse);
             const updateRequest = {
               PV_OTL_ID_I: response.PV_OTL_ID_O,
               PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
               PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
             };
+            console.log(updateRequest);
             api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
+                console.log('Successful Log Update');
                 dispatch(toastSuccess(
                   'TM1 SOAP Message and OPS Log',
                   'This TM1 SOAP Message has been successfully sent to OPS WSDL and OPS Logs were created.',
@@ -679,7 +687,23 @@ export function sendSoap(data, onSuccess) {
                 if (onSuccess) {
                   onSuccess();
                 }
+              })
+              .catch((err) => {
+                if (err?.message !== 'cancel') {
+                  dispatch(toastError(
+                    UPDATE_NOTIFICATION_OPS_LOG_ERROR,
+                    UPDATE_NOTIFICATION_OPS_LOG_ERROR_TITLE,
+                  ));
+                }
               });
+          })
+          .catch((err) => {
+            if (err?.message !== 'cancel') {
+              dispatch(toastError(
+                INSERT_NOTIFICATION_OPS_LOG_ERROR,
+                INSERT_NOTIFICATION_OPS_LOG_ERROR_TITLE,
+              ));
+            }
           });
       })
       .catch((err) => {
