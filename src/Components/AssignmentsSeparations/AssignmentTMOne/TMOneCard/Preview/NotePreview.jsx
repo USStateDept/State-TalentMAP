@@ -81,6 +81,28 @@ const NotePreview = (props) => {
     return notePreview.join('\n');
   };
 
+  const getCableText = () => {
+    const notePreview = [
+      `${getCableValue('CLASSIFICATION')}`,
+      `${getCableValue('DRAFTING OFFICE')}`,
+      `${getCableValue('DATE')} - ${getCableValue('TELEPHONE')}`,
+      `${getCableValue('APPROVING OFFICE')}`,
+      `${getCableValue('CLEARANCE')}`,
+      `${getCableValue('SPECIAL HANDLING')}`,
+      `${getCableValue('CAPTIONS')}`,
+      `${getCableValue('E.O.')}`,
+      `${getCableValue('TAGS')}`,
+      `${getCableValue('SUBJECT')}`,
+      `1. ${getCableValue('ASSIGNMENTS')}`,
+      `2. ${getCableValue('COMBINED TOD')}`,
+      `3. ${getCableValue('EFM')}`,
+      `4. ${getCableValue('REMARKS')}`,
+      `5. ${getCableValue('PARAGRAPHS')}`,
+      `${getCableValue('EOM')}`,
+    ];
+    return notePreview.join(' ');
+  };
+
   const handleSend = () => {
     const nmSeqNum = note?.NM_SEQ_NUM;
     const type = 'C';
@@ -132,11 +154,12 @@ const NotePreview = (props) => {
 
     // ------------ Handle OPS ------------
 
+    const cableText = getCableText();
     const opsLogData = opsData?.PQRY_OTL_LOG_TM1_O?.[0];
     if (opsLogData) {
       const soapXml = generateSoapXML({
         ...opsLogData,
-        OP_TRV_MSG: previewText,
+        OP_TRV_MSG: cableText,
       });
       dispatch(sendSoap({
         soapRequest: {
