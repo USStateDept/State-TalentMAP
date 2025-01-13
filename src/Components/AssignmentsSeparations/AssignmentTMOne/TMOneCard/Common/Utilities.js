@@ -4,6 +4,7 @@ import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
+console.log('dosSeal', dosSeal);
 
 /**
  * Generates array of assignments in proper format for
