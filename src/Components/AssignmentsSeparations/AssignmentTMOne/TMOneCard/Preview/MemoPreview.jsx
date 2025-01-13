@@ -100,7 +100,7 @@ const MemoPreview = (props) => {
       body: '',
       attachments: [{
         filename: `${getCableValue('SUBJECT')}.html`,
-        content: html,
+        content: encodedHtml,
       }],
     }));
 
