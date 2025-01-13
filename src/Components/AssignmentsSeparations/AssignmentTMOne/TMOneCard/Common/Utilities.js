@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
 
-const fs = require('fs');
+// const fs = require('fs');
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 console.log('dosSeal', dosSeal);
-const dosSealEmbedded = fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64');
+// const dosSealEmbedded = fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64');
 
 
 /**
@@ -345,7 +345,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
       <div id="AsgMemoHeader" style={{ width: 650, backgroundColor: 'white' }}>
         <div id="divReport">
           <div style={{ position: 'absolute', right: 0 }}>
-            <img src={dosSealEmbedded} width="90" height="90" alt="DoS Seal" border="0" />
+            <img src={dosSeal} width="90" height="90" alt="DoS Seal" border="0" />
           </div>
           <div style={{ fontSize: 18, fontWeight: 600, color: 'navy' }}>
             <span>MEMORANDUM</span>
