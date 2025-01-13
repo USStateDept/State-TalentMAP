@@ -8,7 +8,8 @@ const fs = require('fs');
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 console.log('dosSeal', dosSeal);
 const dosSealEmbedded = fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64');
-console.log(`data:image/png;base64,${dosSealEmbedded}`);
+
+
 /**
  * Generates array of assignments in proper format for
  * EOPF File Importer post request when sending Notification or Memo
