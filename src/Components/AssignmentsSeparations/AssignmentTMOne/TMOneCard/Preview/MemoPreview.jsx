@@ -7,7 +7,6 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
-// import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
@@ -91,10 +90,6 @@ const MemoPreview = (props) => {
     const html = generateHTML(getCableValue, cable?.O_LAST_SENT_DATE, getPreviewText());
     const htmlString = renderToStaticMarkup(html);
     const encodedHtml = Buffer.from(htmlString).toString('base64');
-
-    console.log('MemoPreview -> handleSend -> html\n', html);
-    console.log('MemoPreview -> handleSend -> htmlStrin\n', htmlString);
-    console.log('MemoPreview -> handleSend -> encodedHtml\n', encodedHtml);
 
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),

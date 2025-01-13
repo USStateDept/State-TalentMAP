@@ -1,14 +1,9 @@
 /* eslint-disable no-console */
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
-// import fs from 'fs';
 import { formatDate, getAssetPath } from 'utilities';
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
-// // converting dos seal to base64 to be used later in sendind memo emails
-// const dosSealBase64 = fs.readFileSync(dosSeal, { encoding: 'base64' });
-// console.log('dosSealBase64 inside the utitlities.js file');
-// console.log(dosSealBase64);
 
 /**
  * Generates array of assignments in proper format for
