@@ -44,7 +44,7 @@ const ProfileDashboard = ({
             {(matches) => {
               const checkIsBidder = () => includes(userProfile?.permission_groups || [], 'bidder') || includes(userProfile?.permissions || [], 'bidder');
               const isBidder = checkIsBidder();
-              const perdet = userProfile?.id || '';
+              const perdet = userProfile?.perdet_seq_number || '';
               const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
@@ -71,7 +71,7 @@ const ProfileDashboard = ({
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments
-                          id={userProfile.perdet_seq_number}
+                          id={perdet}
                           showMaintainAssignmentLink={showMaintainAssignmentLink}
                           viewType={userRole}
                         />
@@ -108,7 +108,7 @@ const ProfileDashboard = ({
                         <Classifications
                           classifications={classifications}
                           clientClassifications={clientClassifications}
-                          userId={userProfile.perdet_seq_number}
+                          userId={perdet}
                           isPublic={isPublic}
                           canEditClassifications={canEditClassifications}
                         />
@@ -138,7 +138,7 @@ const ProfileDashboard = ({
                         <Classifications
                           classifications={classifications}
                           clientClassifications={clientClassifications}
-                          userId={userProfile.perdet_seq_number}
+                          userId={perdet}
                           isPublic={isPublic}
                         />
                       </BoxShadow>
@@ -151,7 +151,7 @@ const ProfileDashboard = ({
                           isPublic={isPublic}
                           registerHandshake={registerHandshake}
                           unregisterHandshake={unregisterHandshake}
-                          userId={userProfile.perdet_seq_number}
+                          userId={perdet}
                           deleteBid={deleteBid}
                         />
                       </BoxShadow>
