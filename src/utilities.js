@@ -1123,19 +1123,4 @@ export const joinIfThere = (array, defaultText = 'None Listed', orderMatters = f
   return defaultText;
 };
 
-export const imageToBase64 = (url) => fetch(url)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Failed to load image: ${response.statusText}`);
-    }
-    return response.blob();
-  })
-  .then(blob => new Promise((resolve, reject) => {
-    // eslint-disable-next-line no-undef
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  }));
-
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
