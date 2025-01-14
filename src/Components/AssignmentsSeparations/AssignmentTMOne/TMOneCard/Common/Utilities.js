@@ -2,10 +2,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
-import dosSealLogo from 'assets/logos/png/dos-seal-pdf.png';
+import dosSealLogo from 'src/assets/logos/png/dos-seal-pdf.png';
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
-// const dosSeal = getAssetPath('/State-Talentmap/public/assets/img/dos-seal-pdf.png');
 console.log('dosSeal', dosSeal);
 const dosSealEmbedded = `data:image/png;base64,${dosSealLogo}`;
 
