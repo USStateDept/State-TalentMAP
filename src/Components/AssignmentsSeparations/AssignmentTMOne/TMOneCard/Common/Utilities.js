@@ -345,7 +345,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
       <div id="AsgMemoHeader" style={{ width: 650, backgroundColor: 'white' }}>
         <div id="divReport">
           <div style={{ position: 'absolute', right: 0 }}>
-            <img src={dosSeal} width="90" height="90" alt="DoS Seal" border="0" />
+            <img src={dosSealEmbedded} width="90" height="90" alt="DoS Seal" border="0" />
           </div>
           <div style={{ fontSize: 18, fontWeight: 600, color: 'navy' }}>
             <span>MEMORANDUM</span>
