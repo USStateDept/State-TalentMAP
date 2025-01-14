@@ -676,7 +676,6 @@ export function sendSoap(data, onSuccess) {
             };
             api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
-                console.log('Successful Log Update');
                 dispatch(toastSuccess(
                   'TM1 SOAP Message and OPS Log',
                   'This TM1 SOAP Message has been successfully sent to OPS WSDL and OPS Logs were created.',
