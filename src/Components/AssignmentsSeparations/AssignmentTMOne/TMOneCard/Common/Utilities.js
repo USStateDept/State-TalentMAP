@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
-import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
+// import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
 
 const fs = require('fs');
 
