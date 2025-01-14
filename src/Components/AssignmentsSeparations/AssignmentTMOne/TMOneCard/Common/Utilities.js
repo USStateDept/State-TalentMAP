@@ -1,12 +1,18 @@
 /* eslint-disable no-console */
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
-import { formatDate, getAssetPath } from 'utilities';
+import { formatDate, getAssetPath, imageToBase64 } from 'utilities';
 import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 console.log('dosSeal', dosSeal);
 // const dosSealEmbedded = `data:image/png;base64,${dosSealLogo}`;
+let dosSealEmbedded = '';
+imageToBase64(dosSealLogo).then(base64 => {
+  dosSealEmbedded = base64;
+}).catch(error => {
+  console.error('Error converting image to base64:', error);
+});
 
 /**
  * Generates array of assignments in proper format for
@@ -343,7 +349,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
       <div id="AsgMemoHeader" style={{ width: 650, backgroundColor: 'white' }}>
         <div id="divReport">
           <div style={{ position: 'absolute', right: 0 }}>
-            <img src={dosSealLogo} width="90" height="90" alt="DoS Seal" border="0" id="dos_seal_logo" />
+            <img src={dosSealEmbedded} width="90" height="90" alt="DoS Seal" border="0" id="dos_seal_logo" />
           </div>
           <div style={{ fontSize: 18, fontWeight: 600, color: 'navy' }}>
             <span>MEMORANDUM</span>
