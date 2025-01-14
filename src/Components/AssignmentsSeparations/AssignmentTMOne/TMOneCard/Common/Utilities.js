@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
 
-const fs = require('fs');
+// const fs = require('fs');
 // /Users/mshah/Desktop/talent map/State-Talentmap/public/assets/img/dos-seal-pdf.png
 // const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
-const dosSeal = getAssetPath('State-Talentmap/public/assets/img/dos-seal-pdf.png');
+const dosSeal = getAssetPath('/State-Talentmap/public/assets/img/dos-seal-pdf.png');
 console.log('dosSeal', dosSeal);
-const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64')}`;
+// const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64')}`;
 
 
 /**
@@ -346,7 +346,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
       <div id="AsgMemoHeader" style={{ width: 650, backgroundColor: 'white' }}>
         <div id="divReport">
           <div style={{ position: 'absolute', right: 0 }}>
-            <img src={dosSealEmbedded} width="90" height="90" alt="DoS Seal" border="0" id="dos_seal_logo" />
+            <img src={dosSeal} width="90" height="90" alt="DoS Seal" border="0" id="dos_seal_logo" />
           </div>
           <div style={{ fontSize: 18, fontWeight: 600, color: 'navy' }}>
             <span>MEMORANDUM</span>
