@@ -8,7 +8,7 @@ const fs = require('fs');
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 // const dosSeal = getAssetPath('/State-Talentmap/public/assets/img/dos-seal-pdf.png');
-console.log('dosSeal', dosSeal);
+// console.log('dosSeal', dosSeal);
 // const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64')}`;
 const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync(dosSeal, 'base64')}`;
 // const dosSealEmbeddedImport = `data:image/png;base64,${fs.readFileSync(dosSealLogo, 'base64')}`;
