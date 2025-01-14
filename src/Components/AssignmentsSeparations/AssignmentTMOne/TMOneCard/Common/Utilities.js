@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
 
-// const fs = require('fs');
+const fs = require('fs');
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 console.log('dosSeal', dosSeal);
-// const dosSealEmbedded = fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64');
+const dosSealEmbedded = fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64');
 
 
 /**
