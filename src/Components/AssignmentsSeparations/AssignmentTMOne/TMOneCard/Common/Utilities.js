@@ -4,8 +4,14 @@ import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
 import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
 
+const fs = require('fs');
+
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
-const dosSealEmbedded = `data:image/png;base64,${dosSealLogo}`;
+// just dosSealLogo didn't work
+// const dosSealEmbedded = `data:image/png;base64,${dosSealLogo}`; // didn't work
+// const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64')}`;
+const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync(dosSeal, 'base64')}`;
+
 /**
  * Generates array of assignments in proper format for
  * EOPF File Importer post request when sending Notification or Memo
