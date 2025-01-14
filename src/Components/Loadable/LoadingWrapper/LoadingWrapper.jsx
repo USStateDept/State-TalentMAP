@@ -4,6 +4,7 @@ import Spinner from '../../Spinner';
 
 const LoadingWrapper = (props) => {
   if (props.error) {
+    console.log('Loading Error:', props.error);
     return (
       <LoadingError />
     );
