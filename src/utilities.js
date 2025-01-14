@@ -21,7 +21,6 @@ import OBCUrl from 'Components/OBCUrl';
 import BidCount from 'Components/BidCount';
 import { Column } from 'Components/Layout';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import fetch from 'node-fetch';
 import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 
 const scroll = Scroll.animateScroll;
