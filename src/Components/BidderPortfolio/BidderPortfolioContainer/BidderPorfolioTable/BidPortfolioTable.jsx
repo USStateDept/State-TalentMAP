@@ -52,7 +52,7 @@ const BidPortfolioTable = ({ results, setEditClassification }) => {
     SkillCode: obj?.skills[0]?.code || 'None listed',
     SkillCode2: obj?.skills[1]?.code || 'None listed',
     SkillCode3: obj?.skills[2]?.code || 'None listed',
-    DOSEmail: obj?.cdos[0]?.cdo_email,
+    DOSEmail: obj?.email,
     AltEmail: obj?.alt_email,
     FSEOD: formatDate(obj?.EMP_FS_EOD_DT),
     LastPromotion: formatDate(obj?.EMP_LAST_PROMOTION_DT),
