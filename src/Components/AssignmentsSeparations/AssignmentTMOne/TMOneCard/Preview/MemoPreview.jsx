@@ -79,6 +79,8 @@ const MemoPreview = (props) => {
     const time = datetime.substring(8, 14);
     const filename = `TMONE_MEMO_${nmSeqNum}_${date}_${time}.pdf`;
 
+    const previewText = getPreviewText(true);
+
     // ------------ Handle Send ------------
 
     dispatch(sendNotification({
@@ -119,7 +121,7 @@ const MemoPreview = (props) => {
           assignments: generateEopfAssignments(assignmentsRef, note, now),
         }, null, true));
       };
-      generatePDF(getPreviewText, filename, eopfRequest, true);
+      generatePDF(previewText, filename, eopfRequest, true);
     }
   };
 

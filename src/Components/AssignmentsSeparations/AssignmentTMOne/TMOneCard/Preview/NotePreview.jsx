@@ -92,6 +92,8 @@ const NotePreview = (props) => {
     const time = datetime.substring(8, 14);
     const filename = `TMONE_CABLE_${nmSeqNum}_${date}_${time}.pdf`;
 
+    const previewText = getPreviewText();
+
     // ------------ Handle Send ------------
 
     dispatch(sendNotification({
@@ -127,14 +129,17 @@ const NotePreview = (props) => {
           assignments: generateEopfAssignments(assignmentsRef, note, now),
         }));
       };
-      generatePDF(getPreviewText, filename, eopfRequest);
+      generatePDF(previewText, filename, eopfRequest);
     }
 
     // ------------ Handle OPS ------------
 
     const opsLogData = opsData?.PQRY_OTL_LOG_TM1_O?.[0];
     if (opsLogData) {
-      const soapXml = generateSoapXML(opsLogData);
+      const soapXml = generateSoapXML({
+        ...opsLogData,
+        OP_TRV_MSG: previewText,
+      });
       dispatch(sendSoap({
         soapRequest: {
           WSDL: opsWsdl.PV_PARM_VALUE_O,
