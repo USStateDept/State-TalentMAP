@@ -2,11 +2,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath, imageToBase64 } from 'utilities';
-import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
+// import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 let dosSealEmbedded = '';
-imageToBase64(dosSealLogo).then(base64 => {
+imageToBase64(dosSeal).then(base64 => {
   dosSealEmbedded = base64;
 }).catch(error => {
   console.error('Error converting image to base64:', error);
