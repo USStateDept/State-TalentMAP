@@ -93,9 +93,6 @@ const MemoPreview = (props) => {
     const htmlString = renderToStaticMarkup(html);
     const encodedHtml = Buffer.from(htmlString).toString('base64');
 
-    console.log('html', html);
-    console.log('encodedHtml', encodedHtml);
-
     dispatch(emailMemo({
       to: getCableValue('TO_ADDRESS'),
       subject: getCableValue('SUBJECT'),
