@@ -1,16 +1,17 @@
 /* eslint-disable no-console */
 import { v4 as uuidv4 } from 'uuid';
 import jsPDF from 'jspdf';
-import { formatDate, getAssetPath } from 'utilities';
-// import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
-
-const fs = require('fs');
+import { formatDate, getAssetPath, imageToBase64 } from 'utilities';
+import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
 
 const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
-// just dosSealLogo didn't work
-// const dosSealEmbedded = `data:image/png;base64,${dosSealLogo}`; // didn't work
-// const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync('public/assets/img/dos-seal-pdf.png', 'base64')}`;
-const dosSealEmbedded = `data:image/png;base64,${fs.readFileSync(dosSeal, 'base64')}`;
+let dosSealEmbedded = '';
+imageToBase64(dosSealLogo).then(base64 => {
+  dosSealEmbedded = base64;
+}).catch(error => {
+  console.error('Error converting image to base64:', error);
+});
+const dosSealString = `data:image/png;base64,${dosSealEmbedded}`;
 
 /**
  * Generates array of assignments in proper format for
@@ -347,7 +348,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
       <div id="AsgMemoHeader" style={{ width: 650, backgroundColor: 'white' }}>
         <div id="divReport">
           <div style={{ position: 'absolute', right: 0 }}>
-            <img src={dosSealEmbedded} width="90" height="90" alt="DoS Seal" border="0" id="dos_seal_logo" />
+            <img src={dosSealString} width="90" height="90" alt="DoS Seal" border="0" id="dos_seal_logo" />
           </div>
           <div style={{ fontSize: 18, fontWeight: 600, color: 'navy' }}>
             <span>MEMORANDUM</span>
