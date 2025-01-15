@@ -23,11 +23,10 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   const bidderType = 'eligible'; // @TODO: implement api call to get this value
-  const email = get(userProfile, 'cdos')[0]?.cdo_email;
+  const email = get(userProfile, 'email');
   const alternativeEmail = get(userProfile, 'alt_email');
   const comments = get(userProfile, 'comments') || 'None listed';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
-
   const cusp = bidderType === 'cusp';
   const eligible = bidderType === 'eligible';
 
