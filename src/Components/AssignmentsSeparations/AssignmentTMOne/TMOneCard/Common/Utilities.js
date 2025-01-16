@@ -24,7 +24,6 @@ const dosSeal = getAssetPath('/assets/img/dos-seal-pdf.png');
 let dosSealEmbedded = '';
 imageToBase64(dosSealLogo).then(base64 => {
   dosSealEmbedded = base64;
-  console.log('Image converted to base64:', dosSealEmbedded);
 }).catch(err => {
   console.error('Error converting image to base64:', err);
 });
