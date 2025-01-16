@@ -1,5 +1,3 @@
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable no-console */
 import { Buffer } from 'buffer';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
