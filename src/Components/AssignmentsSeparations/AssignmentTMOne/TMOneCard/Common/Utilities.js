@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { v4 as uuidv4 } from 'uuid';
 import fetch from 'node-fetch';
 import jsPDF from 'jspdf';
@@ -25,6 +24,7 @@ let dosSealEmbedded = '';
 imageToBase64(dosSealLogo).then(base64 => {
   dosSealEmbedded = base64;
 }).catch(err => {
+  // eslint-disable-next-line no-console
   console.error('Error converting image to base64:', err);
 });
 
