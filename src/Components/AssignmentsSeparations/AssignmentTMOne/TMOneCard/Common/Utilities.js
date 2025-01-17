@@ -395,8 +395,8 @@ export const extractSoapResponse = (res) => {
   const xml = parser.parseFromString(response, 'text/xml');
 
   // Extract necessary tag values to determine successfulness
-  const notification = xml.getElementsByTagName('notification')[0].textContent;
-  const statusCode = xml.getElementsByTagName('StatusCode')[0].textContent;
+  const notification = xml.getElementsByTagName('notification')[0]?.innerHTML;
+  const statusCode = xml.getElementsByTagName('StatusCode')[0]?.innerHTML;
 
   if (notification) {
     const successMsg = `SUCCESSFUL CALL OPS Web Service: ${response}`;
