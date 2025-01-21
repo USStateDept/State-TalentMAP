@@ -670,11 +670,10 @@ export function sendSoap(data, onSuccess) {
           .then((logResponse) => {
             const responseCode = extractSoapResponse(soapResponse?.data);
             const updateRequest = {
-              PV_OTL_ID_I: logResponse.PV_OTL_ID_O,
+              PV_OTL_ID_I: logResponse?.data?.PV_OTL_ID_O,
               PV_OTL_SUBMIT_RETURN_CODE_I: responseCode.code,
               PV_OTL_SUBMIT_MESSAGE_I: responseCode.message || 'No Message',
             };
-            console.log(updateRequest);
             api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
                 dispatch(toastSuccess(
