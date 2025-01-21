@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import jsPDF from 'jspdf';
 import { formatDate, getAssetPath } from 'utilities';
 import dosSealLogo from './../../../../../assets/logos/png/dos-seal-pdf.png';
+const envVariables = require('./env');
 
 export const imageToBase64 = (url) => fetch(url)
   .then(response => {
@@ -93,8 +94,13 @@ export const generatePDF = (previewText, filename, eopfRequest, memo) => {
         doc.addImage(dosSeal, 'PNG', 36, 10, 75, 75);
       }
 
+      const env = envVariables.getClientEnvironment(publicUrl);
+      console.log(env.stringified['process.env'].NODE_ENV);
+      console.log(process.env.NODE_ENV);
+
+
       // Add NON PRODUCTION watermark to PDFs created in lower environments
-      if (process.env.NODE_ENV !== 'development') {
+      if (process.env.NODE_ENV !== 'production') {
         // eslint-disable-next-line no-loops/no-loops
         for (let page = 1; page <= doc.getNumberOfPages(); page += 1) {
           doc.setPage(page);
