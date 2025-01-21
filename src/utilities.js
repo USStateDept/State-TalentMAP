@@ -23,7 +23,6 @@ import { Column } from 'Components/Layout';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 
-
 const scroll = Scroll.animateScroll;
 
 export function localStorageFetchValue(key, value) {

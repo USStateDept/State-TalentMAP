@@ -4,6 +4,8 @@ import Spinner from '../../Spinner';
 
 const LoadingWrapper = (props) => {
   if (props.error) {
+    // eslint-disable-next-line no-console
+    console.error('Loading Error:', props.error);
     return (
       <LoadingError />
     );
