@@ -24,7 +24,7 @@ import {
   UPDATE_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
-import { extractSoapResponse } from '../Components/AssignmentsSeparations/AssignmentTMOne/TMOneCard/Common/Utilities';
+// import { extractSoapResponse } from '../Components/AssignmentsSeparations/AssignmentTMOne/TMOneCard/Common/Utilities';
 
 
 // ================ GET TM1 DATA ================
@@ -668,13 +668,14 @@ export function sendSoap(data, onSuccess) {
       .then((response) => {
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
           .then(() => {
-            const soapResponse = extractSoapResponse(response);
-            const updateRequest = {
-              PV_OTL_ID_I: response.PV_OTL_ID_O,
-              PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
-              PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
-            };
-            api().post('/fsbid/tmone/ops/log/', updateRequest)
+            // const soapResponse = extractSoapResponse(response);
+            // const updateRequest = {
+            //   PV_OTL_ID_I: response.PV_OTL_ID_O,
+            //   PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
+            //   PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
+            // };
+            // api().post('/fsbid/tmone/ops/log/', updateRequest)
+            api().post('/fsbid/tmone/ops/log/', { test: response })
               .then(() => {
                 dispatch(toastSuccess(
                   'TM1 SOAP Message and OPS Log',
