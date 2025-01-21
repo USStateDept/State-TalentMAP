@@ -5,8 +5,8 @@ import { Cusp, Eligible } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
-import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate, getBidderPortfolioUrl } from 'utilities';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
+import { formatDate, formatLanguages, getBidderPortfolioUrl } from 'utilities';
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
@@ -15,17 +15,17 @@ import AddToInternalListButton from '../AddToInternalListButton';
 
 const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewType }) => {
   const showCDOD30 = checkFlag('flags.CDOD30');
-  const currentAssignmentText = get(userProfile, 'pos_location');
+  const currentAssignmentText = get(userProfile, 'pos_location') || DEFAULT_TEXT;
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
   const id = get(userProfile, 'employee_id');
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
-  const languages = get(userProfile, 'current_assignment.position.language');
-  const bidder = get(userProfile, 'shortened_name') || 'None listed';
+  const languages = formatLanguages(get(userProfile, 'languages'));
+  const bidder = get(userProfile, 'shortened_name') || DEFAULT_TEXT;
   const bidderType = 'eligible'; // @TODO: implement api call to get this value
   const email = get(userProfile, 'email');
   const alternativeEmail = get(userProfile, 'alt_email');
-  const comments = get(userProfile, 'comments') || 'None listed';
+  const comments = get(userProfile, 'comments') || DEFAULT_TEXT;
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
   const cusp = bidderType === 'cusp';
   const eligible = bidderType === 'eligible';
@@ -80,16 +80,16 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewT
           <dt>Skill:</dt><dd><SkillCodeList skillCodes={userProfile.skills} /></dd>
         </div>
         <div className="stat-card-data-point">
-          <dt>Grade:</dt><dd>{userProfile.grade || NO_GRADE}</dd>
+          <dt>Grade:</dt><dd>{userProfile.grade || DEFAULT_TEXT}</dd>
         </div>
         <div className="stat-card-data-point">
-          <dt>Languages:</dt><dd>{languages || NO_LANGUAGE}</dd>
+          <dt>Languages:</dt><dd>{languages}</dd>
         </div>
         <div className="stat-card-data-point">
-          <dt>TED:</dt><dd>{ted || NO_TOUR_END_DATE}</dd>
+          <dt>TED:</dt><dd>{ted || DEFAULT_TEXT}</dd>
         </div>
         <div className="stat-card-data-point">
-          <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
+          <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText} ({orgShortDesc})</dd>
         </div>
         {
           showCDOD30 &&
