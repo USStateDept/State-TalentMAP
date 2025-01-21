@@ -665,17 +665,17 @@ export function sendSoap(data, onSuccess) {
     api().post('/fsbid/tmone/ops/send/', data.soapRequest, {
       cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
     })
-      .then((response) => {
+      .then((soapResponse) => {
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
-          .then(() => {
-            const soapResponse = extractSoapResponse(response?.data);
+          .then((logResponse) => {
+            const soapResponse = extractSoapResponse(soapResponse?.data);
             const updateRequest = {
-              PV_OTL_ID_I: response.PV_OTL_ID_O,
+              PV_OTL_ID_I: logResponse.PV_OTL_ID_O,
               PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
               PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
             };
             console.log(updateRequest);
-            api().post('/fsbid/tmone/ops/log/', response?.data)
+            api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
                 dispatch(toastSuccess(
                   'TM1 SOAP Message and OPS Log',
