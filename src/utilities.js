@@ -14,7 +14,7 @@ import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
 import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
-import { NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
+import { DEFAULT_TEXT, NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
 import Differentials from 'Components/Differentials';
 import OBCUrl from 'Components/OBCUrl';
@@ -947,12 +947,21 @@ export const determineEnv = (url) => {
   return match[0];
 };
 
+// For endpoints that use parseLanguagesToArr in API
 export const formatLang = (langArr = []) => {
   if (langArr === '-') return '-';
   if (langArr?.length === 0) return 'None Listed';
   const langArr$ = langArr || [];
   return langArr$.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
+};
+
+// For endpoints that use fsbid_languages_to_tmap in API
+export const formatLanguages = (langArr = []) => {
+  if (langArr == null || langArr.length === 0) return DEFAULT_TEXT;
+  return langArr.map(lang => (
+    `${lang.code} ${lang.speaking_score}/${lang.reading_score}`
   )).join(', ');
 };
 
