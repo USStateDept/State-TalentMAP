@@ -668,7 +668,7 @@ export function sendSoap(data, onSuccess) {
       .then((response) => {
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
           .then(() => {
-            const soapResponse = extractSoapResponse(response.data);
+            const soapResponse = extractSoapResponse(response?.data);
             const updateRequest = {
               PV_OTL_ID_I: response.PV_OTL_ID_O,
               PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
