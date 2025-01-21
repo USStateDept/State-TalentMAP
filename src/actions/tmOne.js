@@ -668,11 +668,11 @@ export function sendSoap(data, onSuccess) {
       .then((soapResponse) => {
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
           .then((logResponse) => {
-            const soapResponse = extractSoapResponse(soapResponse?.data);
+            const responseCode = extractSoapResponse(soapResponse?.data);
             const updateRequest = {
               PV_OTL_ID_I: logResponse.PV_OTL_ID_O,
-              PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
-              PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
+              PV_OTL_SUBMIT_RETURN_CODE_I: responseCode.code,
+              PV_OTL_SUBMIT_MESSAGE_I: responseCode.message || 'No Message',
             };
             console.log(updateRequest);
             api().post('/fsbid/tmone/ops/log/', updateRequest)
