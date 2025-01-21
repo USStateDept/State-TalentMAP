@@ -674,7 +674,8 @@ export function sendSoap(data, onSuccess) {
               PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
               PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
             };
-            api().post('/fsbid/tmone/ops/log/', updateRequest)
+            console.log(updateRequest);
+            api().post('/fsbid/tmone/ops/log/', response?.data)
               .then(() => {
                 dispatch(toastSuccess(
                   'TM1 SOAP Message and OPS Log',

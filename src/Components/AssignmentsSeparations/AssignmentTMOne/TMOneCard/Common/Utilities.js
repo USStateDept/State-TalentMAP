@@ -413,6 +413,7 @@ export const generateHTML = (getCableValue, lastSentDate, body) => (
 export const extractSoapResponse = (res) => {
   // Decode string escape sequences in the XML response
   const response = res.replace(/\\u(\w{4})/gi, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
+  console.log(response);
 
   // Parse string into XML for simplified extraction
   const parser = new window.DOMParser();
@@ -421,6 +422,8 @@ export const extractSoapResponse = (res) => {
   // Extract necessary tag values to determine successfulness
   const notification = xml.getElementsByTagName('notification')[0]?.innerHTML;
   const statusCode = xml.getElementsByTagName('StatusCode')[0]?.innerHTML;
+  console.log(xml.getElementsByTagName('notification'));
+  console.log(xml.getElementsByTagName('StatusCode'));
 
   if (notification) {
     const successMsg = `SUCCESSFUL CALL OPS Web Service: ${response}`;
