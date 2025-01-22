@@ -96,7 +96,7 @@ export const generatePDF = (previewText, filename, eopfRequest, memo) => {
       console.log(process.env.NODE_ENV);
 
       // Add NON PRODUCTION watermark to PDFs created in lower environments
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.PUBLIC_URL === '/prd/talentmap/') {
         // eslint-disable-next-line no-loops/no-loops
         for (let page = 1; page <= doc.getNumberOfPages(); page += 1) {
           doc.setPage(page);
