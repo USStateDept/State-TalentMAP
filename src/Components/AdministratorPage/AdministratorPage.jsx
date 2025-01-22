@@ -13,7 +13,7 @@ import Stats from './Stats';
 import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
 import PanelAdmin from './PanelAdmin';
-import PanelRemarks from './PanelRemarks/PanelRemarks';
+import PanelRemarks from './PanelRemarks';
 import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
 import BidAudit from './bidAudit/BidAudit';
 import BidAuditCategory from './bidAudit/BidAuditCategory';
