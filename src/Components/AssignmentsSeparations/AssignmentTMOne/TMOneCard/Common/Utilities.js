@@ -94,7 +94,7 @@ export const generatePDF = (previewText, filename, eopfRequest, memo) => {
       }
 
       // Add NON PRODUCTION watermark to PDFs created in lower environments
-      if (process.env.PUBLIC_URL === '/prd/talentmap/') {
+      if (process.env.PUBLIC_URL !== '/prd/talentmap/') {
         // eslint-disable-next-line no-loops/no-loops
         for (let page = 1; page <= doc.getNumberOfPages(); page += 1) {
           doc.setPage(page);
@@ -104,21 +104,6 @@ export const generatePDF = (previewText, filename, eopfRequest, memo) => {
           doc.setFontSize(70);
           doc.text(
             'NOT FOR PRODUCTION USE',
-            297, 400,
-            { align: 'center', baseline: 'center', maxWidth: 500 },
-          );
-          doc.restoreGraphicsState();
-        }
-      } else {
-        // eslint-disable-next-line no-loops/no-loops
-        for (let page = 1; page <= doc.getNumberOfPages(); page += 1) {
-          doc.setPage(page);
-          doc.saveGraphicsState();
-          doc.setGState(new doc.GState({ opacity: 0.15 }));
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(70);
-          doc.text(
-            'TESTING CONDITIONALS (SIMULATING PRD ENVIRONMENT)',
             297, 400,
             { align: 'center', baseline: 'center', maxWidth: 500 },
           );
