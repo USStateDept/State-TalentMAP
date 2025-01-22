@@ -11,6 +11,7 @@ import {
   NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_SKILL, NO_STATUS,
 } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
+import CycleBiddersContent from 'Components/CycleBiddersContent';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import swal from '@sweetalert/with-react';
 import { cyclePositionEdit } from 'actions/cycleManagement';
@@ -262,7 +263,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
       }, {
         text: 'Cycle Bidders',
         value: 'BIDDERS',
-        content: <div>Coming Soon</div>,
+        content: <CycleBiddersContent />,
       }]}
     />
   );
