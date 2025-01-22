@@ -259,6 +259,10 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
           sections={sections}
           form={form}
         />,
+      }, {
+        text: 'Cycle Bidders',
+        value: 'BIDDERS',
+        content: <div>Coming Soon</div>,
       }]}
     />
   );
