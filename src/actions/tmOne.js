@@ -665,14 +665,14 @@ export function sendSoap(data, onSuccess) {
     api().post('/fsbid/tmone/ops/send/', data.soapRequest, {
       cancelToken: new CancelToken((c) => { cancelSendSoap = c; }),
     })
-      .then((response) => {
+      .then((soapResponse) => {
         api().put('/fsbid/tmone/ops/log/', data.logRequest)
-          .then(() => {
-            const soapResponse = extractSoapResponse(data);
+          .then((logResponse) => {
+            const responseCode = extractSoapResponse(soapResponse?.data);
             const updateRequest = {
-              PV_OTL_ID_I: response.PV_OTL_ID_O,
-              PV_OTL_SUBMIT_RETURN_CODE_I: soapResponse.code,
-              PV_OTL_SUBMIT_MESSAGE_I: soapResponse.message || 'No Message',
+              PV_OTL_ID_I: logResponse?.data?.PV_OTL_ID_O,
+              PV_OTL_SUBMIT_RETURN_CODE_I: responseCode.code,
+              PV_OTL_SUBMIT_MESSAGE_I: responseCode.message || 'No Message',
             };
             api().post('/fsbid/tmone/ops/log/', updateRequest)
               .then(() => {
