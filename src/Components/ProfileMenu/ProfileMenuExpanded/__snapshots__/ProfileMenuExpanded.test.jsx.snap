@@ -543,6 +543,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Panel Remarks"
+        link="/profile/administrator/panelremarks/"
+        search=""
+        title="Panel Remarks"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="bar-chart"
         key="Statistics"
         link="/profile/administrator/stats/"
@@ -1102,6 +1110,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/orgstats/"
         search=""
         title="Org Stats"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cogs"
+        key="Panel Remarks"
+        link="/profile/administrator/panelremarks/"
+        search=""
+        title="Panel Remarks"
       />
       <withRouter(NavLink)
         hidden={true}
