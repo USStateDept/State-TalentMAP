@@ -11,11 +11,14 @@ const CycleBiddersContent = () => {
     bodyPrimary: [
       { 'Cycle Position Status': 'Status' },
       { Bureau: 'Bureau Name' },
-      { 'Location/Org': 'Location/Org' },
-      { 'Org Code': '123' },
+      { 'Location/Org': '(Org) Location' },
       { Grade: '00' },
       { Language: 'Language' },
       { 'Critcal Need': 'Y/N' },
+      { Posted: 'MM/DD/YYYY' },
+      { Incumbent: 'Incumbent Name' },
+      { 'Incumbent Status': 'Status' },
+      { 'Incumbent TED': 'MM/DD/YYYY' },
     ],
   };
 
