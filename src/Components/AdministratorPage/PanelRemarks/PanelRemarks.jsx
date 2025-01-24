@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { AgGridReact } from 'ag-grid-react';
+import { AgGridReact } from 'ag-grid-react';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
 import PaginationWrapper from 'Components/PaginationWrapper';
-import SelectForm from 'Components/SelectForm';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 // import Alert from 'Components/Alert';
@@ -37,23 +36,23 @@ const PanelRemarksTable = () => {
   const textSearchRef = useRef();
   // const [, setPage] = useState(userSelections?.page || 1);
 
-  // const [headers] = useState([
+  const [headers] = useState([
+    { field: 'Category', headerName: 'Category', width: 200 },
+    { field: 'Description', headerName: 'Description', width: 200 },
+    { field: 'ShortDesc', headerName: 'Short Desc', width: 200 },
+    { field: 'Order', headerName: 'Order', width: 100 },
+    { field: 'Active', headerName: 'Active?', width: 100 },
+    { field: 'Excl', headerName: 'Excl?', width: 100 },
+  ]);
+
+  // const columns = [
   //   { field: 'Category', headerName: 'Category', width: 150 },
   //   { field: 'Description', headerName: 'Description', width: 200 },
   //   { field: 'ShortDesc', headerName: 'Short Desc', width: 200 },
   //   { field: 'Order', headerName: 'Order', width: 100 },
   //   { field: 'Active', headerName: 'Active?', width: 100 },
   //   { field: 'Excl', headerName: 'Excl?', width: 100 },
-  // ]);
-
-  const columns = [
-    { field: 'Category', headerName: 'Category', width: 150 },
-    { field: 'Description', headerName: 'Description', width: 200 },
-    { field: 'ShortDesc', headerName: 'Short Desc', width: 200 },
-    { field: 'Order', headerName: 'Order', width: 100 },
-    { field: 'Active', headerName: 'Active?', width: 100 },
-    { field: 'Excl', headerName: 'Excl?', width: 100 },
-  ];
+  // ];
 
   // const mapObjectToRow = (obj) => {
   //   const row = {
@@ -69,7 +68,7 @@ const PanelRemarksTable = () => {
   // };
 
   // const [rows, setRows] = useState([]);
-  const [setRows] = useState([]);
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     if (panel_remarks_test_data.length > 0) {
@@ -131,7 +130,7 @@ const PanelRemarksTable = () => {
             <div className="search-bar-container">
               <PositionManagerSearch
                 ref={textSearchRef}
-                placeHolder="Search using Position Number, Position Title, Bureau, Org, Skill, or Language (i.e FR)"
+                placeHolder="Search for a particular Remark by description, search term, or category"
                 textSearch={textSearch}
                 submitSearch={(input) => setTextSearch(input)}
               />
@@ -146,56 +145,48 @@ const PanelRemarksTable = () => {
               <div className="usa-grid-full" />
             </div>
           </div>
-        </div>
-        <div className="controls-container results-dropdown">
-          <div>
-            <TotalResults
-              total={100} // count
-              pageNumber={5} // page
-              pageSize={5} // limit
-              suffix="Results"
-            // isHidden={elPositionsIsLoading}
-            />
-          </div>
-          <div className="position-search-controls--right">
-            <div className="position-search-controls--results">
-              <SelectForm />
+          <div className="controls-container results-dropdown">
+            <div>
+              <TotalResults
+                total={100} // count
+                pageNumber={5} // page
+                pageSize={5} // limit
+                suffix="Results"
+              // isHidden={elPositionsIsLoading}
+              />
             </div>
-            <div className="export-button-container">
-              <ExportButton />
+            <div className="position-search-controls--right">
+              <div className="position-search-controls--results" />
+              <div className="export-button-container">
+                <ExportButton />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="usa-width-one-whole position-search--results">
-          {
-            getOverlay() ||
-            <>
-              <div className="usa-grid-full pr-table-container">
-                <div>
-                  <div className="el-table ag-theme-quartz" style={{ width: '100%' }}>
-                    <PanelRemarksTable columns={columns} rows={panel_remarks_test_data} />
-                    {/* <AgGridReact
-                      // ref={gridRef}
-                      // domLayout="autoHeight"
-                      // columnDefs={headers}
-                      // rowData={rows}
-                      // columnTypes={columnTypes}
-                      // defaultColDef={defaultColDef}
-                      // singleClickEdit
-                    /> */}
+          <div className="usa-width-one-whole position-search--results">
+            {
+              getOverlay() ||
+              <>
+                <div className="usa-grid-full pr-table-container">
+                  <div className="el-table ag-theme-alpine" style={{ width: '100%' }}>
+                    <AgGridReact
+                      domLayout="autoHeight"
+                      columnDefs={headers}
+                      rowData={rows}
+                      singleClickEdit
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="usa-grid-full react-paginate">
-                <PaginationWrapper
-                  pageSize={100} // limit
-                  // onPageChange={p => setPage(p.page)}
-                  forcePage={1} // page
-                  totalResults={500} // count
-                />
-              </div>
-            </>
-          }
+                <div className="usa-grid-full react-paginate">
+                  <PaginationWrapper
+                    pageSize={100} // limit
+                    // onPageChange={p => setPage(p.page)}
+                    forcePage={1} // page
+                    totalResults={500} // count
+                  />
+                </div>
+              </>
+            }
+          </div>
         </div>
       </>
   );
