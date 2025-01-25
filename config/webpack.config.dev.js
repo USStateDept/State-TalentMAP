@@ -12,7 +12,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const webpackDashboard = require('webpack-dashboard/plugin');
 const { WebpackPluginRamdisk } = require('webpack-plugin-ramdisk');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -20,9 +20,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // get git info from command line
-let commitHash = require('child_process')
-  .execSync('git rev-parse --short HEAD')
-  .toString();
+let commitHash = "RAMEL_NOT_FOUND";
 
 const envVariables = require('./env');
 const paths = require('./paths');
@@ -309,7 +307,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new WebpackPluginRamdisk({}),
+    // new WebpackPluginRamdisk({}),
     new webpackDashboard(),
     // Webpack plugin that runs typescript type checker on a separate process.
 		new ForkTsCheckerWebpackPlugin({
@@ -323,7 +321,7 @@ module.exports = {
         configFile: paths.tsconfig,
 			},
 		}),
-    new HardSourceWebpackPlugin(),
+    // new HardSourceWebpackPlugin(),
     new ExtractTextPlugin('style.css'),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
