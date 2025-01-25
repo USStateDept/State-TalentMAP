@@ -20,7 +20,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // get git info from command line
-let commitHash = "RAMEL_NOT_FOUND";
+let commitHash = "DEVELOPMENT_VERSION";
 
 const envVariables = require('./env');
 const paths = require('./paths');
