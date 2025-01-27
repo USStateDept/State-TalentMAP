@@ -263,7 +263,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
       }, {
         text: 'Cycle Bidders',
         value: 'BIDDERS',
-        content: <CycleBiddersContent />,
+        content: <CycleBiddersContent position={data} />,
       }]}
     />
   );
