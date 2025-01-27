@@ -1,27 +1,15 @@
-// .panel-remarks-page {
-//     .pr-table-container {
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         height: 100vh; /* Full viewport height */
-//     }
-
-//     .custom-table {
-//         width: 80%; /* Adjust the width as needed */
-//         margin: 0 auto;
-//         padding: 20px;
-//         border: 1px solid #ccc;
-//     }
-// }
-
 .panel-remarks-page {
     //adding margins:
     margin: 5px;
 
     .pr-table-container {
         display: flex;
+        justify-content: center;
+        align-items: center;
         flex-direction: column;
         height: auto;
+        width: 100%;
+        flex: 1;
     }
 
     .el-table{

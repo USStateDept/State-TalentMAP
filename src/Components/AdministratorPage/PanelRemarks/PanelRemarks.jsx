@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { AgGridReact } from 'ag-grid-react';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-// import Alert from 'Components/Alert';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import TotalResults from '../../TotalResults';
@@ -31,43 +31,20 @@ const panel_remarks_test_data = [
   },
 ];
 
+
 const PanelRemarksTable = () => {
   const [textSearch, setTextSearch] = useState('');
   const textSearchRef = useRef();
-  // const [, setPage] = useState(userSelections?.page || 1);
 
   const [headers] = useState([
-    { field: 'Category', headerName: 'Category', width: 200 },
-    { field: 'Description', headerName: 'Description', width: 200 },
-    { field: 'ShortDesc', headerName: 'Short Desc', width: 200 },
-    { field: 'Order', headerName: 'Order', width: 100 },
-    { field: 'Active', headerName: 'Active?', width: 100 },
-    { field: 'Excl', headerName: 'Excl?', width: 100 },
+    { field: 'Category', headerName: 'Category', flex: 1 },
+    { field: 'Description', headerName: 'Description', flex: 1 },
+    { field: 'ShortDesc', headerName: 'Short Desc', flex: 1 },
+    { field: 'Order', headerName: 'Order', flex: 1 },
+    { field: 'Active', headerName: 'Active?', flex: 1 },
+    { field: 'Excl', headerName: 'Excl?', flex: 1 },
   ]);
 
-  // const columns = [
-  //   { field: 'Category', headerName: 'Category', width: 150 },
-  //   { field: 'Description', headerName: 'Description', width: 200 },
-  //   { field: 'ShortDesc', headerName: 'Short Desc', width: 200 },
-  //   { field: 'Order', headerName: 'Order', width: 100 },
-  //   { field: 'Active', headerName: 'Active?', width: 100 },
-  //   { field: 'Excl', headerName: 'Excl?', width: 100 },
-  // ];
-
-  // const mapObjectToRow = (obj) => {
-  //   const row = {
-  //     Category: obj.CATEGORY,
-  //     Description: obj.DESCRIPTION,
-  //     ShortDesc: obj.SHORT_DESC,
-  //     Order: obj.ORDER,
-  //     Active: obj.ACTIVE,
-  //     Excl: obj.EXCL,
-  //   };
-
-  //   return row;
-  // };
-
-  // const [rows, setRows] = useState([]);
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -77,41 +54,10 @@ const PanelRemarksTable = () => {
     }
   }, []);
 
-  // const defaultColDef = {
-  //   sortable: false,
-  // };
-
-  // const columnTypes = {
-  //   customDate: {
-  //     extendsDataType: 'date',
-  //     baseDataType: 'date',
-  //     valueFormatter: params =>
-  //       // convert to `mm/dd/yyyy`
-  //       params.value == null
-  //         ? ''
-  //         : `${params.value.getMonth() + 1}/${params.value.getDate()}/${params.value.getFullYear()}`
-
-  //     ,
-  //   },
-  // };
-
   const prFiltersIsLoading = useSelector(state => state.panelRemarksFiltersFetchDataLoading);
 
   const isLoading = prFiltersIsLoading;
-  // const getOverlay = () => {
-  //   let toReturn;
-  //   if (prFiltersIsLoading) {
-  //     toReturn = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-  //   } else if (panelRemarksHasErrored || prFiltersHasErrored) {
-  //     toReturn = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-  //   } else if (count === 0) {
-  //     toReturn = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
-  //   }
-  //   if (toReturn) {
-  //     return <div className="usa-width-one-whole empl-search-lower-section results-dropdown">{toReturn}</div>;
-  //   }
-  //   return false;
-  // };
+  // getOverlay() will be placed here
 
   const getOverlay = () => {
     let toReturn;
@@ -148,11 +94,10 @@ const PanelRemarksTable = () => {
           <div className="controls-container results-dropdown">
             <div>
               <TotalResults
-                total={100} // count
-                pageNumber={5} // page
-                pageSize={5} // limit
+                total={100}
+                pageNumber={5}
+                pageSize={5}
                 suffix="Results"
-              // isHidden={elPositionsIsLoading}
               />
             </div>
             <div className="position-search-controls--right">
@@ -167,7 +112,7 @@ const PanelRemarksTable = () => {
               getOverlay() ||
               <>
                 <div className="usa-grid-full pr-table-container">
-                  <div className="el-table ag-theme-alpine" style={{ width: '100%' }}>
+                  <div className="el-table ag-theme-alpine" style={{ width: '100%', flex: 1 }}>
                     <AgGridReact
                       domLayout="autoHeight"
                       columnDefs={headers}
@@ -178,10 +123,9 @@ const PanelRemarksTable = () => {
                 </div>
                 <div className="usa-grid-full react-paginate">
                   <PaginationWrapper
-                    pageSize={100} // limit
-                    // onPageChange={p => setPage(p.page)}
-                    forcePage={1} // page
-                    totalResults={500} // count
+                    pageSize={50}
+                    forcePage={1}
+                    totalResults={500}
                   />
                 </div>
               </>
