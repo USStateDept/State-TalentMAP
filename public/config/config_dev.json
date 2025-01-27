@@ -35,6 +35,7 @@
     "panel_admin_panel_meeting": false,
     "panel_admin_post_panel": false,
     "panel_admin_remarks": false,
+    "panel_remarks": true,
     "panel_meeting_agendas": true,
     "panel_meetings_search": true,
     "persona_auth": false,
