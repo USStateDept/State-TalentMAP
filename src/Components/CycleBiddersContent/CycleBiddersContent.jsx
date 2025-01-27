@@ -34,16 +34,16 @@ const CycleBiddersContent = ({ position }) => {
   };
 
   const [headers] = useState([
-    { field: 'name', headerName: 'Bidder(s)', width: 175 },
-    { field: 'status', headerName: 'Bidder Status', width: 75 },
-    { field: 'grade', headerName: 'Grade', width: 75 },
-    { field: 'skill', headerName: 'Skill', width: 100 },
-    { field: 'locationOrg', headerName: 'Location/Org', width: 120 },
-    { field: 'language', headerName: 'Language', width: 100 },
-    { field: 'classification', headerName: 'Classification', width: 120 },
-    { field: 'ted', headerName: 'TED', width: 120 },
-    { field: 'bidSubmitDate', headerName: 'Bid Date', width: 120 },
-    { field: 'panel', headerName: 'Panel', cellRenderer: CheckboxRenderer, cellRendererParams: { disabled: true }, width: 75 },
+    { field: 'name', headerName: 'Bidder(s)', flex: 1 },
+    { field: 'status', headerName: 'Bidder Status', flex: 1 },
+    { field: 'grade', headerName: 'Grade', flex: 1 },
+    { field: 'skill', headerName: 'Skill', flex: 1 },
+    { field: 'locationOrg', headerName: 'Location/Org', flex: 1 },
+    { field: 'language', headerName: 'Language', flex: 1 },
+    { field: 'classification', headerName: 'Classification', flex: 1 },
+    { field: 'ted', headerName: 'TED', flex: 1 },
+    { field: 'bidSubmitDate', headerName: 'Bid Date', flex: 1 },
+    { field: 'panel', headerName: 'Panel', cellRenderer: CheckboxRenderer, cellRendererParams: { disabled: true }, flex: 1 },
   ]);
 
   const mapObjectToRow = (obj) => {
