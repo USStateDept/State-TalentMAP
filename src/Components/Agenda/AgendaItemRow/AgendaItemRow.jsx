@@ -182,6 +182,7 @@ AgendaItemRow.propTypes = {
       }),
     ),
     pmd_dttm: PropTypes.string,
+    pmt_code: PropTypes.string,
     pmi_official_item_num: PropTypes.number,
     status: PropTypes.string,
     perdet: PropTypes.number,
