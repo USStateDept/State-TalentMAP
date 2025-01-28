@@ -12,7 +12,7 @@
         flex: 1;
     }
 
-    .el-table{
+    .pr-table{
         // AG-Grid
         .ag-header-cell-label {
             white-space: normal !important;
@@ -70,5 +70,9 @@
             font-size: .8em;
             padding: .5em;
         }
+    }
+
+    .print-view-total-results {
+        margin-right: 20px;
     }
 }
