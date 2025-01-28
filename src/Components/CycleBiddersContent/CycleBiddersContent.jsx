@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { bureauBidsFetchData } from 'actions/bureauPositionBids';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
+import { POSITION_DETAILS } from 'Constants/PropTypes';
 
 const CycleBiddersContent = ({ position }) => {
   const dispatch = useDispatch();
@@ -52,8 +52,8 @@ const CycleBiddersContent = ({ position }) => {
       status: obj.status,
       grade: obj.grade,
       skill: obj.skill,
-      locationOrg: obj.location,
-      language: obj.language,
+      locationOrg: `${obj.org} (${obj.org_code})`,
+      language: obj.language || '',
       classification: obj.classifications,
       ted: obj.ted,
       bidSubmitDate: obj.submitted_date,
@@ -66,8 +66,7 @@ const CycleBiddersContent = ({ position }) => {
 
   useEffect(() => {
     // fetch bid data
-    console.log(position);
-    const id = '1756'; // position.id;
+    const id = position.id;
     const query = {};
     dispatch(bureauBidsFetchData(id, query));
   }, []);
