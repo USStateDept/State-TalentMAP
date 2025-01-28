@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -105,7 +107,9 @@ const PanelRemarksTable = () => {
             </div>
             <div className="position-search-controls--right">
               <div className="position-search-controls--results" />
-              {<button onClick={() => setPrintView(true)} disabled={isLoading}> Print </button>}
+              <button className="pr-print-button" onClick={() => setPrintView(true)} disabled={isLoading}>
+                <FontAwesomeIcon icon={faPrint} /> Print
+              </button>
             </div>
           </div>
           <div className="usa-width-one-whole position-search--results">

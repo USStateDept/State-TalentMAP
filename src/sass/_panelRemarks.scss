@@ -75,4 +75,14 @@
     .print-view-total-results {
         margin-right: 20px;
     }
+
+    .pr-print-button {
+        background: none;
+        border: none;
+        color: $tm-navy-dark;
+        font: inherit;
+        cursor: pointer;
+        padding: 0;
+        outline: inherit;
+      }
 }
