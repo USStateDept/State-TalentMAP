@@ -53,7 +53,8 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
     <div
       className="ai-history-card-date"
     >
-      Panel Date: 
+      N/A
+       - 
       N/A
     </div>
   </div>
