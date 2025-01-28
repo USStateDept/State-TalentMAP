@@ -88,22 +88,26 @@ export const generatePDF = (previewText, filename, eopfRequest, memo) => {
   const pdf = new jsPDF('p', 'pt', 'a4', true);
   pdf.html(content, {
     callback: (doc) => {
+      // Add DOS seal to top left corner if generating Memo file
       if (memo) {
         doc.addImage(dosSeal, 'PNG', 36, 10, 75, 75);
       }
-      // eslint-disable-next-line no-loops/no-loops
-      for (let page = 1; page <= doc.getNumberOfPages(); page += 1) {
-        doc.setPage(page);
-        doc.saveGraphicsState();
-        doc.setGState(new doc.GState({ opacity: 0.15 }));
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(70);
-        doc.text(
-          'NOT FOR PRODUCTION USE',
-          297, 400,
-          { align: 'center', baseline: 'center', maxWidth: 500 },
-        );
-        doc.restoreGraphicsState();
+      // Add NON PRODUCTION watermark to PDFs created in lower environments
+      if (process.env.PUBLIC_URL !== '/prd/talentmap/') {
+        // eslint-disable-next-line no-loops/no-loops
+        for (let page = 1; page <= doc.getNumberOfPages(); page += 1) {
+          doc.setPage(page);
+          doc.saveGraphicsState();
+          doc.setGState(new doc.GState({ opacity: 0.15 }));
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(70);
+          doc.text(
+            'NOT FOR PRODUCTION USE',
+            297, 400,
+            { align: 'center', baseline: 'center', maxWidth: 500 },
+          );
+          doc.restoreGraphicsState();
+        }
       }
       const base64pdf = doc.output('datauristring');
       const strippedPdfString = base64pdf.split(',')[1];
