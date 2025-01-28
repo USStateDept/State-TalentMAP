@@ -23,7 +23,7 @@ const CycleBiddersContent = ({ position }) => {
     bodyPrimary: [
       { 'Cycle Position Status': position.status },
       { 'Location/Org': `${position.org_desc} (${position.org_code})` },
-      { Grade: position.grade },
+      { 'PP/Grade': `${position.pay_plan}/${position.grade}` },
       { Language: position.languages },
       { 'Critical Need': position.crit_need_flag },
       { Posted: position.posted_date_formatted },
