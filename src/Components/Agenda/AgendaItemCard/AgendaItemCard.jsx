@@ -92,7 +92,7 @@ const AgendaItemCard = props => {
           </h3>
           <AgendaItemLegs legs={agenda.legs} isCard />
           <div className="ai-history-card-date">
-            Panel Type and Date: {agenda.pmt_code ?? 'N/A'} - {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
+            {agenda.pmt_code ?? 'N/A'} - {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
           </div>
         </div>
       }
