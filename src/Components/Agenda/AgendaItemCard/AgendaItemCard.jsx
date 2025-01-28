@@ -92,7 +92,7 @@ const AgendaItemCard = props => {
           </h3>
           <AgendaItemLegs legs={agenda.legs} isCard />
           <div className="ai-history-card-date">
-            Panel Date: {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
+            Panel Type and Date: {agenda.pmt_code ?? 'N/A'} - {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
           </div>
         </div>
       }
@@ -112,6 +112,7 @@ AgendaItemCard.propTypes = {
       }),
     ),
     pmd_dttm: PropTypes.string,
+    pmt_code: PropTypes.string,
     status: PropTypes.string,
     perdet: PropTypes.number,
     legs: PropTypes.arrayOf(
