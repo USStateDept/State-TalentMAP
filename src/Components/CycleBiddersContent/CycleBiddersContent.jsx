@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { bureauBidsFetchData } from 'actions/bureauPositionBids';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { useDidMountEffect } from 'hooks';
 
 const CycleBiddersContent = ({ position }) => {
   const dispatch = useDispatch();
   const bidders = useSelector(state => state.bureauPositionBids);
   const biddersIsLoading = useSelector(state => state.bureauPositionBidsIsLoading);
   const biddersHasErrored = useSelector(state => state.bureauPositionBidsHasErrored);
-  const [count, setCount] = useState(bidders.length);
+  let count = useRef(bidders.length);
 
   const sections = {
     subheading: [
@@ -69,18 +70,17 @@ const CycleBiddersContent = ({ position }) => {
     const id = position.id;
     const query = {};
     dispatch(bureauBidsFetchData(id, query));
+    count = bidders.length;
   }, []);
 
-  useEffect(() => {
-    // update count
-    setCount(bidders.length);
-  }, [bidders]);
-
-  useEffect(() => {
+  useDidMountEffect(() => {
     // update table rows
-    if (count !== 0 && !biddersIsLoading && !biddersHasErrored) {
+    if (count.current !== 0 && !biddersIsLoading && !biddersHasErrored) {
       const mappedRows = bidders.map(mapObjectToRow);
       setRows(mappedRows);
+    } else if (count.current === 0 && !biddersIsLoading) {
+      // if no bidders, set rows to empty array
+      setRows([]);
     }
   }, [biddersIsLoading]);
 
@@ -98,7 +98,7 @@ const CycleBiddersContent = ({ position }) => {
             defaultColDef={defaultColDef}
             columnDefs={headers}
             rowData={rows}
-            loading={count === 0 && biddersIsLoading}
+            loading={biddersIsLoading}
           />
         </div>
       </>
