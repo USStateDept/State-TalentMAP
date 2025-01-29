@@ -67,7 +67,7 @@ const CycleBiddersContent = ({ position }) => {
 
   useEffect(() => {
     // fetch bid data
-    const id = '1756'; // position.id;
+    const id = position.id;
     const query = {};
     dispatch(bureauBidsFetchData(id, query));
   }, []);

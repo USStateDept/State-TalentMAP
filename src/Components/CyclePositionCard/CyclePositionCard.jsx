@@ -33,7 +33,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
       { 'Position Title': data?.title || DEFAULT_TEXT },
     ],
     bodyPrimary: [
-      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || DEFAULT_TEXT },
+      { 'Location/Org': orgWithCode || data?.org_code || data?.org_desc || DEFAULT_TEXT },
       { 'PP/Grade': `${data?.pay_plan || DEFAULT_TEXT}/${data?.grade || DEFAULT_TEXT}` },
       { 'Status': data?.status || DEFAULT_TEXT },
       { 'Language': data?.languages || DEFAULT_TEXT },
@@ -134,7 +134,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || DEFAULT_TEXT },
+      { 'Location/Org': orgWithCode || data?.org_code || data?.org_desc || DEFAULT_TEXT },
       { 'PP/Grade': `${data?.pay_plan || DEFAULT_TEXT}/${data?.grade || DEFAULT_TEXT}` },
       { 'Status': data?.status || DEFAULT_TEXT },
       { 'Language': data?.languages || DEFAULT_TEXT },
