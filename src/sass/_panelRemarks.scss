@@ -79,10 +79,14 @@
     .pr-print-button {
         background: none;
         border: none;
-        color: $tm-navy-dark;
+        color: $bg-blue-dark-0;
         font: inherit;
         cursor: pointer;
         padding: 0;
         outline: inherit;
+      }
+
+      .bold-text {
+        font-weight: bold;
       }
 }
