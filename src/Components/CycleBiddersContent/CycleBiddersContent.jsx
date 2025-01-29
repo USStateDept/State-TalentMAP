@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { bureauBidsFetchData } from 'actions/bureauPositionBids';
@@ -12,7 +12,7 @@ const CycleBiddersContent = ({ position }) => {
   const bidders = useSelector(state => state.bureauPositionBids);
   const biddersIsLoading = useSelector(state => state.bureauPositionBidsIsLoading);
   const biddersHasErrored = useSelector(state => state.bureauPositionBidsHasErrored);
-  let count = useRef(bidders.length);
+  const [count, setCount] = useState(0);
 
   const sections = {
     subheading: [
@@ -67,11 +67,15 @@ const CycleBiddersContent = ({ position }) => {
 
   useEffect(() => {
     // fetch bid data
-    const id = position.id;
+    const id = '1756'; // position.id;
     const query = {};
     dispatch(bureauBidsFetchData(id, query));
-    count = bidders.length;
   }, []);
+
+  useEffect(() => {
+    // update count
+    setCount(bidders.length);
+  }, [bidders]);
 
   useDidMountEffect(() => {
     // update table rows
