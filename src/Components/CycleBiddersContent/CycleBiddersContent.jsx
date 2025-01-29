@@ -53,7 +53,7 @@ const CycleBiddersContent = ({ position }) => {
       status: obj.status,
       grade: obj.grade,
       skill: obj.skill,
-      locationOrg: `${obj.org} (${obj.org_code})`,
+      locationOrg: `${obj.org} (000)`,
       language: obj.language || '',
       classification: obj.classifications,
       ted: obj.ted,
