@@ -8,14 +8,12 @@ import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_SKILL, NO_STATUS,
-} from 'Constants/SystemMessages';
+  DEFAULT_TEXT, NO_POSITION_NUMBER } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
+import CycleBiddersContent from 'Components/CycleBiddersContent';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import swal from '@sweetalert/with-react';
 import { cyclePositionEdit } from 'actions/cycleManagement';
-import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
-
 
 const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, editableInfoLoading, editableInfoError }) => {
   const dispatch = useDispatch();
@@ -25,26 +23,24 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
   const skillWithDesc = (data?.skill_code && data?.skill_desc) ? `${data?.skill_desc} (${data?.skill_code})` : false;
   const orgWithCode = (data?.org_code && data?.org_desc) ? `${data?.org_desc} (${data?.org_code})` : false;
 
-
   // =============== View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
     subheading: [
       { 'Position Number': data?.position_number || NO_POSITION_NUMBER },
-      { 'Skill': skillWithDesc || data?.skill_code || data?.skill_desc || NO_SKILL },
-      { 'Position Title': data?.title || NO_POSITION_TITLE },
+      { 'Skill': skillWithDesc || data?.skill_code || data?.skill_desc || DEFAULT_TEXT },
+      { 'Position Title': data?.title || DEFAULT_TEXT },
     ],
     bodyPrimary: [
-      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || NO_ORG },
-      { 'Grade': data?.grade || NO_GRADE },
-      { 'Status': data?.status || NO_STATUS },
-      { 'Language': data?.languages || 'None Listed' },
-      { 'Bid Cycle': data?.bid_cycle || 'None Listed' },
-      { 'Job Category': data?.job_category || 'None Listed' },
-      { 'Pay Plan': data?.pay_plan || 'None Listed' },
-      { 'Incumbent': data?.incumbent_name || 'None Listed' },
-      { 'TED': getResult(data, 'ted', NO_TOUR_END_DATE) },
+      { 'Location/Org': orgWithCode || data?.org_code || data?.org_desc || DEFAULT_TEXT },
+      { 'PP/Grade': `${data?.pay_plan || DEFAULT_TEXT}/${data?.grade || DEFAULT_TEXT}` },
+      { 'Status': data?.status || DEFAULT_TEXT },
+      { 'Language': data?.languages || DEFAULT_TEXT },
+      { 'Bid Cycle': data?.bid_cycle || DEFAULT_TEXT },
+      { 'Job Category': data?.job_category || DEFAULT_TEXT },
+      { 'Incumbent': data?.incumbent_name || DEFAULT_TEXT },
+      { 'TED': getResult(data, 'ted', DEFAULT_TEXT) },
     ],
     metadata: [
       { 'Date Posted': postedDate },
@@ -138,15 +134,14 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Org/Code': orgWithCode || data?.org_code || data?.org_desc || NO_ORG },
-      { 'Grade': data?.grade || NO_GRADE },
-      { 'Status': data?.status || NO_STATUS },
-      { 'Language': data?.languages || 'None Listed' },
-      { 'Bid Cycle': data?.bid_cycle || 'None Listed' },
-      { 'Job Category': data?.job_category || 'None Listed' },
-      { 'Pay Plan': data?.pay_plan || 'None Listed' },
-      { 'Incumbent': data?.incumbent_name || 'None Listed' },
-      { 'TED': getResult(data, 'ted', NO_TOUR_END_DATE) },
+      { 'Location/Org': orgWithCode || data?.org_code || data?.org_desc || DEFAULT_TEXT },
+      { 'PP/Grade': `${data?.pay_plan || DEFAULT_TEXT}/${data?.grade || DEFAULT_TEXT}` },
+      { 'Status': data?.status || DEFAULT_TEXT },
+      { 'Language': data?.languages || DEFAULT_TEXT },
+      { 'Bid Cycle': data?.bid_cycle || DEFAULT_TEXT },
+      { 'Job Category': data?.job_category || DEFAULT_TEXT },
+      { 'Incumbent': data?.incumbent_name || DEFAULT_TEXT },
+      { 'TED': getResult(data, 'ted', DEFAULT_TEXT) },
     ],
     inputBody:
     getOverlay() ||
@@ -259,6 +254,10 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
           sections={sections}
           form={form}
         />,
+      }, {
+        text: 'Cycle Bidders',
+        value: 'BIDDERS',
+        content: <CycleBiddersContent position={data} />,
       }]}
     />
   );
