@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import Picky from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import TotalResults from '../../TotalResults';
@@ -59,6 +61,15 @@ const PanelRemarksTable = () => {
     }
   }, []);
 
+  const pickyProps = {
+    numberDisplayed: 2,
+    multiple: true,
+    includeFilter: true,
+    dropdownHeight: 255,
+    renderList: renderSelectionList,
+    includeSelectAll: true,
+  };
+
   const prFiltersIsLoading = useSelector(state => state.panelRemarksFiltersFetchDataLoading);
 
   const isLoading = prFiltersIsLoading;
@@ -91,9 +102,58 @@ const PanelRemarksTable = () => {
               <div className="filterby-clear" />
             </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
-              <div className="usa-grid-full" />
-              <div className="usa-grid-full" />
-              <div className="usa-grid-full" />
+              <div className="usa-grid-full">
+                <div className="filter-div">
+                  <div className="label">Category:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Category(s)"
+                    // value={selectedCategories}
+                    // options={categoryFilters}
+                    // onChange={setSelectedCategories}
+                    valueKey="category"
+                    labelKey="category"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Order:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Order(s)"
+                    // value={selectedOrders}
+                    // options={orderFilters}
+                    // onChange={setSelectedOrders}
+                    valueKey="order" // "code"
+                    labelKey="order" // "description"
+                  />
+                </div>
+              </div>
+              <div className="usa-grid-full">
+                <div className="filter-div">
+                  <div className="label">Active:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Active Flag"
+                    // value={selectedCategories}
+                    // options={categoryFilters}
+                    // onChange={setSelectedCategories}
+                    valueKey="active"
+                    labelKey="active"
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Mutually Exclusive:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Mutually Exclusive Flag"
+                    // value={selectedOrders}
+                    // options={orderFilters}
+                    // onChange={setSelectedOrders}
+                    valueKey="muyexcl"
+                    labelKey="muyexcl"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="controls-container results-dropdown">
