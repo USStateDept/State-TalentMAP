@@ -12,6 +12,13 @@
         flex: 1;
     }
 
+    .filter-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
     .pr-table{
         // AG-Grid
         .ag-header-cell-label {
