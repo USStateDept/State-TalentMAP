@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
-import { bureauBidsFetchData } from 'actions/bureauPositionBids';
+import { useDidMountEffect } from 'hooks';
+import { POSITION_DETAILS } from 'Constants/PropTypes';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
-import { useDidMountEffect } from 'hooks';
+import PropTypes from 'prop-types';
 
-const CycleBiddersContent = ({ position }) => {
-  const dispatch = useDispatch();
-  const bidders = useSelector(state => state.bureauPositionBids);
-  const biddersIsLoading = useSelector(state => state.bureauPositionBidsIsLoading);
-  const biddersHasErrored = useSelector(state => state.bureauPositionBidsHasErrored);
+const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, position }) => {
   const [count, setCount] = useState(0);
 
   const sections = {
@@ -60,17 +55,19 @@ const CycleBiddersContent = ({ position }) => {
       bidSubmitDate: obj.submitted_date,
       panel: false,
     };
+
+    // Add unique IDs for checkbox cells only
+    const checkboxFields = ['panel'];
+    headers.forEach(header => {
+      if (checkboxFields.includes(header.field)) {
+        row[`${header.field}_ID`] = `${header.field}_${obj.perdet_seq_num}`;
+      }
+    });
+
     return row;
   };
 
   const [rows, setRows] = useState(null); // has to be set to null for loading overlay to work
-
-  useEffect(() => {
-    // fetch bid data
-    const id = position.id;
-    const query = {};
-    dispatch(bureauBidsFetchData(id, query));
-  }, []);
 
   useEffect(() => {
     // update count
@@ -110,6 +107,9 @@ const CycleBiddersContent = ({ position }) => {
   );
 };
 CycleBiddersContent.propTypes = {
+  bidders: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  biddersIsLoading: PropTypes.bool.isRequired,
+  biddersHasErrored: PropTypes.bool.isRequired,
   position: POSITION_DETAILS.isRequired,
 };
 
