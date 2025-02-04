@@ -32,7 +32,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
   const [headers] = useState([
     { field: 'name', headerName: 'Bidder(s)', flex: 1 },
     { field: 'status', headerName: 'Bidder Status', flex: 1 },
-    { field: 'grade', headerName: 'Grade', flex: 1 },
+    { field: 'pp_grade', headerName: 'PP/Grade', flex: 1 },
     { field: 'skill', headerName: 'Skill', flex: 1 },
     { field: 'locationOrg', headerName: 'Location/Org', flex: 1 },
     { field: 'language', headerName: 'Language', flex: 1 },
@@ -46,9 +46,9 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
     const row = {
       name: obj.name,
       status: obj.status,
-      grade: obj.grade,
+      pp_grade: `${obj.per_pay_plan_code}/${obj.grade}`,
       skill: obj.skill,
-      locationOrg: `${obj.org} (000)`,
+      locationOrg: `${obj.org} (${obj.org_code})`,
       language: obj.language || '',
       classification: obj.classifications,
       ted: obj.ted,
