@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import swal from '@sweetalert/with-react';
+import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
+import FA from 'react-fontawesome';
+import querystring from 'query-string';
 import { formatDate, getResult } from 'utilities';
 import { cyclePositionEdit } from 'actions/cycleManagement';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
@@ -11,11 +16,7 @@ import TabbedCard from 'Components/TabbedCard';
 import CycleBiddersContent from 'Components/CycleBiddersContent';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import api from '../../api';
-import swal from '@sweetalert/with-react';
-import PropTypes from 'prop-types';
-import DatePicker from 'react-datepicker';
-import FA from 'react-fontawesome';
-import querystring from 'query-string';
+
 
 const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, editableInfoLoading, editableInfoError }) => {
   const dispatch = useDispatch();
