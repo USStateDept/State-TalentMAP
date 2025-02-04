@@ -12,6 +12,18 @@
         flex: 1;
     }
 
+    .filter-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .filter-div {
+        flex: 0 1 auto; /* Ensures the divs are horizontally stacked */
+        // min-width: 200px;
+    }
+
     .pr-table{
         // AG-Grid
         .ag-header-cell-label {

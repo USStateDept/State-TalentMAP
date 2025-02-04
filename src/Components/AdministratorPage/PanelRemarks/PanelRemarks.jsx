@@ -141,6 +141,8 @@ const PanelRemarksTable = () => {
                     labelKey="active"
                   />
                 </div>
+              </div>
+              <div className="usa-grid-full">
                 <div className="filter-div">
                   <div className="label">Mutually Exclusive:</div>
                   <Picky
