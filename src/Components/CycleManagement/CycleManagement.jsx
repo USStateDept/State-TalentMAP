@@ -6,6 +6,7 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
+import CheckBox from 'Components/CheckBox';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
@@ -44,6 +45,8 @@ const CycleManagement = () => {
   const [clearFilters, setClearFilters] = useState(false);
   const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
     && !selectedDate;
+
+  const [selectAll, setSelectAll] = useState(false);
 
   const cycleClassLink = '/profile/administrator/cycleclassifications';
 
@@ -253,10 +256,18 @@ const CycleManagement = () => {
 
                 {isSuperUser &&
                   <div className="cm-heading">
-                    <Link to={cycleClassLink}>
+                    <div className="select-all">
+                      <CheckBox
+                        id="selectAll"
+                        label={selectAll ? 'Deselect All' : 'Select All'}
+                        value={selectAll}
+                        onCheckBoxClick={() => setSelectAll(!selectAll)}
+                        disabled={cycleManagementDataLoading}
+                      />
+                    </div>                    <div className="cm-new-merge">
+                      <Link to={cycleClassLink}>
                       Cycle Date Classifications
-                    </Link>
-                    <div className="cm-new-merge">
+                      </Link>
                       <Link
                         onClick={(e) => {
                           e.preventDefault();
@@ -274,7 +285,7 @@ const CycleManagement = () => {
                         }}
                         to="#"
                       >
-                        <FA className="fa-solid fa-plus" />
+                        <FA className="fa-solid fa-code-fork" />
                         Merge Assignment Cycles
                       </Link>
                     </div>
