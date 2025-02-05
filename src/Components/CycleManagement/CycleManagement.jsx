@@ -298,6 +298,7 @@ const CycleManagement = () => {
                   <CycleSearchCard
                     {...{ ...data }}
                     isSuperUser={isSuperUser}
+                    selectAll={selectAll}
                   />
                 ))}
               </div>

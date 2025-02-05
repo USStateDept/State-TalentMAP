@@ -294,6 +294,16 @@
   border-left: 8px solid $blue-primary;
   padding: 1em;
 
+  &.selected {
+    border-left: 36px solid $blue-primary;
+
+    .check-mark {
+      position: absolute;
+      transform: translateX(-42px); // Calculated to center the check-mark
+      color: $color-white;
+    }
+  }
+
   .cyc-card--row {
     display: flex;
     align-items: center;
