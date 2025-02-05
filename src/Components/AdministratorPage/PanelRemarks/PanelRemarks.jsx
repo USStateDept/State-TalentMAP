@@ -45,11 +45,11 @@ const PanelRemarksTable = () => {
 
   const [headers] = useState([
     { field: 'Category', headerName: 'Category', flex: 1 },
-    { field: 'Description', headerName: 'Description', flex: 1 },
-    { field: 'ShortDesc', headerName: 'Short Desc.', flex: 1 },
-    { field: 'Order', headerName: 'Order', flex: 1 },
-    { field: 'Active', headerName: 'Active', flex: 1 },
-    { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1 },
+    { field: 'Description', headerName: 'Description', flex: 1, editable: true },
+    { field: 'ShortDesc', headerName: 'Short Desc.', flex: 1, editable: true },
+    { field: 'Order', headerName: 'Order', flex: 1, editable: true },
+    { field: 'Active', headerName: 'Active', flex: 1, editable: true },
+    { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1, editable: true },
   ]);
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
