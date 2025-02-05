@@ -5,6 +5,7 @@ import { POSITION_DETAILS } from 'Constants/PropTypes';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 import PropTypes from 'prop-types';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 
 const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, position }) => {
   const [count, setCount] = useState(0);
@@ -12,20 +13,20 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
   const sections = {
     subheading: [
       { Cycle: position.bid_cycle },
-      { 'Position Number': position.position_number },
-      { 'Position Title': position.title },
-      { Skill: `${position.skill_desc} (${position.skill_code})` },
+      { 'Position Number': position.position_number || '' },
+      { 'Position Title': position.title || '' },
+      { Skill: `${position.skill_desc} (${position.skill_code})` || DEFAULT_TEXT },
     ],
     bodyPrimary: [
-      { 'Cycle Position Status': position.status },
-      { 'Location/Org': `${position.org_desc} ${position.org_code ? `(${position.org_code})` : ''}` },
-      { 'PP/Grade': `${position.pay_plan}/${position.grade}` },
-      { Language: position.languages },
-      { 'Critical Need': position.crit_need_flag },
-      { Posted: position.posted_date_formatted },
-      { Incumbent: position.incumbent_name },
-      { 'Incumbent Status': position.asm_status },
-      { 'Incumbent TED': position.ted },
+      { 'Cycle Position Status': position.status || DEFAULT_TEXT },
+      { 'Location/Org': `${position.org_desc || DEFAULT_TEXT} ${position.org_code ? `(${position.org_code})` : ''}` },
+      { 'PP/Grade': `${position.pay_plan || DEFAULT_TEXT}/${position.grade || DEFAULT_TEXT}` },
+      { Language: position.languages || DEFAULT_TEXT },
+      { 'Critical Need': position.crit_need_flag || DEFAULT_TEXT },
+      { Posted: position.posted_date_formatted || DEFAULT_TEXT },
+      { Incumbent: position.incumbent_name || DEFAULT_TEXT },
+      { 'Incumbent Status': position.asm_status || DEFAULT_TEXT },
+      { 'Incumbent TED': position.ted || DEFAULT_TEXT },
     ],
   };
 
@@ -45,14 +46,14 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
   const mapObjectToRow = (obj) => {
     const row = {
       name: obj.name,
-      status: obj.status,
-      pp_grade: `${obj.per_pay_plan_code}/${obj.grade}`,
-      skill: obj.skill,
-      locationOrg: `${obj.org} (${obj.org_code})`,
-      language: obj.language || '',
-      classification: obj.classifications,
-      ted: obj.ted,
-      bidSubmitDate: obj.submitted_date,
+      status: obj.status || DEFAULT_TEXT,
+      pp_grade: `${obj.per_pay_plan_code || DEFAULT_TEXT}/${obj.grade || DEFAULT_TEXT}`,
+      skill: obj.skill || DEFAULT_TEXT,
+      locationOrg: `${obj.org || DEFAULT_TEXT} ${obj.org_code ? `(${obj.org_code})` : ''}`,
+      language: obj.language || DEFAULT_TEXT,
+      classification: obj.classifications || DEFAULT_TEXT,
+      ted: obj.ted || DEFAULT_TEXT,
+      bidSubmitDate: obj.submitted_date || DEFAULT_TEXT,
       panel: false,
     };
 
