@@ -1,0 +1,17 @@
+.cycle-management-page {
+    .cm-bidder-table {
+        // AG-Grid
+        .ag-header-cell-label {
+            white-space: normal !important;
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .ag-cell {
+            font-size: 12px;
+        }
+        .ag-cell, label {
+            display: initial; // necessary to make custom checkboxes show
+        }
+    }
+}
