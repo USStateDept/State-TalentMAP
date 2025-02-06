@@ -6,10 +6,10 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import CheckBox from 'Components/CheckBox';
-import Spinner from 'Components/Spinner';
-import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
+import CheckBox from 'Components/CheckBox';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import Spinner from 'Components/Spinner';
 import TMDatePicker from 'Components/TMDatePicker';
 import { Row } from 'Components/Layout';
 import {
@@ -331,8 +331,12 @@ const CycleManagement = () => {
                       {numSelectedCards} Cycle(s) Selected
                     </div>
                     <div className="button-wrapper">
-                      <button className="usa-button-secondary" >View Cycle Positions</button>
-                      <button className="usa-button-secondary">View Cycle Bidders</button>
+                      <Link to={'/profile/administrator/cyclepositionsearch/}'}>
+                        <button className="usa-button-secondary" >View Cycle Positions</button>
+                      </Link>
+                      <Link to={'/profile/administrator/cyclepositionsearch/'}>
+                        <button className="usa-button-secondary">View Cycle Bidders</button>
+                      </Link>
                     </div>
                   </Row>
                 )
