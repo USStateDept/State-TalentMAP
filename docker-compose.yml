@@ -11,4 +11,4 @@ services:
       - API_ROOT=http://api:8000/
     volumes:
       - .:/app:delegated
-
+      - /app/node_modules/
