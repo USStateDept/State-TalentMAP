@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Column, Row } from 'Components/Layout';
@@ -9,7 +9,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 
 const useCycleManagementPositions = () => checkFlag('flags.cycle_management_positions');
 
-const CycleSearchCard = (props) => {
+const CycleSearchCard = forwardRef((props, ref) => {
   const {
     id,
     name,
@@ -19,6 +19,7 @@ const CycleSearchCard = (props) => {
     excl_position,
     post_view,
     selectAll,
+    onSelect,
   } = props;
   const showCycleManagementPositions = useCycleManagementPositions();
   const [selected, setSelected] = useState(selectAll);
@@ -30,8 +31,20 @@ const CycleSearchCard = (props) => {
     setSelected(selectAll);
   }, [selectAll]);
 
+  useEffect(() => {
+    onSelect(selected);
+  }, [selected]);
+
+  useImperativeHandle(ref, () => ({
+    isSelected: () => selected,
+  }));
+
+  const handleOnSelect = () => {
+    setSelected(!selected);
+  };
+
   return (
-    <InteractiveElement onClick={() => setSelected(!selected)}>
+    <InteractiveElement onClick={handleOnSelect}>
       <Row fluid className={`cycle-search-card box-shadow-standard ${selected ? 'selected' : ''}`}>
         {selected && (
           <div className="check-mark">
@@ -77,7 +90,7 @@ const CycleSearchCard = (props) => {
       </Row>
     </InteractiveElement>
   );
-};
+});
 
 CycleSearchCard.propTypes = {
   id: PropTypes.string.isRequired,
@@ -88,6 +101,7 @@ CycleSearchCard.propTypes = {
   excl_position: PropTypes.string,
   post_view: PropTypes.string,
   selectAll: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 CycleSearchCard.defaultProps = {
@@ -99,6 +113,7 @@ CycleSearchCard.defaultProps = {
   post_view: '',
   isAO: false,
   selectAll: false,
+  onSelect: () => {},
 };
 
 export default CycleSearchCard;

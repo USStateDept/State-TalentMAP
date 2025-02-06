@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -46,6 +46,9 @@ const CycleManagement = () => {
   const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
     && !selectedDate;
 
+  // Selected Cycles
+  const cardRefs = useRef([]);
+  const [anySelected, setAnySelected] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
 
   const cycleClassLink = '/profile/administrator/cycleclassifications';
@@ -166,6 +169,17 @@ const CycleManagement = () => {
       ),
     });
   };
+
+  // Update anySelected state when a card is selected
+  const handleSelectionChange = () => {
+    const selected = cardRefs.current.some(ref => ref?.isSelected());
+    setAnySelected(selected);
+  };
+
+  // Update selectAll state when selectAll checkbox is clicked
+  useEffect(() => {
+    handleSelectionChange();
+  }, [selectAll]);
 
   // Overlay for error, info, and loading state
   const noResults = cycleManagementData$?.length === 0;
@@ -294,14 +308,22 @@ const CycleManagement = () => {
 
               </div>
               <div className="cm-lower-section">
-                {cycleManagementData$?.map(data => (
+                {cycleManagementData$?.map((data, index) => (
                   <CycleSearchCard
+                    key={data.id}
+                    ref={el => { cardRefs.current[index] = el; }}
                     {...{ ...data }}
                     isSuperUser={isSuperUser}
                     selectAll={selectAll}
+                    onSelect={handleSelectionChange}
                   />
                 ))}
               </div>
+              {selectAll || anySelected ? (
+                <div>Banner Placeholder</div>
+              )
+                : null
+              }
             </>
           }
         </div>
