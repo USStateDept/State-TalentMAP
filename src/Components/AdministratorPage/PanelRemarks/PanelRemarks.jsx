@@ -50,6 +50,7 @@ const PanelRemarksTable = () => {
     { field: 'Order', headerName: 'Order', flex: 1, editable: true },
     { field: 'Active', headerName: 'Active', flex: 1, editable: true },
     { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1, editable: true },
+    { field: 'Edit Remark', headerName: 'Edit Remark', flex: 1 },
   ]);
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
