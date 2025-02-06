@@ -11,6 +11,7 @@ import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
 import TMDatePicker from 'Components/TMDatePicker';
+import { Row } from 'Components/Layout';
 import {
   cycleManagementCreateCycle,
   cycleManagementFetchData,
@@ -48,6 +49,7 @@ const CycleManagement = () => {
 
   // Selected Cycles
   const cardRefs = useRef([]);
+  const [numSelectedCards, setNumSelectedCards] = useState(0);
   const [anySelected, setAnySelected] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -170,14 +172,18 @@ const CycleManagement = () => {
     });
   };
 
-  // Update anySelected state when a card is selected
+
   const handleSelectionChange = () => {
+    // Update anySelected state when a card is selected
     const selected = cardRefs.current.some(ref => ref?.isSelected());
     setAnySelected(selected);
+    // Update the number of selected cards
+    const numSelected = cardRefs.current.filter(ref => ref?.isSelected()).length;
+    setNumSelectedCards(numSelected);
   };
 
-  // Update selectAll state when selectAll checkbox is clicked
   useEffect(() => {
+    // Update selectAll state when selectAll checkbox is clicked
     handleSelectionChange();
   }, [selectAll]);
 
@@ -278,7 +284,8 @@ const CycleManagement = () => {
                         onCheckBoxClick={() => setSelectAll(!selectAll)}
                         disabled={cycleManagementDataLoading}
                       />
-                    </div>                    <div className="cm-new-merge">
+                    </div>
+                    <div className="cm-new-merge">
                       <Link to={cycleClassLink}>
                       Cycle Date Classifications
                       </Link>
@@ -318,12 +325,21 @@ const CycleManagement = () => {
                     onSelect={handleSelectionChange}
                   />
                 ))}
+                {selectAll || anySelected ? (
+                  <Row className={'select-all-banner box-shadow-standard usa-grid-full'} >
+                    <div className="text-wrapper">
+                      {numSelectedCards} Cycle(s) Selected
+                    </div>
+                    <div className="button-wrapper">
+                      <button className="usa-button-secondary" >View Cycle Positions</button>
+                      <button className="usa-button-secondary">View Cycle Bidders</button>
+                    </div>
+                  </Row>
+                )
+                  : null
+                }
               </div>
-              {selectAll || anySelected ? (
-                <div>Banner Placeholder</div>
-              )
-                : null
-              }
+
             </>
           }
         </div>
