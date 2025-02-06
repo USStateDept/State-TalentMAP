@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
-import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
+import FA from 'react-fontawesome';
+import querystring from 'query-string';
 import { formatDate, getResult } from 'utilities';
-import Spinner from 'Components/Spinner';
-import Alert from 'Components/Alert';
+import { cyclePositionEdit } from 'actions/cycleManagement';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   DEFAULT_TEXT, NO_POSITION_NUMBER } from 'Constants/SystemMessages';
+import Spinner from 'Components/Spinner';
+import Alert from 'Components/Alert';
 import TabbedCard from 'Components/TabbedCard';
 import CycleBiddersContent from 'Components/CycleBiddersContent';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import swal from '@sweetalert/with-react';
-import { cyclePositionEdit } from 'actions/cycleManagement';
+import api from '../../api';
+
 
 const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, editableInfoLoading, editableInfoError }) => {
   const dispatch = useDispatch();
@@ -23,7 +26,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
   const skillWithDesc = (data?.skill_code && data?.skill_desc) ? `${data?.skill_desc} (${data?.skill_code})` : false;
   const orgWithCode = (data?.org_code && data?.org_desc) ? `${data?.org_desc} (${data?.org_code})` : false;
 
-  // =============== View Mode ===============
+  // =============== Position View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
@@ -48,8 +51,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
     /* eslint-enable quote-props */
   };
 
-
-  // =============== Edit Mode ===============
+  // =============== Position Edit Mode ===============
 
   const {
     cycle_position_status,
@@ -245,6 +247,30 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
     /* eslint-enable quote-props */
   };
 
+  // =================== Bidders ===================
+
+  const [biddersData, setBiddersData] = useState([]);
+  const [biddersIsLoading, setBiddersIsLoading] = useState(false);
+  const [biddersHasErrored, setBiddersHasErrored] = useState(false);
+
+  const handleTabChange = (activeTab) => {
+    if (activeTab === 'BIDDERS') {
+      const id = data.id;
+      const query = {};
+      const q = querystring.stringify(query);
+      setBiddersIsLoading(true);
+      api().get(`/fsbid/bureau/positions/${id}/bids/?${q}`)
+        .then(response => {
+          setBiddersData(response.data);
+          setBiddersIsLoading(false);
+        })
+        .catch(() => {
+          setBiddersHasErrored(true);
+          setBiddersIsLoading(false);
+        });
+    }
+  };
+
   return (
     <TabbedCard
       tabs={[{
@@ -257,8 +283,10 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
       }, {
         text: 'Cycle Bidders',
         value: 'BIDDERS',
-        content: <CycleBiddersContent position={data} />,
+        content: <CycleBiddersContent bidders={biddersData} biddersIsLoading={biddersIsLoading} biddersHasErrored={biddersHasErrored} position={data} />,
       }]}
+      initialActiveTab={'INFORMATION'}
+      onTabChange={handleTabChange}
     />
   );
 };
