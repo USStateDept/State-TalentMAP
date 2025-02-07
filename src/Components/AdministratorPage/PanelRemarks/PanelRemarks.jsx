@@ -29,7 +29,7 @@ const generatePanelRemarksTestData = (count) => {
       ShortDesc: `Short Desc ${i}`,
       Order: `Order ${i}`,
       Active: i % 3 === 0 ? 'N' : 'Y',
-      Excl: `Excl ${i}`,
+      Excl: i % 2 === 0 ? 'N' : 'Y',
     });
   }
   return data;
