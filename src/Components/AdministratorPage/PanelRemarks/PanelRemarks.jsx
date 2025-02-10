@@ -41,7 +41,6 @@ const panel_remarks_test_data = generatePanelRemarksTestData(55);
 
 const onEditRow = (params) => {
   // Logic to edit the row
-  // eslint-disable-next-line no-console
   console.log('Editing row:', params.data);
 };
 
