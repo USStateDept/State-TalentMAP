@@ -23,10 +23,10 @@ import {
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
-const CyclePositionSearch = ({ isAO, location }) => {
+const CyclePositionSearch = ({ location, viewType }) => {
   const dispatch = useDispatch();
-  const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
 
+  const activeTab = location.state?.activeTab || 'INFORMATION';
   const cycleIDs = location.state?.cycleIDs || [];
   const cycles = location.state?.cycles || [];
   console.log('location.state');
@@ -264,7 +264,7 @@ const CyclePositionSearch = ({ isAO, location }) => {
           <div className="cps-content">
             { !hideBreadcrumbs &&
               <div className="breadcrumb-container">
-                <Link to={`/profile/${breadcrumbLinkRole}/cyclemanagement`} className="breadcrumb-active">
+                <Link to={`/profile/${viewType}/cyclemanagement`} className="breadcrumb-active">
                   Cycle Search Results
                 </Link>
                 <span className="breadcrumb-arrow">&gt;</span>
@@ -302,6 +302,7 @@ const CyclePositionSearch = ({ isAO, location }) => {
                       editableInfoLoading={extraPositionDataLoading}
                       editableInfoError={extraPositionDataError}
                       isAO
+                      initialActiveTab={activeTab}
                     />
                   ))}
               </div>
@@ -322,14 +323,10 @@ CyclePositionSearch.propTypes = {
         id: PropTypes.string,
         name: PropTypes.string,
       })),
+      activeTab: PropTypes.string,
     }),
   }).isRequired,
-  isAO: PropTypes.bool,
-};
-
-CyclePositionSearch.defaultProps = {
-  match: {},
-  isAO: false,
+  viewType: PropTypes.string.isRequired,
 };
 
 export default withRouter(CyclePositionSearch);

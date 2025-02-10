@@ -341,6 +341,7 @@ const CycleManagement = () => {
                           state: {
                             cycleIDs: selectedCards.ids,
                             cycles: selectedCards.cycles,
+                            activeTab: 'INFORMATION',
                           },
                         }}
                       >
@@ -352,6 +353,7 @@ const CycleManagement = () => {
                           state: {
                             cycleIDs: selectedCards.ids,
                             cycles: selectedCards.cycles,
+                            activeTab: 'BIDDERS',
                           },
                         }}
                       >
