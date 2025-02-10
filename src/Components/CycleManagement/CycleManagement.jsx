@@ -49,7 +49,7 @@ const CycleManagement = () => {
 
   // Selected Cycles
   const cardRefs = useRef([]);
-  const [numSelectedCards, setNumSelectedCards] = useState(0);
+  const [selectedCards, setSelectedCards] = useState({ count: 0, cycleIds: [], cycles: [] });
   const [anySelected, setAnySelected] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -175,11 +175,15 @@ const CycleManagement = () => {
 
   const handleSelectionChange = () => {
     // Update anySelected state when a card is selected
-    const selected = cardRefs.current.some(ref => ref?.isSelected());
-    setAnySelected(selected);
+    const isSelected = cardRefs.current.some(ref => ref?.isSelected());
+    setAnySelected(isSelected);
     // Update the number of selected cards
-    const numSelected = cardRefs.current.filter(ref => ref?.isSelected()).length;
-    setNumSelectedCards(numSelected);
+    const selected = cardRefs.current.filter(ref => ref?.isSelected());
+    const numSelected = selected.length;
+    // Get cycle information for selected cards
+    const ids = selected.map(ref => ref?.getCycleId());
+    const cycles = selected.map(ref => ref?.getCycle());
+    setSelectedCards({ count: numSelected, cycleIds: ids, cycles });
   };
 
   useEffect(() => {
@@ -328,13 +332,29 @@ const CycleManagement = () => {
                 {selectAll || anySelected ? (
                   <Row className={'select-all-banner box-shadow-standard usa-grid-full'} >
                     <div className="text-wrapper">
-                      {numSelectedCards} Cycle(s) Selected
+                      {selectedCards.count} Cycle(s) Selected
                     </div>
                     <div className="button-wrapper">
-                      <Link to={'/profile/administrator/cyclepositionsearch/}'}>
+                      <Link
+                        to={{
+                          pathname: '/profile/administrator/cyclepositionsearch',
+                          state: {
+                            cycleIDs: selectedCards.ids,
+                            cycles: selectedCards.cycles,
+                          },
+                        }}
+                      >
                         <button className="usa-button-secondary" >View Cycle Positions</button>
                       </Link>
-                      <Link to={'/profile/administrator/cyclepositionsearch/'}>
+                      <Link
+                        to={{
+                          pathname: '/profile/administrator/cyclepositionsearch',
+                          state: {
+                            cycleIDs: selectedCards.ids,
+                            cycles: selectedCards.cycles,
+                          },
+                        }}
+                      >
                         <button className="usa-button-secondary">View Cycle Bidders</button>
                       </Link>
                     </div>

@@ -23,11 +23,15 @@ import {
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
-const CyclePositionSearch = ({ isAO, match }) => {
+const CyclePositionSearch = ({ isAO, location }) => {
   const dispatch = useDispatch();
   const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
 
-  const cycleId = match?.params?.id ?? false;
+  const cycleIDs = location.state?.cycleIDs || [];
+  const cycles = location.state?.cycles || [];
+  console.log('location.state');
+  console.log(location.state);
+  const numCycles = cycles.length;
 
   const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
   const loadedCycle = assignmentCycle ?? {};
@@ -38,6 +42,15 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
+  const positionsByCycle = cycles.map((cycle) => {
+    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === 'Now and Summer 2004');
+    return {
+      ...cycle,
+      positions: filteredPositions,
+    };
+  });
+  console.log('positionsByCycle');
+  console.log(positionsByCycle);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const extraPositionDataLoading = useSelector(state => state.cyclePositionFetchDataLoading);
@@ -74,7 +87,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
   };
 
   const getCurrentInputs = () => ({
-    cycleId,
+    cycleId: cycleIDs,
     statuses: selectedStatuses.map(f => (f?.code)),
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
@@ -82,7 +95,9 @@ const CyclePositionSearch = ({ isAO, match }) => {
   });
 
   useEffect(() => {
-    dispatch(cycleManagementAssignmentCycleFetchData(cycleId));
+    if (numCycles === 1) {
+      dispatch(cycleManagementAssignmentCycleFetchData(cycleIDs));
+    }
     dispatch(cyclePositionFiltersFetchData());
   }, []);
 
@@ -253,17 +268,24 @@ const CyclePositionSearch = ({ isAO, match }) => {
                   Cycle Search Results
                 </Link>
                 <span className="breadcrumb-arrow">&gt;</span>
-                <span>{loadedCycle?.cycle_name ?? ''}</span>
+                {numCycles > 1 ?
+                  <span>Multiple Cycles Selected</span> :
+                  <span>{loadedCycle?.cycle_name ?? ''}</span>
+                }
               </div>
             }
-            <div className="cps-header">
-              {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
-            </div>
-            <div className="cps-subheader">
-              <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
-              <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
-              <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
-            </div>
+            { numCycles === 1 &&
+            <>
+              <div className="cps-header">
+                {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
+              </div>
+              <div className="cps-subheader">
+                <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
+                <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
+                <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
+              </div>
+            </>
+            }
             {
               getOverlay() ||
             <>
@@ -292,11 +314,16 @@ const CyclePositionSearch = ({ isAO, match }) => {
 };
 
 CyclePositionSearch.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    state: PropTypes.shape({
+      cycleIDs: PropTypes.arrayOf(PropTypes.string),
+      cycles: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+      })),
     }),
-  }),
+  }).isRequired,
   isAO: PropTypes.bool,
 };
 

@@ -25,7 +25,7 @@ const CycleSearchCard = forwardRef((props, ref) => {
   const [selected, setSelected] = useState(selectAll);
 
   const cycleLink = `/profile/administrator/assignmentcycle/${id}`;
-  const cycleLinkPositions = `/profile/administrator/cyclepositionsearch/${id}`;
+  const cycleLinkPositions = '/profile/administrator/cyclepositionsearch';
 
   useEffect(() => {
     setSelected(selectAll);
@@ -37,6 +37,11 @@ const CycleSearchCard = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     isSelected: () => selected,
+    getCycleId: () => id,
+    getCycle: () => ({
+      id,
+      name,
+    }),
   }));
 
   const handleOnSelect = () => {
@@ -80,7 +85,14 @@ const CycleSearchCard = forwardRef((props, ref) => {
             {
               showCycleManagementPositions &&
               <span>
-                <Link to={cycleLinkPositions}>
+                <Link
+                  to={{
+                    pathname: cycleLinkPositions,
+                    state: {
+                      cycleIDs: [id],
+                      cycles: [{ id, name }] },
+                  }}
+                >
                   View Cycle Positions
                 </Link>
               </span>
