@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
 import Picky from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
@@ -28,7 +29,7 @@ const generatePanelRemarksTestData = (count) => {
       ShortDesc: `Short Desc ${i}`,
       Order: `Order ${i}`,
       Active: i % 3 === 0 ? 'N' : 'Y',
-      Excl: `Excl ${i}`,
+      Excl: i % 2 === 0 ? 'N' : 'Y',
     });
   }
   return data;
@@ -38,6 +39,10 @@ const generatePanelRemarksTestData = (count) => {
 // Will be replaced with actual data from the API calls later.
 const panel_remarks_test_data = generatePanelRemarksTestData(55);
 
+const onEditRow = (params) => {
+  // Logic to edit the row
+  console.log('Editing row:', params.data);
+};
 
 const PanelRemarksTable = () => {
   const [textSearch, setTextSearch] = useState('');
@@ -45,11 +50,21 @@ const PanelRemarksTable = () => {
 
   const [headers] = useState([
     { field: 'Category', headerName: 'Category', flex: 1 },
-    { field: 'Description', headerName: 'Description', flex: 1 },
-    { field: 'ShortDesc', headerName: 'Short Desc.', flex: 1 },
-    { field: 'Order', headerName: 'Order', flex: 1 },
-    { field: 'Active', headerName: 'Active', flex: 1 },
-    { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1 },
+    { field: 'Description', headerName: 'Description', flex: 1, editable: true },
+    { field: 'ShortDesc', headerName: 'Short Desc.', flex: 1, editable: true },
+    { field: 'Order', headerName: 'Order', flex: 1, editable: true },
+    { field: 'Active', headerName: 'Active', flex: 1, editable: true },
+    { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1, editable: true },
+    {
+      headerName: 'Edit',
+      field: 'edit',
+      cellRenderer: (params) => (
+        <button onClick={() => onEditRow(params)} className="pr-row-edit-icon-button">
+          <FontAwesomeIcon icon={faPen} />
+        </button>
+      ),
+      flex: 0.5,
+    },
   ]);
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
