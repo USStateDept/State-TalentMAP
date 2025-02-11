@@ -339,7 +339,7 @@ const CycleManagement = () => {
                         to={{
                           pathname: '/profile/administrator/cyclepositionsearch',
                           state: {
-                            cycleIDs: selectedCards.ids,
+                            cycleIDs: selectedCards.cycleIds,
                             cycles: selectedCards.cycles,
                             activeTab: 'INFORMATION',
                           },
@@ -351,7 +351,7 @@ const CycleManagement = () => {
                         to={{
                           pathname: '/profile/administrator/cyclepositionsearch',
                           state: {
-                            cycleIDs: selectedCards.ids,
+                            cycleIDs: selectedCards.cycleIds,
                             cycles: selectedCards.cycles,
                             activeTab: 'BIDDERS',
                           },
