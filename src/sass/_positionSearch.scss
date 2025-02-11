@@ -201,6 +201,14 @@
 
   .cps-lower-section {
     padding: 0 35px 20px 0;
+
+    .cps-cycle-header {
+      background-color: $dos-blue;
+      border: 1px solid $bg-gray-dark-2;
+      color: $color-white;
+      margin-top: 15px;
+      padding: 10px;
+    }
   }
 
   .cps-content {

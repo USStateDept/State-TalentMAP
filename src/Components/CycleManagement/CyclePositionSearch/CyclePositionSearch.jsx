@@ -41,14 +41,12 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const positionsByCycle = cycles.map((cycle) => {
-    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === cycle.id);
+    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === cycle.name);
     return {
       ...cycle,
       positions: filteredPositions,
     };
   });
-  console.log('positionsByCycle');
-  console.log(positionsByCycle);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const extraPositionDataLoading = useSelector(state => state.cyclePositionFetchDataLoading);
@@ -173,7 +171,6 @@ const CyclePositionSearch = ({ location, viewType }) => {
           <div className="position-search--header">
             <BackButton />
             <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
-
             <div className="expanded-content pt-20">
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
@@ -245,7 +242,6 @@ const CyclePositionSearch = ({ location, viewType }) => {
                 </div>
               </div>
             </div>
-
           </div>
           {
             disableSearch &&
@@ -284,11 +280,35 @@ const CyclePositionSearch = ({ location, viewType }) => {
               </div>
             </>
             }
-            {
-              getOverlay() ||
-            <>
+            { getOverlay() ||
               <div className="cps-lower-section">
-                {cyclePositions?.map(data =>
+                { numCycles > 1 ? (
+                positionsByCycle?.map(cycle => (
+                  <div key={cycle.id} className="cps-cycle-section">
+                    <div className="cps-cycle-header">
+                      {cycle.name}
+                    </div>
+                    <div className="cps-cycle-positions">
+                      {cycle.positions?.map(position =>
+                        (
+                          <CyclePositionCard
+                            data={position}
+                            key={position.id}
+                            onEditModeSearch={(editMode, id) =>
+                              onCyclePositionEditModeSearch(editMode, id)}
+                            isOpen={cardsInEditMode?.includes(position?.id)}
+                            editableInfo={extraPositionData}
+                            editableInfoLoading={extraPositionDataLoading}
+                            editableInfoError={extraPositionDataError}
+                            isAO
+                            initialActiveTab={activeTab}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                ))
+                ) : (
+                cyclePositions?.map(data =>
                   (
                     <CyclePositionCard
                       data={data}
@@ -302,9 +322,9 @@ const CyclePositionSearch = ({ location, viewType }) => {
                       isAO
                       initialActiveTab={activeTab}
                     />
-                  ))}
+                  ))
+                )}
               </div>
-            </>
             }
           </div>
         </div>
