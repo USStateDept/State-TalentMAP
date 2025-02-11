@@ -172,7 +172,6 @@ const CycleManagement = () => {
     });
   };
 
-
   const handleSelectionChange = () => {
     // Update anySelected state when a card is selected
     const isSelected = cardRefs.current.some(ref => ref?.isSelected());
