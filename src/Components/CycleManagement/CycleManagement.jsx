@@ -11,7 +11,6 @@ import CheckBox from 'Components/CheckBox';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Spinner from 'Components/Spinner';
 import TMDatePicker from 'Components/TMDatePicker';
-import { Row } from 'Components/Layout';
 import {
   cycleManagementCreateCycle,
   cycleManagementFetchData,
@@ -24,6 +23,7 @@ import CycleSearchCard from './CycleSearchCard';
 import NewAssignmentCycle from './NewAssignmentCycle';
 import MergeAssignmentCycles from './MergeAssignmentCycles';
 import { history } from '../../store';
+import SelectedCardsBanner from './SelectedCardsBanner';
 
 const CycleManagement = () => {
   const dispatch = useDispatch();
@@ -277,7 +277,6 @@ const CycleManagement = () => {
             getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
-
                 {isSuperUser &&
                   <div className="cm-heading">
                     <div className="select-all">
@@ -316,9 +315,13 @@ const CycleManagement = () => {
                     </div>
                   </div>
                 }
-
               </div>
               <div className="cm-lower-section">
+                {selectAll || anySelected ? (
+                  <SelectedCardsBanner className="top" selectedCards={selectedCards} />
+                )
+                  : null
+                }
                 {cycleManagementData$?.map((data, index) => (
                   <CycleSearchCard
                     key={data.id}
@@ -330,37 +333,7 @@ const CycleManagement = () => {
                   />
                 ))}
                 {selectAll || anySelected ? (
-                  <Row className={'select-all-banner box-shadow-standard usa-grid-full'} >
-                    <div className="text-wrapper">
-                      {selectedCards.count} Cycle(s) Selected
-                    </div>
-                    <div className="button-wrapper">
-                      <Link
-                        to={{
-                          pathname: '/profile/administrator/cyclepositionsearch',
-                          state: {
-                            cycleIDs: selectedCards.cycleIds,
-                            cycles: selectedCards.cycles,
-                            activeTab: 'INFORMATION',
-                          },
-                        }}
-                      >
-                        <button className="usa-button-secondary" >View Cycle Positions</button>
-                      </Link>
-                      <Link
-                        to={{
-                          pathname: '/profile/administrator/cyclepositionsearch',
-                          state: {
-                            cycleIDs: selectedCards.cycleIds,
-                            cycles: selectedCards.cycles,
-                            activeTab: 'BIDDERS',
-                          },
-                        }}
-                      >
-                        <button className="usa-button-secondary">View Cycle Bidders</button>
-                      </Link>
-                    </div>
-                  </Row>
+                  <SelectedCardsBanner selectedCards={selectedCards} />
                 )
                   : null
                 }

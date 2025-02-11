@@ -11,6 +11,10 @@
         justify-content: space-between;
         align-items: center;
 
+        &.top {
+            margin-top: 15px;
+        }
+
         .text-wrapper {
             flex: 1;
             padding-left: 15px;

@@ -29,8 +29,6 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const activeTab = location.state?.activeTab || 'INFORMATION';
   const cycleIDs = location.state?.cycleIDs || [];
   const cycles = location.state?.cycles || [];
-  console.log('location.state');
-  console.log(location.state);
   const numCycles = cycles.length;
 
   const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
@@ -43,7 +41,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const positionsByCycle = cycles.map((cycle) => {
-    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === 'Now and Summer 2004');
+    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === cycle.id);
     return {
       ...cycle,
       positions: filteredPositions,
