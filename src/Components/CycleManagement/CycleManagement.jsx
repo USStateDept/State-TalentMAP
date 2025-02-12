@@ -284,7 +284,7 @@ const CycleManagement = () => {
                         label={selectAll ? 'Deselect All' : 'Select All'}
                         value={selectAll}
                         onCheckBoxClick={() => setSelectAll(!selectAll)}
-                        disabled={cycleManagementDataLoading}
+                        disabled={noFiltersSelected || cycleManagementDataLoading}
                       />
                     </div>
                     <div className="cm-new-merge">
