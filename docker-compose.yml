@@ -5,46 +5,10 @@ services:
       context: .
     ports:
       - 3000:3000
-    command: yarn run server
     environment:
       - PUBLIC_URL=/talentmap/
       - STATIC_PATH=/app/build/
       - API_ROOT=http://api:8000/
     volumes:
       - .:/app:delegated
-      - node-modules:/app/node_modules/
-    depends_on:
-      - api
-      - obc
-  obc:
-    build:
-      context: .
-      dockerfile: Dockerfile.obc
-    ports:
-      - 4000:4000
-  api:
-    build:
-      context: ../State-TalentMAP-API/
-    ports:
-      - 8000:8000
-    links:
-      - db
-    depends_on:
-      - db
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ../State-TalentMAP-API/:/app:delegated
-    environment:
-      - DJANGO_SECRET_KEY=development_secret_key
-      - DATABASE_URL=postgres://talentmap-user@db/talentmap
-      - DJANGO_DEBUG=true
-  db:
-    image: postgres:9.6.3
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_DB=talentmap
-      - POSTGRES_USER=talentmap-user
-volumes:
-  pgdata:
-  node-modules:
+      - /app/node_modules/
