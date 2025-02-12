@@ -487,7 +487,8 @@ PanelMeetingAgendas.propTypes = {
     state: PropTypes.shape({
       panelMeetings: PropTypes.arrayOf(PANEL_MEETING),
     }),
-  }).isRequired };
+  }).isRequired,
+};
 
 PanelMeetingAgendas.defaultProps = {
   isCDO: false,

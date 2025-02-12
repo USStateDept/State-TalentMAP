@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,9 +6,10 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import Spinner from 'Components/Spinner';
-import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
+import CheckBox from 'Components/CheckBox';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import Spinner from 'Components/Spinner';
 import TMDatePicker from 'Components/TMDatePicker';
 import {
   cycleManagementCreateCycle,
@@ -22,6 +23,7 @@ import CycleSearchCard from './CycleSearchCard';
 import NewAssignmentCycle from './NewAssignmentCycle';
 import MergeAssignmentCycles from './MergeAssignmentCycles';
 import { history } from '../../store';
+import SelectedCardsBanner from './SelectedCardsBanner';
 
 const CycleManagement = () => {
   const dispatch = useDispatch();
@@ -44,6 +46,12 @@ const CycleManagement = () => {
   const [clearFilters, setClearFilters] = useState(false);
   const noFiltersSelected = [selectedCycles, selectedStatus].flat().length === 0
     && !selectedDate;
+
+  // Selected Cycles
+  const cardRefs = useRef([]);
+  const [selectedCards, setSelectedCards] = useState({ count: 0, cycleIds: [], cycles: [] });
+  const [anySelected, setAnySelected] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
 
   const cycleClassLink = '/profile/administrator/cycleclassifications';
 
@@ -164,6 +172,24 @@ const CycleManagement = () => {
     });
   };
 
+  const handleSelectionChange = () => {
+    // Update anySelected state when a card is selected
+    const isSelected = cardRefs.current.some(ref => ref?.isSelected());
+    setAnySelected(isSelected);
+    // Update the number of selected cards
+    const selected = cardRefs.current.filter(ref => ref?.isSelected());
+    const numSelected = selected.length;
+    // Get cycle information for selected cards
+    const ids = selected.map(ref => ref?.getCycleId());
+    const cycles = selected.map(ref => ref?.getCycle());
+    setSelectedCards({ count: numSelected, cycleIds: ids, cycles });
+  };
+
+  useEffect(() => {
+    // Update selectAll state when selectAll checkbox is clicked
+    handleSelectionChange();
+  }, [selectAll]);
+
   // Overlay for error, info, and loading state
   const noResults = cycleManagementData$?.length === 0;
   const getOverlay = () => {
@@ -250,13 +276,21 @@ const CycleManagement = () => {
             getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
-
                 {isSuperUser &&
                   <div className="cm-heading">
-                    <Link to={cycleClassLink}>
-                      Cycle Date Classifications
-                    </Link>
+                    <div className="select-all">
+                      <CheckBox
+                        id="selectAll"
+                        label={selectAll ? 'Deselect All' : 'Select All'}
+                        value={selectAll}
+                        onCheckBoxClick={() => setSelectAll(!selectAll)}
+                        disabled={cycleManagementDataLoading}
+                      />
+                    </div>
                     <div className="cm-new-merge">
+                      <Link to={cycleClassLink}>
+                      Cycle Date Classifications
+                      </Link>
                       <Link
                         onClick={(e) => {
                           e.preventDefault();
@@ -274,22 +308,36 @@ const CycleManagement = () => {
                         }}
                         to="#"
                       >
-                        <FA className="fa-solid fa-plus" />
+                        <FA className="fa-solid fa-code-fork" />
                         Merge Assignment Cycles
                       </Link>
                     </div>
                   </div>
                 }
-
               </div>
               <div className="cm-lower-section">
-                {cycleManagementData$?.map(data => (
+                {selectAll || anySelected ? (
+                  <SelectedCardsBanner className="top" selectedCards={selectedCards} />
+                )
+                  : null
+                }
+                {cycleManagementData$?.map((data, index) => (
                   <CycleSearchCard
+                    key={data.id}
+                    ref={el => { cardRefs.current[index] = el; }}
                     {...{ ...data }}
                     isSuperUser={isSuperUser}
+                    selectAll={selectAll}
+                    onSelect={handleSelectionChange}
                   />
                 ))}
+                {selectAll || anySelected ? (
+                  <SelectedCardsBanner selectedCards={selectedCards} />
+                )
+                  : null
+                }
               </div>
+
             </>
           }
         </div>

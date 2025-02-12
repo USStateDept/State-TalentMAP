@@ -18,7 +18,7 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 import api from '../../api';
 
 
-const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, editableInfoLoading, editableInfoError }) => {
+const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, editableInfoLoading, editableInfoError, initialActiveTab }) => {
   const dispatch = useDispatch();
   const datePickerRef = useRef(null);
 
@@ -285,7 +285,7 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
         value: 'BIDDERS',
         content: <CycleBiddersContent bidders={biddersData} biddersIsLoading={biddersIsLoading} biddersHasErrored={biddersHasErrored} position={data} />,
       }]}
-      initialActiveTab={'INFORMATION'}
+      initialActiveTab={initialActiveTab}
       onTabChange={handleTabChange}
     />
   );
@@ -310,6 +310,7 @@ CyclePositionCard.propTypes = {
     last_updated: PropTypes.string,
     last_updated_id: PropTypes.number,
   }),
+  initialActiveTab: PropTypes.string,
 };
 
 CyclePositionCard.defaultProps = {
@@ -324,6 +325,7 @@ CyclePositionCard.defaultProps = {
     ted_override_date: null,
     now_ted_flag: 'N',
   },
+  initialActiveTab: 'INFORMATION',
 };
 
 export default CyclePositionCard;

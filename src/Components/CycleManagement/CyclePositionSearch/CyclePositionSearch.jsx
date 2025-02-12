@@ -23,11 +23,13 @@ import {
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
-const CyclePositionSearch = ({ isAO, match }) => {
+const CyclePositionSearch = ({ location, viewType }) => {
   const dispatch = useDispatch();
-  const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
 
-  const cycleId = match?.params?.id ?? false;
+  const activeTab = location.state?.activeTab || 'INFORMATION';
+  const cycleIDs = location.state?.cycleIDs || [];
+  const cycles = location.state?.cycles || [];
+  const numCycles = cycles.length;
 
   const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
   const loadedCycle = assignmentCycle ?? {};
@@ -38,6 +40,13 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
+  const positionsByCycle = cycles.map((cycle) => {
+    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === cycle.name);
+    return {
+      ...cycle,
+      positions: filteredPositions,
+    };
+  });
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const extraPositionDataLoading = useSelector(state => state.cyclePositionFetchDataLoading);
@@ -74,7 +83,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
   };
 
   const getCurrentInputs = () => ({
-    cycleId,
+    cycleId: cycleIDs,
     statuses: selectedStatuses.map(f => (f?.code)),
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
@@ -82,7 +91,9 @@ const CyclePositionSearch = ({ isAO, match }) => {
   });
 
   useEffect(() => {
-    dispatch(cycleManagementAssignmentCycleFetchData(cycleId));
+    if (numCycles === 1) {
+      dispatch(cycleManagementAssignmentCycleFetchData(cycleIDs));
+    }
     dispatch(cyclePositionFiltersFetchData());
   }, []);
 
@@ -160,7 +171,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
           <div className="position-search--header">
             <BackButton />
             <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
-
             <div className="expanded-content pt-20">
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
@@ -232,7 +242,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
                 </div>
               </div>
             </div>
-
           </div>
           {
             disableSearch &&
@@ -249,26 +258,57 @@ const CyclePositionSearch = ({ isAO, match }) => {
           <div className="cps-content">
             { !hideBreadcrumbs &&
               <div className="breadcrumb-container">
-                <Link to={`/profile/${breadcrumbLinkRole}/cyclemanagement`} className="breadcrumb-active">
+                <Link to={`/profile/${viewType}/cyclemanagement`} className="breadcrumb-active">
                   Cycle Search Results
                 </Link>
                 <span className="breadcrumb-arrow">&gt;</span>
-                <span>{loadedCycle?.cycle_name ?? ''}</span>
+                {numCycles > 1 ?
+                  <span>Multiple Cycles Selected</span> :
+                  <span>{loadedCycle?.cycle_name ?? ''}</span>
+                }
               </div>
             }
-            <div className="cps-header">
-              {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
-            </div>
-            <div className="cps-subheader">
-              <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
-              <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
-              <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
-            </div>
-            {
-              getOverlay() ||
+            { numCycles === 1 &&
             <>
+              <div className="cps-header">
+                {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
+              </div>
+              <div className="cps-subheader">
+                <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
+                <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
+                <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
+              </div>
+            </>
+            }
+            { getOverlay() ||
               <div className="cps-lower-section">
-                {cyclePositions?.map(data =>
+                { numCycles > 1 ? (
+                positionsByCycle?.map(cycle => (
+                  <div key={cycle.id} className="cps-cycle-section">
+                    <div className="cps-cycle-header">
+                      {cycle.name}
+                    </div>
+                    <div className="cps-cycle-positions">
+                      {cycle.positions?.map(position =>
+                        (
+                          <CyclePositionCard
+                            data={position}
+                            key={position.id}
+                            onEditModeSearch={(editMode, id) =>
+                              onCyclePositionEditModeSearch(editMode, id)}
+                            isOpen={cardsInEditMode?.includes(position?.id)}
+                            editableInfo={extraPositionData}
+                            editableInfoLoading={extraPositionDataLoading}
+                            editableInfoError={extraPositionDataError}
+                            isAO
+                            initialActiveTab={activeTab}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                ))
+                ) : (
+                cyclePositions?.map(data =>
                   (
                     <CyclePositionCard
                       data={data}
@@ -280,10 +320,11 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       editableInfoLoading={extraPositionDataLoading}
                       editableInfoError={extraPositionDataError}
                       isAO
+                      initialActiveTab={activeTab}
                     />
-                  ))}
+                  ))
+                )}
               </div>
-            </>
             }
           </div>
         </div>
@@ -292,17 +333,18 @@ const CyclePositionSearch = ({ isAO, match }) => {
 };
 
 CyclePositionSearch.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    state: PropTypes.shape({
+      cycleIDs: PropTypes.arrayOf(PropTypes.string),
+      cycles: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })),
+      activeTab: PropTypes.string,
     }),
-  }),
-  isAO: PropTypes.bool,
-};
-
-CyclePositionSearch.defaultProps = {
-  match: {},
-  isAO: false,
+  }).isRequired,
+  viewType: PropTypes.string.isRequired,
 };
 
 export default withRouter(CyclePositionSearch);

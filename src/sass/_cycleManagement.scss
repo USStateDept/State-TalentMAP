@@ -1,4 +1,35 @@
 .cycle-management-page {
+    .select-all, label {
+        font-size: 16px;
+    }
+    
+    .select-all-banner {
+        color: $color-white;
+        background-color: $blue-primary;
+        border: 1px solid $bg-gray-dark-2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &.top {
+            margin-top: 15px;
+        }
+
+        .text-wrapper {
+            flex: 1;
+            padding-left: 15px;
+        }
+
+        .button-wrapper {
+            display: flex;
+            justify-items: end;
+
+            button {
+                font-weight: bold;
+            }
+        }
+    }
+
     .cm-bidder-table {
         // AG-Grid
         .ag-header-cell-label {

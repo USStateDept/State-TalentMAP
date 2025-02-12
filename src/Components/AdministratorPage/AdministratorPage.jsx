@@ -89,7 +89,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/biddingtool/" render={() => <BiddingTool />} />
         <Route path="/profile/administrator/cyclemanagement" render={() => <CycleManagement />} />
         <Route path="/profile/administrator/assignmentcycle/:id" render={() => <AssignmentCycleEdit />} />
-        <Route path="/profile/administrator/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
+        <Route path="/profile/administrator/cyclepositionsearch" render={() => <CyclePositionSearch viewType="administrator" />} />
         <Route path="/profile/administrator/cycleclassifications/" render={() => <CycleClassifications />} />
       </Switch>
     </div>
