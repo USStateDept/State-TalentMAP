@@ -87,7 +87,6 @@ const CycleManagement = () => {
     return cycles;
   };
 
-
   // initial render
   useEffect(() => {
     dispatch(cycleManagementFetchData());
@@ -133,6 +132,7 @@ const CycleManagement = () => {
     setSelectedCycles([]);
     setSelectedStatus([]);
     setSelectedDate(null);
+    setSelectAll(false);
     setClearFilters(false);
   };
 
@@ -232,7 +232,6 @@ const CycleManagement = () => {
                 }
               </span>
             </div>
-
             <div className="usa-width-one-whole position-search--filters--cm">
               <div className="filter-div">
                 <div className="label">Cycle:</div>
@@ -284,7 +283,7 @@ const CycleManagement = () => {
                         label={selectAll ? 'Deselect All' : 'Select All'}
                         value={selectAll}
                         onCheckBoxClick={() => setSelectAll(!selectAll)}
-                        disabled={cycleManagementDataLoading}
+                        disabled={noFiltersSelected || cycleManagementDataLoading}
                       />
                     </div>
                     <div className="cm-new-merge">
