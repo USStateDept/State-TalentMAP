@@ -15,7 +15,7 @@ describe('CyclePositionSearch Component', () => {
     const wrapper = TestUtils.renderIntoDocument(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <CyclePositionSearch isCDO />
+          <CyclePositionSearch viewType="administrator" />
         </MemoryRouter>
       </Provider>,
     );
