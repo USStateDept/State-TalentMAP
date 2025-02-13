@@ -227,6 +227,7 @@ const PanelMeetingAgendas = (props) => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
+    selectAllMode: 'filtered',
   };
 
   const resetFilters = () => {

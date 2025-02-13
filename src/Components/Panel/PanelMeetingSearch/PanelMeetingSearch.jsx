@@ -181,6 +181,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
+    selectAllMode: 'filtered',
   };
 
   const resetFilters = () => {
