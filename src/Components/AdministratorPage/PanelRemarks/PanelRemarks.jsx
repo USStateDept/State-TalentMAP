@@ -16,8 +16,8 @@ import TotalResults from '../../TotalResults';
 
 
 // getting data from Panel Remarks API results and console logging it
-const panelRemarksData = useSelector(state => state.panelRemarks);
-console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
+// const panelRemarksData = useSelector(state => state.panelRemarks);
+// console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
 
 
 // function to generate test data for the Panel Remarks table
