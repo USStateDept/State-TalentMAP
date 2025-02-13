@@ -6,26 +6,31 @@ import api from '../api';
 let cancelPanelRemarksData;
 
 export function panelRemarksFetchDataErrored(bool) {
-  return {
-    type: 'PANEL_REMARKS_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
+    console.log('inside panelRemarksFetchDataErrored in actions/panelRemarks.js');
+    return {
+        type: 'PANEL_REMARKS_FETCH_HAS_ERRORED',
+        hasErrored: bool,
+    };
 }
 
 export function panelRemarksFetchDataLoading(bool) {
-  return {
-    type: 'PANEL_REMARKS_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
+    console.log('inside panelRemarksFetchDataLoading in actions/panelRemarks.js');
+    return {
+        type: 'PANEL_REMARKS_FETCH_IS_LOADING',
+        isLoading: bool,
+    };
 }
 
-export function panelRemarksFetchDataSuccess(count, results) {
-  return {
-    type: 'PANEL_REMARKS_FETCH_SUCCESS',
-    data: {
-      results,
-    },
-  };
+// taking the count away from this function for the moment
+export function panelRemarksFetchDataSuccess(results) {
+    console.log('inside panelRemarksFetchDataSuccess in actions/panelRemarks.js');
+    console.log('results', results);
+    return {
+        type: 'PANEL_REMARKS_FETCH_SUCCESS',
+        data: {
+            results,
+        },
+    };
 }
 
 export function fetchPanelRemarksData(query = {}) {
@@ -45,6 +50,7 @@ export function fetchPanelRemarksData(query = {}) {
         batch(() => {
           const results = data.results;
           // logging to see if the results are working
+          console.log('inside fetchPanelRemarksData in actions/panelRemarks.js');
           console.log('results', results);
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
