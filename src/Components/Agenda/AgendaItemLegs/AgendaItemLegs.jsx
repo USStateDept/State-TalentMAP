@@ -25,9 +25,9 @@ const AgendaItemLegs = props => {
           const keyId = index;
           let value = leg[key];
 
-          if (key === 'action' && ['extend', 'curtail', 'adjust'].includes(leg[key])) {
+          if (key === 'action' && ['Extend', 'Curtail', 'Adjust'].includes(leg[key])) {
             if (leg.adjust_month !== null && leg.adjust_month !== 0) {
-              value = `${leg[key]} (${leg.adjust_month})`;
+              value = `${leg[key]} (by ${leg.adjust_month})`;
             }
           }
 
