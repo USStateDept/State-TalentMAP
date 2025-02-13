@@ -14,6 +14,12 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import TotalResults from '../../TotalResults';
 
+
+// getting data from Panel Remarks API results and console logging it
+const panelRemarksData = useSelector(state => state.panelRemarks);
+console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
+
+
 // function to generate test data for the Panel Remarks table
 // this will be deleted in the future and replaced with actual data from API calls.
 // For now, this is used to test the table and showcase what it will look like with real data.
