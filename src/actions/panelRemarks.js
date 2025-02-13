@@ -44,6 +44,8 @@ export function fetchPanelRemarksData(query = {}) {
       .then(({ data }) => {
         batch(() => {
           const results = data.results;
+          // logging to see if the results are working
+          console.log('results', results);
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
@@ -52,6 +54,7 @@ export function fetchPanelRemarksData(query = {}) {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
+            console.log('Error fetching panel remarks:', err);
             dispatch(panelRemarksFetchDataSuccess([]));
             dispatch(panelRemarksFetchDataErrored(true));
             dispatch(panelRemarksFetchDataLoading(false));
