@@ -131,7 +131,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         type="div"
       >
         <div>
-          Extend
+          Extend (by 6 months)
         </div>
       </InteractiveElement>
       <InteractiveElement
