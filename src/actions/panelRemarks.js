@@ -1,13 +1,7 @@
-import {
-    PANEL_REMARKS_FETCH_HAS_ERRORED,
-    PANEL_REMARKS_FETCH_IS_LOADING,
-    PANEL_REMARKS_FETCH_SUCCESS,
-} from 'Constants/SystemMessages';
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import api from '../api';
 import { convertQueryToString } from '../utilities';
-
 
 let cancelPanelRemarksData;
 

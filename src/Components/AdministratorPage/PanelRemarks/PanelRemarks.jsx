@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
@@ -9,47 +9,15 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-// importing fetchPanelRemarksData from actions/panelRemarks.js
-// import { fetchPanelRemarksData } from 'actions/panelRemarks';
+import { fetchPanelRemarksData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import TotalResults from '../../TotalResults';
 
-
-// getting data from Panel Remarks API results and console logging it
-// const panelRemarksData = useSelector(state => state.panelRemarks);
-// console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
-
 // getting data from panelRemarks reducer panelRemarks to get data:
 const panelRemarksData = useSelector(state => state.panelRemarks);
-console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
 
-
-// function to generate test data for the Panel Remarks table
-// this will be deleted in the future and replaced with actual data from API calls.
-// For now, this is used to test the table and showcase what it will look like with real data.
-const generatePanelRemarksTestData = (count) => {
-  const data = [];
-  const categories = ['Bid List', 'Tandem', 'Training', 'SIP Remarks'];
-  // eslint-disable-next-line no-loops/no-loops
-  for (let i = 1; i <= count; i += 1) {
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    data.push({
-      Category: randomCategory,
-      Description: `Description ${i}`,
-      ShortDesc: `Short Desc ${i}`,
-      Order: `Order ${i}`,
-      Active: i % 3 === 0 ? 'N' : 'Y',
-      Excl: i % 2 === 0 ? 'N' : 'Y',
-    });
-  }
-  return data;
-};
-
-// Temporary test data for the Panel Remarks table.
-// Will be replaced with actual data from the API calls later.
-const panel_remarks_test_data = generatePanelRemarksTestData(55);
 
 const onEditRow = (params) => {
   // Logic to edit the row
@@ -81,12 +49,33 @@ const PanelRemarksTable = () => {
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
-  // used temporarily to test the table and add dummy data defined above
+
+  const mapObjectToRow = (obj) => {
+    const row = {
+      POS_SEQ_NUM: obj.POS_SEQ_NUM,
+      Category: obj.Category,
+      Description: obj.Description,
+      ShortDesc: obj.ShortDesc,
+      Order: obj.Order,
+      Active: obj.Active,
+      Excl: obj.Excl,
+    };
+
+    return row;
+  };
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (panel_remarks_test_data.length > 0) {
-      setPanelRemarksRows(panel_remarks_test_data);
-    }
+    dispatch(fetchPanelRemarksData());
   }, []);
+
+
+  useEffect(() => {
+    if (panelRemarksData.length > 0) {
+      const mappedRows = panelRemarksData.map(mapObjectToRow);
+      setPanelRemarksRows(mappedRows);
+    }
+  }, [panelRemarksData]);
 
   const pickyProps = {
     numberDisplayed: 2,
