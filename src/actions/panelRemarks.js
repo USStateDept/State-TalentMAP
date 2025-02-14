@@ -6,31 +6,31 @@ import { convertQueryToString } from '../utilities';
 let cancelPanelRemarksData;
 
 export function panelRemarksFetchDataErrored(bool) {
-    console.log('inside panelRemarksFetchDataErrored in actions/panelRemarks.js');
-    return {
-        type: 'PANEL_REMARKS_FETCH_HAS_ERRORED',
-        hasErrored: bool,
-    };
+  console.log('inside panelRemarksFetchDataErrored in actions/panelRemarks.js');
+  return {
+    type: 'PANEL_REMARKS_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
 }
 
 export function panelRemarksFetchDataLoading(bool) {
-    console.log('inside panelRemarksFetchDataLoading in actions/panelRemarks.js');
-    return {
-        type: 'PANEL_REMARKS_FETCH_IS_LOADING',
-        isLoading: bool,
-    };
+  console.log('inside panelRemarksFetchDataLoading in actions/panelRemarks.js');
+  return {
+    type: 'PANEL_REMARKS_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
 }
 
 // taking the count away from this function for the moment
 export function panelRemarksFetchDataSuccess(results) {
-    console.log('inside panelRemarksFetchDataSuccess in actions/panelRemarks.js');
-    console.log('results', results);
-    return {
-        type: 'PANEL_REMARKS_FETCH_SUCCESS',
-        data: {
-            results,
-        },
-    };
+  console.log('inside panelRemarksFetchDataSuccess in actions/panelRemarks.js');
+  console.log('results', results);
+  return {
+    type: 'PANEL_REMARKS_FETCH_SUCCESS',
+    data: {
+      results,
+    },
+  };
 }
 
 export function fetchPanelRemarksData(query = {}) {
