@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Picky } from 'react-picky';
 import FA from 'react-fontawesome';
-import Picky from 'react-picky';
 import { filter, flatten, get, has, isEmpty } from 'lodash';
 import { isDate, startOfDay } from 'date-fns-v2';
 import { usePrevious } from 'hooks';
@@ -181,6 +181,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
+    selectAllMode: 'filtered',
   };
 
   const resetFilters = () => {

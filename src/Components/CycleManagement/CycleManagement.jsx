@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';

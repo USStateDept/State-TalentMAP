@@ -4,9 +4,10 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
 <div
   className="cdo-autosuggest"
 >
-  <r
+  <Picky2
     dropdownHeight={255}
     filterDebounce={150}
+    filterTermProcessor={[Function]}
     id="picky"
     includeFilter={true}
     includeSelectAll={false}

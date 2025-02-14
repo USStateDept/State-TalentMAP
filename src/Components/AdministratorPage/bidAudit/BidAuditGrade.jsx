@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import FA from 'react-fontawesome';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import PropTypes from 'prop-types';
 import ReactModal from 'Components/ReactModal';
 import Alert from 'Components/Alert';

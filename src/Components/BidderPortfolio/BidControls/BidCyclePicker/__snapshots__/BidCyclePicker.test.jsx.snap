@@ -9,10 +9,11 @@ exports[`BidControlsComponent matches snapshot 1`] = `
   >
     Bid Season:
   </div>
-  <r
+  <Picky2
     disabled={false}
     dropdownHeight={225}
     filterDebounce={150}
+    filterTermProcessor={[Function]}
     id="picky"
     includeSelectAll={true}
     keepOpen={true}

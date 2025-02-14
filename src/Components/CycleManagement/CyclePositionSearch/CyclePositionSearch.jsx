@@ -2,7 +2,7 @@ import { withRouter } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';

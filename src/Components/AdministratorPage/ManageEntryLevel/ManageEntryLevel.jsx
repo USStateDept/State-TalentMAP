@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';

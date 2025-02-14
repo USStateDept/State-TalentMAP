@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import 'ag-grid-community/styles/ag-grid.css';

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isEqual, throttle } from 'lodash';
 import { connect } from 'react-redux';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import bowser from 'bowser';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSelectCDOsToSearchBy } from 'actions/bidderPortfolio';
