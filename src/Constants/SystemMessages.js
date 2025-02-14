@@ -494,3 +494,10 @@ export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
 export const EXPORT_DATA_SUCCESS = 'Data has been successfully exported.';
 export const EXPORT_DATA_ERROR_TITLE = 'Data Export Error';
 export const EXPORT_DATA_ERROR = 'There was an issue attempting to export this data. Please try again.';
+
+export const PANEL_REMARKS_FETCH_HAS_ERRORED_TITLE = 'Panel Remarks Fetch Error';
+export const PANEL_REMARKS_FETCH_HAS_ERRORED = 'There was an issue attempting to fetch Panel Remarks. Please try again.';
+export const PANEL_REMARKS_FETCH_IS_LOADING_TITLE = 'Panel Remarks Fetching';
+export const PANEL_REMARKS_FETCH_IS_LOADING = 'Fetching Panel Remarks data...';
+export const PANEL_REMARKS_FETCH_SUCCESS_TITLE = 'Panel Remarks data fetched';
+export const PANEL_REMARKS_FETCH_SUCCESS = 'Panel Remarks data has been successfully fetched.';

@@ -1,10 +1,6 @@
 // creating functionality to get panel remarks data from the API and dispatch actions to update the store
 
-import {
-    PANEL_REMARKS_FETCH_HAS_ERRORED,
-    PANEL_REMARKS_FETCH_IS_LOADING,
-    PANEL_REMARKS_FETCH_SUCCESS,
-  } from 'Constants/panelRemarksActionTypes';
+// ======= Panel Remarks: Get Panel Remarks =======
 
   export function panelRemarksFetchErrored(state = false, action) {
     switch (action.type) {
