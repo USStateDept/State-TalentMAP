@@ -9,6 +9,8 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+// importing fetchPanelRemarksData from actions/panelRemarks.js
+import { fetchPanelRemarksData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
@@ -18,6 +20,10 @@ import TotalResults from '../../TotalResults';
 // getting data from Panel Remarks API results and console logging it
 // const panelRemarksData = useSelector(state => state.panelRemarks);
 // console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
+
+// getting data from panelRemarks reducer panelRemarks to get data:
+const panelRemarksData = useSelector(state => state.panelRemarks);
+console.log('Panel Remarks Data at the top of the file:', panelRemarksData);
 
 
 // function to generate test data for the Panel Remarks table
