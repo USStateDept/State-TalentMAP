@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import FA from 'react-fontawesome';
 import { managePostEdit, managePostFetchFilters } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';

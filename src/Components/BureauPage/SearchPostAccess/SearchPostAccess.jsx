@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import FA from 'react-fontawesome';
 import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
