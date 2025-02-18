@@ -16,7 +16,7 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import TotalResults from '../../TotalResults';
 
 // getting data from panelRemarks reducer panelRemarks to get data:
-console.log("right before getting panelRemarksData");
+console.log('right before getting panelRemarksData');
 const panelRemarksData = useSelector(state => state.panelRemarks);
 
 
