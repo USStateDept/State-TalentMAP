@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Picky } from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
@@ -13,6 +13,7 @@ import { fetchPanelRemarksCategoriesData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import TotalResults from 'Components/TotalResults';
+import { isEmpty } from 'lodash';
 
 // function to generate test data for the Panel Remarks table
 // this will be deleted in the future and replaced with actual data from API calls.
@@ -58,6 +59,7 @@ const PanelRemarksTable = () => {
   const textSearchRef = useRef();
 
   const isLoading = categoryFilterIsLoading;
+  const [clearFilters, setClearFilters] = useState(false);
   const [setPrintView] = useState(false);
 
   const [headers] = useState([
@@ -88,6 +90,32 @@ const PanelRemarksTable = () => {
       setPanelRemarksRows(panel_remarks_test_data);
     }
   }, []);
+
+  const fetchAndSet = () => {
+    if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    selectedCategories,
+    isActive,
+    isExcl,
+    textSearch,
+  ]);
+
+  const resetFilters = () => {
+    setSelectedCategories([]);
+    setIsActive(false);
+    setIsExcl(false);
+    setTextSearch('');
+    textSearchRef.current.clearText();
+    setClearFilters(false);
+  };
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -122,8 +150,14 @@ const PanelRemarksTable = () => {
             </div>
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
-              <div className="filterby-clear" />
-            </div>
+              <div className="filterby-clear">
+                {clearFilters &&
+                <button className="unstyled-button" onClick={resetFilters}>
+                  <FontAwesomeIcon icon={faTimes} />
+                  Clear Filters
+                </button>
+                }
+              </div>            </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
               <div className="usa-grid-full">
                 <div className="filter-div">
