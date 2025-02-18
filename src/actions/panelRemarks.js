@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import api from '../api';
@@ -6,7 +7,7 @@ import { convertQueryToString } from '../utilities';
 let cancelPanelRemarksData;
 
 export function panelRemarksFetchDataErrored(bool) {
-  // console.log('inside panelRemarksFetchDataErrored in actions/panelRemarks.js');
+  console.log('inside panelRemarksFetchDataErrored in actions/panelRemarks.js');
   return {
     type: 'PANEL_REMARKS_FETCH_HAS_ERRORED',
     hasErrored: bool,
@@ -14,7 +15,7 @@ export function panelRemarksFetchDataErrored(bool) {
 }
 
 export function panelRemarksFetchDataLoading(bool) {
-  // console.log('inside panelRemarksFetchDataLoading in actions/panelRemarks.js');
+  console.log('inside panelRemarksFetchDataLoading in actions/panelRemarks.js');
   return {
     type: 'PANEL_REMARKS_FETCH_IS_LOADING',
     isLoading: bool,
@@ -23,8 +24,8 @@ export function panelRemarksFetchDataLoading(bool) {
 
 // taking the count away from this function for the moment
 export function panelRemarksFetchDataSuccess(results) {
-  // vconsole.log('inside panelRemarksFetchDataSuccess in actions/panelRemarks.js');
-  // console.log('results', results);
+  console.log('inside panelRemarksFetchDataSuccess in actions/panelRemarks.js');
+  console.log('results', results);
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
     data: {
@@ -50,8 +51,8 @@ export function fetchPanelRemarksData(query = {}) {
         batch(() => {
           const results = data.results;
           // logging to see if the results are working
-          // console.log('inside fetchPanelRemarksData in actions/panelRemarks.js');
-          // console.log('results', results);
+          console.log('inside fetchPanelRemarksData in actions/panelRemarks.js');
+          console.log('results', results);
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));

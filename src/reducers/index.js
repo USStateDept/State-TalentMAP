@@ -77,6 +77,7 @@ import searchPostAccess from './searchPostAccess';
 import cycleJobCategories from './cycleJobCategories';
 import bureauExceptions from './bureauExceptions';
 import entryLevel from './entryLevel';
+import panelRemarks from './panelRemarks';
 import bidAudit from './bidAudit';
 import jobCategories from './jobCategories';
 import orgStats from './orgStats';
@@ -161,6 +162,7 @@ export default (history) => combineReducers({
   ...orgStats,
   ...biddingTool,
   ...tmOne,
+  ...panelRemarks,
   router: connectRouter(history),
   client,
   login,
