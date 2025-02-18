@@ -8,8 +8,8 @@ export function panelRemarksFetchErrored(state = false, action) {
       return action.hasErrored;
     default:
       return state;
-    }
   }
+}
 
 export function panelRemarksFetchLoading(state = false, action) {
   switch (action.type) {
