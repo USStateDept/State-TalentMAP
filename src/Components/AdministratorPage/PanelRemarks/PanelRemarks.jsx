@@ -1,18 +1,17 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { Picky } from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import TotalResults from '../../TotalResults';
+import TotalResults from 'Components/TotalResults';
+import { fetchPanelRemarksCategoriesData } from 'actions/panelRemarks';
+import { renderSelectionList } from 'utilities';
 
 // function to generate test data for the Panel Remarks table
 // this will be deleted in the future and replaced with actual data from API calls.
@@ -45,8 +44,19 @@ const onEditRow = (params) => {
 };
 
 const PanelRemarksTable = () => {
+  const dispatch = useDispatch();
+
+  const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
+  const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
+  const categoryFilter = useSelector(state => state.panelRemarksCategories);
+  console.log('categoryFilter:', categoryFilter);
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [textSearch, setTextSearch] = useState('');
   const textSearchRef = useRef();
+
+  const isLoading = categoryFilterIsLoading;
+  const [setPrintView] = useState(false);
 
   const [headers] = useState([
     { field: 'Category', headerName: 'Category', flex: 1 },
@@ -71,6 +81,7 @@ const PanelRemarksTable = () => {
 
   // used temporarily to test the table and add dummy data defined above
   useEffect(() => {
+    dispatch(fetchPanelRemarksCategoriesData());
     if (panel_remarks_test_data.length > 0) {
       setPanelRemarksRows(panel_remarks_test_data);
     }
@@ -84,11 +95,6 @@ const PanelRemarksTable = () => {
     renderList: renderSelectionList,
     includeSelectAll: true,
   };
-
-  const prFiltersIsLoading = useSelector(state => state.panelRemarksFiltersFetchDataLoading);
-
-  const isLoading = prFiltersIsLoading;
-  const [setPrintView] = useState(false);
 
   const getOverlay = () => {
     let toReturn;
@@ -123,11 +129,12 @@ const PanelRemarksTable = () => {
                   <Picky
                     {...pickyProps}
                     placeholder="Select Category(s)"
-                    // value={selectedCategories}
-                    // options={categoryFilters}
-                    // onChange={setSelectedCategories}
+                    value={selectedCategories}
+                    options={categoryFilter}
+                    onChange={setSelectedCategories}
                     valueKey="category"
                     labelKey="category"
+                    disabled={categoryFilterIsLoading || categoryFilterHasErrored}
                   />
                 </div>
                 <div className="filter-div">
