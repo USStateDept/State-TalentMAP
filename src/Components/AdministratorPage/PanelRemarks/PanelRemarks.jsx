@@ -49,7 +49,6 @@ const PanelRemarksTable = () => {
   const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
   const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
   const categoryFilter = useSelector(state => state.panelRemarksCategories);
-  console.log('categoryFilter:', categoryFilter);
 
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [textSearch, setTextSearch] = useState('');
@@ -132,21 +131,9 @@ const PanelRemarksTable = () => {
                     value={selectedCategories}
                     options={categoryFilter}
                     onChange={setSelectedCategories}
-                    valueKey="category"
-                    labelKey="category"
+                    valueKey="rccode"
+                    labelKey="rcdesctext"
                     disabled={categoryFilterIsLoading || categoryFilterHasErrored}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Order:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Order(s)"
-                    // value={selectedOrders}
-                    // options={orderFilters}
-                    // onChange={setSelectedOrders}
-                    valueKey="order" // "code"
-                    labelKey="order" // "description"
                   />
                 </div>
               </div>
