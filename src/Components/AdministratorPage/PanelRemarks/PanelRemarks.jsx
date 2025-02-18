@@ -9,9 +9,10 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import TotalResults from 'Components/TotalResults';
 import { fetchPanelRemarksCategoriesData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
+import ToggleButton from 'Components/ToggleButton';
+import TotalResults from 'Components/TotalResults';
 
 // function to generate test data for the Panel Remarks table
 // this will be deleted in the future and replaced with actual data from API calls.
@@ -51,6 +52,8 @@ const PanelRemarksTable = () => {
   const categoryFilter = useSelector(state => state.panelRemarksCategories);
 
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const [isExcl, setIsExcl] = useState(false);
   const [textSearch, setTextSearch] = useState('');
   const textSearchRef = useRef();
 
@@ -139,29 +142,21 @@ const PanelRemarksTable = () => {
               </div>
               <div className="usa-grid-full">
                 <div className="filter-div">
-                  <div className="label">Active:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Active Flag"
-                    // value={selectedCategories}
-                    // options={categoryFilters}
-                    // onChange={setSelectedCategories}
-                    valueKey="active"
-                    labelKey="active"
+                  <ToggleButton
+                    labelTextRight="Active"
+                    onChange={() => setIsActive(!isActive)}
+                    checked={isActive}
+                    onColor="#0071BC"
                   />
                 </div>
               </div>
               <div className="usa-grid-full">
                 <div className="filter-div">
-                  <div className="label">Mutually Exclusive:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Mutually Exclusive Flag"
-                    // value={selectedOrders}
-                    // options={orderFilters}
-                    // onChange={setSelectedOrders}
-                    valueKey="muyexcl"
-                    labelKey="muyexcl"
+                  <ToggleButton
+                    labelTextRight="Mutually Exclusive"
+                    onChange={() => setIsExcl(!isExcl)}
+                    checked={isExcl}
+                    onColor="#0071BC"
                   />
                 </div>
               </div>
