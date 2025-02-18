@@ -8,7 +8,7 @@ import {
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { bidderPortfolioExtraDetailsFetchData,
   bidderPortfolioFetchDataSuccess,

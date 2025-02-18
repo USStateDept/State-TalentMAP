@@ -21,6 +21,18 @@ const AIMLegsFormRead = props => {
     }
   };
 
+  const getAction = a => {
+    let action = a?.action || DEFAULT_TEXT;
+    if (['Extend', 'Curtail', 'Adjust'].includes(a.action)) {
+      if (a.adjust_month !== null && a.adjust_month !== 0) {
+        action = `${a.action} (by ${a.adjust_month})`;
+      }
+    }
+    return (
+      <div>{action}</div>
+    );
+  };
+
   const getArrows = (hide = false) => (
     <div className={`${hide ? 'hide' : ''} aim-form-arrow-read`}>
       <FA name="arrow-down" />
@@ -39,7 +51,7 @@ const AIMLegsFormRead = props => {
   const columnData = [
     {
       title: 'Action',
-      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
+      content: (a => getAction(a)),
     },
     {
       title: 'Position Title',

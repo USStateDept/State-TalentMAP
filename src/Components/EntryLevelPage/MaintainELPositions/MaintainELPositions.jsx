@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import { entryLevelFetchData, entryLevelFiltersFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
 import { renderSelectionList } from 'utilities';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';

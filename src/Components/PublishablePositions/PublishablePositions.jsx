@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import FA from 'react-fontawesome';
 import { sortBy, uniqBy } from 'lodash';
 import { toastError, toastSuccess } from 'actions/toast';

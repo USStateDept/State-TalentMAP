@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import FA from 'react-fontawesome';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
