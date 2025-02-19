@@ -15,19 +15,18 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import TotalResults from '../../TotalResults';
 
-// getting data from panelRemarks reducer panelRemarks to get data:
-console.log('right before getting panelRemarksData');
-const panelRemarksData = useSelector(state => state.panelRemarks);
 
-
-const onEditRow = (params) => {
-  // Logic to edit the row
-  console.log('Editing row:', params.data);
-};
-
-const PanelRemarksTable = () => {
+const PanelRemarks = () => {
+  // getting data from panelRemarks reducer panelRemarks to get data:
+  const panelRemarksData = useSelector(state => state.panelRemarks);
   const [textSearch, setTextSearch] = useState('');
   const textSearchRef = useRef();
+
+
+  const onEditRow = (params) => {
+    // Logic to edit the row
+    console.log('Editing row:', params.data);
+  };
 
   const [headers] = useState([
     { field: 'Category', headerName: 'Category', flex: 1 },
@@ -49,7 +48,6 @@ const PanelRemarksTable = () => {
   ]);
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
-
 
   const mapObjectToRow = (obj) => {
     const row = {
@@ -223,4 +221,4 @@ const PanelRemarksTable = () => {
   );
 };
 
-export default PanelRemarksTable;
+export default PanelRemarks;
