@@ -50,6 +50,9 @@ export function fetchPanelRemarksData(query = {}) {
     })
       .then(({ data }) => {
         batch(() => {
+          console.log('inside fetchPanelRemarksData in actions file:');
+          console.log('data from fetchPanelRemarksData in actions file:');
+          console.log(data);
           const results = data.results;
           console.log('results from fetchPanelRemarksData in actions file:');
           console.log(results);
