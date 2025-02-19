@@ -9,14 +9,14 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import { fetchPanelRemarksCategoriesData } from 'actions/panelRemarks';
+import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import TotalResults from 'Components/TotalResults';
 import { isEmpty } from 'lodash';
 
 
-const PanelRemarksTable = () => {
+const PanelRemarks = () => {
   const dispatch = useDispatch();
   // getting data from panelRemarks reducer panelRemarks to get data:
   const panelRemarksData = useSelector(state => state.panelRemarks);

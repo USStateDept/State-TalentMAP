@@ -20,7 +20,7 @@ export function panelRemarksFetchDataLoading(state = false, action) {
 }
 
 export function panelRemarks(state = [], action) {
-  console.log("inside panelRemarks reducer");
+  console.log('inside panelRemarks reducer');
   console.log('panelRemarks action', action);
   console.log('panelRemarks data.results:', action.data.results);
   switch (action.type) {
