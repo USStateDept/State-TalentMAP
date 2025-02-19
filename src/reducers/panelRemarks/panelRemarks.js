@@ -19,13 +19,18 @@ export function panelRemarksFetchDataLoading(state = false, action) {
   }
 }
 
-export function panelRemarks(state = [], action) {
+const initialState = {
+  results: [],
+};
+export function panelRemarks(state = initialState, action) {
   console.log('inside panelRemarks reducer');
   console.log('panelRemarks action', action);
   console.log('panelRemarks data.results:', action.data.results);
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':
-      return action.data.results;
+      return {
+        results: action.data.results
+      };
     default:
       return state;
   }
