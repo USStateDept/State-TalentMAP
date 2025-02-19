@@ -25,6 +25,7 @@ const initialState = {
 export function panelRemarks(state = initialState, action) {
   console.log('inside panelRemarks reducer');
   console.log('panelRemarks action', action);
+  console.log('panelRemarks action.data:', action.data);
   console.log('panelRemarks data.results:', action.data.results);
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':

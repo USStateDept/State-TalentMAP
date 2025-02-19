@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { batch } from 'react-redux';
 import { sortBy } from 'lodash';
 import { CancelToken } from 'axios';
@@ -22,6 +24,9 @@ export function panelRemarksFetchDataLoading(bool) {
 }
 
 export function panelRemarksFetchDataSuccess(results) {
+  console.log('inside actions file panelRemarksFetchDataSuccess');
+  console.log('results from actions panelRemarksFetchDataSuccess:');
+  console.log(results);
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
     data: {
