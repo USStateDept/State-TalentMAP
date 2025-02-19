@@ -1,18 +1,19 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Picky } from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import TotalResults from '../../TotalResults';
+import { fetchPanelRemarksCategoriesData } from 'actions/panelRemarks';
+import { renderSelectionList } from 'utilities';
+import ToggleButton from 'Components/ToggleButton';
+import TotalResults from 'Components/TotalResults';
+import { isEmpty } from 'lodash';
 
 // function to generate test data for the Panel Remarks table
 // this will be deleted in the future and replaced with actual data from API calls.
@@ -45,8 +46,21 @@ const onEditRow = (params) => {
 };
 
 const PanelRemarksTable = () => {
+  const dispatch = useDispatch();
+
+  const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
+  const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
+  const categoryFilter = useSelector(state => state.panelRemarksCategories);
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const [isExcl, setIsExcl] = useState(false);
   const [textSearch, setTextSearch] = useState('');
   const textSearchRef = useRef();
+
+  const isLoading = categoryFilterIsLoading;
+  const [clearFilters, setClearFilters] = useState(false);
+  const [setPrintView] = useState(false);
 
   const [headers] = useState([
     { field: 'Category', headerName: 'Category', flex: 1 },
@@ -71,10 +85,37 @@ const PanelRemarksTable = () => {
 
   // used temporarily to test the table and add dummy data defined above
   useEffect(() => {
+    dispatch(fetchPanelRemarksCategoriesData());
     if (panel_remarks_test_data.length > 0) {
       setPanelRemarksRows(panel_remarks_test_data);
     }
   }, []);
+
+  const fetchAndSet = () => {
+    if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    selectedCategories,
+    isActive,
+    isExcl,
+    textSearch,
+  ]);
+
+  const resetFilters = () => {
+    setSelectedCategories([]);
+    setIsActive(false);
+    setIsExcl(false);
+    setTextSearch('');
+    textSearchRef.current.clearText();
+    setClearFilters(false);
+  };
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -84,11 +125,6 @@ const PanelRemarksTable = () => {
     renderList: renderSelectionList,
     includeSelectAll: true,
   };
-
-  const prFiltersIsLoading = useSelector(state => state.panelRemarksFiltersFetchDataLoading);
-
-  const isLoading = prFiltersIsLoading;
-  const [setPrintView] = useState(false);
 
   const getOverlay = () => {
     let toReturn;
@@ -114,8 +150,14 @@ const PanelRemarksTable = () => {
             </div>
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
-              <div className="filterby-clear" />
-            </div>
+              <div className="filterby-clear">
+                {clearFilters &&
+                <button className="unstyled-button" onClick={resetFilters}>
+                  <FontAwesomeIcon icon={faTimes} />
+                  Clear Filters
+                </button>
+                }
+              </div>            </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
               <div className="usa-grid-full">
                 <div className="filter-div">
@@ -123,51 +165,32 @@ const PanelRemarksTable = () => {
                   <Picky
                     {...pickyProps}
                     placeholder="Select Category(s)"
-                    // value={selectedCategories}
-                    // options={categoryFilters}
-                    // onChange={setSelectedCategories}
-                    valueKey="category"
-                    labelKey="category"
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Order:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Order(s)"
-                    // value={selectedOrders}
-                    // options={orderFilters}
-                    // onChange={setSelectedOrders}
-                    valueKey="order" // "code"
-                    labelKey="order" // "description"
+                    value={selectedCategories}
+                    options={categoryFilter}
+                    onChange={setSelectedCategories}
+                    valueKey="rccode"
+                    labelKey="rcdesctext"
+                    disabled={categoryFilterIsLoading || categoryFilterHasErrored}
                   />
                 </div>
               </div>
               <div className="usa-grid-full">
                 <div className="filter-div">
-                  <div className="label">Active:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Active Flag"
-                    // value={selectedCategories}
-                    // options={categoryFilters}
-                    // onChange={setSelectedCategories}
-                    valueKey="active"
-                    labelKey="active"
+                  <ToggleButton
+                    labelTextRight="Active"
+                    onChange={() => setIsActive(!isActive)}
+                    checked={isActive}
+                    onColor="#0071BC"
                   />
                 </div>
               </div>
               <div className="usa-grid-full">
                 <div className="filter-div">
-                  <div className="label">Mutually Exclusive:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Mutually Exclusive Flag"
-                    // value={selectedOrders}
-                    // options={orderFilters}
-                    // onChange={setSelectedOrders}
-                    valueKey="muyexcl"
-                    labelKey="muyexcl"
+                  <ToggleButton
+                    labelTextRight="Mutually Exclusive"
+                    onChange={() => setIsExcl(!isExcl)}
+                    checked={isExcl}
+                    onColor="#0071BC"
                   />
                 </div>
               </div>
