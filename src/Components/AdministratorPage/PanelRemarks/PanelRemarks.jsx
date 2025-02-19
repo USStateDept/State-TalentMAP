@@ -19,7 +19,7 @@ import { isEmpty } from 'lodash';
 const PanelRemarks = () => {
   const dispatch = useDispatch();
   // getting data from panelRemarks reducer panelRemarks to get data:
-  const panelRemarksData = useSelector(state => state.panelRemarks.results);
+  const panelRemarksData = useSelector(state => state.panelRemarks.results); // this is valid and returns proper data. An array of JSONs
   console.log('panelRemarksData in PanelRemarks.jsx:', panelRemarksData);
 
   const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
