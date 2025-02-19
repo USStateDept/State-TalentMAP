@@ -85,6 +85,7 @@ const PanelRemarks = () => {
   useEffect(() => {
     if (panelRemarksData && panelRemarksData.length > 0) {
       const mappedRows = panelRemarksData.map(mapObjectToRow);
+      console.log('mappedRows:', mappedRows);
       setPanelRemarksRows(mappedRows);
     }
   }, [panelRemarksData]);
