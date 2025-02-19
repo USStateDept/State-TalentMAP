@@ -19,7 +19,8 @@ import { isEmpty } from 'lodash';
 const PanelRemarks = () => {
   const dispatch = useDispatch();
   // getting data from panelRemarks reducer panelRemarks to get data:
-  const panelRemarksData = useSelector(state => state.panelRemarks.results); // this is valid and returns proper data. An array of JSONs
+  // this is valid and returns proper data. An array of JSONs BUT in the actions file, action.results returns undefined
+  const panelRemarksData = useSelector(state => state.panelRemarks.results);
   console.log('panelRemarksData in PanelRemarks.jsx:', panelRemarksData);
 
   const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
