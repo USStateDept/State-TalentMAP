@@ -26,12 +26,12 @@ export function panelRemarks(state = initialState, action) {
   console.log('inside panelRemarks reducer');
   console.log('panelRemarks action', action);
   console.log('panelRemarks action.data:', action.data);
-  // console.log('panelRemarks data.results:', action.data.results);
+  console.log('panelRemarks action.data.results:', action.data.results);
   console.log('panelRemarks action.results (what is being returned):', action.results);
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':
       return {
-        results: action.results,
+        results: action.data.results, // action.results
       };
     default:
       return state;
