@@ -83,6 +83,7 @@ import jobCategories from './jobCategories';
 import orgStats from './orgStats';
 import biddingTool from './biddingTool';
 import tmOne from './tmOne';
+import panelRemarks from './panelRemarks';
 
 export default (history) => combineReducers({
   ...results,

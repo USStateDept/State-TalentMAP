@@ -1,11 +1,17 @@
 import {
   panelRemarks,
-  panelRemarksFetchErrored,
-  panelRemarksFetchLoading,
+  panelRemarksCategories,
+  panelRemarksCategoriesFetchDataErrored,
+  panelRemarksCategoriesFetchDataLoading,
+  panelRemarksFetchDataErrored,
+  panelRemarksFetchDataLoading,
 } from './panelRemarks';
 
 export default {
-  panelRemarksFetchErrored,
-  panelRemarksFetchLoading,
+  panelRemarksFetchDataErrored,
+  panelRemarksFetchDataLoading,
   panelRemarks,
+  panelRemarksCategoriesFetchDataErrored,
+  panelRemarksCategoriesFetchDataLoading,
+  panelRemarksCategories,
 };

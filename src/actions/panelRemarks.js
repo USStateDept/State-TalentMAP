@@ -1,13 +1,13 @@
-/* eslint-disable no-console */
 import { batch } from 'react-redux';
+import { sortBy } from 'lodash';
 import { CancelToken } from 'axios';
-import api from '../api';
-import { convertQueryToString } from '../utilities';
+import { convertQueryToString } from 'utilities';
+import api from './../api';
 
 let cancelPanelRemarksData;
 
+// ======================== Panel Remarks ========================
 export function panelRemarksFetchDataErrored(bool) {
-  console.log('inside panelRemarksFetchDataErrored in actions/panelRemarks.js');
   return {
     type: 'PANEL_REMARKS_FETCH_HAS_ERRORED',
     hasErrored: bool,
@@ -15,17 +15,13 @@ export function panelRemarksFetchDataErrored(bool) {
 }
 
 export function panelRemarksFetchDataLoading(bool) {
-  console.log('inside panelRemarksFetchDataLoading in actions/panelRemarks.js');
   return {
     type: 'PANEL_REMARKS_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
 
-// taking the count away from this function for the moment
 export function panelRemarksFetchDataSuccess(results) {
-  console.log('inside panelRemarksFetchDataSuccess in actions/panelRemarks.js');
-  console.log('results', results);
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
     data: {
@@ -50,9 +46,6 @@ export function fetchPanelRemarksData(query = {}) {
       .then(({ data }) => {
         batch(() => {
           const results = data.results;
-          // logging to see if the results are working
-          console.log('inside fetchPanelRemarksData in actions/panelRemarks.js');
-          console.log('results', results);
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
@@ -61,12 +54,57 @@ export function fetchPanelRemarksData(query = {}) {
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            // console.log('Error fetching panel remarks:', err);
-            dispatch(panelRemarksFetchDataSuccess([]));
             dispatch(panelRemarksFetchDataErrored(true));
             dispatch(panelRemarksFetchDataLoading(false));
           });
         }
+      });
+  };
+}
+
+// ======================== Panel Remarks Categories ========================
+export function panelRemarksCategoriesFetchDataErrored(bool) {
+  return {
+    type: 'PANEL_REMARKS_CATEGORIES_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function panelRemarksCategoriesFetchDataLoading(bool) {
+  return {
+    type: 'PANEL_REMARKS_CATEGORIES_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function panelRemarksCategoriesFetchDataSuccess(results) {
+  return {
+    type: 'PANEL_REMARKS_CATEGORIES_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function fetchPanelRemarksCategoriesData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(panelRemarksCategoriesFetchDataLoading(true));
+      dispatch(panelRemarksCategoriesFetchDataErrored(false));
+    });
+    const endpoint = '/fsbid/panel_remarks/ws_categories/';
+    api().get(endpoint)
+      .then(({ data }) => {
+        const sortedData = sortBy(data, 'rcdesctext');
+        batch(() => {
+          dispatch(panelRemarksCategoriesFetchDataSuccess(sortedData));
+          dispatch(panelRemarksCategoriesFetchDataErrored(false));
+          dispatch(panelRemarksCategoriesFetchDataLoading(false));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(panelRemarksCategoriesFetchDataErrored(true));
+          dispatch(panelRemarksCategoriesFetchDataLoading(false));
+        });
       });
   };
 }
