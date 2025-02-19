@@ -30,7 +30,7 @@ export function panelRemarks(state = initialState, action) {
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':
       return {
-        results: action.data.results
+        results: action.data.results,
       };
     default:
       return state;
