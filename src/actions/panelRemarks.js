@@ -54,7 +54,7 @@ export function fetchPanelRemarksData(query = {}) {
           console.log('inside fetchPanelRemarksData in actions file:');
           console.log('data from fetchPanelRemarksData in actions file:');
           console.log(data);
-          const results = data // just remove this? data is already an array (accordig to the console.log above)
+          const results = data; // just remove this? data is already an array (accordig to the console.log above)
           console.log('results from fetchPanelRemarksData in actions file:');
           console.log(results);
           dispatch(panelRemarksFetchDataSuccess(results));
