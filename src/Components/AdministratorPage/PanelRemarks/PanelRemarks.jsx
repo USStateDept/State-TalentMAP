@@ -64,7 +64,7 @@ const PanelRemarks = () => {
 
   const mapObjectToRow = (obj) => {
     const row = {
-      POS_SEQ_NUM: obj.POS_SEQ_NUM,
+      // POS_SEQ_NUM: obj.POS_SEQ_NUM,
       Category: obj.Category,
       Description: obj.Description,
       ShortDesc: obj.ShortDesc,
@@ -79,10 +79,10 @@ const PanelRemarks = () => {
   useEffect(() => {
     dispatch(fetchPanelRemarksData());
     dispatch(fetchPanelRemarksCategoriesData());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (panelRemarksData.length > 0) {
+    if (panelRemarksData && panelRemarksData.length > 0) {
       const mappedRows = panelRemarksData.map(mapObjectToRow);
       setPanelRemarksRows(mappedRows);
     }
