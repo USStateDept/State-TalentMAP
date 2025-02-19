@@ -57,6 +57,9 @@ export function fetchPanelRemarksData(query = {}) {
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
         });
+        console.log('data from fetchPanelRemarksData in actions file:');
+        console.log(data);
+        cancelPanelRemarksData = null;
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
