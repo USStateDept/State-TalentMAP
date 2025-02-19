@@ -32,7 +32,6 @@ export function panelRemarksFetchDataSuccess(results) {
     data: {
       results,
     },
-    results,
   };
 }
 
