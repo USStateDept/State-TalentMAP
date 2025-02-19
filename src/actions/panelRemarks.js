@@ -29,9 +29,10 @@ export function panelRemarksFetchDataSuccess(results) {
   console.log(results);
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
-    data: {
-      results,
-    },
+    // data: {
+    //   results,
+    // },
+    results,
   };
 }
 
