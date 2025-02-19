@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 // ======= Panel Remarks: Get Panel Remarks =======
 export function panelRemarksFetchDataErrored(state = false, action) {
   switch (action.type) {
@@ -18,9 +20,12 @@ export function panelRemarksFetchDataLoading(state = false, action) {
 }
 
 export function panelRemarks(state = [], action) {
+  console.log("inside panelRemarks reducer");
+  console.log('panelRemarks action', action);
+  console.log('panelRemarks data.results:', action.data.results);
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':
-      return action.data;
+      return action.data.results;
     default:
       return state;
   }
