@@ -25,13 +25,10 @@ export function panelRemarksFetchDataLoading(bool) {
 
 export function panelRemarksFetchDataSuccess(results) {
   console.log('inside actions file panelRemarksFetchDataSuccess');
-  console.log('results from actions panelRemarksFetchDataSuccess:');
-  console.log(results);
+  console.log('results from actions panelRemarksFetchDataSuccess:', results);
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
-    data: {
-      results,
-    },
+    results,
   };
 }
 
@@ -49,11 +46,11 @@ export function fetchPanelRemarksData(query = {}) {
       cancelToken: new CancelToken((c) => { cancelPanelRemarksData = c; }),
     })
       .then(({ data }) => {
+        const results = data; // just remove this? data is already an array (accordig to the console.log above)
         batch(() => {
           console.log('inside fetchPanelRemarksData in actions file:');
           console.log('data from fetchPanelRemarksData in actions file:');
           console.log(data);
-          const results = data; // just remove this? data is already an array (accordig to the console.log above)
           console.log('results from fetchPanelRemarksData in actions file:');
           console.log(results);
           dispatch(panelRemarksFetchDataSuccess(results));
