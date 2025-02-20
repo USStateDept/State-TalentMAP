@@ -42,7 +42,6 @@ export function fetchPanelRemarksData(query = {}) {
       cancelToken: new CancelToken((c) => { cancelPanelRemarksData = c; }),
     })
       .then(({ data }) => {
-        const results = data; // just remove this? data is already an array (accordig to the console.log above)
         batch(() => {
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
