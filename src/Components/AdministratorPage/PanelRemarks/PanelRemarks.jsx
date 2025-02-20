@@ -65,7 +65,7 @@ const PanelRemarks = () => {
 
   const mapObjectToRow = (obj) => {
     const row = {
-      // POS_SEQ_NUM: obj.POS_SEQ_NUM,
+      rmrkseqnum: obj.rmrkseqnum,
       Category: obj.category,
       Description: obj.rmrktext,
       ShortDesc: obj.rmrkshortdesctext,
