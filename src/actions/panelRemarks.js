@@ -43,7 +43,7 @@ export function fetchPanelRemarksData(query = {}) {
     })
       .then(({ data }) => {
         batch(() => {
-          dispatch(panelRemarksFetchDataSuccess(results));
+          dispatch(panelRemarksFetchDataSuccess(data));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
         });
