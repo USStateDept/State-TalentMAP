@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { batch } from 'react-redux';
 import { sortBy } from 'lodash';
 import { CancelToken } from 'axios';
