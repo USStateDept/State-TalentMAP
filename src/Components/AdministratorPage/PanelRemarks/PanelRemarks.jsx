@@ -87,10 +87,12 @@ const PanelRemarks = () => {
       const mappedRows = panelRemarksData.map(mapObjectToRow);
       console.log('mappedRows:', mappedRows);
       setPanelRemarksRows(mappedRows);
+      // return empty array. Copilot says its the async nature of React
       console.log('panelRemarksRows after setPanelRemarksRows(mappedRows):', panelRemarksRows);
     }
   }, [panelRemarksData]);
 
+  // new - based on copilot suggestion
   useEffect(() => {
     console.log('panelRemarksRows updated:', panelRemarksRows);
   }, [panelRemarksRows]);
@@ -231,7 +233,7 @@ const PanelRemarks = () => {
                         content: <AgGridReact
                           domLayout="autoHeight"
                           columnDefs={headers}
-                          rowData={mappedRows}
+                          rowData={panelRemarksRows}
                           pagination
                           paginationPageSize={10}
                           singleClickEdit
