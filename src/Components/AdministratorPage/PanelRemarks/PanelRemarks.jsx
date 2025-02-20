@@ -67,11 +67,11 @@ const PanelRemarks = () => {
     const row = {
       // POS_SEQ_NUM: obj.POS_SEQ_NUM,
       Category: obj.category,
-      Description: obj.description,
-      ShortDesc: obj.short_desc,
-      Order: obj.order,
-      Active: obj.active,
-      Excl: obj.mutually_exclusive,
+      Description: obj.rmrktext,
+      ShortDesc: obj.rmrkshortdesctext,
+      Order: obj.rmrkordernum,
+      Active: obj.rmrkactiveind,
+      Excl: obj.rmrkmutuallyexclusiveind,
     };
 
     return row;
