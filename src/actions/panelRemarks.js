@@ -24,8 +24,6 @@ export function panelRemarksFetchDataLoading(bool) {
 }
 
 export function panelRemarksFetchDataSuccess(results) {
-  console.log('inside actions file panelRemarksFetchDataSuccess');
-  console.log('results from actions panelRemarksFetchDataSuccess:', results);
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
     results,
@@ -48,18 +46,10 @@ export function fetchPanelRemarksData(query = {}) {
       .then(({ data }) => {
         const results = data; // just remove this? data is already an array (accordig to the console.log above)
         batch(() => {
-          console.log('inside fetchPanelRemarksData in actions file:');
-          console.log('data from fetchPanelRemarksData in actions file:');
-          console.log(data); // this logs the correct data
-          console.log('results from fetchPanelRemarksData in actions file:');
-          console.log(results); // this logs the correct results
-          // results and data are the same from the looks of it
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
         });
-        // console.log('data from fetchPanelRemarksData in actions file:');
-        // console.log(data);
         cancelPanelRemarksData = null;
       })
       .catch((err) => {

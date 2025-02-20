@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
@@ -19,9 +18,7 @@ import { isEmpty } from 'lodash';
 const PanelRemarks = () => {
   const dispatch = useDispatch();
   // getting data from panelRemarks reducer panelRemarks to get data:
-  // this is valid and returns proper data. An array of JSONs BUT in the actions file, action.results returns undefined
   const panelRemarksData = useSelector(state => state.panelRemarks.results);
-  console.log('panelRemarksData in PanelRemarks.jsx:', panelRemarksData);
 
   const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
   const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
@@ -39,6 +36,7 @@ const PanelRemarks = () => {
 
   const onEditRow = (params) => {
     // Logic to edit the row
+    // eslint-disable-next-line no-console
     console.log('Editing row:', params.data);
   };
 
@@ -85,12 +83,10 @@ const PanelRemarks = () => {
   useEffect(() => {
     if (panelRemarksData && panelRemarksData.length > 0) {
       const mappedRows = panelRemarksData.map(mapObjectToRow);
-      console.log('mappedRows:', mappedRows);
       setPanelRemarksRows(mappedRows);
-      // return empty array. Copilot says its the async nature of React
-      console.log('panelRemarksRows after setPanelRemarksRows(mappedRows):', panelRemarksRows);
     }
   }, [panelRemarksData]);
+
 
   const fetchAndSet = () => {
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {

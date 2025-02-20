@@ -23,15 +23,10 @@ const initialState = {
   results: [],
 };
 export function panelRemarks(state = initialState, action) {
-  console.log('inside panelRemarks reducer');
-  console.log('panelRemarks action', action);
-  console.log('panelRemarks action.data:', action.data); // undefined - FINE
-  // console.log('panelRemarks action.data.results:', action.data.results); // give me a blank UI
-  console.log('panelRemarks action.results (what is being returned):', action.results); // seems correct
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':
       return {
-        results: action.results, // action.results
+        results: action.results,
       };
     default:
       return state;
