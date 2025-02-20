@@ -219,7 +219,7 @@ const PanelRemarks = () => {
               getOverlay() ||
               <>
                 <div className="usa-grid-full pr-table-container">
-                  <div className="pr-table ag-theme-alpine" style={{ width: '100%' }}>
+                  <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
                     <TabbedCard
                       tabHeaders={['Panel Remarks', 'Remarks Categories']}
                       tabs={[{
