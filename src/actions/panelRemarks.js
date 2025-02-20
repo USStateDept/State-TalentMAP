@@ -50,9 +50,10 @@ export function fetchPanelRemarksData(query = {}) {
         batch(() => {
           console.log('inside fetchPanelRemarksData in actions file:');
           console.log('data from fetchPanelRemarksData in actions file:');
-          console.log(data);
+          console.log(data); // this logs the correct data
           console.log('results from fetchPanelRemarksData in actions file:');
-          console.log(results);
+          console.log(results); // this logs the correct results
+          // results and data are the same from the looks of it
           dispatch(panelRemarksFetchDataSuccess(results));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
