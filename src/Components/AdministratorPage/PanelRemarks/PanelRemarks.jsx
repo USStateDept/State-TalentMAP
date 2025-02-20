@@ -66,12 +66,12 @@ const PanelRemarks = () => {
   const mapObjectToRow = (obj) => {
     const row = {
       // POS_SEQ_NUM: obj.POS_SEQ_NUM,
-      Category: obj.Category,
-      Description: obj.Description,
-      ShortDesc: obj.ShortDesc,
-      Order: obj.Order,
-      Active: obj.Active,
-      Excl: obj.Excl,
+      Category: obj.category,
+      Description: obj.description,
+      ShortDesc: obj.short_desc,
+      Order: obj.order,
+      Active: obj.active,
+      Excl: obj.mutually_exclusive,
     };
 
     return row;
@@ -91,11 +91,6 @@ const PanelRemarks = () => {
       console.log('panelRemarksRows after setPanelRemarksRows(mappedRows):', panelRemarksRows);
     }
   }, [panelRemarksData]);
-
-  // new - based on copilot suggestion
-  // useEffect(() => {
-  //   console.log('panelRemarksRows updated:', panelRemarksRows);
-  // }, [panelRemarksRows]);
 
   const fetchAndSet = () => {
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
