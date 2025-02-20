@@ -93,9 +93,9 @@ const PanelRemarks = () => {
   }, [panelRemarksData]);
 
   // new - based on copilot suggestion
-  useEffect(() => {
-    console.log('panelRemarksRows updated:', panelRemarksRows);
-  }, [panelRemarksRows]);
+  // useEffect(() => {
+  //   console.log('panelRemarksRows updated:', panelRemarksRows);
+  // }, [panelRemarksRows]);
 
   const fetchAndSet = () => {
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
