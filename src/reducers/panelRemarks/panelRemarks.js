@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 // ======= Panel Remarks: Get Panel Remarks =======
 export function panelRemarksFetchDataErrored(state = false, action) {
   switch (action.type) {
