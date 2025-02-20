@@ -47,7 +47,6 @@ export function fetchPanelRemarksData(query = {}) {
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
         });
-        cancelPanelRemarksData = null;
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
