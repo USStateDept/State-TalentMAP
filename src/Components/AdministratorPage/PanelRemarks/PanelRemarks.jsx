@@ -231,7 +231,7 @@ const PanelRemarks = () => {
                         content: <AgGridReact
                           domLayout="autoHeight"
                           columnDefs={headers}
-                          rowData={panelRemarksRows}
+                          rowData={mappedRows}
                           pagination
                           paginationPageSize={10}
                           singleClickEdit
