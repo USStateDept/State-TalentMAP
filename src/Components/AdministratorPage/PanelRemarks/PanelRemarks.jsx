@@ -87,8 +87,13 @@ const PanelRemarks = () => {
       const mappedRows = panelRemarksData.map(mapObjectToRow);
       console.log('mappedRows:', mappedRows);
       setPanelRemarksRows(mappedRows);
+      console.log('panelRemarksRows after setPanelRemarksRows(mappedRows):', panelRemarksRows);
     }
   }, [panelRemarksData]);
+
+  useEffect(() => {
+    console.log('panelRemarksRows updated:', panelRemarksRows);
+  }, [panelRemarksRows]);
 
   const fetchAndSet = () => {
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
