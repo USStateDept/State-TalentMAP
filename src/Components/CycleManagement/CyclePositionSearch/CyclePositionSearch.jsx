@@ -1,5 +1,5 @@
 import { withRouter } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import { Picky } from 'react-picky';
@@ -11,6 +11,7 @@ import Spinner from 'Components/Spinner';
 import CyclePositionCard from 'Components/CyclePositionCard';
 import Alert from 'Components/Alert';
 import BackButton from 'Components/BackButton';
+import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import { formatDate, renderSelectionList } from 'utilities';
 import {
   cycleManagementAssignmentCycleFetchData,
@@ -25,6 +26,7 @@ const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
 const CyclePositionSearch = ({ location, viewType }) => {
   const dispatch = useDispatch();
+  const searchPosNumRef = useRef();
 
   const activeTab = location.state?.activeTab || 'INFORMATION';
   const cycleIDs = location.state?.cycleIDs || [];
@@ -64,6 +66,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections?.selectedLanguages || []);
+  const [tempPosNumberText, setTempPosNumberText] = useState('');
+  const [posNumberText, setPosNumberText] = useState('');
   const [clearFilters, setClearFilters] = useState(false);
 
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -82,6 +86,9 @@ const CyclePositionSearch = ({ location, viewType }) => {
     setSelectedGrades([]);
     setSelectedSkills([]);
     setSelectedLanguages([]);
+    setTempPosNumberText('');
+    setPosNumberText('');
+    searchPosNumRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -92,6 +99,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
     grades: selectedGrades.map(f => (f?.code)),
     skills: selectedSkills.map(f => (f?.code)),
     languages: selectedLanguages.map(f => (f?.code)),
+    positionNumber: posNumberText,
   });
 
   useEffect(() => {
@@ -124,23 +132,26 @@ const CyclePositionSearch = ({ location, viewType }) => {
     selectedGrades,
     selectedSkills,
     selectedLanguages,
-  ].flat().length === 0;
+  ].flat().length === 0 && posNumberText === '';
 
   useEffect(() => {
+    setClearFilters(!noFiltersSelected);
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
-    if (noFiltersSelected) {
-      setClearFilters(false);
-    } else {
-      dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
-      setClearFilters(true);
-    }
+    dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
   }, [
     selectedStatuses,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
     selectedLanguages,
+    posNumberText,
   ]);
+
+  useEffect(() => {
+    if (tempPosNumberText === '' && posNumberText !== '') {
+      setPosNumberText('');
+    }
+  }, [tempPosNumberText]);
 
   // Overlay for error, info, and loading state
   const noResults = cyclePositions?.length === 0;
@@ -176,7 +187,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
           <div className="position-search--header">
             <BackButton />
             <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
-            <div className="expanded-content pt-20">
+            <div className="expanded-content search-bar-container">
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
                 <div className="filterby-clear">
@@ -195,6 +206,22 @@ const CyclePositionSearch = ({ location, viewType }) => {
                 </div>
               </div>
               <div className="position-search--filters--cm-pos">
+                <div className="filter-div">
+                  <div className="label">Position Number:</div>
+                  <div className="filter-search-bar fsb-240">
+                    <PositionManagerSearch
+                      id="pos-num-search"
+                      submitSearch={(e) => { setPosNumberText(e); }}
+                      onChange={setTempPosNumberText}
+                      ref={searchPosNumRef}
+                      textSearch={tempPosNumberText}
+                      placeHolder="Search by Position Number"
+                      noButton
+                      showIcon={false}
+                      disableSearch={disableSearch}
+                    />
+                  </div>
+                </div>
                 <div className="filter-div">
                   <div className="label">Status:</div>
                   <Picky
