@@ -34,7 +34,6 @@ import {
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
-
 // ================ Cycle Management: Get Cycles ================
 
 let cancelCycleManagementFetch;
@@ -101,7 +100,6 @@ export function saveCycleManagementSelections(queryObject) {
   return (dispatch) => dispatch(cycleManagementSelectionsSaveSuccess(queryObject));
 }
 
-
 // ================ Cycle Management: Create Cycle ================
 
 let cancelCycleManagementCreate;
@@ -119,9 +117,7 @@ export function cycleManagementCreateCycle(data) {
       })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(
-            ASSIGNMENT_CYCLE_CREATE_SUCCESS, ASSIGNMENT_CYCLE_CREATE_SUCCESS_TITLE,
-          ));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_CREATE_SUCCESS, ASSIGNMENT_CYCLE_CREATE_SUCCESS_TITLE));
           dispatch(cycleManagementFetchData());
         });
       })
@@ -132,7 +128,6 @@ export function cycleManagementCreateCycle(data) {
       });
   };
 }
-
 
 // ================ Cycle Management: Get Cycle ================
 
@@ -187,7 +182,6 @@ export function cycleManagementAssignmentCycleFetchData(id) {
   };
 }
 
-
 // ================ Cycle Management: Update Cycle ================
 
 let cancelCycleManagementUpdate;
@@ -211,9 +205,7 @@ export function cycleManagementUpdateCycle(data) {
       })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(
-            ASSIGNMENT_CYCLE_EDIT_SUCCESS, ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
-          ));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_EDIT_SUCCESS, ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE));
           dispatch(cycleManagementUpdateCycleSuccess(true));
         });
       })
@@ -224,7 +216,6 @@ export function cycleManagementUpdateCycle(data) {
       });
   };
 }
-
 
 // ================ Cycle Management: Post Open Positions ================
 
@@ -242,9 +233,7 @@ export function cycleManagementPostOpenPositions(id) {
       })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(
-            ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS, ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE,
-          ));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_POST_POSITIONS_SUCCESS, ASSIGNMENT_CYCLE_POST_POSITIONS_TITLE));
           dispatch(cycleManagementUpdateCycleSuccess(true));
         });
       })
@@ -260,7 +249,6 @@ export function cycleManagementPostOpenPositions(id) {
       });
   };
 }
-
 
 // ================ Cycle Management: Delete Cycle ================
 
@@ -286,12 +274,13 @@ export function cycleManagementDeleteCycle(data) {
       })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
-            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
+          dispatch(toastSuccess(
+            ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE,
+          ));
           dispatch(cycleManagementDeleteCycleSuccess(true));
         });
-      },
-      ).catch((err) => {
+      }).catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
             dispatch(
@@ -305,7 +294,6 @@ export function cycleManagementDeleteCycle(data) {
       });
   };
 }
-
 
 // ================ Cycle Management: Merge Cycle ================
 
@@ -331,12 +319,13 @@ export function cycleManagementMergeCycle(data) {
       })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(ASSIGNMENT_CYCLE_MERGE_SUCCESS,
-            ASSIGNMENT_CYCLE_MERGE_SUCCESS_TITLE));
+          dispatch(toastSuccess(
+            ASSIGNMENT_CYCLE_MERGE_SUCCESS,
+            ASSIGNMENT_CYCLE_MERGE_SUCCESS_TITLE,
+          ));
           dispatch(cycleManagementMergeCycleSuccess(true));
         });
-      },
-      ).catch((err) => {
+      }).catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
             dispatch(
@@ -350,7 +339,6 @@ export function cycleManagementMergeCycle(data) {
       });
   };
 }
-
 
 // ================ Cycle Classifications: Get Classifications ================
 
@@ -397,7 +385,6 @@ export function cycleClassificationsFetchData() {
   };
 }
 
-
 // ================ Cycle Classifications: Edit Classifications ================
 
 let cancelCycleClassificationsEdit;
@@ -421,24 +408,19 @@ export function cycleClassificationsEditCycle(data) {
       })
       .then(() => {
         batch(() => {
-          dispatch(toastSuccess(
-            EDIT_CYCLE_CLASSIFICATIONS_SUCCESS, EDIT_CYCLE_CLASSIFICATIONS_SUCCESS_TITLE,
-          ));
+          dispatch(toastSuccess(EDIT_CYCLE_CLASSIFICATIONS_SUCCESS, EDIT_CYCLE_CLASSIFICATIONS_SUCCESS_TITLE));
           dispatch(cycleClassificationsEditCycleSuccess(true));
         });
       })
       .catch((err) => {
         if (err?.message !== 'cancel') {
           batch(() => {
-            dispatch(toastError(
-              EDIT_CYCLE_CLASSIFICATIONS_ERROR, EDIT_CYCLE_CLASSIFICATIONS_ERROR_TITLE,
-            ));
+            dispatch(toastError(EDIT_CYCLE_CLASSIFICATIONS_ERROR, EDIT_CYCLE_CLASSIFICATIONS_ERROR_TITLE));
           });
         }
       });
   };
 }
-
 
 // ================ Cycle Positions: Filters ================
 
@@ -462,10 +444,22 @@ export function cyclePositionFiltersFetchData() {
     batch(() => {
       dispatch(cyclePositionFiltersLoading(true));
     });
-    api().get('/fsbid/assignment_cycles/positions/filters/', {
-      cancelToken: new CancelToken((c) => { cancelCPfiltersData = c; }),
-    })
-      .then(({ data }) => {
+    const endpoints = [
+      '/fsbid/assignment_cycles/positions/filters/',
+      '/fsbid/reference/languages/',
+    ];
+    const requests = endpoints.map(endpoint => api().get(endpoint));
+
+    Promise.all(requests)
+      .then((response) => {
+        const data = {
+          statusFilter: response[0]?.data?.statusFilters ?? [],
+          orgFilter: response[0]?.data?.orgFilters ?? [],
+          skillsFilter: response[0]?.data?.skillsFilters ?? [],
+          gradeFilter: response[0]?.data?.gradeFilters ?? [],
+          bureauFilter: response[0]?.data?.bureauFilters ?? [],
+          languageFilter: response[1]?.data ?? [],
+        };
         batch(() => {
           dispatch(cyclePositionFiltersSuccess(data));
           dispatch(cyclePositionFiltersLoading(false));
@@ -482,7 +476,6 @@ export function cyclePositionFiltersFetchData() {
   };
 }
 
-
 // ================ Cycle Positions: User Filter Selections ================
 
 export function cyclePositionSearchSelectionsSaveSuccess(result) {
@@ -494,7 +487,6 @@ export function cyclePositionSearchSelectionsSaveSuccess(result) {
 export function saveCyclePositionSearchSelections(queryObject) {
   return (dispatch) => dispatch(cyclePositionSearchSelectionsSaveSuccess(queryObject));
 }
-
 
 // ================ Cycle Positions: Get Positions ================
 
@@ -550,7 +542,6 @@ export function cyclePositionSearchFetchData(query = {}) {
   };
 }
 
-
 // ================ Cycle Positions: Get Single Position ================
 
 let cancelCPremove;
@@ -601,7 +592,6 @@ export function cyclePositionGetPosition(id) {
   };
 }
 
-
 // ================ Cycle Positions: Edit Position ================
 
 let cancelCPedit;
@@ -626,7 +616,8 @@ export function cyclePositionEdit(data) {
       .then(() => {
         batch(() => {
           dispatch(
-            toastSuccess(EDIT_CYCLE_POSITION_SUCCESS, EDIT_CYCLE_POSITION_SUCCESS_TITLE));
+            toastSuccess(EDIT_CYCLE_POSITION_SUCCESS, EDIT_CYCLE_POSITION_SUCCESS_TITLE),
+          );
           dispatch(cyclePositionEditSuccess(true));
         });
       })
