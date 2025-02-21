@@ -17,10 +17,15 @@ export function panelRemarksFetchDataLoading(state = false, action) {
   }
 }
 
-export function panelRemarks(state = [], action) {
+const initialState = {
+  results: [],
+};
+export function panelRemarks(state = initialState, action) {
   switch (action.type) {
     case 'PANEL_REMARKS_FETCH_SUCCESS':
-      return action.data;
+      return {
+        results: action.results,
+      };
     default:
       return state;
   }

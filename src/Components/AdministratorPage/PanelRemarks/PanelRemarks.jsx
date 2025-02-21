@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
@@ -9,44 +8,17 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import { fetchPanelRemarksCategoriesData } from 'actions/panelRemarks';
+import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import TotalResults from 'Components/TotalResults';
 import { isEmpty } from 'lodash';
 
-// function to generate test data for the Panel Remarks table
-// this will be deleted in the future and replaced with actual data from API calls.
-// For now, this is used to test the table and showcase what it will look like with real data.
-const generatePanelRemarksTestData = (count) => {
-  const data = [];
-  const categories = ['Bid List', 'Tandem', 'Training', 'SIP Remarks'];
-  // eslint-disable-next-line no-loops/no-loops
-  for (let i = 1; i <= count; i += 1) {
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    data.push({
-      Category: randomCategory,
-      Description: `Description ${i}`,
-      ShortDesc: `Short Desc ${i}`,
-      Order: `Order ${i}`,
-      Active: i % 3 === 0 ? 'N' : 'Y',
-      Excl: i % 2 === 0 ? 'N' : 'Y',
-    });
-  }
-  return data;
-};
 
-// Temporary test data for the Panel Remarks table.
-// Will be replaced with actual data from the API calls later.
-const panel_remarks_test_data = generatePanelRemarksTestData(55);
-
-const onEditRow = (params) => {
-  // Logic to edit the row
-  console.log('Editing row:', params.data);
-};
-
-const PanelRemarksTable = () => {
+const PanelRemarks = () => {
   const dispatch = useDispatch();
+  // getting data from panelRemarks reducer panelRemarks to get data:
+  const panelRemarksData = useSelector(state => state.panelRemarks.results);
 
   const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
   const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
@@ -61,6 +33,12 @@ const PanelRemarksTable = () => {
   const isLoading = categoryFilterIsLoading;
   const [clearFilters, setClearFilters] = useState(false);
   const [setPrintView] = useState(false);
+
+  const onEditRow = (params) => {
+    // Logic to edit the row
+    // eslint-disable-next-line no-console
+    console.log('Editing row:', params.data);
+  };
 
   const [headers] = useState([
     { field: 'Category', headerName: 'Category', flex: 1 },
@@ -83,13 +61,32 @@ const PanelRemarksTable = () => {
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
-  // used temporarily to test the table and add dummy data defined above
+  const mapObjectToRow = (obj) => {
+    const row = {
+      rmrkseqnum: obj.rmrkseqnum,
+      Category: obj.category,
+      Description: obj.rmrktext,
+      ShortDesc: obj.rmrkshortdesctext,
+      Order: obj.rmrkordernum,
+      Active: obj.rmrkactiveind,
+      Excl: obj.rmrkmutuallyexclusiveind,
+    };
+
+    return row;
+  };
+
   useEffect(() => {
+    dispatch(fetchPanelRemarksData());
     dispatch(fetchPanelRemarksCategoriesData());
-    if (panel_remarks_test_data.length > 0) {
-      setPanelRemarksRows(panel_remarks_test_data);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (panelRemarksData && panelRemarksData.length > 0) {
+      const mappedRows = panelRemarksData.map(mapObjectToRow);
+      setPanelRemarksRows(mappedRows);
     }
-  }, []);
+  }, [panelRemarksData]);
+
 
   const fetchAndSet = () => {
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
@@ -97,6 +94,7 @@ const PanelRemarksTable = () => {
     } else {
       setClearFilters(true);
     }
+    dispatch(fetchPanelRemarksData());
   };
 
   useEffect(() => {
@@ -217,7 +215,7 @@ const PanelRemarksTable = () => {
               getOverlay() ||
               <>
                 <div className="usa-grid-full pr-table-container">
-                  <div className="pr-table ag-theme-alpine" style={{ width: '100%' }}>
+                  <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
                     <TabbedCard
                       tabHeaders={['Panel Remarks', 'Remarks Categories']}
                       tabs={[{
@@ -244,4 +242,4 @@ const PanelRemarksTable = () => {
   );
 };
 
-export default PanelRemarksTable;
+export default PanelRemarks;

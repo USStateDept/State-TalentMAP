@@ -24,9 +24,7 @@ export function panelRemarksFetchDataLoading(bool) {
 export function panelRemarksFetchDataSuccess(results) {
   return {
     type: 'PANEL_REMARKS_FETCH_SUCCESS',
-    data: {
-      results,
-    },
+    results,
   };
 }
 
@@ -45,8 +43,7 @@ export function fetchPanelRemarksData(query = {}) {
     })
       .then(({ data }) => {
         batch(() => {
-          const results = data.results;
-          dispatch(panelRemarksFetchDataSuccess(results));
+          dispatch(panelRemarksFetchDataSuccess(data));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
         });
