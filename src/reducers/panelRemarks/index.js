@@ -8,8 +8,8 @@ import {
 } from './panelRemarks';
 
 export default {
-  panelRemarksFetchErrored: panelRemarksFetchDataErrored,
-  panelRemarksFetchLoading: panelRemarksFetchDataLoading,
+  panelRemarksFetchDataErrored,
+  panelRemarksFetchDataLoading,
   panelRemarks,
   panelRemarksCategoriesFetchDataErrored,
   panelRemarksCategoriesFetchDataLoading,
