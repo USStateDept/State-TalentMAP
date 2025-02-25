@@ -38,11 +38,11 @@ const PanelRemarks = () => {
   // eslint-disable-next-line no-unused-vars
   const [showPrintView, setShowPrintView] = useState(false);
 
-  const openForm = (type, params) => {
+  const openForm = (type, data) => {
     setMode(type);
     setShowPanelRemarkForm(true);
     if (type === 'edit') {
-      console.log(params);
+      console.log(data);
     }
   };
 
@@ -86,11 +86,11 @@ const PanelRemarks = () => {
 
   const newRemarkButton = () => (
     <div className="button-container">
-      <InteractiveElement className="pr-button" onClick={() => openForm('create')} disabled={isLoading}>
+      <InteractiveElement className="pr-button with-icon" onClick={() => openForm('create')} disabled={isLoading}>
         <FontAwesomeIcon icon={faInbox} />
         New Remark
       </InteractiveElement>
-      <InteractiveElement className="pr-button" onClick={() => setShowPrintView(true)} disabled={isLoading}>
+      <InteractiveElement className="pr-button with-icon" onClick={() => setShowPrintView(true)} disabled={isLoading}>
         <FontAwesomeIcon icon={faPrint} />
         Print
       </InteractiveElement>
@@ -180,18 +180,16 @@ const PanelRemarks = () => {
             {
               getOverlay() ||
               <>
-                <div className="usa-grid-full pr-table-container">
-                  <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
-                    <TabbedCard
-                      tabs={[{
-                        text: 'Panel Remarks',
-                        value: 'REMARKS',
-                        content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} onClose={() => closeForm} /> :
-                          <PanelRemarksTable panelRemarks={panelRemarksData} openForm={() => openForm} />,
-                      }]}
-                      customComponent={newRemarkButton()}
-                    />
-                  </div>
+                <div className="usa-grid-full pr-content-container">
+                  <TabbedCard
+                    tabs={[{
+                      text: 'Panel Remarks',
+                      value: 'REMARKS',
+                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} onClose={() => closeForm} /> :
+                        <PanelRemarksTable panelRemarks={panelRemarksData} openForm={openForm} />,
+                    }]}
+                    customComponent={newRemarkButton()}
+                  />
                 </div>
               </>
             }

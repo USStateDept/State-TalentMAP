@@ -1,8 +1,8 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AgGridReact } from 'ag-grid-react';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
 
 const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   const gridRef = useRef(null);
@@ -19,13 +19,14 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
     { field: 'Active', headerName: 'Active', flex: 1, editable: true },
     { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1, editable: true },
     {
-      headerName: 'Edit',
       field: 'edit',
-      cellRenderer: (params) => (
-        <button onClick={() => openForm('edit', params)} className="pr-row-edit-icon-button">
-          <FontAwesomeIcon icon={faPen} />
-        </button>
-      ),
+      headerName: 'Edit',
+      cellRenderer: ButtonRenderer,
+      cellRendererParams: {
+        className: 'pr-button',
+        onClick: (remarkData) => { openForm('edit', remarkData); },
+        icon: faPen,
+      },
       flex: 0.5,
     },
   ]);
