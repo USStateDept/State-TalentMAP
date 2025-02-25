@@ -1,9 +1,10 @@
-import ToggleButton from 'Components/ToggleButton';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import { renderSelectionList } from 'utilities';
+import InteractiveElement from 'Components/InteractiveElement';
+import ToggleButton from 'Components/ToggleButton';
 
 
 const PanelRemarksForm = ({ mode, onClose }) => {
@@ -88,7 +89,12 @@ const PanelRemarksForm = ({ mode, onClose }) => {
       </div>
       <div className="usa-grid">
         <div className="usa-width-one-half">
-          <label htmlFor="remarkDescription">Remark Insertion</label>
+          <div className="pr-label-container">
+            <label htmlFor="remarkDescription" className="">Remark Insertion</label>
+            <InteractiveElement type="label" className="pr-insertion-button" onClick={() => {}}>
+              New Insertion
+            </InteractiveElement>
+          </div>
           <TextareaAutosize
             id="remarkInsertion"
             value={insertion}

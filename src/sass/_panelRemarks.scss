@@ -45,6 +45,16 @@
     .pr-form {
         padding-top: 20px;
 
+        .pr-insertion-button {
+            color: $primary-blue;
+            font-size: 14px;
+        }
+
+        .pr-label-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
         .pr-row {
             display: flex;
             align-items: center;
