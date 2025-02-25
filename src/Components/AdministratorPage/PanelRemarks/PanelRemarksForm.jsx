@@ -24,12 +24,9 @@ const PanelRemarksForm = ({ mode, onClose }) => {
   ];
 
   const pickyProps = {
-    numberDisplayed: 2,
-    multiple: true,
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
 
   return (
