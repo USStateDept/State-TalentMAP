@@ -3,19 +3,14 @@ import 'core-js/shim'; // included < Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { get, includes, some } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
 import HrOnlineIFrame from './Components/HrOnlineIFrame';
-import { determineEnv, getAssetPath } from './utilities';
-import { checkFlag } from './flags';
+import { determineEnv } from './utilities';
 
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
-
-const isPersonaAuth = () => checkFlag('flags.persona_auth');
-
 
 export const render = () => {
   ReactDOM.render((
@@ -36,96 +31,88 @@ export const renderIFrame = (env) => {
   ), document.getElementById('hronlineIframe') || document.createElement('div'));
 };
 
-// function to initialize app, capture feature flags in localStorage
-export const init = (config) => {
-  sessionStorage.setItem('config', JSON.stringify(config));
-  const isDev = some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el));
-  // Change certain flags to true if isDev is true
-  if (isDev) {
-    const configCopy = { ...config };
-    configCopy.flags.persona_auth = true;
-    configCopy.flags.settings = true;
-    sessionStorage.removeItem('config');
-    sessionStorage.setItem('config', JSON.stringify(configCopy));
-  }
+export const loadApp = (url, withCredentials, headers) => {
+  axios
+    .get(url, { withCredentials, headers })
+    .then((response) => {
+      sessionStorage.setItem('jwt', response.data);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log('Error setting public jwt', error);
+    }).then(render());
+};
 
+// retrieve static config file, pass to app init
+export const start = async () => {
+  // remove config from sessionStorage to avoid stale data
+  sessionStorage.removeItem('config');
 
+  // Set the environment based on the URL
   const env = determineEnv(window.location.href);
-  const isPublic = includes(window.location.hostname, 'msappproxy');
 
-  const auth = get(config, 'hrAuthUrl');
-  const publicAuth = get(config, 'hrAuthUrlPublic');
+  // Set devMode to true if the environment is localhost
+  const devMode = env === 'localhost';
 
-  // Only pass tmusrname header if localhost or metaphase environment
-  const withCredentials = !isDev;
+  // Set proxyMode to true if the URL includes msappproxy
+  const proxyMode = window.location.href.includes('msappproxy');
 
+  // If running in devMode, set withCredentials to false, otherwise set it to true
+  const withCredentials = !devMode;
+
+  // fetch config.json to get some startup variables
+  const config = ((await axios.get('/config/config.json')).data);
+
+  // Set the api urls from the config file
+  const hrAuthUrl = config.hrAuthUrl;
+  const hrAuthPublicUrl = config.hrAuthPublicUrl;
+
+  // Initialize the request headers
   const headers = {
     Accept: 'application/json',
   };
 
-  // Only needed for local/demo development.
-  if (isPersonaAuth() && isDev) {
+  // if the env is localhost set some flags to true
+  if (devMode) {
+    // eslint-disable-next-line no-console
+    console.log('**** DEVELOPMENT MODE ****');
+    config.flags.persona_auth = true;
+    config.flags.settings = true;
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
+  // Render the loading screen
   renderLoading();
 
-  if (isPublic) {
+  // If the URL includes msappproxy, render the iframe and wait for a message from it.
+  if (proxyMode) {
+    // eslint-disable-next-line no-console
+    console.log('AUTHORIZING IN PROXY MODE');
+
+    // Render the iframe
     renderIFrame(env);
+
+    // Listen for a message from the iframe
     window.addEventListener('message', (e) => {
+      // type and body are the properties of the message
       const { type, body } = e.data;
+
+      // if the message is a shakehand, get the jwt from the hrAuthPublicUrl
       if (type === 'shakehand' && body) {
-        // eslint-disable-next-line no-console
-        console.log('handshake received from iframe');
-        axios
-          .get(publicAuth, { withCredentials, headers })
-          .then((response) => {
-            sessionStorage.setItem('jwt', response.data);
-          })
-          .catch((error) => {
-            // eslint-disable-next-line no-console
-            console.log('Error setting public jwt', error);
-          })
-          .then(render());
+        // Load the app with the jwt
+        loadApp(hrAuthPublicUrl, withCredentials, headers);
       }
     });
   } else {
-    axios
-      .get(auth, { withCredentials, headers })
-      .then((response) => {
-        sessionStorage.setItem('jwt', response.data);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log('Error setting non-public jwt', error);
-      })
-      .then(render());
+    // eslint-disable-next-line no-console
+    console.log('AUTHORIZING IN INTRANET MODE');
+
+    // Load the app with the jwt
+    loadApp(hrAuthUrl, withCredentials, headers);
   }
+
+  // Set the config in sessionStorage so it can be used in the app.
+  sessionStorage.setItem('config', JSON.stringify(config));
 };
 
-// retrieve static config file, pass to app init
-export const getConfig = () => {
-  sessionStorage.removeItem('config');
-
-  // fetch config.json to get API URL
-  axios.get(getAssetPath('/config/config.json'))
-    .then((response) => {
-      const url = get(response, 'data.api_config.baseURL');
-      if (url) {
-        // use baseURL from config.json to form featureflags endpoint
-        axios
-          .get(`${url}/featureflags/`)
-          // use that response if valid
-          .then((response$) => {
-            init(get(response$, 'data', {}));
-          })
-          // otherwise fallback and use the config.json
-          .catch(() => init(get(response, 'data', {})));
-      } else {
-        init(get(response, 'data', {}));
-      }
-    })
-    .catch(() => init({}));
-};
-getConfig();
-
+start();
