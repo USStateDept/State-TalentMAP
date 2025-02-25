@@ -12,25 +12,28 @@ import { determineEnv } from './utilities';
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
 
+// Render the app to the DOM
 export const render = () => {
   ReactDOM.render((
     <App />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
-// Because the JWT request could be slow.
+// Show the loading screen while the app is loading
 export const renderLoading = () => {
   ReactDOM.render((
     <Splash />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
+// Render the iframe
 export const renderIFrame = (env) => {
   ReactDOM.render((
     <HrOnlineIFrame env={env} />
   ), document.getElementById('hronlineIframe') || document.createElement('div'));
 };
 
+// Load the app using the url, withCredentials, and headers
 export const loadApp = (url, withCredentials, headers) => {
   axios
     .get(url, { withCredentials, headers })
@@ -43,8 +46,8 @@ export const loadApp = (url, withCredentials, headers) => {
     }).then(render());
 };
 
-// retrieve static config file, pass to app init
-export const start = async () => {
+// Initialize the app
+export const init = async () => {
   // remove config from sessionStorage to avoid stale data
   sessionStorage.removeItem('config');
 
@@ -81,6 +84,12 @@ export const start = async () => {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
+  // Set the config in sessionStorage so it can be used in the app.
+  sessionStorage.setItem('config', JSON.stringify(config));
+
+  // eslint-disable-next-line no-console
+  console.log('Config stored in sessionStorage');
+
   // Render the loading screen
   renderLoading();
 
@@ -110,9 +119,6 @@ export const start = async () => {
     // Load the app with the jwt
     loadApp(hrAuthUrl, withCredentials, headers);
   }
-
-  // Set the config in sessionStorage so it can be used in the app.
-  sessionStorage.setItem('config', JSON.stringify(config));
 };
 
-start();
+init();

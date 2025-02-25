@@ -52,28 +52,19 @@
   </form>
 </div>
 <script>
-  // Function to fetch the config file
-  async function getConfig(){
-    try {
-      const response = await fetch('/config/config.json');
-      // if the response is ok, parse the JSON
-      if (response.ok) {
-        return await response.json();
-      } else { // if the response is not ok, log an error
-        console.error('Failed to fetch config:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error fetching config:', error);
-    }
-  }
-
+  const configPath = '/config/config.json';
+ 
   // Function to handle login
   async function login(username, password) {
     console.log('Logging in as:', username);
 
     // Fetch the config
-    const config = await getConfig();
     try {
+      // Fetch the config file
+      console.log('Fetching config from...');
+      const response = await fetch(configPath);
+      config = await response.json();
+
       // Make a POST request to the token endpoint
       const tokenResponse = await fetch(config.api_config.baseURL + "/accounts/token/", {
         method: 'POST',
