@@ -40,5 +40,26 @@
 
     .pr-form {
         padding-top: 20px;
+
+        .pr-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .pr-toggle-container {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            gap: 10px;
+        }
+
+        input {
+            height: 28px;
+            font-size: 16px;
+        }
+
+        textarea {
+            font-size: 16px;
+        }
     }
 }
