@@ -85,16 +85,19 @@ const PanelRemarks = () => {
   };
 
   const newRemarkButton = () => (
-    <div className="button-container">
-      <InteractiveElement className="pr-button with-icon" onClick={() => openForm('create')} disabled={isLoading}>
-        <FontAwesomeIcon icon={faInbox} />
-        New Remark
-      </InteractiveElement>
-      <InteractiveElement className="pr-button with-icon" onClick={() => setShowPrintView(true)} disabled={isLoading}>
-        <FontAwesomeIcon icon={faPrint} />
-        Print
-      </InteractiveElement>
-    </div>
+    // hide buttons when looking at the form
+    !showPanelRemarkForm ? (
+      <div className="button-container">
+        <InteractiveElement className="pr-button with-icon" onClick={() => openForm('create')} disabled={isLoading}>
+          <FontAwesomeIcon icon={faInbox} />
+          New Remark
+        </InteractiveElement>
+        <InteractiveElement className="pr-button with-icon" onClick={() => setShowPrintView(true)} disabled={isLoading}>
+          <FontAwesomeIcon icon={faPrint} />
+          Print
+        </InteractiveElement>
+      </div>
+    ) : null
   );
 
   const pickyProps = {
