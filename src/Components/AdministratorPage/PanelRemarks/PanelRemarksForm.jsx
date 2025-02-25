@@ -33,7 +33,7 @@ const PanelRemarksForm = ({ mode, onClose }) => {
   };
 
   return (
-    <div className="pr-form-container">
+    <div className="pr-form">
       <div className="usa-grid">
         <label htmlFor="remarkDescription">Remark Description</label>
         <TextareaAutosize

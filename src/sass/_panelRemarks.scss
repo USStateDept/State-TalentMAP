@@ -22,7 +22,9 @@
         }
     }
 
-    .pr-table{
+    .pr-table {
+        padding-top: 20px;
+
         // AG-Grid
         .ag-header-cell-label {
             white-space: normal !important;
@@ -34,5 +36,9 @@
             font-size: 12px;
             display: initial;
         }
+    }
+
+    .pr-form {
+        padding-top: 20px;
     }
 }

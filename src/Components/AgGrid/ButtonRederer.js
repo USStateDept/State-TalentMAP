@@ -15,7 +15,7 @@ const ButtonRenderer = (props) => {
 
 ButtonRenderer.propTypes = {
   data: PropTypes.shape({}),
-  icon: PropTypes.element,
+  icon: PropTypes.shape({}),
   label: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   className: PropTypes.string,
@@ -23,7 +23,7 @@ ButtonRenderer.propTypes = {
 
 ButtonRenderer.defaultProps = {
   data: {},
-  icon: null,
+  icon: {},
   label: '',
   className: '',
 };
