@@ -24,7 +24,6 @@ import ManageEntryLevel from './ManageEntryLevel/ManageEntryLevel';
 import JobCategories from './JobCategories/JobCategories';
 import OrgStats from './OrgStats/OrgStats';
 import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
-import PanelRemarkForm from './PanelRemarks/PanelRemarkForm';
 
 const AdministratorPage = (props) => {
   const {
@@ -84,7 +83,6 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/cyclejobcategories/" render={() => <CycleJobCategories />} />
         <Route path="/profile/administrator/manageentrylevel/" render={() => <ManageEntryLevel />} />
         <Route path="/profile/administrator/jobcategories/" render={() => <JobCategories />} />
-        <Route path="/profile/administrator/panelremarks/:mode/:id?" render={(prFormProps) => <PanelRemarkForm {...prFormProps} />} />
         <Route path="/profile/administrator/panelremarks/" render={() => <PanelRemarks />} />
         <Route path="/profile/administrator/orgstats" render={() => <OrgStats />} />
         <Route path="/profile/administrator/biddingtool/:id" render={() => <BiddingTool />} />
