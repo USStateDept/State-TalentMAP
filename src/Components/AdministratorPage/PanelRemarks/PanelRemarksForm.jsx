@@ -14,7 +14,7 @@ const PanelRemarksForm = ({ mode, onClose }) => {
   const [active, setActive] = useState(false);
   const [mutuallyExcl, setMutuallyExcl] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [insertion, setInsertion] = useState('');
+  const [insertions, setInsertions] = useState(['']);
 
   // temporary data for category filter
   const categoryFilter = [
@@ -23,6 +23,16 @@ const PanelRemarksForm = ({ mode, onClose }) => {
     { rccode: '3', rcdesctext: 'Category 3' },
     { rccode: '4', rcdesctext: 'Category 4' },
   ];
+
+  const handleNewInsertion = () => {
+    setInsertions([...insertions, '']);
+  };
+
+  const handleInsertionChange = (index, value) => {
+    const newInsertions = [...insertions];
+    newInsertions[index] = value;
+    setInsertions(newInsertions);
+  };
 
   const pickyProps = {
     includeFilter: true,
@@ -91,22 +101,27 @@ const PanelRemarksForm = ({ mode, onClose }) => {
         <div className="usa-width-one-half">
           <div className="pr-label-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
-            <InteractiveElement type="label" className="pr-insertion-button" onClick={() => {}}>
+            <InteractiveElement type="label" className="pr-insertion-button" onClick={handleNewInsertion}>
               New Insertion
             </InteractiveElement>
           </div>
-          <TextareaAutosize
-            id="remarkInsertion"
-            value={insertion}
-            onChange={(e) => setInsertion(e.target.value)}
-            minRows={4}
-            maxRows={4}
-            maxLength={500}
-            placeholder="Enter remark insertion"
-          />
-          <div className="pr-word-count">
-            {insertion.length} / 500
-          </div>
+          {insertions.map((insertion, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={`remark-insertion-${index}`} className="remark-insertion">
+              <TextareaAutosize
+                id={`remarkInsertion-${index}`}
+                value={insertion}
+                onChange={(e) => handleInsertionChange(index, e.target.value)}
+                minRows={4}
+                maxRows={4}
+                maxLength={500}
+                placeholder="Enter remark insertion"
+              />
+              <div className="pr-word-count">
+                {insertion.length} / 500
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="usa-grid">
