@@ -13,6 +13,7 @@ import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import TotalResults from 'Components/TotalResults';
 import { isEmpty } from 'lodash';
+import { rm } from 'fs';
 
 
 const PanelRemarks = () => {
@@ -61,6 +62,10 @@ const PanelRemarks = () => {
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
+  // Mapping the object to the row
+  // The following keys are used to map the object to the row but also contains other keys
+  // that are not used in display but will be used in the edit or in future features
+  // Should other keys be repeated so they can be used with their original key name?
   const mapObjectToRow = (obj) => {
     const row = {
       rmrkseqnum: obj.rmrkseqnum,
@@ -70,6 +75,12 @@ const PanelRemarks = () => {
       Order: obj.rmrkordernum,
       Active: obj.rmrkactiveind,
       Excl: obj.rmrkmutuallyexclusiveind,
+      rmrkrccode: obj.rmrkrccode,
+      rmrkcreatedate: obj.rmrkcreatedate,
+      rmrkcreateid: obj.rmrkcreateid,
+      rmrkupdatedate: obj.rmrkupdatedate,
+      rmrkupdateid: obj.rmrkupdateid,
+      RemarkInserts: obj.RemarkInserts,
     };
 
     return row;
