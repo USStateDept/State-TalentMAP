@@ -65,7 +65,6 @@ const PanelRemarks = () => {
   // Mapping the object to the row
   // The following keys are used to map the object to the row but also contains other keys
   // that are not used in display but will be used in the edit or in future features
-  // Should other keys be repeated so they can be used with their original key name?
   const mapObjectToRow = (obj) => {
     const row = {
       rmrkseqnum: obj.rmrkseqnum,
