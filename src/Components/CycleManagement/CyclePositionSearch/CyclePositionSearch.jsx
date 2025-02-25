@@ -177,7 +177,6 @@ const CyclePositionSearch = ({ location, viewType }) => {
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
 
   return (
