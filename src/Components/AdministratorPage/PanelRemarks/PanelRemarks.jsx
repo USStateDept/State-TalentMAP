@@ -139,22 +139,20 @@ const PanelRemarks = () => {
                 }
               </div>            </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
-              <div className="usa-grid-full">
-                <div className="filter-div">
-                  <div className="label">Category:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Category(s)"
-                    value={selectedCategories}
-                    options={categoryFilter}
-                    onChange={setSelectedCategories}
-                    valueKey="rccode"
-                    labelKey="rcdesctext"
-                    disabled={categoryFilterIsLoading || categoryFilterHasErrored}
-                  />
-                </div>
+              <div className="filter-div">
+                <div className="label">Category:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Category(s)"
+                  value={selectedCategories}
+                  options={categoryFilter}
+                  onChange={setSelectedCategories}
+                  valueKey="rccode"
+                  labelKey="rcdesctext"
+                  disabled={categoryFilterIsLoading || categoryFilterHasErrored}
+                />
               </div>
-              <div className="usa-grid-full">
+              <div className="pr-toggle-filter">
                 <div className="filter-div">
                   <ToggleButton
                     labelTextRight="Active"
@@ -163,8 +161,6 @@ const PanelRemarks = () => {
                     onColor="#0071BC"
                   />
                 </div>
-              </div>
-              <div className="usa-grid-full">
                 <div className="filter-div">
                   <ToggleButton
                     labelTextRight="Mutually Exclusive"
