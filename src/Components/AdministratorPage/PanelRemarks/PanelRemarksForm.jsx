@@ -7,7 +7,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import ToggleButton from 'Components/ToggleButton';
 
 
-const PanelRemarksForm = ({ mode, onClose }) => {
+const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [description, setDescription] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [orderNum, setOrderNum] = useState('');
@@ -15,14 +15,6 @@ const PanelRemarksForm = ({ mode, onClose }) => {
   const [mutuallyExcl, setMutuallyExcl] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [insertions, setInsertions] = useState(['']);
-
-  // temporary data for category filter
-  const categoryFilter = [
-    { rccode: '1', rcdesctext: 'Category 1' },
-    { rccode: '2', rcdesctext: 'Category 2' },
-    { rccode: '3', rcdesctext: 'Category 3' },
-    { rccode: '4', rcdesctext: 'Category 4' },
-  ];
 
   const handleNewInsertion = () => {
     setInsertions([...insertions, '']);
@@ -90,7 +82,7 @@ const PanelRemarksForm = ({ mode, onClose }) => {
           {...pickyProps}
           placeholder="Select Category"
           value={selectedCategories}
-          options={categoryFilter}
+          options={categories}
           onChange={setSelectedCategories}
           valueKey="rccode"
           labelKey="rcdesctext"
@@ -142,6 +134,7 @@ const PanelRemarksForm = ({ mode, onClose }) => {
 
 PanelRemarksForm.propTypes = {
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   remarkData: PropTypes.shape({}),
   onClose: PropTypes.func.isRequired,
 };

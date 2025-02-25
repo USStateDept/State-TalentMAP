@@ -184,7 +184,7 @@ const PanelRemarks = () => {
                     tabs={[{
                       text: 'Panel Remarks',
                       value: 'REMARKS',
-                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} onClose={() => closeForm} /> :
+                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} onClose={() => closeForm} /> :
                         <PanelRemarksTable panelRemarks={panelRemarksData} openForm={openForm} />,
                     }]}
                     customComponent={newRemarkButton()}
