@@ -32,18 +32,20 @@ const PanelRemarksForm = ({ mode, onClose }) => {
   return (
     <div className="pr-form">
       <div className="usa-grid">
-        <label htmlFor="remarkDescription">Remark Description</label>
-        <TextareaAutosize
-          id="remarkDescription"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          minRows={4}
-          maxRows={4}
-          maxLength={500}
-          placeholder="Enter remark description"
-        />
-        <div className="word-count">
-          {description.length} / 500
+        <div className="usa-width-one-half">
+          <label htmlFor="remarkDescription">Remark Description</label>
+          <TextareaAutosize
+            id="remarkDescription"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            minRows={4}
+            maxRows={4}
+            maxLength={500}
+            placeholder="Enter remark description"
+          />
+          <div className="pr-word-count">
+            {description.length} / 500
+          </div>
         </div>
       </div>
       <div className="usa-grid pr-row">
@@ -56,21 +58,18 @@ const PanelRemarksForm = ({ mode, onClose }) => {
           <input id="remarkOrder" type="text" value={orderNum} onChange={(e) => setOrderNum(e.target.value)} />
         </div>
         <div className="usa-grid-full pr-toggle-container">
-          <div className="toggle">
-            <ToggleButton
-              labelTextRight="Active"
-              onChange={() => setActive(!active)}
-              checked={active}
-              onColor="#0071BC"
-            />        </div>
-          <div className="toggle">
-            <ToggleButton
-              labelTextRight="Mutually Exclusive"
-              onChange={() => setMutuallyExcl(!mutuallyExcl)}
-              checked={mutuallyExcl}
-              onColor="#0071BC"
-            />
-          </div>
+          <ToggleButton
+            labelTextRight="Active"
+            onChange={() => setActive(!active)}
+            checked={active}
+            onColor="#0071BC"
+          />
+          <ToggleButton
+            labelTextRight="Mutually Exclusive"
+            onChange={() => setMutuallyExcl(!mutuallyExcl)}
+            checked={mutuallyExcl}
+            onColor="#0071BC"
+          />
         </div>
       </div>
       <div className="usa-grid">
@@ -88,19 +87,29 @@ const PanelRemarksForm = ({ mode, onClose }) => {
         />
       </div>
       <div className="usa-grid">
-        <label htmlFor="remarkDescription">Remark Insertion</label>
-        <TextareaAutosize
-          id="remarkInsertion"
-          value={insertion}
-          onChange={(e) => setInsertion(e.target.value)}
-          minRows={4}
-          maxRows={4}
-          maxLength={500}
-          placeholder="Enter remark insertion"
-        />
-        <div className="word-count">
-          {insertion.length} / 500
+        <div className="usa-width-one-half">
+          <label htmlFor="remarkDescription">Remark Insertion</label>
+          <TextareaAutosize
+            id="remarkInsertion"
+            value={insertion}
+            onChange={(e) => setInsertion(e.target.value)}
+            minRows={4}
+            maxRows={4}
+            maxLength={500}
+            placeholder="Enter remark insertion"
+          />
+          <div className="pr-word-count">
+            {insertion.length} / 500
+          </div>
         </div>
+      </div>
+      <div className="usa-grid">
+        <ToggleButton
+          labelTextRight="Role Restriction"
+          onChange={() => setActive(!active)}
+          checked={active}
+          onColor="#0071BC"
+        />
       </div>
       <div className="usa-grid button-container" style={{ display: 'flex', justifyContent: 'end' }}>
         <button type="button" className="usa-button-secondary" onClick={onClose()} style={{ margin: '5px' }}>Cancel</button>

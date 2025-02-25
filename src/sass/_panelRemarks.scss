@@ -52,9 +52,15 @@
 
         .pr-toggle-container {
             display: flex;
-            align-items: center;
+            align-items: start;
             margin: 0;
             gap: 10px;
+        }
+
+        .pr-word-count {
+            display: flex;
+            justify-content: end;
+            font-size: 14px;
         }
 
         input {
