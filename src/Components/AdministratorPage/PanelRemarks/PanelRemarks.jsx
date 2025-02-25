@@ -13,7 +13,6 @@ import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import TotalResults from 'Components/TotalResults';
 import { isEmpty } from 'lodash';
-import { rm } from 'fs';
 
 
 const PanelRemarks = () => {
