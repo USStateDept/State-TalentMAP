@@ -19,6 +19,20 @@
         gap: 10px;
     }
 
+    .button-container {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 100%;
+    
+        .add-pr-button {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: $primary-blue;
+        }
+    }
+
     .pr-table{
         // AG-Grid
         .ag-header-cell-label {
@@ -91,15 +105,15 @@
         cursor: pointer;
         padding: 0;
         outline: inherit;
-      }
+    }
 
-      .bold-text {
+    .bold-text {
         font-weight: bold;
-      }
+    }
 
-      .pr-row-edit-icon-button {
+    .pr-row-edit-icon-button {
         cursor: pointer;
         background-color: transparent;
         color: #0071BC;
-      }
+    }
 }

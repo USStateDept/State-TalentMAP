@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faInbox, faPen, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Picky } from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
@@ -13,6 +13,7 @@ import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import TotalResults from 'Components/TotalResults';
 import { isEmpty } from 'lodash';
+import { Link } from 'react-router-dom';
 
 
 const PanelRemarks = () => {
@@ -114,6 +115,15 @@ const PanelRemarks = () => {
     textSearchRef.current.clearText();
     setClearFilters(false);
   };
+
+  const newRemarkButton = () => (
+    <div className="button-container">
+      <Link className="add-pr-button" to="/profile/administrator/panelremarks/create" disabled={isLoading}>
+        <FontAwesomeIcon icon={faInbox} />
+        New Remark
+      </Link>
+    </div>
+  );
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -217,7 +227,6 @@ const PanelRemarks = () => {
                 <div className="usa-grid-full pr-table-container">
                   <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
                     <TabbedCard
-                      tabHeaders={['Panel Remarks', 'Remarks Categories']}
                       tabs={[{
                         text: 'Panel Remarks',
                         value: 'REMARKS',
@@ -229,8 +238,8 @@ const PanelRemarks = () => {
                           paginationPageSize={10}
                           singleClickEdit
                         />,
-                      },
-                      ]}
+                      }]}
+                      customComponent={newRemarkButton()}
                     />
                   </div>
                 </div>
