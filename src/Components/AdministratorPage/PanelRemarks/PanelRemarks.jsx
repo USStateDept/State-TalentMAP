@@ -61,6 +61,9 @@ const PanelRemarks = () => {
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
+  // Mapping the object to the row
+  // The following keys are used to map the object to the row but also contains other keys
+  // that are not used in display but will be used in the edit or in future features
   const mapObjectToRow = (obj) => {
     const row = {
       rmrkseqnum: obj.rmrkseqnum,
@@ -70,6 +73,12 @@ const PanelRemarks = () => {
       Order: obj.rmrkordernum,
       Active: obj.rmrkactiveind,
       Excl: obj.rmrkmutuallyexclusiveind,
+      rmrkrccode: obj.rmrkrccode,
+      rmrkcreatedate: obj.rmrkcreatedate,
+      rmrkcreateid: obj.rmrkcreateid,
+      rmrkupdatedate: obj.rmrkupdatedate,
+      rmrkupdateid: obj.rmrkupdateid,
+      RemarkInserts: obj.RemarkInserts,
     };
 
     return row;
