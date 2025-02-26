@@ -86,7 +86,6 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           onChange={setSelectedCategories}
           valueKey="rccode"
           labelKey="rcdesctext"
-        //   disabled={categoryFilterIsLoading || categoryFilterHasErrored}
         />
       </div>
       <div className="usa-grid">
