@@ -133,6 +133,8 @@ const AgendaItemMaintenancePane = (props) => {
   const modifiedByFirst = agendaItem?.updaters?.first_name || '';
   const modifiedByLast = agendaItem?.updaters?.last_name ? `${agendaItem.updaters.last_name},` : '';
   const modifyDate = dateTernary(agendaItem?.modifier_date);
+  const cdoFirst = agendaItem?.person?.cdo?.user?.perpiifirstname || '';
+  const cdoLast = agendaItem?.person?.cdo?.user?.perpiilastname || '';
 
   const legLimit = legCount >= 10;
 
@@ -396,6 +398,9 @@ const AgendaItemMaintenancePane = (props) => {
             <span className="aim-timestamp">
               {`Modified: ${modifiedByLast} ${modifiedByFirst}`}
               <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
+            </span>
+            <span className="aim-timestamp">
+              {`CDO: ${cdoFirst} ${cdoLast}`}
             </span>
           </div>
           <div className="ai-maintenance-header-dd">
