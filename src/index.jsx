@@ -66,7 +66,7 @@ export const init = async () => {
   const env = determineEnv(window.location.href);
 
   // Set devMode to true if the environment is localhost
-  const localDevMode = env === 'localhost';
+  const localDevMode = env.includes('localhost');
   const dosdevMode = env.includes('dev');
   const testMode = env.includes('tst');
 
