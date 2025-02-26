@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AgGridReact } from 'ag-grid-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faInbox, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Picky } from 'react-picky';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
@@ -11,8 +10,10 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
-import TotalResults from 'Components/TotalResults';
 import { isEmpty } from 'lodash';
+import InteractiveElement from 'Components/InteractiveElement';
+import PanelRemarksForm from './PanelRemarksForm';
+import PanelRemarksTable from './PanelRemarksTable';
 
 
 const PanelRemarks = () => {
@@ -24,6 +25,7 @@ const PanelRemarks = () => {
   const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
   const categoryFilter = useSelector(state => state.panelRemarksCategories);
 
+  const [clearFilters, setClearFilters] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [isExcl, setIsExcl] = useState(false);
@@ -31,71 +33,24 @@ const PanelRemarks = () => {
   const textSearchRef = useRef();
 
   const isLoading = categoryFilterIsLoading;
-  const [clearFilters, setClearFilters] = useState(false);
-  const [setPrintView] = useState(false);
+  const [mode, setMode] = useState('create');
+  const [editRemarkData, setEditRemarkData] = useState({});
+  const [showPanelRemarkForm, setShowPanelRemarkForm] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [showPrintView, setShowPrintView] = useState(false);
 
-  const onEditRow = (params) => {
-    // Logic to edit the row
-    // eslint-disable-next-line no-console
-    console.log('Editing row:', params.data);
-  };
-
-  const [headers] = useState([
-    { field: 'Category', headerName: 'Category', flex: 1 },
-    { field: 'Description', headerName: 'Description', flex: 1, editable: true },
-    { field: 'ShortDesc', headerName: 'Short Desc.', flex: 1, editable: true },
-    { field: 'Order', headerName: 'Order', flex: 1, editable: true },
-    { field: 'Active', headerName: 'Active', flex: 1, editable: true },
-    { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1, editable: true },
-    {
-      headerName: 'Edit',
-      field: 'edit',
-      cellRenderer: (params) => (
-        <button onClick={() => onEditRow(params)} className="pr-row-edit-icon-button">
-          <FontAwesomeIcon icon={faPen} />
-        </button>
-      ),
-      flex: 0.5,
-    },
-  ]);
-
-  const [panelRemarksRows, setPanelRemarksRows] = useState([]);
-
-  // Mapping the object to the row
-  // The following keys are used to map the object to the row but also contains other keys
-  // that are not used in display but will be used in the edit or in future features
-  const mapObjectToRow = (obj) => {
-    const row = {
-      rmrkseqnum: obj.rmrkseqnum,
-      Category: obj.category,
-      Description: obj.rmrktext,
-      ShortDesc: obj.rmrkshortdesctext,
-      Order: obj.rmrkordernum,
-      Active: obj.rmrkactiveind,
-      Excl: obj.rmrkmutuallyexclusiveind,
-      rmrkrccode: obj.rmrkrccode,
-      rmrkcreatedate: obj.rmrkcreatedate,
-      rmrkcreateid: obj.rmrkcreateid,
-      rmrkupdatedate: obj.rmrkupdatedate,
-      rmrkupdateid: obj.rmrkupdateid,
-      RemarkInserts: obj.RemarkInserts,
-    };
-
-    return row;
+  const openForm = (type, data) => {
+    setMode(type);
+    setShowPanelRemarkForm(true);
+    if (type === 'edit') {
+      setEditRemarkData(data);
+    }
   };
 
   useEffect(() => {
     dispatch(fetchPanelRemarksData());
     dispatch(fetchPanelRemarksCategoriesData());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (panelRemarksData && panelRemarksData.length > 0) {
-      const mappedRows = panelRemarksData.map(mapObjectToRow);
-      setPanelRemarksRows(mappedRows);
-    }
-  }, [panelRemarksData]);
-
+  }, []);
 
   const fetchAndSet = () => {
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
@@ -115,6 +70,12 @@ const PanelRemarks = () => {
     textSearch,
   ]);
 
+  // Close form
+  const closeForm = () => {
+    fetchAndSet();
+    setShowPanelRemarkForm(false);
+  };
+
   const resetFilters = () => {
     setSelectedCategories([]);
     setIsActive(false);
@@ -123,6 +84,22 @@ const PanelRemarks = () => {
     textSearchRef.current.clearText();
     setClearFilters(false);
   };
+
+  const newRemarkButton = () => (
+    // hide buttons when looking at the form
+    !showPanelRemarkForm ? (
+      <div className="button-container">
+        <InteractiveElement className="pr-button with-icon" onClick={() => openForm('create')} disabled={isLoading}>
+          <FontAwesomeIcon icon={faInbox} />
+          New Remark
+        </InteractiveElement>
+        <InteractiveElement className="pr-button with-icon" onClick={() => setShowPrintView(true)} disabled={isLoading}>
+          <FontAwesomeIcon icon={faPrint} />
+          Print
+        </InteractiveElement>
+      </div>
+    ) : null
+  );
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -166,22 +143,20 @@ const PanelRemarks = () => {
                 }
               </div>            </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
-              <div className="usa-grid-full">
-                <div className="filter-div">
-                  <div className="label">Category:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Category(s)"
-                    value={selectedCategories}
-                    options={categoryFilter}
-                    onChange={setSelectedCategories}
-                    valueKey="rccode"
-                    labelKey="rcdesctext"
-                    disabled={categoryFilterIsLoading || categoryFilterHasErrored}
-                  />
-                </div>
+              <div className="filter-div">
+                <div className="label">Category:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Category(s)"
+                  value={selectedCategories}
+                  options={categoryFilter}
+                  onChange={setSelectedCategories}
+                  valueKey="rccode"
+                  labelKey="rcdesctext"
+                  disabled={categoryFilterIsLoading || categoryFilterHasErrored}
+                />
               </div>
-              <div className="usa-grid-full">
+              <div className="pr-toggle-filter">
                 <div className="filter-div">
                   <ToggleButton
                     labelTextRight="Active"
@@ -190,8 +165,6 @@ const PanelRemarks = () => {
                     onColor="#0071BC"
                   />
                 </div>
-              </div>
-              <div className="usa-grid-full">
                 <div className="filter-div">
                   <ToggleButton
                     labelTextRight="Mutually Exclusive"
@@ -203,45 +176,20 @@ const PanelRemarks = () => {
               </div>
             </div>
           </div>
-          <div className="controls-container results-dropdown">
-            <div>
-              <TotalResults
-                total={100}
-                pageNumber={5}
-                pageSize={5}
-                suffix="Results"
-              />
-            </div>
-            <div className="position-search-controls--right">
-              <div className="position-search-controls--results" />
-              <button className="pr-print-button" onClick={() => setPrintView(true)} disabled={isLoading}>
-                <FontAwesomeIcon icon={faPrint} /> Print
-              </button>
-            </div>
-          </div>
           <div className="usa-width-one-whole position-search--results">
             {
               getOverlay() ||
               <>
-                <div className="usa-grid-full pr-table-container">
-                  <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
-                    <TabbedCard
-                      tabHeaders={['Panel Remarks', 'Remarks Categories']}
-                      tabs={[{
-                        text: 'Panel Remarks',
-                        value: 'REMARKS',
-                        content: <AgGridReact
-                          domLayout="autoHeight"
-                          columnDefs={headers}
-                          rowData={panelRemarksRows}
-                          pagination
-                          paginationPageSize={10}
-                          singleClickEdit
-                        />,
-                      },
-                      ]}
-                    />
-                  </div>
+                <div className="usa-grid-full pr-content-container">
+                  <TabbedCard
+                    tabs={[{
+                      text: 'Panel Remarks',
+                      value: 'REMARKS',
+                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={() => closeForm} /> :
+                        <PanelRemarksTable panelRemarks={panelRemarksData} openForm={openForm} />,
+                    }]}
+                    customComponent={newRemarkButton()}
+                  />
                 </div>
               </>
             }
