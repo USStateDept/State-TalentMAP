@@ -70,6 +70,16 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const [posNumberText, setPosNumberText] = useState('');
   const [clearFilters, setClearFilters] = useState(false);
 
+  const filters = [
+    selectedStatuses,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+    selectedLanguages,
+  ];
+  const noFiltersSelected = filters.flat().length === 0 && posNumberText === '';
+  const atLeastTwoFiltersSelected = filters.filter(f => f.length > 0).length + (posNumberText !== '' ? 1 : 0) >= 2;
+
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const disableSearch = cardsInEditMode.length > 0;
 
@@ -126,14 +136,6 @@ const CyclePositionSearch = ({ location, viewType }) => {
     }
   };
 
-  const noFiltersSelected = [
-    selectedStatuses,
-    selectedOrgs,
-    selectedGrades,
-    selectedSkills,
-    selectedLanguages,
-  ].flat().length === 0 && posNumberText === '';
-
   useEffect(() => {
     setClearFilters(!noFiltersSelected);
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
@@ -153,14 +155,15 @@ const CyclePositionSearch = ({ location, viewType }) => {
     }
   }, [tempPosNumberText]);
 
-  // Overlay for error, info, and loading state
   const noResults = cyclePositions?.length === 0;
+
+  // Overlay for error, info, and loading state
   const getOverlay = () => {
     let overlay;
     if (cyclePositionsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (noFiltersSelected) {
-      overlay = <Alert type="info" title="Select Filter" messages={[{ body: 'Please select at least one distinct filter to search.' }]} />;
+    } else if (noFiltersSelected || !atLeastTwoFiltersSelected) {
+      overlay = <Alert type="info" title="Select Filter" messages={[{ body: 'Please select at least two distinct filters to search.' }]} />;
     } else if (cyclePositionsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
