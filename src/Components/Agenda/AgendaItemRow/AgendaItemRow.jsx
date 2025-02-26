@@ -34,6 +34,8 @@ const AgendaItemRow = props => {
   const createDate = dateTernary(agenda?.creator_date);
   const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
   const updateDate = dateTernary(agenda?.modifier_date);
+  const cdoFirst = agenda?.cdo?.first_name || '';
+  const cdoLast = agenda?.cdo?.last_name || '';
 
   return (
     <>
@@ -120,16 +122,16 @@ const AgendaItemRow = props => {
                   ))
                 }
                 {agenda?.ahtCode &&
-                <RemarksPill
-                  key="hold-remark"
-                  remark={{
-                    text: `
+                  <RemarksPill
+                    key="hold-remark"
+                    remark={{
+                      text: `
                     ${agenda?.ahtDescText} 
                     #${agenda?.aihHoldNum}
                     ${agenda?.aihHoldComment ? ` ${agenda?.aihHoldComment}` : ''}
                     `,
-                  }}
-                />
+                    }}
+                  />
                 }
               </div>
             </div>
@@ -146,6 +148,9 @@ const AgendaItemRow = props => {
                 </span>
                 <span className="date">{updateDate}</span>
               </div>
+              <span className="aim-timestamp">
+                {`CDO: ${cdoFirst} ${cdoLast}`}
+              </span>
             </div>
           </div>
         </div>
