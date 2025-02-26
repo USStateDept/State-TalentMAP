@@ -34,6 +34,7 @@ const PanelRemarks = () => {
 
   const isLoading = categoryFilterIsLoading;
   const [mode, setMode] = useState('create');
+  const [editRemarkData, setEditRemarkData] = useState({});
   const [showPanelRemarkForm, setShowPanelRemarkForm] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [showPrintView, setShowPrintView] = useState(false);
@@ -42,7 +43,7 @@ const PanelRemarks = () => {
     setMode(type);
     setShowPanelRemarkForm(true);
     if (type === 'edit') {
-      console.log(data);
+      setEditRemarkData(data);
     }
   };
 
@@ -184,7 +185,7 @@ const PanelRemarks = () => {
                     tabs={[{
                       text: 'Panel Remarks',
                       value: 'REMARKS',
-                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} onClose={() => closeForm} /> :
+                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={() => closeForm} /> :
                         <PanelRemarksTable panelRemarks={panelRemarksData} openForm={openForm} />,
                     }]}
                     customComponent={newRemarkButton()}

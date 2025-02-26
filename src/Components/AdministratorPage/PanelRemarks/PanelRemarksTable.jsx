@@ -12,12 +12,12 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   }));
 
   const [headers] = useState([
-    { field: 'Category', headerName: 'Category', flex: 1 },
-    { field: 'Description', headerName: 'Description', flex: 1, editable: true },
-    { field: 'ShortDesc', headerName: 'Short Desc.', flex: 1, editable: true },
-    { field: 'Order', headerName: 'Order', flex: 1, editable: true },
-    { field: 'Active', headerName: 'Active', flex: 1, editable: true },
-    { field: 'Excl', headerName: 'Mutually Exclusive', flex: 1, editable: true },
+    { field: 'category', headerName: 'Category', flex: 1 },
+    { field: 'rmrktext', headerName: 'Description', flex: 1, editable: true },
+    { field: 'rmrkshortdesctext', headerName: 'Short Desc.', flex: 1, editable: true },
+    { field: 'rmrkordernum', headerName: 'Order', flex: 1, editable: true },
+    { field: 'rmrkactiveind', headerName: 'Active', flex: 1, editable: true },
+    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', flex: 1, editable: true },
     {
       field: 'edit',
       headerName: 'Edit',
@@ -33,15 +33,16 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
+  // Mapping the object to the row
   const mapObjectToRow = (obj) => {
     const row = {
       rmrkseqnum: obj.rmrkseqnum,
-      Category: obj.category,
-      Description: obj.rmrktext,
-      ShortDesc: obj.rmrkshortdesctext,
-      Order: obj.rmrkordernum,
-      Active: obj.rmrkactiveind,
-      Excl: obj.rmrkmutuallyexclusiveind,
+      category: obj.category,
+      rmrktext: obj.rmrktext,
+      rmrkshortdesctext: obj.rmrkshortdesctext,
+      rmrkordernum: obj.rmrkordernum,
+      rmrkactiveind: obj.rmrkactiveind,
+      rmrkmutuallyexclusiveind: obj.rmrkmutuallyexclusiveind,
       rmrkrccode: obj.rmrkrccode,
       rmrkcreatedate: obj.rmrkcreatedate,
       rmrkcreateid: obj.rmrkcreateid,
@@ -63,6 +64,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   // Edit a remark within table
   const onCellValueChanged = (params) => {
     // Logic for editing a cell
+    // eslint-disable-next-line no-console
     console.log('Cell value changed: ', params);
   };
 
