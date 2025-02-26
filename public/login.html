@@ -52,21 +52,14 @@
   </form>
 </div>
 <script>
-  const configPath = '/config/config.json';
  
   // Function to handle login
   async function login(username, password) {
-    console.log('Logging in as:', username);
-
-    // Fetch the config
     try {
-      // Fetch the config file
-      console.log('Fetching config from...');
-      const response = await fetch(configPath);
-      config = await response.json();
 
+      const apiUrl = sessionStorage.getItem('apiUrl');
       // Make a POST request to the token endpoint
-      const tokenResponse = await fetch(config.api_config.baseURL + "/accounts/token/", {
+      const tokenResponse = await fetch(`${apiUrl}/accounts/token/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -89,15 +82,15 @@
         // Redirect to the token validation page with the token
         window.location.href = '/tokenValidation?tmApiToken=' + data.token;
       } else {
-        console.error('Login failed:', tokenResponse.statusText);
+        throw new Error('Token request failed...');
       }
     } catch (error) {
       console.error('Error during login:', error);
     }
   }
 
+  // Function to handle form submission
   function submitLogin() {
-    console.log('Logging in as:', document.getElementById('username').value);
     login(document.getElementById('username').value, document.getElementById('password').value);
   }
 </script>
