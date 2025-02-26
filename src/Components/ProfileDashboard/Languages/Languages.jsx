@@ -10,8 +10,8 @@ const Languages = props => {
   const { languagesArray, useWrapper, showHeader } = props;
   const languagesArray$ = languagesArray || [];
 
-  const getTestDate = (langObj) => {
-    const testDate = get(langObj, 'test_date') || '';
+  const getTestDate = (langObj, dateType) => {
+    const testDate = get(langObj, dateType) || '';
     return isValid(new Date(testDate)) ? format(new Date(testDate), 'P') : '--/--/----';
   };
 
@@ -30,12 +30,21 @@ const Languages = props => {
                   key={shortid.generate()}
                   title={get(l, 'language') || 'N/A'}
                   content={
-                    <div className="language-details">
-                      {`Speaking: ${get(l, 'speaking_score') || '--'} | Reading: ${get(l, 'reading_score') || '--'}`}
-                      <span>{`Test Date: ${getTestDate(l)}`}</span>
-                    </div>
+                    <>
+                      {/* high test date */}
+                      <div className="language-details">
+                        {`Speaking: ${get(l, 'high_speaking_score') || '--'} | Reading: ${get(l, 'high_reading_score') || '--'}`}
+                        <span>{`High Test Date: ${getTestDate(l, 'high_test_date')}`}</span>
+                      </div>
+                      {/* current test date */}
+                      <div className="language-details">
+                        {`Speaking: ${get(l, 'speaking_score') || '--'} | Reading: ${get(l, 'reading_score') || '--'}`}
+                        <span>{`Current Test Date: ${getTestDate(l, 'test_date')}`}</span>
+                      </div>
+                    </>
                   }
-                /> : <></>
+                />
+                : <></>
             }
           </Fragment>
         ))}
