@@ -42,6 +42,12 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
       Order: obj.rmrkordernum,
       Active: obj.rmrkactiveind,
       Excl: obj.rmrkmutuallyexclusiveind,
+      rmrkrccode: obj.rmrkrccode,
+      rmrkcreatedate: obj.rmrkcreatedate,
+      rmrkcreateid: obj.rmrkcreateid,
+      rmrkupdatedate: obj.rmrkupdatedate,
+      rmrkupdateid: obj.rmrkupdateid,
+      RemarkInserts: obj.RemarkInserts,
     };
 
     return row;
