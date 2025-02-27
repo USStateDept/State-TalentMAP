@@ -18,24 +18,22 @@ import {
   cycleManagementMergeCycleSuccess,
   saveCycleManagementSelections,
 } from 'actions/cycleManagement';
-import { renderSelectionList, userHasPermissions } from 'utilities';
+import { renderSelectionList } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 import NewAssignmentCycle from './NewAssignmentCycle';
 import MergeAssignmentCycles from './MergeAssignmentCycles';
 import { history } from '../../store';
 import SelectedCardsBanner from './SelectedCardsBanner';
 
-const CycleManagement = () => {
+const CycleManagement = ({ viewType }) => {
   const dispatch = useDispatch();
 
   // Redux State
-  const userProfile = useSelector(state => state.userProfile);
   const userSelections = useSelector(state => state.cycleManagementSelections);
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
   const cycleManagementMergeSuccess = useSelector(state => state.cycleManagementMerge);
-  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
@@ -275,21 +273,22 @@ const CycleManagement = () => {
             getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
-                {isSuperUser &&
-                  <div className="cm-heading">
-                    <div className="select-all">
-                      <CheckBox
-                        id="selectAll"
-                        label={selectAll ? 'Deselect All' : 'Select All'}
-                        value={selectAll}
-                        onCheckBoxClick={() => setSelectAll(!selectAll)}
-                        disabled={noFiltersSelected || cycleManagementDataLoading}
-                      />
-                    </div>
-                    <div className="cm-new-merge">
-                      <Link to={cycleClassLink}>
+                <div className="cm-heading">
+                  <div className="select-all">
+                    <CheckBox
+                      id="selectAll"
+                      label={selectAll ? 'Deselect All' : 'Select All'}
+                      value={selectAll}
+                      onCheckBoxClick={() => setSelectAll(!selectAll)}
+                      disabled={noFiltersSelected || cycleManagementDataLoading}
+                    />
+                  </div>
+                  <div className="cm-new-merge">
+                    <Link to={cycleClassLink}>
                       Cycle Date Classifications
-                      </Link>
+                    </Link>
+                    { viewType === 'admin' &&
+                    <>
                       <Link
                         onClick={(e) => {
                           e.preventDefault();
@@ -310,9 +309,10 @@ const CycleManagement = () => {
                         <FA className="fa-solid fa-code-fork" />
                         Merge Assignment Cycles
                       </Link>
-                    </div>
+                    </>
+                    }
                   </div>
-                }
+                </div>
               </div>
               <div className="cm-lower-section">
                 {selectAll || anySelected ? (
@@ -325,7 +325,6 @@ const CycleManagement = () => {
                     key={data.id}
                     ref={el => { cardRefs.current[index] = el; }}
                     {...{ ...data }}
-                    isSuperUser={isSuperUser}
                     selectAll={selectAll}
                     onSelect={handleSelectionChange}
                   />
@@ -345,11 +344,7 @@ const CycleManagement = () => {
 };
 
 CycleManagement.propTypes = {
-  isAO: PropTypes.bool,
-};
-
-CycleManagement.defaultProps = {
-  isAO: false,
+  viewType: PropTypes.string.isRequired,
 };
 
 export default withRouter(CycleManagement);
