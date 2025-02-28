@@ -117,7 +117,12 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           placeholder="Select Category"
           value={rmrkrccode}
           options={categories}
-          onChange={(selected) => setRmrkrccode(selected.map((category) => category.rccode))}
+          onChange={(selected) => {
+            if (Array.isArray(selected) && selected.length > 0) {
+              setRmrkrccode(selected.map((category) => category.rccode));
+            } else {
+              setRmrkrccode([]);
+            }
           valueKey="rccode"
           labelKey="rcdesctext"
         />
