@@ -92,7 +92,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
-          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || '')} />
+          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || 0)} />
         </div>
         <div className="usa-grid-full pr-toggle-container">
           <ToggleButton
