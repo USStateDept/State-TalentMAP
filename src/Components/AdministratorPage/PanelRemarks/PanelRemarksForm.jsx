@@ -14,8 +14,8 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [rmrktext, setRmrktext] = useState('');
   const [rmrkshortdesctext, setRmrkshortdesctext] = useState('');
   const [rmrkordernum, setRmrkordernum] = useState(0);
-  const [active, setActive] = useState(false);
-  const [mutuallyExcl, setMutuallyExcl] = useState(false);
+  const [rmrkactiveind, setRmrkactiveind] = useState(false);
+  const [rmrkmutuallyexclusiveind, setRmrkmutuallyexclusiveind] = useState(false);
   const [roleRestriction, setRoleRestriction] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [insertions, setInsertions] = useState(['']);
@@ -40,21 +40,21 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   // creating the function:
   const handleSubmit = () => {
     const newRemark = {
-      rmrktext,
-      rmrkshortdesctext,
-      rmrkordernum,
-      active,
-      mutuallyExcl,
-      selectedCategories,
-      insertions,
+      rmrktext, // description
+      rmrkshortdesctext, // shortDescription
+      rmrkordernum, // orderNum
+      rmrkactiveind, // active
+      rmrkmutuallyexclusiveind, // mutuallyExcl
+      selectedCategories, // selectedCategories
+      insertions, // insertions
     };
     // console.log(newRemark);
     dispatch(createPanelRemark(newRemark));
     setRmrktext('');
     setRmrkshortdesctext('');
     setRmrkordernum(0);
-    setActive(false);
-    setMutuallyExcl(false);
+    setRmrkactiveind(false);
+    setRmrkmutuallyexclusiveind(false);
     setRoleRestriction(false);
     setSelectedCategories([]);
     setInsertions(['']);
@@ -97,14 +97,14 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
         <div className="usa-grid-full pr-toggle-container">
           <ToggleButton
             labelTextRight="Active"
-            onChange={() => setActive(!active)}
-            checked={active}
+            onChange={() => setRmrkactiveind(!rmrkactiveind)}
+            checked={rmrkactiveind}
             onColor="#0071BC"
           />
           <ToggleButton
             labelTextRight="Mutually Exclusive"
-            onChange={() => setMutuallyExcl(!mutuallyExcl)}
-            checked={mutuallyExcl}
+            onChange={() => setRmrkmutuallyexclusiveind(!rmrkmutuallyexclusiveind)}
+            checked={rmrkmutuallyexclusiveind}
             onColor="#0071BC"
           />
         </div>
@@ -152,7 +152,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
       <div className="usa-grid">
         <ToggleButton
           labelTextRight="Role Restriction"
-          onChange={() => setRoleRestriction(!active)}
+          onChange={() => setRoleRestriction(!roleRestriction)}
           checked={roleRestriction}
           onColor="#0071BC"
         />
