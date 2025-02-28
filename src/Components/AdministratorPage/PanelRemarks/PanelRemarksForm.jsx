@@ -13,7 +13,7 @@ import { createPanelRemark } from 'actions/panelRemarks';
 const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [rmrktext, setRmrktext] = useState('');
   const [rmrkshortdesctext, setRmrkshortdesctext] = useState('');
-  const [orderNum, setOrderNum] = useState(0);
+  const [rmrkordernum, setRmrkordernum] = useState(0);
   const [active, setActive] = useState(false);
   const [mutuallyExcl, setMutuallyExcl] = useState(false);
   const [roleRestriction, setRoleRestriction] = useState(false);
@@ -42,7 +42,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
     const newRemark = {
       rmrktext,
       rmrkshortdesctext,
-      orderNum,
+      rmrkordernum,
       active,
       mutuallyExcl,
       selectedCategories,
@@ -52,7 +52,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
     dispatch(createPanelRemark(newRemark));
     setRmrktext('');
     setRmrkshortdesctext('');
-    setOrderNum('');
+    setRmrkordernum(0);
     setActive(false);
     setMutuallyExcl(false);
     setRoleRestriction(false);
@@ -92,7 +92,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
-          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || 0)} />
+          <input id="remarkOrder" type="number" value={rmrkordernum} onChange={(e) => setRmrkordernum(parseInt(e.target.value, 10) || 0)} />
         </div>
         <div className="usa-grid-full pr-toggle-container">
           <ToggleButton
@@ -132,7 +132,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           </div>
           {insertions.map((insertion, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <div key={`remark-insertion-${index}`} className="remark-insertion">
+            <div key={`remark-insertion-${index}`} className="remark-insertion">x
               <TextareaAutosize
                 id={`remarkInsertion-${index}`}
                 value={insertion}
