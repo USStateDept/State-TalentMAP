@@ -6,7 +6,7 @@ import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
 import { getAvatarColor, sortGrades } from 'utilities';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import { Row } from '../../Layout';
 
 const AvailableBidderStats = () => {

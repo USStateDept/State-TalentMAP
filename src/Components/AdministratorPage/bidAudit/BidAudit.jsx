@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import { useDispatch, useSelector } from 'react-redux';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
 import Spinner from 'Components/Spinner';

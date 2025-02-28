@@ -309,7 +309,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new WebpackPluginRamdisk({}),
+    // new WebpackPluginRamdisk({}),
     new webpackDashboard(),
     // Webpack plugin that runs typescript type checker on a separate process.
 		new ForkTsCheckerWebpackPlugin({
@@ -323,7 +323,7 @@ module.exports = {
         configFile: paths.tsconfig,
 			},
 		}),
-    new HardSourceWebpackPlugin(),
+    // new HardSourceWebpackPlugin(),
     new ExtractTextPlugin('style.css'),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({

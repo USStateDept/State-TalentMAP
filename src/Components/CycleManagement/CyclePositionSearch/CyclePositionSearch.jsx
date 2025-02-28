@@ -1,8 +1,8 @@
 import { withRouter } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
-import Picky from 'react-picky';
+import { Picky } from 'react-picky';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import Spinner from 'Components/Spinner';
 import CyclePositionCard from 'Components/CyclePositionCard';
 import Alert from 'Components/Alert';
 import BackButton from 'Components/BackButton';
+import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import { formatDate, renderSelectionList } from 'utilities';
 import {
   cycleManagementAssignmentCycleFetchData,
@@ -23,11 +24,14 @@ import {
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
-const CyclePositionSearch = ({ isAO, match }) => {
+const CyclePositionSearch = ({ location, viewType }) => {
   const dispatch = useDispatch();
-  const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
+  const searchPosNumRef = useRef();
 
-  const cycleId = match?.params?.id ?? false;
+  const activeTab = location.state?.activeTab || 'INFORMATION';
+  const cycleIDs = location.state?.cycleIDs || [];
+  const cycles = location.state?.cycles || [];
+  const numCycles = cycles.length;
 
   const assignmentCycle = useSelector(state => state.cycleManagementAssignmentCycle);
   const loadedCycle = assignmentCycle ?? {};
@@ -38,6 +42,13 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
+  const positionsByCycle = cycles.map((cycle) => {
+    const filteredPositions = cyclePositions.filter((pos) => pos.bid_cycle === cycle.name);
+    return {
+      ...cycle,
+      positions: filteredPositions,
+    };
+  });
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const extraPositionDataLoading = useSelector(state => state.cyclePositionFetchDataLoading);
@@ -54,35 +65,57 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
+  const [selectedLanguages, setSelectedLanguages] = useState(userSelections?.selectedLanguages || []);
+  const [tempPosNumberText, setTempPosNumberText] = useState('');
+  const [posNumberText, setPosNumberText] = useState('');
   const [clearFilters, setClearFilters] = useState(false);
+
+  const filters = [
+    selectedStatuses,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+    selectedLanguages,
+  ];
+  const noFiltersSelected = filters.flat().length === 0 && posNumberText === '';
+  const atLeastTwoFiltersSelected = filters.filter(f => f.length > 0).length + (posNumberText !== '' ? 1 : 0) >= 2;
 
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const disableSearch = cardsInEditMode.length > 0;
 
   // Filter Options
-  const statusOptions = cyclePosFilters?.statusFilters || [];
-  const orgOptions = cyclePosFilters?.orgFilters || [];
-  const gradeOptions = cyclePosFilters?.gradeFilters || [];
-  const skillOptions = cyclePosFilters?.skillsFilters || [];
+  const statusOptions = cyclePosFilters?.statusFilter || [];
+  const orgOptions = cyclePosFilters?.orgFilter || [];
+  const gradeOptions = cyclePosFilters?.gradeFilter || [];
+  const skillOptions = cyclePosFilters?.skillsFilter || [];
+  const languageOptions = cyclePosFilters?.languageFilter || [];
 
   const resetFilters = () => {
     setSelectedStatuses([]);
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
+    setSelectedLanguages([]);
+    setTempPosNumberText('');
+    setPosNumberText('');
+    searchPosNumRef.current.clearText();
     setClearFilters(false);
   };
 
   const getCurrentInputs = () => ({
-    cycleId,
+    cycleId: cycleIDs,
     statuses: selectedStatuses.map(f => (f?.code)),
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
     skills: selectedSkills.map(f => (f?.code)),
+    languages: selectedLanguages.map(f => (f?.code)),
+    positionNumber: posNumberText,
   });
 
   useEffect(() => {
-    dispatch(cycleManagementAssignmentCycleFetchData(cycleId));
+    if (numCycles === 1) {
+      dispatch(cycleManagementAssignmentCycleFetchData(cycleIDs));
+    }
     dispatch(cyclePositionFiltersFetchData());
   }, []);
 
@@ -103,37 +136,34 @@ const CyclePositionSearch = ({ isAO, match }) => {
     }
   };
 
-  const noFiltersSelected = [
-    selectedStatuses,
-    selectedOrgs,
-    selectedGrades,
-    selectedSkills,
-  ].flat().length === 0;
-
   useEffect(() => {
+    setClearFilters(!noFiltersSelected);
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
-    if (noFiltersSelected) {
-      setClearFilters(false);
-    } else {
-      dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
-      setClearFilters(true);
-    }
+    dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
   }, [
     selectedStatuses,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
+    selectedLanguages,
+    posNumberText,
   ]);
 
+  useEffect(() => {
+    if (tempPosNumberText === '' && posNumberText !== '') {
+      setPosNumberText('');
+    }
+  }, [tempPosNumberText]);
+
+  const noResults = cyclePositions?.length === 0;
 
   // Overlay for error, info, and loading state
-  const noResults = cyclePositions?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (cyclePositionsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (noFiltersSelected) {
-      overlay = <Alert type="info" title="Select Filter" messages={[{ body: 'Please select at least one distinct filter to search.' }]} />;
+    } else if (noFiltersSelected || !atLeastTwoFiltersSelected) {
+      overlay = <Alert type="info" title="Select Filter" messages={[{ body: 'Please select at least two distinct filters to search.' }]} />;
     } else if (cyclePositionsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -150,34 +180,50 @@ const CyclePositionSearch = ({ isAO, match }) => {
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
 
   return (
-    cyclePosFiltersLoading ? <Spinner type="bureau-filters" size="small" /> :
-      (
+    cyclePosFiltersLoading ? <Spinner type="bureau-filters" size="small" />
+      : (
         <div className="cycle-management-page position-search">
           <div className="position-search--header">
             <BackButton />
             <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
-
-            <div className="expanded-content pt-20">
+            <div className="expanded-content search-bar-container">
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
                 <div className="filterby-clear">
-                  {clearFilters &&
-                    <button
-                      className="unstyled-button"
-                      onClick={resetFilters}
-                      disabled={disableSearch}
-                    >
-                      <FA name="times" />
-                    Clear Filters
-                    </button>
-                  }
+                  {clearFilters
+                    && (
+                      <button
+                        type="button"
+                        className="unstyled-button"
+                        onClick={resetFilters}
+                        disabled={disableSearch}
+                      >
+                        <FA name="times" />
+                      Clear Filters
+                      </button>
+                    )}
                 </div>
               </div>
               <div className="position-search--filters--cm-pos">
+                <div className="filter-div">
+                  <div className="label">Position Number:</div>
+                  <div className="filter-search-bar fsb-240">
+                    <PositionManagerSearch
+                      id="pos-num-search"
+                      submitSearch={(e) => { setPosNumberText(e); }}
+                      onChange={setTempPosNumberText}
+                      ref={searchPosNumRef}
+                      textSearch={tempPosNumberText}
+                      placeHolder="Search by Position Number"
+                      noButton
+                      showIcon={false}
+                      disableSearch={disableSearch}
+                    />
+                  </div>
+                </div>
                 <div className="filter-div">
                   <div className="label">Status:</div>
                   <Picky
@@ -188,19 +234,6 @@ const CyclePositionSearch = ({ isAO, match }) => {
                     onChange={setSelectedStatuses}
                     valueKey="description"
                     labelKey="description"
-                    disabled={disableSearch}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Organization(s)"
-                    options={orgOptions}
-                    valueKey="code"
-                    labelKey="description"
-                    onChange={setSelectedOrgs}
-                    value={selectedOrgs}
                     disabled={disableSearch}
                   />
                 </div>
@@ -218,6 +251,19 @@ const CyclePositionSearch = ({ isAO, match }) => {
                   />
                 </div>
                 <div className="filter-div">
+                  <div className="label">Organization:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Organization(s)"
+                    options={orgOptions}
+                    valueKey="code"
+                    labelKey="description"
+                    onChange={setSelectedOrgs}
+                    value={selectedOrgs}
+                    disabled={disableSearch}
+                  />
+                </div>
+                <div className="filter-div">
                   <div className="label">Skills:</div>
                   <Picky
                     {...pickyProps}
@@ -230,61 +276,105 @@ const CyclePositionSearch = ({ isAO, match }) => {
                     disabled={disableSearch}
                   />
                 </div>
+                <div className="filter-div">
+                  <div className="label">Language:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Language(s)"
+                    options={languageOptions}
+                    valueKey="code"
+                    labelKey="short_description"
+                    onChange={setSelectedLanguages}
+                    value={selectedLanguages}
+                    disabled={disableSearch}
+                  />
+                </div>
               </div>
             </div>
-
           </div>
           {
-            disableSearch &&
-            <Alert
-              type="warning"
-              title={'Edit Mode (Search Disabled)'}
-              messages={[{
-                body: 'Discard or save your edits before searching. ' +
-                  'Filters are disabled if any cards are in Edit Mode.',
-              },
-              ]}
-            />
+            disableSearch
+            && (
+              <Alert
+                type="warning"
+                title="Edit Mode (Search Disabled)"
+                messages={[{
+                  body: 'Discard or save your edits before searching. '
+                  + 'Filters are disabled if any cards are in Edit Mode.',
+                },
+                ]}
+              />
+            )
           }
           <div className="cps-content">
-            { !hideBreadcrumbs &&
-              <div className="breadcrumb-container">
-                <Link to={`/profile/${breadcrumbLinkRole}/cyclemanagement`} className="breadcrumb-active">
+            { !hideBreadcrumbs
+              && (
+                <div className="breadcrumb-container">
+                  <Link to={`/profile/${viewType}/cyclemanagement`} className="breadcrumb-active">
                   Cycle Search Results
-                </Link>
-                <span className="breadcrumb-arrow">&gt;</span>
-                <span>{loadedCycle?.cycle_name ?? ''}</span>
-              </div>
-            }
-            <div className="cps-header">
-              {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
-            </div>
-            <div className="cps-subheader">
-              <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
-              <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
-              <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
-            </div>
-            {
-              getOverlay() ||
-            <>
-              <div className="cps-lower-section">
-                {cyclePositions?.map(data =>
-                  (
-                    <CyclePositionCard
-                      data={data}
-                      key={data.id}
-                      onEditModeSearch={(editMode, id) =>
-                        onCyclePositionEditModeSearch(editMode, id)}
-                      isOpen={cardsInEditMode?.includes(data?.id)}
-                      editableInfo={extraPositionData}
-                      editableInfoLoading={extraPositionDataLoading}
-                      editableInfoError={extraPositionDataError}
-                      isAO
-                    />
-                  ))}
-              </div>
-            </>
-            }
+                  </Link>
+                  <span className="breadcrumb-arrow">&gt;</span>
+                  {numCycles > 1
+                    ? <span>Multiple Cycles Selected</span>
+                    : <span>{loadedCycle?.cycle_name ?? ''}</span>}
+                </div>
+              )}
+            { numCycles === 1
+            && (
+              <>
+                <div className="cps-header">
+                  {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
+                </div>
+                <div className="cps-subheader">
+                  <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
+                  <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
+                  <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
+                </div>
+              </>
+            )}
+            { getOverlay()
+              || (
+                <div className="cps-lower-section">
+                  { numCycles > 1 ? (
+                    positionsByCycle?.map(cycle => (
+                      <div key={cycle.id} className="cps-cycle-section">
+                        <div className="cps-cycle-header">
+                          {cycle.name}
+                        </div>
+                        <div className="cps-cycle-positions">
+                          {cycle.positions?.map(position => (
+                            <CyclePositionCard
+                              data={position}
+                              key={position.id}
+                              onEditModeSearch={(editMode, id) => onCyclePositionEditModeSearch(editMode, id)}
+                              isOpen={cardsInEditMode?.includes(position?.id)}
+                              editableInfo={extraPositionData}
+                              editableInfoLoading={extraPositionDataLoading}
+                              editableInfoError={extraPositionDataError}
+                              isAO
+                              initialActiveTab={activeTab}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    cyclePositions?.map(data => (
+                      <CyclePositionCard
+                        data={data}
+                        key={data.id}
+                        onEditModeSearch={(editMode, id) => onCyclePositionEditModeSearch(editMode, id)}
+                        isOpen={cardsInEditMode?.includes(data?.id)}
+                        editableInfo={extraPositionData}
+                        editableInfoLoading={extraPositionDataLoading}
+                        editableInfoError={extraPositionDataError}
+                        isAO
+                        initialActiveTab={activeTab}
+                      />
+                    ))
+                  )}
+                </div>
+              )}
           </div>
         </div>
       )
@@ -292,17 +382,18 @@ const CyclePositionSearch = ({ isAO, match }) => {
 };
 
 CyclePositionSearch.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    state: PropTypes.shape({
+      cycleIDs: PropTypes.arrayOf(PropTypes.string),
+      cycles: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })),
+      activeTab: PropTypes.string,
     }),
-  }),
-  isAO: PropTypes.bool,
-};
-
-CyclePositionSearch.defaultProps = {
-  match: {},
-  isAO: false,
+  }).isRequired,
+  viewType: PropTypes.string.isRequired,
 };
 
 export default withRouter(CyclePositionSearch);

@@ -1,0 +1,89 @@
+.panel-remarks-page {
+    .pr-toggle-filter {
+        display: flex;
+        align-items: center;
+    }
+    .pr-content-container {
+        padding-top: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 100%;
+        gap: 10px; 
+    }
+
+    .pr-button {
+        color: $primary-blue;
+
+        &.with-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3px;
+        }
+    }
+
+    .pr-table {
+        padding-top: 20px;
+
+        // AG-Grid
+        .ag-header-cell-label {
+            white-space: normal !important;
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .ag-cell {
+            font-size: 12px;
+            display: initial;
+        }
+    }
+
+    .pr-form {
+        padding-top: 20px;
+
+        .pr-insertion-button {
+            color: $primary-blue;
+            font-size: 14px;
+        }
+
+        .pr-label-container {
+            display: flex;
+            justify-content: space-between;
+            
+            > label {
+                margin: 0;
+            }
+        }
+
+        .pr-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .pr-toggle-container {
+            display: flex;
+            align-items: start;
+            margin: 0;
+            gap: 10px;
+        }
+
+        .pr-word-count {
+            display: flex;
+            justify-content: end;
+            font-size: 14px;
+        }
+
+        input {
+            height: 28px;
+            font-size: 16px;
+        }
+
+        textarea {
+            font-size: 16px;
+        }
+    }
+}

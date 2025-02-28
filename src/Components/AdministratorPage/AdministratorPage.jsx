@@ -13,6 +13,7 @@ import Stats from './Stats';
 import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
 import PanelAdmin from './PanelAdmin';
+import PanelRemarks from './PanelRemarks';
 import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
 import BidAudit from './bidAudit/BidAudit';
 import BidAuditCategory from './bidAudit/BidAuditCategory';
@@ -82,12 +83,13 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/cyclejobcategories/" render={() => <CycleJobCategories />} />
         <Route path="/profile/administrator/manageentrylevel/" render={() => <ManageEntryLevel />} />
         <Route path="/profile/administrator/jobcategories/" render={() => <JobCategories />} />
+        <Route path="/profile/administrator/panelremarks/" render={() => <PanelRemarks />} />
         <Route path="/profile/administrator/orgstats" render={() => <OrgStats />} />
         <Route path="/profile/administrator/biddingtool/:id" render={() => <BiddingTool />} />
         <Route path="/profile/administrator/biddingtool/" render={() => <BiddingTool />} />
         <Route path="/profile/administrator/cyclemanagement" render={() => <CycleManagement />} />
         <Route path="/profile/administrator/assignmentcycle/:id" render={() => <AssignmentCycleEdit />} />
-        <Route path="/profile/administrator/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
+        <Route path="/profile/administrator/cyclepositionsearch" render={() => <CyclePositionSearch viewType="administrator" />} />
         <Route path="/profile/administrator/cycleclassifications/" render={() => <CycleClassifications />} />
       </Switch>
     </div>

@@ -13,6 +13,7 @@ const legs = [{
   tod: '1 YEAR',
   grade: '00',
   action: 'Extend',
+  adjust_month: '6 months',
   travel: null,
 }];
 

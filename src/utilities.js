@@ -14,7 +14,7 @@ import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
 import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
-import { NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
+import { DEFAULT_TEXT, NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
 import Differentials from 'Components/Differentials';
 import OBCUrl from 'Components/OBCUrl';
@@ -947,12 +947,21 @@ export const determineEnv = (url) => {
   return match[0];
 };
 
+// For endpoints that use parseLanguagesToArr in API
 export const formatLang = (langArr = []) => {
   if (langArr === '-') return '-';
   if (langArr?.length === 0) return 'None Listed';
   const langArr$ = langArr || [];
   return langArr$.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
+};
+
+// For endpoints that use fsbid_languages_to_tmap in API
+export const formatLanguages = (langArr = []) => {
+  if (langArr == null || langArr.length === 0) return DEFAULT_TEXT;
+  return langArr.map(lang => (
+    `${lang.code} ${lang.speaking_score}/${lang.reading_score}`
   )).join(', ');
 };
 
@@ -1030,23 +1039,22 @@ export const onEditModeSearch = (editMode, id, setStateFun, stateList) => {
 };
 
 // Passed through Picky Props - decides how to render values
-export const renderSelectionList = ({ items, selected, ...rest }) => {
-  let codeOrText = 'code';
-  if (items?.[0]?.text) codeOrText = 'text';
-  // only Item Actions/Statuses need to use 'desc_text'
-  if (items?.[0]?.desc_text) codeOrText = 'desc_text';
-  if (items?.[0]?.abbr_desc_text && items[0].code === 'V') codeOrText = 'abbr_desc_text';
-  // only Categories need to use 'mic_desc_text'
-  if (items?.[0]?.mic_desc_text) codeOrText = 'mic_desc_text';
+export const renderSelectionList = ({ items, ...rest }) => {
+  if (!items.length) return null;
 
-  let queryProp = 'description';
-  if (items?.[0]?.custom_description) queryProp = 'custom_description';
-  else if (items?.[0]?.long_description) queryProp = 'long_description';
-  else if (codeOrText === 'text') queryProp = 'text';
-  else if (codeOrText === 'desc_text') queryProp = 'desc_text';
-  else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
-  else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-  else if (items?.[0]?.name) queryProp = 'name';
+  const getQueryProp = (item) => {
+    if (item.custom_description) return 'custom_description';
+    else if (item.long_description) return 'long_description';
+    else if (item.text) return 'text';
+    else if (item.desc_text) return 'desc_text'; // only Item Actions/Statuses need to use 'desc_text'
+    else if (item.abbr_desc_text && item.code === 'V') return 'abbr_desc_text';
+    else if (item.mic_desc_text) return 'mic_desc_text'; // only Categories need to use 'mic_desc_text'
+    else if (item.rcdesctext) return 'rcdesctext'; // only remark Categories need to use 'rcdesctext
+    else if (item.name) return 'name';
+    return 'description';
+  };
+  const queryProp = getQueryProp(items[0]);
+
   return items.map((item, index) => {
     const keyId = `${index}-${item}`;
     return (<ListItem

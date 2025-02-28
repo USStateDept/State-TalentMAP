@@ -201,6 +201,14 @@
 
   .cps-lower-section {
     padding: 0 35px 20px 0;
+
+    .cps-cycle-header {
+      background-color: $dos-blue;
+      border: 1px solid $bg-gray-dark-2;
+      color: $color-white;
+      margin-top: 15px;
+      padding: 10px;
+    }
   }
 
   .cps-content {
@@ -286,7 +294,6 @@
   margin: 0px 10px 0px 10px;
 }
 
-
 .cycle-search-card {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -294,6 +301,16 @@
   border: 1px solid $bg-gray-dark-2;
   border-left: 8px solid $blue-primary;
   padding: 1em;
+
+  &.selected {
+    border-left: 36px solid $blue-primary;
+
+    .check-mark {
+      position: absolute;
+      transform: translateX(-42px); // Calculated to center the check-mark
+      color: $color-white;
+    }
+  }
 
   .cyc-card--row {
     display: flex;

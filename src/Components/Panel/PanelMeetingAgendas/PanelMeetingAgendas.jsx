@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
+import { Picky } from 'react-picky';
+import { filter, flatten, get, has, isEmpty, sortBy, uniqBy } from 'lodash';
 import { format } from 'date-fns-v2';
-import { panelMeetingAgendasFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { filtersFetchData } from 'actions/filters/filters';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -18,13 +19,10 @@ import SelectForm from 'Components/SelectForm';
 import { PANEL_MEETING } from 'Constants/PropTypes';
 import { PANEL_MEETINGS_PAGE_SIZES } from 'Constants/Sort';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
-import { useDataLoader } from 'hooks';
-import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import PrintPanelMeetingAgendas from './PrintPanelMeetingAgendas';
 import { meetingCategoryMap } from '../Constants';
-import api from '../../../api';
 
 const PanelMeetingAgendas = (props) => {
   const { isCDO, location } = props;
@@ -78,21 +76,10 @@ const PanelMeetingAgendas = (props) => {
   const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const { data: remarks, loading: remarksLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
-  const remarksOptions = uniqBy(sortBy(get(remarks, 'data.results'), [(c) => c.text]), 'text');
-  const { data: statuses, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
-  const statusesOptions = uniqBy(sortBy(get(statuses, 'data.results'), [(c) => c.desc_text]), 'desc_text');
-  const { data: actions, loading: actionLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
-  const actionsOptions = uniqBy(sortBy(get(actions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
-  const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
-  const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
-  // Replace with real ref data endpoints
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
-  const panelFiltersIsLoading =
-    includes([orgsLoading, remarksLoading, statusLoading,
-      actionLoading, categoryLoading], true);
+  const agendaFilters = useSelector(state => state.panelMeetingAgendasFilters);
+  const agendaFiltersIsLoading = useSelector(state => state.panelMeetingAgendasFiltersFetchDataLoading);
+  const agendaFiltersHasErrored = useSelector(state => state.panelMeetingAgendasFiltersFetchDataErrored);
 
   const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
@@ -106,7 +93,7 @@ const PanelMeetingAgendas = (props) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [printView, setPrintView] = useState(false);
 
-  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || agendaFiltersIsLoading;
   const getQuery = () => ({
     page,
     limit,
@@ -162,6 +149,7 @@ const PanelMeetingAgendas = (props) => {
 
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
@@ -211,7 +199,7 @@ const PanelMeetingAgendas = (props) => {
     else if (codeOrText === 'short_desc_text') queryProp = 'short_desc_text';
     return items.map(item =>
       (<ListItem
-        key={item[codeOrText]}
+        key={codeOrText === 'short_desc_text' ? `${item.seq_num} - ${item[codeOrText]}` : item[codeOrText]}
         item={item}
         {...rest}
         queryProp={queryProp}
@@ -227,6 +215,7 @@ const PanelMeetingAgendas = (props) => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
+    selectAllMode: 'filtered',
   };
 
   const resetFilters = () => {
@@ -290,7 +279,7 @@ const PanelMeetingAgendas = (props) => {
                   {...pickyProps}
                   placeholder="Select Organization(s)"
                   value={selectedOrgs}
-                  options={organizationOptions}
+                  options={get(agendaFilters, 'currentOrganizations', [])}
                   onChange={setSelectedOrgs}
                   valueKey="code"
                   labelKey="name"
@@ -303,7 +292,7 @@ const PanelMeetingAgendas = (props) => {
                   {...pickyProps}
                   placeholder="Select Category(-ies)"
                   value={selectedCategories}
-                  options={categoriesOptions}
+                  options={get(agendaFilters, 'categories', [])}
                   onChange={setSelectedCategories}
                   valueKey="mic_code"
                   labelKey="mic_desc_text"
@@ -329,7 +318,7 @@ const PanelMeetingAgendas = (props) => {
                   {...pickyProps}
                   placeholder="Select Action(s)"
                   value={selectedActions}
-                  options={actionsOptions}
+                  options={get(agendaFilters, 'actions', [])}
                   onChange={setSelectedActions}
                   valueKey="code"
                   labelKey="desc_text"
@@ -342,7 +331,7 @@ const PanelMeetingAgendas = (props) => {
                   {...pickyProps}
                   placeholder="Select Item Status(es)"
                   value={selectedStatuses}
-                  options={statusesOptions}
+                  options={get(agendaFilters, 'statuses', [])}
                   onChange={setSelectedStatuses}
                   valueKey="code"
                   labelKey="desc_text"
@@ -368,11 +357,12 @@ const PanelMeetingAgendas = (props) => {
                   {...pickyProps}
                   placeholder="Select Remarks"
                   value={selectedRemarks}
-                  options={remarksOptions}
+                  options={get(agendaFilters, 'remarks', [])}
                   onChange={setSelectedRemarks}
                   valueKey="seq_num"
-                  labelKey="text"
-                  disabled={isLoading}
+                  labelKey="short_desc_text"
+                  key="seq_num"
+                  disabled={isLoading || agendaFiltersHasErrored}
                 />
               </div>
               <div className="filter-div">
@@ -487,7 +477,8 @@ PanelMeetingAgendas.propTypes = {
     state: PropTypes.shape({
       panelMeetings: PropTypes.arrayOf(PANEL_MEETING),
     }),
-  }).isRequired };
+  }).isRequired,
+};
 
 PanelMeetingAgendas.defaultProps = {
   isCDO: false,

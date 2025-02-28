@@ -82,6 +82,7 @@ import jobCategories from './jobCategories';
 import orgStats from './orgStats';
 import biddingTool from './biddingTool';
 import tmOne from './tmOne';
+import panelRemarks from './panelRemarks';
 
 export default (history) => combineReducers({
   ...results,
@@ -161,6 +162,7 @@ export default (history) => combineReducers({
   ...orgStats,
   ...biddingTool,
   ...tmOne,
+  ...panelRemarks,
   router: connectRouter(history),
   client,
   login,
