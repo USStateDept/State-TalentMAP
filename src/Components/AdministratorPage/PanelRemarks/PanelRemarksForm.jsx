@@ -17,7 +17,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [rmrkactiveind, setRmrkactiveind] = useState(false);
   const [rmrkmutuallyexclusiveind, setRmrkmutuallyexclusiveind] = useState(false);
   const [roleRestriction, setRoleRestriction] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [rmrkrccode, setRmrkrccode] = useState([]);
   const [insertions, setInsertions] = useState(['']);
 
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
       rmrkordernum, // orderNum
       rmrkactiveind, // active
       rmrkmutuallyexclusiveind, // mutuallyExcl
-      selectedCategories, // selectedCategories
+      rmrkrccode, // selectedCategory
       insertions, // insertions
     };
     // console.log(newRemark);
@@ -56,7 +56,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
     setRmrkactiveind(false);
     setRmrkmutuallyexclusiveind(false);
     setRoleRestriction(false);
-    setSelectedCategories([]);
+    setRmrkrccode([]);
     setInsertions(['']);
   };
 
@@ -115,9 +115,9 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           id="remarkCategory"
           {...pickyProps}
           placeholder="Select Category"
-          value={selectedCategories}
+          value={rmrkrccode}
           options={categories}
-          onChange={setSelectedCategories}
+          onChange={(selected) => setRmrkrccode(selected.map((category) => category.rccode))}
           valueKey="rccode"
           labelKey="rcdesctext"
         />
