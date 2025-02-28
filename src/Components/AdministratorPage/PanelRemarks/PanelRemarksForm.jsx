@@ -11,7 +11,7 @@ import { createPanelRemark } from 'actions/panelRemarks';
 
 
 const PanelRemarksForm = ({ mode, categories, onClose }) => {
-  const [description, setDescription] = useState('');
+  const [rmrktext, setRmrktext] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [orderNum, setOrderNum] = useState(0);
   const [active, setActive] = useState(false);
@@ -40,7 +40,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   // creating the function:
   const handleSubmit = () => {
     const newRemark = {
-      description,
+      rmrktext,
       shortDescription,
       orderNum,
       active,
@@ -50,7 +50,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
     };
     // console.log(newRemark);
     dispatch(createPanelRemark(newRemark));
-    setDescription('');
+    setRmrktext('');
     setShortDescription('');
     setOrderNum('');
     setActive(false);
@@ -73,15 +73,15 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           <label htmlFor="remarkDescription">Remark Description</label>
           <TextareaAutosize
             id="remarkDescription"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={rmrktext}
+            onChange={(e) => setRmrktext(e.target.value)}
             minRows={4}
             maxRows={4}
             maxLength={500}
             placeholder="Enter remark description"
           />
           <div className="pr-word-count">
-            {description.length} / 500
+            {rmrktext.length} / 500
           </div>
         </div>
       </div>
