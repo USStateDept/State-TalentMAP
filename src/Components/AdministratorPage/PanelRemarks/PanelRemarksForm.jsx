@@ -12,7 +12,7 @@ import { createPanelRemark } from 'actions/panelRemarks';
 
 const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [rmrktext, setRmrktext] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
+  const [rmrkshortdesctext, setRmrkshortdesctext] = useState('');
   const [orderNum, setOrderNum] = useState(0);
   const [active, setActive] = useState(false);
   const [mutuallyExcl, setMutuallyExcl] = useState(false);
@@ -41,7 +41,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const handleSubmit = () => {
     const newRemark = {
       rmrktext,
-      shortDescription,
+      rmrkshortdesctext,
       orderNum,
       active,
       mutuallyExcl,
@@ -51,7 +51,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
     // console.log(newRemark);
     dispatch(createPanelRemark(newRemark));
     setRmrktext('');
-    setShortDescription('');
+    setRmrkshortdesctext('');
     setOrderNum('');
     setActive(false);
     setMutuallyExcl(false);
@@ -88,7 +88,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
       <div className="usa-grid pr-row">
         <div className="usa-width-one-third">
           <label htmlFor="remarkShortDescription pr-input">Short Description</label>
-          <input id="remarkShortDescription" type="text" value={shortDescription} placeholder="Enter short description" onChange={(e) => setShortDescription(e.target.value)} />
+          <input id="remarkShortDescription" type="text" value={rmrkshortdesctext} placeholder="Enter short description" onChange={(e) => setRmrkshortdesctext(e.target.value)} />
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
