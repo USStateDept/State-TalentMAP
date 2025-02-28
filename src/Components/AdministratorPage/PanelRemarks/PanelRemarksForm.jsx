@@ -13,7 +13,7 @@ import { createPanelRemark } from 'actions/panelRemarks';
 const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [description, setDescription] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [orderNum, setOrderNum] = useState('');
+  const [orderNum, setOrderNum] = useState(0);
   const [active, setActive] = useState(false);
   const [mutuallyExcl, setMutuallyExcl] = useState(false);
   const [roleRestriction, setRoleRestriction] = useState(false);
