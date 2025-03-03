@@ -17,7 +17,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [rmrkactiveind, setRmrkactiveind] = useState(false);
   const [rmrkmutuallyexclusiveind, setRmrkmutuallyexclusiveind] = useState(false);
   const [roleRestriction, setRoleRestriction] = useState(false);
-  const [rmrkrccode, setRmrkrccode] = useState([]);
+  const [rmrkrccode, setRmrkrccode] = useState('');
   const [insertions, setInsertions] = useState(['']);
 
   const dispatch = useDispatch();
@@ -124,12 +124,12 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             //   setRmrkrccode([]);
             // }
             if (selected && selected.rccode) {
-              setRmrkrccode([selected.rccode]);
+              setRmrkrccode(selected.rccode);
             } else {
-              setRmrkrccode([]);
+              setRmrkrccode('');
             }
           }}
-          valueKey="rccode"
+          valueKey="rcdesctext" // this is the key of the value in the options //rrcode
           labelKey="rcdesctext"
           multiple={false}
         />
