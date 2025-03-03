@@ -118,15 +118,20 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           value={rmrkrccode}
           options={categories}
           onChange={(selected) => {
-            // if (Array.isArray(selected) && selected.length > 0) {
+            // if (Array.isArray(selected)) {
             //   setRmrkrccode(selected.map((category) => category.rccode));
             // } else {
             //   setRmrkrccode([]);
             // }
-            setRmrkrccode(selected.map((category) => category.rccode));
+            if (selected && selected.rccode) {
+              setRmrkrccode([selected.rccode]);
+            } else {
+              setRmrkrccode([]);
+            }
           }}
           valueKey="rccode"
           labelKey="rcdesctext"
+          multiple={false}
         />
       </div>
       <div className="usa-grid">
