@@ -18,7 +18,7 @@ const TodModal = (props) => {
   const addTod = (input, type) => {
     if (input.length) {
       setcombinedTodCode([...combinedTodCode, `${input}${type}`]);
-      if (type === 'MM') {
+      if (type === 'M') {
         setMonths(Number(input) + months);
         setTourInput('');
       }
@@ -57,10 +57,10 @@ const TodModal = (props) => {
             onChange={e => setTourInput(e.target.value)}
             min="1"
             max="99"
-            onKeyDown={(e) => handleKeyDown(e, () => addTod(tourInput, 'MM'))}
+            onKeyDown={(e) => handleKeyDown(e, () => addTod(tourInput, 'M'))}
           />
           <InteractiveElement
-            onClick={() => addTod(tourInput, 'MM')}
+            onClick={() => addTod(tourInput, 'M')}
             title="Add to Tour Length"
             className="tod-add-clickable"
           >
