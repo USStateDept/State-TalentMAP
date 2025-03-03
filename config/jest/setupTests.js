@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import chalk from 'chalk';
 import { JSDOM } from 'jsdom';
 Object.entries = require('object.entries'); // because jest doesn't import babel
-import config from '../../public/config/config.json';
+import config from '../../public/init.json';
 import { configure as configureEnzyme } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

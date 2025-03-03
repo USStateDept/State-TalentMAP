@@ -5,10 +5,9 @@ services:
       context: .
     ports:
       - 3000:3000
-    environment:
-      - PUBLIC_URL=/talentmap/
-      - STATIC_PATH=/app/build/
-      - API_ROOT=http://api:8000/
     volumes:
       - .:/app:delegated
       - /app/node_modules/
+    env_file:
+      - setup_environment.local.sh
+      - privates_ui.local.sh
