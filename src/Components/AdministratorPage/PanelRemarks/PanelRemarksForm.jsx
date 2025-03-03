@@ -46,7 +46,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
       rmrkactiveind, // active
       rmrkmutuallyexclusiveind, // mutuallyExcl
       rmrkrccode, // selectedCategory
-      insertions, // insertions
+      // insertions, // insertions
     };
     // console.log(newRemark);
     dispatch(createPanelRemark(newRemark));
@@ -57,7 +57,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
     setRmrkmutuallyexclusiveind(false);
     setRoleRestriction(false);
     setRmrkrccode([]);
-    setInsertions(['']);
+    // setInsertions(['']);
   };
 
   const pickyProps = {
