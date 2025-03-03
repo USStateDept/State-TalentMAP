@@ -118,11 +118,12 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           value={rmrkrccode}
           options={categories}
           onChange={(selected) => {
-            if (Array.isArray(selected) && selected.length > 0) {
-              setRmrkrccode(selected.map((category) => category.rccode));
-            } else {
-              setRmrkrccode([]);
-            }
+            // if (Array.isArray(selected) && selected.length > 0) {
+            //   setRmrkrccode(selected.map((category) => category.rccode));
+            // } else {
+            //   setRmrkrccode([]);
+            // }
+            setRmrkrccode(selected.map((category) => category.rccode));
           }}
           valueKey="rccode"
           labelKey="rcdesctext"

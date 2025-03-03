@@ -102,7 +102,11 @@ export function createPanelRemark(newRemark) {
     const endpoint = '/fsbid/panel_remarks/create_remark/';
     api().post(endpoint, newRemark)
       .then(({ data }) => {
+        console.log('inside actions createPanelRemark');
+        console.log('data:', data);
         dispatch(panelRemarksCreateDataSuccess(data));
+        console.log('panelRemarksCreateDataSuccess:', data);
+        console.log('newRemark:', newRemark);
       })
       .catch(() => {
         dispatch(panelRemarksCreateDataErrored(true));
