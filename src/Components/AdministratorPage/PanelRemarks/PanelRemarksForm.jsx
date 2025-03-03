@@ -123,6 +123,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             } else {
               setRmrkrccode([]);
             }
+          }}
           valueKey="rccode"
           labelKey="rcdesctext"
         />

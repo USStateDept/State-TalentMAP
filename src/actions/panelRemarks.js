@@ -100,13 +100,13 @@ export function createPanelRemark(newRemark) {
     });
     // eslint-disable-next-line no-unused-vars
     const endpoint = '/fsbid/panel_remarks/create_remark/';
-    // api().post(endpoint, newRemark)
-    //   .then(({ data }) => {
-    //     dispatch(panelRemarksCreateDataSuccess(data));
-    //   })
-    //   .catch(() => {
-    //     dispatch(panelRemarksCreateDataErrored(true));
-    //   });
+    api().post(endpoint, newRemark)
+      .then(({ data }) => {
+        dispatch(panelRemarksCreateDataSuccess(data));
+      })
+      .catch(() => {
+        dispatch(panelRemarksCreateDataErrored(true));
+      });
     console.log(newRemark);
     dispatch(panelRemarksCreateDataSuccess(newRemark));
   };
