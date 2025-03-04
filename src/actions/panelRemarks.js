@@ -1,11 +1,59 @@
+import { CancelToken } from 'axios';
 import { batch } from 'react-redux';
 import { sortBy } from 'lodash';
-import { CancelToken } from 'axios';
 import { convertQueryToString } from 'utilities';
+import { toastError, toastSuccess } from './toast';
 import api from './../api';
 
 let cancelPanelRemarksData;
 
+// ======================== Update Panel Remarks ========================
+export function updatePanelRemarksHasErrored(bool) {
+  return {
+    type: 'PANEL_REMARKS_UPDATE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function updatePanelRemarksIsLoading(bool) {
+  return {
+    type: 'PANEL_REMARKS_UPDATE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function updatePanelRemarksSuccess(bool) {
+  return {
+    type: 'PANEL_REMARKS_UPDATE_SUCCESS',
+    success: bool,
+  };
+}
+
+export function updatePanelRemarksData(data) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(updatePanelRemarksIsLoading(true));
+      dispatch(updatePanelRemarksHasErrored(false));
+    });
+    const endpoint = '/fsbid/panel_remarks/update_remark/';
+    api().post(endpoint, data, {
+      cancelToken: new CancelToken((c) => { cancelPanelRemarksData = c; }),
+    })
+      .then(() => {
+        batch(() => {
+          dispatch(updatePanelRemarksSuccess(true));
+          dispatch(updatePanelRemarksHasErrored(false));
+          dispatch(updatePanelRemarksIsLoading(false));
+          dispatch(toastSuccess('Panel Remark Updated', 'Success'));
+        });
+      })
+      .catch(() => {
+        dispatch(updatePanelRemarksHasErrored(true));
+        dispatch(updatePanelRemarksIsLoading(false));
+        dispatch(toastError('Error updating Panel Remark', 'Error'));
+      });
+  };
+}
 // ======================== Panel Remarks ========================
 export function panelRemarksFetchDataErrored(bool) {
   return {

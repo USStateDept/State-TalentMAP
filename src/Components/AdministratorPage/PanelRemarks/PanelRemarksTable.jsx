@@ -1,10 +1,13 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { AgGridReact } from 'ag-grid-react';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
+import { updatePanelRemarksData } from 'actions/panelRemarks';
 
 const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
+  const dispatch = useDispatch();
   const gridRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
@@ -63,9 +66,18 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
 
   // Edit a remark within table
   const onCellValueChanged = (params) => {
-    // Logic for editing a cell
-    // eslint-disable-next-line no-console
-    console.log('Cell value changed: ', params);
+    // Grab data from the editable columns and update date
+    const data = {
+      rmrkseqnum: params.data.rmrkseqnum,
+      rmrkrccode: params.data.rmrkrccode,
+      rmrkordernum: params.data.rmrkordernum,
+      rmrkshortdesctext: params.data.rmrkshortdesctext,
+      rmrkmutuallyexclusiveind: params.data.rmrkmutuallyexclusiveind,
+      rmrktext: params.data.rmrktext,
+      rmrkactiveind: params.data.rmrkactiveind,
+      rmrkupdatedate: params.data.rmrkupdatedate,
+    };
+    dispatch(updatePanelRemarksData(data));
   };
 
   return (

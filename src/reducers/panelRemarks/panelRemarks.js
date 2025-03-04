@@ -1,3 +1,40 @@
+// ======= Panel Remarks: Update Panel Remarks =======
+export function panelRemarksUpdateDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_REMARKS_UPDATE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function panelRemarksUpdateDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_REMARKS_UPDATE_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function panelRemarksUpdateDataSuccess(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_REMARKS_UPDATE_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}
+
+export function panelRemarksUpdateData(state = {}, action) {
+  switch (action.type) {
+    case 'PANEL_REMARKS_UPDATE_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}
+
 // ======= Panel Remarks: Get Panel Remarks =======
 export function panelRemarksFetchDataErrored(state = false, action) {
   switch (action.type) {
