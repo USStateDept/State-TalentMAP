@@ -3,6 +3,11 @@ import { sortBy } from 'lodash';
 import { CancelToken } from 'axios';
 import { convertQueryToString } from 'utilities';
 import api from './../api';
+import { toastError, toastSuccess } from './toast';
+
+const PANEL_REMARK_FETCH_SUCCESS = 'Panel Remarks fetched successfully';
+const PANEL_REMARK_CREATE_SUCCESS = 'Panel Remark created successfully';
+const PANEL_REMARK_CREATE_ERRORED = 'Panel Remark creation failed';
 
 let cancelPanelRemarksData;
 
@@ -46,6 +51,7 @@ export function fetchPanelRemarksData(query = {}) {
           dispatch(panelRemarksFetchDataSuccess(data));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
+          dispatch(toastSuccess(PANEL_REMARK_FETCH_SUCCESS));
         });
       })
       .catch((err) => {
@@ -91,9 +97,14 @@ export function createPanelRemark(newRemark) {
     api().post(endpoint, newRemark)
       .then(({ data }) => {
         dispatch(panelRemarksCreateDataSuccess(data));
+        dispatch(panelRemarksCreateDataErrored(false));
+        dispatch(panelRemarksCreateDataLoading(false));
+        dispatch(toastSuccess(PANEL_REMARK_CREATE_SUCCESS));
       })
       .catch(() => {
         dispatch(panelRemarksCreateDataErrored(true));
+        dispatch(panelRemarksCreateDataLoading(false));
+        dispatch(toastError(PANEL_REMARK_CREATE_ERRORED));
       });
     dispatch(panelRemarksCreateDataSuccess(newRemark));
   };
