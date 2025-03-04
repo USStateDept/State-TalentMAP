@@ -51,7 +51,6 @@ export function fetchPanelRemarksData(query = {}) {
           dispatch(panelRemarksFetchDataSuccess(data));
           dispatch(panelRemarksFetchDataErrored(false));
           dispatch(panelRemarksFetchDataLoading(false));
-          dispatch(toastSuccess(PANEL_REMARK_FETCH_SUCCESS));
         });
       })
       .catch((err) => {
