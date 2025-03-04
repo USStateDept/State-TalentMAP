@@ -9,13 +9,13 @@ import { createPanelRemark } from 'actions/panelRemarks';
 
 
 const PanelRemarksForm = ({ mode, categories, onClose }) => {
-  const [rmrktext, setRmrktext] = useState('');
-  const [rmrkshortdesctext, setRmrkshortdesctext] = useState('');
-  const [rmrkordernum, setRmrkordernum] = useState(0);
-  const [rmrkactiveind, setRmrkactiveind] = useState(false);
-  const [rmrkmutuallyexclusiveind, setRmrkmutuallyexclusiveind] = useState(false);
+  const [description, setDescription] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [orderNum, setOrderNum] = useState(0);
+  const [active, setActive] = useState(false);
+  const [mutuallyExcl, setMutuallyExcl] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState('');
   // const [roleRestriction, setRoleRestriction] = useState(false);
-  const [rmrkrccode, setRmrkrccode] = useState('');
   // const [insertions, setInsertions] = useState(['']);
 
   const dispatch = useDispatch();
@@ -35,22 +35,22 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
 
   const handleSubmit = () => {
     const newRemark = {
-      rmrktext, // description
-      rmrkshortdesctext, // shortDescription
-      rmrkordernum, // orderNum
-      rmrkactiveind, // active
-      rmrkmutuallyexclusiveind, // mutuallyExcl
-      rmrkrccode, // selectedCategory code (the rccode required by the WS endpoint)
+      rmrktext: description, // description
+      rmrkshortdesctext: shortDescription, // shortDescription
+      rmrkordernum: orderNum, // orderNum
+      rmrkactiveind: active, // active
+      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
+      rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
       // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
     };
     dispatch(createPanelRemark(newRemark));
-    setRmrktext('');
-    setRmrkshortdesctext('');
-    setRmrkordernum(0);
-    setRmrkactiveind(false);
-    setRmrkmutuallyexclusiveind(false);
+    setDescription('');
+    setShortDescription('');
+    setOrderNum(0);
+    setActive(false);
+    setMutuallyExcl(false);
+    setSelectedCategories('');
     // setRoleRestriction(false);
-    setRmrkrccode([]);
     // setInsertions(['']);
   };
 
@@ -67,15 +67,15 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           <label htmlFor="remarkDescription">Remark Description</label>
           <TextareaAutosize
             id="remarkDescription"
-            value={rmrktext}
-            onChange={(e) => setRmrktext(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             minRows={4}
             maxRows={4}
             maxLength={100}
             placeholder="Enter remark description"
           />
           <div className="pr-word-count">
-            {rmrktext.length} / 100
+            {description.length} / 100
           </div>
         </div>
       </div>
@@ -85,32 +85,32 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           <input
             id="remarkShortDescription"
             type="text"
-            value={rmrkshortdesctext}
+            value={shortDescription}
             placeholder="Enter short description"
             onChange={(e) => {
               const value = e.target.value.slice(0, 20);
-              setRmrkshortdesctext(value);
+              setShortDescription(value);
             }}
           />
           <div className="pr-word-count">
-            {rmrkshortdesctext.length} / 20
+            {shortDescription.length} / 20
           </div>
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
-          <input id="remarkOrder" type="number" value={rmrkordernum} onChange={(e) => setRmrkordernum(parseInt(e.target.value, 10) || 0)} />
+          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || 0)} />
         </div>
         <div className="usa-grid-full pr-toggle-container">
           <ToggleButton
             labelTextRight="Active"
-            onChange={() => setRmrkactiveind(!rmrkactiveind)}
-            checked={rmrkactiveind}
+            onChange={() => setActive(!active)}
+            checked={active}
             onColor="#0071BC"
           />
           <ToggleButton
             labelTextRight="Mutually Exclusive"
-            onChange={() => setRmrkmutuallyexclusiveind(!rmrkmutuallyexclusiveind)}
-            checked={rmrkmutuallyexclusiveind}
+            onChange={() => setMutuallyExcl(!mutuallyExcl)}
+            checked={mutuallyExcl}
             onColor="#0071BC"
           />
         </div>
@@ -121,13 +121,13 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           id="remarkCategory"
           {...pickyProps}
           placeholder="Select Category"
-          value={categories.find((category) => category.rccode === rmrkrccode)}
+          value={categories.find((category) => category.rccode === selectedCategories)}
           options={categories}
           onChange={(selected) => {
             if (selected && selected.rccode) {
-              setRmrkrccode(selected.rccode);
+              setSelectedCategories(selected.rccode);
             } else {
-              setRmrkrccode('');
+              setSelectedCategories('');
             }
           }}
           valueKey="rcdesctext"
