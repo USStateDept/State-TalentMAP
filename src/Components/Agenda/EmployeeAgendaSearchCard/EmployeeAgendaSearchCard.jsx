@@ -40,8 +40,12 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
   const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelType = get(agenda, 'pmpmtcode', '');
+  const panelStatus = get(agenda, 'micdesctext');
+  const panelDateType = get(agenda, 'pmdmdtcode', '');
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
+  // create panel meeting obj for link to panel meeting agendas
+  const panelMeeting = { pmi_pm_seq_num: pmSeqNum, pmt_code: panelType, pms_desc_text: panelStatus, panelMeetingDates: [{ mdt_code: panelDateType, pmd_dttm: panelDate }] };
   const agendaStatus = get(agenda, 'status');
   const agendaID = get(agenda, 'agendaID');
   const agendaIDExist = !!agendaID;
@@ -67,13 +71,13 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
       <div className="employee-agenda-card-inner">
         <div className="ribbon-container-condensed">
           {hasHandshake &&
-                  <Tooltip
-                    title="Handshake"
-                    arrow
-                    offset={-60}
-                  >
-                    <Handshake showText={false} className="ribbon-condensed-card" />
-                  </Tooltip>
+            <Tooltip
+              title="Handshake"
+              arrow
+              offset={-60}
+            >
+              <Handshake showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
           }
         </div>
       </div>
@@ -125,12 +129,12 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
           {
             (showPanelMeetingsAgendas && panelMeetingExist) ?
               <dd>
-                <Link to={{ pathname: `/profile/${userRole}/panelmeetingagendas`, state: { panelMeetings: [{ pmi_pm_seq_num: pmSeqNum }] } }}>
-                  {panelType ? `${panelType}-` : ''}{panelDate}
+                <Link to={{ pathname: `/profile/${userRole}/panelmeetingagendas`, state: { panelMeetings: [panelMeeting] } }}>
+                  {panelType ? `${panelType} - ` : ''}{panelDate}
                 </Link>
               </dd>
               :
-              <dd>{panelType ? `${panelType}-` : ''}{panelDate}</dd>
+              <dd>{panelType ? `${panelType} - ` : ''}{panelDate}</dd>
           }
         </div>
         { false &&
