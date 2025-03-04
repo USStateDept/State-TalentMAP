@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { batch } from 'react-redux';
 import { sortBy } from 'lodash';
 import { CancelToken } from 'axios';
@@ -62,8 +61,6 @@ export function fetchPanelRemarksData(query = {}) {
 
 // ======================== Panel Remarks Create ========================
 export function panelRemarksCreateDataErrored(bool) {
-  console.log('inside actions panelRemarksCreateDataErrored');
-  console.log('bool:', bool);
   return {
     type: 'PANEL_REMARKS_CREATE_HAS_ERRORED',
     hasErrored: bool,
@@ -71,8 +68,6 @@ export function panelRemarksCreateDataErrored(bool) {
 }
 
 export function panelRemarksCreateDataLoading(bool) {
-  console.log('inside actions panelRemarksCreateDataLoading');
-  console.log('bool:', bool);
   return {
     type: 'PANEL_REMARKS_CREATE_IS_LOADING',
     isLoading: bool,
@@ -80,38 +75,26 @@ export function panelRemarksCreateDataLoading(bool) {
 }
 
 export function panelRemarksCreateDataSuccess(results) {
-  console.log('inside actions panelRemarksCreateDataSuccess');
-  console.log('results:', results);
   return {
     type: 'PANEL_REMARKS_CREATE_SUCCESS',
     results,
   };
 }
 
-// creating a function to take a JSON with all the values from the panel reamrks form and send it to the
-// following POST API endpoint: /fsbid/panel_remarks/create_remark/. The sending part will currently be
-// commented out for the time being but the final JSON that will be send to POST API endpoint will be logged
-// to the console.
 export function createPanelRemark(newRemark) {
   return (dispatch) => {
     batch(() => {
       dispatch(panelRemarksCreateDataLoading(true));
       dispatch(panelRemarksCreateDataErrored(false));
     });
-    // eslint-disable-next-line no-unused-vars
     const endpoint = '/fsbid/panel_remarks/create_remark/';
     api().post(endpoint, newRemark)
       .then(({ data }) => {
-        console.log('inside actions createPanelRemark');
-        console.log('data:', data);
         dispatch(panelRemarksCreateDataSuccess(data));
-        console.log('panelRemarksCreateDataSuccess:', data);
-        console.log('newRemark:', newRemark);
       })
       .catch(() => {
         dispatch(panelRemarksCreateDataErrored(true));
       });
-    console.log(newRemark);
     dispatch(panelRemarksCreateDataSuccess(newRemark));
   };
 }

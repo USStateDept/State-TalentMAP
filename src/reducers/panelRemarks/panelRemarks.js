@@ -36,8 +36,6 @@ export function panelRemarks(state = initialState, action) {
 export function panelRemarksCreateDataErrored(state = false, action) {
   switch (action.type) {
     case 'PANEL_REMARKS_CREATE_HAS_ERRORED':
-      console.log('inside reducers panelRemarksCreateDataErrored');
-      console.log('action.hasErrored:', action.hasErrored);
       return action.hasErrored;
     default:
       return state;
@@ -47,8 +45,6 @@ export function panelRemarksCreateDataErrored(state = false, action) {
 export function panelRemarksCreateDataLoading(state = false, action) {
   switch (action.type) {
     case 'PANEL_REMARKS_CREATE_IS_LOADING':
-      console.log('inside reducers panelRemarksCreateDataLoading');
-      console.log('action.isLoading:', action.isLoading);
       return action.isLoading;
     default:
       return state;
@@ -58,8 +54,6 @@ export function panelRemarksCreateDataLoading(state = false, action) {
 export function panelRemarksCreateDataSuccess(state = [], action) {
   switch (action.type) {
     case 'PANEL_REMARKS_CREATE_SUCCESS':
-      console.log('inside reducers panelRemarksCreateDataSuccess');
-      console.log('action.results:', action.results);
       return action.results;
     default:
       return state;

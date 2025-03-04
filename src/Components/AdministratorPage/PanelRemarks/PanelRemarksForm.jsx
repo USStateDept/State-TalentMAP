@@ -1,11 +1,9 @@
-/* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import { renderSelectionList } from 'utilities';
-import InteractiveElement from 'Components/InteractiveElement';
 import ToggleButton from 'Components/ToggleButton';
 import { createPanelRemark } from 'actions/panelRemarks';
 
@@ -16,28 +14,25 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [rmrkordernum, setRmrkordernum] = useState(0);
   const [rmrkactiveind, setRmrkactiveind] = useState(false);
   const [rmrkmutuallyexclusiveind, setRmrkmutuallyexclusiveind] = useState(false);
-  const [roleRestriction, setRoleRestriction] = useState(false);
+  // const [roleRestriction, setRoleRestriction] = useState(false);
   const [rmrkrccode, setRmrkrccode] = useState('');
-  const [insertions, setInsertions] = useState(['']);
+  // const [insertions, setInsertions] = useState(['']);
 
   const dispatch = useDispatch();
 
-  const handleNewInsertion = () => {
-    setInsertions([...insertions, '']);
-  };
+  // all remark insertion and role restriction functionality is commented out for the time being
 
-  const handleInsertionChange = (index, value) => {
-    const newInsertions = [...insertions];
-    newInsertions[index] = value;
-    setInsertions(newInsertions);
-  };
+  // const handleNewInsertion = () => {
+  //   setInsertions([...insertions, '']);
+  // };
 
-  // adding a function to handle the form submission
-  // gathering the following values from the form to create a JSON that needs to be logged
-  // description, shortDescription, orderNum, active, mutuallyExcl, selectedCategories, insertions
-  // console.log the JSON object
-  // clear the form
-  // creating the function:
+  // const handleInsertionChange = (index, value) => {
+  //   const newInsertions = [...insertions];
+  //   newInsertions[index] = value;
+  //   setInsertions(newInsertions);
+  // };
+
+
   const handleSubmit = () => {
     const newRemark = {
       rmrktext, // description
@@ -45,17 +40,16 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
       rmrkordernum, // orderNum
       rmrkactiveind, // active
       rmrkmutuallyexclusiveind, // mutuallyExcl
-      rmrkrccode, // selectedCategory
-      // insertions, // insertions
+      rmrkrccode, // selectedCategory code (the rccode required by the WS endpoint)
+      // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
     };
-    // console.log(newRemark);
     dispatch(createPanelRemark(newRemark));
     setRmrktext('');
     setRmrkshortdesctext('');
     setRmrkordernum(0);
     setRmrkactiveind(false);
     setRmrkmutuallyexclusiveind(false);
-    setRoleRestriction(false);
+    // setRoleRestriction(false);
     setRmrkrccode([]);
     // setInsertions(['']);
   };
@@ -77,18 +71,30 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             onChange={(e) => setRmrktext(e.target.value)}
             minRows={4}
             maxRows={4}
-            maxLength={500}
+            maxLength={100}
             placeholder="Enter remark description"
           />
           <div className="pr-word-count">
-            {rmrktext.length} / 500
+            {rmrktext.length} / 100
           </div>
         </div>
       </div>
       <div className="usa-grid pr-row">
         <div className="usa-width-one-third">
           <label htmlFor="remarkShortDescription pr-input">Short Description</label>
-          <input id="remarkShortDescription" type="text" value={rmrkshortdesctext} placeholder="Enter short description" onChange={(e) => setRmrkshortdesctext(e.target.value)} />
+          <input
+            id="remarkShortDescription"
+            type="text"
+            value={rmrkshortdesctext}
+            placeholder="Enter short description"
+            onChange={(e) => {
+              const value = e.target.value.slice(0, 20);
+              setRmrkshortdesctext(value);
+            }}
+          />
+          <div className="pr-word-count">
+            {rmrkshortdesctext.length} / 20
+          </div>
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
@@ -118,23 +124,19 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           value={rmrkrccode}
           options={categories}
           onChange={(selected) => {
-            // if (Array.isArray(selected)) {
-            //   setRmrkrccode(selected.map((category) => category.rccode));
-            // } else {
-            //   setRmrkrccode([]);
-            // }
             if (selected && selected.rccode) {
               setRmrkrccode(selected.rccode);
             } else {
               setRmrkrccode('');
             }
           }}
-          valueKey="rcdesctext" // this is the key of the value in the options //rrcode
+          valueKey="rcdesctext"
           labelKey="rcdesctext"
           multiple={false}
         />
       </div>
-      <div className="usa-grid">
+      {/* Commented out for now as this is not being used in the API call yet*}
+      {/* <div className="usa-grid">
         <div className="usa-width-one-half">
           <div className="pr-label-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
@@ -160,15 +162,15 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="usa-grid">
+      </div> */}
+      {/* <div className="usa-grid">
         <ToggleButton
           labelTextRight="Role Restriction"
           onChange={() => setRoleRestriction(!roleRestriction)}
           checked={roleRestriction}
           onColor="#0071BC"
         />
-      </div>
+      </div> */}
       <div className="usa-grid button-container" style={{ display: 'flex', justifyContent: 'end' }}>
         <button type="button" className="usa-button-secondary" onClick={onClose()} style={{ margin: '5px' }}>Cancel</button>
         <button type="button" className="usa-button-primary" onClick={handleSubmit} style={{ margin: '5px' }}>{mode === 'edit' ? 'Save' : 'Create'}</button>
