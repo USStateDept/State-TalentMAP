@@ -121,7 +121,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           id="remarkCategory"
           {...pickyProps}
           placeholder="Select Category"
-          value={rmrkrccode}
+          value={categories.find((category) => category.rccode === rmrkrccode)}
           options={categories}
           onChange={(selected) => {
             if (selected && selected.rccode) {

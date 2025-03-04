@@ -5,7 +5,6 @@ import { convertQueryToString } from 'utilities';
 import api from './../api';
 import { toastError, toastSuccess } from './toast';
 
-const PANEL_REMARK_FETCH_SUCCESS = 'Panel Remarks fetched successfully';
 const PANEL_REMARK_CREATE_SUCCESS = 'Panel Remark created successfully';
 const PANEL_REMARK_CREATE_ERRORED = 'Panel Remark creation failed';
 
