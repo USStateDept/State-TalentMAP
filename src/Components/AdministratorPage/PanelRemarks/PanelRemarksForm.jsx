@@ -146,7 +146,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           </div>
           {insertions.map((insertion, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <div key={`remark-insertion-${index}`} className="remark-insertion">x
+            <div key={`remark-insertion-${index}`} className="remark-insertion">
               <TextareaAutosize
                 id={`remarkInsertion-${index}`}
                 value={insertion}
