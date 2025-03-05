@@ -16,12 +16,12 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   }));
 
   const [headers] = useState([
-    { field: 'category', headerName: 'Category', flex: 1 },
+    { field: 'category', headerName: 'Category', maxWidth: 200, flex: 1 },
     { field: 'rmrktext', headerName: 'Description', flex: 1, editable: true },
     { field: 'rmrkshortdesctext', headerName: 'Short Desc.', flex: 1, editable: true },
-    { field: 'rmrkordernum', headerName: 'Order', flex: 1, editable: true },
-    { field: 'rmrkactiveind', headerName: 'Active', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, flex: 1 },
-    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, flex: 1 },
+    { field: 'rmrkordernum', headerName: 'Order', cellStyle: { textAlign: 'center' }, width: 75, editable: true },
+    { field: 'rmrkactiveind', headerName: 'Active', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, cellStyle: { textAlign: 'center' }, width: 75 },
+    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, cellStyle: { textAlign: 'center' }, width: 100 },
     {
       field: 'edit',
       headerName: 'Edit',
@@ -31,7 +31,8 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
         onClick: (remarkData) => { openForm('edit', remarkData); },
         icon: faPen,
       },
-      flex: 0.5,
+      cellStyle: { textAlign: 'center' },
+      width: 75,
     },
   ]);
 
