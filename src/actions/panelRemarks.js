@@ -4,6 +4,10 @@ import { sortBy } from 'lodash';
 import { convertQueryToString } from 'utilities';
 import { toastError, toastSuccess } from './toast';
 import api from './../api';
+import { toastError, toastSuccess } from './toast';
+
+const PANEL_REMARK_CREATE_SUCCESS = 'Panel Remark created successfully';
+const PANEL_REMARK_CREATE_ERRORED = 'Panel Remark creation failed';
 
 let cancelPanelRemarksData;
 
@@ -104,6 +108,51 @@ export function fetchPanelRemarksData(query = {}) {
           });
         }
       });
+  };
+}
+
+// ======================== Panel Remarks Create ========================
+export function panelRemarksCreateDataErrored(bool) {
+  return {
+    type: 'PANEL_REMARKS_CREATE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function panelRemarksCreateDataLoading(bool) {
+  return {
+    type: 'PANEL_REMARKS_CREATE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function panelRemarksCreateDataSuccess(results) {
+  return {
+    type: 'PANEL_REMARKS_CREATE_SUCCESS',
+    results,
+  };
+}
+
+export function createPanelRemark(newRemark) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(panelRemarksCreateDataLoading(true));
+      dispatch(panelRemarksCreateDataErrored(false));
+    });
+    const endpoint = '/fsbid/panel_remarks/create_remark/';
+    api().post(endpoint, newRemark)
+      .then(({ data }) => {
+        dispatch(panelRemarksCreateDataSuccess(data));
+        dispatch(panelRemarksCreateDataErrored(false));
+        dispatch(panelRemarksCreateDataLoading(false));
+        dispatch(toastSuccess(PANEL_REMARK_CREATE_SUCCESS));
+      })
+      .catch(() => {
+        dispatch(panelRemarksCreateDataErrored(true));
+        dispatch(panelRemarksCreateDataLoading(false));
+        dispatch(toastError(PANEL_REMARK_CREATE_ERRORED));
+      });
+    dispatch(panelRemarksCreateDataSuccess(newRemark));
   };
 }
 
