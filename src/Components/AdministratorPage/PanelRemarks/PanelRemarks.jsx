@@ -40,6 +40,11 @@ const PanelRemarks = () => {
   const [showPrintView, setShowPrintView] = useState(false);
 
   const openForm = (type, data) => {
+    // Reset the success flags
+    batch(() => {
+      dispatch(panelRemarksEditSuccess(false));
+      dispatch(panelRemarksCreateSuccess(false));
+    });
     setMode(type);
     setShowPanelRemarkForm(true);
     if (type === 'edit') {
@@ -70,16 +75,11 @@ const PanelRemarks = () => {
     textSearch,
   ]);
 
-  // Close form and reset
+  // Close form and refresh data
   const closeForm = (fetchData = false) => {
     if (fetchData) {
       fetchAndSet();
     }
-    // Reset the success flags
-    batch(() => {
-      dispatch(panelRemarksEditSuccess(false));
-      dispatch(panelRemarksCreateSuccess(false));
-    });
     setShowPanelRemarkForm(false);
     setEditRemarkData({});
   };
