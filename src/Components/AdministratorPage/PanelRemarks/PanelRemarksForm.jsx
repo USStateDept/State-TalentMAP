@@ -1,27 +1,28 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
-import { createPanelRemark } from 'actions/panelRemarks';
+import { createPanelRemark, editPanelRemark } from 'actions/panelRemarks';
 
+const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
+  const dispatch = useDispatch();
 
-const PanelRemarksForm = ({ mode, categories, onClose }) => {
-  const [description, setDescription] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
-  const [orderNum, setOrderNum] = useState(0);
-  const [active, setActive] = useState(false);
-  const [mutuallyExcl, setMutuallyExcl] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState('');
+  const createRemarkSuccess = useSelector((state) => state.panelRemarksCreateSuccess);
+  const editRemarkSuccess = useSelector((state) => state.panelRemarksEditSuccess);
+
+  const [description, setDescription] = useState(remarkData.rmrktext || '');
+  const [shortDescription, setShortDescription] = useState(remarkData.rmrkshortdesctext || '');
+  const [orderNum, setOrderNum] = useState(remarkData.rmrkordernum || 0);
+  const [active, setActive] = useState(remarkData.rmrkactiveind || false);
+  const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
+  const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
   // const [roleRestriction, setRoleRestriction] = useState(false);
   // const [insertions, setInsertions] = useState(['']);
 
-  const dispatch = useDispatch();
-
   // all remark insertion and role restriction functionality is commented out for the time being
-
   // const handleNewInsertion = () => {
   //   setInsertions([...insertions, '']);
   // };
@@ -32,32 +33,45 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   //   setInsertions(newInsertions);
   // };
 
+  const resetForm = () => {
+    setDescription('');
+    setShortDescription('');
+    setOrderNum(0);
+    setActive(false);
+    setMutuallyExcl(false);
+    setSelectedCategories('');
+    // setRoleRestriction(false);
+    // setInsertions(['']);
+  };
+
+  useEffect(() => {
+    if (createRemarkSuccess) {
+      resetForm();
+    }
+    if (editRemarkSuccess) {
+      onClose(true);
+    }
+  }, [createRemarkSuccess, editRemarkSuccess]);
 
   const handleSubmit = async () => {
     const newRemark = {
-      rmrktext: description, // description
-      rmrkshortdesctext: shortDescription, // shortDescription
-      rmrkordernum: orderNum, // orderNum
-      rmrkactiveind: active, // active
-      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
       rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
+      rmrkordernum: orderNum, // orderNum
+      rmrkshortdesctext: shortDescription, // shortDescription
+      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
+      rmrktext: description, // description
+      rmrkactiveind: active, // active
       // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
+      ...(mode === 'edit' && {
+        rmrkseqnum: remarkData.rmrkseqnum,
+        rmrkupdatedate: remarkData.rmrkupdatedate,
+      }), // if in edit mode, include the remark sequence number and update date
     };
 
-    try {
+    if (mode === 'create') {
       await dispatch(createPanelRemark(newRemark));
-      // Reset the form only if the dispatch is successful
-      setDescription('');
-      setShortDescription('');
-      setOrderNum(0);
-      setActive(false);
-      setMutuallyExcl(false);
-      setSelectedCategories('');
-      // setRoleRestriction(false);
-      // setInsertions(['']);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to create panel remark:', error);
+    } else if (mode === 'edit') {
+      await dispatch(editPanelRemark(newRemark));
     }
   };
 
@@ -179,7 +193,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
         />
       </div> */}
       <div className="usa-grid button-container" style={{ display: 'flex', justifyContent: 'end' }}>
-        <button type="button" className="usa-button-secondary" onClick={onClose()} style={{ margin: '5px' }}>Cancel</button>
+        <button type="button" className="usa-button-secondary" onClick={() => onClose()} style={{ margin: '5px' }}>Cancel</button>
         <button type="button" className="usa-button-primary" onClick={handleSubmit} style={{ margin: '5px' }}>{mode === 'edit' ? 'Save' : 'Create'}</button>
       </div>
     </div>
@@ -189,7 +203,18 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
 PanelRemarksForm.propTypes = {
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  remarkData: PropTypes.shape({}),
+  remarkData: PropTypes.shape({
+    rmrkseqnum: PropTypes.number,
+    rmrktext: PropTypes.string,
+    rmrkshortdesctext: PropTypes.string,
+    rmrkordernum: PropTypes.number,
+    rmrkactiveind: PropTypes.bool,
+    rmrkmutuallyexclusiveind: PropTypes.bool,
+    rmrkrccode: PropTypes.string,
+    rmrkcreatedate: PropTypes.string,
+    rmrkupdatedate: PropTypes.string,
+    remarkInserts: PropTypes.arrayOf(PropTypes.string),
+  }),
   onClose: PropTypes.func.isRequired,
 };
 

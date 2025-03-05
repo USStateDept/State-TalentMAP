@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
-import { updatePanelRemarksData } from 'actions/panelRemarks';
+import { editPanelRemark } from 'actions/panelRemarks';
 
 const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
       rmrkactiveind: params.data.rmrkactiveind,
       rmrkupdatedate: params.data.rmrkupdatedate,
     };
-    dispatch(updatePanelRemarksData(data));
+    dispatch(editPanelRemark(data));
   };
 
   return (

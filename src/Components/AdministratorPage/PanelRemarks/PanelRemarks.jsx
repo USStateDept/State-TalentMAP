@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox, faPrint, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Picky } from 'react-picky';
@@ -7,7 +7,7 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData } from 'actions/panelRemarks';
+import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData, panelRemarksCreateSuccess, panelRemarksEditSuccess } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import { isEmpty } from 'lodash';
@@ -70,10 +70,18 @@ const PanelRemarks = () => {
     textSearch,
   ]);
 
-  // Close form
-  const closeForm = () => {
-    fetchAndSet();
+  // Close form and reset
+  const closeForm = (fetchData = false) => {
+    if (fetchData) {
+      fetchAndSet();
+    }
+    // Reset the success flags
+    batch(() => {
+      dispatch(panelRemarksEditSuccess(false));
+      dispatch(panelRemarksCreateSuccess(false));
+    });
     setShowPanelRemarkForm(false);
+    setEditRemarkData({});
   };
 
   const resetFilters = () => {
@@ -185,7 +193,7 @@ const PanelRemarks = () => {
                     tabs={[{
                       text: 'Panel Remarks',
                       value: 'REMARKS',
-                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={() => closeForm} /> :
+                      content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={closeForm} /> :
                         <PanelRemarksTable panelRemarks={panelRemarksData} openForm={openForm} />,
                     }]}
                     customComponent={newRemarkButton()}

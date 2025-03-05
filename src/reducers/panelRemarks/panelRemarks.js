@@ -1,34 +1,53 @@
-// ======= Panel Remarks: Update Panel Remarks =======
-export function panelRemarksUpdateDataErrored(state = false, action) {
+// ================= Panel Remarks: Create Panel Remarks =================
+export function panelRemarksCreateHasErrored(state = false, action) {
   switch (action.type) {
-    case 'PANEL_REMARKS_UPDATE_HAS_ERRORED':
+    case 'PANEL_REMARKS_CREATE_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
 
-export function panelRemarksUpdateDataLoading(state = false, action) {
+export function panelRemarksCreateIsLoading(state = false, action) {
   switch (action.type) {
-    case 'PANEL_REMARKS_UPDATE_IS_LOADING':
+    case 'PANEL_REMARKS_CREATE_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
 
-export function panelRemarksUpdateDataSuccess(state = false, action) {
+export function panelRemarksCreateSuccess(state = false, action) {
   switch (action.type) {
-    case 'PANEL_REMARKS_UPDATE_SUCCESS':
+    case 'PANEL_REMARKS_CREATE_SUCCESS':
       return action.success;
     default:
       return state;
   }
 }
 
-export function panelRemarksUpdateData(state = {}, action) {
+// ======= Panel Remarks: Update Panel Remarks =======
+export function panelRemarksEditHasErrored(state = false, action) {
   switch (action.type) {
-    case 'PANEL_REMARKS_UPDATE_SUCCESS':
+    case 'PANEL_REMARKS_EDIT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function panelRemarksEditIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_REMARKS_EDIT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function panelRemarksEditSuccess(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_REMARKS_EDIT_SUCCESS':
       return action.success;
     default:
       return state;
@@ -63,34 +82,6 @@ export function panelRemarks(state = initialState, action) {
       return {
         results: action.results,
       };
-    default:
-      return state;
-  }
-}
-
-// ================= Panel Remarks: Create Panel Remarks =================
-export function panelRemarksCreateDataErrored(state = false, action) {
-  switch (action.type) {
-    case 'PANEL_REMARKS_CREATE_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-
-export function panelRemarksCreateDataLoading(state = false, action) {
-  switch (action.type) {
-    case 'PANEL_REMARKS_CREATE_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-
-export function panelRemarksCreateDataSuccess(state = [], action) {
-  switch (action.type) {
-    case 'PANEL_REMARKS_CREATE_SUCCESS':
-      return action.results;
     default:
       return state;
   }
