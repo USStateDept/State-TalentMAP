@@ -33,7 +33,7 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
   // };
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newRemark = {
       rmrktext: description, // description
       rmrkshortdesctext: shortDescription, // shortDescription
@@ -43,15 +43,22 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
       rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
       // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
     };
-    dispatch(createPanelRemark(newRemark));
-    setDescription('');
-    setShortDescription('');
-    setOrderNum(0);
-    setActive(false);
-    setMutuallyExcl(false);
-    setSelectedCategories('');
-    // setRoleRestriction(false);
-    // setInsertions(['']);
+
+    try {
+      await dispatch(createPanelRemark(newRemark));
+      // Reset the form only if the dispatch is successful
+      setDescription('');
+      setShortDescription('');
+      setOrderNum(0);
+      setActive(false);
+      setMutuallyExcl(false);
+      setSelectedCategories('');
+      // setRoleRestriction(false);
+      // setInsertions(['']);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to create panel remark:', error);
+    }
   };
 
   const pickyProps = {
