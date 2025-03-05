@@ -59,7 +59,6 @@ export function panelRemarksCreateDataSuccess(state = [], action) {
   }
 }
 
-
 // ================= Panel Remarks: Get Remark Categories =================
 export function panelRemarksCategoriesFetchDataErrored(state = false, action) {
   switch (action.type) {
