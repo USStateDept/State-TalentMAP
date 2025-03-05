@@ -40,6 +40,9 @@
             font-size: 12px;
             display: initial;
         }
+        .ag-cell, label {
+            display: initial; // necessary to make custom checkboxes show
+        }
     }
 
     .pr-form {

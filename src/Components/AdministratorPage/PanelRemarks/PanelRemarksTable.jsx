@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
 import { editPanelRemark } from 'actions/panelRemarks';
+import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 
 const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
     { field: 'rmrktext', headerName: 'Description', flex: 1, editable: true },
     { field: 'rmrkshortdesctext', headerName: 'Short Desc.', flex: 1, editable: true },
     { field: 'rmrkordernum', headerName: 'Order', flex: 1, editable: true },
-    { field: 'rmrkactiveind', headerName: 'Active', flex: 1, editable: true },
-    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', flex: 1, editable: true },
+    { field: 'rmrkactiveind', headerName: 'Active', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, flex: 1 },
+    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, flex: 1 },
     {
       field: 'edit',
       headerName: 'Edit',
@@ -44,8 +45,8 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
       rmrktext: obj.rmrktext,
       rmrkshortdesctext: obj.rmrkshortdesctext,
       rmrkordernum: obj.rmrkordernum,
-      rmrkactiveind: obj.rmrkactiveind,
-      rmrkmutuallyexclusiveind: obj.rmrkmutuallyexclusiveind,
+      rmrkactiveind: obj.rmrkactiveind === 'Y',
+      rmrkmutuallyexclusiveind: obj.rmrkmutuallyexclusiveind === 'Y',
       rmrkrccode: obj.rmrkrccode,
       rmrkcreatedate: obj.rmrkcreatedate,
       rmrkcreateid: obj.rmrkcreateid,
