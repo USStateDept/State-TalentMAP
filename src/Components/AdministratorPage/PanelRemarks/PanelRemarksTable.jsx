@@ -33,7 +33,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
-  // Mapping the object to the row
+  // Mapping the object to the row for when the data is fetched
   const mapObjectToRow = (obj) => {
     const row = {
       rmrkseqnum: obj.rmrkseqnum,

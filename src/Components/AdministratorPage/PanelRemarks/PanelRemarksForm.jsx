@@ -1,29 +1,64 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import { renderSelectionList } from 'utilities';
-import InteractiveElement from 'Components/InteractiveElement';
 import ToggleButton from 'Components/ToggleButton';
+import { createPanelRemark } from 'actions/panelRemarks';
 
 
 const PanelRemarksForm = ({ mode, categories, onClose }) => {
   const [description, setDescription] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [orderNum, setOrderNum] = useState('');
+  const [orderNum, setOrderNum] = useState(0);
   const [active, setActive] = useState(false);
   const [mutuallyExcl, setMutuallyExcl] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [insertions, setInsertions] = useState(['']);
+  const [selectedCategories, setSelectedCategories] = useState('');
+  // const [roleRestriction, setRoleRestriction] = useState(false);
+  // const [insertions, setInsertions] = useState(['']);
 
-  const handleNewInsertion = () => {
-    setInsertions([...insertions, '']);
-  };
+  const dispatch = useDispatch();
 
-  const handleInsertionChange = (index, value) => {
-    const newInsertions = [...insertions];
-    newInsertions[index] = value;
-    setInsertions(newInsertions);
+  // all remark insertion and role restriction functionality is commented out for the time being
+
+  // const handleNewInsertion = () => {
+  //   setInsertions([...insertions, '']);
+  // };
+
+  // const handleInsertionChange = (index, value) => {
+  //   const newInsertions = [...insertions];
+  //   newInsertions[index] = value;
+  //   setInsertions(newInsertions);
+  // };
+
+
+  const handleSubmit = async () => {
+    const newRemark = {
+      rmrktext: description, // description
+      rmrkshortdesctext: shortDescription, // shortDescription
+      rmrkordernum: orderNum, // orderNum
+      rmrkactiveind: active, // active
+      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
+      rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
+      // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
+    };
+
+    try {
+      await dispatch(createPanelRemark(newRemark));
+      // Reset the form only if the dispatch is successful
+      setDescription('');
+      setShortDescription('');
+      setOrderNum(0);
+      setActive(false);
+      setMutuallyExcl(false);
+      setSelectedCategories('');
+      // setRoleRestriction(false);
+      // setInsertions(['']);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to create panel remark:', error);
+    }
   };
 
   const pickyProps = {
@@ -43,22 +78,34 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             onChange={(e) => setDescription(e.target.value)}
             minRows={4}
             maxRows={4}
-            maxLength={500}
+            maxLength={100}
             placeholder="Enter remark description"
           />
           <div className="pr-word-count">
-            {description.length} / 500
+            {description.length} / 100
           </div>
         </div>
       </div>
       <div className="usa-grid pr-row">
         <div className="usa-width-one-third">
           <label htmlFor="remarkShortDescription pr-input">Short Description</label>
-          <input id="remarkShortDescription" type="text" value={shortDescription} placeholder="Enter short description" onChange={(e) => setShortDescription(e.target.value)} />
+          <input
+            id="remarkShortDescription"
+            type="text"
+            value={shortDescription}
+            placeholder="Enter short description"
+            onChange={(e) => {
+              const value = e.target.value.slice(0, 20);
+              setShortDescription(value);
+            }}
+          />
+          <div className="pr-word-count">
+            {shortDescription.length} / 20
+          </div>
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
-          <input id="remarkOrder" type="text" value={orderNum} onChange={(e) => setOrderNum(e.target.value)} />
+          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || 0)} />
         </div>
         <div className="usa-grid-full pr-toggle-container">
           <ToggleButton
@@ -81,14 +128,22 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           id="remarkCategory"
           {...pickyProps}
           placeholder="Select Category"
-          value={selectedCategories}
+          value={categories.find((category) => category.rccode === selectedCategories)}
           options={categories}
-          onChange={setSelectedCategories}
-          valueKey="rccode"
+          onChange={(selected) => {
+            if (selected && selected.rccode) {
+              setSelectedCategories(selected.rccode);
+            } else {
+              setSelectedCategories('');
+            }
+          }}
+          valueKey="rcdesctext"
           labelKey="rcdesctext"
+          multiple={false}
         />
       </div>
-      <div className="usa-grid">
+      {/* Commented out for now as this is not being used in the API call yet*}
+      {/* <div className="usa-grid">
         <div className="usa-width-one-half">
           <div className="pr-label-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
@@ -114,18 +169,18 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="usa-grid">
+      </div> */}
+      {/* <div className="usa-grid">
         <ToggleButton
           labelTextRight="Role Restriction"
-          onChange={() => setActive(!active)}
-          checked={active}
+          onChange={() => setRoleRestriction(!roleRestriction)}
+          checked={roleRestriction}
           onColor="#0071BC"
         />
-      </div>
+      </div> */}
       <div className="usa-grid button-container" style={{ display: 'flex', justifyContent: 'end' }}>
         <button type="button" className="usa-button-secondary" onClick={onClose()} style={{ margin: '5px' }}>Cancel</button>
-        <button type="button" className="usa-button-primary" style={{ margin: '5px' }}>{mode === 'edit' ? 'Save' : 'Create'}</button>
+        <button type="button" className="usa-button-primary" onClick={handleSubmit} style={{ margin: '5px' }}>{mode === 'edit' ? 'Save' : 'Create'}</button>
       </div>
     </div>
   );
