@@ -266,15 +266,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      checkFlag('flags.panel_remarks') ?
-        {
-          text: 'Panel Remarks',
-          route: '/profile/administrator/panelremarks/',
-          icon: 'cogs',
-          roles: [
-            'superuser',
-          ],
-        } : null,
       checkFlag('flags.bidding_tool') ?
         {
           text: 'Bidding Tool',
@@ -436,6 +427,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         },
+        checkFlag('flags.panel_remarks') ?
+          {
+            text: 'Panel Remarks',
+            route: '/profile/administrator/panelremarks/',
+            icon: 'cogs',
+            roles: [
+              'superuser',
+            ],
+          } : null,
       ],
     } : null,
   {
