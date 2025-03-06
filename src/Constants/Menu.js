@@ -409,7 +409,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   checkFlag('flags.panel_admin_menu') ?
     {
-      text: 'Panel Administrator',
+      text: 'Panel Admin',
       icon: 'sitemap',
       toggleMenuSection: true,
       expandedSection: true,
