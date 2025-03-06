@@ -28,7 +28,7 @@ const PanelMeetingAgendas = (props) => {
   const { isCDO, location } = props;
 
   const panelMeetings = location.state?.panelMeetings || [];
-  const pmSeqNums = sortBy(panelMeetings.map(pm => pm.pmi_pm_seq_num), (n) => n);
+  const pmSeqNums = sortBy(panelMeetings.map(pm => pm.pmi_pm_seq_num), (seqNum) => seqNum);
 
   const agendasIsLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
   const agendas$ = useSelector(state => state.panelMeetingAgendas);
