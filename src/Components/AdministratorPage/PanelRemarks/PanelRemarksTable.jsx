@@ -1,15 +1,20 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { AgGridReact } from 'ag-grid-react';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
 import { editPanelRemark } from 'actions/panelRemarks';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 
-const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
+const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref) => {
   const dispatch = useDispatch();
   const gridRef = useRef(null);
+
+  const fetchRemarksLoading = useSelector((state) => state.panelRemarksFetchDataLoading);
+  const editRemarkLoading = useSelector((state) => state.panelRemarksEditLoading);
+  const editRemarkSuccess = useSelector((state) => state.panelRemarksEditSuccess);
+  const isLoading = fetchRemarksLoading || editRemarkLoading;
 
   useImperativeHandle(ref, () => ({
     getGridRef: () => gridRef.current,
@@ -60,6 +65,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   };
 
   useEffect(() => {
+    // Load the data into the table when it is fetched
     if (panelRemarks && panelRemarks.length > 0) {
       const mappedRows = panelRemarks.map(mapObjectToRow);
       setPanelRemarksRows(mappedRows);
@@ -82,6 +88,14 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
     dispatch(editPanelRemark(data));
   };
 
+  useEffect(() => {
+    // If the edit was successful, refresh the data
+    if (editRemarkSuccess) {
+      fetchData();
+    }
+  }
+  , [editRemarkSuccess]);
+
   return (
     <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
       <AgGridReact
@@ -94,6 +108,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
         pagination
         paginationPageSize={10}
         paginationPageSizeSelector={[10, 20, 50, 100]}
+        loading={isLoading}
       />
     </div>
   );
@@ -109,6 +124,7 @@ PanelRemarksTable.propTypes = {
     rmrkactiveind: PropTypes.string,
     rmrkmutuallyexclusiveind: PropTypes.string,
   })).isRequired,
+  fetchData: PropTypes.func.isRequired,
   openForm: PropTypes.func.isRequired,
 };
 

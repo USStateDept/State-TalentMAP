@@ -77,14 +77,14 @@ export function panelRemarksEditSuccess(bool) {
   };
 }
 
-export function editPanelRemark(data) {
+export function editPanelRemark(json) {
   return (dispatch) => {
     batch(() => {
       dispatch(panelRemarksEditIsLoading(true));
       dispatch(panelRemarksEditHasErrored(false));
     });
     const endpoint = '/fsbid/panel_remarks/update_remark/';
-    api().post(endpoint, data, {
+    api().post(endpoint, json, {
       cancelToken: new CancelToken((c) => { cancelPanelRemarksData = c; }),
     })
       .then(() => {

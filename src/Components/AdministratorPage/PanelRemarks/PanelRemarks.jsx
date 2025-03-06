@@ -40,11 +40,6 @@ const PanelRemarks = () => {
   const [showPrintView, setShowPrintView] = useState(false);
 
   const openForm = (type, data) => {
-    // Reset the success flags
-    batch(() => {
-      dispatch(panelRemarksEditSuccess(false));
-      dispatch(panelRemarksCreateSuccess(false));
-    });
     setMode(type);
     setShowPanelRemarkForm(true);
     if (type === 'edit') {
@@ -58,11 +53,18 @@ const PanelRemarks = () => {
   }, []);
 
   const fetchAndSet = () => {
+    // Reset the success flags
+    batch(() => {
+      dispatch(panelRemarksEditSuccess(false));
+      dispatch(panelRemarksCreateSuccess(false));
+    });
+    // If no filters are set, disable the clear filters button
     if (isEmpty(textSearch) && isEmpty(selectedCategories) && !isActive && !isExcl) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
     }
+    // Fetch the data
     dispatch(fetchPanelRemarksData());
   };
 
@@ -75,7 +77,7 @@ const PanelRemarks = () => {
     textSearch,
   ]);
 
-  // Close form and refresh data
+  // Close form and refresh data on save
   const closeForm = (fetchData = false) => {
     if (fetchData) {
       fetchAndSet();
@@ -194,7 +196,7 @@ const PanelRemarks = () => {
                       text: 'Panel Remarks',
                       value: 'REMARKS',
                       content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={closeForm} /> :
-                        <PanelRemarksTable panelRemarks={panelRemarksData} openForm={openForm} />,
+                        <PanelRemarksTable panelRemarks={panelRemarksData} fetchData={fetchAndSet} openForm={openForm} />,
                     }]}
                     customComponent={newRemarkButton()}
                   />
