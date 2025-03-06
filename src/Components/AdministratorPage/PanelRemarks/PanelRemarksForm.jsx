@@ -33,22 +33,10 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   //   setInsertions(newInsertions);
   // };
 
-  const resetForm = () => {
-    setDescription('');
-    setShortDescription('');
-    setOrderNum(0);
-    setActive(false);
-    setMutuallyExcl(false);
-    setSelectedCategories('');
-    // setRoleRestriction(false);
-    // setInsertions(['']);
-  };
 
   useEffect(() => {
-    if (createRemarkSuccess) {
-      resetForm();
-    }
-    if (editRemarkSuccess) {
+    // if the create or edit was successful, close the form
+    if (createRemarkSuccess || editRemarkSuccess) {
       onClose(true);
     }
   }, [createRemarkSuccess, editRemarkSuccess]);
