@@ -115,28 +115,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
     </div>
     <div
       className="button-container"
-    >
-      <div
-        className="view-agenda-item-container"
-      >
-        <LinkButton
-          className="view-agenda-item-button"
-          toLink="/profile/ao/agendaitemhistory/"
-        >
-          View History
-        </LinkButton>
-      </div>
-      <div
-        className="button-box-container"
-      >
-        <LinkButton
-          className="button-box"
-          toLink="/profile/ao/editagendaitem/"
-        >
-          Create Agenda Item
-        </LinkButton>
-      </div>
-    </div>
+    />
   </div>
 </div>
 `;

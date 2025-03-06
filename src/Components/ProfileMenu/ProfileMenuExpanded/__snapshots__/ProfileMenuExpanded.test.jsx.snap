@@ -54,14 +54,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Bid Tracker"
       />
       <withRouter(NavLink)
-        hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
         hidden={false}
         iconName="star"
         key="Favorites"
@@ -110,14 +102,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/ao/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/ao/bidderportfolio"
@@ -126,43 +110,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="sticky-note"
-        key="Employees and Panel Agendas"
-        link="/profile/ao/employeeagendas"
-        search=""
-        title="Employees and Panel Agendas"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel Meetings"
-        link="/profile/ao/panelmeetings"
-        search=""
-        title="Panel Meetings"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/ao/positionmanager"
         search=""
         title="Position Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Projected Vacancy Management"
-        link="/profile/ao/projectedvacancy"
-        search=""
-        title="Projected Vacancy Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-newspaper-o"
-        key="Publishable Positions"
-        link="/profile/ao/publishablepositions"
-        search=""
-        title="Publishable Positions"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -189,51 +141,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/bureau/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="building"
-        key="Manage Post Access"
-        link="/profile/bureau/managepostaccess"
-        search=""
-        title="Manage Post Access"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Projected Vacancy Management"
-        link="/profile/bureau/projectedvacancy"
-        search=""
-        title="Projected Vacancy Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-newspaper-o"
-        key="Publishable Positions"
-        link="/profile/bureau/publishablepositions"
-        search=""
-        title="Publishable Positions"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-search-minus"
-        key="Search Post Access"
-        link="/profile/bureau/searchpostaccess"
-        search=""
-        title="Search Post Access"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -260,35 +172,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/cdo/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/cdo/bidderportfolio"
         search="?type=all"
         title="Client Profiles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="sticky-note"
-        key="Employees and Panel Agendas"
-        link="/profile/cdo/employeeagendas"
-        search=""
-        title="Employees and Panel Agendas"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel Meetings"
-        link="/profile/cdo/panelmeetings"
-        search=""
-        title="Panel Meetings"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -330,52 +218,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         }
       }
       hidden={true}
-      iconName="sitemap"
-      key="FSBid Admin"
-      search=""
-      title="FSBid Admin"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel"
-        link="/profile/fsbid_admin/"
-        search=""
-        title="Panel"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="sitemap"
-      key="Panel Administrator"
-      search=""
-      title="Panel Administrator"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel"
-        link="/profile/panel_admin/panel"
-        search=""
-        title="Panel"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
       iconName="building"
       key="Post"
       search=""
@@ -392,27 +234,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/post/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/post/positionmanager"
         search=""
         title="Position Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-newspaper-o"
-        key="Publishable Positions"
-        link="/profile/post/publishablepositions"
-        search=""
-        title="Publishable Positions"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -439,59 +265,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Bid Audit"
-        link="/profile/administrator/bidaudit/"
-        search=""
-        title="Bid Audit"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="hourglass-start"
         key="Bid Cycles"
         link="/profile/administrator/cycles/"
         search=""
         title="Bid Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Bid Season Management"
-        link="/profile/administrator/managebidseasons/"
-        search=""
-        title="Bid Season Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/administrator/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Bureau Exceptions"
-        link="/profile/administrator/bureauexceptions/"
-        search=""
-        title="Bureau Exceptions"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cogs"
-        key="Cycle Job Categories"
-        link="/profile/administrator/cyclejobcategories/"
-        search=""
-        title="Cycle Job Categories"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="database"
-        key="Cycle Management"
-        link="/profile/administrator/cyclemanagement"
-        search=""
-        title="Cycle Management"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -511,43 +289,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cogs"
-        key="Job Categories"
-        link="/profile/administrator/jobcategories/"
-        search=""
-        title="Job Categories"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="sitemap"
         key="Logs"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Manage Entry Level"
-        link="/profile/administrator/manageentrylevel/"
-        search=""
-        title="Manage Entry Level"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="building"
-        key="Org Stats"
-        link="/profile/administrator/orgstats/"
-        search=""
-        title="Org Stats"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cogs"
-        key="Panel Remarks"
-        link="/profile/administrator/panelremarks/"
-        search=""
-        title="Panel Remarks"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -624,14 +370,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Bid Tracker"
       />
       <withRouter(NavLink)
-        hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
         hidden={false}
         iconName="star"
         key="Favorites"
@@ -680,14 +418,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/ao/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/ao/bidderportfolio"
@@ -696,43 +426,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="sticky-note"
-        key="Employees and Panel Agendas"
-        link="/profile/ao/employeeagendas"
-        search=""
-        title="Employees and Panel Agendas"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel Meetings"
-        link="/profile/ao/panelmeetings"
-        search=""
-        title="Panel Meetings"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/ao/positionmanager"
         search=""
         title="Position Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Projected Vacancy Management"
-        link="/profile/ao/projectedvacancy"
-        search=""
-        title="Projected Vacancy Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-newspaper-o"
-        key="Publishable Positions"
-        link="/profile/ao/publishablepositions"
-        search=""
-        title="Publishable Positions"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -759,51 +457,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/bureau/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="building"
-        key="Manage Post Access"
-        link="/profile/bureau/managepostaccess"
-        search=""
-        title="Manage Post Access"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Projected Vacancy Management"
-        link="/profile/bureau/projectedvacancy"
-        search=""
-        title="Projected Vacancy Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-newspaper-o"
-        key="Publishable Positions"
-        link="/profile/bureau/publishablepositions"
-        search=""
-        title="Publishable Positions"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-search-minus"
-        key="Search Post Access"
-        link="/profile/bureau/searchpostaccess"
-        search=""
-        title="Search Post Access"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -830,35 +488,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/cdo/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/cdo/bidderportfolio"
         search="?type=all"
         title="Client Profiles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="sticky-note"
-        key="Employees and Panel Agendas"
-        link="/profile/cdo/employeeagendas"
-        search=""
-        title="Employees and Panel Agendas"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel Meetings"
-        link="/profile/cdo/panelmeetings"
-        search=""
-        title="Panel Meetings"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -900,52 +534,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         }
       }
       hidden={true}
-      iconName="sitemap"
-      key="FSBid Admin"
-      search=""
-      title="FSBid Admin"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel"
-        link="/profile/fsbid_admin/"
-        search=""
-        title="Panel"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="sitemap"
-      key="Panel Administrator"
-      search=""
-      title="Panel Administrator"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Panel"
-        link="/profile/panel_admin/panel"
-        search=""
-        title="Panel"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
       iconName="building"
       key="Post"
       search=""
@@ -962,27 +550,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/post/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/post/positionmanager"
         search=""
         title="Position Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-newspaper-o"
-        key="Publishable Positions"
-        link="/profile/post/publishablepositions"
-        search=""
-        title="Publishable Positions"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -1008,60 +580,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Bid Audit"
-        link="/profile/administrator/bidaudit/"
-        search=""
-        title="Bid Audit"
-      />
-      <withRouter(NavLink)
         hidden={false}
         iconName="hourglass-start"
         key="Bid Cycles"
         link="/profile/administrator/cycles/"
         search=""
         title="Bid Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="calendar"
-        key="Bid Season Management"
-        link="/profile/administrator/managebidseasons/"
-        search=""
-        title="Bid Season Management"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cog"
-        key="Bidding Tool"
-        link="/profile/administrator/biddingtool/"
-        search=""
-        title="Bidding Tool"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Bureau Exceptions"
-        link="/profile/administrator/bureauexceptions/"
-        search=""
-        title="Bureau Exceptions"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cogs"
-        key="Cycle Job Categories"
-        link="/profile/administrator/cyclejobcategories/"
-        search=""
-        title="Cycle Job Categories"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="database"
-        key="Cycle Management"
-        link="/profile/administrator/cyclemanagement"
-        search=""
-        title="Cycle Management"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -1081,43 +605,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="cogs"
-        key="Job Categories"
-        link="/profile/administrator/jobcategories/"
-        search=""
-        title="Job Categories"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="sitemap"
         key="Logs"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Manage Entry Level"
-        link="/profile/administrator/manageentrylevel/"
-        search=""
-        title="Manage Entry Level"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="building"
-        key="Org Stats"
-        link="/profile/administrator/orgstats/"
-        search=""
-        title="Org Stats"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="cogs"
-        key="Panel Remarks"
-        link="/profile/administrator/panelremarks/"
-        search=""
-        title="Panel Remarks"
       />
       <withRouter(NavLink)
         hidden={true}
