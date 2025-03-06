@@ -34,17 +34,21 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
   const hsCountry = get(hsAssignment, 'locationCountry') || '';
   const hsOrg = get(hsAssignment, 'orgDescription') ? `(${get(hsAssignment, 'orgDescription')})` : '';
   const hasHandshake = get(result, 'hsAssignment.orgDescription') || false;
-  const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const ted = get(currentAssignment, 'TED') ? formatDate(currentAssignment.TED) : FALLBACK;
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
   const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
+  const panelType = get(agenda, 'pmpmtcode', '');
+  const panelStatus = get(agenda, 'micdesctext');
+  const panelDateType = get(agenda, 'pmdmdtcode', '');
+  const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
+  // create panel meeting obj for link to panel meeting agendas
+  const panelMeeting = { pmi_pm_seq_num: pmSeqNum, pmt_code: panelType, pms_desc_text: panelStatus, panelMeetingDates: [{ mdt_code: panelDateType, pmd_dttm: panelDate }] };
   const agendaStatus = get(agenda, 'status');
   const agendaID = get(agenda, 'agendaID');
   const agendaIDExist = !!agendaID;
-
 
   const currentPost = (currentCity || currentCountry || currentOrg) ? `${currentCity} ${currentCountry} ${currentOrg}` : FALLBACK;
   const hsPost = (hsCity || hsCountry || hsOrg) ? `${hsCity} ${hsCountry} ${hsOrg}` : FALLBACK;
@@ -67,13 +71,13 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
       <div className="employee-agenda-card-inner">
         <div className="ribbon-container-condensed">
           {hasHandshake &&
-                  <Tooltip
-                    title="Handshake"
-                    arrow
-                    offset={-60}
-                  >
-                    <Handshake showText={false} className="ribbon-condensed-card" />
-                  </Tooltip>
+            <Tooltip
+              title="Handshake"
+              arrow
+              offset={-60}
+            >
+              <Handshake showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
           }
         </div>
       </div>
@@ -125,14 +129,16 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
           {
             (showPanelMeetingsAgendas && panelMeetingExist) ?
               <dd>
-                <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
-                  {panelDate}
+                <Link to={{ pathname: `/profile/${userRole}/panelmeetingagendas`, state: { panelMeetings: [panelMeeting] } }}>
+                  {panelType ? `${panelType} - ` : ''}{panelDate}
                 </Link>
               </dd>
               :
-              <dd>{panelDate}</dd>
+              <dd>{panelType ? `${panelType} - ` : ''}{panelDate}</dd>
           }
         </div>
+        { false &&
+        // temporarily removing Agenda item from the card, it's not needed right now
         <div className="employee-card-data-point">
           <FA name="sticky-note-o" />
           <dt>Agenda:</dt>
@@ -147,6 +153,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
               <dd>{agendaStatus || FALLBACK}</dd>
           }
         </div>
+        }
       </div>
       <div className="employee-agenda-card-bottom">
         <div className="button-container">

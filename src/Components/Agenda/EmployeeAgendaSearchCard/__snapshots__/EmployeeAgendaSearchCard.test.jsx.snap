@@ -96,19 +96,6 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         None Listed
       </dd>
     </div>
-    <div
-      className="employee-card-data-point"
-    >
-      <FontAwesome
-        name="sticky-note-o"
-      />
-      <dt>
-        Agenda:
-      </dt>
-      <dd>
-        None Listed
-      </dd>
-    </div>
   </div>
   <div
     className="employee-agenda-card-bottom"
