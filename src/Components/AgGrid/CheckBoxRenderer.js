@@ -26,6 +26,13 @@ CheckboxRenderer.propTypes = {
     data: PropTypes.shape({}).isRequired,
   }).isRequired,
   value: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+  small: PropTypes.bool,
+};
+
+CheckboxRenderer.defaultProps = {
+  disabled: false,
+  small: false,
 };
 
 export default CheckboxRenderer;

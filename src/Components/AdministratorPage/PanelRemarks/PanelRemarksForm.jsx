@@ -1,29 +1,66 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import { renderSelectionList } from 'utilities';
-import InteractiveElement from 'Components/InteractiveElement';
 import ToggleButton from 'Components/ToggleButton';
+import { createPanelRemark, editPanelRemark } from 'actions/panelRemarks';
+
+const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
+  const dispatch = useDispatch();
+
+  const createRemarkSuccess = useSelector((state) => state.panelRemarksCreateSuccess);
+  const editRemarkSuccess = useSelector((state) => state.panelRemarksEditSuccess);
+
+  const [description, setDescription] = useState(remarkData.rmrktext || '');
+  const [shortDescription, setShortDescription] = useState(remarkData.rmrkshortdesctext || '');
+  const [orderNum, setOrderNum] = useState(remarkData.rmrkordernum || 0);
+  const [active, setActive] = useState(remarkData.rmrkactiveind || false);
+  const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
+  const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
+  // const [roleRestriction, setRoleRestriction] = useState(false);
+  // const [insertions, setInsertions] = useState(['']);
+
+  // all remark insertion and role restriction functionality is commented out for the time being
+  // const handleNewInsertion = () => {
+  //   setInsertions([...insertions, '']);
+  // };
+
+  // const handleInsertionChange = (index, value) => {
+  //   const newInsertions = [...insertions];
+  //   newInsertions[index] = value;
+  //   setInsertions(newInsertions);
+  // };
 
 
-const PanelRemarksForm = ({ mode, categories, onClose }) => {
-  const [description, setDescription] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
-  const [orderNum, setOrderNum] = useState('');
-  const [active, setActive] = useState(false);
-  const [mutuallyExcl, setMutuallyExcl] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [insertions, setInsertions] = useState(['']);
+  useEffect(() => {
+    // if the create or edit was successful, close the form
+    if (createRemarkSuccess || editRemarkSuccess) {
+      onClose(true);
+    }
+  }, [createRemarkSuccess, editRemarkSuccess]);
 
-  const handleNewInsertion = () => {
-    setInsertions([...insertions, '']);
-  };
+  const handleSubmit = async () => {
+    const newRemark = {
+      rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
+      rmrkordernum: orderNum, // orderNum
+      rmrkshortdesctext: shortDescription, // shortDescription
+      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
+      rmrktext: description, // description
+      rmrkactiveind: active, // active
+      // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
+      ...(mode === 'edit' && {
+        rmrkseqnum: remarkData.rmrkseqnum,
+        rmrkupdatedate: remarkData.rmrkupdatedate,
+      }), // if in edit mode, include the remark sequence number and update date
+    };
 
-  const handleInsertionChange = (index, value) => {
-    const newInsertions = [...insertions];
-    newInsertions[index] = value;
-    setInsertions(newInsertions);
+    if (mode === 'create') {
+      await dispatch(createPanelRemark(newRemark));
+    } else if (mode === 'edit') {
+      await dispatch(editPanelRemark(newRemark));
+    }
   };
 
   const pickyProps = {
@@ -43,22 +80,34 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             onChange={(e) => setDescription(e.target.value)}
             minRows={4}
             maxRows={4}
-            maxLength={500}
+            maxLength={100}
             placeholder="Enter remark description"
           />
           <div className="pr-word-count">
-            {description.length} / 500
+            {description.length} / 100
           </div>
         </div>
       </div>
       <div className="usa-grid pr-row">
         <div className="usa-width-one-third">
           <label htmlFor="remarkShortDescription pr-input">Short Description</label>
-          <input id="remarkShortDescription" type="text" value={shortDescription} placeholder="Enter short description" onChange={(e) => setShortDescription(e.target.value)} />
+          <input
+            id="remarkShortDescription"
+            type="text"
+            value={shortDescription}
+            placeholder="Enter short description"
+            onChange={(e) => {
+              const value = e.target.value.slice(0, 20);
+              setShortDescription(value);
+            }}
+          />
+          <div className="pr-word-count">
+            {shortDescription.length} / 20
+          </div>
         </div>
         <div className="usa-width-one-twelfth">
           <label htmlFor="remarkOrder">Order</label>
-          <input id="remarkOrder" type="text" value={orderNum} onChange={(e) => setOrderNum(e.target.value)} />
+          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || 0)} />
         </div>
         <div className="usa-grid-full pr-toggle-container">
           <ToggleButton
@@ -81,14 +130,22 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
           id="remarkCategory"
           {...pickyProps}
           placeholder="Select Category"
-          value={selectedCategories}
+          value={categories.find((category) => category.rccode === selectedCategories)}
           options={categories}
-          onChange={setSelectedCategories}
-          valueKey="rccode"
+          onChange={(selected) => {
+            if (selected && selected.rccode) {
+              setSelectedCategories(selected.rccode);
+            } else {
+              setSelectedCategories('');
+            }
+          }}
+          valueKey="rcdesctext"
           labelKey="rcdesctext"
+          multiple={false}
         />
       </div>
-      <div className="usa-grid">
+      {/* Commented out for now as this is not being used in the API call yet*}
+      {/* <div className="usa-grid">
         <div className="usa-width-one-half">
           <div className="pr-label-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
@@ -114,18 +171,18 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="usa-grid">
+      </div> */}
+      {/* <div className="usa-grid">
         <ToggleButton
           labelTextRight="Role Restriction"
-          onChange={() => setActive(!active)}
-          checked={active}
+          onChange={() => setRoleRestriction(!roleRestriction)}
+          checked={roleRestriction}
           onColor="#0071BC"
         />
-      </div>
+      </div> */}
       <div className="usa-grid button-container" style={{ display: 'flex', justifyContent: 'end' }}>
-        <button type="button" className="usa-button-secondary" onClick={onClose()} style={{ margin: '5px' }}>Cancel</button>
-        <button type="button" className="usa-button-primary" style={{ margin: '5px' }}>{mode === 'edit' ? 'Save' : 'Create'}</button>
+        <button type="button" className="usa-button-secondary" onClick={() => onClose()} style={{ margin: '5px' }}>Cancel</button>
+        <button type="button" className="usa-button-primary" onClick={handleSubmit} style={{ margin: '5px' }}>{mode === 'edit' ? 'Save' : 'Create'}</button>
       </div>
     </div>
   );
@@ -134,7 +191,18 @@ const PanelRemarksForm = ({ mode, categories, onClose }) => {
 PanelRemarksForm.propTypes = {
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  remarkData: PropTypes.shape({}),
+  remarkData: PropTypes.shape({
+    rmrkseqnum: PropTypes.number,
+    rmrktext: PropTypes.string,
+    rmrkshortdesctext: PropTypes.string,
+    rmrkordernum: PropTypes.number,
+    rmrkactiveind: PropTypes.bool,
+    rmrkmutuallyexclusiveind: PropTypes.bool,
+    rmrkrccode: PropTypes.string,
+    rmrkcreatedate: PropTypes.string,
+    rmrkupdatedate: PropTypes.string,
+    remarkInserts: PropTypes.arrayOf(PropTypes.string),
+  }),
   onClose: PropTypes.func.isRequired,
 };
 

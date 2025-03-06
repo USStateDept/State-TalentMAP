@@ -1,23 +1,32 @@
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { AgGridReact } from 'ag-grid-react';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
+import { editPanelRemark } from 'actions/panelRemarks';
+import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 
-const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
+const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref) => {
+  const dispatch = useDispatch();
   const gridRef = useRef(null);
+
+  const fetchRemarksLoading = useSelector((state) => state.panelRemarksFetchDataLoading);
+  const editRemarkLoading = useSelector((state) => state.panelRemarksEditLoading);
+  const editRemarkSuccess = useSelector((state) => state.panelRemarksEditSuccess);
+  const isLoading = fetchRemarksLoading || editRemarkLoading;
 
   useImperativeHandle(ref, () => ({
     getGridRef: () => gridRef.current,
   }));
 
   const [headers] = useState([
-    { field: 'category', headerName: 'Category', flex: 1 },
+    { field: 'category', headerName: 'Category', maxWidth: 200, flex: 1 },
     { field: 'rmrktext', headerName: 'Description', flex: 1, editable: true },
     { field: 'rmrkshortdesctext', headerName: 'Short Desc.', flex: 1, editable: true },
-    { field: 'rmrkordernum', headerName: 'Order', flex: 1, editable: true },
-    { field: 'rmrkactiveind', headerName: 'Active', flex: 1, editable: true },
-    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', flex: 1, editable: true },
+    { field: 'rmrkordernum', headerName: 'Order', cellStyle: { textAlign: 'center' }, width: 75, editable: true },
+    { field: 'rmrkactiveind', headerName: 'Active', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, cellStyle: { textAlign: 'center' }, width: 75 },
+    { field: 'rmrkmutuallyexclusiveind', headerName: 'Mutually Exclusive', cellRenderer: CheckboxRenderer, cellRendererParams: { small: true }, cellStyle: { textAlign: 'center' }, width: 100 },
     {
       field: 'edit',
       headerName: 'Edit',
@@ -27,13 +36,14 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
         onClick: (remarkData) => { openForm('edit', remarkData); },
         icon: faPen,
       },
-      flex: 0.5,
+      cellStyle: { textAlign: 'center' },
+      width: 75,
     },
   ]);
 
   const [panelRemarksRows, setPanelRemarksRows] = useState([]);
 
-  // Mapping the object to the row
+  // Mapping the object to the row for when the data is fetched
   const mapObjectToRow = (obj) => {
     const row = {
       rmrkseqnum: obj.rmrkseqnum,
@@ -41,8 +51,8 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
       rmrktext: obj.rmrktext,
       rmrkshortdesctext: obj.rmrkshortdesctext,
       rmrkordernum: obj.rmrkordernum,
-      rmrkactiveind: obj.rmrkactiveind,
-      rmrkmutuallyexclusiveind: obj.rmrkmutuallyexclusiveind,
+      rmrkactiveind: obj.rmrkactiveind === 'Y',
+      rmrkmutuallyexclusiveind: obj.rmrkmutuallyexclusiveind === 'Y',
       rmrkrccode: obj.rmrkrccode,
       rmrkcreatedate: obj.rmrkcreatedate,
       rmrkcreateid: obj.rmrkcreateid,
@@ -55,6 +65,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
   };
 
   useEffect(() => {
+    // Load the data into the table when it is fetched
     if (panelRemarks && panelRemarks.length > 0) {
       const mappedRows = panelRemarks.map(mapObjectToRow);
       setPanelRemarksRows(mappedRows);
@@ -63,10 +74,27 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
 
   // Edit a remark within table
   const onCellValueChanged = (params) => {
-    // Logic for editing a cell
-    // eslint-disable-next-line no-console
-    console.log('Cell value changed: ', params);
+    // Grab data from the editable columns and update date
+    const data = {
+      rmrkseqnum: params.data.rmrkseqnum,
+      rmrkrccode: params.data.rmrkrccode,
+      rmrkordernum: params.data.rmrkordernum,
+      rmrkshortdesctext: params.data.rmrkshortdesctext,
+      rmrkmutuallyexclusiveind: params.data.rmrkmutuallyexclusiveind,
+      rmrktext: params.data.rmrktext,
+      rmrkactiveind: params.data.rmrkactiveind,
+      rmrkupdatedate: params.data.rmrkupdatedate,
+    };
+    dispatch(editPanelRemark(data));
   };
+
+  useEffect(() => {
+    // If the edit was successful, refresh the data
+    if (editRemarkSuccess) {
+      fetchData();
+    }
+  }
+  , [editRemarkSuccess]);
 
   return (
     <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
@@ -80,6 +108,7 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, openForm }, ref) => {
         pagination
         paginationPageSize={10}
         paginationPageSizeSelector={[10, 20, 50, 100]}
+        loading={isLoading}
       />
     </div>
   );
@@ -95,6 +124,7 @@ PanelRemarksTable.propTypes = {
     rmrkactiveind: PropTypes.string,
     rmrkmutuallyexclusiveind: PropTypes.string,
   })).isRequired,
+  fetchData: PropTypes.func.isRequired,
   openForm: PropTypes.func.isRequired,
 };
 
