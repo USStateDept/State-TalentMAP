@@ -117,8 +117,10 @@ jobs:
           name: Use nvm
           command: |
             echo 'conf_force_conffold=YES' | sudo tee -a /etc/ucf.conf
-            sudo apt-get update --fix-missing
-            sudo apt-get upgrade -y
+            sudo apt-get clean # Clean up the local repository of retrieved package files
+            sudo apt-get update --fix-missing # Update the package list and attempt to fix missing packages
+            sudo apt-get upgrade -y # Upgrade the packages
+            sudo apt-get update # Update the package list again
             sudo apt-get install build-essential libssl-dev -y
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
             export NVM_DIR="/opt/circleci/.nvm"
