@@ -57,7 +57,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   };
 
   const handleSubmit = async () => {
-    // validate form before submitting
+    // validate form before submitting, if invalid warning toast appears
     if (!validateForm()) {
       return;
     }
