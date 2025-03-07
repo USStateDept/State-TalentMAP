@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
-import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import { createPanelRemark, editPanelRemark } from 'actions/panelRemarks';
+import { toastWarning } from 'actions/toast';
+import { renderSelectionList } from 'utilities';
 
 const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const createRemarkSuccess = useSelector((state) => state.panelRemarksCreateSuccess);
   const editRemarkSuccess = useSelector((state) => state.panelRemarksEditSuccess);
 
+  const [validForm, setValidForm] = useState(true);
   const [description, setDescription] = useState(remarkData.rmrktext || '');
   const [shortDescription, setShortDescription] = useState(remarkData.rmrkshortdesctext || '');
   const [orderNum, setOrderNum] = useState(remarkData.rmrkordernum || 0);
@@ -41,7 +43,25 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     }
   }, [createRemarkSuccess, editRemarkSuccess]);
 
+  const validateForm = () => {
+    // check if all required fields are filled out
+    if (!selectedCategories || !description || !shortDescription) {
+      const title = 'Cannot Submit Form';
+      const message = 'Missing fields are highlighted red';
+      dispatch(toastWarning(message, title));
+      setValidForm(false);
+      return false;
+    }
+    setValidForm(true);
+    return true;
+  };
+
   const handleSubmit = async () => {
+    // validate form before submitting
+    if (!validateForm()) {
+      return;
+    }
+
     const newRemark = {
       rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
       rmrkordernum: orderNum, // orderNum
@@ -76,6 +96,8 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
           <label htmlFor="remarkDescription">Remark Description</label>
           <TextareaAutosize
             id="remarkDescription"
+            className={!validForm && !description ? 'input-error' : ''}
+            placeholder="Enter remark description"
             value={description}
             onChange={(e) => {
               const value = e.target.value.slice(0, 100);
@@ -84,7 +106,6 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
             minRows={4}
             maxRows={4}
             maxLength={100}
-            placeholder="Enter remark description"
           />
           <div className="pr-word-count">
             {description.length} / 100
@@ -96,9 +117,10 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
           <label htmlFor="remarkShortDescription pr-input">Short Description</label>
           <input
             id="remarkShortDescription"
+            className={!validForm && !shortDescription ? 'input-error' : ''}
             type="text"
-            value={shortDescription}
             placeholder="Enter short description"
+            value={shortDescription}
             onChange={(e) => {
               const value = e.target.value.slice(0, 20);
               setShortDescription(value);
@@ -114,13 +136,13 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
           <input
             id="remarkOrder"
             type="number"
-            max={99}
             value={orderNum}
             onChange={(e) => {
               // converts current value to an integer, or 0 if it's not a number
               // ensures the value is between 0 and 99, any number entered above 99 will be set to 99
               setOrderNum(Math.min(parseInt(e.target.value, 10) || 0, 99));
             }}
+            max={99}
             style={{ maxWidth: '70px' }}
           />
         </div>
@@ -143,6 +165,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
         <label htmlFor="remarkCategory">Remark Category</label>
         <Picky
           id="remarkCategory"
+          className={!validForm && !selectedCategories ? 'input-error' : ''}
           {...pickyProps}
           placeholder="Select Category"
           value={categories.find((category) => category.rccode === selectedCategories)}

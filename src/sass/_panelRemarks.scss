@@ -80,13 +80,29 @@
             font-size: 14px;
         }
 
+        .picky {
+            &.input-error {
+                .picky__input{
+                    border: 1px solid red !important;
+                }
+            }
+        }
+
         input {
             height: 28px;
             font-size: 16px;
+
+            &.input-error {
+                border: 1px solid red;
+            }
         }
 
         textarea {
             font-size: 16px;
+
+            &.input-error {
+                border: 1px solid red;
+            }
         }
     }
 }
