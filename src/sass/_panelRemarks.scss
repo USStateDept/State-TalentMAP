@@ -64,12 +64,12 @@
 
         .pr-row {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
         }
 
         .pr-toggle-container {
             display: flex;
-            align-items: start;
+            align-items: center;
             margin: 0;
             gap: 10px;
         }

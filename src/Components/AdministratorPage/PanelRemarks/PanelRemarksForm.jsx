@@ -77,7 +77,10 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
           <TextareaAutosize
             id="remarkDescription"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value.slice(0, 100);
+              setDescription(value);
+            }}
             minRows={4}
             maxRows={4}
             maxLength={100}
@@ -89,7 +92,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
         </div>
       </div>
       <div className="usa-grid pr-row">
-        <div className="usa-width-one-third">
+        <div>
           <label htmlFor="remarkShortDescription pr-input">Short Description</label>
           <input
             id="remarkShortDescription"
@@ -100,16 +103,28 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
               const value = e.target.value.slice(0, 20);
               setShortDescription(value);
             }}
+            style={{ maxWidth: '200px' }}
           />
           <div className="pr-word-count">
             {shortDescription.length} / 20
           </div>
         </div>
-        <div className="usa-width-one-twelfth">
+        <div>
           <label htmlFor="remarkOrder">Order</label>
-          <input id="remarkOrder" type="number" value={orderNum} onChange={(e) => setOrderNum(parseInt(e.target.value, 10) || 0)} />
+          <input
+            id="remarkOrder"
+            type="number"
+            max={99}
+            value={orderNum}
+            onChange={(e) => {
+              // converts current value to an integer, or 0 if it's not a number
+              // ensures the value is between 0 and 99, any number entered above 99 will be set to 99
+              setOrderNum(Math.min(parseInt(e.target.value, 10) || 0, 99));
+            }}
+            style={{ maxWidth: '70px' }}
+          />
         </div>
-        <div className="usa-grid-full pr-toggle-container">
+        <div className="pr-toggle-container">
           <ToggleButton
             labelTextRight="Active"
             onChange={() => setActive(!active)}
