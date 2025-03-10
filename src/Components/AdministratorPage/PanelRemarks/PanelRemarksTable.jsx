@@ -74,7 +74,6 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
 
   // Edit a remark within table
   const onCellValueChanged = (params) => {
-    // Grab data from the editable columns and update date
     const data = {
       rmrkseqnum: params.data.rmrkseqnum,
       rmrkrccode: params.data.rmrkrccode,
@@ -96,6 +95,17 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
   }
   , [editRemarkSuccess]);
 
+  useEffect(() => {
+    // Show or hide the loading overlay based on the loading state
+    if (gridRef.current && gridRef.current.api) {
+      if (isLoading) {
+        gridRef.current.api.showLoadingOverlay();
+      } else {
+        gridRef.current.api.hideOverlay();
+      }
+    }
+  }, [isLoading]);
+
   return (
     <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
       <AgGridReact
@@ -108,7 +118,6 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
         pagination
         paginationPageSize={10}
         paginationPageSizeSelector={[10, 20, 50, 100]}
-        loading={isLoading}
       />
     </div>
   );

@@ -7,7 +7,7 @@ import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData, panelRemarksCreateSuccess, panelRemarksEditSuccess, panelRemarksFetchDataLoading } from 'actions/panelRemarks';
+import { fetchPanelRemarksCategoriesData, fetchPanelRemarksData, panelRemarksCreateSuccess, panelRemarksEditSuccess } from 'actions/panelRemarks';
 import { renderSelectionList } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
 import { isEmpty } from 'lodash';
@@ -72,7 +72,6 @@ const PanelRemarks = () => {
       setClearFilters(true);
     }
     // Fetch the data
-    dispatch(panelRemarksFetchDataLoading(true));
     dispatch(fetchPanelRemarksData(getQuery()));
   };
 
