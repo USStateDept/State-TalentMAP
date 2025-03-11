@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,17 +8,15 @@ import { AgGridReact } from 'ag-grid-react';
 import { usePrevious } from 'hooks';
 import { scrollToTop } from 'utilities';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInbox, faPen, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faInbox, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { filtersFetchData } from 'actions/filters/filters';
 import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
-import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import SelectForm from 'Components/SelectForm';
-import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import PositionManagerSearch from '../../BureauPage/PositionManager/PositionManagerSearch';
 import TabbedCard from '../../TabbedCard';
@@ -27,7 +24,6 @@ import InteractiveElement from '../../InteractiveElement';
 import SelectRenderer from '../../AgGrid/SelectRenderer';
 import LanguageList from '../../LanguageList';
 
-// eslint-disable-next-line complexity
 const FunctionalBureaus = props => {
   // Props
   const {
@@ -44,7 +40,7 @@ const FunctionalBureaus = props => {
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
-  const [ordering, setOrdering] = useState(userSelections.ordering || BUREAU_POSITION_SORT.options[0].value);
+  const [ordering, setOrdering] = useState(userSelections.ordering || 'position__title');
   const [selectedGrades, setSelectedGrades] = useState(userSelections.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections.selectedSkills || []);
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections.selectedLanguages || []);
@@ -52,7 +48,7 @@ const FunctionalBureaus = props => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections.selectedOrgs || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
 
-  const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
+  // const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
   const [clearFilters, setClearFilters] = useState(false);
@@ -76,7 +72,6 @@ const FunctionalBureaus = props => {
   const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
   const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const sorts = BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -122,7 +117,10 @@ const FunctionalBureaus = props => {
     if (prevPage) {
       props.fetchBureauPositions(query);
       props.saveSelections(currentInputs);
+      // TODO: Change this to be handled in the table component
       setPage(1);
+      setLimit(10);
+      setOrdering('position__title');
     }
   }, [
     selectedGrades,
@@ -237,8 +235,8 @@ const FunctionalBureaus = props => {
     selectedPosts,
   ]);
 
-  const submitEdit = (editData) => {
-    console.log(editData);
+  const submitEdit = () => {
+    props.fetchBureauPositions(query);
   };
 
   const [headers] = useState([
@@ -423,7 +421,7 @@ const FunctionalBureaus = props => {
                   rowData={bureauPositions.results}
                   pagination
                   paginationPageSize={10}
-                  paginationPageSizeSelector={[10, 20, 50, 100]}
+                  paginationPageSizeSelector={pageSizes}
                 />
               </div>,
             }]}
