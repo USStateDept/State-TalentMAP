@@ -47,7 +47,6 @@ const PublishablePositionCard = ({
     { 'Employee Status': data?.status || DEFAULT_TEXT },
   ];
 
-  /* eslint-disable quote-props */
   // All cards have a Bureau field + Functional Bureau field if it exists
   const funcBureau = data?.pabbureaudesc;
   const bureauFields = [{ 'Bureau': data?.bureau || DEFAULT_TEXT }];
