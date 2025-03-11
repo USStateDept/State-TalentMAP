@@ -69,6 +69,8 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
     if (panelRemarks && panelRemarks.length > 0) {
       const mappedRows = panelRemarks.map(mapObjectToRow);
       setPanelRemarksRows(mappedRows);
+    } else {
+      setPanelRemarksRows([]);
     }
   }, [panelRemarks]);
 
