@@ -39,6 +39,13 @@ const PanelRemarks = () => {
   // eslint-disable-next-line no-unused-vars
   const [showPrintView, setShowPrintView] = useState(false);
 
+  const getQuery = () => ({
+    rmrkrccode: selectedCategories.map(cat => cat.rccode).join(','),
+    rmrkactiveind: isActive,
+    rmrkmutuallyexclusiveind: isExcl,
+    freetext: textSearch,
+  });
+
   const openForm = (type, data) => {
     setMode(type);
     setShowPanelRemarkForm(true);
@@ -48,7 +55,7 @@ const PanelRemarks = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchPanelRemarksData());
+    dispatch(fetchPanelRemarksData(getQuery()));
     dispatch(fetchPanelRemarksCategoriesData());
   }, []);
 
@@ -65,7 +72,7 @@ const PanelRemarks = () => {
       setClearFilters(true);
     }
     // Fetch the data
-    dispatch(fetchPanelRemarksData());
+    dispatch(fetchPanelRemarksData(getQuery()));
   };
 
   useEffect(() => {
@@ -137,7 +144,7 @@ const PanelRemarks = () => {
             <div className="search-bar-container">
               <PositionManagerSearch
                 ref={textSearchRef}
-                placeHolder="Search for a particular Remark by description, search term, or category"
+                placeHolder="Search for a Remark by description or short description"
                 textSearch={textSearch}
                 submitSearch={(input) => setTextSearch(input)}
               />
