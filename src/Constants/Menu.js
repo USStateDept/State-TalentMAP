@@ -275,6 +275,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      {
+        text: 'Manage Functional Bureaus',
+        route: '/profile/administrator/functionalbureaus/',
+        icon: 'cog',
+        roles: [
+          'superuser',
+        ],
+      },
     ],
   },
   {
