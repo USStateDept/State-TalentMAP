@@ -133,7 +133,6 @@ const ProjectedVacancyCard = (props) => {
     return displayText || NO_LANGUAGES;
   };
 
-  /* eslint-disable quote-props */
   // All cards have a Bureau field + Functional Bureau field if it exists
   const funcBureau = result?.pabbureaudesc;
   const bureauFields = [{ 'Bureau': result?.posbureaushortdesc || NO_BUREAU }];
