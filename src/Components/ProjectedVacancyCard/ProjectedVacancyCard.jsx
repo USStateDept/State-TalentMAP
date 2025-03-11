@@ -134,6 +134,12 @@ const ProjectedVacancyCard = (props) => {
   };
 
   /* eslint-disable quote-props */
+  // All cards have a Bureau field + Functional Bureau field if it exists
+  const funcBureau = result?.pabbureaudesc;
+  const bureauFields = [{ 'Bureau': result?.posbureaushortdesc || NO_BUREAU }];
+  if (funcBureau) {
+    bureauFields.push({ 'Functional Bureau': funcBureau });
+  }
   const sections = {
     subheading: [
       { 'Position Number': result?.posnumtext || NO_POSITION_NUMBER },
@@ -157,7 +163,7 @@ const ProjectedVacancyCard = (props) => {
       { 'Tour of Duty': result?.assigneeAssignment[0]?.toddesctext || NO_TOUR_OF_DUTY },
       { 'Languages': displayLangs() },
       { 'Included': result?.fvexclimportind === 'Y' ? 'Yes' : 'No' },
-      { 'Bureau': result?.posbureaushortdesc || NO_BUREAU },
+      ...bureauFields,
       { 'Location': result?.poslocationcode || NO_POST },
       { 'Status': result?.fvsdescrtxt || NO_STATUS },
       { 'Organization': result?.posorgshortdesc || NO_ORG },
@@ -187,7 +193,7 @@ const ProjectedVacancyCard = (props) => {
       },
       { 'Tour of Duty': result?.assigneeAssignment[0]?.toddesctext || NO_TOUR_OF_DUTY },
       { 'Languages': displayLangs() },
-      { 'Bureau': result?.posbureaushortdesc || NO_BUREAU },
+      ...bureauFields,
       { 'Location': result?.poslocationcode || NO_POST },
       { 'Organization': result?.posorgshortdesc || NO_ORG },
       { 'PP/Grade': result?.combinedppgrade },
