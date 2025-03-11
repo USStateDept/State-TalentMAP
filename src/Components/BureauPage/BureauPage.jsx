@@ -1,5 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
+import CycleManagement from 'Components/CycleManagement';
+import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
@@ -20,6 +22,8 @@ const BureauPage = () => (
       <Route path="/profile/bureau/searchpostaccess" render={() => <SearchPostAccess />} />
       <Route path="/profile/bureau/biddingtool/:id" render={() => <BiddingTool />} />
       <Route path="/profile/bureau/biddingtool/" render={() => <BiddingTool />} />
+      <Route path="/profile/bureau/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="bureau" />} />
+      <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement viewType="bureau" />} />
     </Switch>
   </div>
 );

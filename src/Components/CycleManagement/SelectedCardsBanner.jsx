@@ -10,7 +10,7 @@ const SelectedCardsBanner = ({ selectedCards, className }) => (
     <div className="button-wrapper">
       <Link
         to={{
-          pathname: '/profile/administrator/cyclepositionsearch',
+          pathname: '/profile/administrator/cyclemanagement/positions',
           state: {
             cycleIDs: selectedCards.cycleIds,
             cycles: selectedCards.cycles,
@@ -22,7 +22,7 @@ const SelectedCardsBanner = ({ selectedCards, className }) => (
       </Link>
       <Link
         to={{
-          pathname: '/profile/administrator/cyclepositionsearch',
+          pathname: '/profile/administrator/cyclemanagement/positions',
           state: {
             cycleIDs: selectedCards.cycleIds,
             cycles: selectedCards.cycles,

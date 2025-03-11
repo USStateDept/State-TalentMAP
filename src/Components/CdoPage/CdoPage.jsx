@@ -11,6 +11,8 @@ import AssignmentTMOne from 'Components/AssignmentsSeparations/AssignmentTMOne/A
 import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool';
 import PositionManager from 'Components/BureauPage/PositionManager';
 import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
+import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
+import CycleManagement from 'Components/CycleManagement';
 
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -31,6 +33,8 @@ const CdoPage = () => (
       <Route path="/profile/cdo/biddingtool/" render={() => <BiddingTool />} />
       <Route path="/profile/cdo/positionmanager/:type/:id" render={() => <PositionManagerDetails viewType="cdo" />} />
       <Route path="/profile/cdo/positionmanager" render={() => <PositionManager viewType="cdo" />} />
+      <Route path="/profile/cdo/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="cdo" />} />
+      <Route path="/profile/cdo/cyclemanagement" render={() => <CycleManagement viewType="cdo" />} />
     </Switch>
   </div>
 );
