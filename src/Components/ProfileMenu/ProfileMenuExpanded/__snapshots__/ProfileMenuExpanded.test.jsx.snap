@@ -297,6 +297,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cog"
+        key="Manage Functional Bureaus"
+        link="/profile/administrator/functionalbureaus/"
+        search=""
+        title="Manage Functional Bureaus"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="bar-chart"
         key="Statistics"
         link="/profile/administrator/stats/"
@@ -610,6 +618,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cog"
+        key="Manage Functional Bureaus"
+        link="/profile/administrator/functionalbureaus/"
+        search=""
+        title="Manage Functional Bureaus"
       />
       <withRouter(NavLink)
         hidden={true}
