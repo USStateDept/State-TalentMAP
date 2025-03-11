@@ -63,13 +63,19 @@ class BureauResultsCard extends Component {
       <FA name="list-ol" />
     </Tooltip>) : '';
 
+    /* eslint-disable quote-props */
+    // All cards have a Bureau field + Functional Bureau field if it exists
+    const funcBureau = getResult(pos, 'pab_short_desc');
+    const bureauFields = [{ 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU }];
+    if (funcBureau) {
+      bureauFields.push({ 'Functional Bureau': funcBureau });
+    }
     const sections = [
-      /* eslint-disable quote-props */
       {
         'Position Number': position,
         'Skill': getResult(pos, 'skill_code') || NO_SKILL,
         'Grade': getResult(pos, 'grade') || NO_GRADE,
-        'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+        ...bureauFields,
         'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
         'Language': language,
         'Post Differential | Danger Pay': getDifferentials(pos),
@@ -84,8 +90,8 @@ class BureauResultsCard extends Component {
       {
         'Location (Org)': postShort,
       },
-      /* eslint-enable quote-props */
     ];
+    /* eslint-enable quote-props */
 
     const ribbonClass = 'ribbon-results-card';
 
