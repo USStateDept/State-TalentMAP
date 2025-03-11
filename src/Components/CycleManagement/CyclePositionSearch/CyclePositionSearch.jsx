@@ -139,7 +139,9 @@ const CyclePositionSearch = ({ location, viewType }) => {
   useEffect(() => {
     setClearFilters(!noFiltersSelected);
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
-    dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
+    if (atLeastTwoFiltersSelected) {
+      dispatch(cyclePositionSearchFetchData(getCurrentInputs()));
+    }
   }, [
     selectedStatuses,
     selectedOrgs,
