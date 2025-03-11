@@ -105,7 +105,7 @@ const CycleSearchCard = forwardRef((props, ref) => {
 });
 
 CycleSearchCard.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string,
   status: PropTypes.string,
   begin_date: PropTypes.string,

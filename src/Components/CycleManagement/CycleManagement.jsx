@@ -287,7 +287,7 @@ const CycleManagement = ({ viewType }) => {
                     <Link to={cycleClassLink}>
                       Cycle Date Classifications
                     </Link>
-                    { viewType === 'admin' &&
+                    { viewType === 'administrator' &&
                     <>
                       <Link
                         onClick={(e) => {

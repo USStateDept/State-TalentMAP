@@ -309,6 +309,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/bureau/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.projected_vacancy') ?
         {
           text: 'Projected Vacancy Management',
@@ -390,6 +400,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/post/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'post_user',
+          ],
+        } : null,
       checkFlag('flags.publishable_positions') ?
         {
           text: 'Publishable Positions',
@@ -578,6 +598,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'cdo',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/cdo/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'cdo',
+          ],
+        } : null,
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employees and Panel Agendas',
