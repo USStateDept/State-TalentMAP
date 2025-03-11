@@ -49,22 +49,22 @@ const PublishablePositionCard = ({
 
   // All cards have a Bureau field + Functional Bureau field if it exists
   const funcBureau = data?.pabbureaudesc;
-  const bureauFields = [{ 'Bureau': data?.bureau || DEFAULT_TEXT }];
+  const bureauFields = [{ Bureau: data?.bureau || DEFAULT_TEXT }];
   if (funcBureau) {
     bureauFields.push({ 'Functional Bureau': funcBureau });
   }
   const sections = {
     subheading: [
       { 'Position Number': data?.positionNumber || DEFAULT_TEXT },
-      { 'Skill': data?.skill || DEFAULT_TEXT },
+      { Skill: data?.skill || DEFAULT_TEXT },
       { 'Position Title': data?.positionTitle || DEFAULT_TEXT },
     ],
     bodyPrimary: [
       ...bureauFields,
-      { 'Organization': data?.org || DEFAULT_TEXT },
+      { Organization: data?.org || DEFAULT_TEXT },
       { 'PP/Grade': data?.combinedPPGrade },
       { 'Publishable Status': data?.psDesc || DEFAULT_TEXT },
-      { 'Languages': formatLang(data?.languages) || DEFAULT_TEXT },
+      { Languages: formatLang(data?.languages) || DEFAULT_TEXT },
     ],
     bodySecondary: PP_FLAG() ?
       [
@@ -80,7 +80,6 @@ const PublishablePositionCard = ({
   if (DETO_RWA_FLAG()) {
     sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.availTeleworkPos ? 'Eligible' : 'Not Eligible' });
   }
-  /* eslint-enable quote-props */
 
   // =============== Overview: Edit Mode ===============
 

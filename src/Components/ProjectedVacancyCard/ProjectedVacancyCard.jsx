@@ -135,14 +135,14 @@ const ProjectedVacancyCard = (props) => {
 
   // All cards have a Bureau field + Functional Bureau field if it exists
   const funcBureau = result?.pabbureaudesc;
-  const bureauFields = [{ 'Bureau': result?.posbureaushortdesc || NO_BUREAU }];
+  const bureauFields = [{ Bureau: result?.posbureaushortdesc || NO_BUREAU }];
   if (funcBureau) {
     bureauFields.push({ 'Functional Bureau': funcBureau });
   }
   const sections = {
     subheading: [
       { 'Position Number': result?.posnumtext || NO_POSITION_NUMBER },
-      { 'Skill': result?.posskillcode || NO_SKILL },
+      { Skill: result?.posskillcode || NO_SKILL },
       { 'Position Title': result?.postitledesc || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
@@ -160,13 +160,13 @@ const ProjectedVacancyCard = (props) => {
       },
       { 'Bid Season': result?.bsndescrtext || DEFAULT_TEXT },
       { 'Tour of Duty': result?.assigneeAssignment[0]?.toddesctext || NO_TOUR_OF_DUTY },
-      { 'Languages': displayLangs() },
-      { 'Included': result?.fvexclimportind === 'Y' ? 'Yes' : 'No' },
+      { Languages: displayLangs() },
+      { Included: result?.fvexclimportind === 'Y' ? 'Yes' : 'No' },
       ...bureauFields,
-      { 'Location': result?.poslocationcode || NO_POST },
-      { 'Status': result?.fvsdescrtxt || NO_STATUS },
-      { 'Organization': result?.posorgshortdesc || NO_ORG },
-      { 'TED': formatDate(result?.fvoverrideteddate) || NO_TOUR_END_DATE },
+      { Location: result?.poslocationcode || NO_POST },
+      { Status: result?.fvsdescrtxt || NO_STATUS },
+      { Organization: result?.posorgshortdesc || NO_ORG },
+      { TED: formatDate(result?.fvoverrideteddate) || NO_TOUR_END_DATE },
       { 'PP/Grade': result?.combinedppgrade },
     ],
     bodySecondary: [
@@ -191,10 +191,10 @@ const ProjectedVacancyCard = (props) => {
         ),
       },
       { 'Tour of Duty': result?.assigneeAssignment[0]?.toddesctext || NO_TOUR_OF_DUTY },
-      { 'Languages': displayLangs() },
+      { Languages: displayLangs() },
       ...bureauFields,
-      { 'Location': result?.poslocationcode || NO_POST },
-      { 'Organization': result?.posorgshortdesc || NO_ORG },
+      { Location: result?.poslocationcode || NO_POST },
+      { Organization: result?.posorgshortdesc || NO_ORG },
       { 'PP/Grade': result?.combinedppgrade },
       // { 'Post Differential | Danger Pay': getDifferentials(differentials) },
     ],
@@ -281,7 +281,6 @@ const ProjectedVacancyCard = (props) => {
       disableEdit,
     },
   };
-  /* eslint-enable quote-props */
 
   const importCheckbox = (
     <CheckBox
