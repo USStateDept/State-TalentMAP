@@ -1,0 +1,54 @@
+.manage-functional-bureau {
+  .content-container {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .actions {
+    .button-group {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  .table-actions {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+
+    .action-button {
+      color: $primary-blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+    }
+  }
+
+
+  .positions-table {
+    padding-top: 20px;
+
+    // AG-Grid
+    .ag-header-cell-label {
+      white-space: normal !important;
+      text-align: center;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .ag-cell {
+      font-size: 12px;
+      display: initial;
+    }
+
+    .ag-cell,
+    label {
+      display: initial; // necessary to make custom checkboxes show
+    }
+  }
+}
