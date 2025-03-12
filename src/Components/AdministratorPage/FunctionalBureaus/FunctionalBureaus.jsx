@@ -1,31 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Picky } from 'react-picky';
-import FA from 'react-fontawesome';
-import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
-import { AgGridReact } from 'ag-grid-react';
+import PropTypes from 'prop-types';
 import { usePrevious } from 'hooks';
-import { scrollToTop } from 'utilities';
+import { AgGridReact } from 'ag-grid-react';
+import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
-import Spinner from 'Components/Spinner';
-import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
+import Spinner from 'Components/Spinner';
+import TabbedCard from 'Components/TabbedCard';
+import LanguageList from 'Components/LanguageList';
+import SelectRenderer from 'Components/AgGrid/SelectRenderer';
+import InteractiveElement from 'Components/InteractiveElement';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import PermissionsWrapper from 'Containers/PermissionsWrapper';
-import PositionManagerSearch from '../../BureauPage/PositionManager/PositionManagerSearch';
-import TabbedCard from '../../TabbedCard';
-import InteractiveElement from '../../InteractiveElement';
-import SelectRenderer from '../../AgGrid/SelectRenderer';
-import LanguageList from '../../LanguageList';
+import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 
 const FunctionalBureaus = props => {
-  // Props
   const {
     bureauPermissions,
     bureauFilters,
@@ -167,22 +165,16 @@ const FunctionalBureaus = props => {
     );
   }
 
-
   // Free Text Search
   function submitSearch(text) {
     setTextSearch(text);
   }
+  const throttledTextInput = () => throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
+  const setTextInputThrottled = (q) => throttledTextInput(q);
 
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
 
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
-
-  // Overlay for error, info, and positionLoading state
-  const noResults = !get(bureauPositions, 'results.length');
   const getOverlay = () => {
+    const noResults = !get(bureauPositions, 'results.length');
     let overlay;
     if (bureauPositionsIsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
@@ -241,20 +233,21 @@ const FunctionalBureaus = props => {
 
   const [headers] = useState([
     {
-      field: 'position.bureau',
+      field: 'position.pab_bureau',
       headerName: 'Functional Bureau',
       cellRenderer: SelectRenderer,
       cellRendererParams: {
-        options: bureauOptions,
+        options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
+        className: 'select-dropdown',
         data: 'Value',
         setData: () => { },
       },
       flex: 2,
     },
     { field: 'position.bureau', headerName: 'Bureau', flex: 1 },
-    { field: 'position.bureau', headerName: 'Skill Bureau', flex: 1 },
+    { field: 'position.skill_secondary', headerName: 'Skill Bureau', flex: 1 },
     {
-      field: 'location',
+      field: 'position.organization',
       headerName: 'Location (Org)',
       flex: 1,
     },
@@ -266,7 +259,7 @@ const FunctionalBureaus = props => {
       field: 'position.languages',
       headerName: 'Language',
       flex: 1,
-      cellRenderer: (e) => <LanguageList languages={get(e, 'position.languages') || []} propToUse="representation" />,
+      cellRenderer: (e) => <LanguageList languages={e?.data?.position?.languages || []} propToUse="representation" />,
     },
   ]);
 
@@ -308,6 +301,30 @@ const FunctionalBureaus = props => {
             </div>
             <div className="usa-width-one-whole position-search--filters--pos-man results-dropdown">
               <div className="filter-div">
+                <div className="label">Bureau:</div>
+                <Picky
+                  placeholder="Select Bureau(s)"
+                  value={selectedBureaus.filter(f => f)}
+                  options={bureauOptions}
+                  onChange={setSelectedBureaus}
+                  valueKey="code"
+                  labelKey="long_description"
+                  {...pickyProps}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Functional Bureau:</div>
+                <Picky
+                  placeholder="Select Bureau(s)"
+                  value={selectedBureaus.filter(f => f)}
+                  options={bureauOptions}
+                  onChange={setSelectedBureaus}
+                  valueKey="code"
+                  labelKey="long_description"
+                  {...pickyProps}
+                />
+              </div>
+              <div className="filter-div">
                 <div className="label">Location:</div>
                 <Picky
                   placeholder="Select Location(s)"
@@ -319,41 +336,25 @@ const FunctionalBureaus = props => {
                   {...pickyProps}
                 />
               </div>
-              <PermissionsWrapper permissions={['bureau_user', 'ao_user', 'cdo']} minimum>
-                <div className="filter-div">
-                  <div className="label">Bureau:</div>
-                  <Picky
-                    placeholder="Select Bureau(s)"
-                    value={selectedBureaus.filter(f => f)}
-                    options={bureauOptions}
-                    onChange={setSelectedBureaus}
-                    valueKey="code"
-                    labelKey="long_description"
-                    {...pickyProps}
-                  />
-                </div>
-              </PermissionsWrapper>
-              <PermissionsWrapper permissions={['post_user', 'ao_user', 'cdo']} minimum>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    placeholder="Select Organization(s)"
-                    value={selectedOrgs}
-                    options={organizationOptions}
-                    onChange={setSelectedOrgs}
-                    valueKey="code"
-                    labelKey="long_description"
-                    {...pickyProps}
-                  />
-                </div>
-              </PermissionsWrapper>
               <div className="filter-div">
-                <div className="label">Skill:</div>
+                <div className="label">Organization:</div>
                 <Picky
-                  placeholder="Select Skill(s)"
-                  value={selectedSkills}
-                  options={skillOptions}
-                  onChange={setSelectedSkills}
+                  placeholder="Select Organization(s)"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="code"
+                  labelKey="long_description"
+                  {...pickyProps}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Language:</div>
+                <Picky
+                  placeholder="Select Language(s)"
+                  value={selectedLanguages}
+                  options={languageOptions}
+                  onChange={setSelectedLanguages}
                   valueKey="code"
                   labelKey="custom_description"
                   {...pickyProps}
@@ -372,12 +373,12 @@ const FunctionalBureaus = props => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Language:</div>
+                <div className="label">Skill:</div>
                 <Picky
-                  placeholder="Select Language(s)"
-                  value={selectedLanguages}
-                  options={languageOptions}
-                  onChange={setSelectedLanguages}
+                  placeholder="Select Skill(s)"
+                  value={selectedSkills}
+                  options={skillOptions}
+                  onChange={setSelectedSkills}
                   valueKey="code"
                   labelKey="custom_description"
                   {...pickyProps}
@@ -417,6 +418,7 @@ const FunctionalBureaus = props => {
               content: <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
                 <AgGridReact
                   domLayout="autoHeight"
+                  rowHeight={50}
                   columnDefs={headers}
                   rowData={bureauPositions.results}
                   pagination
