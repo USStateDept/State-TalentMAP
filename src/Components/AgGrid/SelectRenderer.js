@@ -12,7 +12,7 @@ const SelectRenderer = (props) => {
       <option value="">None</option>
       {options?.map(option => (
         <option value={option?.code} key={option?.code}>
-          {`(${option.code}) ${option.text}`}
+          {option.text}
         </option>
       ))}
     </select>
@@ -23,7 +23,7 @@ SelectRenderer.propTypes = {
   data: PropTypes.shape({}).isRequired,
   setData: PropTypes.func.isRequired,
   className: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 SelectRenderer.defaultProps = {
