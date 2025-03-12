@@ -64,19 +64,19 @@ class BureauResultsCard extends Component {
     </Tooltip>) : '';
 
     const sections = [
-      /* eslint-disable quote-props */
       {
         'Position Number': position,
-        'Skill': getResult(pos, 'skill_code') || NO_SKILL,
-        'Grade': getResult(pos, 'grade') || NO_GRADE,
-        'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+        Skill: getResult(pos, 'skill_code') || NO_SKILL,
+        Grade: getResult(pos, 'grade') || NO_GRADE,
+        Bureau: getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+        ...(pos?.pab_bureau_code && { 'Functional Bureau': pos?.pab_short_desc }),
         'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-        'Language': language,
+        Language: language,
         'Post Differential | Danger Pay': getDifferentials(pos),
         'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-        'TED': getResult(result, 'ted') || NO_DATE,
-        'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-        'Posted': getResult(result, COMMON_PROPERTIES.posted) || NO_UPDATE_DATE,
+        TED: getResult(result, 'ted') || NO_DATE,
+        Incumbent: getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
+        Posted: getResult(result, COMMON_PROPERTIES.posted) || NO_UPDATE_DATE,
       },
       {
         'Last Updated': getResult(pos, 'description.date_updated') || NO_UPDATE_DATE,
@@ -84,7 +84,6 @@ class BureauResultsCard extends Component {
       {
         'Location (Org)': postShort,
       },
-      /* eslint-enable quote-props */
     ];
 
     const ribbonClass = 'ribbon-results-card';
