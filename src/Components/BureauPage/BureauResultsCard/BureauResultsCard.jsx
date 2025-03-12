@@ -63,18 +63,13 @@ class BureauResultsCard extends Component {
       <FA name="list-ol" />
     </Tooltip>) : '';
 
-    // All cards have a Bureau field + Functional Bureau field if it exists
-    const funcBureau = getResult(pos, 'pab_short_desc');
-    const bureauFields = [{ Bureau: getResult(pos, 'bureau_short_desc') || NO_BUREAU }];
-    if (funcBureau) {
-      bureauFields.push({ 'Functional Bureau': funcBureau });
-    }
     const sections = [
       {
         'Position Number': position,
         Skill: getResult(pos, 'skill_code') || NO_SKILL,
         Grade: getResult(pos, 'grade') || NO_GRADE,
-        ...bureauFields,
+        Bureau: getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+        ...(pos?.pab_bureau_code && { 'Functional Bureau': pos?.pab_short_desc }),
         'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
         Language: language,
         'Post Differential | Danger Pay': getDifferentials(pos),
