@@ -13,6 +13,8 @@ import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool
 import ProjectedVacancy from 'Components/BureauPage/ProjectedVacancy';
 import PositionManager from 'Components/BureauPage/PositionManager';
 import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
+import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
+import CycleManagement from 'Components/CycleManagement';
 
 const AoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -34,6 +36,8 @@ const AoPage = () => (
       <Route path="/profile/ao/biddingtool/" render={() => <BiddingTool />} />
       <Route path="/profile/ao/positionmanager/:type/:id" render={() => <PositionManagerDetails viewType="ao" />} />
       <Route path="/profile/ao/positionmanager" render={() => <PositionManager viewType="ao" />} />
+      <Route path="/profile/ao/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="ao" />} />
+      <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement viewType="ao" />} />
     </Switch>
   </div>
 );

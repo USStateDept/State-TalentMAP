@@ -77,7 +77,7 @@ const PublishablePositions = ({ viewType }) => {
   const grades = filters?.gradeFilters;
   const skills = filters?.skillsFilters;
   const cycles = filters?.cycleFilters;
-  const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
+  const bureauOptions = uniqBy(sortBy(bureauPermissions, [(b) => b.long_description]), 'code');
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
   const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
@@ -89,7 +89,7 @@ const PublishablePositions = ({ viewType }) => {
     page,
     posNum: searchPosNum,
     statuses: selectedStatuses.map(f => (f?.code)),
-    bureaus: selectedBureaus.map(f => (f?.short_description)),
+    bureaus: selectedBureaus.map(f => (f?.code)),
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
     skills: selectedSkills.map(f => (f?.code)),

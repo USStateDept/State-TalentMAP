@@ -40,6 +40,7 @@ function MenuConfig(config) {
 
 // this is a function so that flags aren't checked until render
 export const GET_PROFILE_MENU = () => MenuConfig([
+  // Profile Menu
   {
     text: 'Profile',
     icon: 'user',
@@ -95,6 +96,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   },
+  // FSBid Admin Menu
   checkFlag('flags.fsbid_admin') ?
     {
       text: 'FSBid Admin',
@@ -117,6 +119,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         },
       ],
     } : null,
+  // TalentMAP Admin Menu
   {
     text: 'TalentMAP Admin',
     icon: 'sitemap',
@@ -275,8 +278,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      {
+        text: 'Manage Functional Bureaus',
+        route: '/profile/administrator/functionalbureaus/',
+        icon: 'cog',
+        roles: [
+          'superuser',
+        ],
+      },
     ],
   },
+  // Bureau Menu
   {
     text: 'Bureau',
     icon: 'building',
@@ -305,6 +317,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/bureau/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.projected_vacancy') ?
         {
           text: 'Projected Vacancy Management',
@@ -357,6 +379,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   },
+  // Post Menu
   {
     text: 'Post',
     icon: 'building',
@@ -385,6 +408,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/post/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'post_user',
+          ],
+        } : null,
       checkFlag('flags.publishable_positions') ?
         {
           text: 'Publishable Positions',
@@ -407,6 +440,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   },
+  // Panel Admin Menu
   checkFlag('flags.panel_admin_menu') ?
     {
       text: 'Panel Admin',
@@ -438,6 +472,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           } : null,
       ],
     } : null,
+  // AO Menu
   {
     text: 'AO',
     icon: 'building-o',
@@ -448,6 +483,25 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'ao_user',
     ],
     children: [
+      {
+        text: 'Available Bidders',
+        route: '/profile/ao/availablebidders',
+        icon: 'users',
+        roles: [
+          'ao_user',
+          'superuser',
+        ],
+      },
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/ao/biddingtool/',
+          icon: 'cog',
+          roles: [
+            'superuser',
+            'ao_user',
+          ],
+        } : null,
       {
         text: 'Client Profiles', // aka Bidder Portfolio
         route: '/profile/ao/bidderportfolio',
@@ -460,6 +514,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           type: 'all',
         },
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/ao/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'ao_user',
+          ],
+        } : null,
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employees and Panel Agendas',
@@ -480,30 +544,20 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      {
+        text: 'Position Management',
+        route: '/profile/ao/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+          'ao_user',
+        ],
+      },
       checkFlag('flags.projected_vacancy') ?
         {
           text: 'Projected Vacancy Management',
           route: '/profile/ao/projectedvacancy',
           icon: ' fa-keyboard-o',
-          roles: [
-            'superuser',
-            'ao_user',
-          ],
-        } : null,
-      {
-        text: 'Available Bidders',
-        route: '/profile/ao/availablebidders',
-        icon: 'users',
-        roles: [
-          'ao_user',
-          'superuser',
-        ],
-      },
-      checkFlag('flags.bidding_tool') ?
-        {
-          text: 'Bidding Tool',
-          route: '/profile/ao/biddingtool/',
-          icon: 'cog',
           roles: [
             'superuser',
             'ao_user',
@@ -519,17 +573,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'ao_user',
           ],
         } : null,
-      {
-        text: 'Position Management',
-        route: '/profile/ao/positionmanager',
-        icon: 'map',
-        roles: [
-          'superuser',
-          'ao_user',
-        ],
-      },
     ],
   },
+  // CDO Menu
   {
     text: 'CDO',
     icon: 'street-view',
@@ -560,6 +606,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'cdo',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/cdo/cyclemanagement',
+          icon: 'database',
+          roles: [
+            'superuser',
+            'cdo',
+          ],
+        } : null,
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employees and Panel Agendas',
@@ -601,6 +657,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   },
+  // Entry Level Menu
   {
     text: 'Entry Level',
     icon: 'street-view',

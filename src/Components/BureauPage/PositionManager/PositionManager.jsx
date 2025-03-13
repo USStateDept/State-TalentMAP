@@ -210,14 +210,15 @@ const PositionManager = props => {
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    return items.map(item =>
-      (<ListItem
+    return items.map(item => (
+      <ListItem
         key={item[codeOrID]}
         item={item}
         {...rest}
         queryProp={queryProp}
         getIsSelected={getSelected}
-      />),
+      />
+    ),
     );
   }
 
@@ -345,10 +346,10 @@ const PositionManager = props => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                        <button className="unstyled-button" onClick={resetFilters}>
-                          <FA name="times" />
-                              Clear Filters
-                        </button>
+                      <button className="unstyled-button" onClick={resetFilters}>
+                        <FA name="times" />
+                        Clear Filters
+                      </button>
                     }
                   </div>
                 </div>
@@ -401,7 +402,7 @@ const PositionManager = props => {
                       labelKey="custom_description"
                     />
                   </div>
-                  { !fromPostMenu &&
+                  {!fromPostMenu &&
                     <PermissionsWrapper permissions={['bureau_user', 'ao_user', 'cdo']} minimum>
                       <div className="filter-div">
                         <div className="label">Bureau:</div>
@@ -421,7 +422,7 @@ const PositionManager = props => {
                       </div>
                     </PermissionsWrapper>
                   }
-                  { !fromBureauMenu &&
+                  {!fromBureauMenu &&
                     <PermissionsWrapper permissions={['post_user', 'ao_user', 'cdo']} minimum>
                       <div className="filter-div">
                         <div className="label">Organization:</div>
@@ -556,69 +557,68 @@ const PositionManager = props => {
               </div>
             </div>
           </div>
-          {
-            getOverlay() ||
-              <>
-                <div className="usa-width-one-whole results-dropdown controls-container">
-                  <TotalResults
-                    total={bureauPositions.count}
-                    pageNumber={page}
-                    pageSize={limit}
-                    suffix="Results"
-                    isHidden={bureauPositionsIsLoading}
-                  />
-                  <div className="position-search-controls--right">
-                    <div className="position-search-controls--results">
-                      <SelectForm
-                        id="position-manager-num-results"
-                        /** adding this slice temporarily to remove 'featured positions'
-                        option from the sort per WS. Will be a ticket in the future to add back in
-                        */
-                        options={sorts.options.slice(0, -1)}
-                        label="Sort by:"
-                        defaultSort={ordering}
-                        onSelectOption={value => setOrdering(value.target.value)}
-                        disabled={bureauPositionsIsLoading}
-                      />
-                      <SelectForm
-                        id="position-manager-num-results"
-                        options={pageSizes.options}
-                        label="Results:"
-                        defaultSort={limit}
-                        onSelectOption={value => setLimit(value.target.value)}
-                        disabled={bureauPositionsIsLoading}
-                      />
-                    </div>
-                    <div className="export-button-container">
-                      <ExportButton
-                        onClick={exportPositions}
-                        isLoading={isLoading}
-                        disabled={(fromBureauMenu && noBureausSelected) ||
+          {getOverlay() ||
+            <>
+              <div className="usa-width-one-whole results-dropdown controls-container">
+                <TotalResults
+                  total={bureauPositions.count}
+                  pageNumber={page}
+                  pageSize={limit}
+                  suffix="Results"
+                  isHidden={bureauPositionsIsLoading}
+                />
+                <div className="position-search-controls--right">
+                  <div className="position-search-controls--results">
+                    <SelectForm
+                      id="position-manager-num-results"
+                      /** adding this slice temporarily to remove 'featured positions'
+                      option from the sort per WS. Will be a ticket in the future to add back in
+                      */
+                      options={sorts.options.slice(0, -1)}
+                      label="Sort by:"
+                      defaultSort={ordering}
+                      onSelectOption={value => setOrdering(value.target.value)}
+                      disabled={bureauPositionsIsLoading}
+                    />
+                    <SelectForm
+                      id="position-manager-num-results"
+                      options={pageSizes.options}
+                      label="Results:"
+                      defaultSort={limit}
+                      onSelectOption={value => setLimit(value.target.value)}
+                      disabled={bureauPositionsIsLoading}
+                    />
+                  </div>
+                  <div className="export-button-container">
+                    <ExportButton
+                      onClick={exportPositions}
+                      isLoading={isLoading}
+                      disabled={(fromBureauMenu && noBureausSelected) ||
                         (fromPostMenu && noOrgsSelected)}
-                      />
-                    </div>
+                    />
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-search--results">
-                  <div className="usa-grid-full position-list">
-                    {bureauPositions.results.map((result) => (
-                      <BureauResultsCard
-                        result={result}
-                        key={result.id}
-                        viewType={viewType}
-                      />
-                    ))}
-                  </div>
+              </div>
+              <div className="usa-width-one-whole position-search--results">
+                <div className="usa-grid-full position-list">
+                  {bureauPositions.results.map((result) => (
+                    <BureauResultsCard
+                      result={result}
+                      key={result.id}
+                      viewType={viewType}
+                    />
+                  ))}
                 </div>
-                <div className="usa-grid-full react-paginate position-search-controls--pagination">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={bureauPositions.count}
-                  />
-                </div>
-              </>
+              </div>
+              <div className="usa-grid-full react-paginate position-search-controls--pagination">
+                <PaginationWrapper
+                  pageSize={limit}
+                  onPageChange={p => setPage(p.page)}
+                  forcePage={page}
+                  totalResults={bureauPositions.count}
+                />
+              </div>
+            </>
           }
         </div>
       </>

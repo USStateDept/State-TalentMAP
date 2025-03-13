@@ -47,19 +47,24 @@ const PublishablePositionCard = ({
     { 'Employee Status': data?.status || DEFAULT_TEXT },
   ];
 
+  // All cards have a Bureau field + Functional Bureau field if it exists
+  const funcBureau = data?.pabbureaudesc;
+  const bureauFields = [{ Bureau: data?.bureau || DEFAULT_TEXT }];
+  if (funcBureau) {
+    bureauFields.push({ 'Functional Bureau': funcBureau });
+  }
   const sections = {
-    /* eslint-disable quote-props */
     subheading: [
       { 'Position Number': data?.positionNumber || DEFAULT_TEXT },
-      { 'Skill': data?.skill || DEFAULT_TEXT },
+      { Skill: data?.skill || DEFAULT_TEXT },
       { 'Position Title': data?.positionTitle || DEFAULT_TEXT },
     ],
     bodyPrimary: [
-      { 'Bureau': data?.bureau || DEFAULT_TEXT },
-      { 'Organization': data?.org || DEFAULT_TEXT },
+      ...bureauFields,
+      { Organization: data?.org || DEFAULT_TEXT },
       { 'PP/Grade': data?.combinedPPGrade },
       { 'Publishable Status': data?.psDesc || DEFAULT_TEXT },
-      { 'Languages': formatLang(data?.languages) || DEFAULT_TEXT },
+      { Languages: formatLang(data?.languages) || DEFAULT_TEXT },
     ],
     bodySecondary: PP_FLAG() ?
       [
@@ -71,7 +76,6 @@ const PublishablePositionCard = ({
     metadata: [
       { 'Capsule Last Updated': data?.positionDetailsLastUpdated },
     ],
-    /* eslint-enable quote-props */
   };
   if (DETO_RWA_FLAG()) {
     sections.bodyPrimary.push({ 'RWA/DETO Eligible': data?.availTeleworkPos ? 'Eligible' : 'Not Eligible' });
