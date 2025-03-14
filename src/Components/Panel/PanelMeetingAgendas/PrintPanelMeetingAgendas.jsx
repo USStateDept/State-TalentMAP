@@ -147,10 +147,13 @@ const PrintPanelMeetingAgendas = ({ panelMeetingsWithAgendas, closePrintView }) 
                                 <span className="stamp">Created: {createdByLast} {agenda?.creators?.first_name || ''}</span>
                                 <span className="date">{createDate}</span>
                               </div>
+                              { false &&
+                              // Temporary removal of modified -- Robin wants last person to update the actual agenda item, not panel processing
                               <div className="pma-date-stamp-wrapper">
                                 <span className="stamp">Modified: {updateByLast} {agenda?.creators?.first_name || ''}</span>
                                 <span className="date">{updateDate}</span>
                               </div>
+                              }
                               <div className="pma-date-stamp-wrapper">
                                 <span className="stamp">Remarks Modified: {agenda?.remarks_updater?.last_name ? `${agenda?.remarks_updater?.last_name},` : ''} {agenda?.remarks_updater.first_name}</span>
                                 <span className="date">{dateTernary(agenda?.airupdatedate)}</span>
