@@ -393,9 +393,16 @@ const AgendaItemMaintenancePane = (props) => {
               {`Created: ${createdByLast} ${createdByFirst}`}
               <span className="date">{` ${agendaItem?.creator_date ? '-' : ''} ${createDate}`}</span>
             </span>
+            { false &&
+            // Temporary removal of modified -- Robin wants last person to update the actual agenda item, not panel processing
             <span className="aim-timestamp">
               {`Modified: ${modifiedByLast} ${modifiedByFirst}`}
               <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
+            </span>
+            }
+            <span className="aim-timestamp">
+              {`Remarks Modified: ${agendaItem?.remarks_updater?.last_name ? `${agendaItem.remarks_updater.last_name},` : ''} ${agendaItem?.remarks_updater?.first_name || ''}`}
+              <span className="date">{` ${agendaItem?.airupdatedate ? '-' : ''} ${dateTernary(agendaItem?.airupdatedate)}`}</span>
             </span>
           </div>
           <div className="ai-maintenance-header-dd">

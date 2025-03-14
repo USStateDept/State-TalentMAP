@@ -142,11 +142,20 @@ const AgendaItemRow = props => {
                 </span>
                 <span className="date">{createDate}</span>
               </div>
+              { false &&
+              // Temporary removal of modified -- Robin wants last person to update the actual agenda item, not panel processing
               <div className="wrapper">
                 <span className="ai-updater-creator-name">
                   Modified: {updateByLast} {get(agenda, 'updaters.first_name') || ''}
                 </span>
                 <span className="date">{updateDate}</span>
+              </div>
+              }
+              <div className="wrapper">
+                <span className="ai-updater-creator-name">
+                  Remarks Modified: {get(agenda, 'remarks_updater.last_name', '')} {get(agenda, 'remarks_updater.first_name', '')}
+                </span>
+                <span className="date">{dateTernary(get(agenda, 'airupdatedate'))}</span>
               </div>
               <span className="aim-timestamp">
                 {`CDO: ${cdoFirst} ${cdoLast}`}
