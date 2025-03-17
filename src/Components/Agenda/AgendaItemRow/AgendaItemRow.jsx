@@ -153,7 +153,7 @@ const AgendaItemRow = props => {
               }
               <div className="wrapper">
                 <span className="ai-updater-creator-name">
-                  Remarks Modified: {get(agenda, 'remarks_updater.last_name', '')} {get(agenda, 'remarks_updater.first_name', '')}
+                  {`Remarks Modified: ${agenda?.remarks_updater?.last_name ? `${agenda.remarks_updater.last_name},` : ''} ${agenda?.remarks_updater?.first_name || ''}`}
                 </span>
                 <span className="date">{dateTernary(get(agenda, 'airupdatedate'))}</span>
               </div>
@@ -252,6 +252,15 @@ AgendaItemRow.propTypes = {
       middle_name: PropTypes.string,
     }),
     updaters: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      hruempseqnbr: PropTypes.number,
+      hruneuid: PropTypes.number,
+      hruid: PropTypes.number,
+      neuid: PropTypes.number,
+      middle_name: PropTypes.string,
+    }),
+    remarks_updater: PropTypes.shape({
       first_name: PropTypes.string,
       last_name: PropTypes.string,
       hruempseqnbr: PropTypes.number,
