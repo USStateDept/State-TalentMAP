@@ -155,7 +155,7 @@ const PrintPanelMeetingAgendas = ({ panelMeetingsWithAgendas, closePrintView }) 
                               </div>
                               }
                               <div className="pma-date-stamp-wrapper">
-                                <span className="stamp">Remarks Modified: {agenda?.remarks_updater?.last_name ? `${agenda?.remarks_updater?.last_name},` : ''} {agenda?.remarks_updater.first_name}</span>
+                                <span className="stamp">{`Remarks Modified: ${agenda?.remarks_updater?.last_name ? `${agenda.remarks_updater.last_name},` : ''} ${agenda?.remarks_updater?.first_name || ''}`}</span>
                                 <span className="date">{dateTernary(agenda?.airupdatedate)}</span>
                               </div>
                             </div>
