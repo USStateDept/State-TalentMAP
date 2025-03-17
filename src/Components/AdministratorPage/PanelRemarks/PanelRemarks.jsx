@@ -108,7 +108,10 @@ const PanelRemarks = () => {
       const grid = tableRef.current.getGridRef();
       const allColumns = grid.columnApi.getAllGridColumns();
       const columnsToExport = allColumns.filter(col => col.colId !== 'edit'); // Exclude the Edit column
-      grid.api.exportDataAsCsv({ columnKeys: columnsToExport.map(col => col.colId) });
+      grid.api.exportDataAsCsv({
+        columnKeys: columnsToExport.map(col => col.colId),
+        fileName: 'Panel_Remarks.csv',
+      });
       setPrintViewLoading(false);
     }
   };
@@ -123,7 +126,7 @@ const PanelRemarks = () => {
         </InteractiveElement>
         <InteractiveElement className="pr-button with-icon" onClick={exportPanelRemarksTable} isLoading={printViewLoading} disabled={isLoading}>
           <FontAwesomeIcon icon={faPrint} />
-          Print
+          Export
         </InteractiveElement>
       </div>
     ) : null
