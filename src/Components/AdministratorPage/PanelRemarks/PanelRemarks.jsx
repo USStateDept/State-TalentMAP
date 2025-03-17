@@ -20,6 +20,7 @@ const PanelRemarks = () => {
   const dispatch = useDispatch();
   // getting data from panelRemarks reducer panelRemarks to get data:
   const panelRemarksData = useSelector(state => state.panelRemarks.results);
+  const tableRef = useRef();
 
   const categoryFilterHasErrored = useSelector(state => state.panelRemarksCategoriesFetchDataErrored);
   const categoryFilterIsLoading = useSelector(state => state.panelRemarksCategoriesFetchDataLoading);
@@ -36,8 +37,7 @@ const PanelRemarks = () => {
   const [mode, setMode] = useState('create');
   const [editRemarkData, setEditRemarkData] = useState({});
   const [showPanelRemarkForm, setShowPanelRemarkForm] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [showPrintView, setShowPrintView] = useState(false);
+  const [printViewLoading, setPrintViewLoading] = useState(false);
 
   const getQuery = () => ({
     rmrkrccode: selectedCategories.map(cat => cat.rccode).join(','),
@@ -102,6 +102,17 @@ const PanelRemarks = () => {
     setClearFilters(false);
   };
 
+  const exportPanelRemarksTable = () => {
+    if (tableRef.current) {
+      setPrintViewLoading(true);
+      const grid = tableRef.current.getGridRef();
+      const allColumns = grid.columnApi.getAllGridColumns();
+      const columnsToExport = allColumns.filter(col => col.colId !== 'edit'); // Exclude the Edit column
+      grid.api.exportDataAsCsv({ columnKeys: columnsToExport.map(col => col.colId) });
+      setPrintViewLoading(false);
+    }
+  };
+
   const newRemarkButton = () => (
     // hide buttons when looking at the form
     !showPanelRemarkForm ? (
@@ -110,7 +121,7 @@ const PanelRemarks = () => {
           <FontAwesomeIcon icon={faInbox} />
           New Remark
         </InteractiveElement>
-        <InteractiveElement className="pr-button with-icon" onClick={() => setShowPrintView(true)} disabled={isLoading}>
+        <InteractiveElement className="pr-button with-icon" onClick={exportPanelRemarksTable} isLoading={printViewLoading} disabled={isLoading}>
           <FontAwesomeIcon icon={faPrint} />
           Print
         </InteractiveElement>
@@ -158,7 +169,8 @@ const PanelRemarks = () => {
                   Clear Filters
                 </button>
                 }
-              </div>            </div>
+              </div>
+            </div>
             <div className="usa-width-one-whole position-search--filters--el results-dropdown">
               <div className="filter-div">
                 <div className="label">Category:</div>
@@ -203,7 +215,7 @@ const PanelRemarks = () => {
                       text: 'Panel Remarks',
                       value: 'REMARKS',
                       content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={closeForm} /> :
-                        <PanelRemarksTable panelRemarks={panelRemarksData} fetchData={fetchAndSet} openForm={openForm} />,
+                        <PanelRemarksTable ref={tableRef} panelRemarks={panelRemarksData} fetchData={fetchAndSet} openForm={openForm} isPrintView={printViewLoading} />,
                     }]}
                     customComponent={newRemarkButton()}
                   />
