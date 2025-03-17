@@ -49,6 +49,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
       positions: filteredPositions,
     };
   });
+  const bureauPermissions = useSelector(state => state.userProfile.bureau_permissions);
+  const orgPermissions = useSelector(state => state.userProfile.org_permissions);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const extraPositionDataLoading = useSelector(state => state.cyclePositionFetchDataLoading);
@@ -62,7 +64,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const cycleEndDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.end_date, 'M/D/YYYY');
 
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatuses || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
+  const [selectedOrgs, setSelectedOrgs] = viewType === 'post' ? useState(userSelections?.selectedOrgs || orgPermissions[0] || []) : useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections?.selectedLanguages || []);
@@ -85,7 +87,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
 
   // Filter Options
   const statusOptions = cyclePosFilters?.statusFilter || [];
-  const orgOptions = cyclePosFilters?.orgFilter || [];
+  const orgOptions = viewType === 'post' ? orgPermissions : cyclePosFilters?.orgFilter || [];
   const gradeOptions = cyclePosFilters?.gradeFilter || [];
   const skillOptions = cyclePosFilters?.skillsFilter || [];
   const languageOptions = cyclePosFilters?.languageFilter || [];
@@ -110,6 +112,9 @@ const CyclePositionSearch = ({ location, viewType }) => {
     skills: selectedSkills.map(f => (f?.code)),
     languages: selectedLanguages.map(f => (f?.code)),
     positionNumber: posNumberText,
+    ...(viewType === 'bureau' && {
+      bureaus: bureauPermissions.map(b => b.code),
+    }),
   });
 
   useEffect(() => {

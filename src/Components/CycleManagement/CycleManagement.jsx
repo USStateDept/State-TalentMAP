@@ -51,7 +51,7 @@ const CycleManagement = ({ viewType }) => {
   const [anySelected, setAnySelected] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
 
-  const cycleClassLink = '/profile/administrator/cycleclassifications';
+  const cycleClassLink = `/profile/${viewType}/cycleclassifications`;
 
   const getCurrentInputs = () => ({
     selectedCycles,
@@ -115,7 +115,7 @@ const CycleManagement = ({ viewType }) => {
     if (cycleManagementMergeSuccess) {
       swal.close();
       dispatch(cycleManagementMergeCycleSuccess(false));
-      history.push(`/profile/administrator/assignmentcycle/${mergeTargetCycle}`);
+      history.push(`/profile/${viewType}/assignmentcycle/${mergeTargetCycle}`);
     }
   }, [cycleManagementMergeSuccess]);
 
@@ -325,6 +325,7 @@ const CycleManagement = ({ viewType }) => {
                     key={data.id}
                     ref={el => { cardRefs.current[index] = el; }}
                     {...{ ...data }}
+                    viewType={viewType}
                     selectAll={selectAll}
                     onSelect={handleSelectionChange}
                   />
