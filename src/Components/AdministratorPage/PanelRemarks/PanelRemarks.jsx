@@ -218,7 +218,7 @@ const PanelRemarks = () => {
                       text: 'Panel Remarks',
                       value: 'REMARKS',
                       content: showPanelRemarkForm ? <PanelRemarksForm mode={mode} categories={categoryFilter} remarkData={editRemarkData} onClose={closeForm} /> :
-                        <PanelRemarksTable ref={tableRef} panelRemarks={panelRemarksData} fetchData={fetchAndSet} openForm={openForm} isPrintView={printViewLoading} />,
+                        <PanelRemarksTable ref={tableRef} panelRemarks={panelRemarksData} fetchData={fetchAndSet} openForm={openForm} />,
                     }]}
                     customComponent={newRemarkButton()}
                   />
