@@ -257,19 +257,21 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     disabled={disableSearch}
                   />
                 </div>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Organization(s)"
-                    options={orgOptions}
-                    valueKey="code"
-                    labelKey="description"
-                    onChange={setSelectedOrgs}
-                    value={selectedOrgs}
-                    disabled={disableSearch}
-                  />
-                </div>
+                { viewType !== 'bureau' &&
+                  <div className="filter-div">
+                    <div className="label">Organization:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Organization(s)"
+                      options={orgOptions}
+                      valueKey="code"
+                      labelKey="description"
+                      onChange={setSelectedOrgs}
+                      value={selectedOrgs}
+                      disabled={disableSearch}
+                    />
+                  </div>
+                }
                 <div className="filter-div">
                   <div className="label">Skills:</div>
                   <Picky
