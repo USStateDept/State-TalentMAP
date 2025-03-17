@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import { AssignmentCycleEdit, CycleClassifications, CycleManagement, CyclePositionSearch } from 'Components/CycleManagement';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
 import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
 import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
@@ -13,8 +14,6 @@ import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool
 import ProjectedVacancy from 'Components/BureauPage/ProjectedVacancy';
 import PositionManager from 'Components/BureauPage/PositionManager';
 import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
-import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
-import CycleManagement from 'Components/CycleManagement';
 
 const AoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -38,6 +37,8 @@ const AoPage = () => (
       <Route path="/profile/ao/positionmanager" render={() => <PositionManager viewType="ao" />} />
       <Route path="/profile/ao/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="ao" />} />
       <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement viewType="ao" />} />
+      <Route path="/profile/ao/cycleclassifications/" render={() => <CycleClassifications />} />
+      <Route path="/profile/ao/assignmentcycle/:id" render={() => <AssignmentCycleEdit />} />
     </Switch>
   </div>
 );
