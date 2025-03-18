@@ -202,18 +202,17 @@ const CyclePositionSearch = ({ location, viewType }) => {
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
                 <div className="filterby-clear">
-                  {clearFilters
-                    && (
-                      <button
-                        type="button"
-                        className="unstyled-button"
-                        onClick={resetFilters}
-                        disabled={disableSearch}
-                      >
-                        <FA name="times" />
+                  {clearFilters &&
+                    <button
+                      type="button"
+                      className="unstyled-button"
+                      onClick={resetFilters}
+                      disabled={disableSearch}
+                    >
+                      <FA name="times" />
                         Clear Filters
-                      </button>
-                    )}
+                    </button>
+                  }
                 </div>
               </div>
               <div className="position-search--filters--cm-pos">
