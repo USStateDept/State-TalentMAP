@@ -11,6 +11,7 @@ const AgendaItemLegs = props => {
     isPanelMeetingView,
   } = props;
 
+  // Limit the number of legs to 2 for card view
   let legs$ = legs;
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
@@ -18,157 +19,98 @@ const AgendaItemLegs = props => {
   const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
 
-  const getData = (key, helperFunc = () => {}) => (
-    <>
-      {
-        legs$.map((leg, index) => {
-          const keyId = index;
-          let value = leg[key];
+  /**
+   * Retrieves the data for a specific key from a leg object and applies an optional helper function.
+   * @param {Object} leg - The leg object.
+   * @param {string} key - The key to retrieve the data from.
+   * @param {Function} [helperFunc=(value) => value] - An optional helper function to format the data.
+   * @returns {string} - The formatted data or a default value if the data is not available.
+   */
+  const getData = (leg, key, helperFunc = (value) => value) => {
+    let value = leg[key];
 
-          if (key === 'action' && ['Extend', 'Curtail', 'Adjust'].includes(leg[key])) {
-            if (leg.adjust_month !== null && leg.adjust_month !== 0) {
-              value = `${leg[key]} (by ${leg.adjust_month})`;
-            }
-          }
-
-          return (
-            <td key={`${leg.id}-${keyId}`}>
-              <dd>{helperFunc(value) ?? value ?? 'None listed'}</dd>
-            </td>
-          );
-        })
+    // Add the adjust month to certain actions
+    if (key === 'action' && ['Extend', 'Curtail', 'Adjust'].includes(leg[key])) {
+      if (leg.adjust_month !== null && leg.adjust_month !== 0) {
+        value = `${leg[key]} (by ${leg.adjust_month})`;
       }
-    </>
+    }
+
+    return helperFunc(value) ?? value ?? 'None listed';
+  };
+
+  /**
+   * Generates the arrow icon for a leg.
+   * @param {Object} leg - The leg object.
+   * @returns {JSX.Element} - The arrow icon element.
+   */
+  const getArrows = (leg) => (
+    <FA name="arrow-right" className={`${leg?.is_separation ? 'hide' : ''} ai-legs-arrow`} />
   );
 
-  const getArrows = () => (
-    <>
-      {
-        legs$.map((leg, index) => {
-          const keyId = index;
-          return (
-            <td className={`${leg?.is_separation ? 'hide' : ''} ai-legs-arrow`} key={`${keyId}-${leg.id}`}>
-              <FA name="arrow-down" />
-            </td>);
-        })
+  /**
+   * Retrieves the TED (Tour End Date) for a leg and formats it.
+   * @param {Object} leg - The leg object.
+   * @returns {string} - The formatted TED or a default value if not available.
+   */
+  const getTeds = (leg) => {
+    let ted = 'None listed';
+    if (leg?.ted) {
+      if (leg?.is_separation) {
+        ted = formatDate(leg?.ted);
+      } else {
+        ted = formatMonthYearDate(leg?.ted);
       }
-    </>
-  );
+    }
+    return ted;
+  };
 
-  const getTeds = () => (
-    <>
-      {
-        legs$.map((leg, index) => {
-          let ted = 'None listed';
-          const keyId = index;
-          if (leg?.ted) {
-            if (leg?.is_separation) {
-              ted = formatDate(leg?.ted);
-            } else {
-              ted = formatMonthYearDate(leg?.ted);
-            }
-          }
-          return (
-            <td key={`${leg.id}-${keyId}`}>
-              {
-                <dd>{ted}</dd>
-              }
-            </td>
-          );
-        })
-      }
-    </>
-  );
-
+  // Define the table data structure
   const tableData = [
-    {
-      title: 'Action',
-      content: (getData('action')),
-      cardView: false,
-    },
-    {
-      title: 'Position Title',
-      content: (getData('pos_title', formatStr)),
-      cardView: false,
-    },
-    {
-      title: 'Position Number',
-      content: (getData('pos_num')),
-      cardView: false,
-    },
-    {
-      title: 'Location/Org',
-      content: (getData('org', formatStr)),
-      cardView: true,
-    },
-    {
-      title: 'Lang',
-      content: (getData('languages', formatLang)),
-      cardView: false,
-    },
-    {
-      title: 'Skills',
-      content: (getData('custom_skills_description')),
-      cardView: false,
-    },
-    {
-      title: 'ETA',
-      content: (getData('eta', formatMonthYearDate)),
-      cardView: true,
-    },
-    {
-      title: '',
-      content: (getArrows()),
-      cardView: true,
-    },
-    {
-      title: 'TED',
-      content: (getTeds()),
-      cardView: true,
-    },
-    {
-      title: 'TOD',
-      content: (getData('tod_short_desc')),
-      cardView: false,
-    },
-    {
-      title: 'Travel',
-      content: (getData('travel_desc')),
-      cardView: false,
-    },
-    {
-      title: 'PP/Grade',
-      content: (getData('combined_pp_grade')),
-      cardView: false,
-    },
+    { title: 'Action', key: 'action', helperFunc: null, cardView: false },
+    { title: 'Position Title', key: 'pos_title', helperFunc: formatStr, cardView: false },
+    { title: 'Position Number', key: 'pos_num', helperFunc: null, cardView: false },
+    { title: 'Location/Org', key: 'org', helperFunc: formatStr, cardView: true },
+    { title: 'Lang', key: 'languages', helperFunc: formatLang, cardView: false },
+    { title: 'Skills', key: 'custom_skills_description', helperFunc: null, cardView: false },
+    { title: 'ETA', key: 'eta', helperFunc: formatMonthYearDate, cardView: true },
+    { title: '', key: 'arrows', helperFunc: getArrows, cardView: true },
+    { title: 'TED', key: 'ted', helperFunc: getTeds, cardView: true },
+    { title: 'TOD', key: 'tod_short_desc', helperFunc: null, cardView: false },
+    { title: 'Travel', key: 'travel_desc', helperFunc: null, cardView: false },
+    { title: 'PP/Grade', key: 'combined_pp_grade', helperFunc: null, cardView: false },
   ];
 
-  if (isPanelMeetingView) { // vice/vacancy info only shows for panel view, and in AIM
-    tableData.push(
-      {
-        title: 'Vice',
-        content: (getData('vice', formatVice)),
-        cardView: false,
-      },
-    );
+  // Add Vice column if in panel meeting view
+  if (isPanelMeetingView) {
+    tableData.push({ title: 'Vice', key: 'vice', helperFunc: formatVice });
   }
 
+  // Filter table data for card view if necessary
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
     <div className="ai-legs">
       <table>
+        <thead>
+          <tr>
+            {tableData$.map(tr => (
+              <th key={tr.title}>
+                <dt>{tr.title}</dt>
+              </th>
+            ))}
+          </tr>
+        </thead>
         <tbody>
-          {
-            tableData$.map(tr => (
-              <tr key={tr.title}>
-                <th>
-                  <dt>{tr.title}</dt>
-                </th>
-                {tr.content}
-              </tr>
-            ))
-          }
+          {legs$.map((leg, index) => (
+            <tr key={`${leg.ail_seq_num} - ${index}`}>
+              {tableData$.map(tr => (
+                <td key={`${tr.title} - ${leg.ail_seq_num}`}>
+                  {tr.key === 'arrows' ? getArrows(leg) : getData(leg, tr.key, tr.helperFunc || ((value) => value))}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

@@ -102,7 +102,6 @@ const AgendaItemRow = props => {
             </div>
           }
           <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
-
           {agenda.aiCombinedTodDescText &&
             <div className="agenda-item-combined-tod">
               <span>
@@ -111,7 +110,6 @@ const AgendaItemRow = props => {
               </span>
             </div>
           }
-
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
