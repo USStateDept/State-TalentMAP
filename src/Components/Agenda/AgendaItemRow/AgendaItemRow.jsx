@@ -141,7 +141,7 @@ const AgendaItemRow = props => {
                 <span className="date">{createDate}</span>
               </div>
               { false &&
-              // Temporary removal of modified -- Robin wants last person to update the actual agenda item, not panel processing
+              // Temporary removal of modified -- this updates when anything on the panel updates i.e panel processing
               <div className="wrapper">
                 <span className="ai-updater-creator-name">
                   Modified: {updateByLast} {get(agenda, 'updaters.first_name') || ''}
@@ -150,8 +150,9 @@ const AgendaItemRow = props => {
               </div>
               }
               <div className="wrapper">
+                {/* Note: This was supposed to just update when a remark changed, but it updates when anything on the agenda item updates */}
                 <span className="ai-updater-creator-name">
-                  {`Remarks Modified: ${agenda?.remarks_updater?.last_name ? `${agenda.remarks_updater.last_name},` : ''} ${agenda?.remarks_updater?.first_name || ''}`}
+                  {`Modified: ${agenda?.remarks_updater?.last_name ? `${agenda.remarks_updater.last_name},` : ''} ${agenda?.remarks_updater?.first_name || ''}`}
                 </span>
                 <span className="date">{dateTernary(get(agenda, 'airupdatedate'))}</span>
               </div>
