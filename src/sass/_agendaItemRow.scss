@@ -51,7 +51,7 @@
     // Panel Agenda Items
     .ai-legs {
       max-width: 60vw;
-      min-height: 300px;
+      min-height: 150px;
       overflow-x: auto;
       margin-bottom: 10px;
       @each $res, $vw in $ai-legs-width-config {
@@ -64,55 +64,40 @@
       table {
         margin: 0;
 
-        td {
-          border: none;
-          max-width: 300px;
-          padding: 0;
-        }
-
         th {
           border: none;
-          padding: .5rem 1rem;
+          border-bottom: 1px solid $primary-gray-dark;
+          padding: 5px 10px 5px 10px;
         }
 
-        dt {
-          font-weight: bold;
-        }
-
-        dd {
-          margin: 0 10px;
+        td {
+          border: none;
+          padding: 5px 10px 5px 10px;
         }
 
         tr:hover {
-
           th, td {
             background-color: $color-gray-lightest;
           }
-
         }
+
         .ai-legs-arrow {
           color: $bg-gray-dark-2;
           font-size: small;
-          padding-left: 25px;
         }
+
         // exclude arrow row
         tr:hover:nth-child(8) {
-
           th, td {
             background-color: transparent;
           }
-
         }
 
-        td:nth-child(n+2) {
-          border-left: 1px solid $color-gray-lighter;
-          padding-right: 10px;
+        tr:nth-child(n) {
+          border-bottom: 1px solid $color-gray-lighter;
         }
-
       }
-
     }
-
   }
 
   .first-row {

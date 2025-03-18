@@ -91,7 +91,6 @@ const BureauPage = (props) => {
                     dataKey="value"
                   >
                     {
-                      // eslint-disable-next-line react/no-array-index-key
                       data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                     }
                   </Pie>
