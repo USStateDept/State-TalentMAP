@@ -265,8 +265,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
                       {...pickyProps}
                       placeholder="Select Bureau(s)"
                       options={bureauOptions}
-                      valueKey={viewType === 'bureau' ? 'long_description' : 'code'}
-                      labelKey={viewType === 'bureau' ? 'long_description' : 'code'}
+                      valueKey="code"
+                      labelKey="description"
                       onChange={setSelectedBureaus}
                       value={selectedBureaus}
                       disabled={disableSearch}
