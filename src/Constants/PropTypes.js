@@ -865,6 +865,7 @@ export const AGENDA_ITEM = PropTypes.shape({
     active_ind: PropTypes.string,
     type: null,
   })),
+  remarks_updater: CREATORS_OR_UPDATERS,
 });
 
 export const TRACKER_DATA = PropTypes.arrayOf(
