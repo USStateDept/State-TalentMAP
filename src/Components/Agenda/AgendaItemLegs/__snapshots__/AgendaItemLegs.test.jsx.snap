@@ -5,114 +5,93 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
   className="ai-legs"
 >
   <table>
-    <tbody>
-      <tr
-        key="Action"
-      >
-        <th>
+    <thead>
+      <tr>
+        <th
+          key="Action"
+        >
           <dt>
             Action
           </dt>
         </th>
-      </tr>
-      <tr
-        key="Position Title"
-      >
-        <th>
+        <th
+          key="Position Title"
+        >
           <dt>
             Position Title
           </dt>
         </th>
-      </tr>
-      <tr
-        key="Position Number"
-      >
-        <th>
+        <th
+          key="Position Number"
+        >
           <dt>
             Position Number
           </dt>
         </th>
-      </tr>
-      <tr
-        key="Location/Org"
-      >
-        <th>
+        <th
+          key="Location/Org"
+        >
           <dt>
             Location/Org
           </dt>
         </th>
-      </tr>
-      <tr
-        key="Lang"
-      >
-        <th>
+        <th
+          key="Lang"
+        >
           <dt>
             Lang
           </dt>
         </th>
-      </tr>
-      <tr
-        key="Skills"
-      >
-        <th>
+        <th
+          key="Skills"
+        >
           <dt>
             Skills
           </dt>
         </th>
-      </tr>
-      <tr
-        key="ETA"
-      >
-        <th>
+        <th
+          key="ETA"
+        >
           <dt>
             ETA
           </dt>
         </th>
-      </tr>
-      <tr
-        key=""
-      >
-        <th>
+        <th
+          key=""
+        >
           <dt />
         </th>
-      </tr>
-      <tr
-        key="TED"
-      >
-        <th>
+        <th
+          key="TED"
+        >
           <dt>
             TED
           </dt>
         </th>
-      </tr>
-      <tr
-        key="TOD"
-      >
-        <th>
+        <th
+          key="TOD"
+        >
           <dt>
             TOD
           </dt>
         </th>
-      </tr>
-      <tr
-        key="Travel"
-      >
-        <th>
+        <th
+          key="Travel"
+        >
           <dt>
             Travel
           </dt>
         </th>
-      </tr>
-      <tr
-        key="PP/Grade"
-      >
-        <th>
+        <th
+          key="PP/Grade"
+        >
           <dt>
             PP/Grade
           </dt>
         </th>
       </tr>
-    </tbody>
+    </thead>
+    <tbody />
   </table>
 </div>
 `;
