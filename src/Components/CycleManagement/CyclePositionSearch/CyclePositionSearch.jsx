@@ -190,8 +190,6 @@ const CyclePositionSearch = ({ location, viewType }) => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
   };
-  console.log('bureauOptions');
-  console.log(bureauOptions);
 
   return (
     cyclePosFiltersLoading ? <Spinner type="bureau-filters" size="small" />

@@ -331,7 +331,7 @@ const CycleManagement = ({ viewType }) => {
                   />
                 ))}
                 {selectAll || anySelected ? (
-                  <SelectedCardsBanner selectedCards={selectedCards} />
+                  <SelectedCardsBanner viewType={viewType} selectedCards={selectedCards} />
                 )
                   : null
                 }
