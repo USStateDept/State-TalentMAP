@@ -18,14 +18,15 @@ const CycleSearchCard = forwardRef((props, ref) => {
     end_date,
     excl_position,
     post_view,
+    viewType,
     selectAll,
     onSelect,
   } = props;
   const showCycleManagementPositions = useCycleManagementPositions();
   const [selected, setSelected] = useState(selectAll);
 
-  const cycleLink = `/profile/administrator/assignmentcycle/${id}`;
-  const cycleLinkPositions = '/profile/administrator/cyclemanagement/positions';
+  const cycleLink = `/profile/${viewType}/assignmentcycle/${id}`;
+  const cycleLinkPositions = `/profile/${viewType}/cyclemanagement/positions`;
 
   useEffect(() => {
     setSelected(selectAll);
@@ -112,6 +113,7 @@ CycleSearchCard.propTypes = {
   end_date: PropTypes.string,
   excl_position: PropTypes.string,
   post_view: PropTypes.string,
+  viewType: PropTypes.string,
   selectAll: PropTypes.bool,
   onSelect: PropTypes.func,
 };
@@ -123,6 +125,7 @@ CycleSearchCard.defaultProps = {
   end_date: null,
   excl_position: null,
   post_view: '',
+  viewType: '',
   selectAll: false,
   onSelect: () => {},
 };

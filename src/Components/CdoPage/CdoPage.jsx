@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import { AssignmentCycleEdit, CycleClassifications, CycleManagement, CyclePositionSearch } from 'Components/CycleManagement';
 import BidderPortfolio from 'Containers/BidderPortfolio';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
 import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
@@ -11,8 +12,6 @@ import AssignmentTMOne from 'Components/AssignmentsSeparations/AssignmentTMOne/A
 import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool';
 import PositionManager from 'Components/BureauPage/PositionManager';
 import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
-import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
-import CycleManagement from 'Components/CycleManagement';
 
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -35,6 +34,8 @@ const CdoPage = () => (
       <Route path="/profile/cdo/positionmanager" render={() => <PositionManager viewType="cdo" />} />
       <Route path="/profile/cdo/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="cdo" />} />
       <Route path="/profile/cdo/cyclemanagement" render={() => <CycleManagement viewType="cdo" />} />
+      <Route path="/profile/cdo/cycleclassifications/" render={() => <CycleClassifications />} />
+      <Route path="/profile/cdo/assignmentcycle/:id" render={() => <AssignmentCycleEdit />} />
     </Switch>
   </div>
 );

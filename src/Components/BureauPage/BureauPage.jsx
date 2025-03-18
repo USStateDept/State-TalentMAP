@@ -1,7 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
+import { AssignmentCycleEdit, CycleClassifications, CycleManagement, CyclePositionSearch } from 'Components/CycleManagement';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
-import CycleManagement from 'Components/CycleManagement';
-import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
@@ -24,6 +23,8 @@ const BureauPage = () => (
       <Route path="/profile/bureau/biddingtool/" render={() => <BiddingTool />} />
       <Route path="/profile/bureau/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="bureau" />} />
       <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement viewType="bureau" />} />
+      <Route path="/profile/bureau/cycleclassifications/" render={() => <CycleClassifications />} />
+      <Route path="/profile/bureau/assignmentcycle/:id" render={() => <AssignmentCycleEdit />} />
     </Switch>
   </div>
 );

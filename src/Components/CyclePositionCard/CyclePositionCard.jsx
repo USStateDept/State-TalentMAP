@@ -110,7 +110,6 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
     }));
   };
 
-
   const getOverlay = () => {
     let overlay;
     if (editableInfoLoading) {
@@ -131,7 +130,6 @@ const CyclePositionCard = ({ data, onEditModeSearch, isOpen, editableInfo, edita
     if (!incumbentNameIsOption) return '';
     return incumbentNameIsOption.code;
   };
-
 
   const form = {
     /* eslint-disable quote-props */

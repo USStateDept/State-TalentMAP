@@ -70,6 +70,8 @@ export function cycleManagementFetchData() {
       cancelToken: new CancelToken((c) => { cancelCycleManagementFetch = c; }),
     })
       .then(({ data }) => {
+        // sort data by latest cycle first
+        data.sort((a, b) => new Date(b.begin_date) - new Date(a.begin_date));
         batch(() => {
           dispatch(cycleManagementFetchDataSuccess(data));
           dispatch(cycleManagementFetchDataErrored(false));
