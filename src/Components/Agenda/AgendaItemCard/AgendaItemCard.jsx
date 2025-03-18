@@ -4,7 +4,6 @@ import FA from 'react-fontawesome';
 import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
-import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
 const AgendaItemCard = props => {
@@ -103,37 +102,7 @@ const AgendaItemCard = props => {
 
 AgendaItemCard.propTypes = {
   isCreate: PropTypes.bool,
-  agenda: PropTypes.shape({
-    id: PropTypes.number,
-    remarks: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        type: null,
-      }),
-    ),
-    pmd_dttm: PropTypes.string,
-    pmt_code: PropTypes.string,
-    status: PropTypes.string,
-    perdet: PropTypes.number,
-    legs: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        pos_title: PropTypes.string,
-        pos_num: PropTypes.string,
-        org: PropTypes.string,
-        eta: PropTypes.string,
-        ted: PropTypes.string,
-        tod: PropTypes.string,
-        grade: PropTypes.string,
-        action: PropTypes.string,
-        travel: PropTypes.string,
-        languages: POS_LANGUAGES,
-      }),
-    ),
-    update_date: PropTypes.string,
-    modifier_name: PropTypes.number,
-    creator_name: PropTypes.number,
-  }),
+  agenda: PropTypes.AGENDA_ITEM,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
 };
