@@ -190,6 +190,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
   };
+  console.log('bureauOptions');
+  console.log(bureauOptions);
 
   return (
     cyclePosFiltersLoading ? <Spinner type="bureau-filters" size="small" />
@@ -265,8 +267,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
                       {...pickyProps}
                       placeholder="Select Bureau(s)"
                       options={bureauOptions}
-                      valueKey="code"
-                      labelKey="long_description"
+                      valueKey={viewType === 'bureau' ? 'long_description' : 'code'}
+                      labelKey={viewType === 'bureau' ? 'long_description' : 'code'}
                       onChange={setSelectedBureaus}
                       value={selectedBureaus}
                       disabled={disableSearch}
