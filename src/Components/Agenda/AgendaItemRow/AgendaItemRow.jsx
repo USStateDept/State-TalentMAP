@@ -155,9 +155,11 @@ const AgendaItemRow = props => {
                 </span>
                 <span className="date">{dateTernary(get(agenda, 'airupdatedate'))}</span>
               </div>
+              { !isPanelMeetingView &&
               <span className="aim-timestamp">
                 {`CDO: ${cdoFirst} ${cdoLast}`}
               </span>
+              }
             </div>
           </div>
         </div>
