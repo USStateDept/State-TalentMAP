@@ -83,7 +83,7 @@ const AgendaItemLegs = props => {
 
   // Add Vice column if in panel meeting view
   if (isPanelMeetingView) {
-    tableData.push({ title: 'Vice', key: 'vice', helperFunc: formatVice });
+    tableData.push({ title: 'Vice', key: 'vice', helperFunc: formatVice, cardView: false });
   }
 
   // Filter table data for card view if necessary
