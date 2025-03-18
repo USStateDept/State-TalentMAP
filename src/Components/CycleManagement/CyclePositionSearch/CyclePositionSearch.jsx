@@ -114,8 +114,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
     skills: selectedSkills.map(f => (f?.code)),
     languages: selectedLanguages.map(f => (f?.code)),
     positionNumber: posNumberText,
-    ...(viewType === 'bureau' && {
-      bureaus: bureauPermissions.map(b => b.short_description),
+    ...(viewType !== 'post' && {
+      bureaus: selectedBureaus.map(b => b.code),
     }),
   });
 
