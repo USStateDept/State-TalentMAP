@@ -23,19 +23,28 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const [active, setActive] = useState(remarkData.rmrkactiveind || false);
   const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
   const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
-  const [insertions, setInsertions] = useState(['']);
+  const [insertions, setInsertions] = useState([{ id: 0, value: '' }]);
   // const [roleRestriction, setRoleRestriction] = useState(false);
 
   const handleNewInsertion = () => {
-    setInsertions([...insertions, '']);
+    setInsertions([...insertions, { id: insertions.length, value: '' }]);
   };
 
   const handleInsertionChange = (index, value) => {
-    const newInsertions = [...insertions];
-    newInsertions[index] = value;
-    setInsertions(newInsertions);
+    setInsertions(insertions.map((insertion) =>
+      insertion.id === index ? { ...insertion, value } : insertion,
+    ));
   };
 
+  const handleRemoveInsertion = (index) => {
+    const updatedInsertions = insertions.filter((insertion) => insertion.id !== index);
+    if (updatedInsertions.length === 0) {
+    // Ensure at least one clear input is always present
+      setInsertions([{ id: 0, value: '' }]);
+    } else {
+      setInsertions(updatedInsertions);
+    }
+  };
 
   useEffect(() => {
     // if the create or edit was successful, close the form
@@ -70,7 +79,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
       rmrktext: description, // description
       rmrkactiveind: active, // active
-      insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
+      insertions, // remark inserts
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
@@ -185,30 +194,32 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       </div>
       <div className="usa-grid">
         <div className="usa-width-one-half">
-          <div className="pr-label-container">
+          <div className="pr-insertion-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
             <InteractiveElement
               onClick={handleNewInsertion}
               type="span"
               role="button"
               className="standard-add-button"
-              title="Add remark"
-              id="add-remark"
+              title="Add insertion"
+              id="add-insertion"
             >
               <FontAwesome className="icon" name="plus" />
               <span>New Insertion</span>
             </InteractiveElement>
           </div>
-          {insertions.map((insertion, index) => (
-            <div key={`remark-insertion-${index}`} className="remark-insertion">
+          {insertions.map((insertion) => (
+            <div key={`remark-insertion-${insertion.id}`} className="remark-insertion input-wrapper">
               <input
-                id={`${insertion}-${index}`}
+                id={`insertion-${insertion.id}`}
+                className="text-input"
                 type="text"
                 placeholder="{insertion}"
-                value={insertion}
-                onChange={(e) => handleInsertionChange(index, e.target.value)}
+                value={insertion.value}
+                onChange={(e) => handleInsertionChange(insertion.id, e.target.value)}
                 style={{ maxWidth: '200px' }}
               />
+              <FontAwesome name="times" title="Delete insertion" onClick={() => handleRemoveInsertion(insertion.id)} style={{ cursor: 'pointer' }} />
             </div>
           ))}
         </div>

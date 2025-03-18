@@ -48,12 +48,12 @@
     .pr-form {
         padding-top: 20px;
 
-        .pr-insertion-button {
-            color: $primary-blue;
-            font-size: 14px;
+        .pr-row {
+            display: flex;
+            justify-content: space-between;
         }
 
-        .pr-label-container {
+        .pr-insertion-container {
             display: flex;
             justify-content: flex-start;
             gap: 100px;
@@ -63,9 +63,22 @@
             }
         }
 
-        .pr-row {
+        .input-wrapper {
+            position: relative;
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+    
+            > span {
+                color: $color-gray;
+                position: relative;
+                padding: 5px;
+                cursor: pointer;
+    
+                &:hover {
+                    color: $color-red;
+                }
+            }
         }
 
         .pr-toggle-container {
