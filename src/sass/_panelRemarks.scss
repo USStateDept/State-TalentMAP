@@ -55,7 +55,8 @@
 
         .pr-label-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
+            gap: 100px;
             
             > label {
                 margin: 0;

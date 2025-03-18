@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import ToggleButton from 'Components/ToggleButton';
+import InteractiveElement from 'Components/InteractiveElement';
 import { createPanelRemark, editPanelRemark } from 'actions/panelRemarks';
 import { toastWarning } from 'actions/toast';
 import { renderSelectionList } from 'utilities';
+import FontAwesome from 'react-fontawesome';
 
 const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const dispatch = useDispatch();
@@ -21,19 +23,18 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const [active, setActive] = useState(remarkData.rmrkactiveind || false);
   const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
   const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
+  const [insertions, setInsertions] = useState(['']);
   // const [roleRestriction, setRoleRestriction] = useState(false);
-  // const [insertions, setInsertions] = useState(['']);
 
-  // all remark insertion and role restriction functionality is commented out for the time being
-  // const handleNewInsertion = () => {
-  //   setInsertions([...insertions, '']);
-  // };
+  const handleNewInsertion = () => {
+    setInsertions([...insertions, '']);
+  };
 
-  // const handleInsertionChange = (index, value) => {
-  //   const newInsertions = [...insertions];
-  //   newInsertions[index] = value;
-  //   setInsertions(newInsertions);
-  // };
+  const handleInsertionChange = (index, value) => {
+    const newInsertions = [...insertions];
+    newInsertions[index] = value;
+    setInsertions(newInsertions);
+  };
 
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
       rmrktext: description, // description
       rmrkactiveind: active, // active
-      // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
+      insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
@@ -182,33 +183,36 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
           multiple={false}
         />
       </div>
-      {/* Commented out for now as this is not being used in the API call yet*}
-      {/* <div className="usa-grid">
+      <div className="usa-grid">
         <div className="usa-width-one-half">
           <div className="pr-label-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
-            <InteractiveElement type="label" className="pr-insertion-button" onClick={handleNewInsertion}>
-              New Insertion
+            <InteractiveElement
+              onClick={handleNewInsertion}
+              type="span"
+              role="button"
+              className="standard-add-button"
+              title="Add remark"
+              id="add-remark"
+            >
+              <FontAwesome className="icon" name="plus" />
+              <span>New Insertion</span>
             </InteractiveElement>
           </div>
           {insertions.map((insertion, index) => (
             <div key={`remark-insertion-${index}`} className="remark-insertion">
-              <TextareaAutosize
-                id={`remarkInsertion-${index}`}
+              <input
+                id={`${insertion}-${index}`}
+                type="text"
+                placeholder="{insertion}"
                 value={insertion}
                 onChange={(e) => handleInsertionChange(index, e.target.value)}
-                minRows={4}
-                maxRows={4}
-                maxLength={500}
-                placeholder="Enter remark insertion"
+                style={{ maxWidth: '200px' }}
               />
-              <div className="pr-word-count">
-                {insertion.length} / 500
-              </div>
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
       {/* <div className="usa-grid">
         <ToggleButton
           labelTextRight="Role Restriction"
