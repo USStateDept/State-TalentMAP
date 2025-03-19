@@ -49,6 +49,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
       positions: filteredPositions,
     };
   });
+  const bureauPermissions = useSelector(state => state.userProfile.bureau_permissions);
+  const orgPermissions = useSelector(state => state.userProfile.org_permissions);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const extraPositionDataLoading = useSelector(state => state.cyclePositionFetchDataLoading);
@@ -62,6 +64,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
   const cycleEndDate = formatDate(loadedCycle?.dates_mapping?.CYCLE?.end_date, 'M/D/YYYY');
 
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatuses || []);
+  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
@@ -85,7 +88,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
 
   // Filter Options
   const statusOptions = cyclePosFilters?.statusFilter || [];
-  const orgOptions = cyclePosFilters?.orgFilter || [];
+  const bureauOptions = viewType === 'bureau' ? cyclePosFilters?.bureauFilter?.filter((filter) => bureauPermissions.some((permission) => permission.short_description === filter.code)) || [] : cyclePosFilters?.bureauFilter;
+  const orgOptions = viewType === 'post' ? cyclePosFilters?.orgFilter?.filter((filter) => orgPermissions.some((permission) => permission.short_description === filter.code)) || [] : cyclePosFilters?.orgFilter;
   const gradeOptions = cyclePosFilters?.gradeFilter || [];
   const skillOptions = cyclePosFilters?.skillsFilter || [];
   const languageOptions = cyclePosFilters?.languageFilter || [];
@@ -110,6 +114,9 @@ const CyclePositionSearch = ({ location, viewType }) => {
     skills: selectedSkills.map(f => (f?.code)),
     languages: selectedLanguages.map(f => (f?.code)),
     positionNumber: posNumberText,
+    ...(viewType === 'bureau' && {
+      bureaus: bureauPermissions.map(b => b.short_description),
+    }),
   });
 
   useEffect(() => {
@@ -195,18 +202,17 @@ const CyclePositionSearch = ({ location, viewType }) => {
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
                 <div className="filterby-clear">
-                  {clearFilters
-                    && (
-                      <button
-                        type="button"
-                        className="unstyled-button"
-                        onClick={resetFilters}
-                        disabled={disableSearch}
-                      >
-                        <FA name="times" />
-                      Clear Filters
-                      </button>
-                    )}
+                  {clearFilters &&
+                    <button
+                      type="button"
+                      className="unstyled-button"
+                      onClick={resetFilters}
+                      disabled={disableSearch}
+                    >
+                      <FA name="times" />
+                        Clear Filters
+                    </button>
+                  }
                 </div>
               </div>
               <div className="position-search--filters--cm-pos">
@@ -252,19 +258,36 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     disabled={disableSearch}
                   />
                 </div>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Organization(s)"
-                    options={orgOptions}
-                    valueKey="code"
-                    labelKey="description"
-                    onChange={setSelectedOrgs}
-                    value={selectedOrgs}
-                    disabled={disableSearch}
-                  />
-                </div>
+                {viewType !== 'post' &&
+                  <div className="filter-div">
+                    <div className="label">Bureau:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Bureau(s)"
+                      options={bureauOptions}
+                      valueKey="code"
+                      labelKey="long_description"
+                      onChange={setSelectedBureaus}
+                      value={selectedBureaus}
+                      disabled={disableSearch}
+                    />
+                  </div>
+                }
+                {viewType !== 'bureau' &&
+                  <div className="filter-div">
+                    <div className="label">Organization:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Organization(s)"
+                      options={orgOptions}
+                      valueKey="code"
+                      labelKey="description"
+                      onChange={setSelectedOrgs}
+                      value={selectedOrgs}
+                      disabled={disableSearch}
+                    />
+                  </div>
+                }
                 <div className="filter-div">
                   <div className="label">Skills:</div>
                   <Picky
@@ -302,18 +325,18 @@ const CyclePositionSearch = ({ location, viewType }) => {
                 title="Edit Mode (Search Disabled)"
                 messages={[{
                   body: 'Discard or save your edits before searching. '
-                  + 'Filters are disabled if any cards are in Edit Mode.',
+                    + 'Filters are disabled if any cards are in Edit Mode.',
                 },
                 ]}
               />
             )
           }
           <div className="cps-content">
-            { !hideBreadcrumbs
+            {!hideBreadcrumbs
               && (
                 <div className="breadcrumb-container">
                   <Link to={`/profile/${viewType}/cyclemanagement`} className="breadcrumb-active">
-                  Cycle Search Results
+                    Cycle Search Results
                   </Link>
                   <span className="breadcrumb-arrow">&gt;</span>
                   {numCycles > 1
@@ -321,23 +344,23 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     : <span>{loadedCycle?.cycle_name ?? ''}</span>}
                 </div>
               )}
-            { numCycles === 1
-            && (
-              <>
-                <div className="cps-header">
-                  {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
-                </div>
-                <div className="cps-subheader">
-                  <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
-                  <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
-                  <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
-                </div>
-              </>
-            )}
-            { getOverlay()
+            {numCycles === 1
+              && (
+                <>
+                  <div className="cps-header">
+                    {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
+                  </div>
+                  <div className="cps-subheader">
+                    <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
+                    <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
+                    <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
+                  </div>
+                </>
+              )}
+            {getOverlay()
               || (
                 <div className="cps-lower-section">
-                  { numCycles > 1 ? (
+                  {numCycles > 1 ? (
                     positionsByCycle?.map(cycle => (
                       <div key={cycle.id} className="cps-cycle-section">
                         <div className="cps-cycle-header">

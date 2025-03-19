@@ -102,7 +102,6 @@ const AgendaItemRow = props => {
             </div>
           }
           <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
-
           {agenda.aiCombinedTodDescText &&
             <div className="agenda-item-combined-tod">
               <span>
@@ -111,7 +110,6 @@ const AgendaItemRow = props => {
               </span>
             </div>
           }
-
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
@@ -142,15 +140,27 @@ const AgendaItemRow = props => {
                 </span>
                 <span className="date">{createDate}</span>
               </div>
+              { false &&
+              // Temporary removal of modified -- this updates when anything on the panel updates i.e panel processing
               <div className="wrapper">
                 <span className="ai-updater-creator-name">
                   Modified: {updateByLast} {get(agenda, 'updaters.first_name') || ''}
                 </span>
                 <span className="date">{updateDate}</span>
               </div>
+              }
+              <div className="wrapper">
+                {/* Note: This was supposed to just update when a remark changed, but it updates when anything on the agenda item updates */}
+                <span className="ai-updater-creator-name">
+                  {`Modified: ${agenda?.remarks_updater?.last_name ? `${agenda.remarks_updater.last_name},` : ''} ${agenda?.remarks_updater?.first_name || ''}`}
+                </span>
+                <span className="date">{dateTernary(get(agenda, 'airupdatedate'))}</span>
+              </div>
+              { !isPanelMeetingView &&
               <span className="aim-timestamp">
                 {`CDO: ${cdoFirst} ${cdoLast}`}
               </span>
+              }
             </div>
           </div>
         </div>
@@ -243,6 +253,15 @@ AgendaItemRow.propTypes = {
       middle_name: PropTypes.string,
     }),
     updaters: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      hruempseqnbr: PropTypes.number,
+      hruneuid: PropTypes.number,
+      hruid: PropTypes.number,
+      neuid: PropTypes.number,
+      middle_name: PropTypes.string,
+    }),
+    remarks_updater: PropTypes.shape({
       first_name: PropTypes.string,
       last_name: PropTypes.string,
       hruempseqnbr: PropTypes.number,
