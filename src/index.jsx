@@ -83,8 +83,8 @@ export const init = async () => {
   const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
   
   // Set the api urls from the config file
-  const hrAuthUrl = initialConfig.hrAuthUrl;
-  const hrAuthUrlPublic = initialConfig.hrAuthUrlPublic;
+  const hrAuthUrl = config.hrAuthUrl;
+  const hrAuthUrlPublic = config.hrAuthUrlPublic;
   
   // Initialize the request headers
   const headers = {
