@@ -50,16 +50,9 @@
     // Agenda Item History
     // Panel Agenda Items
     .ai-legs {
-      max-width: 60vw;
-      min-height: 150px;
       overflow-x: auto;
       margin-bottom: 10px;
-      @each $res, $vw in $ai-legs-width-config {
-        @media screen and (min-width: $res) {
-          max-width: $vw;
-          font-size: 1.3rem;
-        }
-      }
+      font-size: 13px;
 
       table {
         margin: 0;
@@ -116,7 +109,6 @@
       color: $tertiary-cool-blue;
       font-size: 80px;
     }
-
   }
 
   .agenda-bottom-row {
@@ -125,7 +117,7 @@
     justify-content: space-between;
   }
 
-  .agenda-item-combined-tod-text {
+  .bold-text {
     font-weight: bold;
   }
 
