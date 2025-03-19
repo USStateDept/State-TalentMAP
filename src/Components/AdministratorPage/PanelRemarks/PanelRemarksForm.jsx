@@ -102,7 +102,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   return (
     <div className="pr-form">
       <div className="usa-grid">
-        <div className="usa-width-one-half">
+        <div className="usa-width-one-third">
           <label htmlFor="remarkDescription">Remark Description</label>
           <TextareaAutosize
             id="remarkDescription"

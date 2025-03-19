@@ -47,6 +47,10 @@
 
     .pr-form {
         padding-top: 20px;
+        
+        > .usa-grid {
+            margin-left: 0 !important;
+        }
 
         .pr-row {
             display: flex;
@@ -63,24 +67,6 @@
             }
         }
 
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-    
-            > span {
-                color: $color-gray;
-                position: relative;
-                padding: 5px;
-                cursor: pointer;
-    
-                &:hover {
-                    color: $color-red;
-                }
-            }
-        }
-
         .pr-toggle-container {
             display: flex;
             align-items: center;
@@ -94,20 +80,40 @@
             font-size: 14px;
         }
 
-        .picky {
-            &.input-error {
-                .picky__input{
-                    border: 1px solid red !important;
-                }
-            }
-        }
-
         input {
             height: 28px;
             font-size: 16px;
 
             &.input-error {
                 border: 1px solid red;
+            }
+        }
+
+        // remark insert input
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+    
+            // x button
+            > span {
+                color: $color-gray;
+                position: relative;
+                padding: 5px;
+                cursor: pointer;
+    
+                &:hover {
+                    color: $color-red;
+                }
+            }
+        }
+
+        .picky {
+            &.input-error {
+                .picky__input{
+                    border: 1px solid red !important;
+                }
             }
         }
 
