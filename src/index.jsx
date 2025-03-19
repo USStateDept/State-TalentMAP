@@ -78,12 +78,13 @@ export const init = async () => {
   sessionStorage.setItem('apiUrl', initialConfig.apiUrl);
   // eslint-disable-next-line no-console
   console.log('apiUrl set to:', initialConfig.apiUrl);
-  // Set the api urls from the config file
-  const hrAuthUrl = initialConfig.hrAuthUrl;
-  const hrAuthUrlPublic = initialConfig.hrAuthUrlPublic;
-
+  
   // fetch the feature flags
   const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
+  
+  // Set the api urls from the config file
+  const hrAuthUrl = config.hrAuthUrl;
+  const hrAuthUrlPublic = config.hrAuthUrlPublic;
 
   // Initialize the request headers
   const headers = {
