@@ -241,7 +241,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     options={statusOptions}
                     onChange={setSelectedStatuses}
                     valueKey="description"
-                    labelKey="description"
+                    labelKey="code"
                     disabled={disableSearch}
                   />
                 </div>
@@ -251,8 +251,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     {...pickyProps}
                     placeholder="Select Grade(s)"
                     options={gradeOptions}
-                    valueKey="code"
-                    labelKey="description"
+                    valueKey="description"
+                    labelKey="code"
                     onChange={setSelectedGrades}
                     value={selectedGrades}
                     disabled={disableSearch}
@@ -265,8 +265,8 @@ const CyclePositionSearch = ({ location, viewType }) => {
                       {...pickyProps}
                       placeholder="Select Bureau(s)"
                       options={bureauOptions}
-                      valueKey="code"
-                      labelKey="description"
+                      valueKey="description"
+                      labelKey="code"
                       onChange={setSelectedBureaus}
                       value={selectedBureaus}
                       disabled={disableSearch}
