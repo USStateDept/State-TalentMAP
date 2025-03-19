@@ -339,22 +339,6 @@ $lg-height-config-aim-legs-form-read: (
 );
 
 //**
-//* resolution widths for .ai-legs
-//*
-// used in the following places:
-// Agenda Item History
-// Panel Agenda Items
-$ai-legs-width-config: (
-  1000px: 67vw,
-  1300px: 73vw,
-  1500px: 75vw,
-  1700px: 80vw,
-  2000px: 83vw,
-  2400px: 95vw,
-  2700px: 98vw,
-);
-
-//**
 //* Filters using Grid configurations
 //*
 // grid-size is optional - defaults to 10px buffer between
