@@ -2,7 +2,7 @@ import { Row } from 'Components/Layout';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const SelectedCardsBanner = ({ selectedCards, className }) => (
+const SelectedCardsBanner = ({ selectedCards, viewType, className }) => (
   <Row className={`select-all-banner ${className} box-shadow-standard usa-grid-full`} >
     <div className="text-wrapper">
       {selectedCards.count} Cycle(s) Selected
@@ -10,7 +10,7 @@ const SelectedCardsBanner = ({ selectedCards, className }) => (
     <div className="button-wrapper">
       <Link
         to={{
-          pathname: '/profile/administrator/cyclemanagement/positions',
+          pathname: `/profile/${viewType}/cyclemanagement/positions`,
           state: {
             cycleIDs: selectedCards.cycleIds,
             cycles: selectedCards.cycles,
@@ -22,7 +22,7 @@ const SelectedCardsBanner = ({ selectedCards, className }) => (
       </Link>
       <Link
         to={{
-          pathname: '/profile/administrator/cyclemanagement/positions',
+          pathname: `/profile/${viewType}/cyclemanagement/positions`,
           state: {
             cycleIDs: selectedCards.cycleIds,
             cycles: selectedCards.cycles,
@@ -42,6 +42,7 @@ SelectedCardsBanner.propTypes = {
     cycleIds: PropTypes.arrayOf(PropTypes.number).isRequired,
     cycles: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  viewType: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 
