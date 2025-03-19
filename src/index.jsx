@@ -95,6 +95,8 @@ export const init = async () => {
 
   // if the env is localhost set some flags to true
   if (localDevMode) {
+    // This sets the baseURL for the api to the local dev server
+    config.api_config.baseURL = initialConfig.apiUrl;
     // eslint-disable-next-line no-console
     console.log('**** LOCAL DEVELOPMENT MODE ****');
   } else if (dosdevMode) {
@@ -117,8 +119,11 @@ export const init = async () => {
   // Render the loading screen
   renderLoading();
 
-  // If the URL includes msappproxy, render the iframe and wait for a message from it.
-  if (window.location.href.includes('msappproxy')) {
+  if (window.location.href.includes(':')) {
+    // eslint-disable-next-line no-console
+    console.log('AUTHORIZING MANUALLY WITH USER PROVIDED JWT');
+    render();
+  } else if (window.location.href.includes('msappproxy')) {
     // eslint-disable-next-line no-console
     console.log('AUTHORIZING IN PROXY MODE');
 

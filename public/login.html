@@ -8,7 +8,17 @@
   </style>
 </head>
 <body>
-<div>
+  <div>
+  <h1>Login via JWT</h1>
+  <div>
+    <form onsubmit="loginWithJwt(); return false;">
+      <label for="jwt">JWT</label>
+      <input type="text" name="jwt" id="jwt" />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+<!-- <div>
   <h1>Login</h1>
   <h2>Personas</h2>
   <ul>
@@ -40,8 +50,8 @@
       <a OnClick="login('andersons', 'password');">Stephanie Anderson (System Admin)</a>
     </li>
   </ul>
-</div>
-<div>
+</div> -->
+<!-- <div>
   <h2>Custom</h2>
   <form onsubmit="submitLogin(); return false;">
     <label for="username">Username</label>
@@ -50,9 +60,10 @@
     <input type="password" name="password" id="password" />
     <button type="submit">Submit</button>
   </form>
-</div>
+</div> -->
 <script>
  
+  sessionStorage.clear();
   // Function to handle login
   async function login(username, password) {
     try {
@@ -92,6 +103,13 @@
   // Function to handle form submission
   function submitLogin() {
     login(document.getElementById('username').value, document.getElementById('password').value);
+  }
+
+  function loginWithJwt() {
+    const jwt = document.getElementById('jwt').value;
+    sessionStorage.setItem('jwt', jwt);
+    // Redirect to the token validation page with the token
+    window.location.href = '/tokenValidation?tmApiToken=' + jwt;
   }
 </script>
 </body>
