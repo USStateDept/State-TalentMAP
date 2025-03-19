@@ -243,6 +243,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     valueKey="description"
                     labelKey="code"
                     disabled={disableSearch}
+                    includeSelectAll
                   />
                 </div>
                 <div className="filter-div">
@@ -256,6 +257,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
                     onChange={setSelectedGrades}
                     value={selectedGrades}
                     disabled={disableSearch}
+                    includeSelectAll
                   />
                 </div>
                 {viewType !== 'post' &&
