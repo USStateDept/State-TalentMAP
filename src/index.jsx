@@ -76,16 +76,17 @@ export const init = async () => {
   // fetch config.json to get some startup variables
   const initialConfig = ((await axios.get('/init.json')).data);
   sessionStorage.setItem('apiUrl', initialConfig.apiUrl);
+
   // eslint-disable-next-line no-console
   console.log('apiUrl set to:', initialConfig.apiUrl);
-  
+
   // fetch the feature flags
   const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
-  
+
   // Set the api urls from the config file
   const hrAuthUrl = config.hrAuthUrl;
   const hrAuthUrlPublic = config.hrAuthUrlPublic;
-  
+
   // Initialize the request headers
   const headers = {
     Accept: 'application/json',
