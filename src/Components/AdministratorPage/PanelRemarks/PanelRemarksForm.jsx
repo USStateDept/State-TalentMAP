@@ -79,7 +79,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
       rmrktext: description, // description
       rmrkactiveind: active, // active
-      insertions, // remark inserts
+      rmrkinserts: insertions, // remark inserts
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
