@@ -315,8 +315,8 @@ const CycleManagement = ({ viewType }) => {
                 </div>
               </div>
               <div className="cm-lower-section">
-                {selectAll || anySelected ? (
-                  <SelectedCardsBanner className="top" selectedCards={selectedCards} />
+                {(selectAll || anySelected) ? (
+                  <SelectedCardsBanner className="top" selectedCards={selectedCards} viewType={viewType} />
                 )
                   : null
                 }
@@ -330,13 +330,12 @@ const CycleManagement = ({ viewType }) => {
                     onSelect={handleSelectionChange}
                   />
                 ))}
-                {selectAll || anySelected ? (
-                  <SelectedCardsBanner selectedCards={selectedCards} />
+                {(selectAll || anySelected) ? (
+                  <SelectedCardsBanner selectedCards={selectedCards} viewType={viewType} />
                 )
                   : null
                 }
               </div>
-
             </>
           }
         </div>
