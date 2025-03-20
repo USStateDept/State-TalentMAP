@@ -72,11 +72,16 @@ const AgendaItemRow = props => {
                   >
                     Edit Agenda Item
                   </Link>
-                  {agenda.pmt_code ?? 'N/A'} - {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
                 </div>
                 : ''
             }
           </div>
+          {
+            !isPanelMeetingView &&
+            <div className="ai-empty-row bold-text">
+              {agenda.pmt_code ?? 'N/A'} - {agenda.pmd_dttm ? formatDate(agenda.pmd_dttm) : 'N/A'}
+            </div>
+          }
           {
             isPanelMeetingView &&
             <div className="panel-meeting-person-data">
@@ -105,7 +110,7 @@ const AgendaItemRow = props => {
           {agenda.aiCombinedTodDescText &&
             <div className="agenda-item-combined-tod">
               <span>
-                <span className="agenda-item-combined-tod-text">{'Combined TOD: '}</span>
+                <span className="bold-text">{'Combined TOD: '}</span>
                 {agenda.aiCombinedTodCode === 'X' ? agenda.aiCombinedTodOtherText : agenda.aiCombinedTodDescText}
               </span>
             </div>
