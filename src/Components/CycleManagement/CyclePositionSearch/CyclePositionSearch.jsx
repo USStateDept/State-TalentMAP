@@ -75,6 +75,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
 
   const filters = [
     selectedStatuses,
+    selectedBureaus,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
@@ -100,6 +101,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
     setSelectedGrades([]);
     setSelectedSkills([]);
     setSelectedLanguages([]);
+    setSelectedBureaus([]);
     setTempPosNumberText('');
     setPosNumberText('');
     searchPosNumRef.current.clearText();
@@ -151,6 +153,7 @@ const CyclePositionSearch = ({ location, viewType }) => {
     }
   }, [
     selectedStatuses,
+    selectedBureaus,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
