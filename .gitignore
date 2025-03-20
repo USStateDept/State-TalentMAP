@@ -26,6 +26,7 @@ certs/**/*
 .env.test.local
 .env.production.local
 .env
+.env*
 stats.json
 
 npm-debug.log*
