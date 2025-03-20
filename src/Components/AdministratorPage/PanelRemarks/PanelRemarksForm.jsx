@@ -86,7 +86,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       rmrkmutuallyexclusiveind: mutuallyExcl,
       rmrktext: description,
       rmrkactiveind: active,
-      rmrkinserts: insertions.map((insertion) => insertion.value),
+      rmrkinserts: insertions.map((insertion) => insertion.value).filter((insertion) => insertion), // remove empty insertions
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
