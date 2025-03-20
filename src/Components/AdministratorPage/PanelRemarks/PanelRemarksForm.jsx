@@ -48,7 +48,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
 
   useEffect(() => {
     // load remark insertion data on page load
-    if (remarkData.RemarkInserts.length > 0) {
+    if (remarkData.RemarkInserts?.length > 0) {
       setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, value: insertion.riinsertiontext })));
     }
   }, [remarkData.RemarkInserts]);
