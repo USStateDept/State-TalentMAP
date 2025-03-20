@@ -47,6 +47,13 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   };
 
   useEffect(() => {
+    // load remark insertion data on page load
+    if (remarkData.RemarkInserts.length > 0) {
+      setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, value: insertion.riinsertiontext })));
+    }
+  }, [remarkData.RemarkInserts]);
+
+  useEffect(() => {
     // if the create or edit was successful, close the form
     if (createRemarkSuccess || editRemarkSuccess) {
       onClose(true);
@@ -73,13 +80,13 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     }
 
     const newRemark = {
-      rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
-      rmrkordernum: orderNum, // orderNum
-      rmrkshortdesctext: shortDescription, // shortDescription
-      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
-      rmrktext: description, // description
-      rmrkactiveind: active, // active
-      rmrkinserts: insertions, // remark inserts
+      rmrkrccode: selectedCategories,
+      rmrkordernum: orderNum,
+      rmrkshortdesctext: shortDescription,
+      rmrkmutuallyexclusiveind: mutuallyExcl,
+      rmrktext: description,
+      rmrkactiveind: active,
+      rmrkinserts: insertions.map((insertion) => insertion.value),
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
@@ -253,7 +260,13 @@ PanelRemarksForm.propTypes = {
     rmrkrccode: PropTypes.string,
     rmrkcreatedate: PropTypes.string,
     rmrkupdatedate: PropTypes.string,
-    remarkInserts: PropTypes.arrayOf(PropTypes.string),
+    RemarkInserts: PropTypes.arrayOf(PropTypes.shape({
+      rirmrkseqnum: PropTypes.number,
+      riinsertiontext: PropTypes.string,
+      rirolerestrictedind: PropTypes.oneOf(['Y', 'N']),
+      riseqnum: PropTypes.number,
+      riupdatedate: PropTypes.string,
+    })),
   }),
   onClose: PropTypes.func.isRequired,
 };

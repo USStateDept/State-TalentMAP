@@ -61,6 +61,14 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
       RemarkInserts: obj.RemarkInserts,
     };
 
+    // Add unique IDs for checkbox cells
+    const checkboxFields = ['rmrkactiveind', 'rmrkmutuallyexclusiveind'];
+    headers.forEach(header => {
+      if (checkboxFields.includes(header.field)) {
+        row[`${header.field}_ID`] = `${obj.rmrkseqnum}_${header.field}`;
+      }
+    });
+
     return row;
   };
 

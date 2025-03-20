@@ -18,7 +18,6 @@ import PanelRemarksTable from './PanelRemarksTable';
 
 const PanelRemarks = () => {
   const dispatch = useDispatch();
-  // getting data from panelRemarks reducer panelRemarks to get data:
   const panelRemarksData = useSelector(state => state.panelRemarks.results);
   const tableRef = useRef();
 
