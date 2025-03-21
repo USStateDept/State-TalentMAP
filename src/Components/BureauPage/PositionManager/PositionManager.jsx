@@ -38,8 +38,10 @@ const PositionManager = props => {
   const fromBureauMenu = viewType === 'bureau';
   const fromPostMenu = viewType === 'post';
   const bureauPermissions = useSelector(state => state.userProfile.bureau_permissions);
+  console.log(bureauPermissions);
   const orgPermissions = useSelector(state => state.userProfile.org_permissions);
   const initialBureaus = (fromBureauMenu && get(bureauPermissions, '[0]')) ? [get(bureauPermissions, '[0]')] : [];
+  console.log(initialBureaus);
   const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
 
   // Local state populating with defaults from previous user selections stored in redux
@@ -58,6 +60,7 @@ const PositionManager = props => {
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(fromBureauMenu ? (userSelections.selectedBureaus || initialBureaus) : []);
+  console.log(selectedBureaus);
   const [selectedOrgs, setSelectedOrgs] =
     useState(fromPostMenu ? (userSelections.selectedOrgs || initialOrgs) : []);
   const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
@@ -86,6 +89,7 @@ const PositionManager = props => {
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
   const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
+  console.log(bureauOptions);
   const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
   const organizationOptions = sortBy(orgPermissions, [(o) => o.long_description]);
   const posts = bureauFilters$.find(f => get(f, 'item.description') === 'post');
