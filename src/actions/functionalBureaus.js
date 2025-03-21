@@ -13,21 +13,21 @@ import { convertQueryToString } from '../utilities';
 
 // ================ GET POSITIONS FOR FUNCTIONAL BUREAUS ================
 
-export function functionalBureausPositionsErrored(bool) {
+export function functionalBureausErrored(bool) {
   return {
     type: 'FUNCTIONAL_BUREAUS_POSITIONS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function functionalBureausPositionsLoading(bool) {
+export function functionalBureausLoading(bool) {
   return {
     type: 'FUNCTIONAL_BUREAUS_POSITIONS_LOADING',
     isLoading: bool,
   };
 }
 
-export function functionalBureausPositionsSuccess(results) {
+export function functionalBureausSuccess(results) {
   return {
     type: 'FUNCTIONAL_BUREAUS_POSITIONS_SUCCESS',
     results,
@@ -35,37 +35,39 @@ export function functionalBureausPositionsSuccess(results) {
 }
 
 let cancelFunctionalBureaus;
-export function functionalBureausPositions(query = {}) {
+export function functionalBureaus(query = {}) {
   return (dispatch) => {
     if (cancelFunctionalBureaus) { cancelFunctionalBureaus('cancel'); }
     batch(() => {
-      dispatch(functionalBureausPositionsLoading(true));
-      dispatch(functionalBureausPositionsErrored(false));
+      dispatch(functionalBureausLoading(true));
+      dispatch(functionalBureausErrored(false));
     });
     const q = convertQueryToString(query);
     const endpoint = '/fsbid/functional_bureaus/';
     const ep = `${endpoint}?${q}`;
+    console.log('HELLO');
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelFunctionalBureaus = c; }),
     })
       .then(({ data }) => {
+        console.log(data);
         batch(() => {
-          dispatch(functionalBureausPositionsSuccess(data));
-          dispatch(functionalBureausPositionsErrored(false));
-          dispatch(functionalBureausPositionsLoading(false));
+          dispatch(functionalBureausSuccess(data));
+          dispatch(functionalBureausErrored(false));
+          dispatch(functionalBureausLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(functionalBureausPositionsLoading(true));
-            dispatch(functionalBureausPositionsErrored(false));
+            dispatch(functionalBureausLoading(true));
+            dispatch(functionalBureausErrored(false));
           });
         } else {
           batch(() => {
-            dispatch(functionalBureausPositionsSuccess({ results: [] }));
-            dispatch(functionalBureausPositionsErrored(false));
-            dispatch(functionalBureausPositionsLoading(false));
+            dispatch(functionalBureausSuccess({ results: [] }));
+            dispatch(functionalBureausErrored(false));
+            dispatch(functionalBureausLoading(false));
           });
         }
       });
