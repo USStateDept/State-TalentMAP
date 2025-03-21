@@ -23,8 +23,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const [active, setActive] = useState(remarkData.rmrkactiveind || false);
   const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
   const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
-  const [insertions, setInsertions] = useState([{ id: 0, value: '' }]);
-  // const [roleRestriction, setRoleRestriction] = useState(false);
+  const [insertions, setInsertions] = useState([{ id: 0, rmrkInsertID: 0, value: '', roleRestricted: 'N' }]);
 
   const handleNewInsertion = () => {
     setInsertions([...insertions, { id: insertions.length, value: '' }]);
