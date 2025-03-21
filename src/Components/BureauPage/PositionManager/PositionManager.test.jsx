@@ -1,8 +1,31 @@
 import { shallow } from 'enzyme';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
 import PositionManager from './PositionManager';
 
 describe('BureauPage', () => {
+  const mockStore = configureMockStore();
+  const store = mockStore({
+    userProfile: {
+      bureau_permissions: [
+        {
+          code: '120000',
+          long_description: 'BUR OF EUROPEAN AFF AND EURASIAN AFFAIRS',
+          short_description: 'EUR',
+        },
+      ],
+      org_permissions: [],
+    },
+    bureauPositions: {
+      count: 0,
+      results: [],
+    },
+    bureauFilters: {
+      filters: [],
+    },
+  });
+
   const props = {
     fetchBureauPositions: EMPTY_FUNCTION,
     fetchFilters: EMPTY_FUNCTION,
@@ -187,7 +210,10 @@ describe('BureauPage', () => {
   };
 
   it('is defined', () => {
-    const wrapper = shallow(<PositionManager.WrappedComponent {...props} />);
+    const wrapper = shallow(
+      <Provider store={store}>
+        <PositionManager.WrappedComponent {...props} />
+      </Provider>);
     expect(wrapper).toBeDefined();
   });
 });
