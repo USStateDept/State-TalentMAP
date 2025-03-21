@@ -10,13 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
-import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
+import { functionalBureausPositions, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import SelectRenderer from 'Components/AgGrid/SelectRenderer';
 import InteractiveElement from 'Components/InteractiveElement';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
@@ -233,9 +232,9 @@ const FunctionalBureaus = props => {
 
   const [headers] = useState([
     {
-      field: 'position.pab_bureau',
+      field: 'posfunctionalbureau',
       headerName: 'Functional Bureau',
-      cellRenderer: SelectRenderer,
+      cellRenderer: editMode ?? SelectRenderer,
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
         className: 'select-dropdown',
@@ -244,23 +243,14 @@ const FunctionalBureaus = props => {
       },
       flex: 2,
     },
-    { field: 'position.bureau', headerName: 'Bureau', flex: 1 },
-    { field: 'position.skill_secondary', headerName: 'Skill Bureau', flex: 1 },
-    {
-      field: 'position.organization',
-      headerName: 'Location (Org)',
-      flex: 1,
-    },
-    { field: 'position.position_number', headerName: 'Position Number', flex: 1 },
-    { field: 'position.skill', headerName: 'Skill', flex: 1 },
-    { field: 'position.title', headerName: 'Position Title', flex: 1 },
-    { field: 'position.grade', headerName: 'PP/Grade', flex: 1 },
-    {
-      field: 'position.languages',
-      headerName: 'Language',
-      flex: 1,
-      cellRenderer: (e) => <LanguageList languages={e?.data?.position?.languages || []} propToUse="representation" />,
-    },
+    { field: 'posbureau', headerName: 'Bureau', flex: 1 },
+    { field: 'posstaffptrnskill', headerName: 'Skill Bureau', flex: 1 },
+    { field: 'posorg', headerName: 'Location (Org)', flex: 1 },
+    { field: 'posnumtext', headerName: 'Position Number', flex: 1 },
+    { field: 'posskill', headerName: 'Skill', flex: 1 },
+    { field: 'postitledesc', headerName: 'Position Title', flex: 1 },
+    { field: 'posgradecode', headerName: 'PP/Grade', flex: 1 },
+    { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1 },
   ]);
 
   const pickyProps = {
@@ -442,7 +432,7 @@ const FunctionalBureaus = props => {
           />
         </div>
       }
-    </div >
+    </div>
   );
 };
 
@@ -473,23 +463,23 @@ FunctionalBureaus.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  bureauPositions: state.bureauPositions,
-  bureauPositionsIsLoading: state.bureauPositionsIsLoading,
-  bureauPositionsHasErrored: state.bureauPositionsHasErrored,
+  bureauPositions: state.functionalBureausPositions,
+  bureauPositionsIsLoading: state.functionalBureausPositionsLoading,
+  bureauPositionsHasErrored: state.functionalBureausPositionsErrored,
   bureauFilters: state.filters,
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
   bureauPermissions: state.userProfile.bureau_permissions,
   orgPermissions: state.userProfile.org_permissions,
-  userSelections: state.bureauUserSelections,
+  userSelections: state.functionalBureausSelections,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchBureauPositions: (query) =>
-    dispatch(bureauPositionsFetchData(query)),
+    dispatch(functionalBureausPositions(query)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
-  saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
+  saveSelections: (selections) => dispatch(saveFunctionalBureausSelections(selections)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FunctionalBureaus);
