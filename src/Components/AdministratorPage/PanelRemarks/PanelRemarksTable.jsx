@@ -100,6 +100,8 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
       const title = 'Cannot Submit Form';
       const message = `Missing insertions: ${missingInsertions.join(', ')}`;
       dispatch(toastWarning(message, title));
+      // Reset the text to the original value
+      fetchData();
       return false;
     }
     // Check if order num is between 0 and 99
