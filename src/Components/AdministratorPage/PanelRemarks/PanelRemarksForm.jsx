@@ -23,24 +23,35 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const [active, setActive] = useState(remarkData.rmrkactiveind || false);
   const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
   const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
-  const [insertions, setInsertions] = useState([{ id: 0, rmrkInsertID: 0, value: '', roleRestricted: 'N' }]);
+  const [insertions, setInsertions] = useState([{ id: 0, riinsertiontext: '' }]); // @TODO: add roleRestricted: 'N' when role restriction is implemented
 
   const handleNewInsertion = () => {
-    setInsertions([...insertions, { id: insertions.length, value: '' }]);
+    setInsertions([...insertions, { id: insertions.length, riinsertiontext: '' }]); // @TODO: add roleRestricted: 'N' when role restriction is implemented
   };
 
   const handleInsertionChange = (index, value) => {
     setInsertions(insertions.map((insertion) =>
-      insertion.id === index ? { ...insertion, value } : insertion,
+      // update the insertion text for the given index
+      insertion.id === index ? { ...insertion, riinsertiontext: value } : insertion,
     ));
   };
 
-  // @TODO: Temporarily disabled until delete remark inserts is implemented
   const handleRemoveInsertion = (index) => {
+    // check if insert exists
+    const exists = remarkData.RemarkInserts?.some((remark) => remark.riseqnum === insertions[index].riseqnum);
+    if (exists) {
+      // warn user that insertion can't be deleted
+      const title = 'Cannot Delete Insertion';
+      const message = 'Cannot delete an insertion that is already in use';
+      dispatch(toastWarning(message, title));
+      return;
+    }
+
+    // remove the insertion from the list
     const updatedInsertions = insertions.filter((insertion) => insertion.id !== index);
     if (updatedInsertions.length === 0) {
-    // Ensure at least one clear input is always present
-      setInsertions([{ id: 0, value: '' }]);
+    // ensure at least one input is always present
+      setInsertions([{ id: 0, riinsertiontext: '' }]); // @TODO: add roleRestricted: 'N' when role restriction is implemented
     } else {
       setInsertions(updatedInsertions);
     }
@@ -49,7 +60,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   useEffect(() => {
     // load remark insertion data on page load
     if (remarkData.RemarkInserts?.length > 0) {
-      setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, value: insertion.riinsertiontext })));
+      setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, riseqnum: insertion.riseqnum, riinsertiontext: insertion.riinsertiontext }))); // @TODO: add roleRestricted: insertion.rirolerestrictedind
     }
   }, [remarkData.RemarkInserts]);
 
@@ -79,12 +90,12 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       return;
     }
     const newrmrkinserts = insertions
-      .map((insertion) => insertion.value) // extract the values
+      .map(({ id, ...rest }) => rest) // Remove the `id` key by destructuring
       .filter((insertion) =>
         insertion && // ensure the insertion is not empty
-      (mode === 'edit' || // only check RemarkInserts if in edit mode
-        !remarkData.RemarkInserts?.some((remark) => remark.riinsertiontext === insertion))); // ensure the insertion is not already in the list
-    console.log(newrmrkinserts);
+        (mode !== 'edit' || // only check RemarkInserts if in edit mode
+      !remarkData.RemarkInserts?.some((remark) => remark.riinsertiontext === insertion.riinsertiontext))); // ensure the insertion is not already in the list
+
     const newRemark = {
       rmrkrccode: selectedCategories,
       rmrkordernum: orderNum,
@@ -228,14 +239,11 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
                 className="text-input"
                 type="text"
                 placeholder="{insertion}"
-                value={insertion.value}
+                value={insertion.riinsertiontext}
                 onChange={(e) => handleInsertionChange(insertion.id, e.target.value)}
                 style={{ maxWidth: '200px' }}
               />
-              { false &&
-              // Hide until delete remark inserts is implemented
               <FontAwesome name="times" title="Delete insertion" onClick={() => handleRemoveInsertion(insertion.id)} style={{ cursor: 'pointer' }} />
-              }
             </div>
           ))}
         </div>
