@@ -18,6 +18,7 @@ import { dateTernary } from '../Constants';
 import api from '../../../api';
 import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 import SkillCodeList from '../../SkillCodeList';
+import PrintPanelMeetingAgendas from '../../Panel/PanelMeetingAgendas/PrintPanelMeetingAgendas';
 
 const AgendaItemMaintenancePane = (props) => {
   const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
@@ -26,6 +27,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   const {
     onAddRemarksClick,
+    onPrintViewClick,
     perdet,
     setParentLoadingState,
     unitedLoading,
@@ -108,6 +110,7 @@ const AgendaItemMaintenancePane = (props) => {
   };
   const [showLegacyPanelMeetingDate, setShowLegacyPanelMeetingDate] = useState(isLegacyPanelDate());
 
+  const [printView, setPrintView] = useState(false);
 
   // ================ User Centric Data ================
   // Data is parsed differently depending on whether the data comes from agendaItem or employeeData
@@ -125,7 +128,6 @@ const AgendaItemMaintenancePane = (props) => {
   const userCDOFirst = (isCreate ? userData?.cdos?.[0]?.cdo_first_name : userData?.cdo?.first_name) || '';
   const userCDOLast = (isCreate ? userData?.cdos?.[0]?.cdo_last_name : userData?.cdo?.last_name) || '';
   const userCDO = (userCDOFirst || userCDOLast) ? `${userCDOFirst} ${userCDOLast}` : 'None Listed';
-
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
@@ -364,9 +366,31 @@ const AgendaItemMaintenancePane = (props) => {
     setIsNewSeparation();
     setPanelCat('S');
   };
+
+  const togglePrintView = (isOpen) => {
+    setPrintView(isOpen);
+    onPrintViewClick(isOpen); // Notify the parent about the print view state
+  };
+
+  const getOverlay = () => {
+    let overlay;
+    if (printView) {
+      overlay = (
+        <PrintPanelMeetingAgendas
+          closePrintView={() => togglePrintView(false)}
+          agendaItem={agendaItem}
+          viewType="aim"
+        />
+      );
+    }
+    return overlay;
+  };
+
   return (
-    <div className="ai-maintenance-header">
-      {!unitedLoading &&
+    getOverlay() ||
+    <>
+      <div className="ai-maintenance-header">
+        {!unitedLoading &&
         <>
           <div className="back-save-btns-container">
             <BackButton />
@@ -379,6 +403,13 @@ const AgendaItemMaintenancePane = (props) => {
               Delete Agenda Item
             </button>
             }
+            <button
+              className="usa-button-secondary print-btn"
+              onClick={() => togglePrintView(true)}
+              disabled={!readMode}
+            >
+              Print View
+            </button>
             <button
               className={validationButton?.classNames}
               onClick={validationButton.clickFunction}
@@ -619,8 +650,9 @@ const AgendaItemMaintenancePane = (props) => {
             </div>
           </div>
         </>
-      }
-    </div>
+        }
+      </div>
+    </>
   );
 };
 
@@ -634,6 +666,7 @@ AgendaItemMaintenancePane.propTypes = {
     asgSepBidLoading: PropTypes.bool,
   }),
   onAddRemarksClick: PropTypes.func,
+  onPrintViewClick: PropTypes.func,
   setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
   userRemarks: PropTypes.arrayOf(
@@ -683,6 +716,7 @@ AgendaItemMaintenancePane.propTypes = {
 AgendaItemMaintenancePane.defaultProps = {
   asgSepBidData: {},
   onAddRemarksClick: EMPTY_FUNCTION,
+  onPrintViewClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
   setIsNewSeparation: EMPTY_FUNCTION,
   unitedLoading: true,
