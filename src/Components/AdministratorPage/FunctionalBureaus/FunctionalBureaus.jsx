@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
-import { functionalBureausPositions, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
+import { functionalBureaus, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
@@ -171,9 +171,8 @@ const FunctionalBureaus = props => {
   const throttledTextInput = () => throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
   const setTextInputThrottled = (q) => throttledTextInput(q);
 
-
   const getOverlay = () => {
-    const noResults = !get(bureauPositions, 'results.length');
+    const noResults = bureauPositions.results.length < 1;
     let overlay;
     if (bureauPositionsIsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
@@ -234,7 +233,7 @@ const FunctionalBureaus = props => {
     {
       field: 'posfunctionalbureau',
       headerName: 'Functional Bureau',
-      cellRenderer: editMode ?? SelectRenderer,
+      cellRenderer: editMode && SelectRenderer,
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
         className: 'select-dropdown',
@@ -463,9 +462,9 @@ FunctionalBureaus.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  bureauPositions: state.functionalBureausPositions,
-  bureauPositionsIsLoading: state.functionalBureausPositionsLoading,
-  bureauPositionsHasErrored: state.functionalBureausPositionsErrored,
+  bureauPositions: state.functionalBureaus,
+  bureauPositionsIsLoading: state.functionalBureausLoading,
+  bureauPositionsHasErrored: state.functionalBureausErrored,
   bureauFilters: state.filters,
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
@@ -475,10 +474,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query) =>
-    dispatch(functionalBureausPositions(query)),
-  fetchFilters: (items, queryParams, savedFilters) =>
-    dispatch(filtersFetchData(items, queryParams, savedFilters)),
+  fetchBureauPositions: (query) => dispatch(functionalBureaus(query)),
+  fetchFilters: (items, queryParams, savedFilters) => dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveFunctionalBureausSelections(selections)),
 });
 
