@@ -42,7 +42,7 @@ const FunctionalBureaus = props => {
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
-  const [ordering, setOrdering] = useState(userSelections.ordering || 'position__title');
+  const [ordering, setOrdering] = useState(userSelections.ordering || FUNCTIONAL_BUREAU_POSITION_SORT.options[0].value);
   const [selectedGrades, setSelectedGrades] = useState(userSelections.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections.selectedSkills || []);
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections.selectedLanguages || []);
@@ -124,10 +124,7 @@ const FunctionalBureaus = props => {
     if (prevPage) {
       props.fetchBureauPositions(query);
       props.saveSelections(currentInputs);
-      // TODO: Change this to be handled in the table component
       setPage(1);
-      setLimit(10);
-      setOrdering('position__title');
     }
   }, [
     selectedGrades,
@@ -207,15 +204,19 @@ const FunctionalBureaus = props => {
     });
   };
 
-  const [headers] = useState([
+  const headersMapping = [
     {
       field: 'posfunctionalbureau',
       headerName: 'Functional Bureau',
-      cellRenderer: editMode && SelectRenderer,
+      cellRenderer: (fbSelectProps) => {
+        if (editMode) {
+          return <SelectRenderer {...fbSelectProps} />;
+        }
+        return fbSelectProps?.data?.posfunctionalbureau;
+      },
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
         className: 'select-dropdown',
-        data: 'Value',
         setData: () => { },
       },
       flex: 2,
@@ -229,7 +230,13 @@ const FunctionalBureaus = props => {
     { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
     { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.75, sortable: false },
     { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1, sortable: false },
-  ]);
+  ];
+
+  const [headers, setHeaders] = useState([...headersMapping]);
+
+  useEffect(() => {
+    setHeaders([...headersMapping]);
+  }, [editMode]);
 
   // Export
   const csvExportParams = {
