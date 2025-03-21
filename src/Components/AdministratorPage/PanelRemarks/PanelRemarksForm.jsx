@@ -92,7 +92,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     const newrmrkinserts = insertions
       .map(({ id, ...rest }) => rest) // Remove the `id` key by destructuring
       .filter((insertion) =>
-        insertion && // ensure the insertion is not empty
+        insertion.riinsertiontext && // ensure the insertion is not empty
         (mode !== 'edit' || // only check RemarkInserts if in edit mode
       !remarkData.RemarkInserts?.some((remark) => remark.riinsertiontext === insertion.riinsertiontext))); // ensure the insertion is not already in the list
 
