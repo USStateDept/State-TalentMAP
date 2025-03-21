@@ -7,8 +7,8 @@ import { AgGridReact } from 'ag-grid-react';
 import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInbox, faPrint } from '@fortawesome/free-solid-svg-icons';
-import { scrollToTop } from 'utilities';
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import { joinIfThere, scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
@@ -35,6 +35,8 @@ const FunctionalBureaus = props => {
     orgPermissions,
   } = props;
 
+  const gridRef = useRef(null);
+
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
@@ -47,6 +49,7 @@ const FunctionalBureaus = props => {
   const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
 
   // const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
+  const [exportIsLoading, setExportIsLoading] = useState(false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
   const [clearFilters, setClearFilters] = useState(false);
@@ -142,51 +145,12 @@ const FunctionalBureaus = props => {
     }
   }, [page]);
 
-
-  function renderSelectionList({ items, selected, ...rest }) {
-    let codeOrID = 'code';
-    // only Cycle needs to use 'id'
-    if (!has(items[0], 'code')) {
-      codeOrID = 'id';
-    }
-    const getSelected = item => !!selected.find(f => f[codeOrID] === item[codeOrID]);
-    let queryProp = 'description';
-    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
-    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    return items.map(item => (
-      <ListItem
-        key={item[codeOrID]}
-        item={item}
-        {...rest}
-        queryProp={queryProp}
-        getIsSelected={getSelected}
-      />
-    ),
-    );
-  }
-
   // Free Text Search
   function submitSearch(text) {
     setTextSearch(text);
   }
   const throttledTextInput = () => throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
   const setTextInputThrottled = (q) => throttledTextInput(q);
-
-
-  const getOverlay = () => {
-    const noResults = !get(bureauPositions, 'results.length');
-    let overlay;
-    if (bureauPositionsIsLoading) {
-      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (bureauPositionsHasErrored) {
-      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-    } else if (noResults) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
-    } else {
-      return false;
-    }
-    return overlay;
-  };
 
   // Resetting the filters
   const resetFilters = () => {
@@ -260,9 +224,52 @@ const FunctionalBureaus = props => {
       headerName: 'Language',
       flex: 1,
       cellRenderer: (e) => <LanguageList languages={e?.data?.position?.languages || []} propToUse="representation" />,
+      valueFormatter: (params) => {
+        // Format for CSV export
+        const langValue = params.value;
+        const languageList = (langValue && langValue.length)
+          ? langValue.map(lang => lang.representation) : 'None';
+        const sanitizedLangList = joinIfThere(languageList, 'None');
+        return sanitizedLangList;
+      },
     },
   ]);
 
+  const csvExportParams = {
+    fileName: 'Functional_Bureaus_Export.csv',
+  };
+
+  const exportTable = () => {
+    if (gridRef.current) {
+      setExportIsLoading(true);
+      gridRef.current.api.exportDataAsCsv();
+      setExportIsLoading(false);
+    }
+  };
+
+  // Picky dropdown list rendering
+  function renderSelectionList({ items, selected, ...rest }) {
+    let codeOrID = 'code';
+    // only Cycle needs to use 'id'
+    if (!has(items[0], 'code')) {
+      codeOrID = 'id';
+    }
+    const getSelected = item => !!selected.find(f => f[codeOrID] === item[codeOrID]);
+    let queryProp = 'description';
+    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
+    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
+    return items.map(item => (
+      <ListItem
+        key={item[codeOrID]}
+        item={item}
+        {...rest}
+        queryProp={queryProp}
+        getIsSelected={getSelected}
+      />
+    ),
+    );
+  }
+  // Picky dropdown props
   const pickyProps = {
     numberDisplayed: 2,
     multiple: true,
@@ -271,6 +278,21 @@ const FunctionalBureaus = props => {
     renderList: renderSelectionList,
     includeSelectAll: true,
     disabled: editMode,
+  };
+
+  const getOverlay = () => {
+    const noResults = !get(bureauPositions, 'results.length');
+    let overlay;
+    if (bureauPositionsIsLoading) {
+      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    } else if (bureauPositionsHasErrored) {
+      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
+    } else if (noResults) {
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
   };
 
   return (bureauFiltersIsLoading ?
@@ -417,6 +439,7 @@ const FunctionalBureaus = props => {
               value: 'FUNCTIONALBUREAUS',
               content: <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
                 <AgGridReact
+                  ref={gridRef}
                   domLayout="autoHeight"
                   rowHeight={50}
                   columnDefs={headers}
@@ -424,18 +447,15 @@ const FunctionalBureaus = props => {
                   pagination
                   paginationPageSize={10}
                   paginationPageSizeSelector={pageSizes}
+                  defaultCsvExportParams={csvExportParams}
                 />
               </div>,
             }]}
             customComponent={
               <div className="table-actions">
-                <InteractiveElement className="action-button" onClick={() => null} disabled={false}>
-                  <FontAwesomeIcon icon={faInbox} />
-                  Export Page
-                </InteractiveElement>
-                <InteractiveElement className="action-button" onClick={() => null} disabled={false}>
+                <InteractiveElement className="action-button" onClick={exportTable} disabled={exportIsLoading}>
                   <FontAwesomeIcon icon={faPrint} />
-                  Export All
+                  Export Page
                 </InteractiveElement>
               </div>
             }
