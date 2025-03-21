@@ -117,7 +117,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [location, setLocation] = useState();
   const [activeAIL, setActiveAIL] = useState();
   const [readMode, setReadMode] = useState(true);
-
+  const [isPrintViewOpen, setIsPrintViewOpen] = useState(false);
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
@@ -184,6 +184,10 @@ const AgendaItemMaintenanceContainer = (props) => {
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
 
+  const handlePrintViewToggle = (isOpen) => {
+    setIsPrintViewOpen(isOpen);
+  };
+
   // Reset AI edit/create state on first render
   // First render does not need success state since user is starting create/edit
   useEffect(() => {
@@ -239,10 +243,7 @@ const AgendaItemMaintenanceContainer = (props) => {
     <>
       <div className="aim-header-container">
         <div className="aim-title-container">
-          <FontAwesome
-            name="user-circle-o"
-            size="lg"
-          />
+          <FontAwesome name="user-circle-o" size="lg" />
           Agenda Item Maintenance
           {
             employeeHasCDO ?
@@ -265,12 +266,10 @@ const AgendaItemMaintenanceContainer = (props) => {
         {matches => (
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
-              {
-                spinner &&
+              {spinner &&
                 <Spinner type="left-pane" size="small" />
               }
-              {
-                !agendaItemLoading &&
+              {!agendaItemLoading &&
                 <>
                   {
                     (agendaItemError && routeAgendaID !== '') ?
@@ -278,6 +277,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                       <>
                         <AgendaItemMaintenancePane
                           onAddRemarksClick={openRemarksResearchTab}
+                          onPrintViewClick={handlePrintViewToggle}
                           perdet={routeEmployeeID}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
@@ -304,25 +304,27 @@ const AgendaItemMaintenanceContainer = (props) => {
                             employeeDataLoading,
                           }}
                         />
-                        <AgendaItemTimeline
-                          unitedLoading={spinner}
-                          setParentLoadingState={setAgendaItemTimelineLoading}
-                          updateLegs={setLegs}
-                          asgSepBid={asgSepBid}
-                          activeAIL={activeAIL}
-                          setActiveAIL={setActiveAIL}
-                          location={location}
-                          setLocation={setLocation}
-                          efPos={efPosition}
-                          agendaItemLegs={agendaItemLegs$}
-                          isNewSeparation={isNewSeparation}
-                          updateResearchPaneTab={updateResearchPaneTab}
-                          setLegsContainerExpanded={setLegsContainerExpanded}
-                          fullAgendaItemLegs={agendaItemData$?.legs || []}
-                          readMode={readMode}
-                          AIvalidation={AIvalidation}
-                          legsData={legsData}
-                        />
+                        { !isPrintViewOpen && (
+                          <AgendaItemTimeline
+                            unitedLoading={spinner}
+                            setParentLoadingState={setAgendaItemTimelineLoading}
+                            updateLegs={setLegs}
+                            asgSepBid={asgSepBid}
+                            activeAIL={activeAIL}
+                            setActiveAIL={setActiveAIL}
+                            location={location}
+                            setLocation={setLocation}
+                            efPos={efPosition}
+                            agendaItemLegs={agendaItemLegs$}
+                            isNewSeparation={isNewSeparation}
+                            updateResearchPaneTab={updateResearchPaneTab}
+                            setLegsContainerExpanded={setLegsContainerExpanded}
+                            fullAgendaItemLegs={agendaItemData$?.legs || []}
+                            readMode={readMode}
+                            AIvalidation={AIvalidation}
+                            legsData={legsData}
+                          />
+                        )}
                       </>
                   }
                 </>
