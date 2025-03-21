@@ -9,6 +9,7 @@ import { createPanelRemark, editPanelRemark } from 'actions/panelRemarks';
 import { toastWarning } from 'actions/toast';
 import { renderSelectionList } from 'utilities';
 import FontAwesome from 'react-fontawesome';
+import { validateInsertions } from '.';
 
 const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const dispatch = useDispatch();
@@ -78,6 +79,14 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       const message = 'Missing fields are highlighted red';
       dispatch(toastWarning(message, title));
       setValidForm(false);
+      return false;
+    }
+    // check if all insertions are valid
+    const missingInsertions = validateInsertions(description, insertions);
+    if (missingInsertions.length > 0) {
+      const title = 'Cannot Submit Form';
+      const message = `Missing insertions: ${missingInsertions.join(', ')}`;
+      dispatch(toastWarning(message, title));
       return false;
     }
     setValidForm(true);
@@ -242,6 +251,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
                 value={insertion.riinsertiontext}
                 onChange={(e) => handleInsertionChange(insertion.id, e.target.value)}
                 style={{ maxWidth: '200px' }}
+                disabled={remarkData.RemarkInserts?.some((remark) => remark.riseqnum === insertion.riseqnum)} // disable if insertion is already in use
               />
               <FontAwesome name="times" title="Delete insertion" onClick={() => handleRemoveInsertion(insertion.id)} style={{ cursor: 'pointer' }} />
             </div>
