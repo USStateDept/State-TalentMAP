@@ -406,7 +406,6 @@ const AgendaItemMaintenancePane = (props) => {
             <button
               className="usa-button-secondary print-btn"
               onClick={() => togglePrintView(true)}
-              disabled={!readMode}
             >
               Print View
             </button>

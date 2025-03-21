@@ -29,31 +29,33 @@ const PrintPanelMeetingAgendas = ({ viewType, agendaItem, panelMeetingsWithAgend
   const printableAgendaTable = (agenda) => {
     const { legs } = agenda;
     return (
-      legs.map(leg => {
-        const language = Array.isArray(leg.languages) ? formatLang(leg.languages) : '-';
-        const vice = leg.vice ? formatVice(leg.vice) : '-';
-        const formattedSkillTitle = `(${leg.skill_code}) ${formatStr(leg.pos_title)}`;
-        const formattedETA = formatMonthYearDate(leg.eta);
-        const formattedTED = formatMonthYearDate(leg.ted);
-        const formattedORG = formatStr(leg.org);
-        return (
-          <tbody>
-            <tr>
-              <td>{leg.action}</td>
-              <td>{formattedORG}</td>
-              <td>{leg.pos_num}</td>
-              <td>{formattedSkillTitle}</td>
-              <td>{language}</td>
-              <td>{formattedETA}</td>
-              <td>{formattedTED}</td>
-              <td>{leg.tod_short_desc}</td>
-              <td>{leg.travel_desc}</td>
-              <td>{vice}</td>
-              <td>{leg.combined_pp_grade}</td>
-            </tr>
-          </tbody>
-        );
-      })
+      legs ?
+        legs.map(leg => {
+          const language = Array.isArray(leg.languages) ? formatLang(leg.languages) : '-';
+          const vice = leg.vice ? formatVice(leg.vice) : '-';
+          const formattedSkillTitle = `(${leg.skill_code}) ${formatStr(leg.pos_title)}`;
+          const formattedETA = formatMonthYearDate(leg.eta);
+          const formattedTED = formatMonthYearDate(leg.ted);
+          const formattedORG = formatStr(leg.org);
+          return (
+            <tbody>
+              <tr>
+                <td>{leg.action}</td>
+                <td>{formattedORG}</td>
+                <td>{leg.pos_num}</td>
+                <td>{formattedSkillTitle}</td>
+                <td>{language}</td>
+                <td>{formattedETA}</td>
+                <td>{formattedTED}</td>
+                <td>{leg.tod_short_desc}</td>
+                <td>{leg.travel_desc}</td>
+                <td>{vice}</td>
+                <td>{leg.combined_pp_grade}</td>
+              </tr>
+            </tbody>
+          );
+        })
+        : null
     );
   };
 
