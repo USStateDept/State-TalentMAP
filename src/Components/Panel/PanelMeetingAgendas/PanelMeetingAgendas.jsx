@@ -240,6 +240,7 @@ const PanelMeetingAgendas = (props) => {
         <PrintPanelMeetingAgendas
           closePrintView={() => setPrintView(false)}
           panelMeetingsWithAgendas={agendasByPanelMeeting}
+          viewType={'pm'}
         />
       );
     }
