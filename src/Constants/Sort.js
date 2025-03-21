@@ -214,6 +214,7 @@ export const FUNCTIONAL_BUREAU_POSITION_SORT = {
     { value: 'pabbureaudesc', text: 'Functional Bureau: Low to high' },
     { value: 'posorgcode', text: 'Organization: Low to high' },
     { value: 'posgradecode', text: 'Grade: Low to high' },
+    { value: 'bsaorgdesc', text: 'Skill Bureau: A-Z' },
     { value: 'posskillcode', text: 'Skill: Low to high' },
     { value: 'pospositionlangprofdesc', text: 'Language: A-Z', availableOnly: true },
   ],

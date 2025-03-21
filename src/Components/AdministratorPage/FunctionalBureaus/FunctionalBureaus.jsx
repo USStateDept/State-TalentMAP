@@ -222,7 +222,7 @@ const FunctionalBureaus = props => {
       sortable: false,
     },
     { field: 'posbureau', headerName: 'Bureau', flex: 1, sortable: false },
-    { field: 'posstaffptrnskill', headerName: 'Skill Bureau', flex: 1, sortable: false },
+    { field: 'bsaorgdesc', headerName: 'Skill Bureau', flex: 1, sortable: false },
     { field: 'posorg', headerName: 'Location (Org)', flex: 1, sortable: false },
     { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
     { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
