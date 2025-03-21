@@ -36,6 +36,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     ));
   };
 
+  // @TODO: Temporarily disabled until delete remark inserts is implemented
   const handleRemoveInsertion = (index) => {
     const updatedInsertions = insertions.filter((insertion) => insertion.id !== index);
     if (updatedInsertions.length === 0) {
@@ -78,7 +79,13 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     if (!validateForm()) {
       return;
     }
-
+    const newrmrkinserts = insertions
+      .map((insertion) => insertion.value) // extract the values
+      .filter((insertion) =>
+        insertion && // ensure the insertion is not empty
+      (mode === 'edit' || // only check RemarkInserts if in edit mode
+        !remarkData.RemarkInserts?.some((remark) => remark.riinsertiontext === insertion))); // ensure the insertion is not already in the list
+    console.log(newrmrkinserts);
     const newRemark = {
       rmrkrccode: selectedCategories,
       rmrkordernum: orderNum,
@@ -86,7 +93,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       rmrkmutuallyexclusiveind: mutuallyExcl,
       rmrktext: description,
       rmrkactiveind: active,
-      rmrkinserts: insertions.map((insertion) => insertion.value).filter((insertion) => insertion), // remove empty insertions
+      rmrkinserts: newrmrkinserts,
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
@@ -226,7 +233,10 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
                 onChange={(e) => handleInsertionChange(insertion.id, e.target.value)}
                 style={{ maxWidth: '200px' }}
               />
+              { false &&
+              // Hide until delete remark inserts is implemented
               <FontAwesome name="times" title="Delete insertion" onClick={() => handleRemoveInsertion(insertion.id)} style={{ cursor: 'pointer' }} />
+              }
             </div>
           ))}
         </div>
