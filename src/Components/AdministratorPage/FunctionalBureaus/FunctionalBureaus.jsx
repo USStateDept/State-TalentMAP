@@ -8,15 +8,16 @@ import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
-import { joinIfThere, scrollToTop } from 'utilities';
+import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
-import { functionalBureaus, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
-import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { functionalBureaus, functionalBureausEdit, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
+import { FUNCTIONAL_BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
 import SelectForm from 'Components/SelectForm';
+import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import SelectRenderer from 'Components/AgGrid/SelectRenderer';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -75,7 +76,7 @@ const FunctionalBureaus = props => {
   const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
   const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const sorts = BUREAU_POSITION_SORT;
+  const sorts = FUNCTIONAL_BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -218,26 +219,28 @@ const FunctionalBureaus = props => {
         setData: () => { },
       },
       flex: 2,
+      sortable: false,
     },
-    { field: 'posbureau', headerName: 'Bureau', flex: 1 },
-    { field: 'posstaffptrnskill', headerName: 'Skill Bureau', flex: 1 },
-    { field: 'posorg', headerName: 'Location (Org)', flex: 1 },
-    { field: 'posnumtext', headerName: 'Position Number', flex: 1 },
-    { field: 'posskill', headerName: 'Skill', flex: 1 },
-    { field: 'postitledesc', headerName: 'Position Title', flex: 1 },
-    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.5 },
+    { field: 'posbureau', headerName: 'Bureau', flex: 1, sortable: false },
+    { field: 'posstaffptrnskill', headerName: 'Skill Bureau', flex: 1, sortable: false },
+    { field: 'posorg', headerName: 'Location (Org)', flex: 1, sortable: false },
+    { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
+    { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
+    { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
+    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.5, sortable: false },
     {
       field: 'pospositionlangprofdesc',
       headerName: 'Language',
       flex: 1,
-      valueFormatter: (params) => {
-        // Format for CSV export
-        const langValue = params.value;
-        const languageList = (langValue && langValue.length)
-          ? langValue.map(lang => lang.representation) : 'None';
-        const sanitizedLangList = joinIfThere(languageList, 'None');
-        return sanitizedLangList;
-      },
+      sortable: false,
+      // valueFormatter: (params) => {
+      //   // Format for CSV export
+      //   const langValue = params.value;
+      //   const languageList = (langValue && langValue.length)
+      //     ? langValue.map(lang => lang.representation) : 'None';
+      //   const sanitizedLangList = joinIfThere(languageList, 'None');
+      //   return sanitizedLangList;
+      // },
     },
   ]);
 
@@ -287,7 +290,7 @@ const FunctionalBureaus = props => {
   };
 
   const getOverlay = () => {
-    const noResults = bureauPositions.results.length < 1;
+    const noResults = bureauPositions?.results?.length < 1;
     let overlay;
     if (bureauPositionsIsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
@@ -313,7 +316,7 @@ const FunctionalBureaus = props => {
               onChange={setTextInputThrottled}
               ref={childRef}
               textSearch={textSearch}
-              label="Search for a position"
+              label="Search for a position number"
               disabled={editMode}
             />
             <div className="filterby-container">
@@ -444,30 +447,33 @@ const FunctionalBureaus = props => {
               text: 'Functional Bureaus',
               value: 'FUNCTIONALBUREAUS',
               content: <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
-                <div className="position-search-controls--right">
-                  <div className="position-search-controls--results">
-                    <SelectForm
-                      id="position-manager-num-results"
-                      options={sorts.options.slice(0, -1)}
-                      label="Sort by:"
-                      defaultSort={ordering}
-                      onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={bureauPositionsIsLoading}
-                    />
-                    <SelectForm
-                      id="position-manager-num-results"
-                      options={pageSizes.options}
-                      label="Results:"
-                      defaultSort={limit}
-                      onSelectOption={value => setLimit(value.target.value)}
-                      disabled={bureauPositionsIsLoading}
-                    />
-                  </div>
-                  <div className="export-button-container">
-                    <InteractiveElement className="action-button" onClick={exportTable} disabled={exportIsLoading}>
-                      <FontAwesomeIcon icon={faPrint} />
-                      Export Page
-                    </InteractiveElement>
+                <div className="usa-width-one-whole results-dropdown controls-container">
+                  <TotalResults
+                    total={bureauPositions.count}
+                    pageNumber={page}
+                    pageSize={limit}
+                    suffix="Results"
+                    isHidden={bureauPositionsIsLoading}
+                  />
+                  <div className="position-search-controls--right ">
+                    <div className="position-search-controls--results">
+                      <SelectForm
+                        id="position-manager-num-results"
+                        options={sorts.options.slice(0, -1)}
+                        label="Sort by:"
+                        defaultSort={ordering}
+                        onSelectOption={value => setOrdering(value.target.value)}
+                        disabled={bureauPositionsIsLoading}
+                      />
+                      <SelectForm
+                        id="position-manager-num-results"
+                        options={pageSizes.options}
+                        label="Results:"
+                        defaultSort={limit}
+                        onSelectOption={value => setLimit(value.target.value)}
+                        disabled={bureauPositionsIsLoading}
+                      />
+                    </div>
                   </div>
                 </div>
                 <AgGridReact
@@ -476,9 +482,6 @@ const FunctionalBureaus = props => {
                   rowHeight={50}
                   columnDefs={headers}
                   rowData={bureauPositions.results}
-                  pagination
-                  paginationPageSize={10}
-                  paginationPageSizeSelector={pageSizes}
                   defaultCsvExportParams={csvExportParams}
                 />
                 <div className="usa-grid-full react-paginate position-search-controls--pagination">
@@ -546,7 +549,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchBureauPositions: (query) => dispatch(functionalBureaus(query)),
-  editFunctionalBureauPositions: (query) => dispatch(editFunctionalBureauPositions(query)),
+  editFunctionalBureauPositions: (query) => dispatch(functionalBureausEdit(query)),
   fetchFilters: (items, queryParams, savedFilters) => dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveFunctionalBureausSelections(selections)),
 });
