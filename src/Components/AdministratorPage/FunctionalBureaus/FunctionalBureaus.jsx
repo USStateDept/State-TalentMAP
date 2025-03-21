@@ -164,7 +164,7 @@ const FunctionalBureaus = props => {
     childRef.current.clearText();
     setSelectedSkills([]);
     setSelectedGrades([]);
-    setSelectedOrgs([props.orgPermissions[0]]);
+    setSelectedOrgs([]);
     setSelectedBureaus([]);
     setSelectedFunctionalBureaus([]);
     setSelectedLanguages([]);
@@ -347,9 +347,9 @@ const FunctionalBureaus = props => {
                 <div className="label">Functional Bureau:</div>
                 <Picky
                   placeholder="Select Bureau(s)"
-                  value={selectedBureaus.filter(f => f)}
+                  value={selectedFunctionalBureaus.filter(f => f)}
                   options={bureauOptions}
-                  onChange={setSelectedBureaus}
+                  onChange={setSelectedFunctionalBureaus}
                   valueKey="code"
                   labelKey="long_description"
                   {...pickyProps}
