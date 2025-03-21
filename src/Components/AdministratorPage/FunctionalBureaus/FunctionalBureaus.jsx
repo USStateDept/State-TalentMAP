@@ -448,13 +448,15 @@ const FunctionalBureaus = props => {
               value: 'FUNCTIONALBUREAUS',
               content: <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
                 <div className="usa-width-one-whole results-dropdown controls-container">
-                  <TotalResults
-                    total={bureauPositions.count}
-                    pageNumber={page}
-                    pageSize={limit}
-                    suffix="Results"
-                    isHidden={bureauPositionsIsLoading}
-                  />
+                  <div className="total-results">
+                    <TotalResults
+                      total={bureauPositions.count}
+                      pageNumber={page}
+                      pageSize={limit}
+                      suffix="Results"
+                      isHidden={bureauPositionsIsLoading}
+                    />
+                  </div>
                   <div className="position-search-controls--right ">
                     <div className="position-search-controls--results">
                       <SelectForm
