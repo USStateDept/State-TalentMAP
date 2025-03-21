@@ -45,12 +45,10 @@ export function functionalBureaus(query = {}) {
     const q = convertQueryToString(query);
     const endpoint = '/fsbid/functional_bureaus/';
     const ep = `${endpoint}?${q}`;
-    console.log('HELLO');
     api().get(ep, {
       cancelToken: new CancelToken((c) => { cancelFunctionalBureaus = c; }),
     })
       .then(({ data }) => {
-        console.log(data);
         batch(() => {
           dispatch(functionalBureausSuccess(data));
           dispatch(functionalBureausErrored(false));
