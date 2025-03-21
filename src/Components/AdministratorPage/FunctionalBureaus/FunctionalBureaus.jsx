@@ -12,7 +12,7 @@ import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { functionalBureaus, functionalBureausEdit, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
 import { FUNCTIONAL_BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
+import { BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
@@ -27,14 +27,12 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 
 const FunctionalBureaus = props => {
   const {
-    bureauPermissions,
     bureauFilters,
     bureauPositions,
     bureauFiltersIsLoading,
     bureauPositionsIsLoading,
     bureauPositionsHasErrored,
     userSelections,
-    orgPermissions,
   } = props;
 
   const gridRef = useRef(null);
@@ -69,9 +67,9 @@ const FunctionalBureaus = props => {
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
   const functionalbureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
+  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(s) => s.description]), 'code');
   const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
-  const organizationOptions = sortBy(orgPermissions, [(o) => o.long_description]);
+  const organizationOptions = uniqBy(sortBy(get(orgs, 'data'), [(s) => s.long_description]), 'code');
   const posts = bureauFilters$.find(f => get(f, 'item.description') === 'post');
   const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
@@ -517,8 +515,6 @@ FunctionalBureaus.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPositionsHasErrored: PropTypes.bool,
-  bureauPermissions: BUREAU_PERMISSIONS,
-  orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
 };
 
@@ -528,8 +524,6 @@ FunctionalBureaus.defaultProps = {
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
   bureauPositionsHasErrored: false,
-  bureauPermissions: [],
-  orgPermissions: [],
   userSelections: {},
   showClear: false,
 };
@@ -541,8 +535,6 @@ const mapStateToProps = state => ({
   bureauFilters: state.filters,
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
-  bureauPermissions: state.userProfile.bureau_permissions,
-  orgPermissions: state.userProfile.org_permissions,
   userSelections: state.functionalBureausSelections,
 });
 
