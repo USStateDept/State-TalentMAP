@@ -5,6 +5,8 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
   const { remark, isEditable, updateSelection, fromAIM } = props;
+  console.log('fromAIM', fromAIM);
+  console.log(remark);
 
   const formatRemarkText = (r) => {
     // we can just grab the already merged text from the BE, but it would mean
