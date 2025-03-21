@@ -95,17 +95,17 @@ const FunctionalBureaus = props => {
   // Query is passed to action which stringifies
   // key and values into sensible request url
   const query = {
-    [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
-    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(functionalbureaus, 'item.selectionRef')]: selectedFunctionalBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(orgs, 'item.selectionRef')]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
-    [get(posts, 'item.selectionRef')]: selectedPosts.map(postObject => (get(postObject, 'code'))),
+    grades: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
+    skills: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    bureaus: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    functionalbureaus: selectedFunctionalBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    organizations: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
+    languages: selectedLanguages.map(langObject => (get(langObject, 'code'))),
+    locations: selectedPosts.map(postObject => (get(postObject, 'code'))),
     ordering,
     page,
     limit,
-    q: textInput || textSearch,
+    q: textInput || textSearch, // Leaving this as "q" in case of future implementation for free text search
   };
 
   const childRef = useRef();
@@ -195,6 +195,7 @@ const FunctionalBureaus = props => {
   ]);
 
   const submitEdit = () => {
+
     props.editFunctionalBureauPositions({
       pabseqnum: '',
       posseqnum: '',
