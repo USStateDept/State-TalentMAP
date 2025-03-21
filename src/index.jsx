@@ -39,7 +39,6 @@ export const loadApp = (url, withCredentials, headers) => {
     .get(url, { withCredentials, headers })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
-      console.log('jwt set in sessionStoreage');
       render();
     })
     .catch((error) => {
