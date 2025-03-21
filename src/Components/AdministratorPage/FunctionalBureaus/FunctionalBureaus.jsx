@@ -227,21 +227,8 @@ const FunctionalBureaus = props => {
     { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
     { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
     { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
-    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.5, sortable: false },
-    {
-      field: 'pospositionlangprofdesc',
-      headerName: 'Language',
-      flex: 1,
-      sortable: false,
-      // valueFormatter: (params) => {
-      //   // Format for CSV export
-      //   const langValue = params.value;
-      //   const languageList = (langValue && langValue.length)
-      //     ? langValue.map(lang => lang.representation) : 'None';
-      //   const sanitizedLangList = joinIfThere(languageList, 'None');
-      //   return sanitizedLangList;
-      // },
-    },
+    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.75, sortable: false },
+    { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1, sortable: false },
   ]);
 
   // Export
@@ -317,7 +304,7 @@ const FunctionalBureaus = props => {
               ref={childRef}
               textSearch={textSearch}
               label="Search for a position number"
-              disabled={editMode}
+              disableSearch={editMode}
             />
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
@@ -429,7 +416,7 @@ const FunctionalBureaus = props => {
                   title="Edit Mode"
                   customClassName="mb-10"
                   messages={[{
-                    body: 'Discard or save your functional bureau edits before changing the search criteria.',
+                    body: 'Discard or save your functional bureau edits before changing the search and pagination criteria.',
                   }]}
                 />
                 <div className="button-group">
@@ -465,7 +452,7 @@ const FunctionalBureaus = props => {
                         label="Sort by:"
                         defaultSort={ordering}
                         onSelectOption={value => setOrdering(value.target.value)}
-                        disabled={bureauPositionsIsLoading}
+                        disabled={bureauPositionsIsLoading || editMode}
                       />
                       <SelectForm
                         id="position-manager-num-results"
@@ -473,7 +460,7 @@ const FunctionalBureaus = props => {
                         label="Results:"
                         defaultSort={limit}
                         onSelectOption={value => setLimit(value.target.value)}
-                        disabled={bureauPositionsIsLoading}
+                        disabled={bureauPositionsIsLoading || editMode}
                       />
                     </div>
                   </div>
@@ -486,14 +473,16 @@ const FunctionalBureaus = props => {
                   rowData={bureauPositions.results}
                   defaultCsvExportParams={csvExportParams}
                 />
-                <div className="usa-grid-full react-paginate position-search-controls--pagination">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={bureauPositions.count}
-                  />
-                </div>
+                {!editMode &&
+                  <div className="usa-grid-full react-paginate position-search-controls--pagination">
+                    <PaginationWrapper
+                      pageSize={limit}
+                      onPageChange={p => setPage(p.page)}
+                      forcePage={page}
+                      totalResults={bureauPositions.count}
+                    />
+                  </div>
+                }
               </div>,
             }]}
             customComponent={
@@ -514,6 +503,7 @@ const FunctionalBureaus = props => {
 FunctionalBureaus.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
+  editFunctionalBureauPositions: PropTypes.func.isRequired,
   saveSelections: PropTypes.func.isRequired,
   bureauFilters: FILTERS_PARENT,
   bureauPositions: POSITION_SEARCH_RESULTS,
