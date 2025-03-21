@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import ButtonRenderer from 'Components/AgGrid/ButtonRederer';
 import { editPanelRemark } from 'actions/panelRemarks';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
+import { validateInsertions } from '.';
+import { toastWarning } from '../../../actions/toast';
 
 const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref) => {
   const dispatch = useDispatch();
@@ -82,8 +84,41 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
     }
   }, [panelRemarks]);
 
+  // Validate the changes made to the table
+  const validateChanges = (data) => {
+    console.log(data);
+    // Check if fields are empty
+    if (!data.rmrktext || !data.rmrkshortdesctext) {
+      const title = 'Cannot Submit Form';
+      const message = 'Description and Short Description fields cannot be empty';
+      dispatch(toastWarning(message, title));
+      return false;
+    }
+    // Check if all insertions are valid
+    const missingInsertions = validateInsertions(data.rmrktext, data.RemarkInserts);
+    if (missingInsertions.length > 0) {
+      const title = 'Cannot Submit Form';
+      const message = `Missing insertions: ${missingInsertions.join(', ')}`;
+      dispatch(toastWarning(message, title));
+      return false;
+    }
+    // Check if order num is between 0 and 99
+    if (data.rmrkordernum < 0 || data.rmrkordernum > 99) {
+      const title = 'Cannot Submit Form';
+      const message = 'Order number must be between 0 and 99';
+      dispatch(toastWarning(message, title));
+      return false;
+    }
+    return true;
+  };
+
   // Edit a remark within table
   const onCellValueChanged = (params) => {
+    // Validate changes
+    if (!validateChanges(params.data)) {
+      return;
+    }
+
     const data = {
       rmrkseqnum: params.data.rmrkseqnum,
       rmrkrccode: params.data.rmrkrccode,
