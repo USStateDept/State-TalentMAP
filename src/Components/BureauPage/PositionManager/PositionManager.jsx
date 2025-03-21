@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
+import { BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import { Picky } from 'react-picky';
 import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
@@ -26,20 +26,19 @@ import BureauResultsCard from '../BureauResultsCard';
 const PositionManager = props => {
   // Props
   const {
-    bureauPermissions,
     bureauFilters,
     bureauPositions,
     bureauFiltersIsLoading,
     bureauPositionsIsLoading,
     bureauPositionsHasErrored,
     userSelections,
-    orgPermissions,
     viewType,
   } = props;
 
   const fromBureauMenu = viewType === 'bureau';
   const fromPostMenu = viewType === 'post';
-
+  const bureauPermissions = useSelector(state => state.userProfile.bureau_permissions);
+  const orgPermissions = useSelector(state => state.userProfile.org_permissions);
   const initialBureaus = (fromBureauMenu && get(bureauPermissions, '[0]')) ? [get(bureauPermissions, '[0]')] : [];
   const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
 
@@ -276,7 +275,7 @@ const PositionManager = props => {
     setSelectedGrades([]);
     setSelectedPosts([]);
     setSelectedTODs([]);
-    setSelectedOrgs([props.orgPermissions[0]]);
+    setSelectedOrgs([orgPermissions[0]]);
     setSelectedBureaus([bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
@@ -634,8 +633,6 @@ PositionManager.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPositionsHasErrored: PropTypes.bool,
-  bureauPermissions: BUREAU_PERMISSIONS,
-  orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
   viewType: PropTypes.string.isRequired,
 };
@@ -646,8 +643,6 @@ PositionManager.defaultProps = {
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
   bureauPositionsHasErrored: false,
-  bureauPermissions: [],
-  orgPermissions: [],
   userSelections: {},
   showClear: false,
 };
@@ -659,8 +654,6 @@ const mapStateToProps = state => ({
   bureauFilters: state.filters,
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
-  bureauPermissions: state.userProfile.bureau_permissions,
-  orgPermissions: state.userProfile.org_permissions,
   userSelections: state.bureauUserSelections,
 });
 
