@@ -330,42 +330,46 @@ const AgendaItemMaintenanceContainer = (props) => {
                 </>
               }
             </div>
-            <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
-              <InteractiveElement onClick={toggleExpand}>
-                <Tooltip
-                  title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
-                  arrow
-                >
-                  <FontAwesome
-                    style={{ transform: rotate, transition: 'all 0.65s linear' }}
-                    name="arrow-circle-left"
-                    size="lg"
+            { !isPrintViewOpen && (
+              <>
+                <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
+                  <InteractiveElement onClick={toggleExpand}>
+                    <Tooltip
+                      title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
+                      arrow
+                    >
+                      <FontAwesome
+                        style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                        name="arrow-circle-left"
+                        size="lg"
+                      />
+                    </Tooltip>
+                  </InteractiveElement>
+                </div>
+                <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
+                  <AgendaItemResearchPane
+                    updateLegs={setLegs}
+                    activeAIL={activeAIL}
+                    location={location}
+                    setLocation={setLocation}
+                    clientData={employeeData$}
+                    clientError={employeeError}
+                    clientLoading={employeeLoading}
+                    perdet={routeEmployeeID}
+                    ref={researchPaneRef}
+                    updateSelection={readMode ? () => { } : updateSelection}
+                    userSelections={userRemarks}
+                    legCount={legs.length}
+                    readMode={readMode}
+                    employee={{
+                      employeeData: employeeData$,
+                      employeeDataError,
+                      employeeDataLoading,
+                    }}
                   />
-                </Tooltip>
-              </InteractiveElement>
-            </div>
-            <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
-              <AgendaItemResearchPane
-                updateLegs={setLegs}
-                activeAIL={activeAIL}
-                location={location}
-                setLocation={setLocation}
-                clientData={employeeData$}
-                clientError={employeeError}
-                clientLoading={employeeLoading}
-                perdet={routeEmployeeID}
-                ref={researchPaneRef}
-                updateSelection={readMode ? () => { } : updateSelection}
-                userSelections={userRemarks}
-                legCount={legs.length}
-                readMode={readMode}
-                employee={{
-                  employeeData: employeeData$,
-                  employeeDataError,
-                  employeeDataLoading,
-                }}
-              />
-            </div>
+                </div>
+              </>
+            )}
           </div>
         )}
       </MediaQuery>

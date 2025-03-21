@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import FA from 'react-fontawesome';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toastInfo } from 'actions/toast';
 import { formatDate, formatLang, formatMonthYearDate, shortenString } from 'utilities';
@@ -15,10 +16,13 @@ const PrintPanelMeetingAgendas = ({ viewType, agendaItem, panelMeetingsWithAgend
   };
 
   const dispatch = useDispatch();
-  dispatch(toastInfo('After opening the browser\'s print dialog, adjust print scale to fit more agendas per page (recommended 75)',
-    '', shortid.generate(),
-    false,
-    { autoClose: false, draggable: false, closeOnClick: false }));
+
+  useEffect(() => {
+    dispatch(toastInfo('After opening the browser\'s print dialog, adjust print scale to fit more agendas per page (recommended 75)',
+      '', shortid.generate(),
+      false,
+      { autoClose: true }));
+  }, [dispatch]);
 
   const formatCurrentDate = (currentDate) => {
     if (currentDate) return `(${formatMonthYearDate(currentDate)})`;
