@@ -275,7 +275,7 @@ const PositionManager = props => {
     setSelectedGrades([]);
     setSelectedPosts([]);
     setSelectedTODs([]);
-    setSelectedOrgs([props.orgPermissions[0]]);
+    setSelectedOrgs([orgPermissions[0]]);
     setSelectedBureaus([bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
