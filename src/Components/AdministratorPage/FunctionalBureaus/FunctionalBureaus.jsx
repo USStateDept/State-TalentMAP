@@ -66,7 +66,6 @@ const FunctionalBureaus = props => {
   const skills = bureauFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
-  const functionalbureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
   const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(s) => s.description]), 'code');
   const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
   const organizationOptions = uniqBy(sortBy(get(orgs, 'data'), [(s) => s.long_description]), 'code');
@@ -195,7 +194,6 @@ const FunctionalBureaus = props => {
   ]);
 
   const submitEdit = () => {
-
     props.editFunctionalBureauPositions({
       pabseqnum: '',
       posseqnum: '',
