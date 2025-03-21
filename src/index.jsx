@@ -68,8 +68,6 @@ export const init = async () => {
 
   // Set devMode to true if the environment is localhost
   const localDevMode = env.includes('localhost');
-  const dosdevMode = env.includes('dev');
-  const testMode = env.includes('tst');
 
   // If running in devMode, set withCredentials to false, otherwise set it to true
   const withCredentials = !localDevMode;
@@ -77,9 +75,6 @@ export const init = async () => {
   // fetch config.json to get some startup variables
   const initialConfig = ((await axios.get('/init.json')).data);
   sessionStorage.setItem('apiUrl', initialConfig.apiUrl);
-
-  // eslint-disable-next-line no-console
-  console.log('apiUrl set to:', initialConfig.apiUrl);
 
   // fetch the feature flags
   const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
@@ -96,35 +91,14 @@ export const init = async () => {
   // If the environment is localhost, set the headers to include the tmusrname
   if (config.flags.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
 
-  // if the env is localhost set some flags to true
-  if (localDevMode) {
-    // eslint-disable-next-line no-console
-    console.log('**** LOCAL DEVELOPMENT MODE ****');
-  } else if (dosdevMode) {
-    // eslint-disable-next-line no-console
-    console.log('**** DOSDEV MODE ****');
-  } else if (testMode) {
-    // eslint-disable-next-line no-console
-    console.log('**** TEST MODE ****');
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('**** PRODUCTION MODE ****');
-  }
-
   // Set the config in sessionStorage so it can be used in the app.
   sessionStorage.setItem('config', JSON.stringify(config));
-
-  // eslint-disable-next-line no-console
-  if (localDevMode || dosdevMode || testMode) console.log(`Config stored in sessionStorage: ${JSON.stringify(config)}`);
 
   // Render the loading screen
   renderLoading();
 
   // If the URL includes msappproxy, render the iframe and wait for a message from it.
   if (window.location.href.includes('msappproxy')) {
-    // eslint-disable-next-line no-console
-    console.log('AUTHORIZING IN PROXY MODE');
-
     // Render the iframe
     renderIFrame(env);
 
@@ -140,9 +114,6 @@ export const init = async () => {
       }
     });
   } else {
-    // eslint-disable-next-line no-console
-    console.log('AUTHORIZING IN INTRANET MODE');
-
     // Load the app with the jwt
     loadApp(hrAuthUrl, withCredentials, headers);
   }
