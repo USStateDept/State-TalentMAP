@@ -187,11 +187,17 @@ const FunctionalBureaus = props => {
   const [functionalBureauForm, setFunctionalBureauForm] = useState(bureauPositions?.results);
 
   const submitEdit = () => {
-    const editRequest = functionalBureauForm.map(s => ({
-      pabseqnum: s.pabseqnum ?? null,
-      pabposseqnum: s.posseqnum ?? null,
-      pabbureauorgcode: s.pabbureauorgcode ?? '',
-    }));
+    const editRequest = [];
+    functionalBureauForm.forEach(s => {
+      const falseyUpdate = !s.pabseqnum && !s.pabbureauorgcode;
+      if (!falseyUpdate) {
+        editRequest.push({
+          pabseqnum: s.pabseqnum ?? null,
+          pabposseqnum: s.posseqnum ?? null,
+          pabbureauorgcode: s.pabbureauorgcode ?? '',
+        });
+      }
+    });
     props.editFunctionalBureauPositions(editRequest, query, setEditMode(false));
   };
 
