@@ -205,6 +205,21 @@ export const BUREAU_BIDDER_FILTERS = {
   ],
 };
 
+export const FUNCTIONAL_BUREAU_POSITION_SORT = {
+  selectionRef: 'ordering',
+  options: [
+    { value: 'postitledesc', text: 'Position Title: A-Z' },
+    { value: 'posnumtext', text: 'Position Number: Low to high' },
+    { value: 'posbureaushortdesc', text: 'Bureau: Low to high' },
+    { value: 'pabbureaudesc', text: 'Functional Bureau: Low to high' },
+    { value: 'posorgcode', text: 'Organization: Low to high' },
+    { value: 'posgradecode', text: 'Grade: Low to high' },
+    { value: 'bsaorgdesc', text: 'Skill Bureau: A-Z' },
+    { value: 'posskillcode', text: 'Skill: Low to high' },
+    { value: 'pospositionlangprofdesc', text: 'Language: A-Z', availableOnly: true },
+  ],
+};
+
 export const AGENDA_ITEM_HISTORY_FILTERS = {
   // values tbd, subject to what WS returns
   options: [

@@ -8,15 +8,17 @@ import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
-import { joinIfThere, scrollToTop } from 'utilities';
+import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
-import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
+import { functionalBureaus, functionalBureausEdit, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
+import { FUNCTIONAL_BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
+import SelectForm from 'Components/SelectForm';
+import TotalResults from 'Components/TotalResults';
+import PaginationWrapper from 'Components/PaginationWrapper';
 import SelectRenderer from 'Components/AgGrid/SelectRenderer';
 import InteractiveElement from 'Components/InteractiveElement';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
@@ -25,14 +27,12 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 
 const FunctionalBureaus = props => {
   const {
-    bureauPermissions,
     bureauFilters,
     bureauPositions,
     bureauFiltersIsLoading,
     bureauPositionsIsLoading,
     bureauPositionsHasErrored,
     userSelections,
-    orgPermissions,
   } = props;
 
   const gridRef = useRef(null);
@@ -40,15 +40,15 @@ const FunctionalBureaus = props => {
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
-  const [ordering, setOrdering] = useState(userSelections.ordering || 'position__title');
+  const [ordering, setOrdering] = useState(userSelections.ordering || FUNCTIONAL_BUREAU_POSITION_SORT.options[0].value);
   const [selectedGrades, setSelectedGrades] = useState(userSelections.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections.selectedSkills || []);
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections.selectedLanguages || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections.selectedBureaus || []);
+  const [selectedFunctionalBureaus, setSelectedFunctionalBureaus] = useState(userSelections.selectedFunctionalBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections.selectedOrgs || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
 
-  // const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
@@ -66,13 +66,14 @@ const FunctionalBureaus = props => {
   const skills = bureauFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
+  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(s) => s.description]), 'code');
   const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
-  const organizationOptions = sortBy(orgPermissions, [(o) => o.long_description]);
+  const organizationOptions = uniqBy(sortBy(get(orgs, 'data'), [(s) => s.long_description]), 'code');
   const posts = bureauFilters$.find(f => get(f, 'item.description') === 'post');
   const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
   const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const sorts = FUNCTIONAL_BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -82,6 +83,7 @@ const FunctionalBureaus = props => {
     selectedGrades,
     selectedSkills,
     selectedBureaus,
+    selectedFunctionalBureaus,
     selectedOrgs,
     selectedPosts,
     selectedLanguages,
@@ -92,16 +94,17 @@ const FunctionalBureaus = props => {
   // Query is passed to action which stringifies
   // key and values into sensible request url
   const query = {
-    [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
-    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(orgs, 'item.selectionRef')]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
-    [get(posts, 'item.selectionRef')]: selectedPosts.map(postObject => (get(postObject, 'code'))),
+    grades: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
+    skills: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    bureaus: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    functionalbureaus: selectedFunctionalBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    organizations: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
+    languages: selectedLanguages.map(langObject => (get(langObject, 'code'))),
+    locations: selectedPosts.map(postObject => (get(postObject, 'code'))),
     ordering,
     page,
     limit,
-    q: textInput || textSearch,
+    q: textInput || textSearch, // Leaving this as "q" in case of future implementation for free text search
   };
 
   const childRef = useRef();
@@ -118,16 +121,14 @@ const FunctionalBureaus = props => {
     if (prevPage) {
       props.fetchBureauPositions(query);
       props.saveSelections(currentInputs);
-      // TODO: Change this to be handled in the table component
       setPage(1);
-      setLimit(10);
-      setOrdering('position__title');
     }
   }, [
     selectedGrades,
     selectedSkills,
     selectedPosts,
     selectedBureaus,
+    selectedFunctionalBureaus,
     selectedOrgs,
     selectedLanguages,
     ordering,
@@ -157,8 +158,9 @@ const FunctionalBureaus = props => {
     childRef.current.clearText();
     setSelectedSkills([]);
     setSelectedGrades([]);
-    setSelectedOrgs([props.orgPermissions[0]]);
-    setSelectedBureaus([bureauPermissions[0]].filter(f => f));
+    setSelectedOrgs([]);
+    setSelectedBureaus([]);
+    setSelectedFunctionalBureaus([]);
     setSelectedLanguages([]);
     setSelectedPosts([]);
     setTextSearch('');
@@ -166,15 +168,14 @@ const FunctionalBureaus = props => {
   };
 
   useEffect(() => {
-    const defaultOrgCode = get(props, 'orgPermissions[0].code');
-    const defaultBureauCode = get(bureauPermissions, '[0].code');
     const filters = [
       selectedGrades,
       selectedSkills,
       selectedPosts,
       selectedLanguages,
-      selectedOrgs.filter(f => get(f, 'code') !== defaultOrgCode),
-      selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
+      selectedOrgs,
+      selectedBureaus,
+      selectedFunctionalBureaus,
     ];
     if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
       setClearFilters(false);
@@ -188,57 +189,93 @@ const FunctionalBureaus = props => {
     textSearch,
     selectedOrgs,
     selectedBureaus,
+    selectedFunctionalBureaus,
     selectedPosts,
   ]);
 
+  const [functionalBureauForm, setFunctionalBureauForm] = useState(bureauPositions?.results);
+
   const submitEdit = () => {
-    props.fetchBureauPositions(query);
+    let pabseqnum = '';
+    let posseqnum = '';
+    let pabbureauorgcode = '';
+    functionalBureauForm.forEach(s => {
+      const separator = posseqnum === '' ? '' : ',';
+      pabseqnum = pabseqnum.concat(separator, s.pabseqnum ?? '');
+      posseqnum = posseqnum.concat(separator, s.posseqnum ?? '');
+      pabbureauorgcode = pabbureauorgcode.concat(separator, s.pabbureauorgcode ?? '');
+    });
+    props.editFunctionalBureauPositions(
+      {
+        pabseqnum,
+        posseqnum,
+        pabbureauorgcode,
+      },
+      query,
+      setEditMode(false),
+    );
   };
 
-  const [headers] = useState([
+  const headersMapping = () => [
     {
-      field: 'position.pab_bureau',
+      field: 'pabbureauorgcode',
       headerName: 'Functional Bureau',
-      cellRenderer: SelectRenderer,
+      cellRenderer: (fbSelectProps) => {
+        if (editMode) {
+          return (
+            <div className="results-dropdown">
+              <div className="select-dropdown">
+                <SelectRenderer {...fbSelectProps} />
+              </div>
+            </div>
+          );
+        }
+        return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.posfunctionalbureau : '';
+      },
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
-        className: 'select-dropdown',
-        data: 'Value',
-        setData: () => { },
+        getId: (e) => e.posseqnum,
+        getData: (e) => e.pabbureauorgcode,
+        setData: (value, id) => {
+          const newForm = functionalBureauForm?.map(pos => {
+            if (pos.posseqnum === id) {
+              return {
+                ...pos,
+                pabbureauorgcode: value,
+              };
+            }
+            return pos;
+          });
+          setFunctionalBureauForm(newForm);
+        },
       },
       flex: 2,
+      sortable: false,
     },
-    { field: 'position.bureau', headerName: 'Bureau', flex: 1 },
-    { field: 'position.skill_secondary', headerName: 'Skill Bureau', flex: 1 },
-    {
-      field: 'position.organization',
-      headerName: 'Location (Org)',
-      flex: 1,
-    },
-    { field: 'position.position_number', headerName: 'Position Number', flex: 1 },
-    { field: 'position.skill', headerName: 'Skill', flex: 1 },
-    { field: 'position.title', headerName: 'Position Title', flex: 1 },
-    { field: 'position.grade', headerName: 'PP/Grade', flex: 1 },
-    {
-      field: 'position.languages',
-      headerName: 'Language',
-      flex: 1,
-      cellRenderer: (e) => <LanguageList languages={e?.data?.position?.languages || []} propToUse="representation" />,
-      valueFormatter: (params) => {
-        // Format for CSV export
-        const langValue = params.value;
-        const languageList = (langValue && langValue.length)
-          ? langValue.map(lang => lang.representation) : 'None';
-        const sanitizedLangList = joinIfThere(languageList, 'None');
-        return sanitizedLangList;
-      },
-    },
-  ]);
+    { field: 'posbureau', headerName: 'Bureau', flex: 1, sortable: false },
+    { field: 'bsaorgdesc', headerName: 'Skill Bureau', flex: 1, sortable: false },
+    { field: 'posorg', headerName: 'Location (Org)', flex: 1, sortable: false },
+    { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
+    { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
+    { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
+    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.75, sortable: false },
+    { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1, sortable: false },
+  ];
 
+  const [headers, setHeaders] = useState(headersMapping());
+
+  useEffect(() => {
+    setHeaders(headersMapping());
+  }, [editMode, functionalBureauForm]);
+
+  useEffect(() => {
+    setFunctionalBureauForm(bureauPositions?.results);
+  }, [bureauPositions]);
+
+  // Export
   const csvExportParams = {
     fileName: 'Functional_Bureaus_Export.csv',
   };
-
   const exportTable = () => {
     if (gridRef.current) {
       setExportIsLoading(true);
@@ -281,7 +318,7 @@ const FunctionalBureaus = props => {
   };
 
   const getOverlay = () => {
-    const noResults = !get(bureauPositions, 'results.length');
+    const noResults = bureauPositions?.results?.length < 1;
     let overlay;
     if (bureauPositionsIsLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
@@ -307,8 +344,8 @@ const FunctionalBureaus = props => {
               onChange={setTextInputThrottled}
               ref={childRef}
               textSearch={textSearch}
-              label="Search for a position"
-              disabled={editMode}
+              label="Search for a position number"
+              disableSearch={editMode}
             />
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
@@ -338,9 +375,9 @@ const FunctionalBureaus = props => {
                 <div className="label">Functional Bureau:</div>
                 <Picky
                   placeholder="Select Bureau(s)"
-                  value={selectedBureaus.filter(f => f)}
+                  value={selectedFunctionalBureaus.filter(f => f)}
                   options={bureauOptions}
-                  onChange={setSelectedBureaus}
+                  onChange={setSelectedFunctionalBureaus}
                   valueKey="code"
                   labelKey="long_description"
                   {...pickyProps}
@@ -420,16 +457,16 @@ const FunctionalBureaus = props => {
                   title="Edit Mode"
                   customClassName="mb-10"
                   messages={[{
-                    body: 'Discard or save your functional bureau edits before changing the search criteria.',
+                    body: 'Discard or save your functional bureau edits before changing the search and pagination criteria.',
                   }]}
                 />
                 <div className="button-group">
                   <button className="usa-button-secondary" onClick={() => setEditMode(false)}>Cancel</button>
-                  <button onClick={submitEdit}>Update Functional Bureau</button>
+                  <button onClick={submitEdit}>Update Functional Bureaus</button>
                 </div>
               </div> :
               <div className="button-group">
-                <button onClick={() => setEditMode(true)}>Edit Functional Bureau</button>
+                <button onClick={() => setEditMode(true)}>Edit Functional Bureaus</button>
               </div>
             }
           </div>
@@ -438,17 +475,55 @@ const FunctionalBureaus = props => {
               text: 'Functional Bureaus',
               value: 'FUNCTIONALBUREAUS',
               content: <div className="pr-table ag-theme-quartz" style={{ width: '100%' }}>
+                <div className="usa-width-one-whole results-dropdown controls-container">
+                  <div className="total-results">
+                    <TotalResults
+                      total={bureauPositions.count}
+                      pageNumber={page}
+                      pageSize={limit}
+                      suffix="Results"
+                      isHidden={bureauPositionsIsLoading}
+                    />
+                  </div>
+                  <div className="position-search-controls--right ">
+                    <div className="position-search-controls--results">
+                      <SelectForm
+                        id="position-manager-num-results"
+                        options={sorts.options.slice(0, -1)}
+                        label="Sort by:"
+                        defaultSort={ordering}
+                        onSelectOption={value => setOrdering(value.target.value)}
+                        disabled={bureauPositionsIsLoading || editMode}
+                      />
+                      <SelectForm
+                        id="position-manager-num-results"
+                        options={pageSizes.options}
+                        label="Results:"
+                        defaultSort={limit}
+                        onSelectOption={value => setLimit(value.target.value)}
+                        disabled={bureauPositionsIsLoading || editMode}
+                      />
+                    </div>
+                  </div>
+                </div>
                 <AgGridReact
                   ref={gridRef}
                   domLayout="autoHeight"
                   rowHeight={50}
                   columnDefs={headers}
-                  rowData={bureauPositions.results}
-                  pagination
-                  paginationPageSize={10}
-                  paginationPageSizeSelector={pageSizes}
+                  rowData={functionalBureauForm}
                   defaultCsvExportParams={csvExportParams}
                 />
+                {!editMode &&
+                  <div className="usa-grid-full react-paginate position-search-controls--pagination">
+                    <PaginationWrapper
+                      pageSize={limit}
+                      onPageChange={p => setPage(p.page)}
+                      forcePage={page}
+                      totalResults={bureauPositions.count}
+                    />
+                  </div>
+                }
               </div>,
             }]}
             customComponent={
@@ -462,21 +537,20 @@ const FunctionalBureaus = props => {
           />
         </div>
       }
-    </div >
+    </div>
   );
 };
 
 FunctionalBureaus.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
+  editFunctionalBureauPositions: PropTypes.func.isRequired,
   saveSelections: PropTypes.func.isRequired,
   bureauFilters: FILTERS_PARENT,
   bureauPositions: POSITION_SEARCH_RESULTS,
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPositionsHasErrored: PropTypes.bool,
-  bureauPermissions: BUREAU_PERMISSIONS,
-  orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
 };
 
@@ -486,30 +560,25 @@ FunctionalBureaus.defaultProps = {
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
   bureauPositionsHasErrored: false,
-  bureauPermissions: [],
-  orgPermissions: [],
   userSelections: {},
   showClear: false,
 };
 
 const mapStateToProps = state => ({
-  bureauPositions: state.bureauPositions,
-  bureauPositionsIsLoading: state.bureauPositionsIsLoading,
-  bureauPositionsHasErrored: state.bureauPositionsHasErrored,
+  bureauPositions: state.functionalBureaus,
+  bureauPositionsIsLoading: state.functionalBureausLoading,
+  bureauPositionsHasErrored: state.functionalBureausErrored,
   bureauFilters: state.filters,
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
-  bureauPermissions: state.userProfile.bureau_permissions,
-  orgPermissions: state.userProfile.org_permissions,
-  userSelections: state.bureauUserSelections,
+  userSelections: state.functionalBureausSelections,
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query) =>
-    dispatch(bureauPositionsFetchData(query)),
-  fetchFilters: (items, queryParams, savedFilters) =>
-    dispatch(filtersFetchData(items, queryParams, savedFilters)),
-  saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
+  fetchBureauPositions: (query) => dispatch(functionalBureaus(query)),
+  editFunctionalBureauPositions: (query) => dispatch(functionalBureausEdit(query)),
+  fetchFilters: (items, queryParams, savedFilters) => dispatch(filtersFetchData(items, queryParams, savedFilters)),
+  saveSelections: (selections) => dispatch(saveFunctionalBureausSelections(selections)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FunctionalBureaus);
