@@ -206,7 +206,7 @@ const FunctionalBureaus = props => {
       props.fetchBureauPositions(query);
       setEditMode(false);
     };
-    props.editFunctionalBureauPositions(editRequest, onSuccess);
+    props.editFunctionalBureauPositions(editRequest, onSuccess());
   };
 
   const headersMapping = () => [
