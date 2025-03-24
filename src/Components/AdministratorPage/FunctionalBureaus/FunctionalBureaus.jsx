@@ -191,6 +191,9 @@ const FunctionalBureaus = props => {
     functionalBureauForm.forEach(s => {
       const falseyUpdate = !s.pabseqnum && !s.pabbureauorgcode;
       if (!falseyUpdate) {
+        // Insert: pabseqnum exists, pabposseqnum null, pabbureauorgcode exists
+        // Update: pabseqnum exists, pabposseqnum exists, pabbureauorgcode exists
+        // Delete: pabseqnum exists, pabposseqnum exists, pabbureauorgcode empty string
         editRequest.push({
           pabseqnum: s.pabseqnum ?? null,
           pabposseqnum: s.posseqnum ?? null,
