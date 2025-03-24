@@ -251,7 +251,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
                 value={insertion.riinsertiontext}
                 onChange={(e) => handleInsertionChange(insertion.id, e.target.value)}
                 style={{ maxWidth: '200px' }}
-                disabled={remarkData.RemarkInserts?.some((remark) => remark.riseqnum === insertion.riseqnum)} // disable if insertion is already in use
+                // disabled={remarkData.RemarkInserts?.some((remark) => remark.riseqnum === insertion.riseqnum)} // disable if insertion is already in use
               />
               <FontAwesome name="times" title="Delete insertion" onClick={() => handleRemoveInsertion(insertion.id)} style={{ cursor: 'pointer' }} />
             </div>
