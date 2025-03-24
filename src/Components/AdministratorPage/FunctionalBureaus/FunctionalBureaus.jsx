@@ -193,28 +193,61 @@ const FunctionalBureaus = props => {
     selectedPosts,
   ]);
 
+  const [functionalBureauForm, setFunctionalBureauForm] = useState(bureauPositions?.results);
+
   const submitEdit = () => {
-    props.editFunctionalBureauPositions({
-      pabseqnum: '',
-      posseqnum: '',
-      pabbureauorgcode: '',
+    let pabseqnum = '';
+    let posseqnum = '';
+    let pabbureauorgcode = '';
+    functionalBureauForm.forEach(s => {
+      const separator = posseqnum === '' ? '' : ',';
+      pabseqnum = pabseqnum.concat(separator, s.pabseqnum ?? '');
+      posseqnum = posseqnum.concat(separator, s.posseqnum ?? '');
+      pabbureauorgcode = pabbureauorgcode.concat(separator, s.pabbureauorgcode ?? '');
     });
+    props.editFunctionalBureauPositions(
+      {
+        pabseqnum,
+        posseqnum,
+        pabbureauorgcode,
+      },
+      query,
+      setEditMode(false),
+    );
   };
 
-  const headersMapping = [
+  const headersMapping = () => [
     {
-      field: 'posfunctionalbureau',
+      field: 'pabbureauorgcode',
       headerName: 'Functional Bureau',
       cellRenderer: (fbSelectProps) => {
         if (editMode) {
-          return <SelectRenderer {...fbSelectProps} />;
+          return (
+            <div className="results-dropdown">
+              <div className="select-dropdown">
+                <SelectRenderer {...fbSelectProps} />
+              </div>
+            </div>
+          );
         }
-        return fbSelectProps?.data?.posfunctionalbureau;
+        return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.posfunctionalbureau : '';
       },
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
-        className: 'select-dropdown',
-        setData: () => { },
+        getId: (e) => e.posseqnum,
+        getData: (e) => e.pabbureauorgcode,
+        setData: (value, id) => {
+          const newForm = functionalBureauForm?.map(pos => {
+            if (pos.posseqnum === id) {
+              return {
+                ...pos,
+                pabbureauorgcode: value,
+              };
+            }
+            return pos;
+          });
+          setFunctionalBureauForm(newForm);
+        },
       },
       flex: 2,
       sortable: false,
@@ -229,11 +262,15 @@ const FunctionalBureaus = props => {
     { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1, sortable: false },
   ];
 
-  const [headers, setHeaders] = useState([...headersMapping]);
+  const [headers, setHeaders] = useState(headersMapping());
 
   useEffect(() => {
-    setHeaders([...headersMapping]);
-  }, [editMode]);
+    setHeaders(headersMapping());
+  }, [editMode, functionalBureauForm]);
+
+  useEffect(() => {
+    setFunctionalBureauForm(bureauPositions?.results);
+  }, [bureauPositions]);
 
   // Export
   const csvExportParams = {
@@ -474,7 +511,7 @@ const FunctionalBureaus = props => {
                   domLayout="autoHeight"
                   rowHeight={50}
                   columnDefs={headers}
-                  rowData={bureauPositions.results}
+                  rowData={functionalBureauForm}
                   defaultCsvExportParams={csvExportParams}
                 />
                 {!editMode &&
