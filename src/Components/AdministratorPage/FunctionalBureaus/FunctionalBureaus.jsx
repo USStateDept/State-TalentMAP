@@ -11,6 +11,7 @@ import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { functionalBureaus, functionalBureausEdit, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { FUNCTIONAL_BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
@@ -46,7 +47,6 @@ const FunctionalBureaus = props => {
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections.selectedLanguages || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections.selectedBureaus || []);
   const [selectedFunctionalBureaus, setSelectedFunctionalBureaus] = useState(userSelections.selectedFunctionalBureaus || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections.selectedOrgs || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
@@ -67,8 +67,6 @@ const FunctionalBureaus = props => {
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
   const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(s) => s.description]), 'code');
-  const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
-  const organizationOptions = uniqBy(sortBy(get(orgs, 'data'), [(s) => s.long_description]), 'code');
   const posts = bureauFilters$.find(f => get(f, 'item.description') === 'post');
   const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
@@ -84,7 +82,6 @@ const FunctionalBureaus = props => {
     selectedSkills,
     selectedBureaus,
     selectedFunctionalBureaus,
-    selectedOrgs,
     selectedPosts,
     selectedLanguages,
     textSearch,
@@ -98,7 +95,6 @@ const FunctionalBureaus = props => {
     skills: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
     bureaus: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     functionalbureaus: selectedFunctionalBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    organizations: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     languages: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     locations: selectedPosts.map(postObject => (get(postObject, 'code'))),
     ordering,
@@ -129,7 +125,6 @@ const FunctionalBureaus = props => {
     selectedPosts,
     selectedBureaus,
     selectedFunctionalBureaus,
-    selectedOrgs,
     selectedLanguages,
     ordering,
     limit,
@@ -158,7 +153,6 @@ const FunctionalBureaus = props => {
     childRef.current.clearText();
     setSelectedSkills([]);
     setSelectedGrades([]);
-    setSelectedOrgs([]);
     setSelectedBureaus([]);
     setSelectedFunctionalBureaus([]);
     setSelectedLanguages([]);
@@ -173,7 +167,6 @@ const FunctionalBureaus = props => {
       selectedSkills,
       selectedPosts,
       selectedLanguages,
-      selectedOrgs,
       selectedBureaus,
       selectedFunctionalBureaus,
     ];
@@ -187,7 +180,6 @@ const FunctionalBureaus = props => {
     selectedSkills,
     selectedLanguages,
     textSearch,
-    selectedOrgs,
     selectedBureaus,
     selectedFunctionalBureaus,
     selectedPosts,
@@ -196,24 +188,25 @@ const FunctionalBureaus = props => {
   const [functionalBureauForm, setFunctionalBureauForm] = useState(bureauPositions?.results);
 
   const submitEdit = () => {
-    let pabseqnum = '';
-    let posseqnum = '';
-    let pabbureauorgcode = '';
+    const editRequest = [];
     functionalBureauForm.forEach(s => {
-      const separator = posseqnum === '' ? '' : ',';
-      pabseqnum = pabseqnum.concat(separator, s.pabseqnum ?? '');
-      posseqnum = posseqnum.concat(separator, s.posseqnum ?? '');
-      pabbureauorgcode = pabbureauorgcode.concat(separator, s.pabbureauorgcode ?? '');
+      const falseyUpdate = !s.pabseqnum && !s.pabbureauorgcode;
+      if (!falseyUpdate) {
+        // Insert: pabseqnum exists, pabposseqnum null, pabbureauorgcode exists
+        // Update: pabseqnum exists, pabposseqnum exists, pabbureauorgcode exists
+        // Delete: pabseqnum exists, pabposseqnum exists, pabbureauorgcode empty string
+        editRequest.push({
+          pabseqnum: s.pabseqnum ?? null,
+          pabposseqnum: s.posseqnum ?? null,
+          pabbureauorgcode: s.pabbureauorgcode ?? '',
+        });
+      }
     });
-    props.editFunctionalBureauPositions(
-      {
-        pabseqnum,
-        posseqnum,
-        pabbureauorgcode,
-      },
-      query,
-      setEditMode(false),
-    );
+    const onSuccess = () => {
+      props.fetchBureauPositions(query);
+      setEditMode(false);
+    };
+    props.editFunctionalBureauPositions(editRequest, onSuccess());
   };
 
   const headersMapping = () => [
@@ -230,7 +223,7 @@ const FunctionalBureaus = props => {
             </div>
           );
         }
-        return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.posfunctionalbureau : '';
+        return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.pabbureau : '';
       },
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
@@ -254,12 +247,24 @@ const FunctionalBureaus = props => {
     },
     { field: 'posbureau', headerName: 'Bureau', flex: 1, sortable: false },
     { field: 'bsaorgdesc', headerName: 'Skill Bureau', flex: 1, sortable: false },
-    { field: 'posorg', headerName: 'Location (Org)', flex: 1, sortable: false },
+    { field: 'poslocationorg', headerName: 'Location (Org)', flex: 1, sortable: false },
     { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
     { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
     { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
-    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.75, sortable: false },
-    { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1, sortable: false },
+    {
+      field: 'posgradecode',
+      headerName: 'PP/Grade',
+      flex: 0.75,
+      sortable: false,
+      cellRenderer: (fbGradeProps) => (fbGradeProps?.data?.posgradecode ?? DEFAULT_TEXT),
+    },
+    {
+      field: 'pospositionlangprofdesc',
+      headerName: 'Language',
+      flex: 1,
+      sortable: false,
+      cellRenderer: (fbLanguageProps) => (fbLanguageProps?.data?.pospositionlangprofdesc ?? DEFAULT_TEXT),
+    },
   ];
 
   const [headers, setHeaders] = useState(headersMapping());
@@ -396,18 +401,6 @@ const FunctionalBureaus = props => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Organization:</div>
-                <Picky
-                  placeholder="Select Organization(s)"
-                  value={selectedOrgs}
-                  options={organizationOptions}
-                  onChange={setSelectedOrgs}
-                  valueKey="code"
-                  labelKey="long_description"
-                  {...pickyProps}
-                />
-              </div>
-              <div className="filter-div">
                 <div className="label">Language:</div>
                 <Picky
                   placeholder="Select Language(s)"
@@ -513,6 +506,7 @@ const FunctionalBureaus = props => {
                   columnDefs={headers}
                   rowData={functionalBureauForm}
                   defaultCsvExportParams={csvExportParams}
+                  loading={bureauPositionsIsLoading}
                 />
                 {!editMode &&
                   <div className="usa-grid-full react-paginate position-search-controls--pagination">
