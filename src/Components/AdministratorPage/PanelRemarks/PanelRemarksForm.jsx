@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Picky } from 'react-picky';
 import TextareaAutosize from 'react-textarea-autosize';
 import ToggleButton from 'Components/ToggleButton';
+import InteractiveElement from 'Components/InteractiveElement';
 import { createPanelRemark, editPanelRemark } from 'actions/panelRemarks';
 import { toastWarning } from 'actions/toast';
 import { renderSelectionList } from 'utilities';
+import FontAwesome from 'react-fontawesome';
+import { validateInsertions } from '.';
 
 const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const dispatch = useDispatch();
@@ -21,20 +24,46 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const [active, setActive] = useState(remarkData.rmrkactiveind || false);
   const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
   const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
-  // const [roleRestriction, setRoleRestriction] = useState(false);
-  // const [insertions, setInsertions] = useState(['']);
+  const [insertions, setInsertions] = useState([{ id: 0, riinsertiontext: '', rirolerestrictedind: 'N' }]);
 
-  // all remark insertion and role restriction functionality is commented out for the time being
-  // const handleNewInsertion = () => {
-  //   setInsertions([...insertions, '']);
-  // };
+  const handleNewInsertion = () => {
+    setInsertions([...insertions, { id: insertions.length, riinsertiontext: '', rirolerestrictedind: 'N' }]);
+  };
 
-  // const handleInsertionChange = (index, value) => {
-  //   const newInsertions = [...insertions];
-  //   newInsertions[index] = value;
-  //   setInsertions(newInsertions);
-  // };
+  const handleInsertionChange = (index, value) => {
+    setInsertions(insertions.map((insertion) =>
+      // update the insertion text for the given index
+      insertion.id === index ? { ...insertion, riinsertiontext: value } : insertion,
+    ));
+  };
 
+  const handleRemoveInsertion = (index) => {
+    // check if insert exists
+    const exists = remarkData.RemarkInserts?.some((remark) => remark.riseqnum === insertions[index].riseqnum);
+    if (exists) {
+      // warn user that insertion can't be deleted
+      const title = 'Cannot Delete Insertion';
+      const message = 'Cannot delete an insertion that is already in use';
+      dispatch(toastWarning(message, title));
+      return;
+    }
+
+    // remove the insertion from the list
+    const updatedInsertions = insertions.filter((insertion) => insertion.id !== index);
+    if (updatedInsertions.length === 0) {
+    // ensure at least one input is always present
+      setInsertions([{ id: 0, riinsertiontext: '', rirolerestrictedind: 'N' }]);
+    } else {
+      setInsertions(updatedInsertions);
+    }
+  };
+
+  useEffect(() => {
+    // load remark insertion data on page load
+    if (remarkData.RemarkInserts?.length > 0) {
+      setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, rirmrkseqnum: insertion.rirmrkseqnum, riseqnum: insertion.riseqnum, riinsertiontext: insertion.riinsertiontext, rirolerestrictedind: insertion.rirolerestrictedind, riupdatedate: insertion.riupdatedate })));
+    }
+  }, [remarkData.RemarkInserts]);
 
   useEffect(() => {
     // if the create or edit was successful, close the form
@@ -52,6 +81,14 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       setValidForm(false);
       return false;
     }
+    // check if all insertions are valid
+    const missingInsertions = validateInsertions(description, insertions);
+    if (missingInsertions.length > 0) {
+      const title = 'Cannot Submit Form';
+      const message = `Missing insertions: ${missingInsertions.join(', ')}`;
+      dispatch(toastWarning(message, title));
+      return false;
+    }
     setValidForm(true);
     return true;
   };
@@ -61,15 +98,21 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     if (!validateForm()) {
       return;
     }
+    const newrmrkinserts = insertions
+      .map(({ id, ...rest }) => rest) // Remove the `id` key by destructuring
+      .filter((insertion) =>
+        insertion.riinsertiontext && // ensure the insertion is not empty
+        (mode !== 'edit' || // only check RemarkInserts if in edit mode
+      !remarkData.RemarkInserts?.some((remark) => remark.riinsertiontext === insertion.riinsertiontext))); // ensure the insertion is not already in the list
 
     const newRemark = {
-      rmrkrccode: selectedCategories, // selectedCategory code (the rccode required by the WS endpoint)
-      rmrkordernum: orderNum, // orderNum
-      rmrkshortdesctext: shortDescription, // shortDescription
-      rmrkmutuallyexclusiveind: mutuallyExcl, // mutuallyExcl
-      rmrktext: description, // description
-      rmrkactiveind: active, // active
-      // insertions, // remark inserts. Commented out for now as this is not being used in the API call yet
+      rmrkrccode: selectedCategories,
+      rmrkordernum: orderNum,
+      rmrkshortdesctext: shortDescription,
+      rmrkmutuallyexclusiveind: mutuallyExcl,
+      rmrktext: description,
+      rmrkactiveind: active,
+      rmrkinserts: newrmrkinserts,
       ...(mode === 'edit' && {
         rmrkseqnum: remarkData.rmrkseqnum,
         rmrkupdatedate: remarkData.rmrkupdatedate,
@@ -92,7 +135,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   return (
     <div className="pr-form">
       <div className="usa-grid">
-        <div className="usa-width-one-half">
+        <div className="usa-width-one-third">
           <label htmlFor="remarkDescription">Remark Description</label>
           <TextareaAutosize
             id="remarkDescription"
@@ -182,33 +225,39 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
           multiple={false}
         />
       </div>
-      {/* Commented out for now as this is not being used in the API call yet*}
-      {/* <div className="usa-grid">
+      <div className="usa-grid">
         <div className="usa-width-one-half">
-          <div className="pr-label-container">
+          <div className="pr-insertion-container">
             <label htmlFor="remarkDescription" className="">Remark Insertion</label>
-            <InteractiveElement type="label" className="pr-insertion-button" onClick={handleNewInsertion}>
-              New Insertion
+            <InteractiveElement
+              onClick={handleNewInsertion}
+              type="span"
+              role="button"
+              className="standard-add-button"
+              title="Add insertion"
+              id="add-insertion"
+            >
+              <FontAwesome className="icon" name="plus" />
+              <span>New Insertion</span>
             </InteractiveElement>
           </div>
-          {insertions.map((insertion, index) => (
-            <div key={`remark-insertion-${index}`} className="remark-insertion">
-              <TextareaAutosize
-                id={`remarkInsertion-${index}`}
-                value={insertion}
-                onChange={(e) => handleInsertionChange(index, e.target.value)}
-                minRows={4}
-                maxRows={4}
-                maxLength={500}
-                placeholder="Enter remark insertion"
+          {insertions.map((insertion) => (
+            <div key={`remark-insertion-${insertion.id}`} className="remark-insertion input-wrapper">
+              <input
+                id={`insertion-${insertion.id}`}
+                className="text-input"
+                type="text"
+                placeholder="{insertion}"
+                value={insertion.riinsertiontext}
+                onChange={(e) => handleInsertionChange(insertion.id, e.target.value)}
+                style={{ maxWidth: '200px' }}
+                // disabled={remarkData.RemarkInserts?.some((remark) => remark.riseqnum === insertion.riseqnum)} // disable if insertion is already in use
               />
-              <div className="pr-word-count">
-                {insertion.length} / 500
-              </div>
+              <FontAwesome name="times" title="Delete insertion" onClick={() => handleRemoveInsertion(insertion.id)} style={{ cursor: 'pointer' }} />
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
       {/* <div className="usa-grid">
         <ToggleButton
           labelTextRight="Role Restriction"
@@ -238,7 +287,13 @@ PanelRemarksForm.propTypes = {
     rmrkrccode: PropTypes.string,
     rmrkcreatedate: PropTypes.string,
     rmrkupdatedate: PropTypes.string,
-    remarkInserts: PropTypes.arrayOf(PropTypes.string),
+    RemarkInserts: PropTypes.arrayOf(PropTypes.shape({
+      rirmrkseqnum: PropTypes.number,
+      riinsertiontext: PropTypes.string,
+      rirolerestrictedind: PropTypes.oneOf(['Y', 'N']),
+      riseqnum: PropTypes.number,
+      riupdatedate: PropTypes.string,
+    })),
   }),
   onClose: PropTypes.func.isRequired,
 };
