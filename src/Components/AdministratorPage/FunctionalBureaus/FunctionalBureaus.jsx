@@ -252,14 +252,14 @@ const FunctionalBureaus = props => {
       headerName: 'PP/Grade',
       flex: 0.75,
       sortable: false,
-      cellRenderer: (fbSelectProps) => fbSelectProps?.data?.posgradecode ?? DEFAULT_TEXT,
+      cellRenderer: (fbGradeProps) => (fbGradeProps?.data?.posgradecode ?? DEFAULT_TEXT),
     },
     {
       field: 'pospositionlangprofdesc',
       headerName: 'Language',
       flex: 1,
       sortable: false,
-      cellRenderer: (fbSelectProps) => fbSelectProps?.data?.pospositionlangprofdesc ?? DEFAULT_TEXT,
+      cellRenderer: (fbLanguageProps) => (fbLanguageProps?.data?.pospositionlangprofdesc ?? DEFAULT_TEXT),
     },
   ];
 
