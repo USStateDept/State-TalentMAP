@@ -52,6 +52,20 @@
     }
   }
 
+  .results-dropdown {
+    height: 100%;
+  }
+
+  .select-dropdown {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    select {
+      width: 100%;
+    }
+  }
+
   .controls-container {
     padding-bottom: 10px;
 
