@@ -11,6 +11,7 @@ import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import { scrollToTop } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { functionalBureaus, functionalBureausEdit, saveFunctionalBureausSelections } from 'actions/functionalBureaus';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { FUNCTIONAL_BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Alert from 'Components/Alert';
@@ -246,8 +247,20 @@ const FunctionalBureaus = props => {
     { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
     { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
     { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
-    { field: 'posgradecode', headerName: 'PP/Grade', flex: 0.75, sortable: false },
-    { field: 'pospositionlangprofdesc', headerName: 'Language', flex: 1, sortable: false },
+    {
+      field: 'posgradecode',
+      headerName: 'PP/Grade',
+      flex: 0.75,
+      sortable: false,
+      cellRenderer: (fbSelectProps) => fbSelectProps?.data?.posgradecode ?? DEFAULT_TEXT,
+    },
+    {
+      field: 'pospositionlangprofdesc',
+      headerName: 'Language',
+      flex: 1,
+      sortable: false,
+      cellRenderer: (fbSelectProps) => fbSelectProps?.data?.pospositionlangprofdesc ?? DEFAULT_TEXT,
+    },
   ];
 
   const [headers, setHeaders] = useState(headersMapping());
