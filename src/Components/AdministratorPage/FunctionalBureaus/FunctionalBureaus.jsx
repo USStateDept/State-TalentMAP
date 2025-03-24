@@ -205,7 +205,7 @@ const FunctionalBureaus = props => {
     const onSuccess = () => {
       props.fetchBureauPositions(query);
       setEditMode(false);
-    }
+    };
     props.editFunctionalBureauPositions(editRequest, onSuccess);
   };
 
@@ -506,6 +506,7 @@ const FunctionalBureaus = props => {
                   columnDefs={headers}
                   rowData={functionalBureauForm}
                   defaultCsvExportParams={csvExportParams}
+                  loading={bureauPositionsIsLoading}
                 />
                 {!editMode &&
                   <div className="usa-grid-full react-paginate position-search-controls--pagination">
