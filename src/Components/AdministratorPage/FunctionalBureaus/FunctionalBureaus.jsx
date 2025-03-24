@@ -46,7 +46,6 @@ const FunctionalBureaus = props => {
   const [selectedLanguages, setSelectedLanguages] = useState(userSelections.selectedLanguages || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections.selectedBureaus || []);
   const [selectedFunctionalBureaus, setSelectedFunctionalBureaus] = useState(userSelections.selectedFunctionalBureaus || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections.selectedOrgs || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
@@ -67,8 +66,6 @@ const FunctionalBureaus = props => {
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
   const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(s) => s.description]), 'code');
-  const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
-  const organizationOptions = uniqBy(sortBy(get(orgs, 'data'), [(s) => s.long_description]), 'code');
   const posts = bureauFilters$.find(f => get(f, 'item.description') === 'post');
   const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
@@ -84,7 +81,6 @@ const FunctionalBureaus = props => {
     selectedSkills,
     selectedBureaus,
     selectedFunctionalBureaus,
-    selectedOrgs,
     selectedPosts,
     selectedLanguages,
     textSearch,
@@ -98,7 +94,6 @@ const FunctionalBureaus = props => {
     skills: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
     bureaus: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     functionalbureaus: selectedFunctionalBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    organizations: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     languages: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     locations: selectedPosts.map(postObject => (get(postObject, 'code'))),
     ordering,
@@ -129,7 +124,6 @@ const FunctionalBureaus = props => {
     selectedPosts,
     selectedBureaus,
     selectedFunctionalBureaus,
-    selectedOrgs,
     selectedLanguages,
     ordering,
     limit,
@@ -158,7 +152,6 @@ const FunctionalBureaus = props => {
     childRef.current.clearText();
     setSelectedSkills([]);
     setSelectedGrades([]);
-    setSelectedOrgs([]);
     setSelectedBureaus([]);
     setSelectedFunctionalBureaus([]);
     setSelectedLanguages([]);
@@ -173,7 +166,6 @@ const FunctionalBureaus = props => {
       selectedSkills,
       selectedPosts,
       selectedLanguages,
-      selectedOrgs,
       selectedBureaus,
       selectedFunctionalBureaus,
     ];
@@ -187,7 +179,6 @@ const FunctionalBureaus = props => {
     selectedSkills,
     selectedLanguages,
     textSearch,
-    selectedOrgs,
     selectedBureaus,
     selectedFunctionalBureaus,
     selectedPosts,
@@ -197,18 +188,18 @@ const FunctionalBureaus = props => {
 
   const submitEdit = () => {
     let pabseqnum = '';
-    let posseqnum = '';
+    let pabposseqnum = '';
     let pabbureauorgcode = '';
     functionalBureauForm.forEach(s => {
       const separator = posseqnum === '' ? '' : ',';
       pabseqnum = pabseqnum.concat(separator, s.pabseqnum ?? '');
-      posseqnum = posseqnum.concat(separator, s.posseqnum ?? '');
+      pabposseqnum = pabposseqnum.concat(separator, s.posseqnum ?? '');
       pabbureauorgcode = pabbureauorgcode.concat(separator, s.pabbureauorgcode ?? '');
     });
     props.editFunctionalBureauPositions(
       {
         pabseqnum,
-        posseqnum,
+        pabposseqnum,
         pabbureauorgcode,
       },
       query,
@@ -254,7 +245,7 @@ const FunctionalBureaus = props => {
     },
     { field: 'posbureau', headerName: 'Bureau', flex: 1, sortable: false },
     { field: 'bsaorgdesc', headerName: 'Skill Bureau', flex: 1, sortable: false },
-    { field: 'posorg', headerName: 'Location (Org)', flex: 1, sortable: false },
+    { field: 'poslocationorg', headerName: 'Location (Org)', flex: 1, sortable: false },
     { field: 'posnumtext', headerName: 'Position Number', flex: 1, sortable: false },
     { field: 'posskill', headerName: 'Skill', flex: 1, sortable: false },
     { field: 'postitledesc', headerName: 'Position Title', flex: 1, sortable: false },
@@ -392,18 +383,6 @@ const FunctionalBureaus = props => {
                   onChange={setSelectedPosts}
                   valueKey="code"
                   labelKey="custom_description"
-                  {...pickyProps}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Organization:</div>
-                <Picky
-                  placeholder="Select Organization(s)"
-                  value={selectedOrgs}
-                  options={organizationOptions}
-                  onChange={setSelectedOrgs}
-                  valueKey="code"
-                  labelKey="long_description"
                   {...pickyProps}
                 />
               </div>
