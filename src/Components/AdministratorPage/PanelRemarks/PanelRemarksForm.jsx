@@ -24,10 +24,10 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   const [active, setActive] = useState(remarkData.rmrkactiveind || false);
   const [mutuallyExcl, setMutuallyExcl] = useState(remarkData.rmrkmutuallyexclusiveind || false);
   const [selectedCategories, setSelectedCategories] = useState(remarkData.rmrkrccode || '');
-  const [insertions, setInsertions] = useState([{ id: 0, riinsertiontext: '' }]); // @TODO: add roleRestricted: 'N' when role restriction is implemented
+  const [insertions, setInsertions] = useState([{ id: 0, riinsertiontext: '', rirolerestrictedind: 'N' }]);
 
   const handleNewInsertion = () => {
-    setInsertions([...insertions, { id: insertions.length, riinsertiontext: '' }]); // @TODO: add roleRestricted: 'N' when role restriction is implemented
+    setInsertions([...insertions, { id: insertions.length, riinsertiontext: '', rirolerestrictedind: 'N' }]);
   };
 
   const handleInsertionChange = (index, value) => {
@@ -52,7 +52,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
     const updatedInsertions = insertions.filter((insertion) => insertion.id !== index);
     if (updatedInsertions.length === 0) {
     // ensure at least one input is always present
-      setInsertions([{ id: 0, riinsertiontext: '' }]); // @TODO: add roleRestricted: 'N' when role restriction is implemented
+      setInsertions([{ id: 0, riinsertiontext: '', rirolerestrictedind: 'N' }]);
     } else {
       setInsertions(updatedInsertions);
     }
@@ -61,7 +61,7 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
   useEffect(() => {
     // load remark insertion data on page load
     if (remarkData.RemarkInserts?.length > 0) {
-      setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, riseqnum: insertion.riseqnum, riinsertiontext: insertion.riinsertiontext }))); // @TODO: add roleRestricted: insertion.rirolerestrictedind
+      setInsertions(remarkData.RemarkInserts.map((insertion, index) => ({ id: index, rirmrkseqnum: insertion.rirmrkseqnum, riseqnum: insertion.riseqnum, riinsertiontext: insertion.riinsertiontext, rirolerestrictedind: insertion.rirolerestrictedind, riupdatedate: insertion.riupdatedate })));
     }
   }, [remarkData.RemarkInserts]);
 
