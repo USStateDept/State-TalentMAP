@@ -3,8 +3,14 @@ export const validateInsertions = (text, insertionsList) => {
   const matches = text.match(/{(.*?)}/g) || []; // Match all substrings in curly braces
 
   // check if each substring exists in insertionsList
-  const missingInsertions = matches
+  let missingInsertions = matches
     .filter(substring => !insertionsList.some(insertion => insertion.riinsertiontext === substring));
+
+  // check if all inserts have been removed
+  if (insertionsList.length > 0 && missingInsertions.length === 0) {
+    missingInsertions = insertionsList.map(insertion => insertion.riinsertiontext);
+  }
+
   return missingInsertions;
 };
 
