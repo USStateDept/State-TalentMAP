@@ -215,7 +215,7 @@ const FunctionalBureaus = props => {
             </div>
           );
         }
-        return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.posfunctionalbureau : '';
+        return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.pabbureau : '';
       },
       cellRendererParams: {
         options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
