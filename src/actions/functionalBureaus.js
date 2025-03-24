@@ -89,7 +89,7 @@ export function saveFunctionalBureausSelections(queryObject) {
 
 let cancelFunctionalBureausEdit;
 
-export function functionalBureausEdit(data, query, onSuccess) {
+export function functionalBureausEdit(data, onSuccess) {
   return (dispatch) => {
     if (cancelFunctionalBureausEdit) {
       cancelFunctionalBureausEdit('cancel');
@@ -103,7 +103,6 @@ export function functionalBureausEdit(data, query, onSuccess) {
           UPDATE_FUNCTIONAL_BUREAUS_SUCCESS,
           UPDATE_FUNCTIONAL_BUREAUS_SUCCESS_TITLE,
         ));
-        dispatch(functionalBureaus(query));
         if (onSuccess) onSuccess();
       })
       .catch((err) => {

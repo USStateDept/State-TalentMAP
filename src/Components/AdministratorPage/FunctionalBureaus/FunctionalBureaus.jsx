@@ -202,7 +202,11 @@ const FunctionalBureaus = props => {
         });
       }
     });
-    props.editFunctionalBureauPositions(editRequest, query, setEditMode(false));
+    const onSuccess = () => {
+      props.fetchBureauPositions(query);
+      setEditMode(false);
+    }
+    props.editFunctionalBureauPositions(editRequest, onSuccess);
   };
 
   const headersMapping = () => [
