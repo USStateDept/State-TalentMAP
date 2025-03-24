@@ -191,7 +191,7 @@ const FunctionalBureaus = props => {
     let pabposseqnum = '';
     let pabbureauorgcode = '';
     functionalBureauForm.forEach(s => {
-      const separator = posseqnum === '' ? '' : ',';
+      const separator = pabposseqnum === '' ? '' : ',';
       pabseqnum = pabseqnum.concat(separator, s.pabseqnum ?? '');
       pabposseqnum = pabposseqnum.concat(separator, s.posseqnum ?? '');
       pabbureauorgcode = pabbureauorgcode.concat(separator, s.pabbureauorgcode ?? '');
