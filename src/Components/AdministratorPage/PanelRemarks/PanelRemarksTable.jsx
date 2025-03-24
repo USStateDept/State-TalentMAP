@@ -86,7 +86,6 @@ const PanelRemarksTable = forwardRef(({ panelRemarks, fetchData, openForm }, ref
 
   // Validate the changes made to the table
   const validateChanges = (data) => {
-    console.log(data);
     // Check if fields are empty
     if (!data.rmrktext || !data.rmrkshortdesctext) {
       const title = 'Cannot Submit Form';
