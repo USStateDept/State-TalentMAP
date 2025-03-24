@@ -21,6 +21,8 @@ const SelectRenderer = (props) => {
 
 SelectRenderer.propTypes = {
   data: PropTypes.shape({}).isRequired,
+  getData: PropTypes.func.isRequired,
+  getId: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   className: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
