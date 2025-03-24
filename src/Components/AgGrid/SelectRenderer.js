@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 
 const SelectRenderer = (props) => {
-  const { data, setData, className, options } = props;
+  const { data, getData, getId, setData, className, options } = props;
 
   return (
     <select
-      value={data}
-      onChange={(e) => setData(e.target.value)}
+      value={getData(data)}
+      onChange={(e) => setData(e.target.value, getId(data))}
       className={className}
     >
-      <option value="">None</option>
+      <option value="" />
       {options?.map(option => (
         <option value={option?.code} key={option?.code}>
-          {option.text}
+          ({option.code}) {option.text}
         </option>
       ))}
     </select>
