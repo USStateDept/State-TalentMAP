@@ -11,7 +11,7 @@ export const validateInsertions = (text, insertionsList) => {
     missingInsertions = matches
       .filter(substring => !insertionsList.some(insertion => insertion.riinsertiontext === substring));
   }
-  
+
   return missingInsertions;
 };
 
