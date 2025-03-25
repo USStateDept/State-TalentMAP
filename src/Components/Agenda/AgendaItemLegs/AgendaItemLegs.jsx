@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { formatDate, formatLang, formatMonthYearDate, formatMonthYearDateFullYear, shortenString } from 'utilities';
+import { formatDate, formatLang, formatMonthYearDate, shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import FA from 'react-fontawesome';
 import { formatVice } from '../Constants';
@@ -73,7 +73,7 @@ const AgendaItemLegs = props => {
     { title: 'Location/Org', key: 'org', helperFunc: formatStr, cardView: true },
     { title: 'Lang', key: 'languages', helperFunc: formatLang, cardView: false },
     { title: 'Skills', key: 'custom_skills_description', helperFunc: null, cardView: false },
-    { title: 'ETA', key: 'eta', helperFunc: formatMonthYearDateFullYear, cardView: true },
+    { title: 'ETA', key: 'eta', helperFunc: formatMonthYearDate, cardView: true },
     { title: '', key: 'arrows', helperFunc: getArrows, cardView: true },
     { title: 'TED', key: 'ted', helperFunc: getTeds, cardView: true },
     { title: 'TOD', key: 'tod_short_desc', helperFunc: null, cardView: false },
