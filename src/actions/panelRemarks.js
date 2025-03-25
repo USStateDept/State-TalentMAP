@@ -5,8 +5,10 @@ import { convertQueryToString } from 'utilities';
 import { toastError, toastSuccess } from './toast';
 import api from './../api';
 
-const PANEL_REMARK_CREATE_SUCCESS = 'Panel Remark created successfully';
-const PANEL_REMARK_CREATE_ERRORED = 'Panel Remark creation failed';
+export const PANEL_REMARK_CREATE_SUCCESS = 'Panel Remark created successfully';
+export const PANEL_REMARK_CREATE_ERRORED = 'Panel Remark creation failed';
+export const PANEL_REMARK_EDIT_SUCCESS = 'Panel Remark updated successfully';
+export const PANEL_REMARK_EDIT_ERRORED = 'Panel Remark update failed';
 
 let cancelPanelRemarksData;
 
@@ -46,11 +48,13 @@ export function createPanelRemark(newRemark) {
         dispatch(panelRemarksCreateLoading(false));
         dispatch(toastSuccess(PANEL_REMARK_CREATE_SUCCESS));
       })
-      .catch(() => {
+      .catch((err) => {
+        const errorMessage = err.response?.data || PANEL_REMARK_CREATE_ERRORED;
+
         dispatch(panelRemarksCreateSuccess(false));
         dispatch(panelRemarksCreateErrored(true));
         dispatch(panelRemarksCreateLoading(false));
-        dispatch(toastError(PANEL_REMARK_CREATE_ERRORED));
+        dispatch(toastError(errorMessage));
       });
   };
 }
@@ -92,14 +96,16 @@ export function editPanelRemark(json) {
           dispatch(panelRemarksEditSuccess(true));
           dispatch(panelRemarksEditHasErrored(false));
           dispatch(panelRemarksEditIsLoading(false));
-          dispatch(toastSuccess('Panel Remark Updated', 'Success'));
+          dispatch(toastSuccess(PANEL_REMARK_EDIT_SUCCESS));
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        const errorMessage = err.response?.data || PANEL_REMARK_EDIT_ERRORED;
+
         dispatch(panelRemarksEditHasErrored(true));
         dispatch(panelRemarksEditIsLoading(false));
         dispatch(panelRemarksEditSuccess(false));
-        dispatch(toastError('Error updating Panel Remark', 'Error'));
+        dispatch(toastError(errorMessage));
       });
   };
 }

@@ -83,6 +83,7 @@ import orgStats from './orgStats';
 import biddingTool from './biddingTool';
 import tmOne from './tmOne';
 import panelRemarks from './panelRemarks';
+import functionalBureaus from './functionalBureaus';
 
 export default (history) => combineReducers({
   ...results,
@@ -163,6 +164,7 @@ export default (history) => combineReducers({
   ...biddingTool,
   ...tmOne,
   ...panelRemarks,
+  ...functionalBureaus,
   router: connectRouter(history),
   client,
   login,
