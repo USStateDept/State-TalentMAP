@@ -54,6 +54,7 @@ describe('index', () => {
   it('renders without crashing on init()', async () => {
     const determineEnvSpy = jest.spyOn(utilities, 'determineEnv');
     axios.get.mockResolvedValueOnce({ data: { apiUrl: 'http://localhost:8000/api/v1', hrAuthUrl: 'http://localhost:3333/Authorize?sAppCircuitID=32', hrAuthUrlPublic: 'http://msappproxy:3333/Authorize?sAppCircuitID=32' } });
+    axios.get.mockResolvedValueOnce({ data: { flags: { persona_auth: true } } });
     axios.get.mockResolvedValueOnce({ data: 'jwt-token' });
 
     await init();
