@@ -61,8 +61,6 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
   ]);
 
   const mapObjectToRow = (obj) => {
-    console.log(obj);
-    console.log(formatLanguages(obj.languages));
     const row = {
       name: obj.name,
       status: obj.status || DEFAULT_TEXT,
