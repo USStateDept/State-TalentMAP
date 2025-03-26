@@ -62,24 +62,30 @@ export const init = async () => {
   // remove config from sessionStorage to avoid stale data
   sessionStorage.removeItem('apiUrl');
   sessionStorage.removeItem('config');
-  const configUrl = `${window.location.protocol}//${window.location.host}/init.json`;
 
-  // Set the environment based on the URL
-  const env = determineEnv(configUrl);
+  // Get the URL of the host
+  const host = `${window.location.protocol}//${window.location.host}`;
 
-  // Set devMode to true if the environment is localhost
-  const localDevMode = configUrl.includes('localhost');
+  // Get the environment from the host
+  const env = determineEnv(host);
 
-  // If running in devMode, set withCredentials to false, otherwise set it to true
+  // Set localDevMode to true if the environment is localhost
+  const localDevMode = host.includes('localhost');
+
+  // If running in localDevMode, set withCredentials to false
   const withCredentials = !localDevMode;
 
-  // fetch config.json to get some startup variables
-  const initConfig = ((await axios.get(configUrl)).data);
-  sessionStorage.setItem('apiUrl', initConfig.apiUrl);
+  // Set the flags URL
+  if (localDevMode) {
+    // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
+    // if localdev use the developer localhost url
+    sessionStorage.setItem('apiUrl', 'http://localhost:8000/api/v1');
+  } else {
+    // if not local dev use the server host url
+    sessionStorage.setItem('apiUrl', `${host}/${env}/talentmap/api/api/v1`);
+  }
 
-  // fetch the feature flags
-  const featureFlags = await getConfig(`${initConfig.apiUrl}/featureflags/`);
-
+  const featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
   // Initialize the request headers
   const headers = {
     Accept: 'application/json',
