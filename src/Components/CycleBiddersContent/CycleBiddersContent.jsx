@@ -17,11 +17,11 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
   const [count, setCount] = useState(0);
 
   // Maps user classifications to classification reference
-  const getClassificationText = (userClassifications, classificationRef) => {
+  const getClassificationText = (userClassifications = [], classificationRef = []) => {
     console.log(`userClass: ${userClassifications}`);
     // Filter the classificationRef to find matches based on userClassifications
     const matchedClassifications = classificationRef.filter(ref =>
-      ref.seasons.some(season => userClassifications.some(user => user.id === season.id)),
+      ref.seasons.some(season => userClassifications.some(classification => classification === season.id)),
     );
     console.log(matchedClassifications);
 
