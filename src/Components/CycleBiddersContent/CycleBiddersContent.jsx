@@ -53,7 +53,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
       locationOrg: `${obj.org || DEFAULT_TEXT} ${obj.org_code ? `(${obj.org_code})` : ''}`,
       language: obj.language || DEFAULT_TEXT,
       classification: obj.classifications || DEFAULT_TEXT,
-      ted: obj.ted || DEFAULT_TEXT,
+      ted: formatDate(obj.ted) || DEFAULT_TEXT,
       bidSubmitDate: formatDate(obj.submitted_date) || DEFAULT_TEXT,
       panel: false,
     };
