@@ -13,15 +13,22 @@ import { fetchClassifications } from 'actions/classifications';
 const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, position }) => {
   const dispatch = useDispatch();
   const classificationsRef = useSelector(state => state.classifications);
-
+  console.log('classificationsRef', classificationsRef);
   const [count, setCount] = useState(0);
 
   // Maps user classifications to classification reference
   const getClassificationText = (userClassifications, classificationRef) => {
+    console.log(`userClass: ${userClassifications}`);
     // Filter the classificationRef to find matches based on userClassifications
     const matchedClassifications = classificationRef.filter(ref =>
       ref.seasons.some(season => userClassifications.some(user => user.id === season.id)),
     );
+    console.log(matchedClassifications);
+
+    // If no matches are found, return 'None Listed'
+    if (matchedClassifications.length === 0) {
+      return DEFAULT_TEXT;
+    }
 
     // Extract the text keys from the matched classifications and join them into a single string
     return matchedClassifications.map(ref => ref.text).join(', ');
