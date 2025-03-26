@@ -7,32 +7,32 @@ import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 import PropTypes from 'prop-types';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { formatDate, formatLanguages } from 'utilities';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchClassifications } from 'actions/classifications';
 
 const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, position }) => {
   const dispatch = useDispatch();
-  const classificationsRef = useSelector(state => state.classifications);
-  console.log('classificationsRef', classificationsRef);
+  // const classificationsRef = useSelector(state => state.classifications);
+  // console.log('classificationsRef', classificationsRef);
   const [count, setCount] = useState(0);
 
   // Maps user classifications to classification reference
-  const getClassificationText = (userClassifications = [], classificationRef = []) => {
-    console.log(`userClass: ${userClassifications}`);
-    // Filter the classificationRef to find matches based on userClassifications
-    const matchedClassifications = classificationRef.filter(ref =>
-      ref.seasons.some(season => userClassifications.some(classification => classification === season.id)),
-    );
-    console.log(matchedClassifications);
+  // const getClassificationText = (userClassifications = [], classificationRef = []) => {
+  //   console.log(`userClass: ${userClassifications}`);
+  //   // Filter the classificationRef to find matches based on userClassifications
+  //   const matchedClassifications = classificationRef.filter(ref =>
+  //     ref.seasons.some(season => userClassifications.some(classification => classification === season.id)),
+  //   );
+  //   console.log(matchedClassifications);
 
-    // If no matches are found, return 'None Listed'
-    if (matchedClassifications.length === 0) {
-      return DEFAULT_TEXT;
-    }
+  //   // If no matches are found, return 'None Listed'
+  //   if (matchedClassifications.length === 0) {
+  //     return DEFAULT_TEXT;
+  //   }
 
-    // Extract the text keys from the matched classifications and join them into a single string
-    return matchedClassifications.map(ref => ref.text).join(', ');
-  };
+  //   // Extract the text keys from the matched classifications and join them into a single string
+  //   return matchedClassifications.map(ref => ref.text).join(', ');
+  // };
 
   const sections = {
     subheading: [
@@ -76,7 +76,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
       skill: obj.skill || DEFAULT_TEXT,
       locationOrg: `${obj.org || DEFAULT_TEXT} ${obj.org_code ? `(${obj.org_code})` : ''}`,
       language: formatLanguages(obj.languages, 'lang_code') || DEFAULT_TEXT,
-      classification: getClassificationText(obj.classifications, classificationsRef),
+      classification: obj.classifications, // getClassificationText(obj.classifications, classificationsRef),
       ted: formatDate(obj.ted) || DEFAULT_TEXT,
       bidSubmitDate: formatDate(obj.submitted_date) || DEFAULT_TEXT,
       panel: false,
