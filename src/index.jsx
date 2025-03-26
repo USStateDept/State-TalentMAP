@@ -62,26 +62,23 @@ export const init = async () => {
   // remove config from sessionStorage to avoid stale data
   sessionStorage.removeItem('apiUrl');
   sessionStorage.removeItem('config');
+  const configUrl = `${window.location.protocol}//${window.location.host}/init.json`;
 
   // Set the environment based on the URL
-  const env = determineEnv(window.location.href);
+  const env = determineEnv(configUrl);
 
   // Set devMode to true if the environment is localhost
-  const localDevMode = env.includes('localhost');
+  const localDevMode = configUrl.includes('localhost');
 
   // If running in devMode, set withCredentials to false, otherwise set it to true
   const withCredentials = !localDevMode;
 
   // fetch config.json to get some startup variables
-  const initialConfig = ((await axios.get('/init.json')).data);
-  sessionStorage.setItem('apiUrl', initialConfig.apiUrl);
+  const initConfig = ((await axios.get(configUrl)).data);
+  sessionStorage.setItem('apiUrl', initConfig.apiUrl);
 
   // fetch the feature flags
-  const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
-
-  // Set the api urls from the featureflags url
-  const hrAuthUrl = config.hrAuthUrl;
-  const hrAuthUrlPublic = config.hrAuthUrlPublic;
+  const featureFlags = await getConfig(`${initConfig.apiUrl}/featureflags/`);
 
   // Initialize the request headers
   const headers = {
@@ -89,10 +86,10 @@ export const init = async () => {
   };
 
   // If the environment is localhost, set the headers to include the tmusrname
-  if (config.flags.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
+  if (featureFlags.flags.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
 
   // Set the config in sessionStorage so it can be used in the app.
-  sessionStorage.setItem('config', JSON.stringify(config));
+  sessionStorage.setItem('config', JSON.stringify(featureFlags));
 
   // Render the loading screen
   renderLoading();
@@ -110,12 +107,12 @@ export const init = async () => {
       // if the message is a shakehand, get the jwt from the hrAuthUrlPublic
       if (type === 'shakehand' && body) {
         // Load the app with the jwt
-        loadApp(hrAuthUrlPublic, withCredentials, headers);
+        loadApp(featureFlags.hrAuthUrlPublic, withCredentials, headers);
       }
     });
   } else {
     // Load the app with the jwt
-    loadApp(hrAuthUrl, withCredentials, headers);
+    loadApp(featureFlags.hrAuthUrl, withCredentials, headers);
   }
 };
 
