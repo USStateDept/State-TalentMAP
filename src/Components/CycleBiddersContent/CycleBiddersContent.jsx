@@ -6,6 +6,7 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 import PropTypes from 'prop-types';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
+import { formatDate } from 'utilities';
 
 const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, position }) => {
   const [count, setCount] = useState(0);
@@ -53,7 +54,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
       language: obj.language || DEFAULT_TEXT,
       classification: obj.classifications || DEFAULT_TEXT,
       ted: obj.ted || DEFAULT_TEXT,
-      bidSubmitDate: obj.submitted_date || DEFAULT_TEXT,
+      bidSubmitDate: formatDate(obj.submitted_date) || DEFAULT_TEXT,
       panel: false,
     };
 
