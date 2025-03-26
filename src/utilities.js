@@ -958,10 +958,10 @@ export const formatLang = (langArr = []) => {
 };
 
 // For endpoints that use fsbid_languages_to_tmap in API
-export const formatLanguages = (langArr = []) => {
+export const formatLanguages = (langArr = [], langCode = 'code') => {
   if (langArr == null || langArr.length === 0) return DEFAULT_TEXT;
   return langArr.map(lang => (
-    `${lang.code} ${lang.speaking_score}/${lang.reading_score}`
+    `${lang[langCode]} ${lang.speaking_score}/${lang.reading_score}`
   )).join(', ');
 };
 

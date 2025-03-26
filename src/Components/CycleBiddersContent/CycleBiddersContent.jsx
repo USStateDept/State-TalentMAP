@@ -68,7 +68,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
       pp_grade: `${obj.per_pay_plan_code || DEFAULT_TEXT}/${obj.grade || DEFAULT_TEXT}`,
       skill: obj.skill || DEFAULT_TEXT,
       locationOrg: `${obj.org || DEFAULT_TEXT} ${obj.org_code ? `(${obj.org_code})` : ''}`,
-      language: formatLanguages(obj.languages) || DEFAULT_TEXT,
+      language: formatLanguages(obj.languages, 'lang_code') || DEFAULT_TEXT,
       classification: getClassificationText(obj.classifications, classificationsRef),
       ted: formatDate(obj.ted) || DEFAULT_TEXT,
       bidSubmitDate: formatDate(obj.submitted_date) || DEFAULT_TEXT,
