@@ -12,7 +12,7 @@ const SelectRenderer = (props) => {
       <option value="" />
       {options?.map(option => (
         <option value={option?.code} key={option?.code}>
-          ({option.code}) {option.text}
+          {option.text}
         </option>
       ))}
     </select>
