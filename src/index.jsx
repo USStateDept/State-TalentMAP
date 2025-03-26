@@ -82,7 +82,7 @@ export const init = async () => {
     sessionStorage.setItem('apiUrl', 'http://localhost:8000/api/v1');
   } else {
     // if not local dev use the server host url
-    sessionStorage.setItem('apiUrl', `${host}/${env}/talentmap/api/api/v1`);
+    sessionStorage.setItem('apiUrl', `${host}/talentmap/api/api/v1`);
   }
 
   const featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
