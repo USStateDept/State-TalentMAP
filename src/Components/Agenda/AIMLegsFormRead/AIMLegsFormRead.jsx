@@ -2,7 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-import { formatDate, formatLang, formatMonthYearDate, formatMonthYearDateFullYear } from 'utilities';
+// import { formatDate, formatLang, formatMonthYearDate, formatMonthYearDateFullYear } from 'utilities';
+import { formatDate, formatLang, formatMonthYearDateFullYear } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import Alert from '../../Alert';
 import { formatVice } from '../Constants';
@@ -45,7 +46,7 @@ const AIMLegsFormRead = props => {
     } else if (a?.is_separation) {
       return formatDate(a?.ted);
     }
-    return formatMonthYearDate(a?.ted);
+    return formatMonthYearDateFullYear(a?.ted);
   };
 
   const columnData = [
