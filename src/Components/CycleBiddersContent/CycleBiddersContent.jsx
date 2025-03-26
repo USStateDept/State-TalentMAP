@@ -6,7 +6,7 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 import CheckboxRenderer from 'Components/AgGrid/CheckBoxRenderer';
 import PropTypes from 'prop-types';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, formatLanguages } from 'utilities';
 
 const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, position }) => {
   const [count, setCount] = useState(0);
@@ -37,7 +37,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
     { field: 'pp_grade', headerName: 'PP/Grade', flex: 1 },
     { field: 'skill', headerName: 'Skill', flex: 1 },
     { field: 'locationOrg', headerName: 'Location/Org', flex: 1 },
-    { field: 'language', headerName: 'Language', flex: 1 },
+    { field: 'language', headerName: 'Language(s)', flex: 1 },
     { field: 'classification', headerName: 'Classification', flex: 1 },
     { field: 'ted', headerName: 'TED', flex: 1 },
     { field: 'bidSubmitDate', headerName: 'Bid Date', flex: 1 },
@@ -51,7 +51,7 @@ const CycleBiddersContent = ({ bidders, biddersIsLoading, biddersHasErrored, pos
       pp_grade: `${obj.per_pay_plan_code || DEFAULT_TEXT}/${obj.grade || DEFAULT_TEXT}`,
       skill: obj.skill || DEFAULT_TEXT,
       locationOrg: `${obj.org || DEFAULT_TEXT} ${obj.org_code ? `(${obj.org_code})` : ''}`,
-      language: obj.language || DEFAULT_TEXT,
+      language: formatLanguages(obj.languages) || DEFAULT_TEXT,
       classification: obj.classifications || DEFAULT_TEXT,
       ted: formatDate(obj.ted) || DEFAULT_TEXT,
       bidSubmitDate: formatDate(obj.submitted_date) || DEFAULT_TEXT,
