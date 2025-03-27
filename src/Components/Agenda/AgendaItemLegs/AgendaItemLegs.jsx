@@ -36,7 +36,7 @@ const AgendaItemLegs = props => {
       }
     }
 
-    return helperFunc(value) ?? value ?? 'None listed';
+    return helperFunc(value, leg) ?? value ?? 'None listed';
   };
 
   /**
@@ -53,13 +53,13 @@ const AgendaItemLegs = props => {
    * @param {Object} leg - The leg object.
    * @returns {string} - The formatted TED or a default value if not available.
    */
-  const getTeds = (leg) => {
+  const getTeds = (value, leg) => {
     let ted = 'None listed';
-    if (leg?.ted) {
+    if (value) {
       if (leg?.is_separation) {
-        ted = formatDate(leg?.ted);
+        ted = formatDate(value);
       } else {
-        ted = formatMonthYearDate(leg?.ted);
+        ted = formatMonthYearDate(value);
       }
     }
     return ted;
