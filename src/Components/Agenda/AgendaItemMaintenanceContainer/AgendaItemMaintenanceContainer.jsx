@@ -265,7 +265,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
-            <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+            <div className={`maintenance-container-left${(legsContainerExpanded || matches || isPrintViewOpen) ? '-expanded' : ''}`}>
               {spinner &&
                 <Spinner type="left-pane" size="small" />
               }
