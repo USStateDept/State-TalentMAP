@@ -57,7 +57,9 @@
   async function login(username, password) {
     try {
 
+      // Get the API URL from session storage. This is set in the src/index.jsx file
       const apiUrl = sessionStorage.getItem('apiUrl');
+      
       // Make a POST request to the token endpoint
       const tokenResponse = await fetch(`${apiUrl}/accounts/token/`, {
         method: 'POST',
