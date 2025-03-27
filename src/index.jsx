@@ -92,7 +92,7 @@ export const init = async () => {
   };
 
   // If the environment is localhost, set the headers to include the tmusrname
-  if (featureFlags.flags.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
+  if (featureFlags?.flags?.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
 
   // Set the config in sessionStorage so it can be used in the app.
   sessionStorage.setItem('config', JSON.stringify(featureFlags));
