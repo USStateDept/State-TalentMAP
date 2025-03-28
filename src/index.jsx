@@ -64,7 +64,7 @@ export const init = async () => {
   sessionStorage.removeItem('config');
 
   // Get the URL of the host
-  const host = `${window.location.href}`;
+  const host = `${window.location.href.split('/talentmap')[0]}/talentmap/`;
   console.log(`Initializing app with host: ${host}`); // eslint-disable-line no-console
 
   // Get the environment from the host
