@@ -63,15 +63,11 @@ export const init = async () => {
   sessionStorage.removeItem('apiUrl');
   sessionStorage.removeItem('config');
 
-  // Get the URL of the host
-  const host = `${window.location.href.split('/talentmap')[0]}/talentmap/`;
-  console.log(`Initializing app with host: ${host}`); // eslint-disable-line no-console
-
   // Get the environment from the host
-  const env = determineEnv(host);
+  const env = determineEnv(window.location.href);
 
   // Set localDevMode to true if the environment is localhost
-  const localDevMode = host.includes('localhost');
+  const localDevMode = window.location.href.includes('localhost');
 
   // If running in localDevMode, set withCredentials to false
   const withCredentials = !localDevMode;
@@ -79,11 +75,15 @@ export const init = async () => {
   // Set the flags URL
   if (localDevMode) {
     // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
-    // if localdev use the developer localhost url
+    // if localdev use the developer localhost url for the api. I just put 8000 because that's what we've been using for Django
     sessionStorage.setItem('apiUrl', 'http://localhost:8000/api/v1');
   } else {
     // if not local dev use the server host url
-    sessionStorage.setItem('apiUrl', `${host}api/api/v1`);
+    // Remove everything after /talentmap in the URL to get the base URL for the API
+    // Sometimes you'll see /talentmap?tokenvalidation and we don't want
+    // This will ensure that the API calls are made to the correct endpoint
+    // So "some.hostname/talentmap?blah" will return the base URL as only"some.hostname/talentmap/"
+    sessionStorage.setItem('apiUrl', `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`);
   }
 
   const featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
