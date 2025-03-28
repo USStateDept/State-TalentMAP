@@ -67,7 +67,7 @@ describe('index', () => {
 
     expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('apiUrl');
     expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('config');
-    expect(determineEnvSpy).toHaveBeenCalledWith('http://localhost');
+    expect(determineEnvSpy).toHaveBeenCalledWith('http://localhost/');
     expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
       'apiUrl',
       'http://localhost:8000/api/v1'
