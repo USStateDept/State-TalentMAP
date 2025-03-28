@@ -84,7 +84,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const findEffectiveAsgOrSep = (asgAndSep) => {
     let max;
     asgAndSep.forEach(a => {
-      if (a?.status === 'Effective') {
+      // Looking for both just in case status data is different in other environments
+      if (a?.status === 'EF' || a?.status === 'Effective') {
         if (!max) max = a;
         if (isAfter(new Date(a?.eta), new Date(max?.eta))) {
           max = a;
