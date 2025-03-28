@@ -64,7 +64,8 @@ export const init = async () => {
   sessionStorage.removeItem('config');
 
   // Get the URL of the host
-  const host = `${window.location.protocol}//${window.location.host}`;
+  const host = `${window.location.href}`;
+  console.log(`Initializing app with host: ${host}`); // eslint-disable-line no-console
 
   // Get the environment from the host
   const env = determineEnv(host);
@@ -82,7 +83,7 @@ export const init = async () => {
     sessionStorage.setItem('apiUrl', 'http://localhost:8000/api/v1');
   } else {
     // if not local dev use the server host url
-    sessionStorage.setItem('apiUrl', `${host}/talentmap/api/api/v1`);
+    sessionStorage.setItem('apiUrl', `${host}api/api/v1`);
   }
 
   const featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
