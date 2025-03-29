@@ -494,3 +494,8 @@ export const EXPORT_DATA_SUCCESS_TITLE = 'Data Exported';
 export const EXPORT_DATA_SUCCESS = 'Data has been successfully exported.';
 export const EXPORT_DATA_ERROR_TITLE = 'Data Export Error';
 export const EXPORT_DATA_ERROR = 'There was an issue attempting to export this data. Please try again.';
+
+export const UPDATE_FUNCTIONAL_BUREAUS_SUCCESS_TITLE = 'Positions Functional Bureaus Updated';
+export const UPDATE_FUNCTIONAL_BUREAUS_SUCCESS = 'Positions Functional Bureaus have been successfully updated.';
+export const UPDATE_FUNCTIONAL_BUREAUS_ERROR_TITLE = 'Positions Functional Bureaus Update Error';
+export const UPDATE_FUNCTIONAL_BUREAUS_ERROR = 'There was an issue attempting to update Positions Functional Bureaus. Please try again.';

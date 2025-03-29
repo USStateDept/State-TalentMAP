@@ -51,4 +51,48 @@
       display: initial; // necessary to make custom checkboxes show
     }
   }
+
+  .results-dropdown {
+    height: 100%;
+  }
+
+  .select-dropdown {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    select {
+      width: 100%;
+    }
+  }
+
+  .controls-container {
+    padding-bottom: 10px;
+
+    .total-results {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 0px;
+    }
+
+    .position-search-controls--right {
+      padding-right: 0px;
+    }
+
+    .position-search-controls--results {
+      padding: 0px 10px;
+    }
+  }
+
+  .position-search-controls--pagination {
+    padding: 0px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    .pagination {
+      margin-top: 5px;
+    }
+  }
 }

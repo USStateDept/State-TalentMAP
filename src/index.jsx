@@ -39,11 +39,12 @@ export const loadApp = (url, withCredentials, headers) => {
     .get(url, { withCredentials, headers })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
+      render();
     })
     .catch((error) => {
       // eslint-disable-next-line no-console
       console.log('Error setting public jwt', error);
-    }).then(render());
+    });
 };
 
 
@@ -62,73 +63,46 @@ export const init = async () => {
   sessionStorage.removeItem('apiUrl');
   sessionStorage.removeItem('config');
 
-  // Set the environment based on the URL
+  // Get the environment from the host
   const env = determineEnv(window.location.href);
 
-  // Set devMode to true if the environment is localhost
-  const localDevMode = env.includes('localhost');
-  const dosdevMode = env.includes('dev');
-  const testMode = env.includes('tst');
+  // Set localDevMode to true if the environment is localhost
+  const localDevMode = window.location.href.includes('localhost');
 
-  // If running in devMode, set withCredentials to false, otherwise set it to true
+  // If running in localDevMode, set withCredentials to false
   const withCredentials = !localDevMode;
 
-  // fetch config.json to get some startup variables
-  const initialConfig = ((await axios.get('/init.json')).data);
-  sessionStorage.setItem('apiUrl', initialConfig.apiUrl);
+  // Set the flags URL
+  if (localDevMode) {
+    // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
+    // if localdev use the developer localhost url for the api. I just put 8000 because that's what we've been using for Django
+    sessionStorage.setItem('apiUrl', 'http://localhost:8000/api/v1');
+  } else {
+    // if not local dev use the server host url
+    // Remove everything after /talentmap in the URL to get the base URL for the API
+    // Sometimes you'll see /talentmap?tokenvalidation and we don't want
+    // This will ensure that the API calls are made to the correct endpoint
+    // So "some.hostname/talentmap?blah" will return the base URL as only"some.hostname/talentmap/"
+    sessionStorage.setItem('apiUrl', `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`);
+  }
 
-  // eslint-disable-next-line no-console
-  console.log('apiUrl set to:', initialConfig.apiUrl);
-
-  // fetch the feature flags
-  const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
-
-  // Set the api urls from the featureflags url
-  const hrAuthUrl = config.hrAuthUrl;
-  const hrAuthUrlPublic = config.hrAuthUrlPublic;
-
+  const featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
   // Initialize the request headers
   const headers = {
     Accept: 'application/json',
   };
 
   // If the environment is localhost, set the headers to include the tmusrname
-  if (config.flags.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
-
-  // if the env is localhost set some flags to true
-  if (localDevMode) {
-    // This sets the baseURL for the api to the local dev server
-    config.api_config.baseURL = initialConfig.apiUrl;
-    // eslint-disable-next-line no-console
-    console.log('**** LOCAL DEVELOPMENT MODE ****');
-  } else if (dosdevMode) {
-    // eslint-disable-next-line no-console
-    console.log('**** DOSDEV MODE ****');
-  } else if (testMode) {
-    // eslint-disable-next-line no-console
-    console.log('**** TEST MODE ****');
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('**** PRODUCTION MODE ****');
-  }
+  if (featureFlags?.flags?.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
 
   // Set the config in sessionStorage so it can be used in the app.
-  sessionStorage.setItem('config', JSON.stringify(config));
-
-  // eslint-disable-next-line no-console
-  if (localDevMode || dosdevMode || testMode) console.log(`Config stored in sessionStorage: ${JSON.stringify(config)}`);
+  sessionStorage.setItem('config', JSON.stringify(featureFlags));
 
   // Render the loading screen
   renderLoading();
 
-  if (window.location.href.includes(':')) {
-    // eslint-disable-next-line no-console
-    console.log('AUTHORIZING MANUALLY WITH USER PROVIDED JWT');
-    render();
-  } else if (window.location.href.includes('msappproxy')) {
-    // eslint-disable-next-line no-console
-    console.log('AUTHORIZING IN PROXY MODE');
-
+  // If the URL includes msappproxy, render the iframe and wait for a message from it.
+  if (window.location.href.includes('msappproxy')) {
     // Render the iframe
     renderIFrame(env);
 
@@ -140,15 +114,12 @@ export const init = async () => {
       // if the message is a shakehand, get the jwt from the hrAuthUrlPublic
       if (type === 'shakehand' && body) {
         // Load the app with the jwt
-        loadApp(hrAuthUrlPublic, withCredentials, headers);
+        loadApp(featureFlags.hrAuthUrlPublic, withCredentials, headers);
       }
     });
   } else {
-    // eslint-disable-next-line no-console
-    console.log('AUTHORIZING IN INTRANET MODE');
-
     // Load the app with the jwt
-    loadApp(hrAuthUrl, withCredentials, headers);
+    loadApp(featureFlags.hrAuthUrl, withCredentials, headers);
   }
 };
 

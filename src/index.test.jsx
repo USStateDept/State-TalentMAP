@@ -53,17 +53,34 @@ describe('index', () => {
 
   it('renders without crashing on init()', async () => {
     const determineEnvSpy = jest.spyOn(utilities, 'determineEnv');
-    axios.get.mockResolvedValueOnce({ data: { apiUrl: 'http://localhost:8000/api/v1', hrAuthUrl: 'http://localhost:3333/Authorize?sAppCircuitID=32', hrAuthUrlPublic: 'http://msappproxy:3333/Authorize?sAppCircuitID=32' } });
-    axios.get.mockResolvedValueOnce({ data: { flags: { persona_auth: true } } });
+    axios.get.mockResolvedValueOnce({
+      data: {
+        apiUrl: 'http://localhost:8000/api/v1',
+        hrAuthUrl: 'http://localhost:3333/Authorize?sAppCircuitID=32',
+        hrAuthUrlPublic: 'http://msappproxy:3333/Authorize?sAppCircuitID=32',
+        flags: { persona_auth: true },
+      },
+    });
     axios.get.mockResolvedValueOnce({ data: 'jwt-token' });
 
     await init();
 
     expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('apiUrl');
     expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('config');
-    expect(determineEnvSpy).toHaveBeenCalledWith(window.location.href);
-    expect(global.sessionStorage.setItem).toHaveBeenCalledWith('apiUrl', 'http://localhost:8000/api/v1');
-    expect(global.sessionStorage.setItem).toHaveBeenCalledWith('config', JSON.stringify({ flags: { persona_auth: true } }));
+    expect(determineEnvSpy).toHaveBeenCalledWith('http://localhost/');
+    expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
+      'apiUrl',
+      'http://localhost:8000/api/v1'
+    );
+    const configCall = global.sessionStorage.setItem.mock.calls.find(
+      call => call[0] === 'config'
+    );
+    
+    expect(JSON.parse(configCall[1])).toEqual(
+      expect.objectContaining({
+        flags: { persona_auth: true }
+      })
+    );
     expect(determineEnvSpy).toHaveReturnedWith('localhost');
     expect(ReactDOM.render).toHaveBeenCalled();
   });
@@ -88,11 +105,20 @@ describe('index', () => {
       Accept: 'application/json',
     };
 
-    axios.get.mockResolvedValueOnce({ data: 'jwt-token' });
+    axios.get.mockResolvedValueOnce({
+      data: { flags: { persona_auth: true } },
+    });
 
-    await loadApp('http://localhost:3333/Authorize?sAppCircuitID=32', false, headers);
+    await loadApp(
+      'http://localhost:3333/Authorize?sAppCircuitID=32',
+      false,
+      headers
+    );
 
-    expect(global.sessionStorage.setItem).toHaveBeenCalledWith('jwt', 'jwt-token');
+    expect(global.sessionStorage.setItem).toHaveBeenCalledWith('jwt', {
+      flags: { persona_auth: true },
+    });
+
     expect(ReactDOM.render).toHaveBeenCalled();
   });
 

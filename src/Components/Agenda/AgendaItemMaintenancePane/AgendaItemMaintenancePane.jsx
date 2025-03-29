@@ -406,6 +406,7 @@ const AgendaItemMaintenancePane = (props) => {
             <button
               className="usa-button-secondary print-btn"
               onClick={() => togglePrintView(true)}
+              disabled={isCreate} // Print view is disabled until the AI is saved
             >
               Print View
             </button>

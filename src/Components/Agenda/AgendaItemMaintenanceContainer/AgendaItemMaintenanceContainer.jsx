@@ -84,7 +84,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const findEffectiveAsgOrSep = (asgAndSep) => {
     let max;
     asgAndSep.forEach(a => {
-      if (a?.status === 'Effective') {
+      // Looking for both just in case status data is different in other environments
+      if (a?.status === 'EF' || a?.status === 'Effective') {
         if (!max) max = a;
         if (isAfter(new Date(a?.eta), new Date(max?.eta))) {
           max = a;
@@ -265,7 +266,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
-            <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+            <div className={`maintenance-container-left${(legsContainerExpanded || matches || isPrintViewOpen) ? '-expanded' : ''}`}>
               {spinner &&
                 <Spinner type="left-pane" size="small" />
               }
@@ -330,42 +331,46 @@ const AgendaItemMaintenanceContainer = (props) => {
                 </>
               }
             </div>
-            <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
-              <InteractiveElement onClick={toggleExpand}>
-                <Tooltip
-                  title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
-                  arrow
-                >
-                  <FontAwesome
-                    style={{ transform: rotate, transition: 'all 0.65s linear' }}
-                    name="arrow-circle-left"
-                    size="lg"
+            { !isPrintViewOpen && (
+              <>
+                <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
+                  <InteractiveElement onClick={toggleExpand}>
+                    <Tooltip
+                      title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
+                      arrow
+                    >
+                      <FontAwesome
+                        style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                        name="arrow-circle-left"
+                        size="lg"
+                      />
+                    </Tooltip>
+                  </InteractiveElement>
+                </div>
+                <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
+                  <AgendaItemResearchPane
+                    updateLegs={setLegs}
+                    activeAIL={activeAIL}
+                    location={location}
+                    setLocation={setLocation}
+                    clientData={employeeData$}
+                    clientError={employeeError}
+                    clientLoading={employeeLoading}
+                    perdet={routeEmployeeID}
+                    ref={researchPaneRef}
+                    updateSelection={readMode ? () => { } : updateSelection}
+                    userSelections={userRemarks}
+                    legCount={legs.length}
+                    readMode={readMode}
+                    employee={{
+                      employeeData: employeeData$,
+                      employeeDataError,
+                      employeeDataLoading,
+                    }}
                   />
-                </Tooltip>
-              </InteractiveElement>
-            </div>
-            <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
-              <AgendaItemResearchPane
-                updateLegs={setLegs}
-                activeAIL={activeAIL}
-                location={location}
-                setLocation={setLocation}
-                clientData={employeeData$}
-                clientError={employeeError}
-                clientLoading={employeeLoading}
-                perdet={routeEmployeeID}
-                ref={researchPaneRef}
-                updateSelection={readMode ? () => { } : updateSelection}
-                userSelections={userRemarks}
-                legCount={legs.length}
-                readMode={readMode}
-                employee={{
-                  employeeData: employeeData$,
-                  employeeDataError,
-                  employeeDataLoading,
-                }}
-              />
-            </div>
+                </div>
+              </>
+            )}
           </div>
         )}
       </MediaQuery>
