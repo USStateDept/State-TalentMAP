@@ -452,15 +452,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         'panel_admin',
       ],
       children: [
-        {
-          text: 'Panel',
-          route: '/profile/panel_admin/panel',
-          icon: 'calendar',
-          roles: [
-            'panel_admin',
-            'superuser',
-          ],
-        },
+        // {
+        //   text: 'Panel',
+        //   route: '/profile/panel_admin/panel',
+        //   icon: 'calendar',
+        //   roles: [
+        //     'panel_admin',
+        //     'superuser',
+        //   ],
+        // },
         checkFlag('flags.panel_remarks') ?
           {
             text: 'Panel Remarks',

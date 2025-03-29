@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
-import { formatDate, move } from 'utilities';
+import { formatDate, formatLanguages, move } from 'utilities';
 import { checkFlag } from 'flags';
 import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
@@ -316,7 +316,7 @@ class PositionManagerBidders extends Component {
       SubmittedDate: formattedSubmitted,
       Skill: get(m, 'skill') || NO_SKILL,
       Grade: get(m, 'grade') || NO_GRADE,
-      Language: get(m, 'language') || NO_LANGUAGE,
+      Language: formatLanguages(get(m, 'languages')) || NO_LANGUAGE,
       Classifications: classifications.length ?
         <Tooltip
           html={getClassificationsTooltip(classifications)}

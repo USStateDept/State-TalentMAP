@@ -226,7 +226,7 @@ const FunctionalBureaus = props => {
         return fbSelectProps?.data?.pabbureauorgcode ? fbSelectProps?.data?.pabbureau : '';
       },
       cellRendererParams: {
-        options: bureauOptions.map(b => ({ code: b.code, text: b.long_description })),
+        options: bureauOptions.map(b => ({ code: b.code, text: `(${b.short_description}) ${b.long_description}` })),
         getId: (e) => e.posseqnum,
         getData: (e) => e.pabbureauorgcode,
         setData: (value, id) => {
