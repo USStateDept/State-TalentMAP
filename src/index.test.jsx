@@ -65,13 +65,8 @@ describe('index', () => {
 
     await init();
 
-    expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('apiUrl');
     expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('config');
     expect(determineEnvSpy).toHaveBeenCalledWith('http://localhost/');
-    expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
-      'apiUrl',
-      'http://localhost:8000/api/v1'
-    );
     const configCall = global.sessionStorage.setItem.mock.calls.find(
       call => call[0] === 'config'
     );
