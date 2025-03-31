@@ -47,7 +47,7 @@ export const loadApp = (featureFlags, proxyMode, devMode) => {
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
       // eslint-disable-next-line no-console
-      console.log('JWT retrieved set...');
+      console.log('JWT retrieved...');
     })
     .catch((error) => {
       // eslint-disable-next-line no-console
