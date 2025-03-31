@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>TalentMAP Persona Selection</title>
   <style>
@@ -7,111 +8,95 @@
     body { padding-left: 1.5em; }
   </style>
 </head>
+
 <body>
   <div>
-  <h1>Login via JWT</h1>
-  <div>
-    <form onsubmit="loginWithJwt(); return false;">
-      <label for="jwt">JWT</label>
-      <input type="text" name="jwt" id="jwt" />
-      <button type="submit">Submit</button>
-    </form>
+    <h1>Login via JSON</h1>
+    <div>
+      <form onsubmit="devLogin(); return false;">
+        <label for="auth_data">Pre Authorized Json:</label>
+        <input type="text" name="auth_data" id="auth_data" />
+
+        <label for="devApiUrl">Choose API Endpoint:</label>
+        <select name="devApiUrl" id="devApiUrl">
+          <option value="https://localhost:8000">Localhost</option>
+          <option value="https://gtmdev1tm.hr.dosdev.us/dev1/talentmap/api/api/v1">Dev1</option>
+          <option value="https://gtmdev2tm.hr.dosdev.us/dev2/talentmap/api/api/v1">Dev2</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </div>
-</div>
-<!-- <div>
-  <h1>Login</h1>
-  <h2>Personas</h2>
-  <ul>
-    <li>
-      <a OnClick="login('admin', 'admin');">Administrator</a>
-    </li>
-    <li>
-      <a OnClick="login('shadtrachl', 'password');">Leah Shadtrach (CDO)</a>
-    </li>
-    <li>
-      <a OnClick="login('townpostj', 'password');">Jenny Townpost (Bidder)</a>
-    </li>
-    <li>
-      <a OnClick="login('rehmant', 'password');">Tarek Rehman (Bidder)</a>
-    </li>
-    <li>
-      <a OnClick="login('woodwardw', 'password');">Wendy Woodward (Bureau)</a>
-    </li>
-    <li>
-      <a OnClick="login('velezp', 'password');">Preston Velez (Post)</a>
-    </li>
-    <li>
-      <a OnClick="login('lincolna', 'password');">Abigail Lincoln (GTM/AO)</a>
-    </li>
-    <li>
-      <a OnClick="login('anthonyp', 'password');">Patrick Anthony (Panel Admin)</a>
-    </li>
-    <li>
-      <a OnClick="login('andersons', 'password');">Stephanie Anderson (System Admin)</a>
-    </li>
-  </ul>
-</div> -->
-<!-- <div>
-  <h2>Custom</h2>
-  <form onsubmit="submitLogin(); return false;">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <button type="submit">Submit</button>
-  </form>
-</div> -->
-<script>
-  
-  // Function to handle login
-  async function login(username, password) {
-    try {
 
-      // Get the API URL from session storage. This is set in the src/index.jsx file
-      const apiUrl = sessionStorage.getItem('apiUrl');
-      
-      // Make a POST request to the token endpoint
-      const tokenResponse = await fetch(`${apiUrl}/accounts/token/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        // Send the username and password in the request body
-        body: new URLSearchParams({
-          username: username,
-          password: password
-        })
-      });
+  <script>
 
-      // Check if the response is ok and parse the JSON
-      if (tokenResponse.ok) {
-        // Parse the JSON response
-        const data = await tokenResponse.json();
+    // Function to handle login
+    async function login(username, password) {
+      try {
 
-        // Store the username in localStorage, use local storage to persist the username
-        localStorage.setItem("tmusrname", username);
+        // Get the API URL from session storage. This is set in the src/index.jsx file
+        const apiUrl = sessionStorage.getItem('apiUrl');
 
-        // Redirect to the token validation page with the token
-        window.location.href = '/tokenValidation?tmApiToken=' + data.token;
-      } else {
-        throw new Error('Token request failed...');
+        // Make a POST request to the token endpoint
+        const tokenResponse = await fetch(`${apiUrl}/accounts/token/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          // Send the username and password in the request body
+          body: new URLSearchParams({
+            username: username,
+            password: password
+          })
+        });
+
+        // Check if the response is ok and parse the JSON
+        if (tokenResponse.ok) {
+          // Parse the JSON response
+          const data = await tokenResponse.json();
+
+          // Store the username in localStorage, use local storage to persist the username
+          localStorage.setItem("tmusrname", username);
+
+          // Redirect to the token validation page with the token
+          window.location.href = '/tokenValidation?tmApiToken=' + data.token;
+        } else {
+          throw new Error('Token request failed...');
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
       }
-    } catch (error) {
-      console.error('Error during login:', error);
     }
-  }
 
-  // Function to handle form submission
-  function submitLogin() {
-    login(document.getElementById('username').value, document.getElementById('password').value);
-  }
+    // Function to handle form submission
+    function submitLogin() {
+      login(document.getElementById('username').value, document.getElementById('password').value);
+    }
 
-  function loginWithJwt() {
-    const jwt = document.getElementById('jwt').value;
-    sessionStorage.setItem('jwt', jwt);
-    // Redirect to the token validation page with the token
-    window.location.href = '/tokenValidation?tmApiToken=' + jwt;
-  }
-</script>
+    async function devLogin() {
+      // The the token data from the input field
+      const tokenData = JSON.parse(document.getElementById('auth_data').value);
+
+      // Remove the "Token " prefix and store the token in localStorage
+      const token = tokenData.token.replace(/^Token\s+/, '');
+      localStorage.setItem('token', token);
+      console.log(`Preauthorized Token:${token}`);
+      
+      // Store the jwt in sesstionStorage
+      const jwt = tokenData.jwt;
+      sessionStorage.setItem('jwt', jwt);
+      console.log(`Preauthorized jwt:${jwt}`);
+
+      // Set the Developer API URL in session storage
+      const devApiUrl = document.getElementById('devApiUrl').value;
+      localStorage.setItem('devApiUrl', devApiUrl)
+      console.log(`Manually set ApiUrl:${devApiUrl}`);
+
+      // Redirect to the token validation page with the token
+      window.location.href = '/tokenValidation?tmApiToken=' + token;
+
+    }
+  </script>
 </body>
+
 </html>

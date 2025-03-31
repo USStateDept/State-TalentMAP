@@ -34,9 +34,9 @@ export const renderIFrame = (env) => {
 };
 
 // Load the app using the url, withCredentials, and headers
-export const loadApp = (url, withCredentials, headers) => {
+export const loadApp = (url, withCredentials) => {
   axios
-    .get(url, { withCredentials, headers })
+    .get(url, { withCredentials, Accept: 'application/json' })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
       render();
@@ -44,6 +44,8 @@ export const loadApp = (url, withCredentials, headers) => {
     .catch((error) => {
       // eslint-disable-next-line no-console
       console.log('Error setting public jwt', error);
+      // Render the loading screen again if there is an error
+      render();
     });
 };
 
@@ -72,11 +74,17 @@ export const init = async () => {
   // If running in localDevMode, set withCredentials to false
   const withCredentials = !localDevMode;
 
-  // Set the flags URL
+  // Kickoff login process
   if (localDevMode) {
-    // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
-    // if localdev use the developer localhost url for the api. I just put 8000 because that's what we've been using for Django
-    sessionStorage.setItem('apiUrl', 'http://localhost:8000/api/v1');
+    // eslint-disable-next-line no-console
+    console.log('***** DEVELOPER MODE *****');
+
+    // Get the devApiUrl from localStorage or use the default value
+    // This is set in the Login.html file
+    const devApiUrl = localStorage.getItem('devApiUrl') || 'http://localhost:8000/api/v1';
+    // eslint-disable-next-line no-console
+    console.log('Using devApiUrl:', devApiUrl);
+    sessionStorage.setItem('apiUrl', devApiUrl);
   } else {
     // if not local dev use the server host url
     // Remove everything after /talentmap in the URL to get the base URL for the API
@@ -86,16 +94,16 @@ export const init = async () => {
     sessionStorage.setItem('apiUrl', `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`);
   }
 
+  // Get the feature flags from the API
   const featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
-  // Initialize the request headers
-  const headers = {
-    Accept: 'application/json',
-  };
 
-  // If the environment is localhost, set the headers to include the tmusrname
-  if (featureFlags?.flags?.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
+  // Modify the feature flags as needed
+  // If using localDevMode, set the baseURL to the apiUrl from sessionStorage
+  if (localDevMode) {
+    featureFlags.api_config.baseURL = sessionStorage.getItem('apiUrl') || '';
+  }
 
-  // Set the config in sessionStorage so it can be used in the app.
+  // Set the config in sessionStorage so it can be used in the app
   sessionStorage.setItem('config', JSON.stringify(featureFlags));
 
   // Render the loading screen
@@ -114,12 +122,12 @@ export const init = async () => {
       // if the message is a shakehand, get the jwt from the hrAuthUrlPublic
       if (type === 'shakehand' && body) {
         // Load the app with the jwt
-        loadApp(featureFlags.hrAuthUrlPublic, withCredentials, headers);
+        loadApp(featureFlags.hrAuthUrlPublic, withCredentials);
       }
     });
   } else {
     // Load the app with the jwt
-    loadApp(featureFlags.hrAuthUrl, withCredentials, headers);
+    loadApp(featureFlags.hrAuthUrl, withCredentials);
   }
 };
 
