@@ -17,12 +17,11 @@
         <label for="auth_data">Pre Authorized Json:</label>
         <input type="text" name="auth_data" id="auth_data" />
 
-        <label for="devApiUrl">Choose API Endpoint:</label>
-        <select name="devApiUrl" id="devApiUrl">
+        <!-- <label for="dev_api_url">API Endpoint:</label>
+        <input type="text" name="dev_api_url" id="dev_api_url" /> -->
+        <!-- <select name="dev_api_url" id="dev_api_url">
           <option value="https://localhost:8000">Localhost</option>
-          <option value="">Dev1</option>
-          <option value="">Dev2</option>
-        </select>
+        </select> -->
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -89,13 +88,11 @@
       sessionStorage.setItem('jwt', jwt);
       console.log(`Preauthorized jwt:${jwt}`);
 
-      // Decode the payload (base64url decoding)
-      const base64Url = jwt.split('.')[1]; // Get the payload part of the JWT
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace URL-safe characters
-      const decodedPayload = JSON.parse(atob(base64)); // Decode and parse JSON
-
       // Set the Developer API URL in session storage
-      const devApiUrl = document.getElementById('devApiUrl').value;
+      const devApiUrl = 'http://localhost:8000/api/v1';
+      // TODO: use this for custom api urls
+      // const devApiUrl = document.getElementById('dev_api_url').value
+      localStorage.clear('devApiUrl');
       localStorage.setItem('devApiUrl', devApiUrl)
       console.log(`Manually set ApiUrl:${devApiUrl}`);
 
@@ -107,3 +104,4 @@
 </body>
 
 </html>
+
