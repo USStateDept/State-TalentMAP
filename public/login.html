@@ -20,8 +20,8 @@
         <label for="devApiUrl">Choose API Endpoint:</label>
         <select name="devApiUrl" id="devApiUrl">
           <option value="https://localhost:8000">Localhost</option>
-          <option value="https://gtmdev1tm.hr.dosdev.us/dev1/talentmap/api/api/v1">Dev1</option>
-          <option value="https://gtmdev2tm.hr.dosdev.us/dev2/talentmap/api/api/v1">Dev2</option>
+          <option value="">Dev1</option>
+          <option value="">Dev2</option>
         </select>
         <button type="submit">Submit</button>
       </form>
@@ -77,6 +77,8 @@
       // The the token data from the input field
       const tokenData = JSON.parse(document.getElementById('auth_data').value);
 
+      
+
       // Remove the "Token " prefix and store the token in localStorage
       const token = tokenData.token.replace(/^Token\s+/, '');
       localStorage.setItem('token', token);
@@ -86,6 +88,11 @@
       const jwt = tokenData.jwt;
       sessionStorage.setItem('jwt', jwt);
       console.log(`Preauthorized jwt:${jwt}`);
+
+      // Decode the payload (base64url decoding)
+      const base64Url = jwt.split('.')[1]; // Get the payload part of the JWT
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace URL-safe characters
+      const decodedPayload = JSON.parse(atob(base64)); // Decode and parse JSON
 
       // Set the Developer API URL in session storage
       const devApiUrl = document.getElementById('devApiUrl').value;
