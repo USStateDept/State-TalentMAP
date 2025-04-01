@@ -957,15 +957,12 @@ export const convertQueryToString = (query: Record<string, any>): string | Recor
 };
 
 export const determineEnv = (url: string): string => {
-  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|10)/i;
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost)/i;
   const regex = new RegExp(expression);
   const match = url.match(regex);
   if (!match) {
     console.log('no valid env found');
     throw new Error('No valid env found');
-  }
-  if (match[0] === '10') {
-    return 'remote_dev';
   }
   return match[0];
 };
