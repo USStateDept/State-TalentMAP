@@ -67,10 +67,6 @@ export const getConfig = async (featureFlagsUrl) => {
 
 // Initialize the app
 export const init = async () => {
-  // remove config from sessionStorage to avoid stale data
-  sessionStorage.removeItem('apiUrl');
-  sessionStorage.removeItem('config');
-
   // Get the environment from the host
   const env = determineEnv(window.location.href);
 

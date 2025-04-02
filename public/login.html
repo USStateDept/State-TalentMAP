@@ -28,7 +28,22 @@
   </div>
 
   <script>
-
+    window.onload = function() {
+      if (!window.location.href.includes(':3000')){
+        return;
+      }
+      // Check if the user is already logged in
+      let token = localStorage.getItem('token')
+      let jwt = sessionStorage.getItem('jwt');
+      if (token !== undefined && jwt !== undefined) {
+        console.log(`Already logged in....`);
+        token = token.replace(/"/g, '');
+        console.log(`Token:${token}`);
+        console.log(`jwt:${jwt}`);
+        // If the user is logged in, redirect to the token validation page
+        window.location.href = '/tokenValidation?tmApiToken=' + token;
+      }
+    };
     // Function to handle login
     async function login(username, password) {
       try {
@@ -75,8 +90,6 @@
     async function devLogin() {
       // The the token data from the input field
       const tokenData = JSON.parse(document.getElementById('auth_data').value);
-
-      
 
       // Remove the "Token " prefix and store the token in localStorage
       const token = tokenData.token.replace(/^Token\s+/, '');
