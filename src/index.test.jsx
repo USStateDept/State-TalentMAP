@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Index, { getConfig, init, loadApp, render, renderIFrame, renderLoading } from './index';
+import Index, { getFeatureFlags, init, loadApp, render, renderIFrame, renderLoading } from './index';
 import * as utilities from './utilities';
 
 jest.mock('axios');
@@ -120,7 +120,7 @@ describe('index', () => {
   it('fetches config on getConfig()', async () => {
     axios.get.mockResolvedValueOnce({ data: { flags: { settings: true } } });
 
-    const config = await getConfig('http://localhost:8000/api/v1/featureflags');
+    const config = await getFeatureFlags('http://localhost:8000/api/v1/featureflags');
 
     expect(config).toEqual({ flags: { settings: true } });
   });

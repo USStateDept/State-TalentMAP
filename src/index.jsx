@@ -14,36 +14,24 @@ import './polyfills';
 
 // Render the app to the DOM
 export const render = () => {
-  ReactDOM.render((
-    <App />
-  ), document.getElementById('root') || document.createElement('div'));
+  ReactDOM.render(<App />, document.getElementById('root') || document.createElement('div'));
 };
 
 // Show the loading screen while the app is loading
 export const renderLoading = () => {
-  ReactDOM.render((
-    <Splash />
-  ), document.getElementById('root') || document.createElement('div'));
+  ReactDOM.render(<Splash />, document.getElementById('root') || document.createElement('div'));
 };
 
-// Render the iframe
+// Render the hronline iframe to the DOM
+// This is used for the iframe that is loaded when the app is running in msappproxy mode
 export const renderIFrame = (env) => {
-  ReactDOM.render((
-    <HrOnlineIFrame env={env} />
-  ), document.getElementById('hronlineIframe') || document.createElement('div'));
+  ReactDOM.render(<HrOnlineIFrame env={env} />, document.getElementById('hronlineIframe') || document.createElement('div'));
 };
 
-// Load the app using the url, withCredentials, and headers
-export const loadApp = (featureFlags, proxyMode, devMode) => {
-  // Set the config in sessionStorage so it can be used in the app.
-  sessionStorage.setItem('config', JSON.stringify(featureFlags));
-
-  // Set the url to the hrAuthUrlPublic if the proxyMode is true
-  const url = proxyMode ? featureFlags.hrAuthUrlPublic : featureFlags.hrAuthUrl;
-
-  // Set the jwt in sessionStorage so it can be used in the app.
+// Load the app using the url
+export const loadApp = (url) => {
   axios
-    .get(url, { withCredentials: !devMode, Accept: 'application/json' })
+    .get(url, { withCredentials: true, Accept: 'application/json' })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
       // eslint-disable-next-line no-console
@@ -56,9 +44,10 @@ export const loadApp = (featureFlags, proxyMode, devMode) => {
   render();
 };
 
-export const getConfig = async (featureFlagsUrl) => {
+// Get the feature flags from the database
+export const getFeatureFlags = async (url) => {
   try {
-    const response = await axios.get(featureFlagsUrl);
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     return error;
@@ -73,49 +62,48 @@ export const init = async () => {
   // Render the loading screen
   renderLoading();
 
-  // The feature flags will be used to determine the apiUrl and hrAuthUrl
-  let featureFlags;
-  let devMode = false; // default to false
-
-  // If the URL includes dev, set the devMode to true
   switch (env) {
-    case 'localhost': // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
+    case 'localhost': {
+      // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
       // eslint-disable-next-line no-console
       console.log('***** Local development mode *****');
-      devMode = true; // set the devMode to true
 
-      // Get the apiUrl from localStorage, this is set in the login.html page
-      sessionStorage.setItem('apiUrl', localStorage.getItem('devApiUrl'));
+      // Set the devApiUrl to the local API URL
+      const devApiUrl = 'http://localhost:8000/api/v1';
 
-      // Custom handler for the feature flags from the database -------------------------------------
-      // Modify the apiUrl to point to the manually set url set in the login.html page
-      featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
+      // Get the apiUrl from session or set it to the default value
+      const apiUrl = sessionStorage.setItem('apiUrl', devApiUrl);
+
+      // Get the feature flags from the database
+      const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}/featureflags/`);
 
       // Give the api_config a blank object to avoid errors
-      featureFlags.api_config = {};
+      databaseFeatureFlags.api_config = {};
 
-      // Manually route the apiUrl to the api config so we can use it switch in for development
-      featureFlags.api_config.baseURL = sessionStorage.getItem('apiUrl');
+      // Manually route the apiUrl for development
+      databaseFeatureFlags.api_config.baseURL = apiUrl;
 
+      // Set the config in sessionStorage so it can be used in the app.
+      sessionStorage.setItem('config', JSON.stringify(databaseFeatureFlags));
       break;
+    }
 
-    default:
+    default: {
       // if not local dev use the server host url
       // Remove everything after /talentmap in the URL to get the base URL for the API
       // Sometimes you'll see /talentmap?tokenvalidation and we don't want
       // This will ensure that the API calls are made to the correct endpoint
-      // So "some.hostname/talentmap?blah" will return the base URL as only"some.hostname/talentmap/"
+      // So 'some.hostname/talentmap?blah' will return the base URL as only'some.hostname/talentmap/'
       sessionStorage.setItem('apiUrl', `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`);
 
-      // Set the apiUrl from the sessionStorage
-      featureFlags = await getConfig(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
+      // Get the feature flags from the database
+      const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
 
+      // Set the config in sessionStorage so it can be used in the app.
+      sessionStorage.setItem('config', JSON.stringify(databaseFeatureFlags));
       break;
+    }
   }
-
-
-  // Initialize the app in non-proxy mode
-  let proxyMode = false; // default to false
 
   // If the URL includes msappproxy, render the iframe and wait for a message from it.
   if (window.location.href.includes('msappproxy')) {
@@ -130,16 +118,12 @@ export const init = async () => {
       // if the message is a shakehand
       if (type === 'shakehand' && body) {
         // Set the loginUrl to use the hrAuthUrlPublic
-        proxyMode = true;
+        loadApp(sessionStorage.getItem('config').hrAuthUrlPublic);
       }
     });
+  } else { // If the URL does not include msappproxy, load the app normally.
+    loadApp(sessionStorage.getItem('config').hrAuthUrl);
   }
-
-  loadApp(
-    featureFlags,
-    proxyMode,
-    devMode,
-  );
 };
 
 init();

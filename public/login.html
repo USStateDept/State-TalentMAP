@@ -4,8 +4,17 @@
 <head>
   <title>TalentMAP Persona Selection</title>
   <style>
-    a { font-size:1.5em; line-height: 3em; cursor: pointer; text-decoration: underline; color: blue }
-    body { padding-left: 1.5em; }
+    a {
+      font-size: 1.5em;
+      line-height: 3em;
+      cursor: pointer;
+      text-decoration: underline;
+      color: blue
+    }
+
+    body {
+      padding-left: 1.5em;
+    }
   </style>
 </head>
 
@@ -13,36 +22,31 @@
   <div>
     <h1>Login via JSON</h1>
     <div>
-      <form onsubmit="devLogin(); return false;">
+      <form onsubmit="localhostLogin(); return false;">
         <label for="auth_data">Pre Authorized Json:</label>
         <input type="text" name="auth_data" id="auth_data" />
-
-        <!-- <label for="dev_api_url">API Endpoint:</label>
-        <input type="text" name="dev_api_url" id="dev_api_url" /> -->
-        <!-- <select name="dev_api_url" id="dev_api_url">
-          <option value="https://localhost:8000">Localhost</option>
-        </select> -->
         <button type="submit">Submit</button>
       </form>
     </div>
   </div>
 
   <script>
-    window.onload = function() {
-      if (!window.location.href.includes(':3000')){
+    window.onload = function () {
+      if (!window.location.href.includes(':3000')) {
         return;
       }
-      // Check if the user is already logged in
-      let token = localStorage.getItem('token')
-      let jwt = sessionStorage.getItem('jwt');
-      if (token !== undefined && jwt !== undefined) {
-        console.log(`Already logged in....`);
-        token = token.replace(/"/g, '');
-        console.log(`Token:${token}`);
-        console.log(`jwt:${jwt}`);
-        // If the user is logged in, redirect to the token validation page
+
+      const jwt = sessionStorage.getItem('jwt');
+      const token = localStorage.getItem('token');
+
+      if (jwt && token) {
+        console.log('User is already logged in.');
+        // Redirect to the token validation page with the token
         window.location.href = '/tokenValidation?tmApiToken=' + token;
+      } else {
+        console.log('User is not logged in...');
       }
+
     };
     // Function to handle login
     async function login(username, password) {
@@ -87,34 +91,37 @@
       login(document.getElementById('username').value, document.getElementById('password').value);
     }
 
-    async function devLogin() {
+
+    function base64UrlDecode(jwt) {
+      // Get the characters after the first dot (the payload)
+      jwt = jwt.split('.')[1]; // Get the payload part of the JWT
+
+      // Replace URL-safe characters with base64 characters
+      jwt = jwt.replace(/-/g, '+').replace(/_/g, '/');
+
+      // Loop to add padding if necessary
+      while (jwt.length % 4) {
+        jwt += '=';
+      }
+      return decodeURIComponent(escape(atob(jwt)));
+    }
+
+    // Function to handle localhost login
+    async function localhostLogin() {
       // The the token data from the input field
       const tokenData = JSON.parse(document.getElementById('auth_data').value);
 
-      // Remove the "Token " prefix and store the token in localStorage
-      const token = tokenData.token.replace(/^Token\s+/, '');
-      localStorage.setItem('token', token);
-      console.log(`Preauthorized Token:${token}`);
-      
       // Store the jwt in sesstionStorage
-      const jwt = tokenData.jwt;
-      sessionStorage.setItem('jwt', jwt);
-      console.log(`Preauthorized jwt:${jwt}`);
+      sessionStorage.setItem('jwt', tokenData.jwt);
 
-      // Set the Developer API URL in session storage
-      const devApiUrl = 'http://localhost:8000/api/v1';
-      // TODO: use this for custom api urls
-      // const devApiUrl = document.getElementById('dev_api_url').value
-      localStorage.clear('devApiUrl');
-      localStorage.setItem('devApiUrl', devApiUrl)
-      console.log(`Manually set ApiUrl:${devApiUrl}`);
+      // Store the decrpyted jwt in localStorage
+      localStorage.setItem('decodedJwt', base64UrlDecode(tokenData.jwt));
 
       // Redirect to the token validation page with the token
-      window.location.href = '/tokenValidation?tmApiToken=' + token;
+      window.location.href = '/tokenValidation?tmApiToken=' + tokenData.token.replace(/^Token\s+/, '');
 
     }
   </script>
 </body>
 
 </html>
-
