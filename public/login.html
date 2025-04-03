@@ -45,7 +45,7 @@
       if (jwt && token) {
         console.log('User is already logged in.');
         // Redirect to the token validation page with the token
-        window.location.href = '/tokenValidation?tmApiToken=' + token.replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '');
+        window.location.href = '/tokenValidation?tmApiToken=' + formatToken(token);
       } else {
         sessionStorage.setItem('doLogin', 'false');
         console.log('User is not logged in...');
@@ -62,6 +62,14 @@
       localStorage.clear();
       console.log('Storage cleared!!');
     }
+
+
+    // Function formatToken
+    function formatToken(token) {
+      // Format the token by removing leading and trailing whitespace and replacing newlines with spaces
+      return token.trim().replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '')
+    }
+
     // Function to handle login
     async function login(username, password) {
       try {
@@ -91,7 +99,7 @@
           localStorage.setItem('tmusrname', username);
 
           // Redirect to the token validation page with the token
-          window.location.href = '/tokenValidation?tmApiToken=' + data.token;
+          window.location.href = '/tokenValidation?tmApiToken=' + formatToken(data.token);
         } else {
           throw new Error('Token request failed...');
         }
@@ -134,7 +142,7 @@
       localStorage.setItem('decodedJwt', base64UrlDecode(tokenData.jwt));
 
       // Redirect to the token validation page with the token
-      window.location.href = '/tokenValidation?tmApiToken=' + tokenData.token.replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '');
+      window.location.href = '/tokenValidation?tmApiToken=' + formatToken(tokenData.token);
 
     }
   </script>
