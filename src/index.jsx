@@ -70,8 +70,7 @@ export const init = async () => {
 
 
       // Set the devApiUrl to the local API URL
-      const host = window.location.host.split(':')[0];
-      const devApiUrl = `http://${host}:8000/api/v1`;
+      const devApiUrl = `http://${window.location.host.split(':')[0]}:8000/api/v1`;
 
       // seSett the apiUrl from devApiUrl
       sessionStorage.setItem('apiUrl', devApiUrl);
