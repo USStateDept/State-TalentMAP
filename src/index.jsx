@@ -67,22 +67,27 @@ export const init = async () => {
       // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
       // eslint-disable-next-line no-console
       console.log('***** Local development mode *****');
+      if (sessionStorage.getItem('doLogin') === 'false') {
+        // eslint-disable-next-line no-console
+        console.log('Awaiting login from login.html ...');
+        return;
+      }
 
 
       // Set the devApiUrl to the local API URL
-      const devApiUrl = `http://${window.location.host.split(':')[0]}:8000/api/v1`;
+      const apiUrl = sessionStorage.getItem('apiUrl') || `${window.location.href.split(':3000')[0]}:8000/api/v1`;
 
       // seSett the apiUrl from devApiUrl
-      sessionStorage.setItem('apiUrl', devApiUrl);
+      sessionStorage.setItem('apiUrl', apiUrl);
 
       // Get the feature flags from the database
-      const databaseFeatureFlags = await getFeatureFlags(`${devApiUrl}/featureflags/`);
+      const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}/featureflags/`);
 
       // Give the api_config a blank object to avoid errors
       databaseFeatureFlags.api_config = {};
 
       // Manually route the apiUrl for development
-      databaseFeatureFlags.api_config.baseURL = devApiUrl;
+      databaseFeatureFlags.api_config.baseURL = apiUrl;
 
       // Set the config in sessionStorage so it can be used in the app.
       // eslint-disable-next-line no-console

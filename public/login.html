@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>TalentMAP Persona Selection</title>
@@ -20,13 +20,16 @@
 
 <body>
   <div>
-    <h1>Login via JSON</h1>
+    <h1>Developer Login</h1>
     <div>
-      <form onsubmit="localhostLogin(); return false;">
-        <label for="auth_data">Pre Authorized Json:</label>
-        <input type="text" name="auth_data" id="auth_data" />
-        <button type="submit">Submit</button>
+      <form onsubmit='localhostLogin(); return false;'>
+        <label for='auth_data'>Paste the login json from Dev1 Dashboard/Profile/Settings:</label>
+        <input type='text' name='auth_data' id='auth_data' />
+        <label for='api_url'>ApiUrl:</label>
+        <input type='text' name='api_url' id='api_url' />
+        <button type='submit'>Submit</button>
       </form>
+      <button id='currentUrlButton' onclick='clearStorage()'>Clear browswer Storage</button>
     </div>
   </div>
 
@@ -44,10 +47,21 @@
         // Redirect to the token validation page with the token
         window.location.href = '/tokenValidation?tmApiToken=' + token;
       } else {
+        sessionStorage.setItem('doLogin', 'false');
         console.log('User is not logged in...');
       }
-
+      // Get the current URL and set it as the value of the input field for the API URL
+      document.getElementById('api_url').value = window.location.href.split(':3000')[0] + ':8000/api/v1';
     };
+
+
+    // Function to clear session storage and local storage
+    function clearStorage() {
+      // Clear the session storage and local storage
+      sessionStorage.clear();
+      localStorage.clear();
+      console.log('Storage cleared!!');
+    }
     // Function to handle login
     async function login(username, password) {
       try {
@@ -74,7 +88,7 @@
           const data = await tokenResponse.json();
 
           // Store the username in localStorage, use local storage to persist the username
-          localStorage.setItem("tmusrname", username);
+          localStorage.setItem('tmusrname', username);
 
           // Redirect to the token validation page with the token
           window.location.href = '/tokenValidation?tmApiToken=' + data.token;
@@ -113,12 +127,14 @@
 
       // Store the jwt in sesstionStorage
       sessionStorage.setItem('jwt', tokenData.jwt);
+      sessionStorage.setItem('apiUrl', document.getElementById('api_url').value);
+      sessionStorage.setItem('doLogin', 'true');
 
       // Store the decrpyted jwt in localStorage
       localStorage.setItem('decodedJwt', base64UrlDecode(tokenData.jwt));
 
       // Redirect to the token validation page with the token
-      window.location.href = '/tokenValidation?tmApiToken=' + tokenData.token.replace(/^Token\s+/, '');
+      window.location.href = '/tokenValidation?tmApiToken=' + tokenData.token.replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '');
 
     }
   </script>
