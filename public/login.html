@@ -45,7 +45,7 @@
       if (jwt && token) {
         console.log('User is already logged in.');
         // Redirect to the token validation page with the token
-        window.location.href = '/tokenValidation?tmApiToken=' + token;
+        window.location.href = '/tokenValidation?tmApiToken=' + token.replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '');
       } else {
         sessionStorage.setItem('doLogin', 'false');
         console.log('User is not logged in...');
