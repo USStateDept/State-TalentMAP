@@ -120,7 +120,7 @@ const cache = setupCache({
 
 export const config = () => ({
   // use API_URL by default, but can be overriden from within api_config flag if exists
-  baseURL: process.env.API_URL || 'http://localhost:8000/api/v1',
+  baseURL: process.env.API_URL || 'http://api_js_missing_api_url:8000/api',
   adapter: !isIE ? cache.adapter : undefined, // axios-cache-adapter does not work in IE11
   ...(checkFlag('api_config') || {}),
 });

@@ -68,22 +68,26 @@ export const init = async () => {
       // eslint-disable-next-line no-console
       console.log('***** Local development mode *****');
 
-      // Set the devApiUrl to the local API URL
-      const devApiUrl = 'http://localhost:8000/api/v1';
 
-      // Get the apiUrl from session or set it to the default value
-      const apiUrl = sessionStorage.setItem('apiUrl', devApiUrl);
+      // Set the devApiUrl to the local API URL
+      const host = window.location.host;
+      const devApiUrl = `http://${host}/api/v1`;
+
+      // seSett the apiUrl from devApiUrl
+      sessionStorage.setItem('apiUrl', devApiUrl);
 
       // Get the feature flags from the database
-      const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}/featureflags/`);
+      const databaseFeatureFlags = await getFeatureFlags(`${devApiUrl}/featureflags/`);
 
       // Give the api_config a blank object to avoid errors
       databaseFeatureFlags.api_config = {};
 
       // Manually route the apiUrl for development
-      databaseFeatureFlags.api_config.baseURL = apiUrl;
+      databaseFeatureFlags.api_config.baseURL = devApiUrl;
 
       // Set the config in sessionStorage so it can be used in the app.
+      // eslint-disable-next-line no-console
+      console.log('localhost config in sessionStorage', databaseFeatureFlags);
       sessionStorage.setItem('config', JSON.stringify(databaseFeatureFlags));
       break;
     }
