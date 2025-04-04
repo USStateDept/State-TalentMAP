@@ -12,6 +12,25 @@
       color: blue
     }
 
+    input[type="text"],
+    input[type="textarea"] {
+      width: 700px;
+      /* Adjust the width as needed */
+    }
+
+    .red-button {
+      background-color: red !important;
+      color: white !important;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .red-button:hover {
+      background-color: darkred !important;
+      /* Optional: Add a hover effect */
+    }
+
     body {
       padding-left: 1.5em;
     }
@@ -19,7 +38,7 @@
 </head>
 
 <body>
-  <div>
+  <div id='main' style='display:none'>
     <h1>Developer Login</h1>
     <div>
       <form onsubmit='login(); return false;'>
@@ -29,7 +48,36 @@
         <input type='text' name='api_url' id='api_url' />
         <button type='submit'>Submit</button>
       </form>
-      <button id='currentUrlButton' onclick='clearStorage()'>Clear browswer Storage</button>
+    </div>
+    </hr>
+    <div>
+      <h2>Session and Local Storage</h2>
+      <p>Note: The values in the input fields are not editable. They are populated from your browser's session and local
+        storage.</p>
+      <table>
+        <tr>
+          <td>Username</td>
+          <td><input type='text' name='username' id='username' disabled /></td>
+        </tr>
+        <tr>
+          <td>Grantor</td>
+          <td><input type='text' name='grantor' id='grantor' disabled /></td>
+        </tr>
+        <tr>
+          <td>sessionStorage.apiurl</td>
+          <td><input type='text' name='apiUrl' id='apiUrl' disabled /></td>
+        </tr>
+        <tr>
+          <td>sessionStorage.jwt</td>
+          <td><input type='text' name='jwt' id='jwt' disabled /></td>
+        </tr>
+        <tr>
+          <td>localStorage.token</td>
+          <td><input type='text' name='token' id='token' disabled /></td>
+        </tr>
+      </table>
+      <button id='reloginBtn' onclick='relogin()' style="display: none;">Re-Login</button>
+      <button id='clearStorageBtn' onclick='clearStorage()' class='red-button'>Clear browswer Storage</button>
     </div>
   </div>
 
@@ -37,24 +85,31 @@
     window.onload = function () {
       // If the URL does not contain ':3000', redirect to the base URL
       if (!window.location.host.includes(':3000')) {
-        window.location.href = window.location.href.replace('/login.html', '');
+        window.location.href = window.location.href.replace('login.html', '');
         return;
       }
 
-      // Check if the user is already logged in by checking session storage and local storage
-      const jwt = sessionStorage.getItem('jwt');
-      const token = localStorage.getItem('token');
+      // Show the main content of the page
+      document.getElementById('main').style.display = 'block';
 
-      if (jwt && token) {
-        console.log('User is already logged in.');
-        // Redirect to the token validation page with the token
-        window.location.href = '/tokenValidation?tmApiToken=' + formatToken(token);
-      } else {
-        console.log('User is not logged in...');
-        sessionStorage.setItem('doLogin', 'false');
+      // If the session storage and local storage have values, show the relogin button
+      if (sessionStorage.getItem('jwt') && localStorage.getItem('token')) {
+        document.getElementById('reloginBtn').style.display = 'block';
       }
+
+      // Set the Login to false in localStorage
+      localStorage.setItem('doLogin', 'false');
+
       // Get the current URL and set it as the value of the input field for the API URL
       document.getElementById('api_url').value = window.location.href.split(':3000')[0] + ':8000/api/v1';
+      document.getElementById('jwt').value = sessionStorage.getItem('jwt') || '';
+      document.getElementById('apiUrl').value = sessionStorage.getItem('apiUrl') || '';
+      document.getElementById('token').value = formatToken(localStorage.getItem('token')) || '';
+      const dJwt = JSON.parse(localStorage.getItem('decodedJwt'));
+      if (dJwt) {
+        document.getElementById('username').value = dJwt.unique_name.split('\\')[1] || '';
+        document.getElementById('grantor').value = dJwt.aud || '';
+      }
     };
 
 
@@ -64,10 +119,16 @@
       sessionStorage.clear();
       localStorage.clear();
       console.log('Storage cleared!!');
+      // Reload the page to reflect the changes
+      window.location.reload();
     }
 
     // Function formatToken
     function formatToken(token) {
+      // Check if the token is null or undefined
+      if (!token) {
+        return ''; // Return an empty string if the token is null or undefined
+      }
       // Format the token by removing leading and trailing whitespace and replacing newlines with spaces
       return token.trim().replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '')
     }
@@ -87,8 +148,17 @@
       return decodeURIComponent(escape(atob(jwt)));
     }
 
+    function relogin() {
+      // Set the localStorage to allow index.jsx to login
+      localStorage.setItem('doLogin', 'true');
+      // Redirect to the login page
+      window.location.href = '/tokenValidation?tmApiToken=' + formatToken(localStorage.getItem('token'));
+    }
     // Function to handle login login
     async function login() {
+      // Clear the session storage and local storage
+      clearStorage();
+
       // The the token data from the input field
       const tokenData = JSON.parse(document.getElementById('auth_data').value);
 
@@ -96,7 +166,7 @@
       sessionStorage.setItem('jwt', tokenData.jwt);
       localStorage.setItem('token', formatToken(tokenData.token));
       sessionStorage.setItem('apiUrl', document.getElementById('api_url').value);
-      sessionStorage.setItem('doLogin', 'true');
+      localStorage.setItem('doLogin', 'true');
 
       // Store the decrpyted jwt in localStorage
       localStorage.setItem('decodedJwt', base64UrlDecode(tokenData.jwt));

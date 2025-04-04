@@ -63,6 +63,10 @@ export const init = async () => {
   const sessionStorageKeys = {
     apiUrl: 'apiUrl',
     config: 'config',
+  };
+
+  const localStorageKeys = {
+    loggedIn: 'loggedIn',
     doLogin: 'doLogin',
   };
 
@@ -75,14 +79,24 @@ export const init = async () => {
       // eslint-disable-next-line no-console
       console.log('***** Local development mode *****');
 
-      if (sessionStorage.getItem(sessionStorageKeys.doLogin) === 'false') {
+      // Set the API URL for local development
+      if (localStorage.getItem(localStorageKeys.doLogin) === 'false') {
         // eslint-disable-next-line no-console
         console.log('Awaiting login from login.html ...');
         return;
       }
 
       // Get the API URL from sessionStorage
-      const apiUrl = sessionStorage.getItem(sessionStorageKeys.apiUrl);
+      // eslint-disable-next-line no-console
+      console.log(sessionStorageKeys.apiUrl);
+      let apiUrl = sessionStorage.getItem(sessionStorageKeys.apiUrl);
+
+      if (!apiUrl) {
+        // eslint-disable-next-line no-console
+        console.log('No API URL found in sessionStorage. Please set it first.');
+        apiUrl = `${window.location.href.split(':')[0]}:8000/api/v1`;
+        return;
+      }
       sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
 
       // Fetch feature flags
