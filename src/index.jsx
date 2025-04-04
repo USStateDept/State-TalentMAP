@@ -54,6 +54,8 @@ export const getFeatureFlags = async (url) => {
 export const init = async () => {
   // Determine the environment (e.g., localhost, production)
   const env = determineEnv(window.location.href);
+  // eslint-disable-next-line no-console
+  console.log('Environment:', env);
 
   // Define API paths and session storage keys
   const featureFlagsPath = '/featureflags/';
@@ -68,6 +70,8 @@ export const init = async () => {
   // Show the loading screen
   renderLoading();
 
+  // eslint-disable-next-line no-console
+  console.log('Loading switch statments...');
   switch (env) {
     case 'localhost': {
       // eslint-disable-next-line no-console
@@ -95,13 +99,31 @@ export const init = async () => {
     }
 
     default: {
+      // TODO: Remove comments
+      console.log('***** Server Mode *****');
+
       // Set API URL for production
+      // eslint-disable-next-line no-console
       const host = window.location.href.split('/talentmap')[0];
-      let loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrl;
+
+      // TODO: Remove comments
+      console.log('Host:', host);
+
       sessionStorage.setItem(sessionStorageKeys.apiUrl, `${host}${azureApiPath}`);
+
+      // TODO: Remove comments
+      console.log('API URL:', sessionStorage.getItem(sessionStorageKeys.apiUrl));
+
+
+      let loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrl;
+      // TODO: Remove comments
+      console.log('Login URL:', loginUrl);
 
       // Fetch and store feature flags
       const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem(sessionStorageKeys.apiUrl)}${featureFlagsPath}`);
+      // TODO: Remove comments
+      console.log('Feature Flags:', databaseFeatureFlags);
+
       sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
 
       // Handle msappproxy mode
