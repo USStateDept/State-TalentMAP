@@ -105,14 +105,12 @@ export const init = async () => {
 
     // Default case for production or other environments
     default: {
-      // eslint-disable-next-line no-console
+      // Set the protocol and host for the API URL
+      const protocol = window.location.protocol;
       const host = window.location.host;
 
-      // Azure server api endpoint
-      const serverApiPath = '/talentmap/api/api/v1';
-
       // Set the apiUrl string
-      const apiUrl = `${host}/${env}/${serverApiPath}`;
+      const apiUrl = `${protocol}//${host}/${env}/talentmap/api/api/v1`;
 
       // Set the apiUrl in sessionStorage
       sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
