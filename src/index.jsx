@@ -114,17 +114,19 @@ export const init = async () => {
       // TODO: Remove comments
       console.log('API URL:', sessionStorage.getItem(sessionStorageKeys.apiUrl));
 
-
-      let loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrl;
-      // TODO: Remove comments
-      console.log('Login URL:', loginUrl);
-
       // Fetch and store feature flags
       const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem(sessionStorageKeys.apiUrl)}${featureFlagsPath}`);
       // TODO: Remove comments
       console.log('Feature Flags:', databaseFeatureFlags);
 
+      // set the Config object in sessionStorage
       sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
+
+      // Set the login URL
+      let loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrl;
+
+      // TODO: Remove comments
+      console.log('Login URL:', loginUrl);
 
       // Handle msappproxy mode
       if (window.location.href.includes('msappproxy')) {
