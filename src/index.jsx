@@ -105,12 +105,8 @@ export const init = async () => {
 
     // Default case for production or other environments
     default: {
-      // Set the protocol and host for the API URL
-      const protocol = window.location.protocol;
-      const host = window.location.host;
-
       // Set the apiUrl string
-      const apiUrl = `${protocol}//${host}/${env}/talentmap/api/api/v1`;
+      const apiUrl = `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`;
 
       // Set the apiUrl in sessionStorage
       sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
