@@ -35,7 +35,7 @@ export const loadApp = (url) => {
       sessionStorage.setItem('jwt', response.data);
     })
     .catch((error) => {
-      ReactDOM.render(`ERROR: ${error}`, document.getElementById('root') || document.createElement('div'));
+      ReactDOM.render(`jwt error: ${error}`, document.getElementById('root') || document.createElement('div'));
     });
   render();
 };
@@ -109,7 +109,11 @@ export const init = async () => {
       // TODO: Remove comments
       console.log('Host:', host);
 
-      sessionStorage.setItem(sessionStorageKeys.apiUrl, `${host}${azureApiPath}`);
+      const apiUrl = `${host}${azureApiPath}`;
+      // TODO: Remove comments
+      console.log('API URL:', apiUrl);
+
+      sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
 
       // TODO: Remove comments
       console.log('API URL:', sessionStorage.getItem(sessionStorageKeys.apiUrl));
@@ -123,10 +127,12 @@ export const init = async () => {
       sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
 
       // Set the login URL
-      let loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrl;
+      const config = JSON.parse(sessionStorage.getItem(sessionStorageKeys.config));
 
       // TODO: Remove comments
-      console.log('Login URL:', loginUrl);
+      console.log('Config:', config);
+      console.log('hrAuthUrl:', config.hrAuthUrl);
+      console.log('hrAuthUrlPublic:', config.hrAuthUrlPublic);
 
       // Handle msappproxy mode
       if (window.location.href.includes('msappproxy')) {
@@ -134,13 +140,13 @@ export const init = async () => {
         window.addEventListener('message', (e) => {
           const { type, body } = e.data;
           if (type === 'shakehand' && body) {
-            loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrlPublic;
+            loadApp(config.hrAuthUrlPublic);
           }
         });
       }
 
       // Load the app
-      loadApp(loginUrl);
+      loadApp(config.hrAuthUrl);
       break;
     }
   }
