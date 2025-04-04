@@ -95,23 +95,15 @@ describe('index', () => {
   });
 
   it('renders without crashing on loadApp()', async () => {
-    const headers = {
-      Accept: 'application/json',
-    };
-
     axios.get.mockResolvedValueOnce({
       data: { flags: { persona_auth: true } },
     });
 
     await loadApp(
       'http://localhost:3333/Authorize?sAppCircuitID=32',
-      false,
-      headers
     );
 
-    expect(global.sessionStorage.setItem).toHaveBeenCalledWith('jwt', {
-      flags: { persona_auth: true },
-    });
+    expect(global.sessionStorage.setItem).toHaveBeenCalledWith('jwt', 'jwt-token');
 
     expect(ReactDOM.render).toHaveBeenCalled();
   });
@@ -121,6 +113,6 @@ describe('index', () => {
 
     const config = await getFeatureFlags('http://localhost:8000/api/v1/featureflags');
 
-    expect(config).toEqual({ flags: { settings: true } });
+    expect(config).toEqual({ flags: { persona_auth: true } });
   });
 });

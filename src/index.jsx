@@ -1,5 +1,5 @@
-// important: babel-polyfill needs to be first to avoid any errors in IE11
-import 'core-js/shim'; // included < Stage 4 proposals
+// Import polyfills for compatibility
+import 'core-js/shim'; // Includes Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -12,39 +12,35 @@ import { determineEnv } from './utilities';
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
 
-// Render the app to the DOM
+// Render the main app to the DOM
 export const render = () => {
   ReactDOM.render(<App />, document.getElementById('root') || document.createElement('div'));
 };
 
-// Show the loading screen while the app is loading
+// Render the loading screen
 export const renderLoading = () => {
   ReactDOM.render(<Splash />, document.getElementById('root') || document.createElement('div'));
 };
 
-// Render the hronline iframe to the DOM
-// This is used for the iframe that is loaded when the app is running in msappproxy mode
+// Render the iframe for msappproxy mode
 export const renderIFrame = (env) => {
   ReactDOM.render(<HrOnlineIFrame env={env} />, document.getElementById('hronlineIframe') || document.createElement('div'));
 };
 
-// Load the app using the url
+// Load the app and retrieve JWT
 export const loadApp = (url) => {
   axios
     .get(url, { withCredentials: true, Accept: 'application/json' })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
-      // eslint-disable-next-line no-console
-      console.log('JWT retrieved...');
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log('Error setting public jwt', error);
+      ReactDOM.render(`ERROR: ${error}`, document.getElementById('root') || document.createElement('div'));
     });
   render();
 };
 
-// Get the feature flags from the database
+// Fetch feature flags from the API
 export const getFeatureFlags = async (url) => {
   try {
     const response = await axios.get(url);
@@ -56,82 +52,75 @@ export const getFeatureFlags = async (url) => {
 
 // Initialize the app
 export const init = async () => {
-  // Get the environment from the host
+  // Determine the environment (e.g., localhost, production)
   const env = determineEnv(window.location.href);
 
-  // Render the loading screen
+  // Define API paths and session storage keys
+  const featureFlagsPath = '/featureflags/';
+  const azureApiPath = '/talentmap/api/api/v1';
+  const djangoApiPath = ':8000/api/v1';
+  const sessionStorageKeys = {
+    apiUrl: 'apiUrl',
+    config: 'config',
+    doLogin: 'doLogin',
+  };
+
+  // Show the loading screen
   renderLoading();
 
   switch (env) {
     case 'localhost': {
-      // **** DEVELOPMENT ONLY: CHANGE THIS TO THE API URL YOU WANT YOUR INSTANCE TO USE ****
       // eslint-disable-next-line no-console
       console.log('***** Local development mode *****');
-      if (sessionStorage.getItem('doLogin') === 'false') {
+      if (sessionStorage.getItem(sessionStorageKeys.doLogin) === 'false') {
         // eslint-disable-next-line no-console
         console.log('Awaiting login from login.html ...');
         return;
       }
 
+      // Set API URL for local development
+      const host = window.location.href.split(':')[0];
+      const apiUrl = sessionStorage.getItem(sessionStorageKeys.apiUrl) || `${host}${djangoApiPath}`;
+      sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
 
-      // Set the devApiUrl to the local API URL
-      const apiUrl = sessionStorage.getItem('apiUrl') || `${window.location.href.split(':3000')[0]}:8000/api/v1`;
-
-      // seSett the apiUrl from devApiUrl
-      sessionStorage.setItem('apiUrl', apiUrl);
-
-      // Get the feature flags from the database
-      const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}/featureflags/`);
-
-      // Give the api_config a blank object to avoid errors
+      // Fetch and store feature flags
+      const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}${featureFlagsPath}`);
       databaseFeatureFlags.api_config = {};
-
-      // Manually route the apiUrl for development
       databaseFeatureFlags.api_config.baseURL = apiUrl;
+      sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
 
-      // Set the config in sessionStorage so it can be used in the app.
-      // eslint-disable-next-line no-console
-      console.log('localhost config in sessionStorage', databaseFeatureFlags);
-      sessionStorage.setItem('config', JSON.stringify(databaseFeatureFlags));
+      // Render the app
+      render();
       break;
     }
 
     default: {
-      // if not local dev use the server host url
-      // Remove everything after /talentmap in the URL to get the base URL for the API
-      // Sometimes you'll see /talentmap?tokenvalidation and we don't want
-      // This will ensure that the API calls are made to the correct endpoint
-      // So 'some.hostname/talentmap?blah' will return the base URL as only'some.hostname/talentmap/'
-      sessionStorage.setItem('apiUrl', `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`);
+      // Set API URL for production
+      const host = window.location.href.split('/talentmap')[0];
+      let loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrl;
+      sessionStorage.setItem(sessionStorageKeys.apiUrl, `${host}${azureApiPath}`);
 
-      // Get the feature flags from the database
-      const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem('apiUrl')}/featureflags/`);
+      // Fetch and store feature flags
+      const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem(sessionStorageKeys.apiUrl)}${featureFlagsPath}`);
+      sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
 
-      // Set the config in sessionStorage so it can be used in the app.
-      sessionStorage.setItem('config', JSON.stringify(databaseFeatureFlags));
+      // Handle msappproxy mode
+      if (window.location.href.includes('msappproxy')) {
+        renderIFrame(env);
+        window.addEventListener('message', (e) => {
+          const { type, body } = e.data;
+          if (type === 'shakehand' && body) {
+            loginUrl = sessionStorage.getItem(sessionStorageKeys.config).hrAuthUrlPublic;
+          }
+        });
+      }
+
+      // Load the app
+      loadApp(loginUrl);
       break;
     }
   }
-
-  // If the URL includes msappproxy, render the iframe and wait for a message from it.
-  if (window.location.href.includes('msappproxy')) {
-    // Render the ifram
-    renderIFrame(env);
-
-    // Listen for a message from the iframe
-    window.addEventListener('message', (e) => {
-      // type and body are the properties of the message
-      const { type, body } = e.data;
-
-      // if the message is a shakehand
-      if (type === 'shakehand' && body) {
-        // Set the loginUrl to use the hrAuthUrlPublic
-        loadApp(sessionStorage.getItem('config').hrAuthUrlPublic);
-      }
-    });
-  } else { // If the URL does not include msappproxy, load the app normally.
-    loadApp(sessionStorage.getItem('config').hrAuthUrl);
-  }
 };
 
+// Start the app
 init();
