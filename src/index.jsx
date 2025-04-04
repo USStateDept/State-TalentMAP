@@ -46,51 +46,56 @@ export const getFeatureFlags = async (url) => {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    return error;
+    ReactDOM.render(`config error: ${error}`, document.getElementById('root') || document.createElement('div'));
+    return null;
   }
 };
 
 // Initialize the app
 export const init = async () => {
-  // Determine the environment (e.g., localhost, production)
-  const env = determineEnv(window.location.href);
-  // eslint-disable-next-line no-console
-  console.log('Environment:', env);
+  // Show the loading screen
+  renderLoading();
 
-  // Define API paths and session storage keys
+  // Define feature flags path
   const featureFlagsPath = '/featureflags/';
-  const azureApiPath = '/talentmap/api/api/v1';
-  const djangoApiPath = ':8000/api/v1';
+
+  // Define session storage keys
   const sessionStorageKeys = {
     apiUrl: 'apiUrl',
     config: 'config',
     doLogin: 'doLogin',
   };
 
-  // Show the loading screen
-  renderLoading();
+  // Determine the environment (e.g., localhost, production)
+  const env = determineEnv(window.location.href);
 
-  // eslint-disable-next-line no-console
-  console.log('Loading switch statments...');
+  // Handle different environments and load the app accordingly
   switch (env) {
     case 'localhost': {
       // eslint-disable-next-line no-console
       console.log('***** Local development mode *****');
+
       if (sessionStorage.getItem(sessionStorageKeys.doLogin) === 'false') {
         // eslint-disable-next-line no-console
         console.log('Awaiting login from login.html ...');
         return;
       }
 
-      // Set API URL for local development
-      const host = window.location.href.split(':')[0];
-      const apiUrl = sessionStorage.getItem(sessionStorageKeys.apiUrl) || `${host}${djangoApiPath}`;
+      // Get the API URL from sessionStorage
+      const apiUrl = sessionStorage.getItem(sessionStorageKeys.apiUrl);
       sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
 
-      // Fetch and store feature flags
+      // Fetch feature flags
       const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}${featureFlagsPath}`);
+
+      // Initialize api_config object
       databaseFeatureFlags.api_config = {};
+
+      // Set the baseURL to the API URL that way its not overwritten by the feature flag in development
+      // This makes sure that the API URL is always set to the correct value from the sessionStorage
       databaseFeatureFlags.api_config.baseURL = apiUrl;
+
+      // Set the Config in sessionStorage
       sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
 
       // Render the app
@@ -98,41 +103,28 @@ export const init = async () => {
       break;
     }
 
+    // Default case for production or other environments
     default: {
-      // TODO: Remove comments
-      console.log('***** Server Mode *****');
-
-      // Set API URL for production
       // eslint-disable-next-line no-console
-      const host = window.location.href.split('/talentmap')[0];
+      const host = window.location.host;
 
-      // TODO: Remove comments
-      console.log('Host:', host);
+      // Azure server api endpoint
+      const serverApiPath = '/talentmap/api/api/v1';
 
-      const apiUrl = `${host}${azureApiPath}`;
-      // TODO: Remove comments
-      console.log('API URL:', apiUrl);
+      // Set the apiUrl string
+      const apiUrl = `${host}/${env}/${serverApiPath}`;
 
+      // Set the apiUrl in sessionStorage
       sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
 
-      // TODO: Remove comments
-      console.log('API URL:', sessionStorage.getItem(sessionStorageKeys.apiUrl));
-
-      // Fetch and store feature flags
+      // Fetch feature flags
       const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem(sessionStorageKeys.apiUrl)}${featureFlagsPath}`);
-      // TODO: Remove comments
-      console.log('Feature Flags:', databaseFeatureFlags);
 
-      // set the Config object in sessionStorage
+      // Set the config in sessionStorage
       sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
 
-      // Set the login URL
+      // Get the config from sessionStorage
       const config = JSON.parse(sessionStorage.getItem(sessionStorageKeys.config));
-
-      // TODO: Remove comments
-      console.log('Config:', config);
-      console.log('hrAuthUrl:', config.hrAuthUrl);
-      console.log('hrAuthUrlPublic:', config.hrAuthUrlPublic);
 
       // Handle msappproxy mode
       if (window.location.href.includes('msappproxy')) {
@@ -143,6 +135,7 @@ export const init = async () => {
             loadApp(config.hrAuthUrlPublic);
           }
         });
+        break;
       }
 
       // Load the app

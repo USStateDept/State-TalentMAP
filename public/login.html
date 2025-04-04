@@ -22,7 +22,7 @@
   <div>
     <h1>Developer Login</h1>
     <div>
-      <form onsubmit='localhostLogin(); return false;'>
+      <form onsubmit='login(); return false;'>
         <label for='auth_data'>Paste the login json from Dev1 Dashboard/Profile/Settings:</label>
         <input type='text' name='auth_data' id='auth_data' />
         <label for='api_url'>ApiUrl:</label>
@@ -35,10 +35,13 @@
 
   <script>
     window.onload = function () {
-      if (!window.location.href.includes(':3000')) {
+      // If the URL does not contain ':3000', redirect to the base URL
+      if (!window.location.host.includes(':3000')) {
+        window.location.href = window.location.href.replace('/login.html', '');
         return;
       }
 
+      // Check if the user is already logged in by checking session storage and local storage
       const jwt = sessionStorage.getItem('jwt');
       const token = localStorage.getItem('token');
 
@@ -47,8 +50,8 @@
         // Redirect to the token validation page with the token
         window.location.href = '/tokenValidation?tmApiToken=' + formatToken(token);
       } else {
-        sessionStorage.setItem('doLogin', 'false');
         console.log('User is not logged in...');
+        sessionStorage.setItem('doLogin', 'false');
       }
       // Get the current URL and set it as the value of the input field for the API URL
       document.getElementById('api_url').value = window.location.href.split(':3000')[0] + ':8000/api/v1';
@@ -63,57 +66,13 @@
       console.log('Storage cleared!!');
     }
 
-
     // Function formatToken
     function formatToken(token) {
       // Format the token by removing leading and trailing whitespace and replacing newlines with spaces
       return token.trim().replace(/^Token\s+/, '').replace(/"/g, '').replace(/'/g, '')
     }
 
-    // Function to handle login
-    async function login(username, password) {
-      try {
-
-        // Get the API URL from session storage. This is set in the src/index.jsx file
-        const apiUrl = sessionStorage.getItem('apiUrl');
-
-        // Make a POST request to the token endpoint
-        const tokenResponse = await fetch(`${apiUrl}/accounts/token/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          // Send the username and password in the request body
-          body: new URLSearchParams({
-            username: username,
-            password: password
-          })
-        });
-
-        // Check if the response is ok and parse the JSON
-        if (tokenResponse.ok) {
-          // Parse the JSON response
-          const data = await tokenResponse.json();
-
-          // Store the username in localStorage, use local storage to persist the username
-          localStorage.setItem('tmusrname', username);
-
-          // Redirect to the token validation page with the token
-          window.location.href = '/tokenValidation?tmApiToken=' + formatToken(data.token);
-        } else {
-          throw new Error('Token request failed...');
-        }
-      } catch (error) {
-        console.error('Error during login:', error);
-      }
-    }
-
-    // Function to handle form submission
-    function submitLogin() {
-      login(document.getElementById('username').value, document.getElementById('password').value);
-    }
-
-
+    // Function to decode the JWT
     function base64UrlDecode(jwt) {
       // Get the characters after the first dot (the payload)
       jwt = jwt.split('.')[1]; // Get the payload part of the JWT
@@ -128,13 +87,14 @@
       return decodeURIComponent(escape(atob(jwt)));
     }
 
-    // Function to handle localhost login
-    async function localhostLogin() {
+    // Function to handle login login
+    async function login() {
       // The the token data from the input field
       const tokenData = JSON.parse(document.getElementById('auth_data').value);
 
       // Store the jwt in sesstionStorage
       sessionStorage.setItem('jwt', tokenData.jwt);
+      localStorage.setItem('token', formatToken(tokenData.token));
       sessionStorage.setItem('apiUrl', document.getElementById('api_url').value);
       sessionStorage.setItem('doLogin', 'true');
 
