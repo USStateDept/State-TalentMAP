@@ -210,7 +210,7 @@ class BidControls extends Component {
   };
 
   render() {
-    const { viewType, changeViewType, defaultHandshake,
+    const { isCDO, viewType, changeViewType, defaultHandshake,
       defaultOrdering, pageSize, getKeyword, updatePagination, panelClientFetchData } = this.props;
     const { panelClient, isCDOD30, panelClientDate, hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
@@ -326,7 +326,7 @@ class BidControls extends Component {
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
-          { showCDOD30 &&
+          { (showCDOD30 && isCDO) &&
           <div className="jc-toggle-container">
             <ToggleButton
               labelTextRight={!isCDOD30 ? 'Toggle CDO D3.0 View' : 'Toggle Client Search View'}
@@ -372,6 +372,7 @@ BidControls.propTypes = {
   pageSize: PropTypes.number,
   panelClientFetchData: PropTypes.arrayOf(PropTypes.shape({})),
   updatePagination: PropTypes.func,
+  isCDO: PropTypes.bool.isRequired,
 };
 
 BidControls.defaultProps = {
