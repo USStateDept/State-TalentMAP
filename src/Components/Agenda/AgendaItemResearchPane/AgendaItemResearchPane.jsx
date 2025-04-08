@@ -59,18 +59,20 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
 
   const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
+  const { data: sepHistory, error: sepHistError, loading: sepHistLoading } = useDataLoader(api().get, `/fsbid/employee/separations/${perdet}/`);
   const { data: remarks, error: rmrkDataError, loading: rmrkDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
   const { data: rmrkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = asgHistory?.data ?? [];
+  const separations = sepHistory?.data?.results ?? [];
   const languages = get(clientData, 'languages') || [];
 
   const remarks$ = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
   const rmrkCategories$ = rmrkCategories?.data?.results ?? [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
-  const groupLoading = includes([asgHistLoading, rmrkDataLoading,
+  const groupLoading = includes([asgHistLoading, sepHistLoading, rmrkDataLoading,
     frequentPositionsLoading, rmrkCatLoading, clientClassificationsLoading,
     classificationsLoading, clientLoading], true);
 
@@ -122,11 +124,11 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   function getNavData(navType) {
     switch (navType) {
       case ASGH:
-        if (asgHistError) {
+        if (asgHistError || sepHistError) {
           return errorAlert;
         }
         return (<AssignmentHistory
-          assignments={assignments}
+          assignmentsList={{ assignments, separations }}
         />);
 
       case L:

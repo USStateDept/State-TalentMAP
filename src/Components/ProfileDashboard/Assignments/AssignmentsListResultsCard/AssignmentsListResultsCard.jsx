@@ -1,15 +1,18 @@
+import PropTypes from 'prop-types';
 import { POSITION_DETAILS } from '../../../../Constants/PropTypes';
 import InformationDataPoint from '../../../ProfileDashboard/InformationDataPoint';
-import AssignmentsContent from './AssignmentsContent';
+import { AssignmentsContent, SeparationsContent } from './AssignmentsContent';
 
-const FavoritesListResultsCard = ({ assignment }) => (
+const AssignmentsListResultsCard = ({ assignment, isSeparation }) => (
   <div className="usa-grid-full saved-search-card favorites-card" key={assignment.id}>
     <div className="usa-grid-full">
       <div className="usa-width-one-whole favorites-card-section">
         <InformationDataPoint
           titleOnBottom
           content={
-            <AssignmentsContent assignment={assignment} />
+            !isSeparation ?
+              <AssignmentsContent assignment={assignment} /> :
+              <SeparationsContent separation={assignment} />
           }
         />
       </div>
@@ -17,8 +20,13 @@ const FavoritesListResultsCard = ({ assignment }) => (
   </div>
 );
 
-FavoritesListResultsCard.propTypes = {
+AssignmentsListResultsCard.propTypes = {
   assignment: POSITION_DETAILS.isRequired,
+  isSeparation: PropTypes.bool,
 };
 
-export default FavoritesListResultsCard;
+AssignmentsListResultsCard.defaultProps = {
+  isSeparation: false,
+};
+
+export default AssignmentsListResultsCard;

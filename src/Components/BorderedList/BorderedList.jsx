@@ -6,7 +6,7 @@ const BorderedList = ({ contentArray }) => {
   const mappedContent = contentArray.slice().map(content => (
     // take the parentClassName prop as the class
     <li key={shortId.generate()} className={content.props.parentClassName}>
-      <div className="bordered-list-content">
+      <div className={`bordered-list-content ${content.props.borderedListClassName}`}>
         {content}
       </div>
     </li>
