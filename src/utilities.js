@@ -358,6 +358,13 @@ export const formatMonthYearDate = (d) => {
   return '';
 };
 
+export const formatMonthYearDateFullYear = (d) => {
+  if (d) {
+    return !isNaN(new Date(d)) && isDate(new Date(d)) ? formatV2(new Date(d), 'MM/yyyy') : d;
+  }
+  return '';
+};
+
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
   `${process.env.PUBLIC_URL}${strAssetPath}`.replace('//', '/');
