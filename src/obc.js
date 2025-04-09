@@ -1,4 +1,5 @@
 const express = require('express');
+const escapeHtml = require('escape-html');
 
 const port = 4000;
 
@@ -21,7 +22,7 @@ app.get('/post/detail/:id', (request, response) => {
 
 app.get('*', (request, response) => {
   response.status(404);
-  response.send(`Bad request ${request.url}`);
+  response.send(`Bad request ${escapeHtml(request.url)}`);
 });
 
 const server = app.listen(port);
