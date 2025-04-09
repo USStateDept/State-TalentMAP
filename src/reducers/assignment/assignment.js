@@ -16,7 +16,7 @@ export function assignmentIsLoading(state = true, action) {
       return state;
   }
 }
-export function assignment(state = [], action) {
+export function assignment(state = { assignments: [], separations: [] }, action) {
   switch (action.type) {
     case 'ASSIGNMENT_FETCH_DATA_SUCCESS':
       return action.assignment;
