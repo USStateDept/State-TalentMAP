@@ -84,7 +84,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const findEffectiveAsgOrSep = (asgAndSep) => {
     let max;
     asgAndSep.forEach(a => {
-      if (a?.status === 'Effective') {
+      // Looking for both just in case status data is different in other environments
+      if (a?.status === 'EF' || a?.status === 'Effective') {
         if (!max) max = a;
         if (isAfter(new Date(a?.eta), new Date(max?.eta))) {
           max = a;
@@ -265,7 +266,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
-            <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+            <div className={`maintenance-container-left${(legsContainerExpanded || matches || isPrintViewOpen) ? '-expanded' : ''}`}>
               {spinner &&
                 <Spinner type="left-pane" size="small" />
               }

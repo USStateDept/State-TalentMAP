@@ -1,17 +1,27 @@
-import { BID_RESULTS } from 'Constants/PropTypes';
+import PropTypes from 'prop-types';
 import BorderedList from 'Components/BorderedList';
 import AssignmentsListResultsCard from 'Components/ProfileDashboard/Assignments/AssignmentsListResultsCard';
 
 const AssignmentHistory = (props) => {
-  const { assignments } = props;
+  const { assignmentsList } = props;
   const positionArray = [];
-  assignments.forEach(assignment => (
+  assignmentsList.assignments.forEach(assignment => (
     positionArray.push(
       <AssignmentsListResultsCard
         assignment={assignment}
         condensedView
         /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName="parent-list-container"
+        parentClassName={`${assignment?.status !== 'EF' && assignment?.status !== 'Effective' ? 'hide-border' : ''}`}
+      />,
+    )
+  ));
+  assignmentsList.separations.forEach(separation => (
+    positionArray.push(
+      <AssignmentsListResultsCard
+        assignment={separation}
+        isSeparation
+        condensedView
+        borderedListClassName={'separation-content'}
       />,
     )
   ));
@@ -30,11 +40,13 @@ const AssignmentHistory = (props) => {
 };
 
 AssignmentHistory.propTypes = {
-  assignments: BID_RESULTS.isRequired,
+  assignmentsList: PropTypes.shape(
+    {
+      assignments: PropTypes.arrayOf(PropTypes.shape({})),
+      separations: PropTypes.arrayOf(PropTypes.shape({})),
+    },
+  ).isRequired,
 };
 
-AssignmentHistory.defaultProps = {
-  assignments: [],
-};
 
 export default AssignmentHistory;

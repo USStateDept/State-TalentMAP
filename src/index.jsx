@@ -1,5 +1,5 @@
-// important: babel-polyfill needs to be first to avoid any errors in IE11
-import 'core-js/shim'; // included < Stage 4 proposals
+// Import polyfills for compatibility
+import 'core-js/shim'; // Includes Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -12,111 +12,146 @@ import { determineEnv } from './utilities';
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
 
-// Render the app to the DOM
+// Render the main app to the DOM
 export const render = () => {
-  ReactDOM.render((
-    <App />
-  ), document.getElementById('root') || document.createElement('div'));
+  ReactDOM.render(<App />, document.getElementById('root') || document.createElement('div'));
 };
 
-// Show the loading screen while the app is loading
+// Render the loading screen
 export const renderLoading = () => {
-  ReactDOM.render((
-    <Splash />
-  ), document.getElementById('root') || document.createElement('div'));
+  ReactDOM.render(<Splash />, document.getElementById('root') || document.createElement('div'));
 };
 
-// Render the iframe
+// Render the iframe for msappproxy mode
 export const renderIFrame = (env) => {
-  ReactDOM.render((
-    <HrOnlineIFrame env={env} />
-  ), document.getElementById('hronlineIframe') || document.createElement('div'));
+  ReactDOM.render(<HrOnlineIFrame env={env} />, document.getElementById('hronlineIframe') || document.createElement('div'));
 };
 
-// Load the app using the url, withCredentials, and headers
-export const loadApp = (url, withCredentials, headers) => {
+// Load the app and retrieve JWT
+export const loadApp = (url) => {
   axios
-    .get(url, { withCredentials, headers })
+    .get(url, { withCredentials: true, Accept: 'application/json' })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
-      render();
     })
     .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.log('Error setting public jwt', error);
+      ReactDOM.render(`jwt error: ${error}`, document.getElementById('root') || document.createElement('div'));
     });
+  render();
 };
 
-
-export const getConfig = async (featureFlagsUrl) => {
+// Fetch feature flags from the API
+export const getFeatureFlags = async (url) => {
   try {
-    const response = await axios.get(featureFlagsUrl);
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    return error;
+    ReactDOM.render(`config error: ${error}`, document.getElementById('root') || document.createElement('div'));
+    return null;
   }
 };
 
 // Initialize the app
 export const init = async () => {
-  // remove config from sessionStorage to avoid stale data
-  sessionStorage.removeItem('apiUrl');
-  sessionStorage.removeItem('config');
-
-  // Set the environment based on the URL
-  const env = determineEnv(window.location.href);
-
-  // Set devMode to true if the environment is localhost
-  const localDevMode = env.includes('localhost');
-
-  // If running in devMode, set withCredentials to false, otherwise set it to true
-  const withCredentials = !localDevMode;
-
-  // fetch config.json to get some startup variables
-  const initialConfig = ((await axios.get('/init.json')).data);
-  sessionStorage.setItem('apiUrl', initialConfig.apiUrl);
-
-  // fetch the feature flags
-  const config = await getConfig(`${initialConfig.apiUrl}/featureflags/`);
-
-  // Set the api urls from the featureflags url
-  const hrAuthUrl = config.hrAuthUrl;
-  const hrAuthUrlPublic = config.hrAuthUrlPublic;
-
-  // Initialize the request headers
-  const headers = {
-    Accept: 'application/json',
-  };
-
-  // If the environment is localhost, set the headers to include the tmusrname
-  if (config.flags.persona_auth) headers.tmusrname = localStorage.getItem('tmusrname');
-
-  // Set the config in sessionStorage so it can be used in the app.
-  sessionStorage.setItem('config', JSON.stringify(config));
-
-  // Render the loading screen
+  // Show the loading screen
   renderLoading();
 
-  // If the URL includes msappproxy, render the iframe and wait for a message from it.
-  if (window.location.href.includes('msappproxy')) {
-    // Render the iframe
-    renderIFrame(env);
+  // Define feature flags path
+  const featureFlagsPath = '/featureflags/';
 
-    // Listen for a message from the iframe
-    window.addEventListener('message', (e) => {
-      // type and body are the properties of the message
-      const { type, body } = e.data;
+  // Define session storage keys
+  const sessionStorageKeys = {
+    apiUrl: 'apiUrl',
+    config: 'config',
+  };
 
-      // if the message is a shakehand, get the jwt from the hrAuthUrlPublic
-      if (type === 'shakehand' && body) {
-        // Load the app with the jwt
-        loadApp(hrAuthUrlPublic, withCredentials, headers);
+  const localStorageKeys = {
+    loggedIn: 'loggedIn',
+    doLogin: 'doLogin',
+  };
+
+  // Determine the environment (e.g., localhost, production)
+  const env = determineEnv(window.location.href);
+
+  // Handle different environments and load the app accordingly
+  switch (env) {
+    case 'localhost': {
+      // eslint-disable-next-line no-console
+      console.log('***** Local development mode *****');
+
+      // Set the API URL for local development
+      if (localStorage.getItem(localStorageKeys.doLogin) === 'false') {
+        // eslint-disable-next-line no-console
+        console.log('Awaiting login from login.html ...');
+        return;
       }
-    });
-  } else {
-    // Load the app with the jwt
-    loadApp(hrAuthUrl, withCredentials, headers);
+
+      // Get the API URL from sessionStorage
+      // eslint-disable-next-line no-console
+      console.log(sessionStorageKeys.apiUrl);
+      let apiUrl = sessionStorage.getItem(sessionStorageKeys.apiUrl);
+
+      if (!apiUrl) {
+        // eslint-disable-next-line no-console
+        console.log('No API URL found in sessionStorage. Please set it first.');
+        apiUrl = `${window.location.href.split(':')[0]}:8000/api/v1`;
+        return;
+      }
+      sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
+
+      // Fetch feature flags
+      const databaseFeatureFlags = await getFeatureFlags(`${apiUrl}${featureFlagsPath}`);
+
+      // Initialize api_config object
+      databaseFeatureFlags.api_config = {};
+
+      // Set the baseURL to the API URL that way its not overwritten by the feature flag in development
+      // This makes sure that the API URL is always set to the correct value from the sessionStorage
+      databaseFeatureFlags.api_config.baseURL = apiUrl;
+
+      // Set the Config in sessionStorage
+      sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
+
+      // Render the app
+      render();
+      break;
+    }
+
+    // Default case for production or other environments
+    default: {
+      // Set the apiUrl string
+      const apiUrl = `${window.location.href.split('/talentmap')[0]}/talentmap/api/api/v1`;
+
+      // Set the apiUrl in sessionStorage
+      sessionStorage.setItem(sessionStorageKeys.apiUrl, apiUrl);
+
+      // Fetch feature flags
+      const databaseFeatureFlags = await getFeatureFlags(`${sessionStorage.getItem(sessionStorageKeys.apiUrl)}${featureFlagsPath}`);
+
+      // Set the config in sessionStorage
+      sessionStorage.setItem(sessionStorageKeys.config, JSON.stringify(databaseFeatureFlags));
+
+      // Get the config from sessionStorage
+      const config = JSON.parse(sessionStorage.getItem(sessionStorageKeys.config));
+
+      // Handle msappproxy mode
+      if (window.location.href.includes('msappproxy')) {
+        renderIFrame(env);
+        window.addEventListener('message', (e) => {
+          const { type, body } = e.data;
+          if (type === 'shakehand' && body) {
+            loadApp(config.hrAuthUrlPublic);
+          }
+        });
+        break;
+      }
+
+      // Load the app
+      loadApp(config.hrAuthUrl);
+      break;
+    }
   }
 };
 
+// Start the app
 init();

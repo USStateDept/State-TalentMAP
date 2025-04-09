@@ -56,7 +56,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 const ENV = NODE_ENV || 'development';
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
-const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
+const API_URL = process.env.API_URL|| 'http://env_js_missing_api_url:8000/api/v1';
 const VERSION = require('../package.json').version;
 
 function getClientEnvironment(publicUrl) {

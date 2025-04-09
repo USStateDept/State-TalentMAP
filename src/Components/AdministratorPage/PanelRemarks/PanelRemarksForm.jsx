@@ -81,14 +81,21 @@ const PanelRemarksForm = ({ mode, categories, remarkData, onClose }) => {
       setValidForm(false);
       return false;
     }
+
+    // check if the description has any substrings with a string enclosed in curly brances:
+    const descriptionHasRemarks = /\{.*?\}/.test(description);
+
     // check if all insertions are valid
-    const missingInsertions = validateInsertions(description, insertions);
-    if (missingInsertions.length > 0) {
-      const title = 'Cannot Submit Form';
-      const message = `Missing insertions: ${missingInsertions.join(', ')}`;
-      dispatch(toastWarning(message, title));
-      return false;
+    if (descriptionHasRemarks) {
+      const missingInsertions = validateInsertions(description, insertions);
+      if (missingInsertions.length > 0) {
+        const title = 'Cannot Submit Form';
+        const message = `Missing insertions: ${missingInsertions.join(', ')}`;
+        dispatch(toastWarning(message, title));
+        return false;
+      }
     }
+
     setValidForm(true);
     return true;
   };

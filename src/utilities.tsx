@@ -957,7 +957,7 @@ export const convertQueryToString = (query: Record<string, any>): string | Recor
 };
 
 export const determineEnv = (url: string): string => {
-  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/i;
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost)/i;
   const regex = new RegExp(expression);
   const match = url.match(regex);
   if (!match) {

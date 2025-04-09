@@ -946,11 +946,12 @@ export const convertQueryToString = query => {
 };
 
 export const determineEnv = (url) => {
-  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/i;
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev|:3000)/i;
   const regex = new RegExp(expression);
   const match = url.match(regex);
   // eslint-disable-next-line
   if (!match) console.log('no valid env found');
+  if (match[0] === ':3000') match[0] = 'localhost';
   return match[0];
 };
 
@@ -965,10 +966,10 @@ export const formatLang = (langArr = []) => {
 };
 
 // For endpoints that use fsbid_languages_to_tmap in API
-export const formatLanguages = (langArr = []) => {
+export const formatLanguages = (langArr = [], langCode = 'code') => {
   if (langArr == null || langArr.length === 0) return DEFAULT_TEXT;
   return langArr.map(lang => (
-    `${lang.code} ${lang.speaking_score}/${lang.reading_score}`
+    `${lang[langCode]} ${lang.speaking_score}/${lang.reading_score}`
   )).join(', ');
 };
 
