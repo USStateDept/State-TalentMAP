@@ -22,12 +22,6 @@ module.exports = {
     'mock-local-storage',
   ],
   setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.js'],
-  testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.js?(x)',
-    '<rootDir>/src/**/?(*.)(spec|test).js?(x)',
-    '<rootDir>/src/**/__tests__/**/*.ts?(x)',
-    '<rootDir>/src/**/?(*.)(spec|test).ts?(x)',
-  ],
   testEnvironment: 'node',
   testURL: 'http://localhost',
   transform: {
