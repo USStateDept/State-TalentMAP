@@ -26,7 +26,7 @@ const SeparationsContent = ({ separation }) => {
       </div>
       <div>
         <span className="bid-list-card-title-post">Travel: </span>
-        {get(separation, 'travel') || DEFAULT_TEXT}
+        {get(separation, 'tf_short_nm') || DEFAULT_TEXT}
       </div>
       <div>
         <span className="bid-list-card-title-post">Separation Date: </span>
