@@ -9,7 +9,7 @@ exports[`BorderedListComponent matches snapshot 1`] = `
       key="1"
     >
       <div
-        className="bordered-list-content"
+        className="bordered-list-content undefined"
       >
         <span>
           test 1
@@ -20,7 +20,7 @@ exports[`BorderedListComponent matches snapshot 1`] = `
       key="2"
     >
       <div
-        className="bordered-list-content"
+        className="bordered-list-content undefined"
       >
         <div
           className="my-div"
@@ -33,7 +33,7 @@ exports[`BorderedListComponent matches snapshot 1`] = `
       key="3"
     >
       <div
-        className="bordered-list-content"
+        className="bordered-list-content undefined"
       >
         <p>
           test 3

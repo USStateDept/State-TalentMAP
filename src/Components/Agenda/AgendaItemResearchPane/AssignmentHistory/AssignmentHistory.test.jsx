@@ -5,7 +5,10 @@ import assignmentObject from '../../../../__mocks__/assignmentObject';
 
 describe('AssignmentHistory Component', () => {
   const props = {
-    assignments: [assignmentObject],
+    assignmentsList: {
+      assignments: [assignmentObject],
+      separations: [assignmentObject],
+    },
   };
   it('is defined', () => {
     const wrapper = shallow(<AssignmentHistory {...props} />);
