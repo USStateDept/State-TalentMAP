@@ -28,9 +28,6 @@ const Training = (props) => {
             draggable={false}
           />
         </Linkify>
-        <div className="word-count">
-          {getCableValue('TRAINING')?.length} / 500
-        </div>
       </Row>
     </div>
   );

@@ -98,9 +98,6 @@ const Assignments = (props) => {
               />
             </Linkify>
           </Tooltip>
-          <div className="word-count">
-            {getCableValue('ASSIGNMENTS')?.length} / 500
-          </div>
         </Row>
         <Row fluid className="position-content--description">
           <span className="definition-title">Combined TOD</span>
@@ -116,9 +113,6 @@ const Assignments = (props) => {
               draggable={false}
             />
           </Linkify>
-          <div className="word-count">
-            {getCableValue('COMBINED TOD')?.length} / 500
-          </div>
         </Row>
       </div>
     </div>
