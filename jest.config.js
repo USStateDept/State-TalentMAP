@@ -1,0 +1,46 @@
+module.exports = {
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx}',
+    '!src/registerServiceWorker.js',
+    '!src/Components/**/index.js',
+    '!src/Components/StaticDevContent/*',
+    '!src/actions/showStaticContent.js',
+    '!src/reducers/showStaticContent.js',
+    '!src/Components/CSV/**/*.{js,jsx}',
+    '!src/polyfills/**/*.{js,jsx}',
+    '!src/testUtilities/**/*',
+  ],
+  coverageReporters: ['text-summary', 'lcov'],
+  globals: {
+    'ts-jest': {
+      tsConfig: 'tsconfig.json',
+    },
+  },
+  setupFiles: [
+    '<rootDir>/config/polyfills.js',
+    'jest-localstorage-mock',
+    'mock-local-storage',
+  ],
+  setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.js'],
+  testEnvironment: 'node',
+  testURL: 'http://localhost',
+  transform: {
+    '^.+\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest',
+    '^.+\\.(js|jsx)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
+    '^(?!.*\\.(js|jsx|css|json)$)': '<rootDir>/config/jest/fileTransform.js',
+  },
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
+  moduleNameMapper: {
+    '^src(.*)$': '<rootDir>/src$1',
+    '^Components(.*)$': '<rootDir>/src/Components$1',
+    '^actions(.*)$': '<rootDir>/src/actions$1',
+    '^Constants(.*)$': '<rootDir>/src/Constants$1',
+    '^Containers(.*)$': '<rootDir>/src/Containers$1',
+    '^reducers(.*)$': '<rootDir>/src/reducers$1',
+    '^utilities': '<rootDir>/src/utilities.js',
+    '^flags': '<rootDir>/src/flags.js',
+    '^hooks': '<rootDir>/src/hooks.js',
+    '^react-native$': 'react-native-web',
+  },
+};
