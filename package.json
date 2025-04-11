@@ -226,7 +226,7 @@
     "yarn": "^1.22.18"
   },
   "scripts": {
-    "start": "node scripts/start.js --stack-size=2400",
+    "start": "node scripts/start.js",
     "start:dashboard": "webpack-dashboard node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node --expose-gc scripts/test.js --env=jsdom --no-cache --coverage --maxWorkers=3 --logHeapUsage",
