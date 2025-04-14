@@ -67,7 +67,12 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         TED:
       </dt>
       <dd>
-        None Listed
+        <Link
+          replace={false}
+          to="/profile///assignmentsseparations"
+        >
+          None Listed
+        </Link>
       </dd>
     </div>
     <div
