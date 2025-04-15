@@ -34,15 +34,18 @@ import { BUREAU_BIDDER_SORT } from 'Constants/Sort';
 const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
 const getClassificationsInfo = (userClassifications, refClassifications) => {
+  // userClassifications ends up being a string instead of an array because that is what the API returns
   const classificationsInfo = [];
   const shortCodesCache = [];
+  const longTextCache = [];
   refClassifications.forEach(a => {
+    const c = userClassifications.find(f => f === a.text);
     a.seasons.forEach(b => {
-      const c = userClassifications.find(f => f === b.id);
       if (c) {
         const k = shortCodesCache.indexOf(Icons[a.code].shortCode);
         if (k < 0) {
           shortCodesCache.push(Icons[a.code].shortCode);
+          longTextCache.push(a.text);
           classificationsInfo.push({
             icon: Icons[a.code].name,
             shortCode: Icons[a.code].shortCode,
@@ -316,7 +319,7 @@ class PositionManagerBidders extends Component {
       SubmittedDate: formattedSubmitted,
       Skill: get(m, 'skill') || NO_SKILL,
       Grade: get(m, 'grade') || NO_GRADE,
-      Language: formatLanguages(get(m, 'languages')) || NO_LANGUAGE,
+      Language: formatLanguages(get(m, 'languages'), 'lang_code') || NO_LANGUAGE,
       Classifications: classifications.length ?
         <Tooltip
           html={getClassificationsTooltip(classifications)}
@@ -327,7 +330,7 @@ class PositionManagerBidders extends Component {
           style={{ height: 'fit-content' }}
           useContext
         >
-          {classifications.map(c => c.shortCode).join(', ')}
+          {classifications.map(c => c.text).join(', ')}
         </Tooltip>
         : NO_CLASSIFICATIONS,
       TED: formattedTed,
