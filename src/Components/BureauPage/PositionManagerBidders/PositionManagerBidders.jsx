@@ -36,7 +36,6 @@ const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 const getClassificationsInfo = (userClassifications, refClassifications) => {
   const classificationsInfo = [];
   const shortCodesCache = [];
-  const longTextCache = [];
   refClassifications.forEach(a => {
     const c = userClassifications.find(f => f === a.text);
     a.seasons.forEach(b => {
@@ -44,7 +43,6 @@ const getClassificationsInfo = (userClassifications, refClassifications) => {
         const k = shortCodesCache.indexOf(Icons[a.code].shortCode);
         if (k < 0) {
           shortCodesCache.push(Icons[a.code].shortCode);
-          longTextCache.push(a.text);
           classificationsInfo.push({
             icon: Icons[a.code].name,
             shortCode: Icons[a.code].shortCode,
