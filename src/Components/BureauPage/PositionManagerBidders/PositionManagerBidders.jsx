@@ -34,7 +34,6 @@ import { BUREAU_BIDDER_SORT } from 'Constants/Sort';
 const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
 const getClassificationsInfo = (userClassifications, refClassifications) => {
-  // userClassifications ends up being a string instead of an array because that is what the API returns
   const classificationsInfo = [];
   const shortCodesCache = [];
   const longTextCache = [];
