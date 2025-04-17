@@ -37,8 +37,8 @@ const getClassificationsInfo = (userClassifications, refClassifications) => {
   const classificationsInfo = [];
   const shortCodesCache = [];
   refClassifications.forEach(a => {
+    const c = userClassifications.find(f => f === a.text);
     a.seasons.forEach(b => {
-      const c = userClassifications.find(f => f === b.id);
       if (c) {
         const k = shortCodesCache.indexOf(Icons[a.code].shortCode);
         if (k < 0) {
@@ -316,7 +316,7 @@ class PositionManagerBidders extends Component {
       SubmittedDate: formattedSubmitted,
       Skill: get(m, 'skill') || NO_SKILL,
       Grade: get(m, 'grade') || NO_GRADE,
-      Language: formatLanguages(get(m, 'languages')) || NO_LANGUAGE,
+      Language: formatLanguages(get(m, 'languages'), 'lang_code') || NO_LANGUAGE,
       Classifications: classifications.length ?
         <Tooltip
           html={getClassificationsTooltip(classifications)}
@@ -327,7 +327,7 @@ class PositionManagerBidders extends Component {
           style={{ height: 'fit-content' }}
           useContext
         >
-          {classifications.map(c => c.shortCode).join(', ')}
+          {classifications.map(c => c.text).join(', ')}
         </Tooltip>
         : NO_CLASSIFICATIONS,
       TED: formattedTed,
