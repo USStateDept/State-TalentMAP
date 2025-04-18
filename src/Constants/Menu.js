@@ -302,7 +302,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       {
         text: 'Bidder Management',
         route: '/profile/bureau/positionmanager',
-        icon: 'address-book',
+        icon: 'handshake-o',
         roles: [
           'superuser',
           'bureau_user',
@@ -393,7 +393,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       {
         text: 'Bidder Management',
         route: '/profile/post/positionmanager',
-        icon: 'address-book',
+        icon: 'handshake-o',
         roles: [
           'superuser',
           'post_user',
