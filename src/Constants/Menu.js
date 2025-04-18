@@ -544,15 +544,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      {
-        text: 'Position Management',
-        route: '/profile/ao/positionmanager',
-        icon: 'map',
-        roles: [
-          'superuser',
-          'ao_user',
-        ],
-      },
       checkFlag('flags.projected_vacancy') ?
         {
           text: 'Projected Vacancy Management',
@@ -646,15 +637,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
-      {
-        text: 'Position Management',
-        route: '/profile/cdo/positionmanager',
-        icon: 'map',
-        roles: [
-          'superuser',
-          'cdo',
-        ],
-      },
     ],
   },
   // Entry Level Menu

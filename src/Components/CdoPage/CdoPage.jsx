@@ -10,8 +10,6 @@ import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeeti
 import AssignmentsSeparations from 'Components/AssignmentsSeparations';
 import AssignmentTMOne from 'Components/AssignmentsSeparations/AssignmentTMOne/AssignmentTMOne';
 import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool';
-import PositionManager from 'Components/BureauPage/PositionManager';
-import PositionManagerDetails from 'Components/BureauPage/PositionManagerDetails';
 
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -30,8 +28,6 @@ const CdoPage = () => (
       <Route path="/profile/cdo/panelmeetingagendas" render={(props) => <PanelMeetingAgendas {...props} isCDO />} />
       <Route path="/profile/cdo/biddingtool/:id" render={() => <BiddingTool />} />
       <Route path="/profile/cdo/biddingtool/" render={() => <BiddingTool />} />
-      <Route path="/profile/cdo/positionmanager/:type/:id" render={() => <PositionManagerDetails viewType="cdo" />} />
-      <Route path="/profile/cdo/positionmanager" render={() => <PositionManager viewType="cdo" />} />
       <Route path="/profile/cdo/cyclemanagement/positions" render={() => <CyclePositionSearch viewType="cdo" />} />
       <Route path="/profile/cdo/cyclemanagement" render={() => <CycleManagement viewType="cdo" />} />
       <Route path="/profile/cdo/cycleclassifications/" render={() => <CycleClassifications />} />
