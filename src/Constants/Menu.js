@@ -300,9 +300,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Management',
+        text: 'Bidder Management',
         route: '/profile/bureau/positionmanager',
-        icon: 'map',
+        icon: 'address-book',
         roles: [
           'superuser',
           'bureau_user',
@@ -391,9 +391,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Management',
+        text: 'Bidder Management',
         route: '/profile/post/positionmanager',
-        icon: 'map',
+        icon: 'address-book',
         roles: [
           'superuser',
           'post_user',

@@ -22,7 +22,6 @@ import FA from 'react-fontawesome';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 
-// eslint-disable-next-line complexity
 const PositionManager = props => {
   // Props
   const {
@@ -333,7 +332,7 @@ const PositionManager = props => {
           <div className="usa-grid-full position-search--header">
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
-                <ProfileSectionTitle title="Position Management" icon="map" />
+                <ProfileSectionTitle title="Bidder Management" icon="map" />
                 <PositionManagerSearch
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
