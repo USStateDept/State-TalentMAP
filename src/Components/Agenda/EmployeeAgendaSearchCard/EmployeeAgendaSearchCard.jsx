@@ -108,7 +108,11 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, viewType }) => {
         <div className="employee-card-data-point">
           <FA name="clock-o" />
           <dt>TED:</dt>
-          <dd>{ted}</dd>
+          <dd>
+            <Link to={`/profile/${viewType}/${perdet}/assignmentsseparations`}>
+              {ted}
+            </Link>
+          </dd>
         </div>
         <div className="employee-card-data-point">
           <FA name="user-o" />

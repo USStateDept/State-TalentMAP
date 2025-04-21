@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,17 +16,18 @@ const AssignmentList = (props) => {
   // if ID is passed down will render that user's Assignments
   // no ID will return the logged in user's Assignments
   const showMaintainAssignments = useMaintainAssignments();
+  const showSeparations = useRef(true);
 
   const dispatch = useDispatch();
-  const assignments = useSelector(state => state.assignment);
+  const assignmentsList = useSelector(state => state.assignment);
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
 
   useEffect(() => {
-    dispatch(assignmentFetchData(id));
+    dispatch(assignmentFetchData(id, showSeparations));
   }, [id]);
 
   const positionArray = [];
-  assignments.forEach(assignment => (
+  assignmentsList.assignments.forEach(assignment => (
     positionArray.push(
       <AssignmentsListResultsCard
         assignment={assignment}
@@ -36,6 +37,18 @@ const AssignmentList = (props) => {
       />,
     )
   ));
+  if (assignmentsList.separations.length > 0) {
+    assignmentsList.separations.forEach(separation => (
+      positionArray.push(
+        <AssignmentsListResultsCard
+          assignment={separation}
+          isSeparation
+          condensedView
+          borderedListClassName={'separation-content'}
+        />,
+      )
+    ));
+  }
 
   return (
     assignmentsLoading ? <Spinner type="saved-searches" size="big" /> :

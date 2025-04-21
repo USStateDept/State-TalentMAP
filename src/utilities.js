@@ -358,6 +358,13 @@ export const formatMonthYearDate = (d) => {
   return '';
 };
 
+export const formatMonthYearDateFullYear = (d) => {
+  if (d) {
+    return !isNaN(new Date(d)) && isDate(new Date(d)) ? formatV2(new Date(d), 'MM/yyyy') : d;
+  }
+  return '';
+};
+
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
   `${process.env.PUBLIC_URL}${strAssetPath}`.replace('//', '/');
@@ -939,11 +946,12 @@ export const convertQueryToString = query => {
 };
 
 export const determineEnv = (url) => {
-  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/i;
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev|:3000)/i;
   const regex = new RegExp(expression);
   const match = url.match(regex);
   // eslint-disable-next-line
   if (!match) console.log('no valid env found');
+  if (match[0] === ':3000') match[0] = 'localhost';
   return match[0];
 };
 

@@ -32,15 +32,24 @@ export function assignmentFetchDataSuccess(assignment) {
     assignment,
   };
 }
-export function assignmentFetchData(id) {
+export function assignmentFetchData(id, showSeparations = false) {
   return (dispatch) => {
     batch(() => {
       dispatch(assignmentIsLoading(true));
       dispatch(assignmentHasErrored(false));
     });
-    api()
-      .get(`/fsbid/assignment_history/${id ? `${id}/` : ''}`)
-      .then(({ data }) => {
+    const endpoints = [
+      `/fsbid/assignment_history/${id ? `${id}/` : ''}`,
+      ...(showSeparations && id ? [`/fsbid/employee/separations/${id}/`] : []),
+    ];
+    const requests = endpoints.map(endpoint => api().get(endpoint));
+
+    Promise.all(requests)
+      .then((response) => {
+        const data = {
+          assignments: response[0]?.data ?? [],
+          separations: response[1]?.data.results ?? [],
+        };
         batch(() => {
           dispatch(assignmentFetchDataSuccess(data));
           dispatch(assignmentIsLoading(false));
