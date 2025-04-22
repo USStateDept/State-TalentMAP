@@ -100,6 +100,7 @@ class BidderPortfolioPage extends Component {
                 resetKeyword={this.resetRefKeyword}
                 updatePagination={updatePagination}
                 userProfile={bidderPortfolio}
+                isCDO={viewType === 'cdo'}
               />
             </div>
           }

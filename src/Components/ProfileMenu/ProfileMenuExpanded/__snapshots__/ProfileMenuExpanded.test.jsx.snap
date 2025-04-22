@@ -108,14 +108,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search="?type=all"
         title="Client Profiles"
       />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Management"
-        link="/profile/ao/positionmanager"
-        search=""
-        title="Position Management"
-      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -141,11 +133,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
-        key="Position Management"
+        iconName="handshake-o"
+        key="Bidder Management"
         link="/profile/bureau/positionmanager"
         search=""
-        title="Position Management"
+        title="Bidder Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -177,14 +169,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/cdo/bidderportfolio"
         search="?type=all"
         title="Client Profiles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Management"
-        link="/profile/cdo/positionmanager"
-        search=""
-        title="Position Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -234,11 +218,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
-        key="Position Management"
+        iconName="handshake-o"
+        key="Bidder Management"
         link="/profile/post/positionmanager"
         search=""
-        title="Position Management"
+        title="Bidder Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -432,14 +416,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         search="?type=all"
         title="Client Profiles"
       />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Management"
-        link="/profile/ao/positionmanager"
-        search=""
-        title="Position Management"
-      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -465,11 +441,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
-        key="Position Management"
+        iconName="handshake-o"
+        key="Bidder Management"
         link="/profile/bureau/positionmanager"
         search=""
-        title="Position Management"
+        title="Bidder Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -501,14 +477,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/cdo/bidderportfolio"
         search="?type=all"
         title="Client Profiles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Management"
-        link="/profile/cdo/positionmanager"
-        search=""
-        title="Position Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -558,11 +526,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
-        key="Position Management"
+        iconName="handshake-o"
+        key="Bidder Management"
         link="/profile/post/positionmanager"
         search=""
-        title="Position Management"
+        title="Bidder Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
