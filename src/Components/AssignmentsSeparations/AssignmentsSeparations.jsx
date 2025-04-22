@@ -94,7 +94,7 @@ const AssignmentsSeparations = (props) => {
     const hasCompleted = selectedAssignments.find(a => a.ASGS_CODE === 'CP');
     const hasOverseas = selectedAssignments.find(a => a.POS_OVRSES_IND === 'O');
     const tm1Condition = disableOtherEdits || !hasSelections || hasCompleted;
-    const locatedInChad = selectedAssignments.find(a.POS_LOCATION_CODE === 'CD2500000');
+    const locatedInChad = selectedAssignments.find(a => a.POS_LOCATION_CODE === 'CD2500000');
     setDisableNotification(tm1Condition);
     setDisableMemo(tm1Condition || (hasOverseas && !locatedInChad));
   }, [disableOtherEdits, selectedAssignments]);
