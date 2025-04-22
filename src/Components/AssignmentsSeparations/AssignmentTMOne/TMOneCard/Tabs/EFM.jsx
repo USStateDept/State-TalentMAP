@@ -24,9 +24,6 @@ const EFM = (props) => {
             draggable={false}
           />
         </Linkify>
-        <div className="word-count">
-          {getCableValue('EFM')?.length} / 500
-        </div>
       </Row>
     </div>
   );

@@ -45,9 +45,6 @@ const MemoHeader = (props) => {
               draggable={false}
             />
           </Linkify>
-          <div className="word-count">
-            {getCableValue('SUBJECT')?.length} / 500
-          </div>
         </Row>
       </div>
     </div>
