@@ -24,7 +24,7 @@ import {
   UPDATE_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
-import { extractSoapResponse } from '../Components/AssignmentsSeparations/AssignmentTMOne/TMOneCard/Common/Utilities';
+import { extractSoapResponse } from '../Components/AssignmentsSeparations/TMOne/TMOneCard/Common/Utilities';
 
 
 // ================ GET TM1 DATA ================
@@ -47,14 +47,14 @@ export function noteCableFetchDataSuccess(results) {
     results,
   };
 }
-export function noteCableAssignmentsRef(assignmentsRef) {
+export function noteCableAssignmentsSeparationsRef(asgSepRef) {
   return {
-    type: 'NOTE_CABLE_ASSIGNMENTS_REFERENCE',
-    assignmentsRef,
+    type: 'NOTE_CABLE_ASSIGNMENTS_SEPARATIONS_REFERENCE',
+    asgSepRef,
   };
 }
 let cancelNoteCable;
-export function noteCableFetchData(query = {}, location, memo, assignments) {
+export function noteCableFetchData(query = {}, location, memo, asgsSeps) {
   return (dispatch) => {
     if (cancelNoteCable) { cancelNoteCable('cancel'); }
     batch(() => {
@@ -70,7 +70,7 @@ export function noteCableFetchData(query = {}, location, memo, assignments) {
       .then(({ data }) => {
         batch(() => {
           dispatch(noteCableFetchDataSuccess(data));
-          dispatch(noteCableAssignmentsRef(assignments));
+          dispatch(noteCableAssignmentsSeparationsRef(asgsSeps));
           dispatch(noteCableFetchDataErrored(false));
           dispatch(noteCableFetchDataLoading(false));
           history.push(`${location}/${memo ? 'memo' : 'notification'}/${data[0]?.NM_SEQ_NUM}`);
@@ -79,7 +79,7 @@ export function noteCableFetchData(query = {}, location, memo, assignments) {
       .catch((err) => {
         batch(() => {
           dispatch(noteCableFetchDataSuccess([]));
-          dispatch(noteCableAssignmentsRef([]));
+          dispatch(noteCableAssignmentsSeparationsRef([]));
         });
         if (err?.message !== 'cancel') {
           batch(() => {
@@ -453,7 +453,7 @@ export function sendToEopf(data, onSuccess, memo) {
       cancelSendToEopf('cancel');
     }
     api()
-      .post('/fsbid/tmone/eopf/', data, {
+      .post('/fsbid/tmone/eopf/assignments/', data, {
         cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
       })
       .then(() => {

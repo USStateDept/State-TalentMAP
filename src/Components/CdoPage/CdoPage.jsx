@@ -8,7 +8,7 @@ import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintena
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import AssignmentsSeparations from 'Components/AssignmentsSeparations';
-import AssignmentTMOne from 'Components/AssignmentsSeparations/AssignmentTMOne/AssignmentTMOne';
+import TMOne from 'Components/AssignmentsSeparations/TMOne/TMOne';
 import BiddingTool from 'Components/BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const CdoPage = () => (
@@ -22,8 +22,8 @@ const CdoPage = () => (
       <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
       <Route path="/profile/cdo/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isCDO />} />
-      <Route path="/profile/cdo/:id/assignmentsseparations/notification/:noteMemoID" render={(props) => <AssignmentTMOne {...props} />} />
-      <Route path="/profile/cdo/:id/assignmentsseparations/memo/:noteMemoID" render={(props) => <AssignmentTMOne {...props} />} />
+      <Route path="/profile/cdo/:id/assignmentsseparations/notification/:noteMemoID" render={(props) => <TMOne {...props} />} />
+      <Route path="/profile/cdo/:id/assignmentsseparations/memo/:noteMemoID" render={(props) => <TMOne {...props} />} />
       <Route path="/profile/cdo/:id/assignmentsseparations" render={(props) => <AssignmentsSeparations {...props} />} />
       <Route path="/profile/cdo/panelmeetingagendas" render={(props) => <PanelMeetingAgendas {...props} isCDO />} />
       <Route path="/profile/cdo/biddingtool/:id" render={() => <BiddingTool />} />

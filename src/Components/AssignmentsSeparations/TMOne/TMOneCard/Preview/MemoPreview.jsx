@@ -35,7 +35,7 @@ const MemoPreview = (props) => {
 
   // ====================== Data Retrieval ======================
 
-  const assignmentsRef = useSelector(state => state.noteCableAssignmentsRef);
+  const asgSepRef = useSelector(state => state.noteCableAssignmentsSeparationsRef);
 
   const gal = useSelector(state => state.getGal);
   const galErrored = useSelector(state => state.getGalErrored);
@@ -113,7 +113,7 @@ const MemoPreview = (props) => {
           pdffilename: filename,
           pdffile: base64pdf,
           createid: note?.NM_CREATE_ID.toString(),
-          assignments: generateEopfAssignments(assignmentsRef, note, now),
+          assignments: generateEopfAssignments(asgSepRef, note, now),
         }, null, true));
       };
       generatePDF(previewText, filename, eopfRequest, true);
