@@ -24,7 +24,7 @@ import {
   UPDATE_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION_SUCCESS_TITLE,
 } from '../Constants/SystemMessages';
 import { history } from '../store';
-import { extractSoapResponse } from '../Components/AssignmentsSeparations/AssignmentTMOne/TMOneCard/Common/Utilities';
+import { extractSoapResponse } from '../Components/AssignmentsSeparations/TMOne/TMOneCard/Common/Utilities';
 
 
 // ================ GET TM1 DATA ================
