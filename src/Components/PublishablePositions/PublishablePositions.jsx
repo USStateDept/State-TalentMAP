@@ -84,7 +84,7 @@ const PublishablePositions = ({ viewType }) => {
 
   // Filter organizations based on user permissions
   const filteredOrgOptions = orgOptions.filter(org =>
-    orgPermissions?.some(permission => permission.code === org.code)
+    orgPermissions?.some(permission => permission.code === org.code),
   );
 
   const getQuery = () => ({
@@ -169,6 +169,12 @@ const PublishablePositions = ({ viewType }) => {
     setSelectedBidCycles([]);
     setClearFilters(false);
     dispatch(savePublishablePositionsSelections({}));
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const callAdditionalData = (e) => {
+    // if e is true, check for cached ref data,
+    // and make additional data calls
   };
 
   const getOverlay = () => {
