@@ -300,9 +300,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Management',
+        text: 'Bidder Management',
         route: '/profile/bureau/positionmanager',
-        icon: 'map',
+        icon: 'handshake-o',
         roles: [
           'superuser',
           'bureau_user',
@@ -391,9 +391,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Management',
+        text: 'Bidder Management',
         route: '/profile/post/positionmanager',
-        icon: 'map',
+        icon: 'handshake-o',
         roles: [
           'superuser',
           'post_user',
@@ -452,6 +452,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         'panel_admin',
       ],
       children: [
+        // Hiding old panel admin page -- @TODO remove
         // {
         //   text: 'Panel',
         //   route: '/profile/panel_admin/panel',
@@ -464,9 +465,20 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         checkFlag('flags.panel_remarks') ?
           {
             text: 'Panel Remarks',
-            route: '/profile/administrator/panelremarks/',
+            route: '/profile/panel_admin/panelremarks/',
             icon: 'cogs',
             roles: [
+              'panel_admin',
+              'superuser',
+            ],
+          } : null,
+        checkFlag('flags.panel_meetings_search') ?
+          {
+            text: 'Panel Meetings',
+            route: '/profile/panel_admin/panelmeetings',
+            icon: 'calendar',
+            roles: [
+              'panel_admin',
               'superuser',
             ],
           } : null,
@@ -544,15 +556,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      {
-        text: 'Position Management',
-        route: '/profile/ao/positionmanager',
-        icon: 'map',
-        roles: [
-          'superuser',
-          'ao_user',
-        ],
-      },
       checkFlag('flags.projected_vacancy') ?
         {
           text: 'Projected Vacancy Management',
@@ -646,15 +649,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
-      {
-        text: 'Position Management',
-        route: '/profile/cdo/positionmanager',
-        icon: 'map',
-        roles: [
-          'superuser',
-          'cdo',
-        ],
-      },
     ],
   },
   // Entry Level Menu

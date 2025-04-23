@@ -13,9 +13,11 @@ const RemarksPill = props => {
     let remarkText = r?.ref_text || '';
 
     refInserts.forEach(refInsert => {
+      // if on AIM and adding a new remark, use riseqnum (comes from Remark Glossary), otherwise user aiririseqnum (comes from agenda item remarks)
+      const riseqnum = refInsert?.riseqnum ?? refInsert?.aiririseqnum;
       remarkText = remarkText.replace(
         refInsert?.riinsertiontext,
-        find(r?.user_remark_inserts, { aiririseqnum: refInsert?.riseqnum })?.airiinsertiontext);
+        find(r?.user_remark_inserts, { aiririseqnum: riseqnum })?.airiinsertiontext);
     });
 
     return r?.active_ind === 'N' ? `(Legacy) ${remarkText}` : remarkText;

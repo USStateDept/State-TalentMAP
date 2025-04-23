@@ -1,0 +1,84 @@
+.pm-maintenance-page {
+    .button-container {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 100%;
+
+        .back-button {
+            color: $primary-blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3px;
+        }
+    }
+
+    .pm-content-container {
+        display: flex;
+        padding: 8px 0px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        align-self: stretch;
+
+        .pm-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .label {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+
+        .pm-buttons {
+            display: flex;
+            gap: 24px;
+
+            .usa-button-primary {
+                min-width: 100px;
+
+            }
+        }
+
+        .pm-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            align-self: stretch;
+
+            &-row {
+                display: flex;
+                align-items: flex-start;
+                align-content: flex-start;
+                gap: 0px 16px;
+                align-self: stretch;
+                flex-wrap: wrap;
+
+                .label {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+                .picky {
+                    .picky__input {
+                        height: 4.4rem;
+                        margin-top: 0.2em;
+                    }
+
+                    .picky__input::after {
+                        top: 13px;
+                    }
+                }
+
+                .react-datepicker-wrapper {
+                    position: relative;
+                    width: 200px;
+                }
+            }
+        }
+    }
+}

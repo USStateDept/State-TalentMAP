@@ -23,6 +23,7 @@ import TMDatePicker from 'Components/TMDatePicker';
 import ScrollUpButton from '../../ScrollUpButton';
 import { userHasPermissions } from '../../../utilities';
 import CheckBox from '../../CheckBox';
+import PanelMeetingMaintenance from '../PanelMeetingMaintenance/PanelMeetingMaitenance';
 
 const usePanelAdmin = () => checkFlag('flags.panel_admin');
 const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
@@ -193,6 +194,27 @@ const PanelMeetingSearch = ({ isCDO }) => {
     setSelectAll(false);
   };
 
+  const [showPanelMeetingMaintenance, setShowPanelMeetingMaintenance] = useState(false);
+  const [mode, setMode] = useState('create');
+  const [panelMeeting, setPanelMeeting] = useState(null);
+  const openPanelMeetingMaintenance = (type, pm) => {
+    setMode(type);
+    setShowPanelMeetingMaintenance(true);
+    if (type === 'edit') {
+      setPanelMeeting(pm);
+    }
+  };
+
+  const closePanelMeetingMaintenance = (fetchData = false) => {
+    if (fetchData) {
+      // @TODO make sure this works well once api is setup
+      // fetchAndSet(false);
+    }
+    setShowPanelMeetingMaintenance(false);
+    setPanelMeeting(null);
+    setMode('create');
+  };
+
   const getOverlay = () => {
     let toReturn;
     if (panelMeetingsIsLoading) {
@@ -283,7 +305,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
           </div>
         </div>
         {
-          !groupLoading &&
+          !groupLoading && !showPanelMeetingMaintenance &&
           <div className="viewing-results-and-dropdown--fullscreen results-dropdown">
             <TotalResults
               total={count}
@@ -332,7 +354,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
           </div>
         }
         {
-          !groupLoading &&
+          !groupLoading && !showPanelMeetingMaintenance &&
           <div className="panel-select-all-container">
             <div className="select-all">
               <CheckBox
@@ -359,7 +381,13 @@ const PanelMeetingSearch = ({ isCDO }) => {
           </div>
         }
         {
-          overlay ||
+          showPanelMeetingMaintenance ?
+            (
+              <div className="panel-search-lower-section">
+                <PanelMeetingMaintenance mode={mode} pm={panelMeeting} onClose={closePanelMeetingMaintenance} />
+              </div>
+            ) :
+            (overlay ||
             <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
               {
                 panelMeetings.map(pm => (
@@ -368,6 +396,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     pm={pm}
                     isCDO={isCDO}
                     selectAll={selectAll}
+                    openPanelMeetingMaintenance={openPanelMeetingMaintenance}
                   />
                 ))
               }
@@ -379,7 +408,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   totalResults={count}
                 />
               </div>
-            </div>
+            </div>)
         }
       </div>
   );

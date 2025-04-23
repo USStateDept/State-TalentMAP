@@ -42,6 +42,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         defaultHandshake=""
         defaultOrdering=""
         getKeyword=""
+        isCDO={false}
         pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}

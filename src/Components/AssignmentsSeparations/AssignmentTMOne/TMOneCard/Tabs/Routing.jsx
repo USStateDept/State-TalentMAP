@@ -83,9 +83,6 @@ const Routing = (props) => {
                 draggable={false}
               />
             </Linkify>
-            <div className="word-count">
-              {r?.NMD_SLUG_TEXT?.length} / 500
-            </div>
           </Row>
           {deleteButton(r, label)}
         </div>
