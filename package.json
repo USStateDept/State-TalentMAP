@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "15.0.0",
+  "version": "15.0.1",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.17.9",
@@ -115,7 +115,8 @@
     "**/**/type-fest": "0.21.3",
     "enzyme/cheerio": "1.0.0-rc.12",
     "signal-exit": "3.0.2",
-    "cookie": "0.7.2"
+    "cookie": "0.7.2",
+    "@noble/hashes": "1.3.0"
   },
   "@comment devDependencies": [
     "dart-sass 1.33.0 introduces a breaking change to division. This causes uswds compilation to fail. https://github.com/sass/dart-sass/releases/tag/1.33.0",

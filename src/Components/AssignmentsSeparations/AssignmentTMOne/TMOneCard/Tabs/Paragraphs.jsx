@@ -116,9 +116,6 @@ const Paragraphs = (props) => {
             draggable={false}
           />
         </Linkify>
-        <div className="word-count">
-          {getCableValue('PARAGRAPHS')?.length} / 500
-        </div>
       </Row>
     </div>
   );

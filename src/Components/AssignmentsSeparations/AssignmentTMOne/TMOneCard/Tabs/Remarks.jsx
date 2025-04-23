@@ -28,9 +28,6 @@ const Remarks = (props) => {
             draggable={false}
           />
         </Linkify>
-        <div className="word-count">
-          {getCableValue('REMARKS')?.length} / 500
-        </div>
       </Row>
     </div>
   );

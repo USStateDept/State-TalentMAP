@@ -273,9 +273,6 @@ const MemoPreview = (props) => {
               disabled
             />
           </Linkify>
-          <div className="word-count">
-            {getPreviewText()?.length} / 500
-          </div>
         </Row>
         {useSend ?
           <div className="position-form--actions">
