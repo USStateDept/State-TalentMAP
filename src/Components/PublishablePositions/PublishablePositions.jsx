@@ -29,8 +29,6 @@ import { checkFlag } from '../../flags';
 
 const PP_FLAG = () => checkFlag('flags.publishable_positions_additional');
 
-// may need to be used for permissioning
-// eslint-disable-next-line no-unused-vars
 const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
   const searchPosNumRef = useRef();
@@ -38,7 +36,6 @@ const PublishablePositions = ({ viewType }) => {
   const dataHasErrored = useSelector(state => state.publishablePositionsHasErrored);
   const dataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
   const additionalDataIsLoading = false;
-  // const additionalDataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
   const data = useSelector(state => state.publishablePositions);
   const data$ = data?.results;
 
@@ -50,6 +47,7 @@ const PublishablePositions = ({ viewType }) => {
   const isBureauView = viewType === 'bureau';
   const isPostView = viewType === 'post';
   const bureauPermissions = useSelector(state => state.userProfile?.bureau_permissions);
+  const orgPermissions = useSelector(state => state.userProfile?.org_permissions); // Fetch user organization permissions
 
   const [tempsearchPosNum, tempsetSearchPosNum] = useState(userSelections?.searchPosNum || '');
   const [searchPosNum, setSearchPosNum] = useState(userSelections?.searchPosNum || '');
@@ -83,6 +81,11 @@ const PublishablePositions = ({ viewType }) => {
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
   const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
   const gradeOptions = uniqBy(grades, 'code');
+
+  // Filter organizations based on user permissions
+  const filteredOrgOptions = orgOptions.filter(org =>
+    orgPermissions?.some(permission => permission.code === org.code),
+  );
 
   const getQuery = () => ({
     limit,
@@ -119,9 +122,6 @@ const PublishablePositions = ({ viewType }) => {
   ].flat().filter(text => text !== '').length;
 
   const filterSelectionValid = () => {
-    // valid if:
-    // not Bureau user
-    // a Bureau filter selected
     if (isBureauView) {
       return selectedBureaus.length > 0;
     }
@@ -187,7 +187,7 @@ const PublishablePositions = ({ viewType }) => {
       if (isBureauView) {
         overlay = <Alert type="info" title="Select Bureau Filter" messages={[{ body: 'Please select a Bureau Filter.' }]} />;
       } else {
-        overlay = <Alert type="info" title="Select Org Filter" messages={[{ body: 'Please select a Org Filter.' }]} />;
+        overlay = <Alert type="info" title="Select Org Filter" messages={[{ body: 'Please select an Org Filter.' }]} />;
       }
     } else if (!data$?.length) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
@@ -329,7 +329,7 @@ const PublishablePositions = ({ viewType }) => {
                 {...pickyProps}
                 placeholder="Select Organization(s)"
                 value={selectedOrgs}
-                options={orgOptions}
+                options={filteredOrgOptions} // Use filtered options here
                 onChange={setSelectedOrgs}
                 valueKey="code"
                 labelKey="description"
