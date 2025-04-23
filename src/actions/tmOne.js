@@ -453,7 +453,7 @@ export function sendToEopf(data, onSuccess, memo) {
       cancelSendToEopf('cancel');
     }
     api()
-      .post('/fsbid/tmone/eopf/', data, {
+      .post('/fsbid/tmone/eopf/assignments/', data, {
         cancelToken: new CancelToken((c) => { cancelSendToEopf = c; }),
       })
       .then(() => {
