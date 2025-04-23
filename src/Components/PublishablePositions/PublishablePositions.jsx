@@ -329,7 +329,7 @@ const PublishablePositions = ({ viewType }) => {
                 {...pickyProps}
                 placeholder="Select Organization(s)"
                 value={selectedOrgs}
-                options={filteredOrgOptions} // Use filtered options here
+                options={isPostView ? filteredOrgOptions : orgOptions} // Filter orgs for post view based on user permissions
                 onChange={setSelectedOrgs}
                 valueKey="code"
                 labelKey="description"
