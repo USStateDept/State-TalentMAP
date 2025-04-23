@@ -12,7 +12,7 @@ import api from '../../../api';
 import { history } from '../../../store';
 import TMOneCard from './TMOneCard';
 
-const AssignmentTMOne = (props) => {
+const TMOne = (props) => {
   const location = props.location?.pathname;
   const params = location.split('/');
   const viewType = params[2];
@@ -105,7 +105,7 @@ const AssignmentTMOne = (props) => {
   );
 };
 
-AssignmentTMOne.propTypes = {
+TMOne.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -117,9 +117,9 @@ AssignmentTMOne.propTypes = {
   }),
 };
 
-AssignmentTMOne.defaultProps = {
+TMOne.defaultProps = {
   match: {},
   location: {},
 };
 
-export default withRouter(AssignmentTMOne);
+export default withRouter(TMOne);
