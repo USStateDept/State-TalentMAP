@@ -16,10 +16,10 @@ export function noteCableFetchDataLoading(state = false, action) {
       return state;
   }
 }
-export function noteCableAssignmentsRef(state = [], action) {
+export function noteCableAssignmentsSeparationsRef(state = [], action) {
   switch (action.type) {
-    case 'NOTE_CABLE_ASSIGNMENTS_REFERENCE':
-      return action.assignmentsRef;
+    case 'NOTE_CABLE_ASSIGNMENTS_SEPARATIONS_REFERENCE':
+      return action.asgSepRef;
     default:
       return state;
   }

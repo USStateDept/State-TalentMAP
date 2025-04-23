@@ -30,7 +30,7 @@ const NotePreview = (props) => {
 
   // ====================== Data Retrieval ======================
 
-  const assignmentsRef = useSelector(state => state.noteCableAssignmentsRef);
+  const asgSepRef = useSelector(state => state.noteCableAssignmentsSeparationsRef);
 
   const opsWsdl = useSelector(state => state.getOpsWsdl);
   const opsWsdlErrored = useSelector(state => state.getOpsWsdlErrored);
@@ -125,7 +125,7 @@ const NotePreview = (props) => {
           pdffilename: filename,
           pdffile: base64pdf,
           createid: note?.NM_CREATE_ID.toString(),
-          assignments: generateEopfAssignments(assignmentsRef, note, now),
+          assignments: generateEopfAssignments(asgSepRef, note, now),
         }));
       };
       generatePDF(previewText, filename, eopfRequest);
