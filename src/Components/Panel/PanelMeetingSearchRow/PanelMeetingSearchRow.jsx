@@ -6,7 +6,6 @@ import { PANEL_MEETING } from 'Constants/PropTypes';
 import { get } from 'lodash';
 import { checkFlag } from 'flags';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { userHasPermissions } from '../../../utilities';
 import RemarksPill from '../../Agenda/RemarksPill';
@@ -17,7 +16,7 @@ const usePanelAdmin = () => checkFlag('flags.panel_admin');
 const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
 const showEditPanelMeeting = usePanelAdmin() && usePanelAdminPanelMeeting();
 
-const PanelMeetingSearchRow = ({ isCDO, pm, selectAll }) => {
+const PanelMeetingSearchRow = ({ isCDO, pm, selectAll, openPanelMeetingMaintenance }) => {
   const pmSeqNum = get(pm, 'pmi_pm_seq_num') || FALLBACK;
   const remarks = get(pm, 'allRemarks') || [];
   const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
@@ -45,13 +44,13 @@ const PanelMeetingSearchRow = ({ isCDO, pm, selectAll }) => {
           }
           {
             isSuperUser && showEditPanelMeeting &&
-          <Link to={`/profile/administrator/panel/${pmSeqNum}`}>
             <button
+              type="button"
+              onClick={() => { openPanelMeetingMaintenance('edit', pm); }}
               className="usa-button-secondary"
             >
               Edit
             </button>
-          </Link>
           }
         </div>
       </div>
@@ -80,12 +79,14 @@ PanelMeetingSearchRow.propTypes = {
   isCDO: PropTypes.bool,
   pm: PANEL_MEETING,
   selectAll: PropTypes.bool,
+  openPanelMeetingMaintenance: PropTypes.func,
 };
 
 PanelMeetingSearchRow.defaultProps = {
   isCDO: false,
   pm: {},
   selectAll: false,
+  openPanelMeetingMaintenance: () => {},
 };
 
 export default PanelMeetingSearchRow;

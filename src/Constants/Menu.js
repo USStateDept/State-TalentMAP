@@ -452,6 +452,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         'panel_admin',
       ],
       children: [
+        // Hiding old panel admin page -- @TODO remove
         // {
         //   text: 'Panel',
         //   route: '/profile/panel_admin/panel',
@@ -464,9 +465,20 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         checkFlag('flags.panel_remarks') ?
           {
             text: 'Panel Remarks',
-            route: '/profile/administrator/panelremarks/',
+            route: '/profile/panel_admin/panelremarks/',
             icon: 'cogs',
             roles: [
+              'panel_admin',
+              'superuser',
+            ],
+          } : null,
+        checkFlag('flags.panel_meetings_search') ?
+          {
+            text: 'Panel Meetings',
+            route: '/profile/panel_admin/panelmeetings',
+            icon: 'calendar',
+            roles: [
+              'panel_admin',
               'superuser',
             ],
           } : null,
